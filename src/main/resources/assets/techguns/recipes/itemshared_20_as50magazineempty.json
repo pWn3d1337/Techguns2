@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "techguns:itemshared",
+    "data": 20,
+    "count": 4
+  },
+  "pattern": [
+    "s s",
+    "s s",
+    "sms"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "s": {
+      "item": "#INGOTSTEEL"
+    },
+    "m": {
+      "item": "techguns:itemshared",
+      "data": 57
+    }
+  }
+}

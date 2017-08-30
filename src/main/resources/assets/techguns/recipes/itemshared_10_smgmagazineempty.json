@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "techguns:itemshared",
+    "data": 10,
+    "count": 4
+  },
+  "pattern": [
+    "i i",
+    "i i",
+    "imi"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "i": {
+      "item": "#NUGGETIRON"
+    },
+    "m": {
+      "item": "techguns:itemshared",
+      "data": 57
+    }
+  }
+}

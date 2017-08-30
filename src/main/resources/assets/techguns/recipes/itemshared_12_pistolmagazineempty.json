@@ -1,0 +1,25 @@
+{
+  "result": {
+    "item": "techguns:itemshared",
+    "data": 12,
+    "count": 4
+  },
+  "pattern": [
+    "i i",
+    "imi",
+    "igi"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "g": {
+      "item": "#INGOTIRON"
+    },
+    "i": {
+      "item": "#NUGGETIRON"
+    },
+    "m": {
+      "item": "techguns:itemshared",
+      "data": 57
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "result": {
+    "item": "techguns:itemshared",
+    "data": 24,
+    "count": 7
+  },
+  "pattern": [
+    "plp",
+    "p p",
+    "ppp"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "p": {
+      "item": "#PLATETIN"
+    },
+    "l": {
+      "item": "minecraft:lever"
+    }
+  }
+}

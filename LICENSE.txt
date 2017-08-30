@@ -1,0 +1,22 @@
+Techguns Mod License
+
+1) You May:
+* look at the code
+* copy code snippets
+
+2) You May not:
+* Release modified versions of this mod without permission from the mod authors (forking is allowed to contribute to the mod (Pull Requests))
+* Sell or reupload the mod
+* claim ownership of the mod
+
+3) Contribution:
+* By submitting work to this project you grant this project full rights to the submitted work.
+
+4) Liability:
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

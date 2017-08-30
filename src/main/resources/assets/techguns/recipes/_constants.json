@@ -1,0 +1,184 @@
+[
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "blockGlass"
+    },
+    "name": "BLOCKGLASS"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "circuitBasic"
+    },
+    "name": "CIRCUITBASIC"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "cobblestone"
+    },
+    "name": "COBBLESTONE"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "dustRedstone"
+    },
+    "name": "DUSTREDSTONE"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "dyeGreen"
+    },
+    "name": "DYEGREEN"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "electrumOrGold"
+    },
+    "name": "ELECTRUMORGOLD"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "gemLapis"
+    },
+    "name": "GEMLAPIS"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "hardenedGlassOrGlass"
+    },
+    "name": "HARDENEDGLASSORGLASS"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "ingotIron"
+    },
+    "name": "INGOTIRON"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "ingotLead"
+    },
+    "name": "INGOTLEAD"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "ingotObsidianSteel"
+    },
+    "name": "INGOTOBSIDIANSTEEL"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "ingotSteel"
+    },
+    "name": "INGOTSTEEL"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "logWood"
+    },
+    "name": "LOGWOOD"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "nuggetCopper"
+    },
+    "name": "NUGGETCOPPER"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "nuggetIron"
+    },
+    "name": "NUGGETIRON"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "nuggetLead"
+    },
+    "name": "NUGGETLEAD"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "nuggetSteel"
+    },
+    "name": "NUGGETSTEEL"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "plateCarbon"
+    },
+    "name": "PLATECARBON"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "plateIron"
+    },
+    "name": "PLATEIRON"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "plateObsidianSteel"
+    },
+    "name": "PLATEOBSIDIANSTEEL"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "plateTin"
+    },
+    "name": "PLATETIN"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "sheetPlastic"
+    },
+    "name": "SHEETPLASTIC"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "slimeball"
+    },
+    "name": "SLIMEBALL"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "stone"
+    },
+    "name": "STONE"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "wireCopper"
+    },
+    "name": "WIRECOPPER"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "wireGold"
+    },
+    "name": "WIREGOLD"
+  }
+]

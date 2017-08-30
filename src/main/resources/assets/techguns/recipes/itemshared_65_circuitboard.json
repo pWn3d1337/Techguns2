@@ -1,0 +1,27 @@
+{
+  "result": {
+    "item": "techguns:itemshared",
+    "data": 65,
+    "count": 4
+  },
+  "pattern": [
+    "cgc",
+    "rir",
+    "cgc"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "r": {
+      "item": "#DUSTREDSTONE"
+    },
+    "c": {
+      "item": "#WIRECOPPER"
+    },
+    "g": {
+      "item": "#DYEGREEN"
+    },
+    "i": {
+      "item": "#PLATEIRON"
+    }
+  }
+}

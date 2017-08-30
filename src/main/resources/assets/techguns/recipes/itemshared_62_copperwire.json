@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "techguns:itemshared",
+    "data": 62
+  },
+  "pattern": [
+    " cc",
+    " c ",
+    "cc "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "c": {
+      "item": "#NUGGETCOPPER"
+    }
+  }
+}

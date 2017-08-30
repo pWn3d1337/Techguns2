@@ -1,0 +1,20 @@
+{
+  "result": {
+    "item": "techguns:itemshared",
+    "data": 68
+  },
+  "pattern": [
+    " wi",
+    "wiw",
+    "iw "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "w": {
+      "item": "#WIRECOPPER"
+    },
+    "i": {
+      "item": "#INGOTIRON"
+    }
+  }
+}

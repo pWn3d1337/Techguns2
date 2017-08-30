@@ -1,0 +1,27 @@
+{
+  "result": {
+    "item": "techguns:itemshared",
+    "data": 70
+  },
+  "pattern": [
+    "wrw",
+    "imi",
+    "wrw"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "r": {
+      "item": "#DUSTREDSTONE"
+    },
+    "w": {
+      "item": "#WIRECOPPER"
+    },
+    "i": {
+      "item": "#INGOTIRON"
+    },
+    "m": {
+      "item": "techguns:itemshared",
+      "data": 57
+    }
+  }
+}

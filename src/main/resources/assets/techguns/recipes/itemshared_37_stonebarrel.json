@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "techguns:itemshared",
+    "data": 37
+  },
+  "pattern": [
+    "sss",
+    "   ",
+    "sss"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "s": {
+      "item": "#STONE"
+    }
+  }
+}

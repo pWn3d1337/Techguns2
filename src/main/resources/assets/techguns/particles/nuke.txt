@@ -1,0 +1,234 @@
+FXLIST NukeExplosion {
+NukeExplosionMain
+NukeExplosionBlastwave
+NukeExplosionBlast
+NukeExplosionSmoke
+NukeExplosionRing
+NukeExplosionMushroomStem
+NukeExplosionMushroomCloud
+NukeExplosionBall
+}
+
+NukeExplosionMain {
+Texture = techguns:textures/fx/fireblast.png
+RenderType = ALPHA
+Rows = 5
+Columns = 5
+Frames = 20
+RandomRotation = true
+Lifetime = 105 115
+SystemLifetime = 1 1
+Size = 3.0 6.0
+SizeRate = 2 4
+SizeRateDamping = 0.86 0.91
+Alpha = 0.0 0
+Alpha = 1.0 0.25
+Alpha = 0 1.0
+Color = 255 255 255 0
+Color = 255 255 255 1
+ParticleCount = 20 20
+InitialDelay = 6 6
+SpawnDelay = 1 1
+VelocityType = OUTWARD
+Velocity1 = 3 6
+Velocity2 = 0 1
+VelocityDamping = 0.85 0.88
+Gravity = 0.01
+VolumeType = CYLINDER
+Volume1 = 8.0
+Volume2 = 1
+}
+
+NukeExplosionBlastwave {
+EXTENDS = LargeExplosionBlastwave
+Lifetime = 15 16
+Size = 5.0 5.0
+SizeRate = 25 25
+SizeRateDamping = 0.84 0.86
+}
+
+NukeExplosionBlast {
+Texture = techguns:textures/fx/blasterflare01.png
+RenderType = ADDITIVE
+Rows = 4
+Columns = 4
+Frames = 8
+HasVariations = false
+RandomRotation = true
+Lifetime = 7 10
+SystemLifetime = 3 3
+AnimationSpeed = 1 1
+Size = 5 10
+SizeRate = 10 15
+SizeRateDamping = 0.88 0.89
+Alpha = 0.0 0
+Alpha = 1.0 0.5
+Alpha = 0 1.0
+Color = 255 255 255 0
+Color = 255 255 255 1
+ParticleCount = 35 35
+InitialDelay = 13 13
+SpawnDelay = 1 1
+VolumeType = CYLINDER
+Volume1 = 5.0
+Volume2 = 2.0
+VelocityType = OUTWARD
+Velocity1 = 10 20 //Outward
+Velocity2 = 0 10 //Up
+VelocityDamping = 0.95 0.97
+Gravity = 0.0
+}
+
+NukeExplosionSmoke {
+Texture = techguns:textures/fx/largesmoke.png
+RenderType = ALPHA
+Rows = 2
+Columns =2
+Frames = 4
+RandomRotation = true
+Lifetime = 100 180
+SpawnDelay = 1 1
+SystemLifetime = 5 5
+Size = 8 12
+SizeRate = 0.4 0.6
+SizeRateDamping = 0.92 0.96
+Alpha = 0.0 0
+Alpha = 0.7 0.6
+Alpha = 0 1.0
+Color = 196 189 179 0
+Color = 135 123 115 1
+ParticleCount = 30 30
+Gravity = 0.02
+VolumeType = CYLINDER
+Volume1 = 18.0
+Volume2 = 2.0
+VelocityType = OUTWARD
+Velocity1 = -17 -8 //Outward
+Velocity2 = 1 3 //Up
+VelocityDamping = 0.92 0.94
+InitialDelay = 0 0
+HasVariations = true
+IsHollow = true
+}
+
+NukeExplosionRing {
+Texture = techguns:textures/fx/flamethrower_a.png
+RenderType = ALPHA
+Rows = 4
+Columns = 4
+Frames = 16
+RandomRotation = true
+Lifetime = 15 30
+SystemLifetime = 1 1
+Size = 2 4
+SizeRate = 2 3
+SizeRateDamping = 0.86 0.87
+Alpha = 0.0 0
+Alpha = 1.0 0.25
+Alpha = 0 1.0
+//Alpha = 1 1 0
+Color = 255 255 255 0
+Color = 255 255 255 1
+ParticleCount = 60 60
+InitialDelay = 14 14
+SpawnDelay = 1 1
+VelocityType = OUTWARD
+Velocity1 = 30 45
+Velocity2 = -0.2 0.2
+VelocityDamping = 0.85 0.88
+Gravity = 0.0
+VolumeType = CYLINDER
+Volume1 = 2
+Volume2 = 0.5
+offset = 0 1.5 0
+}
+
+NukeExplosionMushroomStem {
+Texture = techguns:textures/fx/fireblast.png
+RenderType = ALPHA
+Rows = 5
+Columns = 5
+Frames = 20
+RandomRotation = true
+Lifetime = 95 105
+SystemLifetime = 1 1
+Size = 3.0 6.0
+SizeRate = 2 4
+SizeRateDamping = 0.86 0.91
+Alpha = 0.0 0
+Alpha = 1.0 0.35
+Alpha = 0 1.0
+Color = 255 255 255 0
+Color = 255 255 255 1
+ParticleCount = 32 32
+InitialDelay = 12 12 
+SpawnDelay = 1 1
+VelocityType = OUTWARD
+Velocity1 = -1 -0.5
+Velocity2 = 1 25
+VelocityDamping = 0.89 0.91
+Gravity = 0.01
+VolumeType = CYLINDER
+Volume1 = 4.0
+Volume2 = 8.0
+}
+
+NukeExplosionMushroomCloud {
+Texture = techguns:textures/fx/fireblast.png
+RenderType = ALPHA
+Rows = 5
+Columns = 5
+Frames = 20
+RandomRotation = true
+Lifetime = 85 95
+SystemLifetime = 1 1
+Size = 4.0 8.0
+SizeRate = 3 6
+SizeRateDamping = 0.86 0.91
+Alpha = 0.0 0
+Alpha = 1.0 0.5
+Alpha = 0 1.0
+Color = 255 255 255 0
+Color = 255 255 255 1
+ParticleCount = 20 20
+InitialDelay = 14 14
+SpawnDelay = 1 1
+VelocityType = OUTWARD
+Velocity1 = 1.5 3
+Velocity2 = 14 15 
+VelocityDamping = 0.87 0.88
+Gravity = 0.01
+VolumeType = CYLINDER
+Volume1 = 6.0
+Volume2 = 3.0
+offset = 0 11.5 0
+}
+
+NukeExplosionBall {
+Texture = techguns:textures/fx/blasterflare01.png
+RenderType = ADDITIVE
+Rows = 4
+Columns = 4
+Frames = 14
+HasVariations = false
+RandomRotation = true
+Lifetime = 20 22
+SystemLifetime = 1 1
+AnimationSpeed = 1 1
+Size = 12 14
+SizeRate = 5 8
+SizeRateDamping = 0.96 0.98
+Alpha = 0.0 0
+Alpha = 1 1.0
+Color = 255 255 255 0
+Color = 255 255 255 1
+ParticleCount = 25 25
+InitialDelay = 0 0
+SpawnDelay = 1 1
+VelocityType = HEMISPHERICAL
+Velocity1 = 1 4
+VelocityDamping = 0.95 0.97
+Gravity = 0.0
+VolumeType = HEMISPHERE
+Volume1 = 4
+}

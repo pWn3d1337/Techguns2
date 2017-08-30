@@ -1,0 +1,24 @@
+{
+  "result": {
+    "item": "techguns:itemshared",
+    "data": 2,
+    "count": 5
+  },
+  "pattern": [
+    "lll",
+    "cgc",
+    "ccc"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "c": {
+      "item": "#NUGGETCOPPER"
+    },
+    "g": {
+      "item": "minecraft:gunpowder"
+    },
+    "l": {
+      "item": "#NUGGETLEAD"
+    }
+  }
+}

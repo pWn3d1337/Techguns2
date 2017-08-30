@@ -1,0 +1,25 @@
+{
+  "result": {
+    "item": "techguns:itemshared",
+    "data": 18,
+    "count": 4
+  },
+  "pattern": [
+    "sss",
+    "pmp",
+    "sss"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "p": {
+      "item": "#SHEETPLASTIC"
+    },
+    "s": {
+      "item": "#INGOTSTEEL"
+    },
+    "m": {
+      "item": "techguns:itemshared",
+      "data": 58
+    }
+  }
+}

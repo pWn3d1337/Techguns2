@@ -1,0 +1,9 @@
+{
+    "variants": {
+        "type=ore_copper": { "model": "techguns:ore_copper" },
+		"type=ore_tin": { "model": "techguns:ore_tin" },
+		"type=ore_lead": { "model": "techguns:ore_lead" },
+		"type=ore_titanium": { "model": "techguns:ore_titanium" },
+		"type=ore_uranium": { "model": "techguns:ore_uranium" }
+    }
+}

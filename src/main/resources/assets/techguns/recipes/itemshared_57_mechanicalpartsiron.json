@@ -1,0 +1,20 @@
+{
+  "result": {
+    "item": "techguns:itemshared",
+    "data": 57
+  },
+  "pattern": [
+    " i ",
+    "ifi",
+    " i "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "f": {
+      "item": "minecraft:flint"
+    },
+    "i": {
+      "item": "#INGOTIRON"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "result": {
+    "item": "techguns:itemshared",
+    "data": 66
+  },
+  "ingredients": [
+    {
+      "item": "#CIRCUITBASIC"
+    },
+    {
+      "item": "#WIREGOLD"
+    },
+    {
+      "item": "#GEMLAPIS"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "techguns:itemshared",
+    "data": 0,
+    "count": 16
+  },
+  "ingredients": [
+    {
+      "item": "#COBBLESTONE"
+    },
+    {
+      "item": "#COBBLESTONE"
+    },
+    {
+      "item": "#COBBLESTONE"
+    },
+    {
+      "item": "minecraft:gunpowder"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

@@ -1,0 +1,16 @@
+{
+  "result": {
+    "item": "techguns:itemshared",
+    "data": 42
+  },
+  "pattern": [
+    "ww",
+    " w"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "w": {
+      "item": "#LOGWOOD"
+    }
+  }
+}

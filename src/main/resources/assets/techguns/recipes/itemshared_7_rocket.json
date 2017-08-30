@@ -1,0 +1,24 @@
+{
+  "result": {
+    "item": "techguns:itemshared",
+    "data": 7,
+    "count": 4
+  },
+  "pattern": [
+    " s ",
+    "sts",
+    "sgs"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "s": {
+      "item": "#NUGGETIRON"
+    },
+    "t": {
+      "item": "minecraft:tnt"
+    },
+    "g": {
+      "item": "minecraft:gunpowder"
+    }
+  }
+}

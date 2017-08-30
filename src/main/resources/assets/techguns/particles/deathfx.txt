@@ -1,0 +1,62 @@
+GoreFX_Blood {
+Texture = techguns:textures/fx/blood4x4.png
+RenderType = ALPHA
+Rows = 2
+Columns = 2
+Frames = 4
+HasVariations = true
+Angle = 0 360
+AngleRate = -2 2
+AngleRateDamping = 0.96 0.97
+Lifetime = 15 25
+SpawnDelay = 0 0
+SystemLifetime = 3 3
+InitialDelay = 0 0
+Size = 2.0 2.4
+SizeRate = 1.0 1.4
+SizeRateDamping = 0.91 0.92
+Alpha = 0.0 0
+Alpha = 1.0 0.25
+Alpha = 0 1.0
+Color = 255 255 255 0
+ParticleCount = 4 4
+Gravity = 0.02
+VolumeType = CYLINDER
+Volume1 = 0.15
+Volume2 = 0.5
+VelocityType = OUTWARD
+Velocity1 = 0 4
+Velocity2 = 0 7
+VelocityDamping = 0.85 0.91
+SystemVelocityFactor = 1.0 1.0
+}
+
+GoreTrailFX_Blood {
+Texture = techguns:textures/fx/blood4x4.png
+RenderType = ALPHA
+Rows = 2
+Columns = 2
+Frames = 4
+HasVariations = true
+Angle = 0 360
+AngleRate = -3 3
+AngleRateDamping = 0.96 0.97
+Lifetime = 10 20
+SpawnDelay = 0 0
+SystemLifetime = 0 0
+InitialDelay = 0 0
+Size = 0.5 0.9
+SizeRate = 0.5 1.0
+SizeRateDamping = 0.83 0.89
+Alpha = 0.0 0
+Alpha = 1.0 0.25
+Alpha = 0 1.0
+Color = 255 255 255 0
+ParticleCount = 1 1
+Gravity = 0.02
+VolumeType = POINT
+VelocityType = SPHERICAL
+Velocity1 = 0.0 0.35
+VelocityDamping = 0.91 0.94
+SystemVelocityFactor = 0.0 0.0
+}

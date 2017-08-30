@@ -1,0 +1,20 @@
+{
+  "result": {
+    "item": "techguns:itemshared",
+    "data": 26
+  },
+  "pattern": [
+    "sss",
+    "sgs",
+    "sgs"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "s": {
+      "item": "#NUGGETSTEEL"
+    },
+    "g": {
+      "item": "#BLOCKGLASS"
+    }
+  }
+}

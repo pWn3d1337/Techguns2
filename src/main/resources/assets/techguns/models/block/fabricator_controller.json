@@ -1,0 +1,12 @@
+{
+	"parent": "block/cube",
+	"textures": {
+		"particle": "techguns:blocks/fabricator_controller",
+		"north": "techguns:blocks/fabricator_controller",
+		"south": "techguns:blocks/fabricator_controller",
+		"east": "techguns:blocks/fabricator_controller",
+		"west": "techguns:blocks/fabricator_controller",
+		"up": "techguns:blocks/fabricator_housing",
+		"down": "techguns:blocks/fabricator_housing"
+	}
+}

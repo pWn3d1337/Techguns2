@@ -1,0 +1,12 @@
+{
+	"parent": "block/cube",
+	"textures": {
+		"particle": "techguns:blocks/reactionchamber_controller",
+		"north": "techguns:blocks/reactionchamber_controller",
+		"south": "techguns:blocks/reactionchamber_controller",
+		"east": "techguns:blocks/reactionchamber_controller",
+		"west": "techguns:blocks/reactionchamber_controller",
+		"up": "techguns:blocks/reactionchamber_housing",
+		"down": "techguns:blocks/reactionchamber_housing"
+	}
+}

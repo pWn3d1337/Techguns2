@@ -1,0 +1,21 @@
+{
+  "result": {
+    "item": "techguns:itemshared",
+    "data": 61,
+    "count": 4
+  },
+  "pattern": [
+    " g ",
+    "gbg",
+    " g "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "b": {
+      "item": "#SLIMEBALL"
+    },
+    "g": {
+      "item": "#DYEGREEN"
+    }
+  }
+}

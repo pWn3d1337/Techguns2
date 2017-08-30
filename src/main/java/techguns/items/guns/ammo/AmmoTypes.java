@@ -1,0 +1,65 @@
+package techguns.items.guns.ammo;
+
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import techguns.TGItems;
+import techguns.init.ITGInitializer;
+
+public class AmmoTypes implements ITGInitializer{
+
+	public static AmmoType STONE_BULLETS;
+	public static AmmoType PISTOL_ROUNDS;
+	public static AmmoType RIFLE_ROUNDS;
+	public static AmmoType SHOTGUN_ROUNDS;
+	public static AmmoType ASSAULT_RIFLE_MAGAZINE;
+	public static AmmoType SMG_MAGAZINE;
+	public static AmmoType PISTOL_MAGAZINE;
+	public static AmmoType LMG_MAGAZINE;
+	public static AmmoType BIO_TANK;
+	public static AmmoType FUEL_TANK;
+	public static AmmoType ROCKETS;
+	public static AmmoType MINIGUN_AMMO_DRUM;
+	public static AmmoType ADVANCED_MAGAZINE;
+	public static AmmoType AS50_MAGAZINE;
+	public static AmmoType ENERGY_CELL;
+	public static AmmoType NETHER_CHARGE;
+	public static AmmoType COMPRESSED_AIR_TANK;
+	public static AmmoType GRENADES_40MM;
+	public static AmmoType NUCLEAR_POWER_CELL;
+
+	
+	@Override
+	public void preInit(FMLPreInitializationEvent event) {
+		STONE_BULLETS = new AmmoType(TGItems.STONE_BULLETS);
+		PISTOL_ROUNDS = new AmmoType(TGItems.PISTOL_ROUNDS);
+		RIFLE_ROUNDS = new AmmoType(TGItems.RIFLE_ROUNDS);
+		SHOTGUN_ROUNDS = new AmmoType(TGItems.SHOTGUN_ROUNDS);
+		SMG_MAGAZINE = new AmmoType(TGItems.SMG_MAGAZINE, TGItems.SMG_MAGAZINE_EMPTY, TGItems.PISTOL_ROUNDS,2);
+		ASSAULT_RIFLE_MAGAZINE = new AmmoType(TGItems.ASSAULTRIFLE_MAGAZINE, TGItems.ASSAULTRIFLE_MAGAZINE_EMPTY, TGItems.RIFLE_ROUNDS, 3);
+		PISTOL_MAGAZINE = new AmmoType(TGItems.PISTOL_MAGAZINE, TGItems.PISTOL_MAGAZINE_EMPTY, TGItems.PISTOL_ROUNDS,3);
+		LMG_MAGAZINE = new AmmoType(TGItems.LMG_MAGAZINE, TGItems.LMG_MAGAZINE_EMPTY, TGItems.RIFLE_ROUNDS,8);
+		BIO_TANK = new AmmoType(TGItems.BIO_TANK, TGItems.BIO_TANK_EMPTY, ItemStack.EMPTY, 0);
+		FUEL_TANK = new AmmoType(TGItems.FUEL_TANK, TGItems.FUEL_TANK_EMPTY, ItemStack.EMPTY, 0);
+		COMPRESSED_AIR_TANK = new AmmoType(TGItems.COMPRESSED_AIR_TANK, TGItems.COMPRESSED_AIR_TANK_EMPTY, ItemStack.EMPTY, 0);
+		ENERGY_CELL = new AmmoType(TGItems.ENERGY_CELL, TGItems.ENERGY_CELL_EMPTY, ItemStack.EMPTY, 0);
+		MINIGUN_AMMO_DRUM = new AmmoType(TGItems.MINIGUN_DRUM, TGItems.MINIGUN_DRUM_EMPTY, TGItems.RIFLE_ROUNDS,16);
+		ADVANCED_MAGAZINE = new AmmoType(TGItems.ADVANCED_MAGAZINE, TGItems.ADVANCED_MAGAZINE_EMPTY, TGItems.ADVANCED_ROUNDS, 3);
+		AS50_MAGAZINE = new AmmoType(TGItems.AS50_MAGAZINE, TGItems.AS50_MAGAZINE_EMPTY, TGItems.SNIPER_ROUNDS,2);
+		ROCKETS = new AmmoType(TGItems.ROCKET);
+		NETHER_CHARGE = new AmmoType(TGItems.NETHER_CHARGE);
+		GRENADES_40MM = new AmmoType(TGItems.GRENADE_40MM);
+		NUCLEAR_POWER_CELL = new AmmoType(TGItems.NUCLEAR_POWERCELL, TGItems.NUCLEAR_POWERCELL_EMPTY, ItemStack.EMPTY,0);
+	}
+
+	@Override
+	public void init(FMLInitializationEvent event) {
+		
+	}
+
+	@Override
+	public void postInit(FMLPostInitializationEvent event) {
+
+	}	
+}

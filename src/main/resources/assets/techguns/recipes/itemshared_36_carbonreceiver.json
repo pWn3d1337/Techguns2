@@ -1,0 +1,24 @@
+{
+  "result": {
+    "item": "techguns:itemshared",
+    "data": 36
+  },
+  "pattern": [
+    "ppp",
+    " mi",
+    "  i"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "p": {
+      "item": "#PLATECARBON"
+    },
+    "i": {
+      "item": "#INGOTOBSIDIANSTEEL"
+    },
+    "m": {
+      "item": "techguns:itemshared",
+      "data": 59
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+	"forge_marker": 1,
+		"defaults": {
+			"custom": { "flip-v": true }
+	},
+    "variants": {
+        "facing=north,machinetype=camo_bench": { "model": "techguns:camo_bench" },
+        "facing=south,machinetype=camo_bench": { "model": "techguns:camo_bench", "y": 180 },
+        "facing=west,machinetype=camo_bench":  { "model": "techguns:camo_bench", "y": 270 },
+        "facing=east,machinetype=camo_bench":  { "model": "techguns:camo_bench", "y": 90 },
+		"facing=north,machinetype=repair_bench": { "model": "techguns:repair_bench" },
+        "facing=south,machinetype=repair_bench": { "model": "techguns:repair_bench", "y": 180 },
+        "facing=west,machinetype=repair_bench":  { "model": "techguns:repair_bench", "y": 270 },
+        "facing=east,machinetype=repair_bench":  { "model": "techguns:repair_bench", "y": 90 },
+		"facing=north,machinetype=charging_station": { "model": "techguns:charging_station_centered.obj", "transform":"forge:default-block"},
+        "facing=south,machinetype=charging_station": { "model": "techguns:charging_station_centered.obj", "y": 180 },
+        "facing=west,machinetype=charging_station":  { "model": "techguns:charging_station_centered.obj", "y": 270 },
+        "facing=east,machinetype=charging_station":  { "model": "techguns:charging_station_centered.obj", "y": 90 }
+    }
+}
