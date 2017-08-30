@@ -13,6 +13,7 @@ import techguns.Techguns;
 import techguns.api.damagesystem.DamageType;
 import techguns.client.ClientProxy;
 import techguns.damagesystem.TGDamageSource;
+import techguns.damagesystem.TGExplosion;
 import techguns.deatheffects.EntityDeathUtils.DeathType;
 import techguns.items.guns.GenericGun;
 import techguns.items.guns.IProjectileFactory;
@@ -63,11 +64,13 @@ public class RocketProjectile extends GenericProjectile implements ILightProvide
 			//TGPackets.network.sendToAllAround(new PacketSpawnParticle("TestFX", this.posX,this.posY,this.posZ), TGPackets.targetPointAroundEnt(this, 50.0f));
 
     		//ProjectileExplosion explosion = new ProjectileExplosion(worldObj, this.posX, this.posY, this.posZ, this.shooter, radius, (int)damage, radius*0.5f, radius*1.5f);
-			Explosion explosion = new Explosion(world, this,this.posX,this.posY, this.posZ, 5, blockdamage, blockdamage);
-			explosion.doExplosionA();
-			explosion.doExplosionB(true);
+			//Explosion explosion = new Explosion(world, this,this.posX,this.posY, this.posZ, 5, blockdamage, blockdamage);
+			//explosion.doExplosionA();
+			//explosion.doExplosionB(true);
 			
-			//explosion.doExplosion(blockdamage, this.shooter);
+			TGExplosion explosion = new TGExplosion(world, this.shooter, posX, posY, posZ, this.damage, this.damage*0.1, 5.0, 10.0, 1.0);
+			
+			explosion.doExplosion();
 		}else {
 			Techguns.proxy.createLightPulse(this.posX, this.posY, this.posZ, 5, 15, 10.0f, 1.0f, 1f, 0.9f, 0.5f);
 		}
