@@ -118,8 +118,8 @@ public class TGParticleStreak extends TGParticle{
 //        p2 = new Vec3d((x2+x3)*0.5, (double)( + rotZ * fscale), (z2+x3)*0.5);
 		
         if (prev == null) {
-            this.pos1 = new Vec3d(fPosX, fPosY, fPosZ);
-            this.pos2 = new Vec3d(fPosX, fPosY, fPosZ);
+            this.pos1 = null; //new Vec3d(fPosX, fPosY, fPosZ);
+            this.pos2 = null; //new Vec3d(fPosX, fPosY, fPosZ);
         }else {        	
     		Vec3d v_view = ClientProxy.get().getPlayerClient().getLook(partialTickTime);
     		
@@ -140,12 +140,20 @@ public class TGParticleStreak extends TGParticle{
             this.pos1 = p1;
             this.pos2 = p2;
             
-			p3 = prev.pos2;
-			p4 = prev.pos1;
             
             float fscaleP = prev.particleScale *0.1f;
             
-
+            
+            if (prev.pos1 != null && prev.pos2 != null) {
+            	p3 = prev.pos2;
+            	p4 = prev.pos1;
+            }else {
+            	p4 = new Vec3d(v_cross.x*fscaleP + v_prev.x, v_cross.y*fscaleP  + v_prev.y, v_cross.z*fscaleP  + v_prev.z);
+                p3 = new Vec3d(v_cross.x* -fscaleP + v_prev.x, v_cross.y* -fscaleP  + v_prev.y, v_cross.z* -fscaleP  + v_prev.z);
+                
+                prev.pos1 = p4;
+                prev.pos2 = p3;
+            }
             
             //p4 = new Vec3d(v_cross.x*fscaleP + v_prev.x, v_cross.y*fscaleP  + v_prev.y, v_cross.z*fscaleP  + v_prev.z);
             //p3 = new Vec3d(v_cross.x* -fscaleP + v_prev.x, v_cross.y* -fscaleP  + v_prev.y, v_cross.z* -fscaleP  + v_prev.z);

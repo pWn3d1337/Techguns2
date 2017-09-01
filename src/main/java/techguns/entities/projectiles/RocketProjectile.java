@@ -68,7 +68,7 @@ public class RocketProjectile extends GenericProjectile implements ILightProvide
 			//explosion.doExplosionA();
 			//explosion.doExplosionB(true);
 			
-			TGExplosion explosion = new TGExplosion(world, this.shooter, posX, posY, posZ, this.damage, this.damage*0.1, 1.0, 3.0, 0.5);
+			TGExplosion explosion = new TGExplosion(world, this.shooter, this, posX, posY, posZ, this.damage, this.damage*0.1, 1.5, 3.5, 0.5);
 			
 			explosion.doExplosion(true);
 		}else {
