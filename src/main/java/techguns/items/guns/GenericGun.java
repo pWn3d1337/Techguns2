@@ -45,6 +45,8 @@ import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.common.network.NetworkRegistry.TargetPoint;
+
 import java.util.Random;
 import techguns.TGItems;
 import techguns.TGPackets;
@@ -623,7 +625,6 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
     		}
 	}
 	
-
 	/**
 	 * for extra actions in subclass
 	 */
@@ -1154,6 +1155,9 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 		return AI_attackRange;
 	}
 	 
+	public boolean isFullyLoaded(ItemStack stack){
+		return this.clipsize == this.getCurrentAmmo(stack);
+	}
 	/**
      * Weapon is used by NPC
      */
@@ -1201,4 +1205,95 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
     	}
 
     }
+    
+    /**
+	 * try to force reload the gun, might lose some ammo
+	 */
+	public void tryForcedReload(ItemStack item, World world,EntityPlayer player, EnumHand hand){
+		TGExtendedPlayer extendedPlayer = TGExtendedPlayer.get(player);
+		
+		if (extendedPlayer.getFireDelay(hand)<=0 && !this.isFullyLoaded(item)){
+			
+			int oldAmmo = this.getCurrentAmmo(item);
+			
+			//look for ammo
+			if (InventoryUtil.consumeAmmoPlayer(player,this.getReloadItem(item))) {
+			
+				//empty gun and do reload if we can't put in ammo individual
+				if (ammoCount <= 1){
+					this.useAmmo(item, oldAmmo);
+				}
+				
+				if (!this.ammoType.getEmptyMag().isEmpty()){
+					
+					int amount=InventoryUtil.addAmmoToPlayerInventory(player, TGItems.newStack(this.ammoType.getEmptyMag(), 1));
+					if(amount >0 && !world.isRemote){
+						player.world.spawnEntity(new EntityItem(player.world, player.posX, player.posY, player.posZ, TGItems.newStack(this.ammoType.getEmptyMag(), amount)));
+					}
+					
+					int bulletsBack = (int) Math.floor(oldAmmo/this.ammoType.getShotsPerBullet(clipsize, oldAmmo));
+					if (bulletsBack>0){
+						int amount2=InventoryUtil.addAmmoToPlayerInventory(player, TGItems.newStack(this.ammoType.getBullet(this.getCurrentAmmoVariant(item)), bulletsBack));
+						if(amount2 >0 && !world.isRemote){
+							player.world.spawnEntity(new EntityItem(player.world, player.posX, player.posY, player.posZ, TGItems.newStack(this.ammoType.getBullet(this.getCurrentAmmoVariant(item)), amount2)));
+						}
+					}
+					
+				}
+				
+				//stop toggle zooming when reloading
+				if (world.isRemote) {
+					if (canZoom  && this.toggleZoom) {
+						ClientProxy cp = ClientProxy.get();
+		    			if (cp.player_zoom != 1.0f) {
+		    				cp.player_zoom= 1.0f;
+		    			}
+		    		}
+				}
+				
+				extendedPlayer.setFireDelay(hand, this.reloadtime-this.minFiretime);
+    			//System.out.println(Thread.currentThread().toString()+": reloadtime:"+reloadtime);
+						    			
+    			if (ammoCount >1) {
+    				int i =1;
+    				while (i<(ammoCount-oldAmmo) && InventoryUtil.consumeAmmoPlayer(player,this.ammoType.getAmmo(this.getCurrentAmmoVariant(item)))){
+    					i++;
+    				}
+    				
+    				//item.setItemDamage(ammoCount-i);
+    				this.reloadAmmo(item, i);
+    			} else {
+    				this.reloadAmmo(item);
+    			}
+    			SoundUtil.playReloadSoundOnEntity(world,player,reloadsound, 1.0F, 1.0F, false, true, TGSoundCategory.RELOAD);
+
+				if (world.isRemote) {
+
+					int time = (int) (((float)reloadtime/20.0f)*1000);
+					
+					ShooterValues.setReloadtime(player, hand==EnumHand.OFF_HAND, System.currentTimeMillis()+time, time, (byte)0);
+					
+					client_startReload();
+				} else{
+					//send reloadpacket
+					//send pakets to clients
+					
+			    	int msg_reloadtime = ((int)(((float)reloadtime/20.0f)*1000.0f));
+			    	TGPackets.network.sendToAllAround(new ReloadStartedMessage(player,hand, msg_reloadtime,0), new TargetPoint(player.dimension, player.posX, player.posY, player.posZ, 100.0f));
+			    	//
+				}
+
+			} else {
+
+				//TODO: "can't reload" sound
+				/*if (!world.isRemote)
+		        {
+    				world.playSoundAtEntity(player, "mob.villager.idle", 1.0F, 1.0F );
+		        }*/
+			}
+
+			
+		}
+		
+	}
 }

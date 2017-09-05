@@ -1,5 +1,6 @@
 package techguns.client.render.tileentities;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -10,7 +11,9 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
 import net.minecraftforge.client.ForgeHooksClient;
+import techguns.blocks.machines.SimpleMachine;
 import techguns.tileentities.ChargingStationTileEnt;
 import techguns.tileentities.FabricatorTileEntMaster;
 
@@ -27,10 +30,13 @@ public class RenderChargingStation extends TileEntitySpecialRenderer<ChargingSta
 				item = te.currentOperation.getItemInputI(0);
 			}
 			if(!item.isEmpty()) {
+				IBlockState bs = te.getWorld().getBlockState(te.getPos());
+				EnumFacing dir = bs.getValue(SimpleMachine.FACING);
 				
 				GlStateManager.pushMatrix();
 				GlStateManager.translate( x + 0.5d, y + 0.4d, z + 0.5d);
-				GlStateManager.rotate(-90.0f, 0f, 1f, 0f);
+				
+				GlStateManager.rotate(-90.0f*dir.getHorizontalIndex(), 0f, 1f, 0f);
 
 				Minecraft.getMinecraft().getRenderItem().renderItem(item, TransformType.GROUND);
 				

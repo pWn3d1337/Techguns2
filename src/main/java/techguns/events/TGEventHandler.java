@@ -50,6 +50,7 @@ import techguns.damagesystem.DamageSystem;
 import techguns.damagesystem.TGDamageSource;
 import techguns.deatheffects.EntityDeathUtils;
 import techguns.deatheffects.EntityDeathUtils.DeathType;
+import techguns.gui.player.TGPlayerInventory;
 import techguns.gui.widgets.SlotFabricator;
 import techguns.gui.widgets.SlotTG;
 import techguns.items.armors.GenericArmor;
@@ -295,6 +296,10 @@ public class TGEventHandler {
 					//System.out.println("SENT EXTENDED PLAYER SYNC");
 					//TGPackets.network.sendToDimension(new PacketTGExtendedPlayerSync(props, false), event.entity.dimension);
 					TGPackets.network.sendTo(new PacketTGExtendedPlayerSync(ply,props, true), (EntityPlayerMP) ply);
+					
+					ply.getDataManager().set(TGExtendedPlayer.DATA_FACE_SLOT, props.tg_inventory.getStackInSlot(TGPlayerInventory.SLOT_FACE));
+					ply.getDataManager().set(TGExtendedPlayer.DATA_BACK_SLOT, props.tg_inventory.getStackInSlot(TGPlayerInventory.SLOT_BACK));
+					ply.getDataManager().set(TGExtendedPlayer.DATA_HAND_SLOT, props.tg_inventory.getStackInSlot(TGPlayerInventory.SLOT_HAND));
 					//ply.getDataWatcher().updateObject(TechgunsExtendedPlayerProperties.DATA_WATCHER_ID_FACESLOT, props.TG_inventory.inventory[TGPlayerInventory.SLOT_FACE]);
 					//ply.getDataWatcher().updateObject(TechgunsExtendedPlayerProperties.DATA_WATCHER_ID_BACKSLOT, props.TG_inventory.inventory[TGPlayerInventory.SLOT_BACK]);
 				

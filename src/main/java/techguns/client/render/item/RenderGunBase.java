@@ -398,6 +398,7 @@ public class RenderGunBase extends RenderItemBase {
 			//this.muzzleFX.doRender(progress, (x+Keybinds.X)/*+leftOffset*/, this.muzzleFX_y+Keybinds.Y, this.muzzleFX_z+Keybinds.Z, this.muzzleFX_scale, false);
 			
 			this.muzzleFX.doRender(progress, offsetX, offsetY, this.muzzleFX_z, scale, false);
+			
 		}
 	}
 

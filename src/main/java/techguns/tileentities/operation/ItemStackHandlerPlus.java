@@ -26,6 +26,9 @@ public class ItemStackHandlerPlus extends ItemStackHandler {
 		return super.insertItem(slot, stack, simulate);
 	}
 
+	public ItemStack insertItemNoCheck(int slot, ItemStack stack, boolean simulate) {
+		return super.insertItem(slot, stack, simulate);
+	}
 	
 	
 	@Override

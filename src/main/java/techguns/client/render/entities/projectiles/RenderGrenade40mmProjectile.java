@@ -77,7 +77,7 @@ public class RenderGrenade40mmProjectile extends Render<Grenade40mmProjectile>{
         GlStateManager.rotate(entity.rotationPitch, 0.0F, 0.0F, 1.0F);
         
         GlStateManager.rotate(180, 1, 0, 0);
-        float scale = 1f/32f;
+        float scale = 0.5f; //1f/32f;
         GlStateManager.scale(scale,scale,scale);
         
         this.bindEntityTexture(entity);
@@ -85,7 +85,7 @@ public class RenderGrenade40mmProjectile extends Render<Grenade40mmProjectile>{
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder builder = tessellator.getBuffer();
         builder.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
-        builder.setTranslation(-0.5, -1.5, -0.5);
+        //builder.setTranslation(-0.5, -1.5, -0.5);
 
         lighter.setParent(new VertexBufferConsumer(builder));
         lighter.setWorld(entity.world);

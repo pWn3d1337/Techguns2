@@ -1,9 +1,12 @@
 package techguns.plugins.jei;
 
 import mezz.jei.api.IGuiHelper;
+import mezz.jei.api.gui.IDrawableAnimated;
+import mezz.jei.api.gui.IDrawableStatic;
 import mezz.jei.api.gui.IGuiItemStackGroup;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
+import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 import techguns.gui.ChargingStationGui;
 import techguns.tileentities.ChargingStationTileEnt;
@@ -12,10 +15,18 @@ import static techguns.gui.containers.ChargingStationContainer.*;
 
 public class ChargingStationJeiRecipeCategory extends BasicRecipeCategory<ChargingStationJeiRecipe>{
 
+	IDrawableStatic progress_static;
+	IDrawableAnimated progress;
+	
 	public ChargingStationJeiRecipeCategory(IGuiHelper guiHelper) {
 		super(guiHelper, ChargingStationGui.texture, "chargingstation", TGJeiPlugin.CHARGING_STATION);
+		
+		this.progress_static = guiHelper.createDrawable(ChargingStationGui.texture, 0, 167, 26, 10);
+		this.progress = guiHelper.createAnimatedDrawable(progress_static, 100, IDrawableAnimated.StartDirection.LEFT, false);
 	}
 
+	
+	
 	@Override
 	public void setRecipe(IRecipeLayout recipeLayout, ChargingStationJeiRecipe recipeWrapper,
 			IIngredients ingredients) {
@@ -28,4 +39,10 @@ public class ChargingStationJeiRecipeCategory extends BasicRecipeCategory<Chargi
 		guiItemStacks.set(ingredients);
 	}
 
+	@Override
+	public void drawExtras(Minecraft minecraft) {
+		super.drawExtras(minecraft);
+		this.powerbar.draw(minecraft, 8+JEI_OFFSET_X, 17+JEI_OFFSET_Y);
+		this.progress.draw(minecraft, 40+JEI_OFFSET_X, 20+JEI_OFFSET_Y);
+	}
 }

@@ -1,0 +1,15 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"model": "forge:fluid"
+	},
+	"variants": {
+		"creeper_acid": [
+			{
+				"custom": {
+					"fluid": "creeper_acid"
+				}
+			}
+		]
+	}
+}

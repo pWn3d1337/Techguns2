@@ -52,11 +52,13 @@ public class CommonProxy implements ITGInitializer {
 	@SubscribeEvent
 	public static void registerBlocks(RegistryEvent.Register<Block> event) {
 		Techguns.blocks.registerBlocks(event);
+		Techguns.fluids.registerBlocks(event);
 	}
 
 	@SubscribeEvent
 	public static void registerItems(RegistryEvent.Register<Item> event) {
 		Techguns.blocks.registerItems(event);
+		Techguns.fluids.registerItems(event);
 		Techguns.items.registerItems(event);
 		Techguns.armors.registerItems(event);
 		Techguns.guns.registerItems(event);

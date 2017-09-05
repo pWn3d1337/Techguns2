@@ -388,7 +388,7 @@ public class GenericProjectile extends Entity implements IProjectile, IEntityAdd
 							this.setAIRevengeTarget(((EntityLiving) ent));
 						}
 	
-						this.onHitEffect(ent);
+						this.onHitEffect(ent,raytraceResultIn);
 					}
 				}
 
@@ -462,7 +462,7 @@ public class GenericProjectile extends Entity implements IProjectile, IEntityAdd
 	 * Override in subclass for entity hit effect (potion effects etc)
 	 * @param ent
 	 */
-	protected void onHitEffect(EntityLivingBase ent) {
+	protected void onHitEffect(EntityLivingBase ent, RayTraceResult rayTraceResultIn) {
 	}
 
 	/**

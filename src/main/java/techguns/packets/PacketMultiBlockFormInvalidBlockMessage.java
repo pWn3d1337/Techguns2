@@ -41,7 +41,7 @@ public class PacketMultiBlockFormInvalidBlockMessage implements IMessage {
 		protected void handle(PacketMultiBlockFormInvalidBlockMessage message, MessageContext ctx) {
 			EntityPlayer player = TGPackets.getPlayerFromContext(ctx);
 			BlockPos p = message.pos;
-			player.sendStatusMessage(new TextComponentString(TextUtil.trans("techguns.multblock.invalidblockat"+": "+p.getX()+ ", "+p.getY()+", "+p.getZ())), false);
+			player.sendStatusMessage(new TextComponentString(TextUtil.trans("techguns.multiblock.invalidblock")+": "+p.getX()+ ", "+p.getY()+", "+p.getZ()), false);
 			
 		}
 		

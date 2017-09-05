@@ -54,7 +54,7 @@ public class FlamethrowerProjectile extends GenericProjectile implements ILightP
 	}
 
 	@Override
-	protected void onHitEffect(EntityLivingBase ent) {
+	protected void onHitEffect(EntityLivingBase ent, RayTraceResult rayTraceResult) {
 		ent.setFire(this.entityIgniteTime);
 	}
 

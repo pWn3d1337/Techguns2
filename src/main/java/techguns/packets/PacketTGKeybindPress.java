@@ -6,6 +6,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
@@ -21,11 +22,14 @@ import techguns.capabilities.TGExtendedPlayer;
 import techguns.client.audio.TGSoundCategory;
 import techguns.items.armors.GenericArmor;
 import techguns.items.armors.TGArmorBonus;
+import techguns.items.guns.GenericGun;
 import techguns.keybind.TGKeybindsID;
 
 public class PacketTGKeybindPress implements IMessage {
 	public byte buttonID;
-
+	public EnumHand hand=EnumHand.MAIN_HAND;
+	public boolean showMsg=false;
+	
 	public PacketTGKeybindPress(){
 	};
 	
@@ -33,15 +37,30 @@ public class PacketTGKeybindPress implements IMessage {
 		super();
 		this.buttonID = buttonID;
 	}
+	
+	public PacketTGKeybindPress(byte buttonID, EnumHand hand) {
+		this(buttonID);
+		this.hand=hand;
+	}
 
+	public PacketTGKeybindPress(byte buttonID, boolean showMsg) {
+		this(buttonID);
+		this.showMsg=showMsg;
+	}
+	
 	@Override
 	public void fromBytes(ByteBuf buf) {
 		buttonID=buf.readByte();
+		byte h=buf.readByte();
+		this.hand=EnumHand.values()[h];
+		this.showMsg=buf.readBoolean();
 	}
 
 	@Override
 	public void toBytes(ByteBuf buf) {
 		buf.writeByte(buttonID);
+		buf.writeByte((byte)hand.ordinal());
+		buf.writeBoolean(showMsg);
 	}
 
 	public static class Handler implements  IMessageHandler<PacketTGKeybindPress, IMessage> {
@@ -75,6 +94,9 @@ public class PacketTGKeybindPress implements IMessage {
 					ply.world.playSound(ply.posX, ply.posY+ply.getEyeHeight(), ply.posZ, TGSounds.NIGHTVISION_ON, SoundCategory.PLAYERS, 1f, 1f, false);
 					
 				}
+				if(message.showMsg) {
+					TGPackets.network.sendTo(new PacketShowKeybindConfirmMessage(message.buttonID, props.enableNightVision), (EntityPlayerMP)ply);
+				}
 				TGPackets.network.sendTo(new PacketTGExtendedPlayerSync(ply,props, true), (EntityPlayerMP)ply);
 				
 			} 
@@ -85,6 +107,9 @@ public class PacketTGKeybindPress implements IMessage {
 				if (!props.enableSafemode && PermissionAPI.hasPermission(ply, TGPermissions.ALLOW_UNSAFE_MODE)) {
 					props.enableSafemode=true;
 				} 
+				if(message.showMsg) {
+					TGPackets.network.sendTo(new PacketShowKeybindConfirmMessage(message.buttonID, props.enableSafemode), (EntityPlayerMP)ply);
+				}
 				TGPackets.network.sendTo(new PacketTGExtendedPlayerSync(ply,props, true), (EntityPlayerMP)ply);
 			}	
 			else if (message.buttonID==TGKeybindsID.TOGGLE_JETPACK){
@@ -92,6 +117,9 @@ public class PacketTGKeybindPress implements IMessage {
 				if (!props.isJumpkeyPressed()){
 					props.enableJetpack=!props.enableJetpack;
 					TGPackets.network.sendTo(new PacketTGPlayerFieldSync(ply,PacketTGPlayerFieldSync.FIELD_ENABLEJETPACK, props.enableJetpack), (EntityPlayerMP)ply);
+					if(message.showMsg) {
+						TGPackets.network.sendTo(new PacketShowKeybindConfirmMessage(message.buttonID, props.enableJetpack), (EntityPlayerMP)ply);
+					}
 					
 					if (!props.enableJetpack && props.isJumpkeyPressed()){
 						props.setJumpkeyPressed(false);
@@ -126,16 +154,12 @@ public class PacketTGKeybindPress implements IMessage {
 				
 			}
 			else if (message.buttonID ==TGKeybindsID.FORCE_RELOAD){
-				
-				//TODO ??
-			/*	ItemStack item = ply.getCurrentEquippedItem();
-				if (item!=null && item.getItem() instanceof GenericGun){
+				ItemStack item = ply.getHeldItem(message.hand);
+				if (!item.isEmpty() && item.getItem() instanceof GenericGun){
 					
 					GenericGun gun = (GenericGun) item.getItem();
-					gun.tryForcedReload(item, ply.worldObj, ply);
-					
+					gun.tryForcedReload(item, ply.world, ply, message.hand);
 				}
-				*/
 				
 			} else if (message.buttonID == TGKeybindsID.TOGGLE_HUD){
 				props.showTGHudElements=!props.showTGHudElements;
@@ -144,7 +168,9 @@ public class PacketTGKeybindPress implements IMessage {
 				
 			} else if (message.buttonID == TGKeybindsID.TOGGLE_STEP_ASSIST){
 				props.enableStepAssist=!props.enableStepAssist;
-				
+				if(message.showMsg) {
+					TGPackets.network.sendTo(new PacketShowKeybindConfirmMessage(message.buttonID, props.enableStepAssist), (EntityPlayerMP)ply);
+				}
 				TGPackets.network.sendTo(new PacketTGExtendedPlayerSync(ply,props, true), (EntityPlayerMP)ply);
 			}
 			

@@ -50,12 +50,15 @@ public class GaussProjectile extends AdvancedBulletProjectile implements ILightP
 //	}
 	
 	@Override
-	protected void onHitEffect(EntityLivingBase ent) {
-		super.onHitEffect(ent);
+	protected void onHitEffect(EntityLivingBase ent, RayTraceResult rayTraceResult) {
+		super.onHitEffect(ent, rayTraceResult);
+		double x = rayTraceResult.hitVec.x;
+		double y = rayTraceResult.hitVec.y+ent.height*0.5f;
+		double z = rayTraceResult.hitVec.z;
 		if (!this.world.isRemote) {
-			TGPackets.network.sendToAllAround(new PacketSpawnParticle("GaussRifleImpact_Block", this.posX,this.posY,this.posZ), TGPackets.targetPointAroundEnt(this, 50.0f));
+			TGPackets.network.sendToAllAround(new PacketSpawnParticle("GaussRifleImpact_Block", x,y,z), TGPackets.targetPointAroundEnt(this, 50.0f));
 		}else {
-			Techguns.proxy.createLightPulse(this.posX, this.posY, this.posZ, 5, 10, 3.0f, 1.0f, 0.5f, 0.75f, 1f);
+			Techguns.proxy.createLightPulse(x,y,z, 5, 10, 3.0f, 1.0f, 0.5f, 0.75f, 1f);
 		}
 		
 	}
@@ -63,10 +66,14 @@ public class GaussProjectile extends AdvancedBulletProjectile implements ILightP
 	@Override
 	protected void hitBlock(RayTraceResult raytraceResultIn) {
 		super.hitBlock(raytraceResultIn);
+		double x = raytraceResultIn.hitVec.x;
+		double y = raytraceResultIn.hitVec.y;
+		double z = raytraceResultIn.hitVec.z;
+		
 		if (!this.world.isRemote) {
-			TGPackets.network.sendToAllAround(new PacketSpawnParticle("GaussRifleImpact_Block", this.posX,this.posY,this.posZ), TGPackets.targetPointAroundEnt(this, 50.0f));
+			TGPackets.network.sendToAllAround(new PacketSpawnParticle("GaussRifleImpact_Block", x,y,z), TGPackets.targetPointAroundEnt(this, 50.0f));
 		}else {
-			Techguns.proxy.createLightPulse(this.posX, this.posY, this.posZ, 5, 10, 3.0f, 1.0f, 0.5f, 0.75f, 1f);
+			Techguns.proxy.createLightPulse(x,y,z, 5, 10, 3.0f, 1.0f, 0.5f, 0.75f, 1f);
 		}
 	}
 	

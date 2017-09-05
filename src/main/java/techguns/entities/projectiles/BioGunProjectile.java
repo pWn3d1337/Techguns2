@@ -7,6 +7,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 import techguns.api.damagesystem.DamageType;
@@ -42,7 +43,7 @@ public class BioGunProjectile extends GenericProjectile implements IEntityAdditi
 	}
 
 	 @Override
-	protected void onHitEffect(EntityLivingBase ent) {
+	protected void onHitEffect(EntityLivingBase ent, RayTraceResult rayTraceResult) {
  		ent.addPotionEffect(new PotionEffect(MobEffects.POISON,100,3,false,true));
 	}
 	 

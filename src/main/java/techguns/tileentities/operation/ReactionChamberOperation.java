@@ -1,6 +1,7 @@
 package techguns.tileentities.operation;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -17,10 +18,12 @@ public class ReactionChamberOperation extends MachineOperation {
 	public byte required_intensity;
 	public byte nextTick;
 	
+	Random rnd;
+	
 	public ReactionChamberOperation(NBTTagCompound tags, ReactionChamberTileEntMaster tile) {
 		super(new ArrayList<ItemStack>(), new ArrayList<ItemStack>(), null, null, 1);
-		NBTTagCompound operation = tags.getCompoundTag("operation");
-		this.readFromNBT(operation);
+		this.readFromNBT(tags);
+		this.rnd=new Random();
 	}
 	
 	
@@ -35,6 +38,10 @@ public class ReactionChamberOperation extends MachineOperation {
 			this.fluid_inputs.add(new FluidStack(r.liquidIn,r.liquidConsumtion));
 		}
 		this.recipe=r;
+		this.completion=0;
+		this.nextTick=RECIPE_TICKRATE;
+		this.required_intensity=r.preferredIntensity;
+		this.rnd=new Random();
 	}
 
 	@Override
@@ -74,38 +81,44 @@ public class ReactionChamberOperation extends MachineOperation {
 		int totalTime = tile.totaltime;
 		
 		nextTick--;
-		//System.out.println("Ticking Reaction");
 		if (!client && nextTick==0 && progress<totalTime){
 			boolean powered = tile.consumePower(RFTick);
-			//do recipe tick			
-			if (powered && this.required_intensity==intensity && this.recipe.liquidLevel==liquidLevel){
+			
+			boolean focusMatch = focusMatches(tile.getInventory().getStackInSlot(ReactionChamberTileEntMaster.SLOT_FOCUS));
+			
+			//do recipe tick
+			if (powered && focusMatch && this.required_intensity==intensity && this.recipe.liquidLevel==liquidLevel){
 				completion++;
-				//System.out.println("Completion increased");
-			} else {
-				//System.out.println("NO increase");
 			}
 			
-			double f = Math.random();
-			if(f<=0.333d){
-				if (this.required_intensity>this.recipe.preferredIntensity-this.recipe.intensityMargin){
-					this.required_intensity--;
-				} else {
-					//this.preferedIntensity++;
-				}
-			} else if (f<=0.666d){
-				//stay
+			if(!focusMatch) {
+				//instantly finish operation on focus mismatch and remove all completion
+				tile.progress=tile.totaltime;
+				this.completion=0;
 			} else {
-				if (this.required_intensity<this.recipe.preferredIntensity+this.recipe.intensityMargin){
-					this.required_intensity++;
-				} else {
-					//this.preferedIntensity--;
+			
+				if(this.recipe.instability>0.0f && rnd.nextFloat() < this.recipe.instability) {
+					//rolled a change
+					
+					int val = 1;
+					if(this.recipe.intensityMargin>1) {
+						val += rnd.nextInt(this.recipe.intensityMargin);
+					}
+					
+					if(rnd.nextBoolean()) {
+						this.required_intensity-=val;
+						if(this.required_intensity<0) {
+							this.required_intensity=0;
+						}
+					} else {
+						this.required_intensity+=val;
+						if(this.required_intensity>10) {
+							this.required_intensity=10;
+						}
+					}
+					
 				}
 			}
-			
-			//tile.playAmbientSound(this.preferedIntensity==tile.intensity);
-			
-			
-			//System.out.println("RECIPE TICK");
 			nextTick=RECIPE_TICKRATE;
 			
 			return true;

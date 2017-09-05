@@ -68,8 +68,7 @@ public class ReactionChamberGui extends PoweredTileEntGui {
         	this.drawTexturedModalRect(k+67, l+61, 0, 167, compl_px, 4);
         	
         	this.drawTexturedModalRect(k+67, l+69, 0, 175, dur_px, 4);
-        	
-        	
+        	//System.out.println("Prog:"+dur+" MaxDur:"+maxdur);
         	
         	  //draw intensity
         	int px = (10-this.tile.getIntensity())*4;

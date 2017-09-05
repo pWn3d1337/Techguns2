@@ -452,8 +452,8 @@ public class TGItems implements ITGInitializer{
 		 registerIfEnabled("oreTitanium", ORE_TITANIUM);
 		 registerIfEnabled("plateTitanium", PLATE_TITANIUM);
 		 registerIfEnabled("sheetPlastic", PLASTIC_SHEET);
-	//	 registerIfEnabled("dustUranium", TGItems.yellowcake);
-	//	 registerIfEnabled("ingotUraniumEnriched", TGItems.enrichedUranium);
+		 registerIfEnabled("dustUranium", TGItems.YELLOWCAKE);
+		 registerIfEnabled("ingotUraniumEnriched", TGItems.ENRICHED_URANIUM);
 		 
 		 registerIfEnabled("ingotCopper", INGOT_COPPER);
 		 registerIfEnabled("ingotBronze", INGOT_BRONZE);

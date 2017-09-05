@@ -168,6 +168,15 @@ public class TGTickHandler {
 				event.player.getDataWatcher().updateObject(TechgunsExtendedPlayerProperties.DATA_WATCHER_ID_FACESLOT, props.TG_inventory.inventory[TGPlayerInventory.SLOT_FACE]);
 				event.player.getDataWatcher().updateObject(TechgunsExtendedPlayerProperties.DATA_WATCHER_ID_BACKSLOT, props.TG_inventory.inventory[TGPlayerInventory.SLOT_BACK]);
 			 }*/
+			 if(!event.player.world.isRemote) {
+				 event.player.getDataManager().set(TGExtendedPlayer.DATA_FACE_SLOT, props.tg_inventory.getStackInSlot(TGPlayerInventory.SLOT_FACE));
+				 event.player.getDataManager().set(TGExtendedPlayer.DATA_BACK_SLOT, props.tg_inventory.getStackInSlot(TGPlayerInventory.SLOT_BACK));
+				 event.player.getDataManager().set(TGExtendedPlayer.DATA_HAND_SLOT, props.tg_inventory.getStackInSlot(TGPlayerInventory.SLOT_HAND));
+			 } else {
+				props.tg_inventory.setInventorySlotContents(TGPlayerInventory.SLOT_FACE, event.player.getDataManager().get(TGExtendedPlayer.DATA_FACE_SLOT));
+				props.tg_inventory.setInventorySlotContents(TGPlayerInventory.SLOT_BACK, event.player.getDataManager().get(TGExtendedPlayer.DATA_BACK_SLOT));
+				props.tg_inventory.setInventorySlotContents(TGPlayerInventory.SLOT_HAND, event.player.getDataManager().get(TGExtendedPlayer.DATA_HAND_SLOT));
+			 }
 			 
 			 boolean wearingTechgunsArmor = false;
 			 for (int i =0;i<4;i++){
@@ -405,7 +414,6 @@ public class TGTickHandler {
 			 
 			 /**
 			  * Tick addition slots
-			  * TODO need datawatcher?
 			  */
 			 tickSlot(props.tg_inventory.inventory.get(TGPlayerInventory.SLOT_FACE), event);
 			 tickSlot(props.tg_inventory.inventory.get(TGPlayerInventory.SLOT_BACK), event);

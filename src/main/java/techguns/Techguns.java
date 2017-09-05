@@ -49,10 +49,10 @@ public class Techguns
     	armors,
     	ammoTypes,
     	guns,
+    	fluids,
     	blocks,
     	entities,
-    	packets,
-    	fluids
+    	packets
     };
     
     

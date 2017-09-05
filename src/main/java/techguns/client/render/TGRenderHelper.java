@@ -66,6 +66,21 @@ public class TGRenderHelper {
     	//GlStateManager.popMatrix();
     }
     
+    public static void enableFluidGlow(int luminosity) {
+    	lastBrightnessX= OpenGlHelper.lastBrightnessX;
+		lastBrightnessY= OpenGlHelper.lastBrightnessY;
+		
+		float newLightX = Math.min((luminosity/15.0f)*240.0f + lastBrightnessX, 240.0f);
+		float newLightY = Math.min((luminosity/15.0f)*240.0f + lastBrightnessY, 240.0f);
+		
+    	OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, newLightX, newLightY);
+    }
+    
+    public static void disableFluidGlow() {
+    	OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lastBrightnessX, lastBrightnessY);
+    }
+    
+    
    /* public static void disableCulling() {
     	STATE_CULL_FACE_DISABLER.enableState();
     }

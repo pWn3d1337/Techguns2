@@ -3,6 +3,7 @@ package techguns.tileentities.operation;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
 
@@ -13,7 +14,7 @@ import techguns.util.ItemStackOreDict;
 import techguns.util.ItemUtil;
 import techguns.util.TextUtil;
 
-public class ReactionChamberRecipe {
+public class ReactionChamberRecipe implements IMachineRecipe {
 	
 	public String ID;
 	
@@ -199,6 +200,42 @@ public class ReactionChamberRecipe {
 		public static boolean isFatal(RiskType type) {
 			return !(type==EXPLOSION_LOW || type ==EXPLOSION_HIGH || type== EXPLOSION_MEDIUM || type== UNFORSEEN_CONSEQUENCES);
 		}
+	}
+
+	public boolean isStable() {
+		return this.instability==0.0f || this.intensityMargin==0;
+	}
+	
+	@Override
+	public List<List<ItemStack>> getItemInputs() {
+		ArrayList<List<ItemStack>> list = new ArrayList<>();
+		list.add(this.input.getItemStacks());
+		
+		ArrayList<ItemStack> focus = new ArrayList<>();
+		focus.add(this.beamFocus.item);
+		list.add(focus);
+		
+		return list;
+	}
+
+	@Override
+	public List<List<ItemStack>> getItemOutputs() {
+		ArrayList<List<ItemStack>> list = new ArrayList<>();
+		this.outputs.forEach(s -> {
+			ArrayList<ItemStack> list2 = new ArrayList<>();
+			list2.add(s);
+			list.add(list2);
+		});
+		return list;
+	}
+
+	@Override
+	public List<List<FluidStack>> getFluidInputs() {
+		ArrayList<List<FluidStack>> list = new ArrayList<>();
+		ArrayList<FluidStack> list2 = new ArrayList<>();
+		list2.add(new FluidStack(this.liquidIn, this.liquidLevel*Fluid.BUCKET_VOLUME));
+		list.add(list2);
+		return list;
 	}
 	
 }

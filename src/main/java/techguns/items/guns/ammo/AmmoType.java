@@ -14,7 +14,7 @@ public class AmmoType {
 	int bulletsPerMag=0;
 	
 	public AmmoType(ItemStack ammo){
-		this.variants.add(new AmmoVariant(ammo,ItemStack.EMPTY));
+		this.variants.add(new AmmoVariant(ammo,ammo));
 	}
 	
 	public ItemStack getAmmo(int variant) {
@@ -26,7 +26,7 @@ public class AmmoType {
 	}
 
 	public ItemStack getBullet(int variant) {
-		return this.variants.get(variant).ammo;
+		return this.variants.get(variant).bullet;
 	}
 
 	public AmmoType (ItemStack ammo, ItemStack emptyMag, ItemStack bullet, int bulletsPerMag) {

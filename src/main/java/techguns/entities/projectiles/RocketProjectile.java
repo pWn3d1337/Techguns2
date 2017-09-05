@@ -49,7 +49,7 @@ public class RocketProjectile extends GenericProjectile implements ILightProvide
 	
 
 	@Override
-	protected void onHitEffect(EntityLivingBase ent) {
+	protected void onHitEffect(EntityLivingBase ent, RayTraceResult rayTraceResult) {
 		this.explodeRocket();
 	}
 

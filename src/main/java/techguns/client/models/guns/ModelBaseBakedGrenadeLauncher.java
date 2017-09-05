@@ -34,9 +34,9 @@ public class ModelBaseBakedGrenadeLauncher extends ModelBaseBaked {
 			
 			RenderItem_renderModel.invoke(Minecraft.getMinecraft().getRenderItem(), bakedModels.get(0), ItemStack.EMPTY);
 			GlStateManager.pushMatrix();
-			GlStateManager.translate(0, -4f, 0);
+			GlStateManager.translate(0, -2f, 0);
 			GlStateManager.rotate(60.0f*fireProgress, 1, 0, 0);
-			GlStateManager.translate(0, 4f, 0);
+			GlStateManager.translate(0, 2f, 0);
 			RenderItem_renderModel.invoke(Minecraft.getMinecraft().getRenderItem(), bakedModels.get(1), ItemStack.EMPTY);
 			GlStateManager.popMatrix();
 			

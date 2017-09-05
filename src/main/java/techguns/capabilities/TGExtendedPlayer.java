@@ -5,11 +5,15 @@ import java.util.BitSet;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
@@ -32,6 +36,10 @@ import techguns.util.SoundUtil;
 
 public class TGExtendedPlayer implements ITGExtendedPlayer {
 
+	public static final DataParameter<ItemStack> DATA_FACE_SLOT = EntityDataManager.<ItemStack>createKey(EntityPlayer.class, DataSerializers.ITEM_STACK);
+	public static final DataParameter<ItemStack> DATA_BACK_SLOT = EntityDataManager.<ItemStack>createKey(EntityPlayer.class, DataSerializers.ITEM_STACK);
+	public static final DataParameter<ItemStack> DATA_HAND_SLOT = EntityDataManager.<ItemStack>createKey(EntityPlayer.class, DataSerializers.ITEM_STACK);
+	
 	public int fireDelayMainhand=0;
 	public int fireDelayOffhand=0;
 	
@@ -103,6 +111,9 @@ public class TGExtendedPlayer implements ITGExtendedPlayer {
 	public TGExtendedPlayer(EntityPlayer entity) {
 		this.entity = entity;
 		this.tg_inventory = new TGPlayerInventory(entity);
+		entity.getDataManager().register(DATA_FACE_SLOT, ItemStack.EMPTY);
+		entity.getDataManager().register(DATA_BACK_SLOT, ItemStack.EMPTY);
+		entity.getDataManager().register(DATA_HAND_SLOT, ItemStack.EMPTY);
 	}
 	
 	@Override

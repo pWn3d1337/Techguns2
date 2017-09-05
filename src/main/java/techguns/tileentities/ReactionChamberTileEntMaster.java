@@ -1,22 +1,28 @@
 package techguns.tileentities;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.server.management.PlayerChunkMapEntry;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidEvent;
@@ -24,6 +30,8 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fml.common.network.NetworkRegistry.TargetPoint;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import techguns.TGBlocks;
 import techguns.TGItems;
 import techguns.TGPackets;
@@ -38,6 +46,7 @@ import techguns.blocks.machines.multiblocks.SlavePos;
 import techguns.gui.ButtonConstants;
 import techguns.gui.ReactionChamberGui;
 import techguns.packets.PacketSpawnParticle;
+import techguns.packets.PacketUpdateTileEntTanks;
 import techguns.tileentities.operation.FluidTankPlus;
 import techguns.tileentities.operation.ITileEntityFluidTanks;
 import techguns.tileentities.operation.ItemStackHandlerPlus;
@@ -65,10 +74,14 @@ public class ReactionChamberTileEntMaster extends MultiBlockMachineTileEntMaster
 	public static final int BUTTON_ID_INTENSTIY_DEC=ButtonConstants.BUTTON_ID_REDSTONE+4;
 	public static final int BUTTON_ID_DUMPTANK=ButtonConstants.BUTTON_ID_REDSTONE+5;
 	
+	private static Field playerChunkMapEntry_Players = ReflectionHelper.findField(PlayerChunkMapEntry.class, "players","field_187283_c");
+	
 	protected byte intensity=0;
 	protected byte liquidLevel=0;
 	
 	public MachineSlotItem input;
+	
+	public boolean fluidsChanged=false;
 	
 	public ReactionChamberTileEntMaster() {
 		super(6, 1000000);
@@ -95,7 +108,7 @@ public class ReactionChamberTileEntMaster extends MultiBlockMachineTileEntMaster
 			
 			@Override
 			protected boolean allowExtractFromSlot(int slot, int amount) {
-				return slot == SLOT_OUTPUT;
+				return slot >= SLOT_OUTPUT && slot < SLOT_OUTPUT+OUTPUT_SLOTS_COUNT;
 			}
 		};
 		
@@ -145,6 +158,20 @@ public class ReactionChamberTileEntMaster extends MultiBlockMachineTileEntMaster
 		
 		this.intensity= tags.getByte("intensity");
 		this.liquidLevel=tags.getByte("liquidLevel");
+		
+		if(tags.hasKey("inputSlot")) {
+			ItemStack inputSlot = new ItemStack(tags.getCompoundTag("inputSlot"));
+			this.inventory.setStackInSlot(SLOT_INPUT, inputSlot);
+		} else {
+			this.inventory.setStackInSlot(SLOT_INPUT, ItemStack.EMPTY);
+		}
+		
+		if(tags.hasKey("focusSlot")) {
+			ItemStack focusSlot = new ItemStack(tags.getCompoundTag("focusSlot"));
+			this.inventory.setStackInSlot(SLOT_FOCUS, focusSlot);
+		} else {
+			this.inventory.setStackInSlot(SLOT_FOCUS, ItemStack.EMPTY);
+		}
 	}
 
 	@Override
@@ -157,6 +184,19 @@ public class ReactionChamberTileEntMaster extends MultiBlockMachineTileEntMaster
 		
 		tags.setByte("intensity", this.intensity);
 		tags.setByte("liquidLevel", this.liquidLevel);
+		
+		if (!this.input.get().isEmpty()) {
+			NBTTagCompound inputSlot = new NBTTagCompound();
+			this.input.get().writeToNBT(inputSlot);
+			tags.setTag("inputSlot", inputSlot);
+		}
+		if (!this.inventory.getStackInSlot(SLOT_FOCUS).isEmpty()) {
+			NBTTagCompound focusSlot = new NBTTagCompound();
+			this.inventory.getStackInSlot(SLOT_FOCUS).writeToNBT(focusSlot);
+			tags.setTag("focusSlot", focusSlot);
+		}
+		
+		
 	}
 
 	@Override
@@ -180,10 +220,15 @@ public class ReactionChamberTileEntMaster extends MultiBlockMachineTileEntMaster
 	
 	@Override
 	public void update() {
+		if(!world.isRemote&&this.fluidsChanged) {
+			this.fluidsChanged=false;
+			this.needFluidUpdate();
+		}
 		if (this.isRedstoneEnabled()){
 			ReactionChamberOperation currentReaction = this.getCurrentReaction();
-			if (currentReaction != null) {
+			if (currentReaction != null && currentReaction.getRecipe()!=null) {
 				
+				this.progress++;
 				boolean state = currentReaction.tick(this.intensity,this.liquidLevel,this.world.isRemote,this,currentReaction.getRecipe().RFTick);
 				
 				if (!this.world.isRemote && state) {
@@ -198,13 +243,15 @@ public class ReactionChamberTileEntMaster extends MultiBlockMachineTileEntMaster
 						
 						if (!this.world.isRemote){
 							checkAndStartOperation();
-							this.needUpdate();
 						}
 						
 					} else if (currentReaction.isFailure(this)){
-						//System.out.println("Failed!");
 						
 						RiskType risk = currentReaction.getRecipe().risk;
+						
+						this.progress = 0;
+						this.totaltime = 0;
+						this.currentOperation = null;
 						
 						if (risk == RiskType.EXPLOSION_LOW){
 							this.explode(0);
@@ -212,25 +259,17 @@ public class ReactionChamberTileEntMaster extends MultiBlockMachineTileEntMaster
 							this.explode(1);
 						}
 						
+					
 						if(!RiskType.isFatal(risk)) {
-							this.progress = 0;
-							this.totaltime = 0;
-							this.currentOperation = null;
-							
 							if (!this.world.isRemote){
 								checkAndStartOperation();
-								this.needUpdate();
 							}
 						}
 						
-					} else {
-						
-					}
-					
+					} 
 					this.needUpdate();
 				}
 				if (this.world.isRemote){
-					//System.out.println("Tick:"+this.currentReaction.nextTick);
 					if (this.getCurrentReaction().nextTick==ReactionChamberOperation.RECIPE_TICKRATE-1){
 						this.playReactionTickSound(currentReaction.required_intensity== this.intensity);
 					}
@@ -239,8 +278,10 @@ public class ReactionChamberTileEntMaster extends MultiBlockMachineTileEntMaster
 			}  else {
 
 				if(!this.world.isRemote && this.contentsChanged) {
-					//System.out.println("CHECK AND START OPERATION");
 					checkAndStartOperation();
+					if(this.currentOperation!=null) {
+						this.needUpdate();
+					}
 				}
 
 			}
@@ -253,7 +294,6 @@ public class ReactionChamberTileEntMaster extends MultiBlockMachineTileEntMaster
 		
 		ReactionChamberRecipe rec = ReactionChamberRecipe.getMatchingRecipe(this.inventory.getStackInSlot(SLOT_INPUT), this.inventory.getStackInSlot(SLOT_FOCUS), this.inputTank.getFluid(), this.liquidLevel, this.intensity);
 		if (rec!=null){
-			//System.out.println("Starting Operation!");
 			
 			if (rec.RFTick<=this.energy.getEnergyStored()){
 			
@@ -285,7 +325,7 @@ public class ReactionChamberTileEntMaster extends MultiBlockMachineTileEntMaster
 			int s  =SLOT_OUTPUT;
 			ItemStack out = ItemStack.EMPTY;
 			while(leftover>0&& s<SLOT_OUTPUT+OUTPUT_SLOTS_COUNT) {
-				out = this.inventory.insertItem(s, output, false);
+				out = this.inventory.insertItemNoCheck(s, output, false);
 				if(!out.isEmpty()) {
 					leftover=out.getCount();
 					if(leftover>0) {
@@ -315,7 +355,6 @@ public class ReactionChamberTileEntMaster extends MultiBlockMachineTileEntMaster
 	
 	protected void playReactionTickSound(boolean goodTick) {
 	
-			//System.out.println("Play sound1");
 		ItemStack focusitem = this.inventory.getStackInSlot(SLOT_FOCUS);
 		BlockPos pos = this.pos.offset(multiblockDirection);
 		
@@ -334,7 +373,6 @@ public class ReactionChamberTileEntMaster extends MultiBlockMachineTileEntMaster
 		if (goodTick){
 			world.playSound(pos.getX(),pos.getY(), pos.getZ(), TGSounds.REACTION_CHAMBER_BEEP, SoundCategory.BLOCKS, 1.0F, 1.0F, true );
 		} else {
-			//System.out.println("Play sound2");
 			world.playSound(pos.getX(), pos.getY(), pos.getZ(), TGSounds.REACTION_CHAMBER_WARNING, SoundCategory.BLOCKS, 1.0F, 1.0F, true );
 		}
 	}
@@ -349,10 +387,8 @@ public class ReactionChamberTileEntMaster extends MultiBlockMachineTileEntMaster
 		if(multiblockDirection!=null) {
 			BlockPos center = this.getPos().offset(multiblockDirection,1);
 			SlavePos sp = new SlavePos(slavePos, center);
-			//System.out.println("SlavePos:"+sp);
 			AxisAlignedBB bb = ReactionChamberDefinition.boundingBoxes.get(sp);
 			if(bb!=null) {
-				//System.out.println("BB:"+bb);
 				return bb;
 			}
 		}
@@ -399,7 +435,6 @@ public class ReactionChamberTileEntMaster extends MultiBlockMachineTileEntMaster
 	
 	protected void explode(int type){
 		EnumFacing dir = this.multiblockDirection;
-		this.unform();
 		
 		if (!this.world.isRemote){
 			
@@ -411,7 +446,8 @@ public class ReactionChamberTileEntMaster extends MultiBlockMachineTileEntMaster
 			BlockPos masterPos = this.getPos().toImmutable();
 			BlockPos centerPos = masterPos.offset(dir).up();
 
-
+			this.onMultiBlockBreak();
+			
 			this.world.setBlockToAir(centerPos);
 			
 			ArrayList<BlockPos> blocksToRemove = new ArrayList<>();
@@ -464,7 +500,7 @@ public class ReactionChamberTileEntMaster extends MultiBlockMachineTileEntMaster
 			 
 			if (type==1 && fluidBlock!=null){
 				this.world.setBlockState(centerPos, fluidBlock.getDefaultState(), 3);
-				this.world.setBlockState(centerPos.up(), Blocks.GLASS.getDefaultState(), 3);
+				this.world.setBlockState(centerPos.up(), Blocks.AIR.getDefaultState(), 3);
 			}
 			
 			this.energy.setEnergyStored(0);
@@ -535,6 +571,12 @@ public class ReactionChamberTileEntMaster extends MultiBlockMachineTileEntMaster
 		}
 		
 		@Override
+		protected void onContentsChanged() {
+			super.onContentsChanged();
+			tile.fluidsChanged=true;
+		}
+		
+		@Override
 		public int fillInternal(FluidStack resource, boolean doFill) {
 			int fillCapacity = getFillCapacity();
 			  if (resource == null || resource.amount <= 0)
@@ -598,7 +640,7 @@ public class ReactionChamberTileEntMaster extends MultiBlockMachineTileEntMaster
 		}
 		
 		@Override
-		public FluidStack drainInternal(int maxDrain, boolean doDrain) {
+		public FluidStack drainInternal(int maxDrain, boolean doDrain) {			
 			int maxDrainAmount = Math.max(fluid.amount - tile.liquidLevel*Fluid.BUCKET_VOLUME,0);
 			int drainAmount = Math.min(maxDrainAmount, maxDrain);
 			
@@ -622,7 +664,7 @@ public class ReactionChamberTileEntMaster extends MultiBlockMachineTileEntMaster
 		                fluid = null;
 		            }
 
-		            onContentsChanged();
+		            this.onContentsChanged();
 
 		            if (tile != null)
 		            {
@@ -645,5 +687,26 @@ public class ReactionChamberTileEntMaster extends MultiBlockMachineTileEntMaster
 	public void loadTanksFromNBT(NBTTagCompound tags) {
 		NBTTagCompound inputTank = tags.getCompoundTag("inputTank");
 		this.inputTank.readFromNBT(inputTank);
+	}
+	
+	public void needFluidUpdate() {
+		if (!this.world.isRemote) {
+			
+			ChunkPos cp = this.world.getChunkFromBlockCoords(getPos()).getPos();
+			PlayerChunkMapEntry entry = ((WorldServer) this.world).getPlayerChunkMap().getEntry(cp.x, cp.z);
+	
+			try {
+				List<EntityPlayerMP> players = (List<EntityPlayerMP>) playerChunkMapEntry_Players.get(entry);
+				IMessage packet = new PacketUpdateTileEntTanks(this, this.getPos());
+				for (EntityPlayerMP entityplayermp : players) {
+					TGPackets.network.sendTo(packet, entityplayermp);
+				}
+			} catch (IllegalArgumentException e) {
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+			}
+
+		}
 	}
 }

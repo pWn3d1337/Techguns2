@@ -56,7 +56,6 @@ public abstract class MultiBlockMachineTileEntMaster extends BasicMachineTileEnt
 
 	public void onMultiBlockBreak() {
 		if(!this.world.isRemote && this.formed) {
-			System.out.println("UNFORM MULTIBLOCK");
 			MultiBlockMachineSchematic multiblock = MultiBlockRegister.REGISTER.get(this.getClass());
 			if(multiblock!=null) {
 				multiblock.unform(this.world, this);

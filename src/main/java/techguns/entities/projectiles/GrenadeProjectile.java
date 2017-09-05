@@ -122,7 +122,7 @@ public class GrenadeProjectile extends GenericProjectile {
 	}
 
 	@Override
-	protected void onHitEffect(EntityLivingBase ent) {
+	protected void onHitEffect(EntityLivingBase ent, RayTraceResult rayTraceResult) {
 		this.explode();
 	}
 

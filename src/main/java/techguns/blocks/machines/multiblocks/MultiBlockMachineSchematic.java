@@ -40,7 +40,7 @@ public abstract class MultiBlockMachineSchematic {
 
 			if(w.getBlockState(p)!=blockstate) {
 				if(!w.isRemote) {
-					TGPackets.network.sendTo(new PacketSpawnParticle("OreClusterPing", p.getX()+0.5d, p.getY()+0.5d, p.getZ()+0.5d), (EntityPlayerMP) player);
+					TGPackets.network.sendTo(new PacketSpawnParticle("MultiblockInvalidPing", p.getX()+0.5d, p.getY()+0.5d, p.getZ()+0.5d), (EntityPlayerMP) player);
 					TGPackets.network.sendTo(new PacketMultiBlockFormInvalidBlockMessage(p), (EntityPlayerMP) player);
 				}
 				

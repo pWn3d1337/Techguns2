@@ -2349,3 +2349,34 @@ VolumeType = CYLINDER
 Volume1 = 0.05
 Volume2 = 0.05
 }
+
+MultiblockInvalidPing {
+Texture = techguns:textures/fx/xparticle_16.png
+RenderType = NO_Z_TEST
+Rows = 1
+Columns = 1
+Frames = 1
+RandomRotation = true
+Lifetime = 12 12
+SystemLifetime = 50 50
+Size = 1.0 1.0
+SizeRate = 1 1
+SizeRateDamping = 0.85 0.85
+Alpha = 0.0 0
+Alpha = 1.0 0.25
+Alpha = 0 1.0
+//Alpha = 1 1 0
+Color = 255 255 255 0
+Color = 255 255 255 1
+ParticleCount = 1 1
+InitialDelay = 0 0
+SpawnDelay = 10 10
+VelocityType = OUTWARD
+Velocity1 = 0 0
+Velocity2 = 0 0
+VelocityDamping = 0.85 0.88
+Gravity = 0.0
+VolumeType = CYLINDER
+Volume1 = 0.0
+Volume2 = 0.0
+}

@@ -64,6 +64,7 @@ public class TGPackets implements ITGInitializer {
 		network.registerMessage(PacketUpdateTileEntTanks.Handler.class, PacketUpdateTileEntTanks.class, packetid++, Side.CLIENT);
 		network.registerMessage(PacketRequestTileEntitySync.Handler.class, PacketRequestTileEntitySync.class, packetid++, Side.SERVER);
 		network.registerMessage(PacketMultiBlockFormInvalidBlockMessage.Handler.class, PacketMultiBlockFormInvalidBlockMessage.class, packetid++, Side.CLIENT);
+		network.registerMessage(PacketShowKeybindConfirmMessage.Handler.class, PacketShowKeybindConfirmMessage.class, packetid++, Side.CLIENT);
 		
 		/*
 		network.registerMessage(PacketRequestTurretSync.Handler.class, PacketRequestTurretSync.class, packetid++, Side.SERVER);

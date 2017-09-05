@@ -30,6 +30,9 @@ public class ChargingStationTileEnt extends BasicMachineTileEnt {
 	
 	MachineSlotItem input;
 	
+	public static final int CHARGERATE=800;
+	public static final int ITEMCHARGERATE=1600;
+	
 	public boolean charging =false;
 	
 	public ChargingStationTileEnt() {
@@ -121,7 +124,8 @@ public class ChargingStationTileEnt extends BasicMachineTileEnt {
 					this.input.consume(rec.input.stackSize*stackMultiplier);
 					
 					this.currentOperation=op;	
-					this.totaltime = rec.chargeAmount/(this.getChargeRate());
+					this.totaltime = (int) ((double)rec.chargeAmount/((double)this.getChargeRate()));
+					System.out.println("TotalTime:"+this.totaltime);
 					this.progress=0;
 					if(!this.world.isRemote) {
 						this.needUpdate();
@@ -135,11 +139,11 @@ public class ChargingStationTileEnt extends BasicMachineTileEnt {
 	}
 	
 	protected int getChargeRate() {
-		return 400;
+		return CHARGERATE;
 	}
 	
 	protected int getItemChargeRate() {
-		return 800;
+		return ITEMCHARGERATE;
 	}
 
 	protected int getMaxOutputAmount(ItemStack item, int maxMulti) {
@@ -217,7 +221,7 @@ public class ChargingStationTileEnt extends BasicMachineTileEnt {
 
 	@Override
 	public void update() {
-		super.update();
+		//super.update();
 		
 		if (this.isRedstoneEnabled()){
 						

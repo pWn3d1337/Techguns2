@@ -8,6 +8,8 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 public class TGConfig {
 	public static Configuration config;
 	
+	public static boolean debug;
+	
 	public static boolean addCopperIngots;
 	public static boolean addLeadNuggets;
 	public static boolean addCopperNuggets;
@@ -45,6 +47,8 @@ public class TGConfig {
 		//Load the config file
 		config = new Configuration(event.getSuggestedConfigurationFile());
 		config.load();
+		
+		debug = config.getBoolean("debug", config.CATEGORY_GENERAL, true, "Enable debug options, disable this for playing.");
 		
 		disableAutofeeder = config.getBoolean("disableAutofeeder", config.CATEGORY_GENERAL, false, "Disable automatic feeding of Food in the Techguns tab. Disable autofeeding if you think it breaks the balance");	
 		machinesNeedNoPower = config.getBoolean("machinesNeedNoPower", config.CATEGORY_GENERAL, false, "Machines don't need power, activate this if you don't want to install a mod with generators and still be able to use the machines");

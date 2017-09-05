@@ -50,7 +50,9 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import techguns.CommonProxy;
 import techguns.TGArmors;
 import techguns.TGBlocks;
+import techguns.TGConfig;
 import techguns.TGEntities;
+import techguns.TGFluids;
 import techguns.TGItems;
 import techguns.TGuns;
 import techguns.Techguns;
@@ -86,6 +88,7 @@ import techguns.client.render.item.*;
 import techguns.client.render.tileentities.RenderChargingStation;
 import techguns.client.render.tileentities.RenderFabricator;
 import techguns.client.render.tileentities.RenderMachine;
+import techguns.client.render.tileentities.RenderReactionChamber;
 import techguns.client.render.tileentities.RenderTurret;
 import techguns.deatheffects.EntityDeathUtils.DeathType;
 import techguns.debug.Keybinds;
@@ -96,11 +99,13 @@ import techguns.entities.projectiles.*;
 import techguns.events.TGGuiEvents;
 import techguns.entities.projectiles.FlyingGibs;
 import techguns.items.guns.GenericGun;
+import techguns.keybind.TGKeybinds;
 import techguns.tileentities.AmmoPressTileEnt;
 import techguns.tileentities.ChargingStationTileEnt;
 import techguns.tileentities.ChemLabTileEnt;
 import techguns.tileentities.FabricatorTileEntMaster;
 import techguns.tileentities.MetalPressTileEnt;
+import techguns.tileentities.ReactionChamberTileEntMaster;
 import techguns.tileentities.TurretTileEnt;
 import techguns.util.MathUtil;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
@@ -182,8 +187,13 @@ public class ClientProxy extends CommonProxy {
 	public void init(FMLInitializationEvent event) {
 		super.init(event);
 		
-		Keybinds.init();
+		if(TGConfig.debug) {
+			Keybinds.init(); //Debuging Keybinds
+		} 
+		TGKeybinds.init();
+		
 		MinecraftForge.EVENT_BUS.register(new TGGuiEvents());
+		MinecraftForge.EVENT_BUS.register(new TGKeybinds());
 		
 		RenderGrenade40mmProjectile.initModel();
 		
@@ -212,6 +222,8 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(FabricatorTileEntMaster.class, new RenderFabricator());
 		
 		ClientRegistry.bindTileEntitySpecialRenderer(ChargingStationTileEnt.class, new RenderChargingStation());
+		
+		ClientRegistry.bindTileEntitySpecialRenderer(ReactionChamberTileEntMaster.class, new RenderReactionChamber());
 	}
 	
 	private void insertLayerAfterArmor(RenderPlayer r, TGLayerRendererer tglayer) {
@@ -246,6 +258,7 @@ public class ClientProxy extends CommonProxy {
 		TGuns.initModels();
 		TGEntities.initModels();
 		TGBlocks.initModels();
+		TGFluids.initModels();
 	}
 
 	@Override
@@ -538,14 +551,14 @@ public class ClientProxy extends CommonProxy {
 		
 		ItemRenderHack.registerItemRenderer(TGuns.grenadelauncher,new RenderGunBaseObj(new ModelBaseBakedGrenadeLauncher(
 				new ResourceLocation(Techguns.MODID,"textures/guns/grenadelauncher.png"), new ModelResourceLocation(TGuns.grenadelauncher.getRegistryName(), "inventory"), new ModelResourceLocation(TGuns.grenadelauncher.getRegistryName()+"_1", "inventory")),1,90.0f)
-				.setBaseTranslation(0f, 0f, RenderItemBase.SCALE-0.09f)
-				.setBaseScale(0.0625f).setGUIScale(0.45f).setMuzzleFx(ScreenEffect.muzzleFlashSonic, 0, 0.26f, -0.67f, 0.5f,0).setTransformTranslations(new float[][]{
-					{0f,0.18f,0.09f}, //First Person
-					{0f,0.04f,0.04f}, //Third Person
-					{0.03f,0.01f,0f}, //GUI
-					{0f,0f,0f}, //Ground
-					{-0.07f,-0.03f,-0.05f} //frame
-				}).setMuzzleFXPos3P(0.12f, -0.65f));	
+				.setBaseTranslation(0f, 0f, 0f)
+				.setBaseScale(0.125f).setGUIScale(0.45f).setMuzzleFx(ScreenEffect.muzzleFlash_gun, 0, 0.22f, -0.63f, 0.5f,0).setTransformTranslations(new float[][]{
+					{0f,0.19f,-0.09f}, //First Person
+					{0f,0.06f,-0.20f}, //Third Person
+					{-0.05f,0.08f,0f}, //GUI
+					{0f,0.05f,-0.09f}, //Ground
+					{0.11f,0.01f,-0.05f} //frame
+				}).setMuzzleFXPos3P(0.07f, -0.61f));	
 		
 		ItemRenderHack.registerItemRenderer(TGuns.aug,new RenderGunBase(new ModelAUG(),2).setBaseTranslation(RenderItemBase.SCALE*0.5f, -0.1f, 0.1f)
 				.setGUIScale(0.35f).setMuzzleFx(ScreenEffect.muzzleFlash_rifle, 0, 0.19f, -1.45f, 0.75f,0).setRecoilAnim(GunAnimation.genericRecoil, 0.1f, 4.0f).setTransformTranslations(new float[][]{
