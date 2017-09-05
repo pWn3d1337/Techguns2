@@ -1,5 +1,6 @@
 package techguns.damagesystem;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -10,18 +11,26 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockColored;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.EnchantmentProtection;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.RayTraceResult.Type;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -41,6 +50,7 @@ public class TGExplosion {
     double y;
     double z;
     Entity exploder;
+    Entity projectile;
     /** A list of ChunkPositions of blocks affected by this explosion */
     List<BlockPos> affectedBlockPositions;
     
@@ -55,6 +65,9 @@ public class TGExplosion {
     double secondaryRadius;
     double secondaryDamage;
     double blockDamageFactor;
+    float blockDropChance = 0.5f;
+    
+    Explosion explosionDummy;
     
      
 //    @SideOnly(Side.CLIENT)
@@ -70,14 +83,15 @@ public class TGExplosion {
 //        this.affectedBlockPositions.addAll(affectedPositions);
 //    }
 
-    public TGExplosion(World world, Entity exploder, double x, double y, double z, double primaryDamage, double secondaryDamage, double primaryRadius, double secondaryRadius, double blockDamageFactor)
+    public TGExplosion(World world, Entity exploder, Entity projectile, double x, double y, double z, double primaryDamage, double secondaryDamage, double primaryRadius, double secondaryRadius, double blockDamageFactor)
     {
         this.random = new Random();
         this.affectedBlockPositions = Lists.<BlockPos>newArrayList();
         //this.playerKnockbackMap = Maps.<EntityPlayer, Vec3d>newHashMap();
         this.world = world;
         this.exploder = exploder;
-   
+        this.projectile = projectile;
+        
         this.x = x;
         this.y = y;
         this.z = z;
@@ -91,24 +105,26 @@ public class TGExplosion {
         this.damagesTerrain = (blockDamageFactor > 0.01);
         
         this.position = new Vec3d(this.x, this.y, this.z);
+        
+        this.explosionDummy = new Explosion(world, exploder, x, y, z, (float)Math.max(primaryRadius, secondaryRadius), false, this.damagesTerrain);
     }
 
     /**
      * Does the first part of the explosion (destroy blocks)
      */
-    public void doExplosion()
+    public void doExplosion(boolean playSound)
     {
+    	//TODO: Move Sound to different
+    	if (playSound) this.world.playSound((EntityPlayer)null, this.x, this.y, this.z, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.BLOCKS, 4.0F, (1.0F + (this.world.rand.nextFloat() - this.world.rand.nextFloat()) * 0.2F) * 0.7F);
+    	
         Set<BlockPos> set = Sets.<BlockPos>newHashSet();
         double totalRadius = Math.max(primaryRadius, secondaryRadius);
         int radius = (int) Math.ceil(totalRadius);
         
-        int s = radius*2;
-        dmgVolume = new float[s][s][s];
-        
         double stepOffset = 0.30000001192092896D;
         int steps = (int)Math.ceil((double)radius/stepOffset);
 
-        System.out.println(String.format("Radius = %d, VolumeSize = %d", radius, s));
+        //System.out.println(String.format("Radius = %d, VolumeSize = %d", radius, s));
         
         for (int j = -radius; j < radius; ++j)
         {
@@ -153,29 +169,21 @@ public class TGExplosion {
                             float resistance = 0.0f;
                             if (iblockstate.getMaterial() != Material.AIR)
                             {
-                            	resistance = iblockstate.getBlock().getExplosionResistance(world, blockpos, exploder, null);
+                            	resistance = iblockstate.getBlock().getExplosionResistance(world, blockpos, exploder, explosionDummy);
 //                                float f2 = this.exploder != null ? this.exploder.getExplosionResistance(this, this.world, blockpos, iblockstate) : iblockstate.getBlock().getExplosionResistance(world, blockpos, (Entity)null, this);
 //                                f -= (f2 + 0.3F) * 0.3F;
                             	
-                            	if (explosionPower-explosionDamping > 0.0f && resistance < explosionPower*blockDamageFactor && (this.exploder == null || this.exploder.canExplosionDestroyBlock(null, this.world, blockpos, iblockstate, (float)explosionPower)))
+                            	if (explosionPower-explosionDamping > 0.0f && resistance < (explosionPower-explosionDamping)*blockDamageFactor && (this.exploder == null || this.exploder.canExplosionDestroyBlock(explosionDummy, this.world, blockpos, iblockstate, (float)explosionPower)))
                                 {
                                     set.add(blockpos);
                                     if (prevPos == null || !(prevPos.getX() == blockpos.getX() && prevPos.getY() == blockpos.getY() && prevPos.getZ() == blockpos.getZ())) {
                                     	explosionDamping += resistance;
-                                    	int ix = (int) (Math.floor(px)+radius);
-                                    	int iy = (int) (Math.floor(py)+radius);
-                                    	int iz = (int) (Math.floor(pz)+radius);
-                                    	//System.out.println(String.format("[%d][%d[%d]", ix, iy, iz));
-                                    	if (ix >= 0 && iy >= 0 && iz >= 0)
-                                    		dmgVolume[ix][iy][iz] = (float) explosionDamping;
-                                    }
+                                    }   
                                 }else {
                                 	explosionPower = 0.0;
                                 }
                             }
-
                             
-
                             px += dx * stepOffset;
                             py += dy * stepOffset;
                             pz += dz * stepOffset;
@@ -186,6 +194,10 @@ public class TGExplosion {
                 }
             }
         }
+        
+        //<debug>
+        //System.out.println(String.format("min = (%d, %d, %d);  max = (%d, %d, %d)",min[0], min[1], min[2], max[0], max[1], max[2]));        
+        //</debug>
 
         this.affectedBlockPositions.addAll(set);
         float f3 = (float) (totalRadius);
@@ -195,32 +207,37 @@ public class TGExplosion {
         int i1 = MathHelper.floor(this.y + (double)f3 + 1.0D);
         int j2 = MathHelper.floor(this.z - (double)f3 - 1.0D);
         int j1 = MathHelper.floor(this.z + (double)f3 + 1.0D);
-        List<Entity> list = this.world.getEntitiesWithinAABBExcludingEntity(this.exploder, new AxisAlignedBB((double)k1, (double)i2, (double)j2, (double)l1, (double)i1, (double)j1));
-        net.minecraftforge.event.ForgeEventFactory.onExplosionDetonate(this.world, new Explosion(world, exploder, x, y, z, (float)Math.max(primaryRadius, secondaryRadius),false, (blockDamageFactor > 0.01)), list, f3);
+        List<Entity> list = this.world.getEntitiesWithinAABBExcludingEntity(this.projectile, new AxisAlignedBB((double)k1, (double)i2, (double)j2, (double)l1, (double)i1, (double)j1));
+        net.minecraftforge.event.ForgeEventFactory.onExplosionDetonate(this.world, explosionDummy, list, f3);
         Vec3d vec3d = new Vec3d(this.x, this.y, this.z);
+        
+        breakBlocks();
 
         for (int k2 = 0; k2 < list.size(); ++k2)
         {
             Entity entity = list.get(k2);
 
-            int ix = (int) Math.floor(entity.getPosition().getX() - this.x) + radius;
-            int iy = (int) Math.floor(entity.getPosition().getY()+entity.getEyeHeight() - this.y) + radius;
-            int iz = (int) Math.floor(entity.getPosition().getZ() - this.z) + radius;
+            double damage;     
             
-            //System.out.println(String.format("[%d][%d[%d]", ix, iy, iz));
-            
-            float dmgReduction = 0.0f; 
-            if (ix >= 0 && iy >= 0 && iz >= 0 && ix < s && iy < s && iz < s) dmgReduction = dmgVolume[ix][iy][iz]; //TODO
-            
-            double damage;            
+            //Check distance
             double distance = this.position.distanceTo(new Vec3d(entity.posX, entity.posY+entity.getEyeHeight(), entity.posZ));
             if (distance <= primaryRadius) damage = primaryDamage;
             else if (distance <= secondaryRadius) damage = secondaryDamage + ((distance-primaryRadius)/(secondaryRadius-primaryRadius)) * (primaryDamage-secondaryDamage);
             else damage = 0.0;
             
-            if (damage > 0.001) {
-            	TGDamageSource tgs = TGDamageSource.causeExplosionDamage(null,exploder, DeathType.GORE);
-            	entity.attackEntityFrom(tgs,  (float)damage * dmgReduction);        	         	
+            //trace blocks
+            if (damage > 0.0) {
+            	Vec3d start = this.position;
+            	Vec3d end = new Vec3d(entity.posX, entity.posY+entity.getEyeHeight()*0.5, entity.posZ);
+            
+            	RayTraceResult rtr = world.rayTraceBlocks(start, end);
+            	if (rtr != null && rtr.typeOfHit == Type.BLOCK) damage = 0.0;
+            }
+
+            
+            if (damage > 0.0) {
+            	TGDamageSource tgs = TGDamageSource.causeExplosionDamage(projectile,exploder, DeathType.GORE);
+            	entity.attackEntityFrom(tgs,  (float)Math.max(0, damage));        	         	
             }
             
 //            if (!entity.isImmuneToExplosions())
@@ -266,8 +283,6 @@ public class TGExplosion {
 //                }
 //            }
         }
-        
-        breakBlocks();
     }
     
     private void breakBlocks() {
@@ -281,9 +296,9 @@ public class TGExplosion {
 
                 if (iblockstate.getMaterial() != Material.AIR)
                 {
-                    if (block.canDropFromExplosion(null))
+                    if (block.canDropFromExplosion(explosionDummy))
                     {
-                        //block.dropBlockAsItemWithChance(this.world, blockpos, this.world.getBlockState(blockpos), 1.0f, 0);
+                        block.dropBlockAsItemWithChance(this.world, blockpos, this.world.getBlockState(blockpos), blockDropChance, 0);
                     }
 
                     block.onBlockExploded(this.world, blockpos, null);

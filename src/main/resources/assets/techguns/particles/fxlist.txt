@@ -255,6 +255,41 @@ Volume2 = 0.1
 IsHollow = true
 }
 
+LargeExplosion2 {
+Texture = techguns:textures/fx/explosion4x4_02.png
+RenderType = ADDITIVE
+Rows = 4
+Columns = 4
+Frames = 16
+angle = 0 360
+angleRate = -10 10
+angleRateDamping = 0.85 0.88
+Lifetime = 20 30
+SystemLifetime = 1 1
+Size = 2.5 4.0
+SizeRate = 1.60 2.4
+SizeRateDamping = 0.88 0.94
+Alpha = 0.0 0
+Alpha = 1.0 0.25
+Alpha = 0 1.0
+//Alpha = 1 1 0
+Color = 255 255 255 0
+Color = 255 255 255 1
+ParticleCount = 7 8
+InitialDelay = 0 0
+SpawnDelay = 1 1
+VelocityType = OUTWARD
+Velocity1 = 0.5 2
+Velocity2 = 0 1
+VelocityDamping = 0.85 0.88
+Gravity = 0.0
+VolumeType = CYLINDER
+Volume1 = 1.5
+Volume2 = 1.0
+}
+
+
+
 FXLIST RocketLauncherExhaust {
 RocketLauncherTrail
 RocketLauncherTrailFlare
@@ -310,6 +345,71 @@ Gravity = -0.02
 VolumeType = POINT
 SystemVelocityFactor = 0 0
 }
+
+FXLIST GuidedMissileExhaust {
+RocketLauncherTrailFlare
+GuidedMissileTrailStreak
+//GuidedMissileTrailFlame
+}
+
+GuidedMissileTrailStreak {
+Texture = techguns:textures/fx/missiletrail01.png
+RenderType = ADDITIVE
+Streak = true
+Lifetime = 75 75
+SpawnDelay = 0 0
+SystemLifetime = 0 0
+Size = 2.5 2.8
+SizeRate = -0.25 -0.25
+SizeRateDamping = 0.8 0.8
+Alpha = 0 0
+Alpha = 1 0.05
+Alpha = 0 1
+Color = 0 0 0 0
+Color = 255 255 155 0.05
+Color = 145 135 125 0.15
+Color = 0 0 0 1
+ParticleCount = 1 1
+Gravity = 0.0
+VolumeType = POINT
+VelocityType = SPHERICAL
+Velocity1 = 0 0.2
+VelocityDamping = 0.94 0.97
+InitialDelay = 0 0
+offset = 0 0 0
+}
+
+GuidedMissileTrailFlame {
+Texture = techguns:textures/fx/fireblast.png
+RenderType = ALPHA
+Rows = 5
+Columns = 5
+Frames = 20
+angle = 0 360
+angleRate = -10 10
+angleRateDamping = 0.87 0.89
+Lifetime = 15 20
+SystemLifetime = 0 0
+Size = 0.5 0.8
+SizeRate = 0.5 0.8
+SizeRateDamping = 0.82 0.84
+Alpha = 0.0 0
+Alpha = 1.0 0.15
+Alpha = 0 1.0
+//Alpha = 1 1 0
+Color = 255 255 255 0
+Color = 255 255 255 1
+ParticleCount = 1 1
+InitialDelay = 0 0
+SpawnDelay = 0 0
+VelocityType = SPHERICAL
+Velocity1 = 0 1
+VelocityDamping = 0.84 0.86
+Gravity = -0.02
+VolumeType = POINT
+SystemVelocityFactor = 0 0
+}
+
 
 biodeath {
 Texture = techguns:textures/fx/splat.png
@@ -514,6 +614,14 @@ LargeExplosionBlastwaveGroundAligned
 LargeExplosionSmoke
 LargeExplosion
 LargeExplosionRing
+}
+
+FXLIST GuidedMissileExplosion {
+LargeExplosionBlastwave
+//LargeExplosionBlastwaveGroundAligned
+LargeExplosionSmoke
+LargeExplosion2
+//LargeExplosionRing
 }
 
 FXLIST LaserGunImpact {

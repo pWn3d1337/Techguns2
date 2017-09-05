@@ -8,12 +8,17 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import techguns.TGPackets;
+import techguns.Techguns;
 import techguns.api.damagesystem.DamageType;
 import techguns.capabilities.TGExtendedPlayer;
+import techguns.client.ClientProxy;
+import techguns.damagesystem.TGExplosion;
 import techguns.items.guns.GenericGun;
 import techguns.items.guns.GuidedMissileLauncher;
 import techguns.items.guns.IChargedProjectileFactory;
 import techguns.items.guns.IProjectileFactory;
+import techguns.packets.PacketSpawnParticle;
 import techguns.util.MathUtil;
 
 public class GuidedMissileProjectile extends RocketProjectile{
@@ -44,7 +49,25 @@ public class GuidedMissileProjectile extends RocketProjectile{
 //		epc.lockOnEntity = null;
 //		epc.lockOnTicks = 0;
 	}
+	
+	@Override
+	protected void createTrailFX() {
+		ClientProxy.get().createFXOnEntity("GuidedMissileExhaust", this);
+	}
 
+	
+	@Override
+	protected void explodeRocket() {
+		if (!this.world.isRemote){
+			TGPackets.network.sendToAllAround(new PacketSpawnParticle("GuidedMissileExplosion", this.posX,this.posY,this.posZ), TGPackets.targetPointAroundEnt(this, 50.0f));
+			TGExplosion explosion = new TGExplosion(world, this.shooter, this, posX, posY, posZ, this.damage, this.damage*0.1, 1.0, 2.0, 0.25);
+			
+			explosion.doExplosion(true);
+		}else {
+			Techguns.proxy.createLightPulse(this.posX, this.posY, this.posZ, 5, 15, 10.0f, 1.0f, 1f, 0.9f, 0.5f);
+		}
+		this.setDead();
+	}
 	
 	@Override
 	public void readSpawnData(ByteBuf additionalData) {
