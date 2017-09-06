@@ -17,6 +17,7 @@ import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.entity.RenderBiped;
 import net.minecraft.client.renderer.entity.RenderLivingBase;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RenderPlayer;
@@ -70,6 +71,7 @@ import techguns.client.models.machines.ModelAmmoPress;
 import techguns.client.models.machines.ModelChemLab;
 import techguns.client.models.machines.ModelMetalPress;
 import techguns.client.models.machines.ModelTurretBase;
+import techguns.client.models.npcs.ModelSkeletonSoldier;
 import techguns.client.models.projectiles.ModelRocket;
 import techguns.client.particle.LightPulse;
 import techguns.client.particle.TGFX;
@@ -90,8 +92,21 @@ import techguns.client.render.tileentities.RenderTurret;
 import techguns.deatheffects.EntityDeathUtils.DeathType;
 import techguns.debug.Keybinds;
 import techguns.entities.npcs.NPCTurret;
+import techguns.entities.npcs.PsychoSteve;
+import techguns.entities.npcs.StormTrooper;
 import techguns.entities.npcs.ZombieFarmer;
 import techguns.entities.npcs.ZombieSoldier;
+import techguns.entities.npcs.Bandit;
+import techguns.entities.npcs.DictatorDave;
+import techguns.entities.npcs.ArmySoldier;
+import techguns.entities.npcs.Commando;
+import techguns.entities.npcs.CyberDemon;
+import techguns.entities.npcs.SkeletonSoldier;
+import techguns.entities.npcs.Outcast;
+import techguns.entities.npcs.ZombiePigmanSoldier;
+import techguns.entities.npcs.SuperMutantBasic;
+import techguns.entities.npcs.SuperMutantElite;
+import techguns.entities.npcs.SuperMutantHeavy;
 import techguns.entities.projectiles.*;
 import techguns.events.TGGuiEvents;
 import techguns.entities.projectiles.FlyingGibs;
@@ -708,8 +723,21 @@ public class ClientProxy extends CommonProxy {
 		
 		RenderingRegistry.registerEntityRenderingHandler(ZombieSoldier.class, RenderZombieSoldier::new);
 		RenderingRegistry.registerEntityRenderingHandler(ZombieFarmer.class, RenderZombieSoldier::new);
-		
+		RenderingRegistry.registerEntityRenderingHandler(ArmySoldier.class, RenderArmySoldier::new);
+		RenderingRegistry.registerEntityRenderingHandler(Bandit.class, RenderBandit::new);
+		RenderingRegistry.registerEntityRenderingHandler(Commando.class, RenderCommando::new);
+		RenderingRegistry.registerEntityRenderingHandler(DictatorDave.class, RenderDictatorDave::new);
+		RenderingRegistry.registerEntityRenderingHandler(CyberDemon.class, RenderCyberDemon::new);
+		RenderingRegistry.registerEntityRenderingHandler(SkeletonSoldier.class, RenderSkeletonSoldier::new);
+		RenderingRegistry.registerEntityRenderingHandler(PsychoSteve.class, RenderPsychoSteve::new);
+		RenderingRegistry.registerEntityRenderingHandler(StormTrooper.class, RenderStormTrooper::new);
+		RenderingRegistry.registerEntityRenderingHandler(Outcast.class, RenderOutcast::new);
+		RenderingRegistry.registerEntityRenderingHandler(ZombiePigmanSoldier.class, RenderZombiePigmanSoldier::new);
+		RenderingRegistry.registerEntityRenderingHandler(SuperMutantBasic.class, RenderSuperMutant::new);
+		RenderingRegistry.registerEntityRenderingHandler(SuperMutantElite.class, RenderSuperMutant::new);
+		RenderingRegistry.registerEntityRenderingHandler(SuperMutantHeavy.class, RenderSuperMutant::new);
 	}
+	
 	
 	public static ClientProxy get(){
 		return (ClientProxy) Techguns.proxy;

@@ -159,6 +159,18 @@ public class TGSounds {
 	public static SoundEvent REACTION_CHAMBER_BEEP = createSoundEvent("machines.rc_beep");
 	public static SoundEvent REACTION_CHAMBER_WARNING = createSoundEvent("machines.rc_warning");
 	
+	public static SoundEvent CYBERDEMON_IDLE = createSoundEvent("npcs.cyberdemon_idle_a");
+	public static SoundEvent CYBERDEMON_HURT = createSoundEvent("npcs.cyberdemon_hurt_a");
+	public static SoundEvent CYBERDEMON_DEATH = createSoundEvent("npcs.cyberdemon_death_a");
+	public static SoundEvent CYBERDEMON_STEP = createSoundEvent("npcs.cyberdemon_step_a");
+	public static SoundEvent CYBERDEMON_AGGRO = createSoundEvent("npcs.cyberdemon_aggro_a");
+	
+	public static SoundEvent ALIENBUG_IDLE = createSoundEvent("npcs.alienbug_idle_a");
+	public static SoundEvent ALIENBUG_HURT = createSoundEvent("npcs.alienbug_hurt_a");
+	public static SoundEvent ALIENBUG_DEATH = createSoundEvent("npcs.alienbug_death_a");
+	public static SoundEvent ALIENBUG_STEP = createSoundEvent("npcs.alienbug_step_a");
+	public static SoundEvent ALIENBUG_AGGRO = createSoundEvent("npcs.alienbug_aggro_a");
+	
 	public static void registerSounds(RegistryEvent.Register<SoundEvent> event){
 		IForgeRegistry<SoundEvent> reg = event.getRegistry();
 		
