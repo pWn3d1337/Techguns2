@@ -1,13 +1,13 @@
 {
     "pools": [
         {
-			"name": "heavycloth",
+			"name": "coal",
             "rolls": 1,
             "entries": [
                 {
                     "type": "item",
                     "weight": 1,
-                    "name": "techguns:itemshared:60",
+                    "name": "minecraft:coal",
                     "functions": [
                         {
                             "function": "set_count",
@@ -15,10 +15,6 @@
                                 "min": 1,
                                 "max": 2
                             }
-                        },
-                        {
-                            "function": "set_data",
-                            "data": 60
                         },
                         {
                             "function": "set_nbt",
@@ -74,26 +70,26 @@
             ]
         },
         {
-			"name": "rottenflesh",
+			"name": "bone",
             "rolls": 1,
             "entries": [
                 {
                     "type": "item",
                     "weight": 1,
-                    "name": "minecraft:rotten_flesh",
+                    "name": "minecraft:bone",
                     "functions": [
                         {
                             "function": "set_count",
                             "count": {
                                 "min": 1,
-                                "max": 1
+                                "max": 2
                             }
                         },
                         {
                             "function": "looting_enchant",
                             "count": {
                                 "min": 1,
-                                "max": 1
+                                "max": 2
                             }
                         },
                         {
@@ -112,7 +108,7 @@
             ]
         },
         {
-			"name": "pistolrounds",
+			"name": "heavycloth",
             "rolls": 1,
             "entries": [
                 {
@@ -124,7 +120,7 @@
                             "function": "set_count",
                             "count": {
                                 "min": 1,
-                                "max": 4
+                                "max": 2
                             }
                         },
                         {
@@ -136,7 +132,7 @@
                         },
                         {
                             "function": "set_data",
-                            "data": 1
+                            "data": 60
                         },
                         {
                             "function": "set_nbt",
@@ -147,49 +143,7 @@
                         {
                             "condition": "random_chance_with_looting",
                             "chance": 0.2,
-                            "looting_multiplier": 0.1
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-			"name": "shotgunrounds",
-            "rolls": 1,
-            "entries": [
-                {
-                    "type": "item",
-                    "weight": 1,
-                    "name": "techguns:itemshared",
-                    "functions": [
-                        {
-                            "function": "set_count",
-                            "count": {
-                                "min": 1,
-                                "max": 8
-                            }
-                        },
-                        {
-                            "function": "looting_enchant",
-                            "count": {
-                                "min": 1,
-                                "max": 4
-                            }
-                        },
-                        {
-                            "function": "set_data",
-                            "data": 2
-                        },
-                        {
-                            "function": "set_nbt",
-                            "tag": "{}"
-                        }
-                    ],
-                    "conditions": [
-                        {
-                            "condition": "random_chance_with_looting",
-                            "chance": 0.2,
-                            "looting_multiplier": 0.1
+                            "looting_multiplier": 0.05
                         }
                     ]
                 }
