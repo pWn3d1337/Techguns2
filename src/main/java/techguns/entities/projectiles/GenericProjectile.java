@@ -29,6 +29,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntitySelectors;
 import net.minecraft.util.EnumHandSide;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -39,6 +40,7 @@ import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import techguns.TGSounds;
 import techguns.api.damagesystem.DamageType;
 import techguns.api.npc.factions.ITGNpcTeam;
 import techguns.damagesystem.DamageSystem;
@@ -470,9 +472,41 @@ public class GenericProjectile extends Entity implements IProjectile, IEntityAdd
 	 * @param raytraceResultIn
 	 */
 	protected void hitBlock(RayTraceResult raytraceResultIn) {
+		BlockPos targetPos = raytraceResultIn.getBlockPos();
+		IBlockState target = this.world.getBlockState(targetPos);
+		Material mat = target.getMaterial();
+		
+		this.doImpactEffects(mat, raytraceResultIn);
 	}
 
-    /**
+    protected void doImpactEffects(Material mat, RayTraceResult rayTraceResult) {
+    	double x = rayTraceResult.hitVec.x;
+    	double y = rayTraceResult.hitVec.y;
+    	double z = rayTraceResult.hitVec.z;
+    	boolean distdelay=true;
+    	if(mat==Material.ROCK) {
+			this.world.playSound(x, y, z, TGSounds.BULLET_IMPACT_BRICKS, SoundCategory.AMBIENT, 1.0f, 1.0f, distdelay);
+			this.world.spawnParticle(EnumParticleTypes.LAVA, x, y, z, 0.0D, 0.0D, 0.0D);
+			
+		} else if(mat==Material.WOOD) {
+			this.world.playSound(x, y, z, TGSounds.BULLET_IMPACT_WOOD, SoundCategory.AMBIENT, 1.0f, 1.0f, distdelay);
+			this.world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, x, y, z, 0.0D, 0.0D, 0.0D);
+			
+		} else if(mat==Material.GLASS) {
+			this.world.playSound(x, y, z, TGSounds.BULLET_IMPACT_GLASS, SoundCategory.AMBIENT, 1.0f, 1.0f, distdelay);
+			this.world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, x, y, z, 0.0D, 0.0D, 0.0D);
+			
+		} else if(mat==Material.IRON||mat==Material.ANVIL) {
+			this.world.playSound(x, y, z, TGSounds.BULLET_IMPACT_METAL, SoundCategory.AMBIENT, 1.0f, 1.0f, distdelay);
+			this.world.spawnParticle(EnumParticleTypes.LAVA, x, y, z, 0.0D, 0.0D, 0.0D);
+			
+		} else {
+			this.world.playSound(x, y, z, TGSounds.BULLET_IMPACT_DIRT, SoundCategory.AMBIENT, 1.0f, 1.0f, distdelay);
+			this.world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, x, y, z, 0.0D, 0.0D, 0.0D);
+		}		
+	}
+
+	/**
      * Updates the entity motion clientside, called by packets from the server
      */
     @SideOnly(Side.CLIENT)

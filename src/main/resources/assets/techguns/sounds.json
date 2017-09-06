@@ -1151,6 +1151,73 @@
         "techguns:guns/guidedmissilelauncher_shot_a",
         "techguns:guns/guidedmissilelauncher_shot_a"
     ]
+},
+
+"guns.impact.bricks": {
+    "category": "ambient",
+    "sounds": [
+        "techguns:effects/impact_bricks-01",
+        "techguns:effects/impact_bricks-02",
+        "techguns:effects/impact_bricks-03",
+        "techguns:effects/impact_bricks-04",
+        "techguns:effects/impact_bricks-05"
+    ]
+},
+
+"guns.impact.dirt": {
+    "category": "ambient",
+    "sounds": [
+        "techguns:effects/impact_dirt-01",
+        "techguns:effects/impact_dirt-02",
+        "techguns:effects/impact_dirt-03",
+        "techguns:effects/impact_dirt-04",
+        "techguns:effects/impact_dirt-05"
+    ]
+},
+
+"guns.impact.glass": {
+    "category": "ambient",
+    "sounds": [
+        "techguns:effects/impact_glass-01",
+        "techguns:effects/impact_glass-02",
+        "techguns:effects/impact_glass-03",
+        "techguns:effects/impact_glass-04",
+        "techguns:effects/impact_glass-05"
+    ]
+},
+
+"guns.impact.metal": {
+    "category": "ambient",
+    "sounds": [
+        "techguns:effects/impact_metal-01",
+        "techguns:effects/impact_metal-02",
+        "techguns:effects/impact_metal-03",
+        "techguns:effects/impact_metal-04",
+        "techguns:effects/impact_metal-05"
+    ]
+},
+
+"guns.impact.wood": {
+    "category": "ambient",
+    "sounds": [
+        "techguns:effects/impact_wood-01",
+        "techguns:effects/impact_wood-02",
+        "techguns:effects/impact_wood-03",
+        "techguns:effects/impact_wood-04",
+        "techguns:effects/impact_wood-05"
+    ]
+},
+
+"guns.impact.water": {
+    "category": "ambient",
+    "sounds": [
+        "techguns:effects/impact_water-01",
+        "techguns:effects/impact_water-02",
+        "techguns:effects/impact_water-03",
+        "techguns:effects/impact_water-04",
+        "techguns:effects/impact_water-05"
+    ]
 }
+
 
 }

@@ -63,9 +63,7 @@ public class FlamethrowerProjectile extends GenericProjectile implements ILightP
 
 		if (this.blockdamage) {
 			if (Math.random() <= this.chanceToIgnite) {
-	    			
-			//TODO: burn blocks
-			/*	BlockPos hit = mop.getBlockPos();
+				BlockPos hit = mop.getBlockPos();
 	
     			switch (mop.sideHit) {
     				case DOWN:
@@ -77,22 +75,27 @@ public class FlamethrowerProjectile extends GenericProjectile implements ILightP
     						this.world.setBlockState(hit.up(), Blocks.FIRE.getDefaultState());
     					}
     					break;
-    				case 2:	
+    				/*case NORTH:	
     					if (this.worldObj.isAirBlock(x, y, z-1)) this.worldObj.setBlock(x, y, z-1, Blocks.FIRE);
     					break;
-    				case 3:
+    				case SOUTH:
 		    			if (this.worldObj.isAirBlock(x, y, z+1)) this.worldObj.setBlock(x, y, z+1, Blocks.FIRE);
 		    			break;
-    				case 4:
+    				case WEST:
     					if (this.worldObj.isAirBlock(x-1, y, z)) this.worldObj.setBlock(x-1, y, z, Blocks.FIRE);
     					break;
-    				case 5:
+    				case EAST:
 		    			if (this.worldObj.isAirBlock(x+1, y, z)) this.worldObj.setBlock(x+1, y, z, Blocks.FIRE);
-		    			break;
+		    			break;*/
+    				default:
+    					BlockPos p = hit.offset(mop.sideHit);
+    					if(this.world.isAirBlock(p)) {
+    						this.world.setBlockState(p, Blocks.FIRE.getDefaultState());
+    					}
     			}
-	    			
+    			//TODO: burn blocks ?
 	    		//Burn special blocks
-	    		Block b = this.worldObj.getBlock(x, y, z);
+	    	/*	Block b = this.worldObj.getBlock(x, y, z);
 	    		if (b ==TGBlocks.camoNetRoof || b == TGBlocks.camoNetPane) {
 	    			// || b == Blocks.wheat || b == Blocks.pumpkin_stem || b == Blocks.melon_stem || b == Blocks.carrots || b == Blocks.potatoes) {
 	    			this.worldObj.spawnParticle("lava", this.posX, this.posY, this.posZ, 0.0D, 0.0D, 0.0D);
@@ -108,7 +111,7 @@ public class FlamethrowerProjectile extends GenericProjectile implements ILightP
     		
 			}
 
-			this.world.spawnParticle(EnumParticleTypes.LAVA, this.posX, this.posY, this.posZ, 0.0D, 0.0D, 0.0D);
+			//this.world.spawnParticle(EnumParticleTypes.LAVA, this.posX, this.posY, this.posZ, 0.0D, 0.0D, 0.0D);
 		}
 		
 		TGPackets.network.sendToAllAround(new PacketSpawnParticle("FlamethrowerImpact", this.posX,this.posY,this.posZ), TGPackets.targetPointAroundEnt(this, 50.0f));

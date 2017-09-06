@@ -159,6 +159,13 @@ public class TGSounds {
 	public static SoundEvent REACTION_CHAMBER_BEEP = createSoundEvent("machines.rc_beep");
 	public static SoundEvent REACTION_CHAMBER_WARNING = createSoundEvent("machines.rc_warning");
 	
+	public static SoundEvent BULLET_IMPACT_BRICKS = createSoundEvent("guns.impact.bricks");
+	public static SoundEvent BULLET_IMPACT_WOOD = createSoundEvent("guns.impact.wood");
+	public static SoundEvent BULLET_IMPACT_GLASS = createSoundEvent("guns.impact.glass");
+	public static SoundEvent BULLET_IMPACT_METAL = createSoundEvent("guns.impact.metal");
+	public static SoundEvent BULLET_IMPACT_DIRT = createSoundEvent("guns.impact.dirt");
+	public static SoundEvent BULLET_IMPACT_WATER = createSoundEvent("guns.impact.water");
+	
 	public static void registerSounds(RegistryEvent.Register<SoundEvent> event){
 		IForgeRegistry<SoundEvent> reg = event.getRegistry();
 		
