@@ -538,7 +538,7 @@ public class ClientProxy extends CommonProxy {
 					{0f,0f,0.03f}, //GUI
 					{0f,0f,0f}, //Ground
 					{0f,0f,-0.05f} //frame
-				}).setMuzzleFXPos3P(0.09f, -0.57f).setScope(ScreenEffect.sniperScope));
+				}).setMuzzleFXPos3P(0.09f, -0.57f).setScope(ScreenEffect.sniperScope).setScopeRecoilAnim(GunAnimation.scopeRecoil, 0.05f, 1.0f));
 		
 		ItemRenderHack.registerItemRenderer(TGuns.powerhammer,new RenderGunBase90(new ModelPowerHammer(),2).setBaseTranslation(0.15f, -0.2f, RenderItemBase.SCALE-0.09f)
 				.setBaseScale(1.25f).setGUIScale(0.45f).setMuzzleFx(ScreenEffect.muzzleFlashSonic, 0, 0.26f, -0.67f, 0.5f,0).setTransformTranslations(new float[][]{
@@ -612,7 +612,7 @@ public class ClientProxy extends CommonProxy {
 					{0.05f,0f,0f}, //GUI
 					{0f,0f,0f}, //Ground
 					{0.02f,-0.09f,-0.05f} //frame
-				}).setMuzzleFXPos3P(0.14f, -1.04f).setMuzzleFlashJitter(0.02f, 0.02f, 5.0f, 0.1f).setScope(ScreenEffect.sniperScope));
+				}).setMuzzleFXPos3P(0.14f, -1.04f).setMuzzleFlashJitter(0.02f, 0.02f, 5.0f, 0.1f).setScope(ScreenEffect.sniperScope).setScopeRecoilAnim(GunAnimation.scopeRecoil, 0.05f, 2.0f));
 		
 		ItemRenderHack.registerItemRenderer(TGuns.vector,new RenderGunBase(new ModelVector(),1).setBaseTranslation(RenderItemBase.SCALE*0.5f, -0.57f, -0.2f)
 				.setBaseScale(1.1f).setGUIScale(0.45f).setMuzzleFx(ScreenEffect.muzzleFlash_rifle, 0, 0.10f, -0.72f, 0.60f,0).setRecoilAnim(GunAnimation.genericRecoil, 0.05f, 2.0f).setTransformTranslations(new float[][]{
