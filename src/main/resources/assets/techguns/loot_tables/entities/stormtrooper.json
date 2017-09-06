@@ -1,118 +1,7 @@
 {
     "pools": [
         {
-			"name": "heavycloth",
-            "rolls": 1,
-            "entries": [
-                {
-                    "type": "item",
-                    "weight": 1,
-                    "name": "techguns:itemshared:60",
-                    "functions": [
-                        {
-                            "function": "set_count",
-                            "count": {
-                                "min": 1,
-                                "max": 2
-                            }
-                        },
-                        {
-                            "function": "set_data",
-                            "data": 60
-                        },
-                        {
-                            "function": "set_nbt",
-                            "tag": "{}"
-                        }
-                    ],
-                    "conditions": [
-                        {
-                            "condition": "random_chance_with_looting",
-                            "chance": 0.2,
-                            "looting_multiplier": 0.05
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-			"name": "gunpowder",
-            "rolls": 1,
-            "entries": [
-                {
-                    "type": "item",
-                    "weight": 1,
-                    "name": "minecraft:gunpowder",
-                    "functions": [
-                        {
-                            "function": "set_count",
-                            "count": {
-                                "min": 1,
-                                "max": 2
-                            }
-                        },
-                        {
-                            "function": "looting_enchant",
-                            "count": {
-                                "min": 1,
-                                "max": 2
-                            }
-                        },
-                        {
-                            "function": "set_nbt",
-                            "tag": "{}"
-                        }
-                    ],
-                    "conditions": [
-                        {
-                            "condition": "random_chance_with_looting",
-                            "chance": 0.2,
-                            "looting_multiplier": 0.05
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-			"name": "rottenflesh",
-            "rolls": 1,
-            "entries": [
-                {
-                    "type": "item",
-                    "weight": 1,
-                    "name": "minecraft:rotten_flesh",
-                    "functions": [
-                        {
-                            "function": "set_count",
-                            "count": {
-                                "min": 1,
-                                "max": 1
-                            }
-                        },
-                        {
-                            "function": "looting_enchant",
-                            "count": {
-                                "min": 1,
-                                "max": 1
-                            }
-                        },
-                        {
-                            "function": "set_nbt",
-                            "tag": "{}"
-                        }
-                    ],
-                    "conditions": [
-                        {
-                            "condition": "random_chance_with_looting",
-                            "chance": 0.2,
-                            "looting_multiplier": 0.05
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-			"name": "pistolrounds",
+			"name": "plasticsheet",
             "rolls": 1,
             "entries": [
                 {
@@ -124,19 +13,12 @@
                             "function": "set_count",
                             "count": {
                                 "min": 1,
-                                "max": 4
-                            }
-                        },
-                        {
-                            "function": "looting_enchant",
-                            "count": {
-                                "min": 1,
                                 "max": 2
                             }
                         },
                         {
                             "function": "set_data",
-                            "data": 1
+                            "data": 55
                         },
                         {
                             "function": "set_nbt",
@@ -147,14 +29,14 @@
                         {
                             "condition": "random_chance_with_looting",
                             "chance": 0.2,
-                            "looting_multiplier": 0.1
+                            "looting_multiplier": 0.05
                         }
                     ]
                 }
             ]
         },
         {
-			"name": "shotgunrounds",
+			"name": "ingotobsidiansteel",
             "rolls": 1,
             "entries": [
                 {
@@ -166,19 +48,19 @@
                             "function": "set_count",
                             "count": {
                                 "min": 1,
-                                "max": 8
+                                "max": 2
                             }
                         },
                         {
                             "function": "looting_enchant",
                             "count": {
                                 "min": 1,
-                                "max": 4
+                                "max": 2
                             }
                         },
                         {
                             "function": "set_data",
-                            "data": 2
+                            "data": 84
                         },
                         {
                             "function": "set_nbt",
@@ -189,7 +71,129 @@
                         {
                             "condition": "random_chance_with_looting",
                             "chance": 0.2,
-                            "looting_multiplier": 0.1
+                            "looting_multiplier": 0.05
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+			"name": "redstone",
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "item",
+                    "weight": 1,
+                    "name": "minecraft:redstone",
+                    "functions": [
+                        {
+                            "function": "set_count",
+                            "count": {
+                                "min": 1,
+                                "max": 5
+                            }
+                        },
+                        {
+                            "function": "looting_enchant",
+                            "count": {
+                                "min": 1,
+                                "max": 2
+                            }
+                        },
+                        {
+                            "function": "set_nbt",
+                            "tag": "{}"
+                        }
+                    ],
+                    "conditions": [
+                        {
+                            "condition": "random_chance_with_looting",
+                            "chance": 0.3,
+                            "looting_multiplier": 0.05
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+			"name": "circuitboard",
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "item",
+                    "weight": 1,
+                    "name": "techguns:itemshared",
+                    "functions": [
+                        {
+                            "function": "set_count",
+                            "count": {
+                                "min": 1,
+                                "max": 2
+                            }
+                        },
+                        {
+                            "function": "looting_enchant",
+                            "count": {
+                                "min": 1,
+                                "max": 2
+                            }
+                        },
+                        {
+                            "function": "set_data",
+                            "data": 65
+                        },
+                        {
+                            "function": "set_nbt",
+                            "tag": "{}"
+                        }
+                    ],
+                    "conditions": [
+                        {
+                            "condition": "random_chance_with_looting",
+                            "chance": 0.1,
+                            "looting_multiplier": 0.05
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+			"name": "energycell",
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "item",
+                    "weight": 1,
+                    "name": "techguns:itemshared",
+                    "functions": [
+                        {
+                            "function": "set_count",
+                            "count": {
+                                "min": 1,
+                                "max": 2
+                            }
+                        },
+                        {
+                            "function": "looting_enchant",
+                            "count": {
+                                "min": 1,
+                                "max": 2
+                            }
+                        },
+                        {
+                            "function": "set_data",
+                            "data": 29
+                        },
+                        {
+                            "function": "set_nbt",
+                            "tag": "{}"
+                        }
+                    ],
+                    "conditions": [
+                        {
+                            "condition": "random_chance_with_looting",
+                            "chance": 0.1,
+                            "looting_multiplier": 0.05
                         }
                     ]
                 }
