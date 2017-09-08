@@ -34,7 +34,7 @@ public class GenericBlock extends Block {
 	public ItemBlock createItemBlock() {
 		return new GenericItemBlock(this);
 	}
-
+	
 	public void registerBlock(RegistryEvent.Register<Block> event) {
 		event.getRegistry().register(this);
 	}

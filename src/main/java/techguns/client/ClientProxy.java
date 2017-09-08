@@ -735,7 +735,7 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerEntityRenderingHandler(NPCTurret.class, RenderNPCTurret::new);
 		
 		RenderingRegistry.registerEntityRenderingHandler(ZombieSoldier.class, RenderZombieSoldier::new);
-		RenderingRegistry.registerEntityRenderingHandler(ZombieFarmer.class, RenderZombieSoldier::new);
+		RenderingRegistry.registerEntityRenderingHandler(ZombieFarmer.class, RenderZombieFarmer::new);
 		RenderingRegistry.registerEntityRenderingHandler(ArmySoldier.class, RenderArmySoldier::new);
 		RenderingRegistry.registerEntityRenderingHandler(Bandit.class, RenderBandit::new);
 		RenderingRegistry.registerEntityRenderingHandler(Commando.class, RenderCommando::new);

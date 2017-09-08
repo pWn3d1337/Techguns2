@@ -87,7 +87,7 @@ public class RenderArmorItem extends RenderItemBase {
 				//GlStateManager.rotate(-90.0f, 0, 1.0f, 0);
 			}
 
-			this.setBaseScale(transform);
+			this.setBaseScale(elb,transform);
 			this.setBaseRotation(transform);
 			this.applyBaseTranslation();
 

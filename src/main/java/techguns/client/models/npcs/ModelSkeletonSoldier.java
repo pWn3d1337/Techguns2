@@ -2,8 +2,12 @@ package techguns.client.models.npcs;
 
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.client.model.ModelBiped.ArmPose;
+import net.minecraft.entity.Entity;
+import techguns.api.guns.IGenericGun;
+import techguns.entities.npcs.GenericNPC;
 
-public class ModelSkeletonSoldier extends ModelBiped {
+public class ModelSkeletonSoldier extends ModelGenericNPC {
 
 	public ModelSkeletonSoldier() {
 		this(0.0625f);
@@ -11,7 +15,7 @@ public class ModelSkeletonSoldier extends ModelBiped {
 
 	public ModelSkeletonSoldier(float f)
     {
-        super(f, 0.0F, 64, 32);
+        super(f, true);
         this.bipedRightArm = new ModelRenderer(this, 40, 16);
         this.bipedRightArm.addBox(-1.0F, -2.0F, -1.0F, 2, 12, 2, f);
         this.bipedRightArm.setRotationPoint(-5.0F, 2.0F, 0.0F);
@@ -27,6 +31,5 @@ public class ModelSkeletonSoldier extends ModelBiped {
         this.bipedLeftLeg.addBox(-1.0F, 0.0F, -1.0F, 2, 12, 2, f);
         this.bipedLeftLeg.setRotationPoint(2.0F, 12.0F, 0.0F);
     }
-
 	
 }

@@ -11,7 +11,7 @@ import techguns.client.models.npcs.ModelGenericNPC;
 import techguns.entities.npcs.GenericNPC;
 import techguns.entities.npcs.Commando;
 
-public class RenderCommando<T extends GenericNPC> extends RenderGenericNPC<Commando> {
+public class RenderCommando extends RenderGenericNPC<Commando> {
 
 	
 	private static final ResourceLocation TEXTURE = new ResourceLocation(Techguns.MODID,"textures/entity/army_soldier.png");
@@ -30,7 +30,7 @@ public class RenderCommando<T extends GenericNPC> extends RenderGenericNPC<Comma
 	}
 	
 	   @Override
-	protected ResourceLocation getEntityTexture(GenericNPC entity) {
+	protected ResourceLocation getEntityTexture(Commando entity) {
 		return TEXTURE;
 	}
 	

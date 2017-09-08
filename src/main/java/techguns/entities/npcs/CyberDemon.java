@@ -20,6 +20,7 @@ import techguns.TGConfig;
 import techguns.TGArmors;
 import techguns.TGuns;
 import techguns.Techguns;
+import techguns.debug.Keybinds;
 
 public class CyberDemon extends GenericNPC {
 
@@ -71,6 +72,33 @@ public class CyberDemon extends GenericNPC {
 		return techguns.TGSounds.CYBERDEMON_STEP;
 	}
 	
+	@Override
+	public boolean hasWeaponArmPose() {
+		return false;
+	}
+
+	
+	
+	@Override
+	public float getWeaponPosX() {
+		return 0.16f;
+	}
+
+	@Override
+	public float getWeaponPosY() {
+		return 0.72f;
+	}
+
+	@Override
+	public float getWeaponPosZ() {
+		return 0.1f;
+	}
+
+	@Override
+	public float getGunScale() {
+		return 1.5f;
+	}
+
 	@Override
     protected void playStepSound(BlockPos pos, Block blockIn)
     {

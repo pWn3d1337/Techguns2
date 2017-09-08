@@ -8,10 +8,11 @@ import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.util.ResourceLocation;
 import techguns.Techguns;
 import techguns.client.models.npcs.ModelSkeletonSoldier;
+import techguns.client.render.entities.LayerHeldItemTranslateGun;
 import techguns.entities.npcs.GenericNPC;
 import techguns.entities.npcs.SkeletonSoldier;
 
-public class RenderSkeletonSoldier<T extends GenericNPC> extends RenderGenericNPC<SkeletonSoldier> {
+public class RenderSkeletonSoldier extends RenderGenericNPC<SkeletonSoldier> {
 
 	
 	private static final ResourceLocation TEXTURE = new ResourceLocation("textures/entity/skeleton/skeleton.png");
@@ -19,6 +20,10 @@ public class RenderSkeletonSoldier<T extends GenericNPC> extends RenderGenericNP
 	
 	public RenderSkeletonSoldier(RenderManager renderManagerIn) {
 		super(renderManagerIn, new ModelSkeletonSoldier(), 0.5f);
+		
+		this.layerRenderers.remove(this.layerRenderers.size()-1);
+		this.addLayer(new LayerHeldItemTranslateGun(this));
+		
 		LayerBipedArmor layerbipedarmor = new LayerBipedArmor(this)
         {
             protected void initArmor()
@@ -31,7 +36,7 @@ public class RenderSkeletonSoldier<T extends GenericNPC> extends RenderGenericNP
 	}
 	
 	   @Override
-	protected ResourceLocation getEntityTexture(GenericNPC entity) {
+	protected ResourceLocation getEntityTexture(SkeletonSoldier entity) {
 		return TEXTURE;
 	}
 }

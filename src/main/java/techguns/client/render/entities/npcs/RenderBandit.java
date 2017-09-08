@@ -11,8 +11,7 @@ import techguns.client.models.npcs.ModelGenericNPC;
 import techguns.entities.npcs.GenericNPC;
 import techguns.entities.npcs.Bandit;
 
-public class RenderBandit<T extends GenericNPC> extends RenderGenericNPC<Bandit> {
-
+public class RenderBandit extends RenderGenericNPC<Bandit> {
 	
 	private static final ResourceLocation TEXTURE = new ResourceLocation(Techguns.MODID,"textures/entity/bandit.png");
 
@@ -29,9 +28,11 @@ public class RenderBandit<T extends GenericNPC> extends RenderGenericNPC<Bandit>
         this.addLayer(layerbipedarmor);
 	}
 	
-	   @Override
-	protected ResourceLocation getEntityTexture(GenericNPC entity) {
+		
+   @Override
+	protected ResourceLocation getEntityTexture(Bandit entity) {
 		return TEXTURE;
 	}
+
 	
 }

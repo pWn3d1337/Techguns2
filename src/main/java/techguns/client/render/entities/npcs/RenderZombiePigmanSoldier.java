@@ -11,7 +11,7 @@ import techguns.client.models.npcs.ModelGenericNPC;
 import techguns.entities.npcs.GenericNPC;
 import techguns.entities.npcs.ZombiePigmanSoldier;
 
-public class RenderZombiePigmanSoldier<T extends GenericNPC> extends RenderGenericNPC<ZombiePigmanSoldier> {
+public class RenderZombiePigmanSoldier extends RenderGenericNPC<ZombiePigmanSoldier> {
 
 	
 	private static final ResourceLocation TEXTURE = new ResourceLocation("textures/entity/zombie_pigman.png");
@@ -33,7 +33,7 @@ public class RenderZombiePigmanSoldier<T extends GenericNPC> extends RenderGener
 	
 	
 	   @Override
-	protected ResourceLocation getEntityTexture(GenericNPC entity) {
+	protected ResourceLocation getEntityTexture(ZombiePigmanSoldier entity) {
 		return TEXTURE;
 	}
 	

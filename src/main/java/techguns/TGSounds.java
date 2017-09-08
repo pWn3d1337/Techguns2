@@ -165,6 +165,7 @@ public class TGSounds {
 	public static SoundEvent BULLET_IMPACT_METAL = createSoundEvent("guns.impact.metal");
 	public static SoundEvent BULLET_IMPACT_DIRT = createSoundEvent("guns.impact.dirt");
 	public static SoundEvent BULLET_IMPACT_WATER = createSoundEvent("guns.impact.water");
+	
 	public static SoundEvent CYBERDEMON_IDLE = createSoundEvent("npcs.cyberdemon_idle_a");
 	public static SoundEvent CYBERDEMON_HURT = createSoundEvent("npcs.cyberdemon_hurt_a");
 	public static SoundEvent CYBERDEMON_DEATH = createSoundEvent("npcs.cyberdemon_death_a");

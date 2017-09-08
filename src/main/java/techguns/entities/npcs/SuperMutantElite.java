@@ -41,13 +41,18 @@ public class SuperMutantElite extends SuperMutantBasic {
 	}
 	
 	@Override
-	public float getWeaponPosY() {
-		return 2.4f;//+(float)Keybinds.Y;
+	protected float getMutantWidth() {
+		return 1.4f;
 	}
-	
+
 	@Override
 	public float getWeaponPosX() {
-		return -0.25f;//+(float)Keybinds.X;
+		return 0.23f;
+	}
+
+	@Override
+	public float getWeaponPosZ() {
+		return -0.39f;
 	}
 
 	

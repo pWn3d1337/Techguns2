@@ -12,6 +12,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
@@ -28,12 +29,16 @@ public class SuperMutantBasic extends GenericNPC {
 
 	public SuperMutantBasic(World world) {
 		super(world);
-		this.height=1.8F*this.getModelScale();
+		this.setSize(getMutantWidth(), 2F*this.getModelScale());
 	}
 	
 	public int gettype() {
 		return 0;
 	};
+	
+	protected float getMutantWidth() {
+		return 1.0f;
+	}
 	
 	public double getModelHeightOffset(){
 		return 0.55d;
@@ -45,17 +50,17 @@ public class SuperMutantBasic extends GenericNPC {
 
 	@Override
 	public float getWeaponPosY() {
-		return 2.2f; //+(float)Keybinds.Y;
+		return 0f;
 	}
 	
 	@Override
 	public float getWeaponPosX() {
-		return -0.2f; //+(float)Keybinds.X;
+		return 0.13f;
 	}
 
 	@Override
 	public float getWeaponPosZ() {
-		return 0.3f; //(float)Keybinds.Z;
+		return -0.18f;
 	}
 
 	
@@ -116,6 +121,9 @@ public class SuperMutantBasic extends GenericNPC {
 			default:
 				weapon = TGuns.lasergun;
 				break;
+			/*default:
+				weapon = Items.IRON_SHOVEL;
+				break;*/
 		}
 		if (weapon != null) this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(weapon));
 	}

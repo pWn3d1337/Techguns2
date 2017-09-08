@@ -6,6 +6,7 @@ import com.google.common.base.Joiner;
 import com.google.common.collect.Iterables;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.properties.PropertyEnum;
@@ -39,7 +40,7 @@ import techguns.util.BlockUtils;
  */
 public class SimpleMachine<T extends Enum<T> & IStringSerializable & IMachineType> extends BasicMachine<T> {
 	
-	public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
+	public static final PropertyDirection FACING = BlockHorizontal.FACING; //PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
 	
 	public SimpleMachine(String name, Class<T> clazz) {
 		super(name, clazz);

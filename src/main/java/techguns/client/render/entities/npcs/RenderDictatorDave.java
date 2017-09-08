@@ -11,7 +11,7 @@ import techguns.client.models.npcs.ModelGenericNPC;
 import techguns.entities.npcs.GenericNPC;
 import techguns.entities.npcs.DictatorDave;
 
-public class RenderDictatorDave<T extends GenericNPC> extends RenderGenericNPC<DictatorDave> {
+public class RenderDictatorDave extends RenderGenericNPC<DictatorDave> {
 
 	
 	private static final ResourceLocation TEXTURE = new ResourceLocation(Techguns.MODID,"textures/entity/dictator.png");
@@ -30,7 +30,7 @@ public class RenderDictatorDave<T extends GenericNPC> extends RenderGenericNPC<D
 	}
 	
 	   @Override
-	protected ResourceLocation getEntityTexture(GenericNPC entity) {
+	protected ResourceLocation getEntityTexture(DictatorDave entity) {
 		return TEXTURE;
 	}
 	

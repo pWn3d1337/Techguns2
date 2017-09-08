@@ -37,6 +37,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import techguns.api.damagesystem.DamageType;
 import techguns.deatheffects.EntityDeathUtils.DeathType;
+import techguns.entities.projectiles.GenericProjectile;
 
 public class TGExplosion {
 	
@@ -213,75 +214,37 @@ public class TGExplosion {
         
         breakBlocks();
 
+    	TGDamageSource tgs = TGDamageSource.causeExplosionDamage(projectile,exploder, DeathType.GORE);
         for (int k2 = 0; k2 < list.size(); ++k2)
         {
             Entity entity = list.get(k2);
 
-            double damage;     
+            if (!entity.isImmuneToExplosions() && GenericProjectile.BULLET_TARGETS.apply(entity))
+            {
             
-            //Check distance
-            double distance = this.position.distanceTo(new Vec3d(entity.posX, entity.posY+entity.getEyeHeight(), entity.posZ));
-            if (distance <= primaryRadius) damage = primaryDamage;
-            else if (distance <= secondaryRadius) damage = secondaryDamage + ((distance-primaryRadius)/(secondaryRadius-primaryRadius)) * (primaryDamage-secondaryDamage);
-            else damage = 0.0;
-            
-            //trace blocks
-            if (damage > 0.0) {
-            	Vec3d start = this.position;
-            	Vec3d end = new Vec3d(entity.posX, entity.posY+entity.getEyeHeight()*0.5, entity.posZ);
-            
-            	RayTraceResult rtr = world.rayTraceBlocks(start, end);
-            	if (rtr != null && rtr.typeOfHit == Type.BLOCK) damage = 0.0;
-            }
+	            double damage;     
+	            
+	            //Check distance
+	            double distance = this.position.distanceTo(new Vec3d(entity.posX, entity.posY+entity.getEyeHeight(), entity.posZ));
+	            if (distance <= primaryRadius) damage = primaryDamage;
+	            else if (distance <= secondaryRadius) damage = secondaryDamage + ((distance-primaryRadius)/(secondaryRadius-primaryRadius)) * (primaryDamage-secondaryDamage);
+	            else damage = 0.0;
+	            
+	            //trace blocks
+	            if (damage > 0.0) {
+	            	Vec3d start = this.position;
+	            	Vec3d end = new Vec3d(entity.posX, entity.posY+entity.getEyeHeight()*0.5, entity.posZ);
+	            
+	            	RayTraceResult rtr = world.rayTraceBlocks(start, end);
+	            	if (rtr != null && rtr.typeOfHit == Type.BLOCK) damage = 0.0;
+	            }
+	
+	            
+	            if (damage > 0.0) {
+	            	entity.attackEntityFrom(tgs,  (float)Math.max(0, damage));        	         	
+	            }
 
-            
-            if (damage > 0.0) {
-            	TGDamageSource tgs = TGDamageSource.causeExplosionDamage(projectile,exploder, DeathType.GORE);
-            	entity.attackEntityFrom(tgs,  (float)Math.max(0, damage));        	         	
             }
-            
-//            if (!entity.isImmuneToExplosions())
-//            {
-//                double d12 = entity.getDistance(this.x, this.y, this.z) / (double)f3;
-//
-//                if (d12 <= 1.0D)
-//                {
-//                    double ex = entity.posX - this.x;
-//                    double ey = entity.posY + (double)entity.getEyeHeight() - this.y;
-//                    double ez = entity.posZ - this.z;
-//                    double e_dist = (double)MathHelper.sqrt(ex * ex + ey * ey + ez * ez);
-//
-//                    if (e_dist != 0.0D)
-//                    {
-//                        ex = ex / e_dist;
-//                        ey = ey / e_dist;
-//                        ez = ez / e_dist;
-//                        double d14 = (double)this.world.getBlockDensity(vec3d, entity.getEntityBoundingBox());
-//                        double d10 = (1.0D - d12) * d14;
-//                        entity.attackEntityFrom(DamageSource.causeExplosionDamage(this), (float)((int)((d10 * d10 + d10) / 2.0D * 7.0D * (double)f3 + 1.0D)));
-//                        double d11 = d10;
-//
-//                        if (entity instanceof EntityLivingBase)
-//                        {
-//                            d11 = EnchantmentProtection.getBlastDamageReduction((EntityLivingBase)entity, d10);
-//                        }
-//
-//                        entity.motionX += ex * d11;
-//                        entity.motionY += ey * d11;
-//                        entity.motionZ += ez * d11;
-//
-//                        if (entity instanceof EntityPlayer)
-//                        {
-//                            EntityPlayer entityplayer = (EntityPlayer)entity;
-//
-//                            if (!entityplayer.isSpectator() && (!entityplayer.isCreative() || !entityplayer.capabilities.isFlying))
-//                            {
-//                                this.playerKnockbackMap.put(entityplayer, new Vec3d(ex * d10, ey * d10, ez * d10));
-//                            }
-//                        }
-//                    }
-//                }
-//            }
         }
     }
     

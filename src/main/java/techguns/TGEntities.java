@@ -74,19 +74,19 @@ public class TGEntities implements ITGInitializer {
 		EntityRegistry.registerModEntity(new ResourceLocation(Techguns.MODID,"turret"),NPCTurret.class,  Techguns.MODID+".Turret", ++Techguns.modEntityID, Techguns.MODID, 80, 3, false);
 		registerModEntityWithEgg(ZombieSoldier.class, "ZombieSoldier",0x757468, 0x38B038);
 		registerModEntityWithEgg(ZombieFarmer.class, "ZombieFarmer",0x757468, 0x38B038);
-		registerModEntityWithEgg(ArmySoldier.class, "ArmySoldier",0x507468, 0x38B038);
-		registerModEntityWithEgg(Bandit.class, "Bandit",0x157468, 0x38B038);
-		registerModEntityWithEgg(Commando.class, "Commando",0x457468, 0x38B038);
-		registerModEntityWithEgg(DictatorDave.class, "DictatorDave",0x357468, 0x38B038);
-		registerModEntityWithEgg(CyberDemon.class, "CyberDemon",0x357468, 0x38B038);
-		registerModEntityWithEgg(SkeletonSoldier.class, "SkeletonSoldier",0x757468, 0x38B038);
-		registerModEntityWithEgg(PsychoSteve.class, "PsychoSteve", 0x000000, 0x000000);
-		registerModEntityWithEgg(StormTrooper.class, "StormTrooper", 0x000000, 0x000000);
-		registerModEntityWithEgg(Outcast.class, "Outcast", 0xFFFFFF, 0x000000);
-		registerModEntityWithEgg(ZombiePigmanSoldier.class, "ZombiePigmanSoldier", 0xFF0000, 0x000000);
-		registerModEntityWithEgg(SuperMutantBasic.class, "SuperMutantBasic", 0x00FF00, 0x000000);
-		registerModEntityWithEgg(SuperMutantElite.class, "SuperMutantElite", 0x00F000, 0x000000);
-		registerModEntityWithEgg(SuperMutantHeavy.class, "SuperMutantHeavy", 0x000F00, 0x000000);
+		registerModEntityWithEgg(ArmySoldier.class, "ArmySoldier",0x74806e, 0x191512);
+		registerModEntityWithEgg(Bandit.class, "Bandit",0x8f9d59, 0x2c3117);
+		registerModEntityWithEgg(Commando.class, "Commando",0x191512, 0x74806e);
+		registerModEntityWithEgg(DictatorDave.class, "DictatorDave",0x8f9d59, 0xA0A000);
+		registerModEntityWithEgg(CyberDemon.class, "CyberDemon",0xFF1111, 0x777777);
+		registerModEntityWithEgg(SkeletonSoldier.class, "SkeletonSoldier",0x404040,0xF0F0F0);
+		registerModEntityWithEgg(PsychoSteve.class, "PsychoSteve", 0x757468,0xF0F0F0);
+		registerModEntityWithEgg(StormTrooper.class, "StormTrooper", 0xF0F0F0, 0x404040);
+		registerModEntityWithEgg(Outcast.class, "Outcast", 0x101010,0xFF0000);
+		registerModEntityWithEgg(ZombiePigmanSoldier.class, "ZombiePigmanSoldier", 0xFF1111, 0x770000);
+		registerModEntityWithEgg(SuperMutantBasic.class, "SuperMutantBasic", 0xc6a96b, 0x71552e);
+		registerModEntityWithEgg(SuperMutantElite.class, "SuperMutantElite", 0xc6a96b, 0x61451e);
+		registerModEntityWithEgg(SuperMutantHeavy.class, "SuperMutantHeavy", 0xc6a96b, 0x51350e);
 	}
 
 	static void registerModEntityWithEgg(Class parEntityClass, String parEntityName, 

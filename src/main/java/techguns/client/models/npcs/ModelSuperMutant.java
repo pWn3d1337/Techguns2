@@ -4,13 +4,14 @@ import techguns.debug.Keybinds;
 import techguns.entities.npcs.SuperMutantBasic;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
 
 /**
  * ModelSupermutant - pWn3d
  * Created using Tabula 4.1.1
  */
-public class ModelSuperMutant extends ModelBiped {
+public class ModelSuperMutant extends ModelGenericNPC {
     
     public ModelRenderer rightarmUpper;
     public ModelRenderer leftBoot;
@@ -79,8 +80,9 @@ public class ModelSuperMutant extends ModelBiped {
   }
 
   @Override
-  	public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {	
-	    float scale = ((SuperMutantBasic)entity).getModelScale();
+  	public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
+	    SuperMutantBasic mutant = (SuperMutantBasic) entity;
+	    float scale = mutant.getModelScale();
 		super.render(entity,f, f1, f2, f3, f4, f5*scale);
 	}
 

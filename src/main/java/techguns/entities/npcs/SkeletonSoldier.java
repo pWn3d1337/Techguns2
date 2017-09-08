@@ -18,6 +18,7 @@ import net.minecraft.world.World;
 import techguns.TGArmors;
 import techguns.TGuns;
 import techguns.Techguns;
+import techguns.debug.Keybinds;
 import techguns.items.armors.GenericArmorMultiCamo;
 
 public class SkeletonSoldier extends GenericNPC {
@@ -26,6 +27,7 @@ public class SkeletonSoldier extends GenericNPC {
 	
 	public SkeletonSoldier(World world) {
 		super(world);
+		this.height=1.95f;
 	}
 
 	@Override
@@ -35,6 +37,18 @@ public class SkeletonSoldier extends GenericNPC {
 		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(25);
 		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4);
 		this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(50.0D);
+	}
+
+	
+	
+	@Override
+	public float getWeaponPosX() {
+		return -0.06f;
+	}
+
+	@Override
+	public float getWeaponPosY() {
+		return -0.06f;
 	}
 
 	@Override

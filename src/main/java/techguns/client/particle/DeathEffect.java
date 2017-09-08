@@ -125,7 +125,7 @@ public class DeathEffect {
 			Render render = Minecraft.getMinecraft().getRenderManager().entityRenderMap.get(entity.getClass());
 
 			try {
-				if (data.model == null) {
+				if (data.model == null && render!=null) {
 					ModelBase mainModel = (ModelBase) DeathEffectEntityRenderer.RLB_mainModel.get((RenderLivingBase) render);
 					if (mainModel instanceof ModelBiped) {
 						data.model = new ModelGibsBiped(((ModelBiped)mainModel).getClass().newInstance());

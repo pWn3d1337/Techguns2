@@ -11,6 +11,7 @@ import com.google.common.collect.Iterables;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 
 public class BlockUtils {
 	
@@ -51,5 +52,24 @@ public class BlockUtils {
 			newOffsetZ=-tmp;
 		}
 		return new BlockPos(axis.getX()+newOffsetX, pos.getY(), axis.getZ()+newOffsetZ);
+	}
+	
+	public static BlockPos rotateAroundY(BlockPos pos, Vec3d axis, int steps) {
+		
+		Vec3d v_pos = new Vec3d(pos.getX()+0.5d, 0d, pos.getZ()+0.5d);
+		
+		double offsetX = v_pos.x-axis.x;
+		double offsetZ = v_pos.z-axis.z;
+		
+		double newOffsetX=offsetX;
+		double newOffsetZ=offsetZ;
+		
+		for(int i=steps; i>0; i--) {
+			double tmp = newOffsetX;
+			
+			newOffsetX=newOffsetZ;
+			newOffsetZ=-tmp;
+		}
+		return new BlockPos(axis.x+newOffsetX, pos.getY(), axis.z+newOffsetZ);
 	}
 }

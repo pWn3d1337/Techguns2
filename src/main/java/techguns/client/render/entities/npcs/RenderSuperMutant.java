@@ -11,10 +11,11 @@ import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.util.ResourceLocation;
 import techguns.Techguns;
 import techguns.client.models.npcs.ModelSuperMutant;
+import techguns.client.render.entities.LayerHeldItemTranslateGun;
 import techguns.entities.npcs.GenericNPC;
 import techguns.entities.npcs.SuperMutantBasic;
 
-public class RenderSuperMutant extends RenderLiving<SuperMutantBasic> {
+public class RenderSuperMutant extends RenderGenericNPC<SuperMutantBasic> {
 	
 	private static final ResourceLocation[] textures = {
 			new ResourceLocation(Techguns.MODID, "textures/entity/supermutant_texture_1.png"),
@@ -25,6 +26,10 @@ public class RenderSuperMutant extends RenderLiving<SuperMutantBasic> {
 	
 	public RenderSuperMutant(RenderManager renderManagerIn) {
 		super(renderManagerIn, new ModelSuperMutant(), 0.5f);
+		
+		this.layerRenderers.remove(this.layerRenderers.size()-1);
+		this.addLayer(new LayerHeldItemTranslateGun(this));
+		
 		LayerBipedArmor layerbipedarmor = new LayerBipedArmor(this)
         {
             protected void initArmor()
@@ -35,11 +40,15 @@ public class RenderSuperMutant extends RenderLiving<SuperMutantBasic> {
         };
         this.addLayer(layerbipedarmor);
 	}
-
 	
+	@Override
+	public void doRender(SuperMutantBasic entity, double x, double y, double z, float entityYaw, float partialTicks) {
+		super.doRender(entity, x, y+entity.getModelHeightOffset(), z, entityYaw, partialTicks);
+	}
+
 	@Override
 	protected ResourceLocation getEntityTexture(SuperMutantBasic entity) {
 		return textures[entity.gettype()];
 	}
-	
+
 }

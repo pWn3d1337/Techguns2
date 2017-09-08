@@ -8,6 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import techguns.TGItems;
 import techguns.api.capabilities.AttackTime;
+import techguns.api.npc.INPCTechgunsShooter;
 import techguns.api.render.IItemRenderer;
 import techguns.client.models.ModelMultipart;
 import techguns.debug.Keybinds;
@@ -191,7 +192,7 @@ public class RenderItemBase implements IItemRenderer {
 				GlStateManager.rotate(-90.0f, 0, 1.0f, 0);
 			}
 
-			this.setBaseScale(transform);
+			this.setBaseScale(elb,transform);
 			this.setBaseRotation(transform);
 			this.applyBaseTranslation();
 			
@@ -203,8 +204,14 @@ public class RenderItemBase implements IItemRenderer {
 
 	}
 
-	protected void setBaseScale(TransformType transform) {
+	protected void setBaseScale(EntityLivingBase entity, TransformType transform) {
 		float scale = getScaleFactorFromTransform(transform);
+		
+		if( entity!=null && entity instanceof INPCTechgunsShooter) {
+			INPCTechgunsShooter shooter = (INPCTechgunsShooter) entity;
+			scale *=shooter.getGunScale();
+		}
+		
 		GlStateManager.scale(scale, scale, scale);
 	}
 

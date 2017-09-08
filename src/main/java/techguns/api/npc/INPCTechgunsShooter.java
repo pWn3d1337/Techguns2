@@ -7,4 +7,10 @@ public interface INPCTechgunsShooter {
 	public float getWeaponPosX();
 	public float getWeaponPosY();
 	public float getWeaponPosZ();
+	public default boolean hasWeaponArmPose() {
+		return true;
+	}
+	public default float getGunScale() {
+		return 1.0f;
+	}
 }
