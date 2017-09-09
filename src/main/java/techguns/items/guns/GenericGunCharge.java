@@ -191,11 +191,11 @@ public class GenericGunCharge extends GenericGun {
 				if (this.hasChargedFireAnim) {
 	
 					//world.playSoundAtEntity(player, firesound, 1.0F, 1.0F);
-					SoundUtil.playSoundAtEntityPos(world, player, firesound, 1.0f, 1.0f, false, TGSoundCategory.GUN_FIRE);
+					SoundUtil.playSoundOnEntityGunPosition(world, player, firesound, SOUND_DISTANCE, 1.0f, false, false,true, TGSoundCategory.GUN_FIRE);
 		
 					if (!(rechamberSound==null)) {
 						//world.playSoundAtEntity(player, rechamberSound, 1.0F, 1.0F);
-						SoundUtil.playSoundAtEntityPos(world, player, rechamberSound, 1.0f, 1.0f, false, TGSoundCategory.GUN_FIRE);
+						SoundUtil.playSoundOnEntityGunPosition(world, player, rechamberSound, 1.0f, 1.0f, false, false,true, TGSoundCategory.GUN_FIRE);
 					}
 	
 				}

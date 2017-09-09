@@ -91,27 +91,29 @@ public class BioGunProjectile extends GenericProjectile implements IEntityAdditi
     			 
     			 if (this.world.isAirBlock(blobPos)){
     				 
-    				 boolean canPlace = true;
-    				 
-    				 if ( this.shooter instanceof EntityPlayer){
-	    				 final BlockEvent.PlaceEvent placeEvent = new BlockEvent.PlaceEvent(BlockSnapshot.getBlockSnapshot(world, blobPos), statehit, (EntityPlayer) this.shooter,EnumHand.MAIN_HAND);
-	    				 MinecraftForge.EVENT_BUS.post(placeEvent);
-	    				 canPlace = !placeEvent.isCanceled();
-    				 }
-    				 
-    				 if (canPlace){
-    					 IBlockState state = TGBlocks.BIOBLOB.getDefaultState().withProperty(TGBlocks.BIOBLOB.FACING, mop.sideHit.getOpposite()).withProperty(TGBlocks.BIOBLOB.SIZE, 0);
-    					 int lvl = 0;
-	    				 this.world.setBlockState(blobPos, TGBlocks.BIOBLOB.getDefaultState());
-	    				 if (this.level>1){
-	    					 TileEntity tile = this.world.getTileEntity(blobPos);
-	    					 if(tile!=null && tile instanceof BioBlobTileEnt){
-	    						 BioBlobTileEnt blob = (BioBlobTileEnt) tile;
-	    						 blob.hitBlob(level-1, this.shooter);
-	    					 }
-	    					 lvl = level-1;
+    				 if(this.blockdamage) {
+	    				 boolean canPlace = true;
+	    				 
+	    				 if ( this.shooter instanceof EntityPlayer){
+		    				 final BlockEvent.PlaceEvent placeEvent = new BlockEvent.PlaceEvent(BlockSnapshot.getBlockSnapshot(world, blobPos), statehit, (EntityPlayer) this.shooter,EnumHand.MAIN_HAND);
+		    				 MinecraftForge.EVENT_BUS.post(placeEvent);
+		    				 canPlace = !placeEvent.isCanceled();
 	    				 }
-	    				 this.world.setBlockState(blobPos, state.withProperty(TGBlocks.BIOBLOB.SIZE, lvl), 3);
+	    				 
+	    				 if (canPlace){
+	    					 IBlockState state = TGBlocks.BIOBLOB.getDefaultState().withProperty(TGBlocks.BIOBLOB.FACING, mop.sideHit.getOpposite()).withProperty(TGBlocks.BIOBLOB.SIZE, 0);
+	    					 int lvl = 0;
+		    				 this.world.setBlockState(blobPos, TGBlocks.BIOBLOB.getDefaultState());
+		    				 if (this.level>1){
+		    					 TileEntity tile = this.world.getTileEntity(blobPos);
+		    					 if(tile!=null && tile instanceof BioBlobTileEnt){
+		    						 BioBlobTileEnt blob = (BioBlobTileEnt) tile;
+		    						 blob.hitBlob(level-1, this.shooter);
+		    					 }
+		    					 lvl = level-1;
+		    				 }
+		    				 this.world.setBlockState(blobPos, state.withProperty(TGBlocks.BIOBLOB.SIZE, lvl), 3);
+	    				 }
     				 }
     			 } else {
     				 

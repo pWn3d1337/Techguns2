@@ -15,35 +15,35 @@ public class SoundUtil {
 	/**
 	 * Plays a moving Sound on the specified Entity, in front of the entity.
 	 */
-	public static void playSoundOnEntityGunPosition(World world, Entity entity, SoundEvent soundname, float volume, float pitch, boolean repeat, boolean moving,  TGSoundCategory category) {
-		//System.out.println("Play sound"+soundname);
+	public static void playSoundOnEntityGunPosition(World world, Entity entity, SoundEvent soundname, float volume, float pitch, boolean repeat, boolean moving, boolean playOnOwnPlayer, TGSoundCategory category) {
 		if (!world.isRemote) {
-			TGPackets.network.sendToAllAround(new PacketPlaySound(soundname, entity, volume, pitch, repeat, moving, true,category),
+			TGPackets.network.sendToAllAround(new PacketPlaySound(soundname, entity, volume, pitch, repeat, moving, true, playOnOwnPlayer, category),
 				new TargetPoint(entity.dimension, entity.posX, entity.posY, entity.posZ, 100.0f));
 		}else {
-			//Minecraft.getMinecraft().getSoundHandler().playSound(new TGSound(soundname,entity, volume, pitch, repeat, true, true));
-			Techguns.proxy.playSoundOnEntity(entity, soundname, volume, pitch, repeat, moving,true,category);
-			//System.out.println("Play sound"+soundname);
+			Techguns.proxy.playSoundOnEntity(entity, soundname, volume, pitch, repeat, moving,true, true, category);
 		}
+	}
+	
+	/**
+	 * Plays a moving Sound on the specified Entity, in front of the entity.
+	 */
+	public static void playSoundOnEntityGunPosition(World world, Entity entity, SoundEvent soundname, float volume, float pitch, boolean repeat, boolean moving,  TGSoundCategory category) {
+		playSoundOnEntityGunPosition(world, entity, soundname, volume, pitch, repeat, moving, false, category);
 	}
 	
 	/**
 	 * Like playSoundOnEntityGunPosition() but does a check for last played own reload.
 	 */
 	public static void playReloadSoundOnEntity(World world, Entity entity, SoundEvent soundname, float volume, float pitch, boolean repeat, boolean moving,  TGSoundCategory category) {
-		//System.out.println("Play sound"+soundname);
 		if (!world.isRemote) {
 			TGPackets.network.sendToAllAround(new PacketPlaySound(soundname, entity, volume, pitch, repeat, moving, true, category),
 				new TargetPoint(entity.dimension, entity.posX, entity.posY, entity.posZ, 100.0f));
 		}else {
-			//Minecraft.getMinecraft().getSoundHandler().playSound(new TGSound(soundname,entity, volume, pitch, repeat, true, true));
 			ClientProxy cp = ClientProxy.get();
 			if (cp.lastReloadsoundPlayed - System.currentTimeMillis()<-500){
 				cp.lastReloadsoundPlayed = System.currentTimeMillis();
 				Techguns.proxy.playSoundOnEntity(entity, soundname, volume, pitch, repeat, moving,true, category);
-				//System.out.println("Playing sound from Thread "+Thread.currentThread().getName());
 			}
-			//System.out.println("Play sound"+soundname);
 		}
 	}
 	

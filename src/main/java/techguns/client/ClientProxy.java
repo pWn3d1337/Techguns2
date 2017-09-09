@@ -788,6 +788,16 @@ public class ClientProxy extends CommonProxy {
 		}
 	}
 
+	
+	
+	@Override
+	public void playSoundOnEntity(Entity ent, SoundEvent soundname, float volume, float pitch, boolean repeat,
+			boolean moving, boolean gunPosition, boolean playForOwnPlayer, TGSoundCategory category) {
+		if(playForOwnPlayer || ent != this.getPlayerClient()) {
+			this.playSoundOnEntity(ent, soundname, volume, pitch, repeat, moving, gunPosition, category);
+		}
+	}
+
 	@Override
 	public void playSoundOnEntity(Entity ent, SoundEvent soundname, float volume, float pitch, boolean repeat, boolean moving, boolean gunPosition, TGSoundCategory category) {
 		Minecraft.getMinecraft().getSoundHandler().playSound(new TGSound(soundname,ent, volume, pitch, repeat, moving, gunPosition, category));

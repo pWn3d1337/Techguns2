@@ -117,14 +117,10 @@ public class PacketPlaySound implements IMessage {
 		buf.writeBytes(soundname.getBytes());
 	}
 	
-	public static class Handler implements IMessageHandler<PacketPlaySound, IMessage> {
+	public static class Handler extends HandlerTemplate<PacketPlaySound> {
+		
 		@Override
-		public IMessage onMessage(PacketPlaySound message, MessageContext ctx) {
-			FMLCommonHandler.instance().getWorldThread(ctx.netHandler).addScheduledTask(() -> handle(message, ctx));
-			return null;
-		}
-
-		private void handle(PacketPlaySound msg, MessageContext ctx) {
+		protected void handle(PacketPlaySound msg, MessageContext ctx) {
 						
 			EntityPlayer ply = TGPackets.getPlayerFromContext(ctx);
 			

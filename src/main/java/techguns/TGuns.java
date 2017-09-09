@@ -13,6 +13,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.registries.IForgeRegistry;
 import techguns.api.guns.GunHandType;
+import techguns.entities.npcs.DeatomizerProjectile;
 import techguns.entities.projectiles.AdvancedBulletProjectile;
 import techguns.entities.projectiles.BioGunProjectile;
 import techguns.entities.projectiles.BlasterProjectile;
@@ -198,7 +199,7 @@ public class TGuns implements ITGInitializer {
 	     nucleardeathray = new GenericGun("nucleardeathray", new NDRProjectile.Factory(), AmmoTypes.NUCLEAR_POWER_CELL, false, 5, 40, 50, 6.0f, TGSounds.BEAMGUN_FIRE, TGSounds.LASERGUN_RELOAD, 10/* TODO? Beamgun.LIFETIME*/, 0.0f).setFiresoundStart(TGSounds.BEAMGUN_START).setMaxLoopDelay(10).setRecoiltime(10).setCheckRecoil().setBulletSpeed(100.0f).setAIStats(RANGE_MEDIUM, 40, 5, 5).setTexture("textures/guns/ndr").setPenetration(0.35f).setDamageDrop(20, 40, 1.0f).setHandType(GunHandType.ONE_POINT_FIVE_HANDED);//.setCheckRecoil();  
 		 
 	     mac10 = new GenericGun("mac10",GENERIC_BULLET,AmmoTypes.SMG_MAGAZINE, false, 2, 32,40,5.0f, TGSounds.MAC10_FIRE, TGSounds.M4_RELOAD,25,0.05f).setDamageDrop(15, 24, 3.0f).setAIStats(RANGE_SHORT, 35, 3, 2).setTexture("textures/guns/mac10texture").setRecoiltime(2).setMuzzleFlashTime(3).setHandType(GunHandType.ONE_POINT_FIVE_HANDED);
-		 mibgun = new GenericGun("mibgun", GENERIC_BULLET,AmmoTypes.ENERGY_CELL, true, 8, 20, 45, 16.0f, TGSounds.MIBGUN_FIRE, TGSounds.MIBGUN_RELOAD, 50, 0.035f).setAIStats(RANGE_MEDIUM, 60, 0, 0).setTexture("textures/guns/mibgun").setDamageDrop(20, 30, 8.0f).setPenetration(0.2f).setHandType(GunHandType.ONE_HANDED);
+		 mibgun = new GenericGun("mibgun", new DeatomizerProjectile.Factory(),AmmoTypes.ENERGY_CELL, true, 8, 20, 45, 16.0f, TGSounds.MIBGUN_FIRE, TGSounds.MIBGUN_RELOAD, 50, 0.035f).setAIStats(RANGE_MEDIUM, 60, 0, 0).setTexture("textures/guns/mibgun").setDamageDrop(20, 30, 8.0f).setPenetration(0.2f).setHandType(GunHandType.ONE_HANDED);
 		 scar = new GenericGun("scar", GENERIC_BULLET,AmmoTypes.ASSAULT_RIFLE_MAGAZINE, false, 4, 20,45,12.0f, TGSounds.SCAR_FIRE, TGSounds.SCAR_RELOAD, 50, 0.015f).setZoom(0.65f, true,0.5f,true).setDamageDrop(30, 40, 10.0f).setAIStats(RANGE_MEDIUM, 30, 5, 2).setTextures("textures/guns/scar_texture", 2).setPenetration(0.25f).setMuzzleFlashTime(5);
 		 vector = new GenericGun("vector",GENERIC_BULLET,AmmoTypes.SMG_MAGAZINE, false, 2, 25,40,6.0f, TGSounds.VECTOR_FIRE, TGSounds.VECTOR_RELOAD,30,0.05f).setZoom(0.75f, true,0.35f,false).setDamageDrop(17, 25, 4.0f).setAIStats(RANGE_SHORT, 35, 3, 2).setTextures("textures/guns/vector_texture",2).setRecoiltime(2).setMuzzleFlashTime(3).setPenetration(0.15f);
 		
