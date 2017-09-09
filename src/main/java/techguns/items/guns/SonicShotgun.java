@@ -65,16 +65,18 @@ public class SonicShotgun extends GenericGun {
 				proj.entitiesHit = entitiesHit;
 				Vec3d dir = new Vec3d(1,0,0); //Vec3.createVectorHelper(1, 0, 0);
 		
-				dir.rotateYaw(spread*(float)j);
-				dir.rotatePitch(angle*(float)i);
+				dir = dir.rotateYaw(spread*j);
+				dir = dir.rotatePitch(angle*i);
 								
 				dir = MathUtil.rotateVec3dAroundZ(dir, (float)(player.rotationPitch*MathUtil.D2R));
 				
-				dir.rotateYaw((float) ((-player.rotationYawHead-90.0)*MathUtil.D2R));
+				dir = dir.rotateYaw((float) ((-player.rotationYawHead-90.0)*MathUtil.D2R));
 				
 				proj.motionX = dir.x*speed;
 				proj.motionY = dir.y*speed;
 				proj.motionZ = dir.z*speed;
+				
+				//System.out.println("MOTION:"+proj.motionX+","+proj.motionY+","+proj.motionZ);
 				
 		    	if (offset>0.0f){
 		    		proj.shiftForward(offset);

@@ -24,7 +24,7 @@ import techguns.util.TGLogger;
 public class Techguns
 {
     public static final String MODID = "techguns";
-    public static final String MCVERSION = "1.12";
+    public static final String MCVERSION = "1.12.1";
     public static final String VERSION = MCVERSION+"-2.0.1.0";
     public static final String NAME = "Techguns";
 

@@ -12,7 +12,8 @@ public enum EnumMachineType implements IStringSerializable, IMachineType<EnumMac
 	METAL_PRESS(1,MetalPressTileEnt.class,false,EnumBlockRenderType.ENTITYBLOCK_ANIMATED),
 	CHEM_LAB(2,ChemLabTileEnt.class,false,EnumBlockRenderType.ENTITYBLOCK_ANIMATED),
 	TURRET(3,TurretTileEnt.class,false,EnumBlockRenderType.ENTITYBLOCK_ANIMATED),
-	DUNGEON_SCANNER(4,DungeonScannerTileEnt.class,true,EnumBlockRenderType.MODEL);
+	DUNGEON_SCANNER(4,DungeonScannerTileEnt.class,true,EnumBlockRenderType.MODEL),
+	DUNGEON_GENERATOR(5,DungeonGeneratorTileEnt.class,true,EnumBlockRenderType.MODEL);
 
 	/*
 	EXPLOSIVE_CHARGE(6,"explosivecharge"),

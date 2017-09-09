@@ -38,7 +38,9 @@ public class GaussProjectile extends AdvancedBulletProjectile implements ILightP
 	
 	public GaussProjectile(World worldIn) {
 		super(worldIn);
-		ClientProxy.get().createFXOnEntity("GaussProjectileTrail", this);
+		if(worldIn.isRemote) {
+			ClientProxy.get().createFXOnEntity("GaussProjectileTrail", this);
+		}
 	}
 
 	
@@ -53,7 +55,7 @@ public class GaussProjectile extends AdvancedBulletProjectile implements ILightP
 	protected void onHitEffect(EntityLivingBase ent, RayTraceResult rayTraceResult) {
 		super.onHitEffect(ent, rayTraceResult);
 		double x = rayTraceResult.hitVec.x;
-		double y = rayTraceResult.hitVec.y+ent.height*0.5f;
+		double y = rayTraceResult.hitVec.y;
 		double z = rayTraceResult.hitVec.z;
 		if (!this.world.isRemote) {
 			TGPackets.network.sendToAllAround(new PacketSpawnParticle("GaussRifleImpact_Block", x,y,z), TGPackets.targetPointAroundEnt(this, 50.0f));

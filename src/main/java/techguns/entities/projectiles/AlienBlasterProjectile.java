@@ -40,7 +40,10 @@ public class AlienBlasterProjectile extends GenericProjectile {
 	@Override
 	protected void doImpactEffects(Material mat, RayTraceResult rayTraceResult) {
 		if (!this.world.isRemote){
-			TGPackets.network.sendToAllAround(new PacketSpawnParticle("AlienExplosion", this.posX,this.posY,this.posZ), TGPackets.targetPointAroundEnt(this, 32.0f));
+			double x = rayTraceResult.hitVec.x;
+			double y = rayTraceResult.hitVec.y;
+			double z = rayTraceResult.hitVec.z;
+			TGPackets.network.sendToAllAround(new PacketSpawnParticle("AlienExplosion", x,y,z), TGPackets.targetPointAroundEnt(this, 32.0f));
 		}
 	}
 
