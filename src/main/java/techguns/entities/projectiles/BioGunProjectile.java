@@ -1,15 +1,25 @@
 package techguns.entities.projectiles;
 
 import io.netty.buffer.ByteBuf;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.util.BlockSnapshot;
+import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
+import techguns.TGBlocks;
 import techguns.api.damagesystem.DamageType;
 import techguns.client.ClientProxy;
 import techguns.damagesystem.TGDamageSource;
@@ -17,6 +27,7 @@ import techguns.deatheffects.EntityDeathUtils.DeathType;
 import techguns.items.guns.GenericGun;
 import techguns.items.guns.IChargedProjectileFactory;
 import techguns.items.guns.IProjectileFactory;
+import techguns.tileentities.BioBlobTileEnt;
 
 public class BioGunProjectile extends GenericProjectile implements IEntityAdditionalSpawnData{
 
@@ -58,67 +69,58 @@ public class BioGunProjectile extends GenericProjectile implements IEntityAdditi
 
 	
 	
-	/*@Override
-	protected void hitBlock(MovingObjectPosition mop) {
-		 Block blockHit = this.worldObj.getBlock(mop.blockX, mop.blockY, mop.blockZ);
+	
+	@Override
+	protected void hitBlock(RayTraceResult mop) {
+		 IBlockState statehit = this.world.getBlockState(mop.getBlockPos());
 		 
-		 if(blockHit == TGBlocks.bioBlobSmall){
+		 if(statehit.getBlock() == TGBlocks.BIOBLOB){
 			 //System.out.println("Hit Bioblob, increase size");       	
 			 
-			 TileEntity tile = this.worldObj.getTileEntity(mop.blockX, mop.blockY, mop.blockZ);
-			 if(tile!=null && tile instanceof BioblobTileEnt){
+			 TileEntity tile = this.world.getTileEntity(mop.getBlockPos());
+			 if(tile!=null && tile instanceof BioBlobTileEnt){
 				 
-				 ((BioblobTileEnt)tile).hitBlob(level, this.shooter);
+				 ((BioBlobTileEnt)tile).hitBlob(level, this.shooter);
 			 }
 			 
 			 
 		 } else {
-			 if (!this.worldObj.isRemote){
-    			 int side = mop.sideHit;
-    			 int[] offset = {0,0,0};
+			 if (!this.world.isRemote){
+   
+    			 BlockPos blobPos = mop.getBlockPos().offset(mop.sideHit);
     			 
-    			 if (side==0){
-    				 offset[1]=-1;
-    			 } else if(side==1){
-    				 offset[1]=1;
-    			 } else if(side==2){
-    				 offset[2]=-1;
-    			 } else if(side==3){
-    				 offset[2]=1;
-    			 } else if(side==4){
-    				 offset[0]=-1;
-    			 } else if(side==5){
-    				 offset[0]=1;
-    			 }
-    			 
-    			 int[] blobPos = {mop.blockX+offset[0], mop.blockY+offset[1], mop.blockZ+offset[2]};
-    			 
-    			 if (this.worldObj.isAirBlock(blobPos[0],blobPos[1],blobPos[2])){
+    			 if (this.world.isAirBlock(blobPos)){
     				 
-    				 boolean canPlace = true;
-    				 
-    				 if ( this.shooter instanceof EntityPlayer){
-	    				 final BlockEvent.PlaceEvent placeEvent = new BlockEvent.PlaceEvent(BlockSnapshot.getBlockSnapshot(worldObj, blobPos[0],blobPos[1],blobPos[2]), blockHit, (EntityPlayer) this.shooter);
-	    				 MinecraftForge.EVENT_BUS.post(placeEvent);
-	    				 canPlace = !placeEvent.isCanceled();
-    				 }
-    				 
-    				 if (canPlace){
-	    				 this.worldObj.setBlock(blobPos[0],blobPos[1],blobPos[2], TGBlocks.bioBlobSmall);
-	    				 if (this.level>1){
-	    					 TileEntity tile = this.worldObj.getTileEntity(blobPos[0],blobPos[1],blobPos[2]);
-	    					 if(tile!=null && tile instanceof BioblobTileEnt){
-	    						 ((BioblobTileEnt)tile).hitBlob(level-1, this.shooter);
-	    					 }
+    				 if(this.blockdamage) {
+	    				 boolean canPlace = true;
+	    				 
+	    				 if ( this.shooter instanceof EntityPlayer){
+		    				 final BlockEvent.PlaceEvent placeEvent = new BlockEvent.PlaceEvent(BlockSnapshot.getBlockSnapshot(world, blobPos), statehit, (EntityPlayer) this.shooter,EnumHand.MAIN_HAND);
+		    				 MinecraftForge.EVENT_BUS.post(placeEvent);
+		    				 canPlace = !placeEvent.isCanceled();
 	    				 }
-	    				 this.worldObj.setBlockMetadataWithNotify(blobPos[0],blobPos[1],blobPos[2], side, 3);
+	    				 
+	    				 if (canPlace){
+	    					 IBlockState state = TGBlocks.BIOBLOB.getDefaultState().withProperty(TGBlocks.BIOBLOB.FACING, mop.sideHit.getOpposite()).withProperty(TGBlocks.BIOBLOB.SIZE, 0);
+	    					 int lvl = 0;
+		    				 this.world.setBlockState(blobPos, TGBlocks.BIOBLOB.getDefaultState());
+		    				 if (this.level>1){
+		    					 TileEntity tile = this.world.getTileEntity(blobPos);
+		    					 if(tile!=null && tile instanceof BioBlobTileEnt){
+		    						 BioBlobTileEnt blob = (BioBlobTileEnt) tile;
+		    						 blob.hitBlob(level-1, this.shooter);
+		    					 }
+		    					 lvl = level-1;
+		    				 }
+		    				 this.world.setBlockState(blobPos, state.withProperty(TGBlocks.BIOBLOB.SIZE, lvl), 3);
+	    				 }
     				 }
     			 } else {
     				 
-    				 TileEntity tile = this.worldObj.getTileEntity(blobPos[0],blobPos[1],blobPos[2]);
-        			 if(tile!=null && tile instanceof BioblobTileEnt){
+    				 TileEntity tile = this.world.getTileEntity(blobPos);
+        			 if(tile!=null && tile instanceof BioBlobTileEnt){
         				 
-        				 ((BioblobTileEnt)tile).hitBlob(level, this.shooter);
+        				 ((BioBlobTileEnt)tile).hitBlob(level, this.shooter);
         			 }
     				 
     			 }
@@ -127,36 +129,31 @@ public class BioGunProjectile extends GenericProjectile implements IEntityAdditi
     		 }
 		 }
 	
-	
-	    this.worldObj.spawnParticle("slime", this.posX, this.posY, this.posZ, 0.0D, 0.0D, 0.0D);
-	}*/
+	    this.world.spawnParticle(EnumParticleTypes.SLIME,mop.hitVec.x,mop.hitVec.y,mop.hitVec.z,0.0D, 0.0D, 0.0D);
+	}
 
 	
 	 
-	/*private void updateBlockLevel(int x, int y, int z, int level){
-		switch (level){
-		case 1:
-			this.worldObj.setBlock(x, y, z, TGBlocks.bioBlobSmall);
-			break;
-		/case 2:
-			this.worldObj.setBlock(x, y, z, TGBlocks.bioBlobMedium);
-			break;
-		case 3:
-			this.worldObj.setBlock(x, y, z, TGBlocks.bioBlobLarge);
-			break;
-		}
-	}*/
+	/*private void updateBlockLevel(BlockPos pos, int level){
+		
+		 if (this.level>1){
+			 TileEntity tile = this.world.getTileEntity(pos);
+			 if(tile!=null && tile instanceof BioBlobTileEnt){
+				 ((BioBlobTileEnt)tile).setLevel(int level);
+			 }
+		 }
+	}
 	 
-	/*private void setBlockForLevel(int x, int y, int z, int level){
+	private void setBlockForLevel(int x, int y, int z, int level){
 		if (level==0){
-			if (this.worldObj.isAirBlock(x, y+1, z)){
+			if (this.world.isAirBlock(x, y+1, z)){
 				updateBlockLevel(x,y+1,z,this.level);
 			}
 		} else {
 			int newlvl = level+this.level;
 			if (newlvl >3){
-    			new ProjectileExplosion(this.worldObj, x, y, z, this.shooter, 1.5f, 30, 1.0f, 2.0f).doExplosion(false, this.shooter);
-    			this.worldObj.setBlock(x, y, z, Blocks.fire);
+    			new ProjectileExplosion(this.world, x, y, z, this.shooter, 1.5f, 30, 1.0f, 2.0f).doExplosion(false, this.shooter);
+    			this.world.setBlock(x, y, z, Blocks.fire);
 			} else {
 				updateBlockLevel(x,y,z,newlvl);
 			}

@@ -88,7 +88,7 @@ public class BasicOwnedTileEnt extends BasicInventoryTileEnt implements ITGTileE
 	}
 
 	@Override
-	public void buttonClicked(int id, EntityPlayer ply) {
+	public void buttonClicked(int id, EntityPlayer ply, String data) {
 		if (id==BUTTON_ID_SECURITY &&(this.isOwnedByPlayer(ply))){
 			this.security++;
 			this.security = (byte) (this.security%3);
@@ -96,7 +96,7 @@ public class BasicOwnedTileEnt extends BasicInventoryTileEnt implements ITGTileE
 				this.needUpdate();
 			}
 		} else {
-			super.buttonClicked(id, ply);
+			super.buttonClicked(id, ply, data);
 		}
 	}
 	

@@ -7,7 +7,7 @@
                 {
                     "type": "item",
                     "weight": 1,
-                    "name": "techguns:itemshared",
+                    "name": "techguns:itemshared:60",
                     "functions": [
                         {
                             "function": "set_count",

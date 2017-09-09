@@ -7,6 +7,7 @@ import java.util.List;
 import com.google.common.base.Predicate;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
@@ -36,20 +37,8 @@ import techguns.util.BlockUtils;
 public class MultiBlockMachine<T extends Enum<T> & IStringSerializable & IMachineType> extends BasicMachine<T> {
 	public static final PropertyBool FORMED = PropertyBool.create("formed");
 	
-	//public static PropertyUnlistedRotation UNLISTED_ROTATION = new PropertyUnlistedRotation();
-	
-	protected static final ArrayList<EnumFacing> horizontalValues = new ArrayList<>();
-	static {
-		for(EnumFacing f : EnumFacing.HORIZONTALS) {
-			horizontalValues.add(f);
-		}
-	}
-	public static final PropertyDirection MULTIBLOCK_DIRECTION = PropertyDirection.create("multiblock_direction", new Predicate<EnumFacing>() {
-		@Override
-		public boolean apply(EnumFacing input) {
-			return MultiBlockMachine.this.horizontalValues.contains(input);
-		}
-	});
+
+	public static final PropertyDirection MULTIBLOCK_DIRECTION = BlockHorizontal.FACING; 
 	
 	public MultiBlockMachine(String name, Class<T> clazz) {
 		super(name, clazz);

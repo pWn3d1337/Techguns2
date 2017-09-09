@@ -14,6 +14,7 @@ import net.minecraft.util.ResourceLocation;
 import techguns.api.capabilities.AttackTime;
 import techguns.api.capabilities.ITGShooterValues;
 import techguns.api.guns.IGenericGun;
+import techguns.api.npc.INPCTechgunsShooter;
 import techguns.api.render.IItemRenderer;
 import techguns.capabilities.TGExtendedPlayer;
 import techguns.capabilities.TGShooterValues;
@@ -174,6 +175,8 @@ public class RenderGunBase extends RenderItemBase {
 		GenericGun gun = ((GenericGun) stack.getItem());
 		ITGShooterValues values = getShooterValues(entityIn);
 		
+		//System.out.println("Render:"+stack+" for "+entityIn);
+		
 		boolean sneaking = false;
 		boolean isOffhand = false;
 		if (entityIn!=null){
@@ -244,18 +247,7 @@ public class RenderGunBase extends RenderItemBase {
 			
 			if (TransformType.FIRST_PERSON_LEFT_HAND == transform || TransformType.FIRST_PERSON_RIGHT_HAND == transform  || TransformType.THIRD_PERSON_LEFT_HAND == transform || TransformType.THIRD_PERSON_RIGHT_HAND == transform){
 				//Calculate muzzleFlash progress
-				
-				/*ClientProxy cp = ClientProxy.get();
-				if (cp.getLocalMuzzleFlashTime(leftHand) > 0) {
-					long diff = cp.getLocalMuzzleFlashTime(leftHand) - System.currentTimeMillis();
-					if (diff <= 0 || diff > cp.getLocalMuzzleFlashTimeTotal(leftHand)) {
-						cp.setLocalMuzzleFlashTime(leftHand, 0L);
-						cp.setLocalMuzzleFlashTimeTotal(leftHand, 0L);
-					}else{			
-						muzzleFlashProgress = 1.0f-((float)diff / (float)cp.getLocalMuzzleFlashTimeTotal(leftHand));
-					}			
-				}*/	
-				
+								
 				if(attack.getMuzzleFlashTime()>0) {
 					long diff = attack.getMuzzleFlashTime() - System.currentTimeMillis();
 					if (diff <= 0 || diff > attack.getMuzzleFlashTimeTotal()) {
@@ -286,7 +278,7 @@ public class RenderGunBase extends RenderItemBase {
 			}
 
 		} else if (TransformType.THIRD_PERSON_LEFT_HAND == transform || TransformType.THIRD_PERSON_RIGHT_HAND == transform) {
-			this.transformThirdPerson(fireProgress, reloadProgress, TransformType.THIRD_PERSON_LEFT_HAND == transform);
+			this.transformThirdPerson(entityIn, fireProgress, reloadProgress, TransformType.THIRD_PERSON_LEFT_HAND == transform);
 
 		} else if (TransformType.GUI == transform) {
 			this.transformGUI();
@@ -300,7 +292,7 @@ public class RenderGunBase extends RenderItemBase {
 
 		
 		if (!renderScope) {		
-			this.setBaseScale(transform);
+			this.setBaseScale(entityIn, transform);
 			this.setBaseRotation(transform);
 			this.applyBaseTranslation();
 
@@ -355,7 +347,17 @@ public class RenderGunBase extends RenderItemBase {
 		}
 	}
 
-	protected void transformThirdPerson(float fireProgress, float reloadProgress, boolean left) {
+	protected void transformThirdPerson(EntityLivingBase ent, float fireProgress, float reloadProgress, boolean left) {
+		if( ent!=null && ent instanceof INPCTechgunsShooter) {
+			INPCTechgunsShooter shooter = (INPCTechgunsShooter) ent;
+			if(!shooter.hasWeaponArmPose()) {
+				GlStateManager.rotate(90.0f, 1, 0, 0);
+				//GlStateManager.translate(Keybinds.X, Keybinds.Y, Keybinds.Z);
+			}
+			
+		}
+		
+		
 		if (fireProgress >0){
 			
 			this.recoilAnim3p.play(fireProgress, left, this.recoilParams3p);

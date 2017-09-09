@@ -12,6 +12,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import techguns.blocks.BlockBioblob;
 import techguns.blocks.BlockTGOre;
 import techguns.blocks.GenericBlock;
 import techguns.blocks.GenericItemBlock;
@@ -36,6 +37,7 @@ public class TGBlocks implements ITGInitializer{
 	
 	public static BlockTGOre TG_ORE;
 	
+	public static BlockBioblob BIOBLOB;
 	
 	public void registerBlocks(RegistryEvent.Register<Block> event) {
 		BLOCKLIST.forEach(b -> b.registerBlock(event));
@@ -56,7 +58,7 @@ public class TGBlocks implements ITGInitializer{
 		SIMPLE_MACHINE = new SimpleMachine<EnumSimpleMachineType>("simplemachine",EnumSimpleMachineType.class);
 		MULTIBLOCK_MACHINE = new MultiBlockMachine<EnumMultiBlockMachineType>("multiblockmachine", EnumMultiBlockMachineType.class);
 		TG_ORE = new BlockTGOre("basicore");
-
+		BIOBLOB= new BlockBioblob("bioblob");
 	}
 
 	@Override

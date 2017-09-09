@@ -9,7 +9,7 @@ import techguns.entities.npcs.GenericNPC;
 import techguns.entities.npcs.ZombieFarmer;
 import techguns.entities.npcs.ZombieSoldier;
 
-public class RenderZombieFarmer<T extends ZombieFarmer> extends RenderGenericNPC<ZombieFarmer> {
+public class RenderZombieFarmer extends RenderGenericNPC<ZombieFarmer> {
 
 	
 	private static final ResourceLocation TEXTURE = new ResourceLocation(Techguns.MODID,"textures/entity/zombie_soldier.png");
@@ -30,7 +30,7 @@ public class RenderZombieFarmer<T extends ZombieFarmer> extends RenderGenericNPC
 
 	
 	   @Override
-	protected ResourceLocation getEntityTexture(GenericNPC entity) {
+	protected ResourceLocation getEntityTexture(ZombieFarmer entity) {
 		return TEXTURE;
 	}
 

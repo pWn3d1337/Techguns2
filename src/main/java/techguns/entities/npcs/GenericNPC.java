@@ -313,7 +313,7 @@ public class GenericNPC extends EntityMob implements IRangedAttackMob, INPCTechg
 
 		@Override
 		public float getWeaponPosY() {
-			return 1.6f;//1.0f;
+			return 0;//1.0f;
 		}
 
 		@Override

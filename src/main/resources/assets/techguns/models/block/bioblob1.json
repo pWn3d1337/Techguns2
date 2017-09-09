@@ -1,0 +1,18 @@
+{   "parent": "block/thin_block",
+    "textures": {
+        "particle": "techguns:blocks/bioblob"
+    },
+    "elements": [
+        {   "from": [ 3, 0, 3 ],
+            "to": [ 13, 4, 13 ],
+            "faces": {
+                "down":  { "uv": [ 1,  1, 12, 12 ], "texture": "#particle", "cullface": "down" },
+                "up":    { "uv": [ 1,  1, 12, 12 ], "texture": "#particle" },
+                "north": { "uv": [ 1, 12, 12, 16 ], "texture": "#particle" },
+                "south": { "uv": [ 1, 12, 12, 16 ], "texture": "#particle" },
+                "west":  { "uv": [ 1, 12, 12, 16 ], "texture": "#particle" },
+                "east":  { "uv": [ 1, 12, 12, 16 ], "texture": "#particle" }
+            }
+        }
+    ]
+}

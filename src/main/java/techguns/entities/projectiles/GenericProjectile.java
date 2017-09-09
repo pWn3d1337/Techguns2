@@ -402,30 +402,14 @@ public class GenericProjectile extends Entity implements IProjectile, IEntityAdd
 			this.setDead();
 		}
 
-		// if (!this.worldObj.isRemote)
-		// {
 		if (raytraceResultIn.typeOfHit == raytraceResultIn.typeOfHit.BLOCK) {
 
-			// TODO add check if block blocks movement
-
-			// IBlockState bs =
-			// this.world.getBlockState(raytraceResultIn.getBlockPos());
-			// Block b = bs.getBlock();
-			// System.out.println("HitBlock of Type:"+b);
-
-			// if (!b.getBlocksMovement(this.world,
-			// raytraceResultIn.getBlockPos())) {
-
-			// hit a block
 			this.hitBlock(raytraceResultIn);
-			// } else {
-
-			// }
 
 			this.setDead();
-			// }
+
 		}
-		// System.out.println("Impact!");
+
 
 	}
 

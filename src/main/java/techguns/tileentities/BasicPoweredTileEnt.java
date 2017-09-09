@@ -118,7 +118,7 @@ public abstract class BasicPoweredTileEnt extends BasicOwnedTileEnt {
 	}
 	    
 	@Override
-	public void buttonClicked(int id, EntityPlayer ply) {
+	public void buttonClicked(int id, EntityPlayer ply, String data) {
 		if ((id==BUTTON_ID_REDSTONE) && (this.isUseableByPlayer(ply))){
 			this.redstoneBehaviour++;
 			this.redstoneBehaviour=(byte) (this.redstoneBehaviour%3);
@@ -126,7 +126,7 @@ public abstract class BasicPoweredTileEnt extends BasicOwnedTileEnt {
 				this.needUpdate();
 			}
 		} 
-		super.buttonClicked(id, ply);
+		super.buttonClicked(id, ply, data);
 	}
 	
 	public byte getRedstoneBehaviour() {

@@ -17,6 +17,7 @@ import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.entity.RenderBiped;
 import net.minecraft.client.renderer.entity.RenderLivingBase;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RenderPlayer;
@@ -72,6 +73,7 @@ import techguns.client.models.machines.ModelAmmoPress;
 import techguns.client.models.machines.ModelChemLab;
 import techguns.client.models.machines.ModelMetalPress;
 import techguns.client.models.machines.ModelTurretBase;
+import techguns.client.models.npcs.ModelSkeletonSoldier;
 import techguns.client.models.projectiles.ModelRocket;
 import techguns.client.particle.LightPulse;
 import techguns.client.particle.TGFX;
@@ -94,8 +96,21 @@ import techguns.client.render.tileentities.RenderTurret;
 import techguns.deatheffects.EntityDeathUtils.DeathType;
 import techguns.debug.Keybinds;
 import techguns.entities.npcs.NPCTurret;
+import techguns.entities.npcs.PsychoSteve;
+import techguns.entities.npcs.StormTrooper;
 import techguns.entities.npcs.ZombieFarmer;
 import techguns.entities.npcs.ZombieSoldier;
+import techguns.entities.npcs.Bandit;
+import techguns.entities.npcs.DictatorDave;
+import techguns.entities.npcs.ArmySoldier;
+import techguns.entities.npcs.Commando;
+import techguns.entities.npcs.CyberDemon;
+import techguns.entities.npcs.SkeletonSoldier;
+import techguns.entities.npcs.Outcast;
+import techguns.entities.npcs.ZombiePigmanSoldier;
+import techguns.entities.npcs.SuperMutantBasic;
+import techguns.entities.npcs.SuperMutantElite;
+import techguns.entities.npcs.SuperMutantHeavy;
 import techguns.entities.projectiles.*;
 import techguns.events.TGGuiEvents;
 import techguns.entities.projectiles.FlyingGibs;
@@ -542,7 +557,7 @@ public class ClientProxy extends CommonProxy {
 					{0f,0f,0.03f}, //GUI
 					{0f,0f,0f}, //Ground
 					{0f,0f,-0.05f} //frame
-				}).setMuzzleFXPos3P(0.09f, -0.57f).setScope(ScreenEffect.sniperScope));
+				}).setMuzzleFXPos3P(0.09f, -0.57f).setScope(ScreenEffect.sniperScope).setScopeRecoilAnim(GunAnimation.scopeRecoil, 0.05f, 1.0f));
 		
 		ItemRenderHack.registerItemRenderer(TGuns.powerhammer,new RenderGunBase90(new ModelPowerHammer(),2).setBaseTranslation(0.15f, -0.2f, RenderItemBase.SCALE-0.09f)
 				.setBaseScale(1.25f).setGUIScale(0.45f).setMuzzleFx(ScreenEffect.muzzleFlashSonic, 0, 0.26f, -0.67f, 0.5f,0).setTransformTranslations(new float[][]{
@@ -616,7 +631,7 @@ public class ClientProxy extends CommonProxy {
 					{0.05f,0f,0f}, //GUI
 					{0f,0f,0f}, //Ground
 					{0.02f,-0.09f,-0.05f} //frame
-				}).setMuzzleFXPos3P(0.14f, -1.04f).setMuzzleFlashJitter(0.02f, 0.02f, 5.0f, 0.1f).setScope(ScreenEffect.sniperScope));
+				}).setMuzzleFXPos3P(0.14f, -1.04f).setMuzzleFlashJitter(0.02f, 0.02f, 5.0f, 0.1f).setScope(ScreenEffect.sniperScope).setScopeRecoilAnim(GunAnimation.scopeRecoil, 0.05f, 2.0f));
 		
 		ItemRenderHack.registerItemRenderer(TGuns.vector,new RenderGunBase(new ModelVector(),1).setBaseTranslation(RenderItemBase.SCALE*0.5f, -0.57f, -0.2f)
 				.setBaseScale(1.1f).setGUIScale(0.45f).setMuzzleFx(ScreenEffect.muzzleFlash_rifle, 0, 0.10f, -0.72f, 0.60f,0).setRecoilAnim(GunAnimation.genericRecoil, 0.05f, 2.0f).setTransformTranslations(new float[][]{
@@ -704,7 +719,7 @@ public class ClientProxy extends CommonProxy {
 	
 	@Override
 	protected void registerEntityRenderers() {
-		RenderingRegistry.registerEntityRenderingHandler(GenericProjectile.class, RenderGenericProjectile::new);
+		RenderingRegistry.registerEntityRenderingHandler(GenericProjectile.class, RenderGenericProjectile<GenericProjectile>::new);
 		RenderingRegistry.registerEntityRenderingHandler(RocketProjectile.class, RenderRocketProjectile::new);
 		RenderingRegistry.registerEntityRenderingHandler(StoneBulletProjectile.class, RenderStoneBulletProjectile::new);
 		RenderingRegistry.registerEntityRenderingHandler(BioGunProjectile.class, RenderBioGunProjectile::new);
@@ -719,14 +734,31 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerEntityRenderingHandler(GaussProjectile.class, RenderAdvancedBulletProjectile::new);
 		RenderingRegistry.registerEntityRenderingHandler(AdvancedBulletProjectile.class, RenderAdvancedBulletProjectile::new);
 		RenderingRegistry.registerEntityRenderingHandler(GuidedMissileProjectile.class, RenderRocketProjectile::new);
+		RenderingRegistry.registerEntityRenderingHandler(DeatomizerProjectile.class, RenderInvisibleProjectile<DeatomizerProjectile>::new);
+		RenderingRegistry.registerEntityRenderingHandler(AlienBlasterProjectile.class, RenderInvisibleProjectile<AlienBlasterProjectile>::new);
+		//RenderingRegistry.registerEntityRenderingHandler(SonicShotgunProjectile.class, RenderSonicShotgunProjectile::new);
+		RenderingRegistry.registerEntityRenderingHandler(SonicShotgunProjectile.class, RenderGenericProjectile<SonicShotgunProjectile>::new);
 		
 		//NPCS
 		RenderingRegistry.registerEntityRenderingHandler(NPCTurret.class, RenderNPCTurret::new);
 		
 		RenderingRegistry.registerEntityRenderingHandler(ZombieSoldier.class, RenderZombieSoldier::new);
-		RenderingRegistry.registerEntityRenderingHandler(ZombieFarmer.class, RenderZombieSoldier::new);
-		
+		RenderingRegistry.registerEntityRenderingHandler(ZombieFarmer.class, RenderZombieFarmer::new);
+		RenderingRegistry.registerEntityRenderingHandler(ArmySoldier.class, RenderArmySoldier::new);
+		RenderingRegistry.registerEntityRenderingHandler(Bandit.class, RenderBandit::new);
+		RenderingRegistry.registerEntityRenderingHandler(Commando.class, RenderCommando::new);
+		RenderingRegistry.registerEntityRenderingHandler(DictatorDave.class, RenderDictatorDave::new);
+		RenderingRegistry.registerEntityRenderingHandler(CyberDemon.class, RenderCyberDemon::new);
+		RenderingRegistry.registerEntityRenderingHandler(SkeletonSoldier.class, RenderSkeletonSoldier::new);
+		RenderingRegistry.registerEntityRenderingHandler(PsychoSteve.class, RenderPsychoSteve::new);
+		RenderingRegistry.registerEntityRenderingHandler(StormTrooper.class, RenderStormTrooper::new);
+		RenderingRegistry.registerEntityRenderingHandler(Outcast.class, RenderOutcast::new);
+		RenderingRegistry.registerEntityRenderingHandler(ZombiePigmanSoldier.class, RenderZombiePigmanSoldier::new);
+		RenderingRegistry.registerEntityRenderingHandler(SuperMutantBasic.class, RenderSuperMutant::new);
+		RenderingRegistry.registerEntityRenderingHandler(SuperMutantElite.class, RenderSuperMutant::new);
+		RenderingRegistry.registerEntityRenderingHandler(SuperMutantHeavy.class, RenderSuperMutant::new);
 	}
+	
 	
 	public static ClientProxy get(){
 		return (ClientProxy) Techguns.proxy;
@@ -761,6 +793,16 @@ public class ClientProxy extends CommonProxy {
 			}
 		} else {
 			//System.out.println("Handle Sound entity null, NEED FIX!");
+		}
+	}
+
+	
+	
+	@Override
+	public void playSoundOnEntity(Entity ent, SoundEvent soundname, float volume, float pitch, boolean repeat,
+			boolean moving, boolean gunPosition, boolean playForOwnPlayer, TGSoundCategory category) {
+		if(playForOwnPlayer || ent != this.getPlayerClient()) {
+			this.playSoundOnEntity(ent, soundname, volume, pitch, repeat, moving, gunPosition, category);
 		}
 	}
 

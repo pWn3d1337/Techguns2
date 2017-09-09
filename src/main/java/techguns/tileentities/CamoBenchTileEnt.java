@@ -47,7 +47,7 @@ public class CamoBenchTileEnt extends BasicOwnedTileEnt {
 
 	
 	@Override
-	public void buttonClicked(int id, EntityPlayer ply) {
+	public void buttonClicked(int id, EntityPlayer ply, String data) {
 		if(this.isUseableByPlayer(ply)){
 			
 			if (id<3){

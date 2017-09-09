@@ -56,7 +56,7 @@ public class DungeonScannerTileEnt extends BasicOwnedTileEnt {
 	}
 
 	@Override
-	public void buttonClicked(int id, EntityPlayer ply) {
+	public void buttonClicked(int id, EntityPlayer ply, String data) {
 		if (!isUseableByPlayer(ply)) return;	
 		switch(id) {
 			case BUTTON_ID_GHOST:
@@ -77,7 +77,7 @@ public class DungeonScannerTileEnt extends BasicOwnedTileEnt {
 			//case BUTTON_ID_SCAN:				
 			//	break;
 			default:
-				super.buttonClicked(id, ply);
+				super.buttonClicked(id, ply,data);
 		}
 		this.needUpdate();
 	}

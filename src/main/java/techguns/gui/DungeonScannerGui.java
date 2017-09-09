@@ -9,9 +9,11 @@ import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
 import techguns.TGItems;
+import techguns.TGPackets;
 import techguns.Techguns;
 import techguns.gui.containers.DungeonScannerContainer;
 import techguns.gui.widgets.GuiButtonToggleDrainTank;
+import techguns.packets.PacketGuiButtonClick;
 import techguns.tileentities.BasicOwnedTileEnt;
 import techguns.tileentities.ChemLabTileEnt;
 import techguns.tileentities.DungeonScannerTileEnt;
@@ -82,6 +84,18 @@ public class DungeonScannerGui extends OwnedTileEntGui {
 		this.drawRect(k+5, l+69, k+69, l+79, 0xff000000);
 		
 		this.drawRect(k+74, l+17, k+169, l+158, 0xff888888);
+	}
+
+	@Override
+	protected void actionPerformed(GuiButton guibutton) {
+		int ID_OF_BUTTON_THAT_HAS_STRING = 1337;
+		if(guibutton.id== ID_OF_BUTTON_THAT_HAS_STRING) {
+			TGPackets.network.sendToServer(new PacketGuiButtonClick(this.ownedTile,guibutton.id,"STRING_PARAM"));
+			
+		} else {
+		
+			super.actionPerformed(guibutton);
+		}
 	}
 
 	@Override
