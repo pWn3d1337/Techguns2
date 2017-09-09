@@ -93,9 +93,9 @@ public class AmmoPressTileEnt extends BasicMachineTileEnt {
 	}
 
 	@Override
-	public void buttonClicked(int id, EntityPlayer ply){
+	public void buttonClicked(int id, EntityPlayer ply, String data){
 		if(id<BUTTON_ID_NEXT){
-			super.buttonClicked(id, ply);
+			super.buttonClicked(id, ply, data);
 
 		} else {
 		

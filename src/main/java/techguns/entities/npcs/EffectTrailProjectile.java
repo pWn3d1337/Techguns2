@@ -9,31 +9,31 @@ import techguns.entities.projectiles.GenericProjectile;
 import techguns.items.guns.GenericGun;
 import techguns.items.guns.IProjectileFactory;
 
-public class DeatomizerProjectile extends GenericProjectile {
+public class EffectTrailProjectile extends GenericProjectile {
 
-	public DeatomizerProjectile(World worldIn) {
+	public EffectTrailProjectile(World worldIn) {
 		super(worldIn);
 	}
 
-	public DeatomizerProjectile(World worldIn, double posX, double posY, double posZ, float yaw, float pitch,
+	public EffectTrailProjectile(World worldIn, double posX, double posY, double posZ, float yaw, float pitch,
 			float damage, float speed, int TTL, float spread, int dmgDropStart, int dmgDropEnd, float dmgMin,
 			float penetration, boolean blockdamage, EnumBulletFirePos firePos) {
 		super(worldIn, posX, posY, posZ, yaw, pitch, damage, speed, TTL, spread, dmgDropStart, dmgDropEnd, dmgMin, penetration,
 				blockdamage, firePos);
 	}
 	
-	public DeatomizerProjectile(World par2World, EntityLivingBase p, float damage, float speed, int TTL, float spread,
+	public EffectTrailProjectile(World par2World, EntityLivingBase p, float damage, float speed, int TTL, float spread,
 			int dmgDropStart, int dmgDropEnd, float dmgMin, float penetration, boolean blockdamage,
 			EnumBulletFirePos firePos) {
 		super(par2World, p, damage, speed, TTL, spread, dmgDropStart, dmgDropEnd, dmgMin, penetration, blockdamage, firePos);
 	}
 
-	public static class Factory implements IProjectileFactory<DeatomizerProjectile> {
+	public static class Factory implements IProjectileFactory<EffectTrailProjectile> {
 
 		@Override
-		public DeatomizerProjectile createProjectile(GenericGun gun, World world, EntityLivingBase p, float damage, float speed, int TTL, float spread, int dmgDropStart, int dmgDropEnd,
+		public EffectTrailProjectile createProjectile(GenericGun gun, World world, EntityLivingBase p, float damage, float speed, int TTL, float spread, int dmgDropStart, int dmgDropEnd,
 				float dmgMin, float penetration, boolean blockdamage, EnumBulletFirePos firePos, float radius, double gravity) {
-			return new DeatomizerProjectile(world,p,damage,speed,TTL,spread,dmgDropStart,dmgDropEnd,dmgMin,penetration,blockdamage,firePos);
+			return new EffectTrailProjectile(world,p,damage,speed,TTL,spread,dmgDropStart,dmgDropEnd,dmgMin,penetration,blockdamage,firePos);
 		}
 
 		@Override

@@ -30,9 +30,9 @@ public class DungeonScannerTileEnt extends BasicOwnedTileEnt {
 	}
 
 	@Override
-	public void buttonClicked(int id, EntityPlayer ply) {
+	public void buttonClicked(int id, EntityPlayer ply, String data) {
 		// TODO Auto-generated method stub
-		super.buttonClicked(id, ply);
+		super.buttonClicked(id, ply, data);
 	}
 	
 }

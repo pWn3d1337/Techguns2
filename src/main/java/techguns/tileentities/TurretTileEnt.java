@@ -309,9 +309,9 @@ public class TurretTileEnt extends BasicPoweredTileEnt implements ITickable{
 	}
 	
 	@Override
-	public void buttonClicked(int id, EntityPlayer ply) {
+	public void buttonClicked(int id, EntityPlayer ply, String data) {
 		if(id< BUTTON_ID_TARGET_ANIMALS) {
-		super.buttonClicked(id, ply);
+		super.buttonClicked(id, ply, data);
 		} else if ((id==BUTTON_ID_TARGET_ANIMALS) && (this.isUseableByPlayer(ply))){
 			this.attackAnimals=!this.attackAnimals;
 			if(!this.world.isRemote){

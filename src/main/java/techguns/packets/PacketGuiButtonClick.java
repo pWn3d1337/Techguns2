@@ -1,5 +1,7 @@
 package techguns.packets;
 
+import java.nio.charset.StandardCharsets;
+
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
@@ -15,6 +17,8 @@ public class PacketGuiButtonClick implements IMessage {
 	private int z;
 	private int buttonId;
 
+	private String data;
+	
     public PacketGuiButtonClick() 
     { 
      // need this constructor
@@ -22,10 +26,16 @@ public class PacketGuiButtonClick implements IMessage {
 
     public PacketGuiButtonClick(BasicInventoryTileEnt tileEnt,int buttonId) 
     {
+    	this(tileEnt,buttonId,null);
+    }
+    
+    public PacketGuiButtonClick(BasicInventoryTileEnt tileEnt,int buttonId, String data) 
+    {
     	this.x = tileEnt.getPos().getX();
     	this.y = tileEnt.getPos().getY();
     	this.z = tileEnt.getPos().getZ();
     	this.buttonId = buttonId;
+    	this.data=data;
     }
 	
 	@Override
@@ -34,6 +44,13 @@ public class PacketGuiButtonClick implements IMessage {
 		this.y=buf.readInt();
 		this.z=buf.readInt();
 		this.buttonId=buf.readInt();
+		
+		int len = buf.readShort();
+		if(len>0) {
+			this.data = buf.readCharSequence(len, StandardCharsets.UTF_8).toString();
+		} else {
+			this.data=null;
+		}
 	}
 
 	@Override
@@ -42,6 +59,12 @@ public class PacketGuiButtonClick implements IMessage {
 		buf.writeInt(y);
 		buf.writeInt(z);
 		buf.writeInt(buttonId);
+		if(data==null) {
+			buf.writeShort(0);
+		} else {
+			buf.writeShort(data.length());
+			buf.writeCharSequence(data, StandardCharsets.UTF_8);
+		}
 	}
 
 	public static class Handler extends HandlerTemplate<PacketGuiButtonClick> {
@@ -56,7 +79,7 @@ public class PacketGuiButtonClick implements IMessage {
 				if (tile instanceof BasicInventoryTileEnt){
 					BasicInventoryTileEnt tileent = (BasicInventoryTileEnt) tile;
 					if (tileent.isUseableByPlayer(ply)) {
-						tileent.buttonClicked(message.buttonId, ply);
+						tileent.buttonClicked(message.buttonId, ply, message.data);
 					}
 				}
 			}

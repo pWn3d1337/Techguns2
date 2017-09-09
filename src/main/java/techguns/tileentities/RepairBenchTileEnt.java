@@ -22,7 +22,7 @@ public class RepairBenchTileEnt extends BasicOwnedTileEnt {
 	}
 
 	@Override
-	public void buttonClicked(int id, EntityPlayer ply) {
+	public void buttonClicked(int id, EntityPlayer ply, String data) {
 		if(id>=1 && id<=4 && this.isUseableByPlayer(ply)){
 			int slot=3-(id-1);
 			ItemStack item = ply.inventory.armorInventory.get(slot);

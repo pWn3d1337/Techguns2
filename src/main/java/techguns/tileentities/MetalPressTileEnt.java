@@ -228,13 +228,13 @@ public class MetalPressTileEnt extends BasicMachineTileEnt {
 	}
 	
 	@Override
-	public void buttonClicked(int id, EntityPlayer ply) {
+	public void buttonClicked(int id, EntityPlayer ply, String data) {
 		if(id==BUTTON_ID_AUTOSPLIT){
 			if (this.isUseableByPlayer(ply)){
 				this.changeAutoSplitMode();
 			}
 		} else {
-			super.buttonClicked(id, ply);
+			super.buttonClicked(id, ply, data);
 		}
 	}
 

@@ -517,9 +517,9 @@ public class ReactionChamberTileEntMaster extends MultiBlockMachineTileEntMaster
 	}
 	
 	@Override
-	public void buttonClicked(int id, EntityPlayer ply) {
+	public void buttonClicked(int id, EntityPlayer ply, String data) {
 		if(id<=ButtonConstants.BUTTON_ID_REDSTONE){
-			super.buttonClicked(id, ply);
+			super.buttonClicked(id, ply, data);
 		} else {
 			if (this.isUseableByPlayer(ply)){
 				switch(id){

@@ -67,6 +67,19 @@ public class MathUtil {
     }
     
     /**
+     * X and Y methods are Vec3d.rotatePitch and Vec3d.rotateYaw
+     * @return
+     */
+    public static Vec3d rotateVec3dAroundZ(Vec3d vec, float angle) {
+        float f1 = MathHelper.cos(angle);
+        float f2 = MathHelper.sin(angle);
+        double d0 = vec.x * (double)f1 + vec.y * (double)f2;
+        double d1 = vec.y * (double)f1 - vec.x * (double)f2;
+        double d2 = vec.z;
+        return new Vec3d(d0,d1,d2);
+    }
+    
+    /**
      * Returns a rotation angle that is inbetween two other rotation angles. par1 and par2 are the angles between which
      * to interpolate, par3 is probably a float between 0.0 and 1.0 that tells us where "between" the two angles we are.
      * Example: par1 = 30, par2 = 50, par3 = 0.5, then return = 40

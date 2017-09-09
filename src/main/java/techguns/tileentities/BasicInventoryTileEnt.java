@@ -154,8 +154,9 @@ public class BasicInventoryTileEnt extends TileEntity {
 	 * Called when a gui button is clicked, does nothing on default, override in subclasss
 	 * @param id
 	 * @param ply
+	 * @param data
 	 */
-	public void buttonClicked(int id, EntityPlayer ply){}
+	public void buttonClicked(int id, EntityPlayer ply, String data){}
 	
 	/**
 	 * called serverside when this tileent should send out updated to client

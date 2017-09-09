@@ -350,9 +350,9 @@ public class ChemLabTileEnt extends BasicMachineTileEnt implements ITileEntityFl
 	}
 	
 	@Override
-	public void buttonClicked(int id, EntityPlayer ply) {
+	public void buttonClicked(int id, EntityPlayer ply, String data) {
 		if(id<BUTTON_ID_DUMP_INPUT){
-			super.buttonClicked(id, ply);
+			super.buttonClicked(id, ply, data);
 		} else {
 			if (this.isUseableByPlayer(ply)){
 				switch(id){

@@ -715,7 +715,7 @@ public class ClientProxy extends CommonProxy {
 	
 	@Override
 	protected void registerEntityRenderers() {
-		RenderingRegistry.registerEntityRenderingHandler(GenericProjectile.class, RenderGenericProjectile::new);
+		RenderingRegistry.registerEntityRenderingHandler(GenericProjectile.class, RenderGenericProjectile<GenericProjectile>::new);
 		RenderingRegistry.registerEntityRenderingHandler(RocketProjectile.class, RenderRocketProjectile::new);
 		RenderingRegistry.registerEntityRenderingHandler(StoneBulletProjectile.class, RenderStoneBulletProjectile::new);
 		RenderingRegistry.registerEntityRenderingHandler(BioGunProjectile.class, RenderBioGunProjectile::new);
@@ -730,6 +730,10 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerEntityRenderingHandler(GaussProjectile.class, RenderAdvancedBulletProjectile::new);
 		RenderingRegistry.registerEntityRenderingHandler(AdvancedBulletProjectile.class, RenderAdvancedBulletProjectile::new);
 		RenderingRegistry.registerEntityRenderingHandler(GuidedMissileProjectile.class, RenderRocketProjectile::new);
+		RenderingRegistry.registerEntityRenderingHandler(DeatomizerProjectile.class, RenderInvisibleProjectile<DeatomizerProjectile>::new);
+		RenderingRegistry.registerEntityRenderingHandler(AlienBlasterProjectile.class, RenderInvisibleProjectile<AlienBlasterProjectile>::new);
+		//RenderingRegistry.registerEntityRenderingHandler(SonicShotgunProjectile.class, RenderSonicShotgunProjectile::new);
+		RenderingRegistry.registerEntityRenderingHandler(SonicShotgunProjectile.class, RenderGenericProjectile<SonicShotgunProjectile>::new);
 		
 		//NPCS
 		RenderingRegistry.registerEntityRenderingHandler(NPCTurret.class, RenderNPCTurret::new);

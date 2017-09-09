@@ -21,15 +21,16 @@ import techguns.entities.npcs.Bandit;
 import techguns.entities.npcs.Commando;
 import techguns.entities.npcs.DictatorDave;
 import techguns.entities.npcs.CyberDemon;
-import techguns.entities.npcs.DeatomizerProjectile;
 import techguns.entities.npcs.SkeletonSoldier;
 import techguns.entities.npcs.StormTrooper;
 import techguns.entities.npcs.SuperMutantBasic;
 import techguns.entities.npcs.SuperMutantElite;
 import techguns.entities.npcs.SuperMutantHeavy;
 import techguns.entities.projectiles.AdvancedBulletProjectile;
+import techguns.entities.projectiles.AlienBlasterProjectile;
 import techguns.entities.projectiles.BioGunProjectile;
 import techguns.entities.projectiles.BlasterProjectile;
+import techguns.entities.projectiles.DeatomizerProjectile;
 import techguns.entities.projectiles.FlamethrowerProjectile;
 import techguns.entities.projectiles.GaussProjectile;
 import techguns.entities.projectiles.GenericProjectile;
@@ -39,6 +40,7 @@ import techguns.entities.projectiles.GuidedMissileProjectile;
 import techguns.entities.projectiles.LaserProjectile;
 import techguns.entities.projectiles.NDRProjectile;
 import techguns.entities.projectiles.RocketProjectile;
+import techguns.entities.projectiles.SonicShotgunProjectile;
 import techguns.entities.projectiles.StoneBulletProjectile;
 import techguns.entities.projectiles.TeslaProjectile;
 import techguns.init.ITGInitializer;
@@ -68,6 +70,8 @@ public class TGEntities implements ITGInitializer {
 		EntityRegistry.registerModEntity(new ResourceLocation(Techguns.MODID,"AdvancedBulletProjectile"),AdvancedBulletProjectile.class, "AdvancedBulletProjectile", ++Techguns.modEntityID, Techguns.MODID, bulletTrackRange, 1, true);
 		EntityRegistry.registerModEntity(new ResourceLocation(Techguns.MODID,"GuidedMissileProjectile"),GuidedMissileProjectile.class, "GuidedMissileProjectile", ++Techguns.modEntityID, Techguns.MODID, bulletTrackRange, 1, true);
 		EntityRegistry.registerModEntity(new ResourceLocation(Techguns.MODID,"DeatomizerProjectile"),DeatomizerProjectile.class, "DeatomizerProjectile", ++Techguns.modEntityID, Techguns.MODID, bulletTrackRange, 1, true);
+		EntityRegistry.registerModEntity(new ResourceLocation(Techguns.MODID,"AlienBlasterProjectile"),AlienBlasterProjectile.class, "AlienBlasterProjectile", ++Techguns.modEntityID, Techguns.MODID, bulletTrackRange, 1, true);
+		EntityRegistry.registerModEntity(new ResourceLocation(Techguns.MODID,"SonicShotgunProjectile"),SonicShotgunProjectile.class, "SonicShotgunProjectile", ++Techguns.modEntityID, Techguns.MODID, bulletTrackRange, 1, true);
 		
 		
 		/**
