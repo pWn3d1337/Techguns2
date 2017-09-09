@@ -9,7 +9,7 @@ import techguns.world.dungeon.TemplateSegment.SegmentType;
 
 public class DungeonTemplate {
 
-	public static HashMap<String, DungeonTemplate> dungeonTemplates;
+	public static HashMap<String, DungeonTemplate> dungeonTemplates = new HashMap<>();
 	
 	public int sizeXZ;
 	public int sizeY;
