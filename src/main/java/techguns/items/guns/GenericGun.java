@@ -953,7 +953,7 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 						if (flag && !flag2 && !flag1 && player.onGround && d0 < (double) player.getAIMoveSpeed()) {
 							ItemStack itemstack = player.getHeldItem(EnumHand.MAIN_HAND);
 
-							flag3= this.hasSwordSweep(); //if (itemstack.getItem() instanceof ItemSword) {
+							flag3= this.hasSwordSweep() && this.getAmmoLeft(stack)>0; //if (itemstack.getItem() instanceof ItemSword) {
 							//	flag3 = true;
 							//}
 						}
@@ -1008,9 +1008,10 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 									}
 								}
 
-								player.world.playSound((EntityPlayer) null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP,
+								/*player.world.playSound((EntityPlayer) null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP,
 										player.getSoundCategory(), 1.0F, 1.0F);
-								player.spawnSweepParticles();
+								player.spawnSweepParticles();*/
+								this.doSweepAttackEffect(player);
 							}
 
 							if (targetEntity instanceof EntityPlayerMP && targetEntity.velocityChanged) {
@@ -1099,6 +1100,27 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 
 			return true;
 		}
+	}
+	
+	protected void doSweepAttackEffect(EntityPlayer player) {
+        if(!player.world.isRemote) {
+			double d0 = (double)(-MathHelper.sin(player.rotationYaw * 0.017453292F));
+	        double d1 = (double)MathHelper.cos(player.rotationYaw * 0.017453292F);
+        	double x = player.posX+d0;
+        	double y = player.posY+player.height*0.5d;
+        	double z = player.posZ+d1;
+        	this.spawnSweepParticle(player.world, x, y, z, d0, 0, d1);
+        	this.playSweepSoundEffect(player);
+        }
+	}
+
+	protected void playSweepSoundEffect(EntityPlayer player) {
+		player.world.playSound((EntityPlayer) null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP,
+				player.getSoundCategory(), 1.0F, 1.0F);
+	}
+	
+	protected void spawnSweepParticle(World w, double x, double y, double z, double motionX, double motionY, double motionZ) {
+		
 	}
 	
 	/**

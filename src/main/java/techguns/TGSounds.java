@@ -105,6 +105,8 @@ public class TGSounds {
 	
 	public static SoundEvent CHAINSAW_LOOP = createSoundEvent("guns.chainsawloop");
 	public static SoundEvent CHAINSAW_LOOP_START= createSoundEvent("guns.chainsawloopstart");
+	public static SoundEvent CHAINSAW_SWING = createSoundEvent("guns.chainsawswing");
+	public static SoundEvent CHAINSAW_HIT = createSoundEvent("guns.chainsawhit");
 	
 	public static SoundEvent BEAMGUN_START = createSoundEvent("guns.beamgunstart");
 	public static SoundEvent BEAMGUN_FIRE = createSoundEvent("guns.beamgunfire");
