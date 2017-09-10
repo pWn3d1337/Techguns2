@@ -16,6 +16,8 @@ import techguns.util.MBlock;
 
 public class Structure implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
+	
 	int sizeX;
 	int sizeY;
 	int sizeZ;
@@ -39,8 +41,12 @@ public class Structure implements Serializable{
 					BlockPos bpos = new BlockPos(x+i, y+j, z+k);
 					MBlock mblock = new MBlock(world.getBlockState(bpos));
 					int index = structure.blocks.indexOf(mblock);
-					if (index > -1) structure.blockEntries.add(structure.new BlockEntry(i,j,k,index));
-					else structure.blockEntries.add(structure.new BlockEntry(i,j,k,structure.blockEntries.size()));
+					if (index > -1) {
+						structure.blockEntries.add(structure.new BlockEntry(i,j,k,index));
+					} else {
+						structure.blocks.add(mblock);
+						structure.blockEntries.add(structure.new BlockEntry(i,j,k,structure.blocks.indexOf(mblock)));
+					}
 				}
 			}
 		}
@@ -64,6 +70,9 @@ public class Structure implements Serializable{
 	
 
 	class BlockEntry implements Serializable {
+		
+		private static final long serialVersionUID = 1L;
+		
 		int x;
 		int y;
 		int z;

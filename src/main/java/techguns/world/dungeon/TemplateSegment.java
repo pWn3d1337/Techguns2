@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import net.minecraft.util.math.Vec3i;
+import techguns.tileentities.DungeonScannerTileEnt;
 
 public class TemplateSegment {
 	
@@ -35,7 +36,21 @@ public class TemplateSegment {
 	
 	private static void addSegment(SegmentType type, int row, int col, int sizeY) {
 		templateSegments.put(type, new TemplateSegment(type, row, col, sizeY));
-	}		
+	}
+	
+	//get maximum extends of the dungeon template
+	public static Vec3i getMaxExtents(int sizeXZ, int sizeY) {
+		int maxCol = 0;
+		int maxRow = 0;
+		int maxHeight = 0;
+		for (TemplateSegment temp : TemplateSegment.templateSegments.values()) {
+			if (temp.col > maxCol) maxCol = temp.col;
+			if (temp.row > maxRow) maxRow = temp.row;
+			if (temp.sizeY > maxHeight) maxHeight = temp.sizeY;
+		}
+		int spacing = DungeonScannerTileEnt.SPACING;
+		return new Vec3i((maxCol+1) * (sizeXZ+spacing), sizeY*maxHeight, (maxCol+1) * (sizeXZ+spacing));
+	}
 
 	//indices for template scanner
 	public int col;
