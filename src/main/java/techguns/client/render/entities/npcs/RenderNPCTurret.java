@@ -104,7 +104,7 @@ public class RenderNPCTurret extends RenderLiving<NPCTurret>{
 			
             GlStateManager.pushMatrix();
 
-            GlStateManager.translate(gun.turretPosOffsetX, gun.turretPosOffsetY+this.gunOffsetY, gun.turretPosOffsetZ);
+            GlStateManager.translate(gun.turretPosOffsetX+Keybinds.X, gun.turretPosOffsetY+this.gunOffsetY+Keybinds.Y, gun.turretPosOffsetZ+Keybinds.Z);
             //this.translateToHand(handSide);
             GlStateManager.rotate(180.0F, 1.0F, 0.0F, 0.0F);
             GlStateManager.rotate(180.0F, 0.0F, 1.0F, 0.0F);

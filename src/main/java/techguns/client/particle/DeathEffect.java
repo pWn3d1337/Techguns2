@@ -37,6 +37,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import techguns.TGSounds;
+import techguns.Techguns;
 import techguns.client.ClientProxy;
 import techguns.client.audio.TGSoundCategory;
 import techguns.client.models.gibs.ModelGibs;
@@ -86,7 +87,7 @@ public class DeathEffect {
 		
 		goreStats.values().forEach(stat -> stat.init());
 		
-		genericGore = (new GoreData(modelBiped, 160,21,31)).setTexture(new ResourceLocation("techguns","textures/entity/gore.png"));
+		genericGore = (new GoreData(modelBiped, 160,21,31)).setTexture(new ResourceLocation(Techguns.MODID,"textures/entity/gore.png"));
 		genericGore.setRandomScale(0.5f, 0.8f);
 		genericGore.init();
 		//ModelHorse horse = new ModelHorse();
@@ -150,8 +151,13 @@ public class DeathEffect {
 			Minecraft.getMinecraft().effectRenderer.addEffect(sys);
 
 			int count;
-			if (data.numGibs >= 0) count = data.numGibs;
-			else count = data.model.getNumGibs();
+			if (data.numGibs >= 0) { 
+				count = data.numGibs;
+			} else if (data.model!=null) { 
+				count = data.model.getNumGibs();
+			} else {
+				return;
+			}
 			
 			for (int i = 0; i < count; i++) {
 				double vx = (0.5-entity.world.rand.nextDouble()) * 0.35;
@@ -203,7 +209,7 @@ public class DeathEffect {
 		
 		public GoreData(ModelGibs model, int bloodColorR, int bloodColorG, int bloodColorB) {
 			this.model = model;
-			this.modelScale = modelScale;
+	//		this.modelScale = modelScale;
 			this.bloodColorR = bloodColorR;
 			this.bloodColorG = bloodColorG;
 			this.bloodColorB = bloodColorB;

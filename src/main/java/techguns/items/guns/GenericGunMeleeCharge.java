@@ -62,6 +62,11 @@ public class GenericGunMeleeCharge extends GenericGunCharge implements IGenericG
 		return this;
 	}
 
+	
+	protected SoundEvent getSwingSound() {
+		return TGSounds.POWERHAMMER_SWING;
+	}
+	
 	@Override
 	public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
 		boolean openingContainer=false;
@@ -97,7 +102,7 @@ public class GenericGunMeleeCharge extends GenericGunCharge implements IGenericG
 				//server side:;
 				//SoundUtil.playSoundOnEntityGunPosition(entityLiving.worldObj, entityLiving, "techguns:guns.powerhammerSwing", SOUND_DISTANCE, 1.0F, false, false);	
 				if(!openingContainer && sendSound){
-					TGPackets.network.sendToAllAround(new PacketPlaySound(TGSounds.POWERHAMMER_SWING, entityLiving, 1.0f, 1.0f, false, false, true, true,TGSoundCategory.GUN_FIRE), TGPackets.targetPointAroundEnt(entityLiving, 32.0f));
+					TGPackets.network.sendToAllAround(new PacketPlaySound(getSwingSound(), entityLiving, 1.0f, 1.0f, false, false, true, true,TGSoundCategory.GUN_FIRE), TGPackets.targetPointAroundEnt(entityLiving, 32.0f));
 				}
 				
 				return true;

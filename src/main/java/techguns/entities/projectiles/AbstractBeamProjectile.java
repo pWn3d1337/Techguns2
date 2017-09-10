@@ -45,11 +45,16 @@ public abstract class AbstractBeamProjectile extends GenericProjectile {
 			vec3d = new Vec3d(raytraceresult.hitVec.x, raytraceresult.hitVec.y, raytraceresult.hitVec.z);
 		}
 
-		Entity entity = this.findEntityOnPath(vec3d1, vec3d);
+		/*Entity entity = this.findEntityOnPath(vec3d1, vec3d);
 
 		if (entity != null) {
 			raytraceresult = new RayTraceResult(entity);
+		}*/
+		RayTraceResult rayTraceResultEntity = this.findEntityOnPath(vec3d1, vec3d);
+		if(rayTraceResultEntity!=null) {
+			raytraceresult=rayTraceResultEntity;
 		}
+
 
 		if (raytraceresult != null && raytraceresult.entityHit instanceof EntityPlayer) {
 			EntityPlayer entityplayer = (EntityPlayer) raytraceresult.entityHit;

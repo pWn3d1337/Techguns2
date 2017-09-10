@@ -30,6 +30,7 @@ import techguns.entities.projectiles.AdvancedBulletProjectile;
 import techguns.entities.projectiles.AlienBlasterProjectile;
 import techguns.entities.projectiles.BioGunProjectile;
 import techguns.entities.projectiles.BlasterProjectile;
+import techguns.entities.projectiles.ChainsawProjectile;
 import techguns.entities.projectiles.CyberdemonBlasterProjectile;
 import techguns.entities.projectiles.DeatomizerProjectile;
 import techguns.entities.projectiles.FlamethrowerProjectile;
@@ -76,6 +77,7 @@ public class TGEntities implements ITGInitializer {
 		EntityRegistry.registerModEntity(new ResourceLocation(Techguns.MODID,"SonicShotgunProjectile"),SonicShotgunProjectile.class, "SonicShotgunProjectile", ++Techguns.modEntityID, Techguns.MODID, bulletTrackRange, 1, true);
 		EntityRegistry.registerModEntity(new ResourceLocation(Techguns.MODID,"CyberdemonBlasterProjectile"),CyberdemonBlasterProjectile.class, "CyberdemonBlasterProjectile", ++Techguns.modEntityID, Techguns.MODID, bulletTrackRange, 1, true);
 		EntityRegistry.registerModEntity(new ResourceLocation(Techguns.MODID,"PowerHammerProjectile"),PowerHammerProjectile.class, "PowerHammerProjectile", ++Techguns.modEntityID, Techguns.MODID, bulletTrackRange, 1, true);
+		EntityRegistry.registerModEntity(new ResourceLocation(Techguns.MODID,"ChainsawProjectile"),ChainsawProjectile.class, "ChainsawProjectile", ++Techguns.modEntityID, Techguns.MODID, bulletTrackRange, 1, true);
 		
 		
 		/**

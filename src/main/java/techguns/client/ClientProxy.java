@@ -598,13 +598,13 @@ public class ClientProxy extends CommonProxy {
 				}).setMuzzleFXPos3P(0.11f, -0.81f));
 		
 		ItemRenderHack.registerItemRenderer(TGuns.chainsaw,new RenderGunBase90(new ModelChainsaw(),1).setBaseTranslation(-0.4f, -0.2f, RenderItemBase.SCALE-0.09f)
-				.setBaseScale(0.95f).setGUIScale(0.45f).setMuzzleFx(ScreenEffect.muzzleFlashSonic, 0, 0.26f, -0.67f, 0.5f,0).setTransformTranslations(new float[][]{
+				.setBaseScale(0.95f).setGUIScale(0.45f).setTransformTranslations(new float[][]{
 					{0f,-0.08f,0.15f}, //First Person
 					{0f,-0.5f,0.04f}, //Third Person
 					{0.03f,0.01f,0f}, //GUI
 					{0f,0f,0f}, //Ground
 					{-0.07f,-0.03f,-0.11f} //frame
-				}).setMuzzleFXPos3P(0.12f, -0.65f));	
+				}));	
 		
 		ItemRenderHack.registerItemRenderer(TGuns.scatterbeamrifle,new RenderGunBase(new ModelLasergun2(),1).setBaseTranslation(RenderItemBase.SCALE*0.5f, -0.1f, 0.1f)
 				.setGUIScale(0.35f).setMuzzleFx(ScreenEffect.muzzleFlashLaser, 0, 0.22f, -1.09f, 0.75f,0).setRecoilAnim(GunAnimation.genericRecoil, 0.1f, 4.0f).setTransformTranslations(new float[][]{
@@ -739,6 +739,8 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerEntityRenderingHandler(SonicShotgunProjectile.class, RenderSonicShotgunProjectile::new);
 		RenderingRegistry.registerEntityRenderingHandler(CyberdemonBlasterProjectile.class, RenderInvisibleProjectile<CyberdemonBlasterProjectile>::new);
 		RenderingRegistry.registerEntityRenderingHandler(PowerHammerProjectile.class, RenderInvisibleProjectile<PowerHammerProjectile>::new);
+		RenderingRegistry.registerEntityRenderingHandler(ChainsawProjectile.class, RenderInvisibleProjectile<ChainsawProjectile>::new);
+		
 		
 		//NPCS
 		RenderingRegistry.registerEntityRenderingHandler(NPCTurret.class, RenderNPCTurret::new);
