@@ -736,8 +736,9 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerEntityRenderingHandler(GuidedMissileProjectile.class, RenderRocketProjectile::new);
 		RenderingRegistry.registerEntityRenderingHandler(DeatomizerProjectile.class, RenderInvisibleProjectile<DeatomizerProjectile>::new);
 		RenderingRegistry.registerEntityRenderingHandler(AlienBlasterProjectile.class, RenderInvisibleProjectile<AlienBlasterProjectile>::new);
-		//RenderingRegistry.registerEntityRenderingHandler(SonicShotgunProjectile.class, RenderSonicShotgunProjectile::new);
-		RenderingRegistry.registerEntityRenderingHandler(SonicShotgunProjectile.class, RenderGenericProjectile<SonicShotgunProjectile>::new);
+		RenderingRegistry.registerEntityRenderingHandler(SonicShotgunProjectile.class, RenderSonicShotgunProjectile::new);
+		RenderingRegistry.registerEntityRenderingHandler(CyberdemonBlasterProjectile.class, RenderInvisibleProjectile<CyberdemonBlasterProjectile>::new);
+		RenderingRegistry.registerEntityRenderingHandler(PowerHammerProjectile.class, RenderInvisibleProjectile<PowerHammerProjectile>::new);
 		
 		//NPCS
 		RenderingRegistry.registerEntityRenderingHandler(NPCTurret.class, RenderNPCTurret::new);

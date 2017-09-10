@@ -131,6 +131,7 @@ public class TGParticleSystem extends Particle {
 		
 		if (spawnDelay-- <= 0) {
 			int count = MathUtil.randomInt(rand, type.particleCountMin, type.particleCountMax);
+
 			for (int i = 0; i < count; i++) {
 				//Get position and motion data
 				DirResult dir = this.type.new DirResult();

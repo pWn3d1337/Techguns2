@@ -221,13 +221,18 @@ public class GenericProjectile extends Entity implements IProjectile, IEntityAdd
 			vec3d = new Vec3d(raytraceresult.hitVec.x, raytraceresult.hitVec.y, raytraceresult.hitVec.z);
 		}
 
-		Entity entity = this.findEntityOnPath(vec3d1, vec3d);
+		//Entity entity = this.findEntityOnPath(vec3d1, vec3d);
 
-		if (entity != null) {
+		/*if (entity != null) {
 			raytraceresult = new RayTraceResult(entity);
-		}
+		}*/
 
-		if (raytraceresult != null && raytraceresult.entityHit instanceof EntityPlayer) {
+		RayTraceResult raytraceresultEntity = this.findEntityOnPath(vec3d1, vec3d);
+		if(raytraceresultEntity!=null) {
+			raytraceresult=raytraceresultEntity;
+		}
+		
+		if (raytraceresult != null && raytraceresult.entityHit!=null && raytraceresult.entityHit instanceof EntityPlayer) {
 			EntityPlayer entityplayer = (EntityPlayer) raytraceresult.entityHit;
 
 			if (this.shooter instanceof EntityPlayer && !((EntityPlayer) this.shooter).canAttackPlayer(entityplayer)) {
@@ -316,15 +321,17 @@ public class GenericProjectile extends Entity implements IProjectile, IEntityAdd
     	this.startZ=this.posZ;
     	this.posInitialized=true;
     }
-
+    
 	@Nullable
-	protected Entity findEntityOnPath(Vec3d start, Vec3d end) {
+	protected RayTraceResult findEntityOnPath(Vec3d start, Vec3d end) {
 		Entity entity = null;
 		List<Entity> list = this.world.getEntitiesInAABBexcluding(this,
 				this.getEntityBoundingBox().expand(this.motionX, this.motionY, this.motionZ).grow(1.0D),
 				BULLET_TARGETS);
 		double d0 = 0.0D;
 
+		Vec3d hitPos = null;
+		
 		for (int i = 0; i < list.size(); ++i) {
 			Entity entity1 = list.get(i);
 
@@ -338,12 +345,17 @@ public class GenericProjectile extends Entity implements IProjectile, IEntityAdd
 					if (d1 < d0 || d0 == 0.0D) {
 						entity = entity1;
 						d0 = d1;
+						hitPos = raytraceresult.hitVec;
 					}
 				}
 			}
 		}
-
-		return entity;
+		
+		if(entity!=null) {
+			return new RayTraceResult(entity, hitPos);
+		} else {
+			return null;
+		}
 	}
 
 	@Override

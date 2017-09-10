@@ -12,6 +12,7 @@ import techguns.gui.AmmoPressGui;
 import techguns.gui.CamoBenchGui;
 import techguns.gui.ChargingStationGui;
 import techguns.gui.ChemLabGui;
+import techguns.gui.DungeonGeneratorGui;
 import techguns.gui.DungeonScannerGui;
 import techguns.gui.FabricatorGui;
 import techguns.gui.MetalPressGui;
@@ -22,6 +23,7 @@ import techguns.gui.containers.AmmoPressContainer;
 import techguns.gui.containers.CamoBenchContainer;
 import techguns.gui.containers.ChargingStationContainer;
 import techguns.gui.containers.ChemLabContainer;
+import techguns.gui.containers.DungeonGeneratorContainer;
 import techguns.gui.containers.DungeonScannerContainer;
 import techguns.gui.containers.FabricatorContainer;
 import techguns.gui.containers.MetalPressContainer;
@@ -34,6 +36,7 @@ import techguns.tileentities.AmmoPressTileEnt;
 import techguns.tileentities.CamoBenchTileEnt;
 import techguns.tileentities.ChargingStationTileEnt;
 import techguns.tileentities.ChemLabTileEnt;
+import techguns.tileentities.DungeonGeneratorTileEnt;
 import techguns.tileentities.DungeonScannerTileEnt;
 import techguns.tileentities.FabricatorTileEntMaster;
 import techguns.tileentities.MetalPressTileEnt;
@@ -54,6 +57,7 @@ public class TechgunsGuiHandler implements IGuiHandler {
 		GuiHandlerEntry.<ChargingStationTileEnt>addEntry(ChargingStationTileEnt.class, ChargingStationGui::new, ChargingStationContainer::new);
 		GuiHandlerEntry.<ReactionChamberTileEntMaster>addEntry(ReactionChamberTileEntMaster.class, ReactionChamberGui::new, ReactionChamberContainer::new);
 		GuiHandlerEntry.<DungeonScannerTileEnt>addEntry(DungeonScannerTileEnt.class, DungeonScannerGui::new, DungeonScannerContainer::new);
+		GuiHandlerEntry.<DungeonGeneratorTileEnt>addEntry(DungeonGeneratorTileEnt.class, DungeonGeneratorGui::new, DungeonGeneratorContainer::new);
 	}
 	
 	public static void openGuiForPlayer(EntityPlayer ply, TileEntity tile) {

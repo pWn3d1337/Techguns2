@@ -82,7 +82,7 @@ import techguns.api.guns.GunHandType;
 import techguns.api.guns.IGenericGun;
 
 public class GenericGun extends GenericItem implements IGenericGun, IItemTGRenderer, ICamoChangeable {
-	protected static final float SOUND_DISTANCE=4.0f;
+	public static final float SOUND_DISTANCE=4.0f;
 	
 	// Weapon Stats
 	boolean semiAuto=false; // = false;
