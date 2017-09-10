@@ -168,17 +168,17 @@ public class TGSounds {
 	public static SoundEvent BULLET_IMPACT_DIRT = createSoundEvent("guns.impact.dirt");
 	public static SoundEvent BULLET_IMPACT_WATER = createSoundEvent("guns.impact.water");
 	
-	public static SoundEvent CYBERDEMON_IDLE = createSoundEvent("npcs.cyberdemon_idle_a");
-	public static SoundEvent CYBERDEMON_HURT = createSoundEvent("npcs.cyberdemon_hurt_a");
-	public static SoundEvent CYBERDEMON_DEATH = createSoundEvent("npcs.cyberdemon_death_a");
-	public static SoundEvent CYBERDEMON_STEP = createSoundEvent("npcs.cyberdemon_step_a");
-	public static SoundEvent CYBERDEMON_AGGRO = createSoundEvent("npcs.cyberdemon_aggro_a");
+	public static SoundEvent CYBERDEMON_IDLE = createSoundEvent("npcs.cyberdemonidle");
+	public static SoundEvent CYBERDEMON_HURT = createSoundEvent("npcs.cyberdemonhurt");
+	public static SoundEvent CYBERDEMON_DEATH = createSoundEvent("npcs.cyberdemondeath");
+	public static SoundEvent CYBERDEMON_STEP = createSoundEvent("npcs.cyberdemonstep");
+	public static SoundEvent CYBERDEMON_AGGRO = createSoundEvent("npcs.cyberdemonaggro");
 	
-	public static SoundEvent ALIENBUG_IDLE = createSoundEvent("npcs.alienbug_idle_a");
-	public static SoundEvent ALIENBUG_HURT = createSoundEvent("npcs.alienbug_hurt_a");
-	public static SoundEvent ALIENBUG_DEATH = createSoundEvent("npcs.alienbug_death_a");
-	public static SoundEvent ALIENBUG_STEP = createSoundEvent("npcs.alienbug_step_a");
-	public static SoundEvent ALIENBUG_AGGRO = createSoundEvent("npcs.alienbug_aggro_a");
+	public static SoundEvent ALIENBUG_IDLE = createSoundEvent("npcs.alienbugidle");
+	public static SoundEvent ALIENBUG_HURT = createSoundEvent("npcs.alienbughurt");
+	public static SoundEvent ALIENBUG_DEATH = createSoundEvent("npcs.alienbugdeath");
+	public static SoundEvent ALIENBUG_STEP = createSoundEvent("npcs.alienbugstep");
+	public static SoundEvent ALIENBUG_AGGRO = createSoundEvent("npcs.alienbugaggro");
 	
 	public static void registerSounds(RegistryEvent.Register<SoundEvent> event){
 		IForgeRegistry<SoundEvent> reg = event.getRegistry();

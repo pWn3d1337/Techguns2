@@ -99,6 +99,18 @@ public class CyberDemon extends GenericNPC {
 		return 1.5f;
 	}
 
+	
+	
+	@Override
+	public float getBulletOffsetSide() {
+		return 0.3f;
+	}
+
+	@Override
+	public float getBulletOffsetHeight() {
+		return -0.59f;
+	}
+
 	@Override
     protected void playStepSound(BlockPos pos, Block blockIn)
     {

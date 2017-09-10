@@ -124,7 +124,7 @@ public class EntityAIRangedAttack extends EntityAIBase
             this.entityHost.getNavigator().tryMoveToEntityLiving(this.attackTarget, this.entityMoveSpeed);
         }
 
-        this.entityHost.getLookHelper().setLookPositionWithEntity(this.attackTarget, 30.0F, 30.0F);
+        this.entityHost.getLookHelper().setLookPositionWithEntity(this.attackTarget, 30.0F, 55.0F);
         float f;
 
         if (--this.rangedAttackTime == 0)

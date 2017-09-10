@@ -153,10 +153,11 @@ public class DeathEffect {
 			int count;
 			if (data.numGibs >= 0) { 
 				count = data.numGibs;
-			} else if (data.model!=null) { 
+			} else { 
+				if(data.model==null) {
+					return;
+				}
 				count = data.model.getNumGibs();
-			} else {
-				return;
 			}
 			
 			for (int i = 0; i < count; i++) {

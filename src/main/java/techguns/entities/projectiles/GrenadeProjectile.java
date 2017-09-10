@@ -30,7 +30,7 @@ public class GrenadeProjectile extends GenericProjectile {
 		this.gravity=gravity;
 		this.radius=radius;
 	}
-
+	
 	public GrenadeProjectile(World par2World, EntityLivingBase p, float damage, float speed, int TTL, float spread, float penetration, boolean blockdamage, EnumBulletFirePos leftGun, double gravity, float radius, int bounces) {
 		super(par2World, p, damage, speed, TTL, spread, 0, 0, 0, penetration, blockdamage, leftGun);
 		this.bounces=bounces;

@@ -31,7 +31,7 @@ public class SonicShotgunProjectile extends GenericProjectile implements IEntity
 		super(worldIn, posX, posY, posZ, yaw, pitch, damage, speed, TTL, spread, dmgDropStart, dmgDropEnd, dmgMin, penetration,
 				blockdamage, firePos);
 	}
-
+	
 	public SonicShotgunProjectile(World par2World, EntityLivingBase p, float damage, float speed, int TTL, float spread,
 			int dmgDropStart, int dmgDropEnd, float dmgMin, float penetration, boolean blockdamage,
 			EnumBulletFirePos firePos) {

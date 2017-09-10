@@ -218,10 +218,10 @@ public class TurretTileEnt extends BasicPoweredTileEnt implements ITickable{
 	protected void doReload(ItemStack gunstack){
 		GenericGun gun = (GenericGun) gunstack.getItem();
 		ItemStack ammo = gun.getAmmoType().getAmmo(gun.getCurrentAmmoVariant(gunstack));
-		ItemStack emptyMag = gun.getAmmoType().getAmmo(gun.getCurrentAmmoVariant(gunstack));
+		ItemStack emptyMag = gun.getAmmoType().getEmptyMag();
 		
 		if (InventoryUtil.consumeAmmo(this.inventory, ammo,SLOT_INPUT1,SLOT_INPUT1+INPUTS_SIZE)){
-			if (emptyMag!=null){
+			if (!emptyMag.isEmpty()){
 				int tooMuch=InventoryUtil.addItemToInventory(this.inventory,TGItems.newStack(emptyMag,1),SLOT_OUTPUT1,SLOT_OUTPUT1+OUTPUTS_SIZE);
 				if (!this.world.isRemote){
 					this.world.spawnEntity(new EntityItem(this.world, this.pos.getX(), this.pos.getY()+1, this.pos.getZ(), TGItems.newStack(emptyMag, tooMuch)));
@@ -350,7 +350,8 @@ public class TurretTileEnt extends BasicPoweredTileEnt implements ITickable{
 						}
 					}
 				}
-				
+			} else if( this.mountedTurret!=null && this.mountedTurret.isDead) {
+				this.onTurretDeath();
 			} else if (this.mountedTurret!=null){
 				
 				if(this.isRedstoneEnabled()){
@@ -387,6 +388,8 @@ public class TurretTileEnt extends BasicPoweredTileEnt implements ITickable{
 					}
 					
 				}
+			} else if(this.mountedTurret==null && !this.turretDeath) {
+				this.onTurretDeath();
 			}
 		} else {
 			/**

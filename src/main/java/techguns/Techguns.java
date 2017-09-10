@@ -72,7 +72,7 @@ public class Techguns
 		@Override
 		public boolean hasSearchBar() {
 			return true;
-		}    
+		}
 	};
 	static {
 		tabTechgun.setBackgroundImageName("item_search.png");

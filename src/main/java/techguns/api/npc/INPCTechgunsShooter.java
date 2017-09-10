@@ -13,4 +13,11 @@ public interface INPCTechgunsShooter {
 	public default float getGunScale() {
 		return 1.0f;
 	}
+	
+	public default float getBulletOffsetSide() {
+		return 0f;
+	}
+	public default float getBulletOffsetHeight() {
+		return 0f;
+	}
 }

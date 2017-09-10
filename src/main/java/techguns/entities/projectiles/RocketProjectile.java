@@ -36,7 +36,7 @@ public class RocketProjectile extends GenericProjectile implements ILightProvide
 		this.radius=radius;
 		this.gravity=gravity;
 	}
-
+	
 	public RocketProjectile(World worldIn) {
 		super(worldIn);
 		this.createTrailFX();

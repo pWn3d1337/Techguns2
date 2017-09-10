@@ -42,6 +42,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import techguns.TGSounds;
 import techguns.api.damagesystem.DamageType;
+import techguns.api.npc.INPCTechgunsShooter;
 import techguns.api.npc.factions.ITGNpcTeam;
 import techguns.damagesystem.DamageSystem;
 import techguns.damagesystem.TGDamageSource;
@@ -89,6 +90,7 @@ public class GenericProjectile extends Entity implements IProjectile, IEntityAdd
 		this.isImmuneToFire = true;
 		this.setNoGravity(true);
 		this.height=0.5f;
+		this.setSize(0.25F, 0.25F);
 	}
 
 	private static EnumBulletFirePos getLeftHand(EntityLivingBase elb, EnumBulletFirePos firePos){
@@ -107,32 +109,47 @@ public class GenericProjectile extends Entity implements IProjectile, IEntityAdd
 	
 	public GenericProjectile(World par2World, EntityLivingBase p, float damage, float speed, int TTL, float spread,
 			int dmgDropStart, int dmgDropEnd, float dmgMin, float penetration, boolean blockdamage, EnumBulletFirePos firePos) {
-		this(par2World, p.posX, p.posY + p.getEyeHeight(), p.posZ, p.rotationYawHead, p.rotationPitch, damage, speed,
-				TTL, spread, dmgDropStart, dmgDropEnd, dmgMin, penetration, blockdamage, getLeftHand(p,firePos));
+		/*this(par2World, p.posX, p.posY + p.getEyeHeight(), p.posZ, p.rotationYawHead, p.rotationPitch, damage, speed,
+				TTL, spread, dmgDropStart, dmgDropEnd, dmgMin, penetration, blockdamage, getLeftHand(p,firePos));*/
+		this(par2World);
 		this.shooter = p;
+		this.initProjectile(par2World, p.posX, p.posY + p.getEyeHeight(), p.posZ, p.rotationYawHead, p.rotationPitch, damage, speed,
+				TTL, spread, dmgDropStart, dmgDropEnd, dmgMin, penetration, blockdamage, getLeftHand(p,firePos));
 	}
 
 	public GenericProjectile(World worldIn, double posX, double posY, double posZ, float yaw, float pitch, float damage,
 			float speed, int TTL, float spread, int dmgDropStart, int dmgDropEnd, float dmgMin, float penetration,
 			boolean blockdamage, EnumBulletFirePos firePos) {
 		this(worldIn);
-		
 		this.shooter = null;
-		this.setSize(0.25F, 0.25F);
+		this.initProjectile(worldIn, posX, posY, posZ, yaw, pitch, damage, speed, TTL, spread, dmgDropStart, dmgDropEnd, dmgMin, penetration, blockdamage, firePos);
+	}
 
+	private void initProjectile(World worldIn, double posX, double posY, double posZ, float yaw, float pitch, float damage,
+			float speed, int TTL, float spread, int dmgDropStart, int dmgDropEnd, float dmgMin, float penetration,
+			boolean blockdamage, EnumBulletFirePos firePos) {
+
+		float offsetSide=0.16F;
+		float offsetHeight=0f;
+		if(this.shooter!=null && shooter instanceof INPCTechgunsShooter) {
+			INPCTechgunsShooter tgshooter = (INPCTechgunsShooter) this.shooter;
+			offsetSide += tgshooter.getBulletOffsetSide();
+			offsetHeight += tgshooter.getBulletOffsetHeight();
+		}
+		
 		this.setLocationAndAngles(posX, posY, posZ, yaw + (float) (spread - (2 * Math.random() * spread)) * 40.0f,
 				pitch + (float) (spread - (2 * Math.random() * spread)) * 40.0f);
 
 		if (firePos==EnumBulletFirePos.RIGHT) {
-			this.posX -= (double) (MathHelper.cos(this.rotationYaw / 180.0F * (float) Math.PI) * 0.16F);
+			this.posX -= (double) (MathHelper.cos(this.rotationYaw / 180.0F * (float) Math.PI) * offsetSide);
 			//this.posY -= 0.10000000149011612D;
-			this.posZ -= (double) (MathHelper.sin(this.rotationYaw / 180.0F * (float) Math.PI) * 0.16F);
+			this.posZ -= (double) (MathHelper.sin(this.rotationYaw / 180.0F * (float) Math.PI) * offsetSide);
 		} else if(firePos==EnumBulletFirePos.LEFT) {
-			this.posX += (double) (MathHelper.cos(this.rotationYaw / 180.0F * (float) Math.PI) * 0.16F);
+			this.posX += (double) (MathHelper.cos(this.rotationYaw / 180.0F * (float) Math.PI) * offsetSide);
 			//this.posY -= 0.10000000149011612D;
-			this.posZ += (double) (MathHelper.sin(this.rotationYaw / 180.0F * (float) Math.PI) * 0.16F);
+			this.posZ += (double) (MathHelper.sin(this.rotationYaw / 180.0F * (float) Math.PI) * offsetSide);
 		} 
-		this.posY -= 0.10000000149011612D;
+		this.posY += (-0.10000000149011612D+offsetHeight);
 		
 		this.setPosition(this.posX, this.posY, this.posZ);
 		// this.yOffset = 0.0F;
@@ -164,7 +181,8 @@ public class GenericProjectile extends Entity implements IProjectile, IEntityAdd
 		this.damageDropEnd = dmgDropEnd;
 		this.blockdamage = blockdamage;
 	}
-
+	
+	
 	/**
 	 * Similar to setArrowHeading, it's point the throwable entity to a x, y, z
 	 * direction.
