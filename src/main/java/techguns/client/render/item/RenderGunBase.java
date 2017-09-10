@@ -62,6 +62,8 @@ public class RenderGunBase extends RenderItemBase {
 	
 	protected float scopescale=3.0f;
 	
+	protected float chargeTranslation=0.25f;
+	
 	public RenderGunBase(ModelMultipart model, int parts) {
 		super(model, null);
 		this.parts = parts;
@@ -112,6 +114,11 @@ public class RenderGunBase extends RenderItemBase {
 	public RenderGunBase setRecoilAnim3p(GunAnimation anim, float... params) {
 		this.recoilAnim3p = anim;
 		this.recoilParams3p = params;
+		return this;
+	}
+	
+	public RenderGunBase setChargeTranslationAmount(float value) {
+		this.chargeTranslation=value;
 		return this;
 	}
 	
@@ -332,7 +339,7 @@ public class RenderGunBase extends RenderItemBase {
 	protected void transformFirstPerson(float fireProgress, float reloadProgress, float chargeProgress, boolean left, boolean shoudLowerWeapon) {
 		if (chargeProgress>0) {
 		
-			GlStateManager.translate(0, 0, 0.25f*chargeProgress);
+			GlStateManager.translate(0, 0, this.chargeTranslation*chargeProgress);
 			
 		} else if (fireProgress >0){
 

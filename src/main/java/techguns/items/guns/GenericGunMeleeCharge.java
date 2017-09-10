@@ -67,6 +67,10 @@ public class GenericGunMeleeCharge extends GenericGunCharge implements IGenericG
 		return TGSounds.POWERHAMMER_SWING;
 	}
 	
+	protected SoundEvent getBlockBreakSound() {
+		return TGSounds.POWERHAMMER_IMPACT;
+	}
+	
 	@Override
 	public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
 		boolean openingContainer=false;
@@ -116,7 +120,10 @@ public class GenericGunMeleeCharge extends GenericGunCharge implements IGenericG
 		if(this.getCurrentAmmo(stack)>0){
 			this.useAmmo(stack, 1);
 			if (entityLiving instanceof EntityPlayer) {
-				worldIn.playSound((EntityPlayer)entityLiving, pos.getX()+0.5D, pos.getY()+0.5D, pos.getZ()+0.5D, TGSounds.POWERHAMMER_IMPACT, SoundCategory.PLAYERS, 1.0f, 1.0f);
+				SoundEvent sound = this.getBlockBreakSound();
+				if(sound!=null) {
+					worldIn.playSound((EntityPlayer)entityLiving, pos.getX()+0.5D, pos.getY()+0.5D, pos.getZ()+0.5D, sound, SoundCategory.PLAYERS, 1.0f, 1.0f);
+				}
 			}
 			return true;
 		}

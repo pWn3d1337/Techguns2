@@ -196,7 +196,7 @@ public class TGuns implements ITGInitializer {
 		 
 	 	 blasterrifle = new GenericGun("blasterrifle", BLASTER_PROJECTILE, AmmoTypes.ENERGY_CELL, false, 5, 50, 45, 10.0f, TGSounds.BLASTER_RIFLE_FIRE, TGSounds.LASERGUN_RELOAD, 50, 0.025f).setZoom(0.5f, true,0.75f,true).setAIStats(RANGE_MEDIUM, 30, 5, 3).setTexture("textures/guns/blasterrifle").setDamageDrop(25, 35, 8.0f).setPenetration(0.2f);
 	 	 
-		 powerhammer = new PowerHammer("powerhammer", new PowerHammerProjectile.Factory(), AmmoTypes.COMPRESSED_AIR_TANK, false, 4, 20, 45, 2.5f, TGSounds.POWERHAMMER_FIRE, TGSounds.POWERHAMMER_RELOAD,10,0.0f,30f,10).setMeleeDmg(6.0f, 2.0f).setTool("pickaxe", 2).setTool("shovel", 2).setDigSpeed(12.0f).setTexture("textures/guns/powerHammer").setRecoiltime(12).setShootWithLeftClick(false).setAIStats(RANGE_MELEE, 30, 0, 0).setDamageDrop(3, 3, 2.5f);
+		 powerhammer = new PowerHammer("powerhammer", new PowerHammerProjectile.Factory(), AmmoTypes.COMPRESSED_AIR_TANK, false, 4, 20, 45, 2.5f, TGSounds.POWERHAMMER_FIRE, TGSounds.POWERHAMMER_RELOAD,10,0.0f,20f,5).setMeleeDmg(6.0f, 2.0f).setTool("pickaxe", 2).setTool("shovel", 2).setDigSpeed(12.0f).setTexture("textures/guns/powerHammer").setRecoiltime(12).setShootWithLeftClick(false).setAIStats(RANGE_MELEE, 30, 0, 0).setDamageDrop(3, 3, 2.5f);
 		 
 		 grenadelauncher = new GenericGun("grenadelauncher", new Grenade40mmProjectile.Factory(), AmmoTypes.GRENADES_40MM, true, 5, 6, 100, 30.0f, TGSounds.GRENADE_LAUNCHER_FIRE, TGSounds.GRENADE_LAUNCHER_RELOAD, 160, 0.015f).setTexture("textures/guns/grenadelauncher").setBulletSpeed(0.5f).setAIStats(RANGE_MEDIUM, 40, 3, 20).setAmmoCount(6);
 			

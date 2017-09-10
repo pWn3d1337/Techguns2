@@ -566,7 +566,7 @@ public class ClientProxy extends CommonProxy {
 					{0.03f,0.01f,0f}, //GUI
 					{0f,0f,0f}, //Ground
 					{-0.07f,-0.03f,-0.05f} //frame
-				}).setMuzzleFXPos3P(0.12f, -0.65f));	
+				}).setMuzzleFXPos3P(0.12f, -0.65f).setChargeTranslationAmount(0.125f));	
 		
 		ItemRenderHack.registerItemRenderer(TGuns.grenadelauncher,new RenderGunBaseObj(new ModelBaseBakedGrenadeLauncher(
 				new ResourceLocation(Techguns.MODID,"textures/guns/grenadelauncher.png"), new ModelResourceLocation(TGuns.grenadelauncher.getRegistryName(), "inventory"), new ModelResourceLocation(TGuns.grenadelauncher.getRegistryName()+"_1", "inventory")),1,90.0f)

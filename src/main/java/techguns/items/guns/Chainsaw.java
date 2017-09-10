@@ -28,7 +28,12 @@ public class Chainsaw extends GenericGunMeleeCharge {
 
 	@Override
 	protected SoundEvent getSwingSound() {
-		return TGSounds.CHAINSAW_SWING;
+		return TGSounds.CHAINSAW_LOOP;
+	}
+	
+	@Override
+	protected SoundEvent getBlockBreakSound() {
+		return TGSounds.CHAINSAW_HIT;
 	}
 	
 }

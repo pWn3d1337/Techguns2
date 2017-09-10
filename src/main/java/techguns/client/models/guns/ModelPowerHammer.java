@@ -339,9 +339,12 @@ public class ModelPowerHammer extends ModelMultipart {
 			if(headProgress>0.5f) {
 				headProgress=1f-headProgress;
 			}
+			if (transformType==transformType.GUI|| transformType==transformType.FIXED || transformType==transformType.GROUND) {
+				headProgress=0.25f;
+			}
 			
 			GlStateManager.pushMatrix();
-			GlStateManager.translate(0.4f*headProgress,0,0);
+			GlStateManager.translate(-0.4f+0.8f*headProgress,0,0);
 			H7.render(scale);
 			H9.render(scale);
 			H8.render(scale);
