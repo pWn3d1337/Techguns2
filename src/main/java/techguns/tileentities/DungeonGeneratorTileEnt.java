@@ -55,7 +55,7 @@ public class DungeonGeneratorTileEnt extends BasicOwnedTileEnt {
 		if (!isUseableByPlayer(ply)) return;	
 		switch(id) {
 			case BUTTON_ID_GHOST:
-				showGhost = !showGhost;
+				this.showGhost = !this.showGhost;
 				break;
 			case BUTTON_ID_CLEAR:
 				this.clearBlocks();
@@ -65,6 +65,7 @@ public class DungeonGeneratorTileEnt extends BasicOwnedTileEnt {
 				break;
 			default:
 				super.buttonClicked(id, ply,data);
+				break;
 		}
 		this.needUpdate();
 	}
@@ -78,24 +79,24 @@ public class DungeonGeneratorTileEnt extends BasicOwnedTileEnt {
 	}
 	
 	private void clearBlocks() {
-//		for (int x = 1; x < sizeX+1; x++) {
-//			for (int y = 0; y < sizeY; y++) {
-//				for (int z = 1; z < sizeZ+1; z++) {
-//					BlockPos bpos = this.pos.add(x, y, z);
-//					this.world.setBlockToAir(bpos);
-//				}	
-//			}
-//		}
-		
-		//TEMP solution
-		for (int x = 1; x < sizeX*2+1; x++) {
-			for (int y = 0; y < sizeY*2; y++) {
-				for (int z = 1; z < sizeZ*2+1; z++) {
+		for (int x = 1; x < sizeX+1; x++) {
+			for (int y = 0; y < sizeY; y++) {
+				for (int z = 1; z < sizeZ+1; z++) {
 					BlockPos bpos = this.pos.add(x, y, z);
 					this.world.setBlockToAir(bpos);
 				}	
 			}
 		}
+		
+//		//TEMP solution
+//		for (int x = 1; x < sizeX*2+1; x++) {
+//			for (int y = 0; y < sizeY*2; y++) {
+//				for (int z = 1; z < sizeZ*2+1; z++) {
+//					BlockPos bpos = this.pos.add(x, y, z);
+//					this.world.setBlockToAir(bpos);
+//				}	
+//			}
+//		}
 	}
 
 	@Override

@@ -45,6 +45,7 @@ public class DungeonTemplate implements Serializable{
 	
 	public void placeTemplate(World world, int posX, int posY, int posZ) {
 		for (DungeonSegment segment : segments.values()) {
+			if (segment.template == null) segment.template = this;
 			segment.placeTemplateSegment(world, posX, posY, posZ, 0);
 		}
 	}
