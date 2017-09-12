@@ -9,6 +9,7 @@ import net.minecraft.block.Block;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 import techguns.util.BlockUtils;
@@ -54,13 +55,14 @@ public class Structure implements Serializable{
 		return structure;
 	}
 	
-	public void placeBlocks(World world, int x, int y, int z, EnumFacing facing) {
-		BlockPos axis = new BlockPos(x+sizeX*0.5, y, z+sizeZ*0.5); //TODO
+	public void placeBlocks(World world, int x, int y, int z, int rotation) {
+		//BlockPos axis = new BlockPos(x+sizeX*0.5, y, z+sizeZ*0.5); //TODO
+		Vec3d axis = new Vec3d(x+sizeX*0.5, y, z+sizeZ*0.5);
 		
 		for (BlockEntry b : blockEntries) {
 			MBlock mb = blocks.get(b.blockIndex);
 			BlockPos pos = new BlockPos(x+b.x, y+b.y, z+b.z);
-			pos = BlockUtils.rotateAroundY(pos, axis, facing.getHorizontalIndex());
+			pos = BlockUtils.rotateAroundY(pos, axis, rotation);
 			world.setBlockState(pos, mb.block.getStateFromMeta(mb.meta));
 			
 			//AxisAlignedBB aabb = new AxisAlignedBB(pos1, axis);

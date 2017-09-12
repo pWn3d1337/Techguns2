@@ -18,8 +18,8 @@ import techguns.tileentities.DungeonScannerTileEnt;
 import techguns.world.dungeon.TemplateSegment.SegmentType;
 
 public class DungeonTemplate implements Serializable{
-	
-	private static final long serialVersionUID = 1L;
+
+	private static final long serialVersionUID = 1L+1;
 
 	public static final String SCAN_DIR = "./templates/";
 	
@@ -29,6 +29,8 @@ public class DungeonTemplate implements Serializable{
 	public int sizeY;
 	
 	public HashMap<SegmentType, DungeonSegment> segments = new HashMap<>();
+
+	public String name;
 	
 	
 	static {
@@ -43,12 +45,13 @@ public class DungeonTemplate implements Serializable{
 	
 	public void placeTemplate(World world, int posX, int posY, int posZ) {
 		for (DungeonSegment segment : segments.values()) {
-			segment.placeSegment(world, posX, posY, posZ, 0);
+			segment.placeTemplateSegment(world, posX, posY, posZ, 0);
 		}
 	}
 
 	public static DungeonTemplate scanTemplate(World world, int posX, int posY, int posZ, int sizeXZ, int sizeY, String name) {
 		DungeonTemplate template = new DungeonTemplate(sizeXZ, sizeY);
+		template.name = name;
 		
 		for (SegmentType type : TemplateSegment.templateSegments.keySet()) {
 			DungeonSegment segment = new DungeonSegment(template, type);
@@ -73,7 +76,9 @@ public class DungeonTemplate implements Serializable{
 						    ObjectInputStream ois = new ObjectInputStream(streamIn);
 						    
 						    DungeonTemplate template = (DungeonTemplate)ois.readObject();
-						    dungeonTemplates.put(file.getName().substring(0, file.getName().length()-4), template);
+						    String name = file.getName().substring(0, file.getName().length()-4);
+						    template.name = name;
+						    dungeonTemplates.put(name, template);
 						    
 						    ois.close();
 						    streamIn.close();
@@ -85,6 +90,10 @@ public class DungeonTemplate implements Serializable{
 				}
 			}
 		}
+	}
+
+	public String getName() {
+		return name;
 	}
 
 }

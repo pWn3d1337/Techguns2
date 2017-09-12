@@ -118,7 +118,7 @@ public class DungeonScannerTileEnt extends BasicOwnedTileEnt {
 		for (SegmentType type : TemplateSegment.templateSegments.keySet()) {
 			if (type != SegmentType.STRAIGHT) {
 				firstSegment.type = type;
-				firstSegment.placeSegment(world, this.pos.getX(), this.pos.getY(), this.pos.getZ(), 0);
+				firstSegment.placeTemplateSegment(world, this.pos.getX(), this.pos.getY(), this.pos.getZ(), 0);
 			}
 		}
 	}
@@ -162,7 +162,7 @@ public class DungeonScannerTileEnt extends BasicOwnedTileEnt {
 	
 	@Override
 	public AxisAlignedBB getRenderBoundingBox() {
-		int renderbounds = SPACING+(sizeXZ+SPACING)*20;
+		int renderbounds = SPACING+(sizeXZ+SPACING)*30;
 		return new net.minecraft.util.math.AxisAlignedBB(pos, pos.add(renderbounds, sizeY, renderbounds));
 	}
 	

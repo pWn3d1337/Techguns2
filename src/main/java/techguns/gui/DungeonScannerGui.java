@@ -33,7 +33,7 @@ public class DungeonScannerGui extends OwnedTileEntGui {
 		this.tex=texture;
 		this.tileEnt = tile;
 	}
-
+	
 	@Override
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
 		//super.drawGuiContainerForegroundLayer(mouseX, mouseY);

@@ -88,6 +88,7 @@ import techguns.client.render.entities.projectiles.*;
 import techguns.client.render.fx.ScreenEffect;
 import techguns.client.render.item.*;
 import techguns.client.render.tileentities.RenderChargingStation;
+import techguns.client.render.tileentities.RenderDungeonGenerator;
 import techguns.client.render.tileentities.RenderDungeonScanner;
 import techguns.client.render.tileentities.RenderFabricator;
 import techguns.client.render.tileentities.RenderMachine;
@@ -119,6 +120,7 @@ import techguns.keybind.TGKeybinds;
 import techguns.tileentities.AmmoPressTileEnt;
 import techguns.tileentities.ChargingStationTileEnt;
 import techguns.tileentities.ChemLabTileEnt;
+import techguns.tileentities.DungeonGeneratorTileEnt;
 import techguns.tileentities.DungeonScannerTileEnt;
 import techguns.tileentities.FabricatorTileEntMaster;
 import techguns.tileentities.MetalPressTileEnt;
@@ -243,6 +245,7 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(ReactionChamberTileEntMaster.class, new RenderReactionChamber());
 		
 		ClientRegistry.bindTileEntitySpecialRenderer(DungeonScannerTileEnt.class, new RenderDungeonScanner());
+		ClientRegistry.bindTileEntitySpecialRenderer(DungeonGeneratorTileEnt.class, new RenderDungeonGenerator());
 	}
 	
 	private void insertLayerAfterArmor(RenderPlayer r, TGLayerRendererer tglayer) {
