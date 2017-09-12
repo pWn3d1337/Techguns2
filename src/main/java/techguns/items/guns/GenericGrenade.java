@@ -15,14 +15,19 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumHandSide;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
+import techguns.TGPackets;
 import techguns.Techguns;
 import techguns.api.damagesystem.DamageType;
 import techguns.api.render.IItemTGRenderer;
+import techguns.client.audio.TGSoundCategory;
 import techguns.entities.projectiles.EnumBulletFirePos;
 import techguns.entities.projectiles.GenericProjectile;
 import techguns.entities.projectiles.GrenadeProjectile;
 import techguns.items.GenericItem;
+import techguns.packets.PacketPlaySound;
 import techguns.util.TextUtil;
 
 public class GenericGrenade extends GenericItem implements IItemTGRenderer{
@@ -41,19 +46,69 @@ public class GenericGrenade extends GenericItem implements IItemTGRenderer{
 	
 	public float penetration =0f;
 	
-	IGrenadeProjectileFactory<GrenadeProjectile> projectile_factory;
+	protected SoundEvent startSound=null;
 	
-	public GenericGrenade(String name,int stacksize,int maxUseDur) {
+	IGrenadeProjectileFactory<? extends GrenadeProjectile> projectile_factory;
+	
+	public GenericGrenade(String name,int stacksize,int maxUseDur, IGrenadeProjectileFactory<? extends GrenadeProjectile> projectile_factory) {
 		super(name,false);
 		setMaxStackSize(stacksize);
 		setNoRepair();
 		this.maxUseDur=maxUseDur;
-		this.projectile_factory = new GrenadeProjectile.Factory();
+		this.projectile_factory = projectile_factory;
 	}
 	
-    @Override
+	public GenericGrenade setStartSound(SoundEvent sound) {
+		this.startSound=sound;
+		return this;
+	}
+	
+    public GenericGrenade setDamage(float damage) {
+		this.damage = damage;
+		return this;
+	}
+
+	public GenericGrenade setRadius(float radius) {
+		this.radius = radius;
+		return this;
+	}
+
+	public GenericGrenade setMaxBounces(int maxBounces) {
+		this.maxBounces = maxBounces;
+		return this;
+	}
+
+	public GenericGrenade setFullChargeTime(float fullChargeTime) {
+		this.fullChargeTime = fullChargeTime;
+		return this;
+	}
+
+	public GenericGrenade setTicksToLive(int ticksToLive) {
+		this.ticksToLive = ticksToLive;
+		return this;
+	}
+
+	public GenericGrenade setSpeed(float speed) {
+		this.speed = speed;
+		return this;
+	}
+
+	public GenericGrenade setSpread(float spread) {
+		this.spread = spread;
+		return this;
+	}
+
+	public GenericGrenade setPenetration(float penetration) {
+		this.penetration = penetration;
+		return this;
+	}
+
+	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
     	playerIn.setActiveHand(handIn);
+    	if(!worldIn.isRemote && this.startSound!=null) {
+    		TGPackets.network.sendToAllAround(new PacketPlaySound(this.startSound, playerIn, 1, 1, false, false, true, true, TGSoundCategory.PLAYER_EFFECT), TGPackets.targetPointAroundEnt(playerIn, 24.0f));
+    	}
     	return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, playerIn.getHeldItem(handIn));
 	}
     

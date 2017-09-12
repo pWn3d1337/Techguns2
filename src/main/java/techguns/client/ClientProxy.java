@@ -700,6 +700,14 @@ public class ClientProxy extends CommonProxy {
 			{0f,0f,-0.05f} //frame
 		}));	
 		
+		ItemRenderHack.registerItemRenderer(TGuns.fraggrenade,new RenderGrenade(new ModelFragGrenade(true), new ResourceLocation(Techguns.MODID,"textures/guns/frag_grenade_texture.png"),90.0f).setBaseScale(1.25f).setGUIScale(1.35f).setBaseTranslation(-0.02f,0.65f,-RenderItemBase.SCALE+0.02f).setTransformTranslations(new float[][]{
+			{0f,-0.06f,0f}, //First Person
+			{0f,-0.11f,-0.01f}, //Third Person
+			{-0.05f,-0.49f,0f}, //GUI
+			{0f,0.f,0f}, //Ground
+			{0f,0f,-0.05f} //frame
+		}));	
+		
 		AdditionalSlotRenderRegistry.register(TGItems.GAS_MASK, new RenderAdditionalSlotItem(new ModelGasMask(), new ResourceLocation(Techguns.MODID, "textures/armors/gasmask.png")));
 		AdditionalSlotRenderRegistry.register(TGItems.GLIDER, new RenderAdditionalSlotItem(new ModelGlider(), new ResourceLocation(Techguns.MODID, "textures/armors/glider.png")));
 		AdditionalSlotRenderRegistry.register(TGItems.JUMPPACK, new RenderAdditionalSlotItem(new ModelJetPack(1), Techguns.MODID, "textures/armors/jetpack",4));
@@ -740,6 +748,7 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerEntityRenderingHandler(CyberdemonBlasterProjectile.class, RenderInvisibleProjectile<CyberdemonBlasterProjectile>::new);
 		RenderingRegistry.registerEntityRenderingHandler(PowerHammerProjectile.class, RenderInvisibleProjectile<PowerHammerProjectile>::new);
 		RenderingRegistry.registerEntityRenderingHandler(ChainsawProjectile.class, RenderInvisibleProjectile<ChainsawProjectile>::new);
+		RenderingRegistry.registerEntityRenderingHandler(FragGrenadeProjectile.class, RenderFragGrenadeProjectile::new);
 		
 		
 		//NPCS

@@ -10,6 +10,7 @@ import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 import techguns.TGPackets;
 import techguns.api.damagesystem.DamageType;
+import techguns.damagesystem.TGExplosion;
 import techguns.items.guns.IGrenadeProjectileFactory;
 import techguns.items.guns.IProjectileFactory;
 import techguns.packets.PacketSpawnParticle;
@@ -83,7 +84,7 @@ public class GrenadeProjectile extends GenericProjectile {
         	this.playBounceSound();
         	
         	if (!this.world.isRemote){
-        		GrenadeProjectile gren = createBounceProjectile();	
+        		GrenadeProjectile gren = createBounceProjectile(raytraceResultIn.hitVec);	
         	
         		gren.motionX = refl.x * len;
         		gren.motionY = refl.y * len;
@@ -103,8 +104,8 @@ public class GrenadeProjectile extends GenericProjectile {
     	}
 	}
 
-	protected GrenadeProjectile createBounceProjectile() {
-		return new Factory().createBounceProjectile(this, this.posX, this.posY, this.posZ);	
+	protected GrenadeProjectile createBounceProjectile(Vec3d hitvec) {
+		return new Factory().createBounceProjectile(this, hitvec.x, hitvec.y, hitvec.z);	
 	}
 	
 	protected void playBounceSound() {
@@ -130,9 +131,12 @@ public class GrenadeProjectile extends GenericProjectile {
 		if (!this.world.isRemote){
 			TGPackets.network.sendToAllAround(new PacketSpawnParticle("RocketExplosion", this.posX,this.posY,this.posZ), TGPackets.targetPointAroundEnt(this, 50.0f));
 
-			Explosion explosion = new Explosion(world, this,this.posX,this.posY, this.posZ, 5, blockdamage, blockdamage);
+			/*Explosion explosion = new Explosion(world, this,this.posX,this.posY, this.posZ, 5, blockdamage, blockdamage);
 			explosion.doExplosionA();
 			explosion.doExplosionB(true);
+			*/
+			TGExplosion exp = new TGExplosion(world, shooter, this, posX, posY, posZ, this.damage, this.damageMin, this.damageDropStart, this.damageDropEnd, 0);
+			exp.doExplosion(true);
 
 		}
 		this.setDead();

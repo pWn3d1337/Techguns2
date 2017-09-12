@@ -13,12 +13,27 @@ import techguns.util.MathUtil;
 
 public class RenderGrenade extends RenderItemBase {
 
+	protected float baseRotY=180.0f;
+	
 	public RenderGrenade(ModelMultipart model, ResourceLocation texture) {
 		super(model, texture);
 	}
 	
+	public RenderGrenade(ModelMultipart model, ResourceLocation texture, float baseRotationY) {
+		super(model, texture);
+		this.baseRotY=baseRotationY;
+	}
+	
+	@Override
+	protected void setBaseRotation(TransformType transform) {
+		GlStateManager.rotate(-180.0f, 1.0f, 0, 0);
+		GlStateManager.rotate(baseRotY, 0f, 1.0f, 0);
+	}
+
 	@Override
 	public void renderItem(TransformType transform, ItemStack stack, EntityLivingBase elb, boolean leftHanded) {
+
+		float chargeProgress=0;
 		
 			GlStateManager.pushMatrix();
 
@@ -32,8 +47,7 @@ public class RenderGrenade extends RenderItemBase {
 
 				if (!elb.getActiveItemStack().isEmpty() && elb.getActiveItemStack()==stack) {
 					
-					float chargeProgress;
-					float useAnimProgress;
+					//float useAnimProgress;
 					int dur = stack.getItem().getMaxItemUseDuration(stack)-elb.getItemInUseCount();
 
 					chargeProgress = dur / ((GenericGrenade)stack.getItem()).fullChargeTime;
@@ -60,7 +74,7 @@ public class RenderGrenade extends RenderItemBase {
 			this.applyBaseTranslation();
 			
 			for (int i = 0; i < parts; i++) {
-				model.render(elb, 0, 0, 0, 0, 0, SCALE, 0, 0, transform, i, 0);
+				model.render(elb, 0, 0, 0, 0, 0, SCALE, 0, 0, transform, i, chargeProgress);
 			}
 
 			GlStateManager.popMatrix();

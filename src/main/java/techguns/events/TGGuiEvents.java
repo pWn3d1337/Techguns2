@@ -27,8 +27,10 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import techguns.TGConfig;
 import techguns.TGItems;
 import techguns.Techguns;
+import techguns.api.guns.GunManager;
 import techguns.capabilities.TGExtendedPlayer;
 import techguns.client.render.fx.ScreenEffect;
+import techguns.debug.Keybinds;
 import techguns.gui.player.TGGuiTabButton;
 import techguns.gui.player.TGPlayerInventory;
 import techguns.gui.player.TGPlayerInventoryGui;
@@ -56,38 +58,37 @@ public class TGGuiEvents extends Gui{
 		EntityPlayer ply = mc.player;
 		TGExtendedPlayer props = TGExtendedPlayer.get(ply);
 		ItemStack item =ply.getHeldItemMainhand();
+		ItemStack item_off =ply.getHeldItemOffhand();
 		ScaledResolution sr = new ScaledResolution(mc);
 		
-		int offsetY = sr.getScaledHeight()-20;
+		int offsetY = sr.getScaledHeight()-32;
 		
-		if(item!=null && item.getItem() instanceof GenericGun){
+		boolean showSafemode=false;
+		
+		if(!item.isEmpty() && item.getItem() instanceof GenericGun){
 			GenericGun gun = ((GenericGun) item.getItem());
-			//int count =0;
-//			int count =InventoryUtil.countMags(ply.inventory.mainInventory, gun.getAmmo(), 0, ply.inventory.mainInventory.size());
 						
-			ItemStack ammoitem  = gun.getReloadItem(item);
-			int count = InventoryUtil.countItemInInv(ply.inventory.mainInventory, ammoitem, 0, ply.inventory.mainInventory.size());
-			count += InventoryUtil.countItemInInv(props.tg_inventory.inventory, ammoitem, TGPlayerInventory.SLOTS_AMMO_START, TGPlayerInventory.SLOTS_AMMO_END+1);
-			
-			if (gun.getAmmoCount()>1){
-				count = count / gun.getAmmoCount();
-			} 
-			
+			this.drawGunAmmoCount(mc, sr, gun, item, ply, props, 0);
+			showSafemode=true;
+		}
 
-			
-			String text= gun.getAmmoLeftCountTooltip(item)+"/"+gun.getClipsizeTooltip() +ChatFormatting.YELLOW+"x" +count;
-			mc.fontRenderer.drawString(text, sr.getScaledWidth()+1-text.length()*6, sr.getScaledHeight()-mc.fontRenderer.FONT_HEIGHT-2, 0xFFFFFFFF);
-			
-			if(props!=null && props.showTGHudElements){
-
-				mc.getTextureManager().bindTexture(TGPlayerInventoryGui.texture);
-				this.drawTexturedModalRect(sr.getScaledWidth()-10, offsetY, 242+7*(props.enableSafemode?1:0), 14, 7,7);
-
+		if(!item_off.isEmpty() && item_off.getItem() instanceof GenericGun){
+			if (GunManager.canUseOffhand(item,item_off,ply)) {
+				GenericGun gun = ((GenericGun) item_off.getItem());
+				this.drawGunAmmoCount(mc, sr, gun, item_off, ply, props, -12);
+				showSafemode=true;
 			}
 		}
 		
+		if(props!=null && props.showTGHudElements && showSafemode){
+
+			mc.getTextureManager().bindTexture(TGPlayerInventoryGui.texture);
+			this.drawTexturedModalRect(sr.getScaledWidth()-10, offsetY, 242+7*(props.enableSafemode?1:0), 14, 7,7);
+
+		}
+		
 		if(props!=null && props.showTGHudElements){
-			offsetY = sr.getScaledHeight()-30;
+			offsetY -=10;
 		
 			mc.getTextureManager().bindTexture(TGPlayerInventoryGui.texture);
 		
@@ -180,6 +181,20 @@ public class TGGuiEvents extends Gui{
 		}
 
 	}
+	
+	private void drawGunAmmoCount(Minecraft mc,ScaledResolution sr, GenericGun gun, ItemStack item, EntityPlayer ply, TGExtendedPlayer props, int offsetY) {
+		ItemStack ammoitem  = gun.getReloadItem(item);
+		int count = InventoryUtil.countItemInInv(ply.inventory.mainInventory, ammoitem, 0, ply.inventory.mainInventory.size());
+		count += InventoryUtil.countItemInInv(props.tg_inventory.inventory, ammoitem, TGPlayerInventory.SLOTS_AMMO_START, TGPlayerInventory.SLOTS_AMMO_END+1);
+		
+		if (gun.getAmmoCount()>1){
+			count = count / gun.getAmmoCount();
+		} 
+	
+		String text= gun.getAmmoLeftCountTooltip(item)+"/"+gun.getClipsizeTooltip() +ChatFormatting.YELLOW+"x" +count;
+		mc.fontRenderer.drawString(text, sr.getScaledWidth()+1-text.length()*6,sr.getScaledHeight()-mc.fontRenderer.FONT_HEIGHT-2+offsetY , 0xFFFFFFFF);
+	}
+	
 	
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent(priority=EventPriority.NORMAL, receiveCanceled=false)

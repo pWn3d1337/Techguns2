@@ -21,9 +21,11 @@ import techguns.entities.projectiles.ChainsawProjectile;
 import techguns.entities.projectiles.CyberdemonBlasterProjectile;
 import techguns.entities.projectiles.DeatomizerProjectile;
 import techguns.entities.projectiles.FlamethrowerProjectile;
+import techguns.entities.projectiles.FragGrenadeProjectile;
 import techguns.entities.projectiles.GaussProjectile;
 import techguns.entities.projectiles.GenericProjectile;
 import techguns.entities.projectiles.Grenade40mmProjectile;
+import techguns.entities.projectiles.GrenadeProjectile;
 import techguns.entities.projectiles.GuidedMissileProjectile;
 import techguns.entities.projectiles.LaserProjectile;
 import techguns.entities.projectiles.NDRProjectile;
@@ -71,6 +73,7 @@ public class TGuns implements ITGInitializer {
 	public static GenericGun ak47;
 	public static GenericGun minigun;
 	public static GenericGrenade stielgranate;
+	public static GenericGrenade fraggrenade;
 	public static GenericGun combatshotgun;
 	public static GenericGun revolver;
 	public static GenericGun grimreaper;
@@ -139,8 +142,9 @@ public class TGuns implements ITGInitializer {
 		reg.register(chainsaw);
 		reg.register(nucleardeathray);
 		reg.register(gaussrifle);
-		reg.register(stielgranate);
 		reg.register(guidedmissilelauncher);
+		reg.register(stielgranate);
+		reg.register(fraggrenade);
 	}
 	
 	@Override
@@ -216,7 +220,9 @@ public class TGuns implements ITGInitializer {
 		 guidedmissilelauncher = new GuidedMissileLauncher("guidedmissilelauncher", new GuidedMissileProjectile.Factory(), AmmoTypes.ROCKETS, true, 10, 1 , 40, 50.0f, TGSounds.GUIDEDMISSILE_FIRE, TGSounds.ROCKET_RELOAD, 100, 0.05f, 100, 1).setFireWhileCharging(true).setChargeFireAnims(false).setBulletSpeed(1.0f).setRecoiltime(10).setAIStats(RANGE_MEDIUM,80,0,0).setTexture("textures/guns/guidedmissilelauncher").setLockOn(20, 80).setTurretPosOffset(0, 0.01f, -0.12f); //.setHandType(GunHandType.ONE_HANDED);/*.setTurretPosOffset(0f, -0.7f, -0.2f);*/
 		 
 	     
-		 stielgranate = new GenericGrenade("stielgranate", 16, 72000);
+		 stielgranate = new GenericGrenade("stielgranate", 16, 72000, new GrenadeProjectile.Factory());
+		 
+		 fraggrenade = new GenericGrenade("fraggrenade", 16, 72000, new FragGrenadeProjectile.Factory()).setStartSound(TGSounds.GRENADE_PIN);
 		 
 		 if(TGItems.WRITE_ITEM_JSON && event.getSide()==Side.CLIENT){
 			GenericGun.guns.forEach(g -> ItemJsonCreator.writeJsonFilesForGun(g));

@@ -60,7 +60,7 @@ public class GuidedMissileProjectile extends RocketProjectile{
 	protected void explodeRocket() {
 		if (!this.world.isRemote){
 			TGPackets.network.sendToAllAround(new PacketSpawnParticle("GuidedMissileExplosion", this.posX,this.posY,this.posZ), TGPackets.targetPointAroundEnt(this, 50.0f));
-			TGExplosion explosion = new TGExplosion(world, this.shooter, this, posX, posY, posZ, this.damage, this.damage*0.1, 1.0, 2.0, 0.25);
+			TGExplosion explosion = new TGExplosion(world, this.shooter, this, posX, posY, posZ, this.damage, this.damage*0.1, 1.0, 2.0, this.blockdamage?0.25:0.0);
 			
 			explosion.doExplosion(true);
 		}else {

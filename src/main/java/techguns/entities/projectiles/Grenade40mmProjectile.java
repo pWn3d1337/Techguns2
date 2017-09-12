@@ -1,6 +1,7 @@
 package techguns.entities.projectiles;
 
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import techguns.api.damagesystem.DamageType;
 import techguns.items.guns.GenericGun;
@@ -31,8 +32,8 @@ public class Grenade40mmProjectile extends GrenadeProjectile {
 	
 	
 	@Override
-	protected GrenadeProjectile createBounceProjectile() {
-		return new Factory().createBounceProjectile(this, this.posX, this.posY, this.posZ);
+	protected GrenadeProjectile createBounceProjectile(Vec3d hitVec) {
+		return new Factory().createBounceProjectile(this, hitVec.x,hitVec.y,hitVec.z);
 	}
 
 

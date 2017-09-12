@@ -6,6 +6,7 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
@@ -33,7 +34,7 @@ public class PacketSpawnParticleOnEntity implements IMessage {
 	@Override
 	public void fromBytes(ByteBuf buf) {
 		int len = buf.readShort();
-		this.name =  buf.readCharSequence(len, StandardCharsets.UTF_8).toString();
+		this.name = buf.readCharSequence(len, StandardCharsets.UTF_8).toString();
 		
 		this.entityID=buf.readInt();
 	}

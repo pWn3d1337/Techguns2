@@ -180,6 +180,8 @@ public class TGSounds {
 	public static SoundEvent ALIENBUG_STEP = createSoundEvent("npcs.alienbugstep");
 	public static SoundEvent ALIENBUG_AGGRO = createSoundEvent("npcs.alienbugaggro");
 	
+	public static SoundEvent GRENADE_PIN = createSoundEvent("guns.grenade_pin");
+	
 	public static void registerSounds(RegistryEvent.Register<SoundEvent> event){
 		IForgeRegistry<SoundEvent> reg = event.getRegistry();
 		
