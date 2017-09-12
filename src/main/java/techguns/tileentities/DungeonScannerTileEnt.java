@@ -107,6 +107,7 @@ public class DungeonScannerTileEnt extends BasicOwnedTileEnt {
 				break;
 			default:
 				super.buttonClicked(id, ply,data);
+				break;
 		}
 		this.needUpdate();
 	}
