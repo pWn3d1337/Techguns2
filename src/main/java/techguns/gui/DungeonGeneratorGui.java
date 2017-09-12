@@ -65,6 +65,26 @@ public static final ResourceLocation texture = new ResourceLocation(Techguns.MOD
         }
 	}
 	
+	@Override
+	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
+		super.mouseClicked(mouseX, mouseY, mouseButton);
+		
+		int k = (this.width - this.xSize) / 2;
+        int l = (this.height - this.ySize) / 2;
+		
+		int xpos = 75;
+		int width=93;
+		
+		int dy = 0;
+        for (String template : DungeonTemplate.dungeonTemplates.keySet()) {
+        	/*this.fontRenderer.drawString(template, k+75, l+18+(dy), color);*/
+        	if(this.isInRect(mouseX, mouseY, k+xpos, l+18+dy, width, 8)) {
+        		this.textInput = template;
+        		break;
+        	}
+        	dy+=8;
+        }
+	}
 	
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
@@ -74,6 +94,20 @@ public static final ResourceLocation texture = new ResourceLocation(Techguns.MOD
 		this.drawRect(k+5, l+69, k+69, l+79, 0xff000000);
 		
 		this.drawRect(k+74, l+17, k+169, l+158, 0xff888888);
+		
+		int xpos = 75;
+		int width=93;
+		
+		 //existing templates
+        int dy = 0;
+        for (String template : DungeonTemplate.dungeonTemplates.keySet()) {
+        	/*this.fontRenderer.drawString(template, k+75, l+18+(dy), color);*/
+        	if(this.isInRect(mouseX, mouseY, k+xpos, l+18+dy, width, 8)) {
+        		this.drawRect(k+xpos, l+18+dy, k+xpos+width, l+18+dy+8, 0xFFA0A0A0);
+        		break;
+        	}
+        	dy+=8;
+        }
 	}
 
 	@Override
