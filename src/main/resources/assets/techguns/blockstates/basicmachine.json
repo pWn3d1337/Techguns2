@@ -3,6 +3,8 @@
         "machinetype=ammo_press": { "model": "techguns:basicmachine" },
         "machinetype=metal_press": { "model": "techguns:basicmachine" },
 		"machinetype=chem_lab": { "model": "techguns:basicmachine" },
-		"machinetype=turret": { "model": "techguns:basicmachine" }
+		"machinetype=turret": { "model": "techguns:basicmachine" },
+		"machinetype=dungeon_scanner": { "model": "techguns:dungeon_scanner" },
+		"machinetype=dungeon_generator":{ "model": "techguns:dungeon_generator" }
     }
 }

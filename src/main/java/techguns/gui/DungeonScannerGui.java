@@ -33,7 +33,7 @@ public class DungeonScannerGui extends OwnedTileEntGui {
 		this.tex=texture;
 		this.tileEnt = tile;
 	}
-
+	
 	@Override
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
 		//super.drawGuiContainerForegroundLayer(mouseX, mouseY);
@@ -88,9 +88,8 @@ public class DungeonScannerGui extends OwnedTileEntGui {
 
 	@Override
 	protected void actionPerformed(GuiButton guibutton) {
-		int ID_OF_BUTTON_THAT_HAS_STRING = 1337;
-		if(guibutton.id== ID_OF_BUTTON_THAT_HAS_STRING) {
-			TGPackets.network.sendToServer(new PacketGuiButtonClick(this.ownedTile,guibutton.id,"STRING_PARAM"));
+		if(textInput.length()>0 && (guibutton.id== DungeonScannerTileEnt.BUTTON_ID_SCAN || guibutton.id == DungeonScannerTileEnt.BUTTON_ID_PLACE)) {
+			TGPackets.network.sendToServer(new PacketGuiButtonClick(this.ownedTile,guibutton.id,textInput));
 			
 		} else {
 		
@@ -112,7 +111,11 @@ public class DungeonScannerGui extends OwnedTileEntGui {
 		
 		this.buttonList.add(new GuiButtonExt(DungeonScannerTileEnt.BUTTON_ID_SCAN, this.guiLeft+5, this.guiTop+81, 31, 12, "scan"));
 		this.buttonList.add(new GuiButtonExt(DungeonScannerTileEnt.BUTTON_ID_PLACE, this.guiLeft+38, this.guiTop+81, 31, 12, "load"));
+		
+		this.buttonList.add(new GuiButtonExt(DungeonScannerTileEnt.BUTTON_ID_CLEAR, this.guiLeft+5, this.guiTop+149, 12, 12, "C"));
 	
+		this.buttonList.add(new GuiButtonExt(DungeonScannerTileEnt.BUTTON_ID_COPY_FIRST, this.guiLeft+5, this.guiTop+97, 64, 12, "Copy 1st Segment"));
+		
 	}
 	
 	

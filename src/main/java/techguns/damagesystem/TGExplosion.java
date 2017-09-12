@@ -107,6 +107,7 @@ public class TGExplosion {
         
         this.position = new Vec3d(this.x, this.y, this.z);
         
+        //TODO: CRASH WHEN YOU EXPLODE TNT
         this.explosionDummy = new Explosion(world, exploder, x, y, z, (float)Math.max(primaryRadius, secondaryRadius), false, this.damagesTerrain);
     }
 
@@ -264,7 +265,7 @@ public class TGExplosion {
                         block.dropBlockAsItemWithChance(this.world, blockpos, this.world.getBlockState(blockpos), blockDropChance, 0);
                     }
 
-                    block.onBlockExploded(this.world, blockpos, null);
+                    block.onBlockExploded(this.world, blockpos, this.explosionDummy);
                 }
             }
         }

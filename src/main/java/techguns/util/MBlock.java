@@ -11,6 +11,8 @@ import net.minecraft.util.ResourceLocation;
 
 public class MBlock implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+	
 	public transient Block block;
 	public int meta;
 

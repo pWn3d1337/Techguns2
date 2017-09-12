@@ -9,12 +9,15 @@ import net.minecraft.block.Block;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 import techguns.util.BlockUtils;
 import techguns.util.MBlock;
 
 public class Structure implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
 	
 	int sizeX;
 	int sizeY;
@@ -39,8 +42,12 @@ public class Structure implements Serializable{
 					BlockPos bpos = new BlockPos(x+i, y+j, z+k);
 					MBlock mblock = new MBlock(world.getBlockState(bpos));
 					int index = structure.blocks.indexOf(mblock);
-					if (index > -1) structure.blockEntries.add(structure.new BlockEntry(i,j,k,index));
-					else structure.blockEntries.add(structure.new BlockEntry(i,j,k,structure.blockEntries.size()));
+					if (index > -1) {
+						structure.blockEntries.add(structure.new BlockEntry(i,j,k,index));
+					} else {
+						structure.blocks.add(mblock);
+						structure.blockEntries.add(structure.new BlockEntry(i,j,k,structure.blocks.indexOf(mblock)));
+					}
 				}
 			}
 		}
@@ -48,13 +55,14 @@ public class Structure implements Serializable{
 		return structure;
 	}
 	
-	public void placeBlocks(World world, int x, int y, int z, EnumFacing facing) {
-		BlockPos axis = new BlockPos(x+sizeX*0.5, y, z+sizeZ*0.5); //TODO
+	public void placeBlocks(World world, int x, int y, int z, int rotation) {
+		//BlockPos axis = new BlockPos(x+sizeX*0.5, y, z+sizeZ*0.5); //TODO
+		Vec3d axis = new Vec3d(x+sizeX*0.5, y, z+sizeZ*0.5);
 		
 		for (BlockEntry b : blockEntries) {
 			MBlock mb = blocks.get(b.blockIndex);
 			BlockPos pos = new BlockPos(x+b.x, y+b.y, z+b.z);
-			pos = BlockUtils.rotateAroundY(pos, axis, facing.getHorizontalIndex());
+			pos = BlockUtils.rotateAroundY(pos, axis, rotation);
 			world.setBlockState(pos, mb.block.getStateFromMeta(mb.meta));
 			
 			//AxisAlignedBB aabb = new AxisAlignedBB(pos1, axis);
@@ -64,6 +72,9 @@ public class Structure implements Serializable{
 	
 
 	class BlockEntry implements Serializable {
+		
+		private static final long serialVersionUID = 1L;
+		
 		int x;
 		int y;
 		int z;
