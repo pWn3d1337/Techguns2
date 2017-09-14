@@ -29,6 +29,7 @@ public class ScreenEffect {
 	public static ScreenEffect FlamethrowerMuzzleFlash = new ScreenEffect("textures/fx/flamethrower.png", 4, 4, 16, RenderType.ADDITIVE).setFlipAxis(false, true);//.setFade(FadeType.SMOOTH);
 	public static ScreenEffect muzzleFlashSonic = new ScreenEffect("textures/fx/sonicwave4x4.png", 4, 4, 16, RenderType.ADDITIVE);
 	public static ScreenEffect muzzleFlashNukeBeam = new ScreenEffect("textures/fx/nukebeamflare.png", 4, 4, 16, RenderType.ADDITIVE);
+	public static ScreenEffect muzzleFlashMibGun = new ScreenEffect("textures/fx/alienflare.png", 4, 4, 14, RenderType.ADDITIVE).setColor(0.15686f, 1.0f, 0.549f, 1f);
 	
 	//public static ScreenEffect muzzleFlashNew2 = new ScreenEffect("textures/fx/muzzleflashnew.png", 4, 4, 16, RenderType.ALPHA);
 	

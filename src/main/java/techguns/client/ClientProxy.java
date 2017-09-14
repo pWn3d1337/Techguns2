@@ -655,7 +655,7 @@ public class ClientProxy extends CommonProxy {
 				}).setMuzzleFXPos3P(0.07f, -0.26f).setMuzzleFlashJitter(0.02f, 0.05f, 5.0f, 0.1f));
 		
 		ItemRenderHack.registerItemRenderer(TGuns.mibgun,new RenderGunBase(new ModelMibGun(),1).setBaseTranslation(/*RenderItemBase.SCALE*0.5f*/0f, -0.56f, -0.02f)
-				.setBaseScale(1.2f).setGUIScale(0.75f).setMuzzleFx(ScreenEffect.muzzleFlashAlienBlaster, 0f, 0.26f, -0.42f, 0.55f,0f).setTransformTranslations(new float[][]{
+				.setBaseScale(1.2f).setGUIScale(0.75f).setMuzzleFx(ScreenEffect.muzzleFlashMibGun, 0f, 0.26f, -0.42f, 0.55f,0f).setTransformTranslations(new float[][]{
 					{0,0.10f,-0.02f}, //First Person
 					{0.0f,-0.04f,-0.01f}, //Third Person
 					{0.02f,-0.08f,0}, //GUI

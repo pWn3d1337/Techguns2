@@ -338,31 +338,6 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
     	}
 		return false;
 	}
-	
-	
-	
-	/*@Override
-	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
-		
-		if (handIn == EnumHand.MAIN_HAND && canZoom  && this.toggleZoom && !ShooterValues.getPlayerIsReloading(playerIn, false)) {
-    		if (worldIn.isRemote) {
-				ClientProxy cp = ClientProxy.get();
-    			if (cp.player_zoom != 1.0f) {
-    				cp.player_zoom= 1.0f;
-    			} else {
-    				cp.player_zoom = this.zoomMult;
-    			}
-    		}
-    	}
-		if (handIn == EnumHand.MAIN_HAND && canZoom) {
-			return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, playerIn.getHeldItem(handIn));
-		}
-		if(ShooterValues.getPlayerIsReloading(playerIn, false)) {
-			return new ActionResult<ItemStack>(EnumActionResult.FAIL, playerIn.getHeldItem(handIn));
-		}
-		return super.onItemRightClick(worldIn, playerIn, handIn);
-		//return new ActionResult<ItemStack>(EnumActionResult.FAIL, playerIn.getHeldItem(handIn));
-	}*/
 
 	@Override
 	public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
@@ -773,10 +748,13 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 
 	@Override
 	public double getDurabilityForDisplay(ItemStack stack) {
-		return 1.0-((double)this.getCurrentAmmo(stack))/((double)this.clipsize);
-		
+		return 1.0-getPercentAmmoLeft(stack);
 	}
 
+	public double getPercentAmmoLeft(ItemStack stack) {
+		return ((double)this.getCurrentAmmo(stack))/((double)this.clipsize);
+	}
+	
 	@Override
 	public int getAmmoLeft(ItemStack stack) {
 		return this.getCurrentAmmo(stack);
@@ -828,7 +806,7 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 	public void addInformation(ItemStack stack, World worldIn, List<String> list, ITooltipFlag flagIn) {
 		super.addInformation(stack, worldIn, list, flagIn);
 		if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)){
-			
+			list.add(TextUtil.trans("techguns.gun.tooltip.handtype")+": "+this.getGunHandType().toString());
 			list.add(TextUtil.trans("techguns.gun.tooltip.ammo")+": "+(this.ammoCount>1 ? this.ammoCount+"x " : "")+ChatFormatting.WHITE+TextUtil.trans(this.ammoType.getAmmo(this.getCurrentAmmoVariant(stack)).getUnlocalizedName()+".name"));
 			list.add(TextUtil.trans("techguns.gun.tooltip.damageType")+": "+this.getDamageType().toString());
 			list.add(TextUtil.trans("techguns.gun.tooltip.damage")+(this.shotgun ? ("(x"+ (this.bulletcount+1)+")") : "" )+": "+this.damage+(this.damageMin<this.damage?"-"+this.damageMin:""));
@@ -1107,7 +1085,7 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 			double d0 = (double)(-MathHelper.sin(player.rotationYaw * 0.017453292F));
 	        double d1 = (double)MathHelper.cos(player.rotationYaw * 0.017453292F);
         	double x = player.posX+d0;
-        	double y = player.posY+player.height*0.5d;
+        	double y = player.posY+player.height*0.8d;
         	double z = player.posZ+d1;
         	this.spawnSweepParticle(player.world, x, y, z, d0, 0, d1);
         	this.playSweepSoundEffect(player);
@@ -1138,26 +1116,6 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 	
 	public int getMiningAmmoConsumption() {
 		return miningAmmoConsumption;
-	}
-
-	@Override
-	public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
-	
-		Multimap<String, AttributeModifier> multimap = HashMultimap.<String, AttributeModifier>create();
-		
-		if (slot == EntityEquipmentSlot.MAINHAND)
-        {
-			double meleedmg=this.meleeDamagePwr;
-			int ammoleft = this.getCurrentAmmo(stack);
-			if (ammoleft <=0){
-				meleedmg=this.meleeDamageEmpty;
-			}
-			
-            multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", meleedmg, 0));
-            multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", -2.4000000953674316D, 0));
-        }
-
-		return multimap;
 	}
 
 	@Override
