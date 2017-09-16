@@ -16,7 +16,9 @@ import techguns.entities.npcs.PsychoSteve;
 import techguns.entities.npcs.ZombieFarmer;
 import techguns.entities.npcs.ZombiePigmanSoldier;
 import techguns.entities.npcs.ZombieSoldier;
+import techguns.entities.npcs.AlienBug;
 import techguns.entities.npcs.ArmySoldier;
+import techguns.entities.npcs.AttackHelicopter;
 import techguns.entities.npcs.Bandit;
 import techguns.entities.npcs.Commando;
 import techguns.entities.npcs.DictatorDave;
@@ -101,6 +103,8 @@ public class TGEntities implements ITGInitializer {
 		registerModEntityWithEgg(SuperMutantBasic.class, "SuperMutantBasic", 0xc6a96b, 0x71552e);
 		registerModEntityWithEgg(SuperMutantElite.class, "SuperMutantElite", 0xc6a96b, 0x61451e);
 		registerModEntityWithEgg(SuperMutantHeavy.class, "SuperMutantHeavy", 0xc6a96b, 0x51350e);
+		registerModEntityWithEgg(AttackHelicopter.class, "AttackHelicopter", 0x373d23, 0x8ec0d7);
+		registerModEntityWithEgg(AlienBug.class, "AlienBug", 0xc6a96b, 0x71552e);
 	}
 
 	static void registerModEntityWithEgg(Class parEntityClass, String parEntityName, 

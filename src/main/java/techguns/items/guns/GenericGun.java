@@ -336,7 +336,7 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 			}
 			return true;
     	}
-		return false;
+		return (this.getGunHandType() == GunHandType.TWO_HANDED); //Block the mouse click if two-handed gun
 	}
 
 	@Override
@@ -349,6 +349,15 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 			} else {
 				return false;
 			}
+		}
+	}
+
+	@Override
+	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+		if(this.getGunHandType() == GunHandType.TWO_HANDED) {
+			return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, playerIn.getHeldItem(handIn));
+		} else {
+			return new ActionResult<ItemStack>(EnumActionResult.PASS, playerIn.getHeldItem(handIn));
 		}
 	}
 

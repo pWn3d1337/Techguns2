@@ -103,7 +103,9 @@ import techguns.entities.npcs.ZombieFarmer;
 import techguns.entities.npcs.ZombieSoldier;
 import techguns.entities.npcs.Bandit;
 import techguns.entities.npcs.DictatorDave;
+import techguns.entities.npcs.AlienBug;
 import techguns.entities.npcs.ArmySoldier;
+import techguns.entities.npcs.AttackHelicopter;
 import techguns.entities.npcs.Commando;
 import techguns.entities.npcs.CyberDemon;
 import techguns.entities.npcs.SkeletonSoldier;
@@ -215,6 +217,7 @@ public class ClientProxy extends CommonProxy {
 		MinecraftForge.EVENT_BUS.register(new TGKeybinds());
 		
 		RenderGrenade40mmProjectile.initModel();
+		RenderAttackHelicopter.initModels();
 		
 		Map<String, RenderPlayer> skinMap = Minecraft.getMinecraft().getRenderManager().getSkinMap();
 		
@@ -772,6 +775,8 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerEntityRenderingHandler(SuperMutantBasic.class, RenderSuperMutant::new);
 		RenderingRegistry.registerEntityRenderingHandler(SuperMutantElite.class, RenderSuperMutant::new);
 		RenderingRegistry.registerEntityRenderingHandler(SuperMutantHeavy.class, RenderSuperMutant::new);
+		RenderingRegistry.registerEntityRenderingHandler(AttackHelicopter.class, RenderAttackHelicopter::new);
+		RenderingRegistry.registerEntityRenderingHandler(AlienBug.class, RenderAlienBug::new);
 	}
 	
 	

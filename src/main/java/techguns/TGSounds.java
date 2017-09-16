@@ -179,8 +179,15 @@ public class TGSounds {
 	public static SoundEvent ALIENBUG_DEATH = createSoundEvent("npcs.alienbugdeath");
 	public static SoundEvent ALIENBUG_STEP = createSoundEvent("npcs.alienbugstep");
 	public static SoundEvent ALIENBUG_AGGRO = createSoundEvent("npcs.alienbugaggro");
+	public static SoundEvent ALIENBUG_BITE = createSoundEvent("npcs.alienbugbite");
 	
 	public static SoundEvent GRENADE_PIN = createSoundEvent("guns.grenade_pin");
+	
+	public static SoundEvent HELICOPTER_HIT = createSoundEvent("npcs.apachehit");
+	public static SoundEvent HELICOPTER_ROTOR = createSoundEvent("npcs.apacherotor");
+	public static SoundEvent HELICOPTER_BURST = createSoundEvent("npcs.apacheburst");
+	public static SoundEvent HELICOPTER_DEATH = createSoundEvent("npcs.apachedie");
+	public static SoundEvent HELICOPTER_EXPLODE = createSoundEvent("npcs.apacheexplode");
 	
 	public static void registerSounds(RegistryEvent.Register<SoundEvent> event){
 		IForgeRegistry<SoundEvent> reg = event.getRegistry();

@@ -1,0 +1,54 @@
+{   
+	"forge_marker": 1,
+    "defaults": {
+        "textures": {},
+        "model": "techguns:npc/helicopter2.obj",
+		"custom": { "flip-v": true }
+	},
+	"variants": {
+        "normal": [{}],
+        "inventory": [{
+            "transform": {
+                "thirdperson_righthand": {
+                    "translation": [0, 0, 0],
+                    "rotation": [ { "y": 90}, {"x": 0}, {"z": 0} ],
+                    "scale": 1.0
+                },
+				"thirdperson_lefthand": {
+                    "translation": [0, 0, 0],
+                    "rotation": [ { "y": 90}, {"x": 0}, {"z": 0} ],
+                    "scale": 1.0
+                },
+				"firstperson_righthand": {
+				    "translation": [0, 0, 0],
+                    "rotation": [ { "y": 90}, {"x": 0}, {"z": 0} ],
+                    "scale": 1.0
+                },
+				"firstperson_lefthand": {
+				    "translation": [0, 0, 0],
+                    "rotation": [ { "y": 90}, {"x": 0}, {"z": 0} ],
+                    "scale": 1.0
+                },
+                "gui": {
+                    "rotation": [ {"y": 90} ],
+					"scale": 1.0
+                },
+				"ground": {
+					"translation": [0, 0, 0],
+                    "rotation": [ {"y": 90} ],
+					"scale": 1.0
+                },
+				"fixed": {
+					"translation": [0, 0, 0],
+                    "rotation": [ {"y": 90} ],
+					"scale": 1.0
+                }
+            }
+		}],
+		"static": {
+			"false": {
+				"model": "techguns:npc/helicopter2.obj"
+			}
+		}
+	}
+}

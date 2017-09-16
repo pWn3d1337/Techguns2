@@ -14,6 +14,7 @@ public class TGSoundCategory {
 	public static TGSoundCategory EXPLOISON = new TGSoundCategory("explosion", SoundCategory.MASTER);
 	public static TGSoundCategory MACHINE = new TGSoundCategory("machine", SoundCategory.BLOCKS);
 	public static TGSoundCategory DEATHEFFECT = new TGSoundCategory("deathFX", SoundCategory.HOSTILE);
+	public static TGSoundCategory HOSTILE = new TGSoundCategory("hostile", SoundCategory.HOSTILE);
 
 	protected int id;
 	protected String name;
