@@ -13,9 +13,12 @@ import net.minecraftforge.fml.common.gameevent.InputEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import techguns.TGPackets;
+import techguns.api.guns.GunHandType;
+import techguns.api.guns.GunManager;
 import techguns.capabilities.TGExtendedPlayer;
 import techguns.items.guns.GenericGun;
 import techguns.packets.PacketTGKeybindPress;
+import techguns.util.InventoryUtil;
 
 @SideOnly(Side.CLIENT)
 public class TGKeybinds {
@@ -62,23 +65,63 @@ public class TGKeybinds {
         } else if (KEY_FORCE_RELOAD.isPressed()){
         	EntityPlayer ply = Minecraft.getMinecraft().player;
         	
-        	//TODO: code to check which hand should be reloaded
-        	EnumHand hand = EnumHand.MAIN_HAND;
-        	ItemStack currentItem = ply.getHeldItem(hand);
-        	if (!currentItem.isEmpty() && currentItem.getItem() instanceof GenericGun){
-        		
-        		TGExtendedPlayer props = TGExtendedPlayer.get(Minecraft.getMinecraft().player);
-            	if (props!=null){
-	            	
-	        		GenericGun gun = (GenericGun) currentItem.getItem();
-	        		if (props.getFireDelay(hand)<=0 && !gun.isFullyLoaded(currentItem)){
-		        					
-		        		TGPackets.network.sendToServer(new PacketTGKeybindPress(TGKeybindsID.FORCE_RELOAD,hand));
-		        		gun.tryForcedReload(currentItem, ply.world,ply, hand);
+        	TGExtendedPlayer props = TGExtendedPlayer.get(Minecraft.getMinecraft().player);
+        	if (props!=null){
+        	
+	        	ItemStack stack_main = ply.getHeldItemMainhand();
+	        	ItemStack stack_off = ply.getHeldItemOffhand();
+	        	boolean canReloadMainhand = this.canReloadGun(props, ply,stack_main, EnumHand.MAIN_HAND);
+	        	boolean canReloadOffhand = GunManager.canUseOffhand(stack_main, stack_off, ply) && this.canReloadGun(props, ply, stack_off, EnumHand.OFF_HAND);
+        	
+	        	
+	        	if (canReloadMainhand || canReloadOffhand) {
+	        		EnumHand hand;
+	        		ItemStack gunToReload;
+	        		
+	        		if(!canReloadOffhand) { //only mainhand can be reloaded
+	        			hand =EnumHand.MAIN_HAND;
+	        			gunToReload=stack_main;
+	        		} else if (!canReloadMainhand) { //only offhand can be reloaded
+	        			hand = EnumHand.OFF_HAND;
+	        			gunToReload=stack_off;
+	        		} else {	//both can be reloaded
+	        			
+	        			GenericGun gunMain = (GenericGun) stack_main.getItem();
+	        			GenericGun gunOff = (GenericGun) stack_main.getItem();
+	        			
+	        			double ammoPercent = gunMain.getPercentAmmoLeft(stack_main);
+	        			double ammoPercent_off = gunOff.getPercentAmmoLeft(stack_off);
+	        			
+	        			if(ammoPercent_off<ammoPercent) {
+	        				hand = EnumHand.OFF_HAND;
+		        			gunToReload=stack_off;
+	        			} else {
+	        				hand = EnumHand.MAIN_HAND;
+		        			gunToReload=stack_main;
+	        			}
+	        			
 	        		}
-        		}
+	        		
+	        		TGPackets.network.sendToServer(new PacketTGKeybindPress(TGKeybindsID.FORCE_RELOAD,hand));
+	        		((GenericGun)gunToReload.getItem()).tryForcedReload(gunToReload, ply.world,ply, hand);
+	        		
+	        	}
         	}
         	
         }
     }
+	
+	private boolean canReloadGun(TGExtendedPlayer props, EntityPlayer ply, ItemStack stack, EnumHand hand) {
+		if(!stack.isEmpty() && stack.getItem() instanceof GenericGun) {
+			GenericGun gun = (GenericGun) stack.getItem();
+			if (props.getFireDelay(hand)<=0 && !gun.isFullyLoaded(stack)){
+				
+				ItemStack ammo = gun.getReloadItem(stack);
+				if(InventoryUtil.canConsumeAmmoPlayer(ply, gun.getReloadItem(stack))) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 }

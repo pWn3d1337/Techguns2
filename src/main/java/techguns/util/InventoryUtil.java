@@ -167,6 +167,38 @@ public class InventoryUtil {
     	
     }
     
+    public static boolean canConsumeAmmoPlayer(EntityPlayer ply, ItemStack ammo){
+    	TGExtendedPlayer props = TGExtendedPlayer.get(ply);
+    	
+    	if ( props!=null ){
+        	int amount = ammo.getCount();
+        	if (amount ==1){     
+	        	if (canConsumeItem(props.tg_inventory.inventory, ammo,TGPlayerInventory.SLOTS_AMMO_START, TGPlayerInventory.SLOTS_AMMO_END+1)<=0){
+	        		return true;
+	        	} else {
+	        		return canConsumeItem(ply.inventory.mainInventory,ammo,0,ply.inventory.mainInventory.size())<=0;
+	        	}
+        	} else {
+        		
+        		//Check first if amount can be consumed
+        		int needed = canConsumeItem(props.tg_inventory.inventory, ammo,TGPlayerInventory.SLOTS_AMMO_START, TGPlayerInventory.SLOTS_AMMO_END+1);
+        		int needed2 = canConsumeItem(ply.inventory.mainInventory,ammo,0,ply.inventory.mainInventory.size());
+
+        		if ( needed+needed2 <= amount){
+        			
+        			return true;
+        			
+        		} else {
+        			return false;
+        		}
+
+        	}
+    	} else {
+    		return false;
+    	}
+    	
+    }
+    
     /**
      * Return missing items, that can not be consumed, 0 == ammount can be consumed
      * @param inv
