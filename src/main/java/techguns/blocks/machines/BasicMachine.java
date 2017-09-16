@@ -273,8 +273,12 @@ public class BasicMachine<T extends Enum<T> & IStringSerializable & IMachineType
 	public void registerItemBlockModels() {
 		for(int i = 0; i< clazz.getEnumConstants().length;i++) {
 			IBlockState state = getDefaultState().withProperty(MACHINE_TYPE, clazz.getEnumConstants()[i]);
-			ForgeHooksClient.registerTESRItemStack(itemblock, this.getMetaFromState(state), state.getValue(MACHINE_TYPE).getTileClass());
-			ModelLoader.setCustomModelResourceLocation(itemblock, i, new ModelResourceLocation(itemblock.getRegistryName(),"inventory"));
+			if(clazz.getEnumConstants()[i].getRenderType()==EnumBlockRenderType.MODEL) {
+				ModelLoader.setCustomModelResourceLocation(itemblock, i, new ModelResourceLocation(getRegistryName(),BlockUtils.getBlockStateVariantString(state)));
+			} else {
+				ForgeHooksClient.registerTESRItemStack(itemblock, this.getMetaFromState(state), state.getValue(MACHINE_TYPE).getTileClass());
+				ModelLoader.setCustomModelResourceLocation(itemblock, i, new ModelResourceLocation(itemblock.getRegistryName(),"inventory"));
+			}
 		}
 	}
 

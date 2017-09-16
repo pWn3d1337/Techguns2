@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockHorizontal;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -63,7 +65,14 @@ public class Structure implements Serializable{
 			MBlock mb = blocks.get(b.blockIndex);
 			BlockPos pos = new BlockPos(x+b.x, y+b.y, z+b.z);
 			pos = BlockUtils.rotateAroundY(pos, axis, rotation);
-			world.setBlockState(pos, mb.block.getStateFromMeta(mb.meta));
+			
+			IBlockState state = mb.block.getStateFromMeta(mb.meta);
+			
+			if(state.getProperties().containsKey(BlockHorizontal.FACING)) {
+				state = BlockRotator.getRotatedHorizontal(state, rotation);
+			}
+			
+			world.setBlockState(pos, state);
 			
 			//AxisAlignedBB aabb = new AxisAlignedBB(pos1, axis);
 			
