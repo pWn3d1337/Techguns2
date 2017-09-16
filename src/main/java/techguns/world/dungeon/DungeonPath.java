@@ -111,13 +111,27 @@ public class DungeonPath {
 						}
 					}
 					
-				} else if (!isOccupied(nextPos)) {					
-					generateSegment(nextPos.getX(), nextPos.getY(), nextPos.getZ(), nextDir, segment);
-					success = true;
+				} else if (!isOccupied(nextPos)) {	
+					if (rand.nextFloat() < 0.25f) {//Try to place a Room
+						//check left and right first
+						int area = 4 + rand.nextInt(12);
+						boolean b = tryGrowRoom(nextPos,segment, nextFacing, 2+rand.nextInt(3), 2+rand.nextInt(3), area);
+						if (b) {
+							success = true;
+						}else { //just a regular segment it is
+						
+							generateSegment(nextPos.getX(), nextPos.getY(), nextPos.getZ(), nextDir, segment);
+							success = true;
+						}
+						
+					}else { //Regular Segment
+						generateSegment(nextPos.getX(), nextPos.getY(), nextPos.getZ(), nextDir, segment);
+						success = true;
+					}
 				}else { // if (!segment.isRamp){ //Connect to existing segment
 					PathSegment seg = this.get(nextPos);
 					if (seg != null && !seg.isRamp) {
-						segment.setConnection(nextDir, true);
+						segment.setConnection(nextFacing, true);
 						seg.setConnection(EnumFacing.getHorizontal(nextDir).getOpposite(), true);
 						success = true;
 					}
@@ -130,9 +144,340 @@ public class DungeonPath {
 		}
 	}
 		
+	private boolean tryGrowRoom(Vec3i pos, PathSegment prev, EnumFacing dir, int maxWidth, int maxLength, int preferredArea) {
+		
+		int x = pos.getX();
+		int y = pos.getY(); //This won't change
+		int z = pos.getZ();
+		
+		Vec3i vFront = dir.getDirectionVec();
+		Vec3i vRight = dir.rotateY().getDirectionVec();
+		Vec3i vLeft = dir.rotateYCCW().getDirectionVec();
+		
+		int l = 0;
+		
+		int bestl = 0;
+		int bestw_l = 0;
+		int bestw_r = 0;
+		float bestValue = Float.MAX_VALUE; //actually is a penalty
+		
+		int maxw_l = Integer.MAX_VALUE;
+		int maxw_r = Integer.MAX_VALUE;
 		
 		
+		boolean stopL = false;
+		while (l < maxLength && !stopL ) {
+			Vec3i posF = new Vec3i(x + vFront.getX()*l, y, z+vFront.getZ()*l);
+			if (!isWithinBounds(posF) || isOccupied(posF)) {
+				stopL = true;
+				//l = l-1;
+				break;
+			}
+			
+			boolean stop = false;
+			int w_l = 0;
+			int w_r = 0;
+			//Grow one step forward
+			//Grow Left
+			while (w_l < maxWidth && w_l < maxw_l && !stop) {
+				Vec3i pos_ = new Vec3i(x + vLeft.getX() * (w_l+1) + vFront.getX()*l, y, z + vLeft.getZ() * (w_l+1) + vFront.getZ()*l);
+				if (!isWithinBounds(pos_) || isOccupied(pos_)) {
+					stop = true;
+					//w_l = w_l-1;
+					maxw_l = w_l;
+				}else {
+					w_l++;
+				}
+			}
+			//Grow Right
+			stop = false;
+			while (w_r < maxWidth && w_r < maxw_r &&  !stop) {
+				Vec3i pos_ = new Vec3i(x + vRight.getX() * (w_r+1) + vFront.getX()*l, y, z + vRight.getZ() * (w_r+1) + vFront.getZ()*l);
+				if (!isWithinBounds(pos_) || isOccupied(pos_)) {
+					stop = true;
+					//w_r = w_r-1;
+					maxw_r = w_r;
+				}else {
+					w_r++;
+				}
+			}
+			
+			//Penalty value
+			int area = ( w_l+w_r+1) * (l+1);
+			float area_ratio = (float)Math.max(area, preferredArea) / (float)Math.min(area, preferredArea);
+			float aspect_ratio = (float)Math.max(( w_l+w_r+1), (l+1)) / (float)Math.min(( w_l+w_r+1), (l+1));			
+			float value = area_ratio + aspect_ratio;
+			
+			if (value < bestValue) {
+				bestValue = value;
+				bestl = l;
+				bestw_l = w_l;
+				bestw_r = w_r;
+			}
+			l++;
+			
+		}
 		
+		if (bestl < 2 || (bestw_l+bestw_r+1) < 2) {
+			return false;
+		}else {
+			
+			Vec3i p1 = new Vec3i (x + vLeft.getX() * bestw_l, y, z + vLeft.getZ() * bestw_l);
+			Vec3i p2 = new Vec3i (x + vRight.getX() * bestw_r + vFront.getX()*bestl, y, z + vRight.getZ() * bestw_r + vFront.getZ()*bestl);
+			
+			Vec3i min = new Vec3i (Math.min(p1.getX(),p2.getX()), y, Math.min(p1.getZ(),p2.getZ()));
+			Vec3i max = new Vec3i (Math.max(p1.getX(),p2.getX()), y, Math.max(p1.getZ(),p2.getZ()));
+			
+			if (!isWithinBounds(min) || !isWithinBounds(max)) {
+				System.out.println("What is this shit?");
+				System.out.println(min.toString());
+				System.out.println(max.toString());
+			}
+			
+			
+			//int numDoors = this.rand.nextInt(preferredArea / 4);
+			placeRoomSegments(min, max);
+			prev.setConnection(dir, true); //main entrance
+			PathSegment segment = this.get(pos);
+			if (segment != null) {
+				segment.setConnection(dir.getOpposite(), true);
+			}else {
+				System.out.println("shit");
+				//segment.printPattern();
+			}
+			/*
+			//Place actual room
+			prev.setConnection(dir, true);
+			
+			//int x1 = 
+			
+			for (int i = 0; i <= bestl; i++) {
+				
+				for (int j = 0; j <= bestw_l; j++) {
+					Vec3i pos_ = new Vec3i(x + vLeft.getX() * j + vFront.getX()*i, y, z + vLeft.getZ() * j + vFront.getZ()*i);
+					PathSegment segment = addRoomSegment(pos_, dir, i, j, 0, bestl, bestw_l, bestw_r);
+//					PathSegment segment = new PathSegment(pos_.getX(), pos_.getY(), pos_.getZ());
+//					addSegment(segment);
+
+					if (i == 0 && j == 0) { //DOOR
+						segment.setConnection(dir.getOpposite(), true);
+					}
+//					int baseRot = ((dir.getHorizontalIndex()+2) % 4) * 2 + 1;
+//					if (l > 0) { //back
+//						segment.setConnection(dir.getOpposite(), true);
+//						if (j < bestw_l) { //back left
+//							segment.setConnection((baseRot + 5)%8, true);
+//						}
+//					}
+//					if (l < bestl) { //front
+//						segment.setConnection(dir, true);
+//						if (j < bestw_l) { //front left
+//							segment.setConnection((baseRot + 7)%8, true);
+//						}
+//						
+//					}
+//					if (j < bestw_l) {//left
+//						segment.setConnection((baseRot + 6)%8, true);
+//					}
+				}
+				
+				for (int j = 1; j <= bestw_r; j++) {
+					Vec3i pos_ = new Vec3i(x + vRight.getX() * j + vFront.getX()*i, y, z + vRight.getZ() * j + vFront.getZ()*i);
+					
+					PathSegment segment = addRoomSegment(pos_, dir, i, 0, j, bestl, bestw_l, bestw_r);
+//					PathSegment segment = new PathSegment(pos_.getX(), pos_.getY(), pos_.getZ());
+//					addSegment(segment);
+//					int baseRot = ((dir.getHorizontalIndex()+2) % 4) * 2 + 1;
+//					if (l > 0) { //back
+//						segment.setConnection(dir.getOpposite(), true);
+//						if (j < bestw_r) { //back right
+//							segment.setConnection((baseRot + 3)%8, true);
+//						}
+//					}
+//					if (l < bestl) { //front
+//						segment.setConnection(dir, true);
+//						if (j < bestw_r) { //front right
+//							segment.setConnection((baseRot + 1)%8, true);
+//						}
+//					}
+//					if (j < bestw_r) {//left
+//						segment.setConnection((baseRot + 2)%8, true);
+//					}
+				}
+			}
+			*/
+			
+//			//Place doors
+//			int numDoors = this.rand.nextInt(preferredArea / 8);
+//			for (int i = 0; i < numDoors; i++) {
+//				float f = rand.nextFloat();
+//			}
+			
+			return true;
+		}
+	}
+		
+	private void placeRoomSegments(Vec3i min, Vec3i max) {
+		int y = min.getY();//=constant
+		for (int x = min.getX(); x <= max.getX(); x++) {
+			for (int z = min.getZ(); z <= max.getZ(); z++) {
+				PathSegment segment = new PathSegment(x,y,z);
+				this.addSegment(segment);
+				
+				//Connections
+				if (x > min.getX()) segment.setConnection(7, true);
+				if (x < max.getX()) segment.setConnection(3, true);
+				if (z > min.getZ()) segment.setConnection(1, true);
+				if (z < max.getZ()) segment.setConnection(5, true);
+				if (x != min.getX() && z != min.getZ()) segment.setConnection(0,  true);
+				if (x != min.getX() && z != max.getZ()) segment.setConnection(6,  true);
+				if (x != max.getX() && z != min.getZ()) segment.setConnection(2,  true);
+				if (x != max.getX() && z != max.getZ()) segment.setConnection(4,  true);
+			}
+		}
+		
+		//Doors/Exits
+		//-X side:
+		int length = (max.getZ()-min.getZ())+1;
+		int numDoors = rand.nextInt(length);
+		for (int i = 0; i < numDoors; i++) {
+			int z = rand.nextInt(length);
+			Vec3i pos_ = new Vec3i(min.getX(), y, min.getZ()+z);
+			PathSegment segment = this.get(pos_);
+			EnumFacing facing = EnumFacing.WEST;
+			placeDoor(new Vec3i(pos_.getX(), y, pos_.getZ()), facing, segment);
+		}
+		//+X side
+		numDoors = rand.nextInt(length);
+		for (int i = 0; i < numDoors; i++) {
+			int z = rand.nextInt(length);
+			Vec3i pos_ = new Vec3i(max.getX(), y, min.getZ()+z);
+			PathSegment segment = this.get(pos_);
+			EnumFacing facing = EnumFacing.EAST;
+			placeDoor(new Vec3i(pos_.getX(), y, pos_.getZ()), facing, segment);
+		}
+		//-Z side
+		length = (max.getX() - min.getX())+1;
+		numDoors = rand.nextInt(length);
+		for (int i = 0; i < numDoors; i++) {
+			int x = rand.nextInt(length);
+			Vec3i pos_ = new Vec3i(min.getX()+x, y, min.getZ());
+			PathSegment segment = this.get(pos_);
+			EnumFacing facing = EnumFacing.NORTH;
+			placeDoor(new Vec3i(pos_.getX(), y, pos_.getZ()), facing, segment);
+		}
+		//+Z side
+		numDoors = rand.nextInt(length);
+		for (int i = 0; i < numDoors; i++) {
+			int x = rand.nextInt(length);
+			Vec3i pos_ = new Vec3i(min.getX()+x, y, max.getZ());
+			PathSegment segment = this.get(pos_);
+			EnumFacing facing = EnumFacing.SOUTH;
+			placeDoor(new Vec3i(pos_.getX(), y, pos_.getZ()), facing, segment);
+		}
+	}
+	
+	private void placeDoor(Vec3i pos, EnumFacing facing, PathSegment segment) {
+		Vec3i offset = facing.getDirectionVec();
+		Vec3i nextPos = new Vec3i(pos.getX()+offset.getX(), pos.getY(), pos.getZ()+offset.getZ());
+		if (isWithinBounds(nextPos)) {
+			if (!isOccupied(nextPos)) { //continue new path
+				generateSegment(nextPos.getX(), nextPos.getY(), nextPos.getZ(), facing.getHorizontalIndex(), segment);
+			}else { //connect to existing segment
+				PathSegment seg = this.get(nextPos);
+				if (seg != null && !seg.isRamp) {
+					segment.setConnection(facing, true);
+					seg.setConnection(facing.getOpposite(), true);
+				}
+			}
+		}
+	}
+
+
+	private PathSegment addRoomSegment(Vec3i pos, EnumFacing dir, int l, int w_l, int w_r, int maxL, int maxW_l, int maxW_r ) {
+		PathSegment segment = new PathSegment(pos.getX(), pos.getY(), pos.getZ());
+		addSegment(segment);
+		int baseRot = ((dir.getHorizontalIndex()+2) % 4) * 2 + 1;
+		
+		//workaround
+		if (maxW_r == 0 && w_l > 0) w_r = 1;
+		if (maxW_l == 0 && w_r > 0) w_l = 1;
+		
+		if (l > 0) { //back
+			segment.setConnection(dir.getOpposite(), true);
+			if (w_l < maxW_l) { //back left
+				segment.setConnection((baseRot + 5)%8, true);
+			}
+			if (w_r < maxW_r) { //back right
+				segment.setConnection((baseRot + 3)%8, true);
+			}
+		}
+		if (l < maxL) { //front
+			segment.setConnection(dir, true);
+			if (w_l < maxW_l) { //front left
+				segment.setConnection((baseRot + 7)%8, true);
+			}
+			if (w_r < maxW_r) { //front right
+				segment.setConnection((baseRot + 1)%8, true);
+			}			
+		}
+		if (w_l < maxW_l) {//left
+			segment.setConnection((baseRot + 6)%8, true);
+		}
+		if (w_r < maxW_r) {//right
+			segment.setConnection((baseRot + 2)%8, true);
+		}
+		
+		return segment;
+	}
+			
+
+//		int x = pos.getX();
+//		int y = pos.getY(); //This won't change
+//		int z = pos.getZ();
+//		
+//		Vec3i vFront = dir.getDirectionVec();
+//		Vec3i vRight = dir.rotateY().getDirectionVec();
+//		Vec3i vLeft = dir.rotateYCCW().getDirectionVec();
+//		
+//		int l = 0;
+//		int w = 0;
+//		boolean stop = false;
+//		while (l < maxLength && w < maxWidth && !stop) {
+//			boolean free = true;
+//			//Grow Left
+//			w++;
+//			for (int i = 0; i < l; i++) {
+//				Vec3i pos_ = new Vec3i(x + vLeft.getX() * w + vFront.getX()*i, y, z + vLeft.getZ() * w + vFront.getZ()*i);
+//			}
+//			//Grow Right
+//			for (int i = 0; i < l; i++) {
+//				Vec3i pos_ = new Vec3i(x + vRight.getX() * w + vFront.getX()*i, y, z + vRight.getZ() * w + vFront.getZ()*i);
+//			}
+//			//Grow Front
+//			l++;
+//			for (int i = 0; i < w; i++) {
+//				Vec3i pos_ = new Vec3i(x + vRight.getX() * w + vFront.getX()*i, y, z + vRight.getZ() * w + vFront.getZ()*i);
+//			}
+//			
+//		}
+//		
+//		
+//		return false;
+//	}
+		
+		
+	private int countFreeSpaceInDir(Vec3i pos, EnumFacing dir) {
+		Vec3i offset = dir.getDirectionVec();
+		int i = 0;
+		while (isWithinBounds(pos) && ! isOccupied(pos)) {
+			pos = new Vec3i(pos.getX() + offset.getX(), pos.getY(), pos.getZ()+offset.getZ());
+			i++;
+		}
+		return i;
+	}
+
+
 	private void addSegment(PathSegment seg) {
 		if (seg.x >= 0 && seg.x < sX &&
 			seg.y >= 0 && seg.y < sY &&
@@ -278,7 +623,7 @@ public class DungeonPath {
 			this.y = y;
 			this.z = z;
 		}
-		
+
 		//dir = Horizontal EnumFacing
 		public Vec3i getNextPos(int dir) {
 			Vec3i offset = EnumFacing.getHorizontal(dir).getDirectionVec();
@@ -290,8 +635,8 @@ public class DungeonPath {
 			return new Vec3i(x+offset.getX(), y+offset.getY(), z+offset.getZ());
 		}
 		
-		public boolean connectionAt(int dir) {
-			return connectionAt(EnumFacing.getHorizontal(dir));
+		public boolean connectionAt(int index) {
+			return pattern[index];
 		}
 		
 		public boolean connectionAt(EnumFacing facing) {
@@ -303,8 +648,8 @@ public class DungeonPath {
 			return pattern[i];
 		}
 		
-		public void setConnection(int dir, boolean connected) {
-			this.setConnection(EnumFacing.getHorizontal(dir), connected);
+		public void setConnection(int index, boolean connected) {
+			this.pattern[index] = connected;
 		}
 		
 		public void setConnection(EnumFacing facing, boolean connected) {
@@ -333,6 +678,24 @@ public class DungeonPath {
 		public int getRampRotation() {
 			return this.rampRotation;
 		}
+		
+		public void printPattern() {
+			StringBuilder sb = new StringBuilder();
+			char t = '1';
+			char f = '0';
+			if (pattern[0]) sb.append(t); else sb.append(f);
+			if (pattern[1]) sb.append(t); else sb.append(f);
+			if (pattern[2]) sb.append(t); else sb.append(f);
+			sb.append("\n");
+			if (pattern[7]) sb.append(t); else sb.append(f);
+			sb.append(" ");
+			if (pattern[3]) sb.append(t); else sb.append(f);
+			sb.append("\n");
+			if (pattern[6]) sb.append(t); else sb.append(f);
+			if (pattern[5]) sb.append(t); else sb.append(f);
+			if (pattern[4]) sb.append(t); else sb.append(f);
+			System.out.println(sb.toString());
+		}
 
 	}
 	
@@ -357,6 +720,7 @@ public class DungeonPath {
 							}
 						}else {
 						
+							boolean ok = false;
 							for (TemplateSegment tempSeg : TemplateSegment.templateSegments.values()) {
 								if (tempSeg.sizeY > 1) /*|| !segment.isRamp)*/ continue;
 								boolean match = false;
@@ -373,8 +737,13 @@ public class DungeonPath {
 									int py = posY+(j*template.sizeY);
 									int pz = posZ+(k*template.sizeXZ);
 									template.segments.get(tempSeg.type).placeSegment(world, px, py, pz, r);
+									ok = true;
 									break;
 								}
+							}
+							if (!ok) {
+								System.out.println("couldn't match segment " + segment.toString());
+								segment.printPattern();
 							}
 						}
 					}

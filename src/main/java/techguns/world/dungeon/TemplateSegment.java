@@ -31,13 +31,13 @@ public class TemplateSegment {
 		
 		addSegment(SegmentType.RAMP, 1, 0, 2, new boolean[]{f,f,f, t, f, f, f, t}, 4); //sizeY = 2
 		
-		addSegment(SegmentType.ROOM_WALL, 2, 0);
-		addSegment(SegmentType.ROOM_CORNER, 2, 1);
-		addSegment(SegmentType.ROOM_INNER, 2, 2);
-		addSegment(SegmentType.ROOM_DOOR, 2, 3);
-		addSegment(SegmentType.ROOM_DOOR_CORNER1, 2, 4);
-		addSegment(SegmentType.ROOM_DOOR_CORNER2, 2, 5);
-		addSegment(SegmentType.ROOM_DOOR_CORNER_DOUBLE, 2, 6);
+		addSegment(SegmentType.ROOM_WALL, 2, 0, 1, new boolean[]{f,f,f, t, t, t, t, t}, 4);
+		addSegment(SegmentType.ROOM_CORNER, 2, 1, 1, new boolean[]{f,f,f, t, t, t, f, f}, 4);
+		addSegment(SegmentType.ROOM_INNER, 2, 2, 1,new boolean[]{t,t,t, t, t, t, t, t}, 1);
+		addSegment(SegmentType.ROOM_DOOR, 2, 3, 1, new boolean[]{f,t,f, t, t, t, t, t}, 4);
+		addSegment(SegmentType.ROOM_DOOR_CORNER1, 2, 4, 1, new boolean[]{f,t,f, t, t, t, f, f}, 4);
+		addSegment(SegmentType.ROOM_DOOR_CORNER2, 2, 5 ,1, new boolean[]{f,f,f, t, t, t, f, t}, 4);
+		addSegment(SegmentType.ROOM_DOOR_CORNER_DOUBLE, 2, 6, 1, new boolean[]{f,t,f, t, t, t, f, t}, 4);
 		
 	}
 	
