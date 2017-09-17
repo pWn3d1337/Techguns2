@@ -4,17 +4,13 @@
     "data": 43
   },
   "pattern": [
-    "  i",
-    "nni",
-    "  n"
+    "ppp",
+    "  p"
   ],
   "type": "forge:ore_shaped",
   "key": {
-    "i": {
-      "item": "#INGOTIRON"
-    },
-    "n": {
-      "item": "#NUGGETIRON"
+    "p": {
+      "item": "#SHEETPLASTIC"
     }
   }
 }

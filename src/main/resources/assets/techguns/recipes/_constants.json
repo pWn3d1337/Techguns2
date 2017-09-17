@@ -9,9 +9,23 @@
   {
     "ingredient": {
       "type": "forge:ore_dict",
+      "ore": "blockIron"
+    },
+    "name": "BLOCKIRON"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
       "ore": "circuitBasic"
     },
     "name": "CIRCUITBASIC"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "circuitElite"
+    },
+    "name": "CIRCUITELITE"
   },
   {
     "ingredient": {
@@ -26,6 +40,13 @@
       "ore": "dustRedstone"
     },
     "name": "DUSTREDSTONE"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "dye"
+    },
+    "name": "DYE"
   },
   {
     "ingredient": {
@@ -51,9 +72,30 @@
   {
     "ingredient": {
       "type": "forge:ore_dict",
+      "ore": "gemQuartz"
+    },
+    "name": "GEMQUARTZ"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
       "ore": "hardenedGlassOrGlass"
     },
     "name": "HARDENEDGLASSORGLASS"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "ingotCopper"
+    },
+    "name": "INGOTCOPPER"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "ingotGold"
+    },
+    "name": "INGOTGOLD"
   },
   {
     "ingredient": {
@@ -82,6 +124,13 @@
       "ore": "ingotSteel"
     },
     "name": "INGOTSTEEL"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "itemRubber"
+    },
+    "name": "ITEMRUBBER"
   },
   {
     "ingredient": {
@@ -121,6 +170,13 @@
   {
     "ingredient": {
       "type": "forge:ore_dict",
+      "ore": "paneGlass"
+    },
+    "name": "PANEGLASS"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
       "ore": "plateCarbon"
     },
     "name": "PLATECARBON"
@@ -142,9 +198,23 @@
   {
     "ingredient": {
       "type": "forge:ore_dict",
+      "ore": "plateSteel"
+    },
+    "name": "PLATESTEEL"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
       "ore": "plateTin"
     },
     "name": "PLATETIN"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "plateTitanium"
+    },
+    "name": "PLATETITANIUM"
   },
   {
     "ingredient": {

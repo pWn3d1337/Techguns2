@@ -1,0 +1,35 @@
+{
+  "result": {
+    "item": "techguns:antigravpack"
+  },
+  "pattern": [
+    "tet",
+    "cac",
+    "mbm"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "a": {
+      "item": "techguns:itemshared",
+      "data": 92
+    },
+    "b": {
+      "item": "techguns:itemshared",
+      "data": 90
+    },
+    "c": {
+      "item": "#CIRCUITELITE"
+    },
+    "t": {
+      "item": "#PLATETITANIUM"
+    },
+    "e": {
+      "item": "techguns:itemshared",
+      "data": 31
+    },
+    "m": {
+      "item": "techguns:itemshared",
+      "data": 59
+    }
+  }
+}

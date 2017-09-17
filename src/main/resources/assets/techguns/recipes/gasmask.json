@@ -1,0 +1,23 @@
+{
+  "result": {
+    "item": "techguns:gasmask"
+  },
+  "pattern": [
+    "grg",
+    "rrr",
+    "rfr"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "r": {
+      "item": "#ITEMRUBBER"
+    },
+    "f": {
+      "item": "techguns:itemshared",
+      "data": 89
+    },
+    "g": {
+      "item": "#PANEGLASS"
+    }
+  }
+}

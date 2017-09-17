@@ -1,0 +1,30 @@
+{
+  "result": {
+    "item": "techguns:basicmachine",
+    "data": 0
+  },
+  "pattern": [
+    "ili",
+    "cec",
+    "iri"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "r": {
+      "item": "minecraft:redstone"
+    },
+    "c": {
+      "item": "#INGOTCOPPER"
+    },
+    "e": {
+      "item": "techguns:itemshared",
+      "data": 70
+    },
+    "i": {
+      "item": "#INGOTIRON"
+    },
+    "l": {
+      "item": "#INGOTLEAD"
+    }
+  }
+}

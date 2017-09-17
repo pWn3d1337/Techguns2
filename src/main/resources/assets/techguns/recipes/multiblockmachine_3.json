@@ -1,0 +1,33 @@
+{
+  "result": {
+    "item": "techguns:multiblockmachine",
+    "data": 3,
+    "count": 9
+  },
+  "pattern": [
+    "sms",
+    "pcp",
+    "ses"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "p": {
+      "item": "techguns:itemshared",
+      "data": 69
+    },
+    "s": {
+      "item": "#PLATESTEEL"
+    },
+    "c": {
+      "item": "techguns:basicmachine",
+      "data": 2
+    },
+    "e": {
+      "item": "#CIRCUITELITE"
+    },
+    "m": {
+      "item": "techguns:itemshared",
+      "data": 59
+    }
+  }
+}

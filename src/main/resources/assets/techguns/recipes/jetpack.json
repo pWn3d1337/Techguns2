@@ -1,0 +1,31 @@
+{
+  "result": {
+    "item": "techguns:jetpack"
+  },
+  "pattern": [
+    "f f",
+    "pgp",
+    "rmr"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "p": {
+      "item": "#PLATEOBSIDIANSTEEL"
+    },
+    "r": {
+      "item": "techguns:itemshared",
+      "data": 7
+    },
+    "f": {
+      "item": "techguns:itemshared",
+      "data": 27
+    },
+    "g": {
+      "item": "techguns:glider"
+    },
+    "m": {
+      "item": "techguns:itemshared",
+      "data": 58
+    }
+  }
+}

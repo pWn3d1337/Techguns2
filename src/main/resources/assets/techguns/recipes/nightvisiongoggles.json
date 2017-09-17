@@ -1,0 +1,33 @@
+{
+  "result": {
+    "item": "techguns:nightvisiongoggles"
+  },
+  "pattern": [
+    "rhr",
+    "cec",
+    "gsg"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "r": {
+      "item": "#ITEMRUBBER"
+    },
+    "c": {
+      "item": "#CIRCUITBASIC"
+    },
+    "s": {
+      "item": "#INGOTIRON"
+    },
+    "e": {
+      "item": "techguns:itemshared",
+      "data": 29
+    },
+    "g": {
+      "item": "#BLOCKGLASS"
+    },
+    "h": {
+      "item": "techguns:itemshared",
+      "data": 60
+    }
+  }
+}

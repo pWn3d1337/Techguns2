@@ -40,11 +40,15 @@ public class TGItems implements ITGInitializer{
 
 	/**
 	 * TODO
-	 * REMOVE THIS BEFORE RELEASE
+	 * DISABLE THIS BEFORE RELEASE
 	 */
 	public static boolean WRITE_ITEM_JSON = true;
+	/**
+	 * TODO
+	 * DISABLE THIS BEFORE RELEASE
+	 */
+	public static boolean WRITE_RECIPES = false;
 	
-
 	public static final ArrayList<GenericItem> ITEMLIST = new ArrayList<>();
 	
 	public static final ArrayList<Item> ITEMLIST_VANILLA_ITEM = new ArrayList<>();
@@ -421,7 +425,9 @@ public class TGItems implements ITGInitializer{
 
 	@Override
 	public void postInit(FMLPostInitializationEvent event) {
-		//Recipewriter.writeRecipes();
+		if(WRITE_RECIPES) {
+			Recipewriter.writeRecipes();
+		}
 	}
 	
 	

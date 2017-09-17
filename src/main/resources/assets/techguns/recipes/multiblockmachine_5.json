@@ -1,0 +1,24 @@
+{
+  "result": {
+    "item": "techguns:multiblockmachine",
+    "data": 5
+  },
+  "pattern": [
+    " g ",
+    "crc",
+    " g "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "r": {
+      "item": "techguns:multiblockmachine",
+      "data": 3
+    },
+    "c": {
+      "item": "#CIRCUITELITE"
+    },
+    "g": {
+      "item": "#HARDENEDGLASSORGLASS"
+    }
+  }
+}

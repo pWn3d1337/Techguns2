@@ -1,19 +1,20 @@
 {
   "result": {
     "item": "techguns:itemshared",
-    "data": 43
+    "data": 89
   },
   "pattern": [
-    "  i",
-    "nni",
-    "  n"
+    "iii",
+    "ici",
+    "iii"
   ],
   "type": "forge:ore_shaped",
   "key": {
-    "i": {
-      "item": "#INGOTIRON"
+    "c": {
+      "item": "minecraft:coal",
+      "data": 0
     },
-    "n": {
+    "i": {
       "item": "#NUGGETIRON"
     }
   }

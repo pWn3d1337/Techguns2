@@ -1,0 +1,23 @@
+{
+  "result": {
+    "item": "techguns:simplemachine",
+    "data": 0
+  },
+  "pattern": [
+    "ddd",
+    "ici",
+    "iii"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "c": {
+      "item": "minecraft:crafting_table"
+    },
+    "d": {
+      "item": "#DYE"
+    },
+    "i": {
+      "item": "#NUGGETIRON"
+    }
+  }
+}

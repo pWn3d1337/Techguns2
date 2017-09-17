@@ -1,0 +1,34 @@
+{
+  "result": {
+    "item": "techguns:basicmachine",
+    "data": 3
+  },
+  "pattern": [
+    "pip",
+    "cec",
+    "prp"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "p": {
+      "item": "#PLATEIRON"
+    },
+    "b": {
+      "item": "#PLATEIRON"
+    },
+    "r": {
+      "item": "minecraft:redstone"
+    },
+    "c": {
+      "item": "minecraft:concrete",
+      "data": 0
+    },
+    "e": {
+      "item": "techguns:itemshared",
+      "data": 70
+    },
+    "i": {
+      "item": "#CIRCUITBASIC"
+    }
+  }
+}

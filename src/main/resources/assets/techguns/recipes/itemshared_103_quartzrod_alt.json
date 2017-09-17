@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "techguns:itemshared",
+    "data": 103
+  },
+  "pattern": [
+    "  q",
+    " q ",
+    "q  "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "q": {
+      "item": "#GEMQUARTZ"
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "result": {
+    "item": "techguns:gasmask"
+  },
+  "ingredients": [
+    {
+      "item": "techguns:gasmask",
+      "data": 32767
+    },
+    {
+      "item": "techguns:itemshared",
+      "data": 89
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

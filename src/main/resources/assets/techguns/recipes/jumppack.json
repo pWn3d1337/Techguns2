@@ -1,0 +1,27 @@
+{
+  "result": {
+    "item": "techguns:jumppack"
+  },
+  "pattern": [
+    "n n",
+    "pbp",
+    "c c"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "p": {
+      "item": "#PLATEIRON"
+    },
+    "b": {
+      "item": "techguns:itemshared",
+      "data": 90
+    },
+    "c": {
+      "item": "techguns:itemshared",
+      "data": 23
+    },
+    "n": {
+      "item": "#NUGGETIRON"
+    }
+  }
+}
