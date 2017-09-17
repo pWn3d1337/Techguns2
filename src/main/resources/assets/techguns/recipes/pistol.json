@@ -1,0 +1,32 @@
+{
+  "result": {
+    "item": "techguns:pistol"
+  },
+  "pattern": [
+    "bsp",
+    " fp",
+    "  m"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "p": {
+      "item": "techguns:itemshared",
+      "data": 55
+    },
+    "b": {
+      "item": "techguns:itemshared",
+      "data": 39
+    },
+    "s": {
+      "item": "#PLATESTEEL"
+    },
+    "f": {
+      "item": "techguns:itemshared",
+      "data": 58
+    },
+    "m": {
+      "item": "techguns:itemshared",
+      "data": 11
+    }
+  }
+}

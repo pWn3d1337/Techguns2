@@ -1,0 +1,28 @@
+{
+  "result": {
+    "item": "techguns:grenadelauncher",
+    "data": 6
+  },
+  "pattern": [
+    "mrs",
+    " p "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "p": {
+      "item": "#PLATESTEEL"
+    },
+    "r": {
+      "item": "techguns:itemshared",
+      "data": 34
+    },
+    "s": {
+      "item": "techguns:itemshared",
+      "data": 43
+    },
+    "m": {
+      "item": "techguns:itemshared",
+      "data": 39
+    }
+  }
+}

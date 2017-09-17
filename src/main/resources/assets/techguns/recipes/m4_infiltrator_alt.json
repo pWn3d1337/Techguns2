@@ -1,0 +1,33 @@
+{
+  "result": {
+    "item": "techguns:m4_infiltrator",
+    "data": 30
+  },
+  "pattern": [
+    "gpg",
+    "wwm",
+    "rri"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "p": {
+      "item": "#PLATESTEEL"
+    },
+    "r": {
+      "item": "#DUSTREDSTONE"
+    },
+    "g": {
+      "item": "#HARDENEDGLASSORGLASS"
+    },
+    "w": {
+      "item": "#BLOCKWOOL"
+    },
+    "i": {
+      "item": "#INGOTSTEEL"
+    },
+    "m": {
+      "item": "techguns:m4",
+      "data": 30
+    }
+  }
+}

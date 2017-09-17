@@ -1,0 +1,35 @@
+{
+  "result": {
+    "item": "techguns:as50"
+  },
+  "pattern": [
+    "dpd",
+    "bbf",
+    " mt"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "p": {
+      "item": "#PLATEOBSIDIANSTEEL"
+    },
+    "b": {
+      "item": "techguns:itemshared",
+      "data": 39
+    },
+    "t": {
+      "item": "techguns:itemshared",
+      "data": 43
+    },
+    "d": {
+      "item": "#GEMDIAMOND"
+    },
+    "f": {
+      "item": "techguns:itemshared",
+      "data": 35
+    },
+    "m": {
+      "item": "techguns:itemshared",
+      "data": 19
+    }
+  }
+}

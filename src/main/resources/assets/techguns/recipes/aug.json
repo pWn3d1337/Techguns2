@@ -1,0 +1,38 @@
+{
+  "result": {
+    "item": "techguns:aug"
+  },
+  "pattern": [
+    "gpg",
+    "bfs",
+    "i m"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "p": {
+      "item": "#PLATESTEEL"
+    },
+    "b": {
+      "item": "techguns:itemshared",
+      "data": 39
+    },
+    "s": {
+      "item": "techguns:itemshared",
+      "data": 43
+    },
+    "f": {
+      "item": "techguns:itemshared",
+      "data": 34
+    },
+    "g": {
+      "item": "#PANEGLASS"
+    },
+    "i": {
+      "item": "#SHEETPLASTIC"
+    },
+    "m": {
+      "item": "techguns:itemshared",
+      "data": 13
+    }
+  }
+}

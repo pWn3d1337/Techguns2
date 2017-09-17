@@ -48,9 +48,9 @@ import techguns.items.guns.PowerHammer;
 import techguns.items.guns.SonicShotgun;
 import techguns.items.guns.ammo.AmmoType;
 import techguns.items.guns.ammo.AmmoTypes;
+import techguns.recipes.RecipeJsonConverter;
+import techguns.recipes.Recipewriter;
 import techguns.tools.ItemJsonCreator;
-import techguns.tools.RecipeJsonConverter;
-import techguns.tools.Recipewriter;
 
 public class TGuns implements ITGInitializer {
 

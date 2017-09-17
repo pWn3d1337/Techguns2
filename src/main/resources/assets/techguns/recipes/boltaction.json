@@ -1,0 +1,31 @@
+{
+  "result": {
+    "item": "techguns:boltaction",
+    "data": 6
+  },
+  "pattern": [
+    "gi ",
+    "bfs"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "b": {
+      "item": "techguns:itemshared",
+      "data": 39
+    },
+    "s": {
+      "item": "techguns:itemshared",
+      "data": 42
+    },
+    "f": {
+      "item": "techguns:itemshared",
+      "data": 33
+    },
+    "g": {
+      "item": "#BLOCKGLASS"
+    },
+    "i": {
+      "item": "#PLATEIRON"
+    }
+  }
+}

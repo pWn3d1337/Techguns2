@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "techguns:grimreaper"
+  },
+  "pattern": [
+    "rr ",
+    "rrc"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "r": {
+      "item": "techguns:guidedmissilelauncher"
+    },
+    "c": {
+      "item": "techguns:itemshared",
+      "data": 36
+    }
+  }
+}

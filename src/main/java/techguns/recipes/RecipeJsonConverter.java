@@ -1,10 +1,11 @@
-package techguns.tools;
+package techguns.recipes;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -31,6 +32,13 @@ public class RecipeJsonConverter {
 	// Replace calls to GameRegistry.addShapeless/ShapedRecipe with these methods, which will dump it to a json in your dir of choice
 	// Also works with OD, replace GameRegistry.addRecipe(new ShapedOreRecipe/ShapelessOreRecipe with the same calls
 
+		private static HashMap<String,String> factories = new HashMap<>();
+		static {
+			factories.put(Recipewriter.hardenedGlassOrGlass, OreDictIngredientHardenedGlass.class.getName());
+			factories.put(Recipewriter.electrumOrGold, OreDictIngredientElectrumOrGold.class.getName());
+		}
+	
+	
 		private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 		private static File RECIPE_DIR = null;
 		private static final Set<String> USED_OD_NAMES = new TreeSet<>();
@@ -187,8 +195,13 @@ public class RecipeJsonConverter {
 			List<Map<String, Object>> json = new ArrayList<>();
 			for (String s : USED_OD_NAMES) {
 				Map<String, Object> entry = new HashMap<>();
+				
 				entry.put("name", s.toUpperCase(Locale.ROOT));
-				entry.put("ingredient", ImmutableMap.of("type", "forge:ore_dict", "ore", s));
+				if(factories.containsKey(s)) {
+					entry.put("ingredient", ImmutableMap.of("type", s));
+				} else {
+					entry.put("ingredient", ImmutableMap.of("type", "forge:ore_dict", "ore", s));
+				}
 				json.add(entry);
 			}
 
@@ -198,4 +211,17 @@ public class RecipeJsonConverter {
 				e.printStackTrace();
 			}
 	}
+		
+		public static void generateFactories() {
+			
+			Map<String, Object> entry = new HashMap<>();
+			entry.put("ingredients", factories);
+			
+			try (FileWriter w = new FileWriter(new File(RECIPE_DIR, "_factories.json"))) {
+				GSON.toJson(entry, w);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+	}
+		
 }

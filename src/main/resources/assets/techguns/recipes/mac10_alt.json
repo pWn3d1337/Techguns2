@@ -1,0 +1,32 @@
+{
+  "result": {
+    "item": "techguns:mac10",
+    "data": 32
+  },
+  "pattern": [
+    " pi",
+    "bri",
+    " m "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "p": {
+      "item": "#SHEETPLASTIC"
+    },
+    "r": {
+      "item": "techguns:itemshared",
+      "data": 34
+    },
+    "b": {
+      "item": "techguns:itemshared",
+      "data": 39
+    },
+    "i": {
+      "item": "#NUGGETIRON"
+    },
+    "m": {
+      "item": "techguns:itemshared",
+      "data": 10
+    }
+  }
+}

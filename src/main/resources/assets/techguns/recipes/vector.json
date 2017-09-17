@@ -1,0 +1,35 @@
+{
+  "result": {
+    "item": "techguns:vector"
+  },
+  "pattern": [
+    " gd",
+    "brs",
+    " m "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "r": {
+      "item": "techguns:itemshared",
+      "data": 35
+    },
+    "b": {
+      "item": "techguns:itemshared",
+      "data": 39
+    },
+    "s": {
+      "item": "techguns:itemshared",
+      "data": 43
+    },
+    "d": {
+      "item": "#DUSTREDSTONE"
+    },
+    "g": {
+      "item": "#PANEGLASS"
+    },
+    "m": {
+      "item": "techguns:itemshared",
+      "data": 9
+    }
+  }
+}

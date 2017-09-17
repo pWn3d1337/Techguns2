@@ -1,0 +1,23 @@
+{
+  "result": {
+    "item": "techguns:stielgranate",
+    "count": 16
+  },
+  "pattern": [
+    " it",
+    " wi",
+    "i  "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "t": {
+      "item": "minecraft:tnt"
+    },
+    "w": {
+      "item": "#PLANKWOOD"
+    },
+    "i": {
+      "item": "#INGOTIRON"
+    }
+  }
+}

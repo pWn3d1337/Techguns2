@@ -1,0 +1,32 @@
+{
+  "result": {
+    "item": "techguns:netherblaster"
+  },
+  "pattern": [
+    "cpc",
+    "bns",
+    "cpc"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "p": {
+      "item": "#PLATEOBSIDIANSTEEL"
+    },
+    "b": {
+      "item": "techguns:itemshared",
+      "data": 39
+    },
+    "c": {
+      "item": "techguns:itemshared",
+      "data": 69
+    },
+    "s": {
+      "item": "techguns:itemshared",
+      "data": 72
+    },
+    "n": {
+      "item": "techguns:itemshared",
+      "data": 76
+    }
+  }
+}

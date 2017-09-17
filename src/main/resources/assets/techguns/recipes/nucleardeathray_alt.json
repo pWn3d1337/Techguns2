@@ -1,0 +1,36 @@
+{
+  "result": {
+    "item": "techguns:nucleardeathray",
+    "data": 40
+  },
+  "pattern": [
+    "ltl",
+    "ers",
+    " m "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "r": {
+      "item": "techguns:itemshared",
+      "data": 36
+    },
+    "s": {
+      "item": "techguns:itemshared",
+      "data": 44
+    },
+    "t": {
+      "item": "#PLATETITANIUM"
+    },
+    "e": {
+      "item": "techguns:itemshared",
+      "data": 73
+    },
+    "l": {
+      "item": "#PLATELEAD"
+    },
+    "m": {
+      "item": "techguns:itemshared",
+      "data": 32
+    }
+  }
+}

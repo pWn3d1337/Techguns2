@@ -1,0 +1,32 @@
+{
+  "result": {
+    "item": "techguns:mibgun"
+  },
+  "pattern": [
+    "bsp",
+    " fp",
+    "  m"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "p": {
+      "item": "#PLATETITANIUM"
+    },
+    "b": {
+      "item": "techguns:itemshared",
+      "data": 41
+    },
+    "s": {
+      "item": "techguns:itemshared",
+      "data": 74
+    },
+    "f": {
+      "item": "techguns:itemshared",
+      "data": 59
+    },
+    "m": {
+      "item": "techguns:itemshared",
+      "data": 29
+    }
+  }
+}

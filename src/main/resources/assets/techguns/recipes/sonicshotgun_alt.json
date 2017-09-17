@@ -1,0 +1,33 @@
+{
+  "result": {
+    "item": "techguns:sonicshotgun",
+    "data": 8
+  },
+  "pattern": [
+    " p ",
+    "ers",
+    " c "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "p": {
+      "item": "#PLATETITANIUM"
+    },
+    "r": {
+      "item": "techguns:itemshared",
+      "data": 36
+    },
+    "s": {
+      "item": "techguns:itemshared",
+      "data": 44
+    },
+    "c": {
+      "item": "techguns:itemshared",
+      "data": 30
+    },
+    "e": {
+      "item": "techguns:itemshared",
+      "data": 74
+    }
+  }
+}

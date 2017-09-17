@@ -16,6 +16,13 @@
   {
     "ingredient": {
       "type": "forge:ore_dict",
+      "ore": "blockWool"
+    },
+    "name": "BLOCKWOOL"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
       "ore": "circuitBasic"
     },
     "name": "CIRCUITBASIC"
@@ -57,10 +64,16 @@
   },
   {
     "ingredient": {
-      "type": "forge:ore_dict",
-      "ore": "electrumOrGold"
+      "type": "electrumOrGold"
     },
     "name": "ELECTRUMORGOLD"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "gemDiamond"
+    },
+    "name": "GEMDIAMOND"
   },
   {
     "ingredient": {
@@ -78,8 +91,7 @@
   },
   {
     "ingredient": {
-      "type": "forge:ore_dict",
-      "ore": "hardenedGlassOrGlass"
+      "type": "hardenedGlassOrGlass"
     },
     "name": "HARDENEDGLASSORGLASS"
   },
@@ -177,6 +189,13 @@
   {
     "ingredient": {
       "type": "forge:ore_dict",
+      "ore": "plankWood"
+    },
+    "name": "PLANKWOOD"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
       "ore": "plateCarbon"
     },
     "name": "PLATECARBON"
@@ -187,6 +206,13 @@
       "ore": "plateIron"
     },
     "name": "PLATEIRON"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "plateLead"
+    },
+    "name": "PLATELEAD"
   },
   {
     "ingredient": {

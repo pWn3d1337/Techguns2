@@ -1,0 +1,36 @@
+{
+  "result": {
+    "item": "techguns:teslagun",
+    "data": 25
+  },
+  "pattern": [
+    " gd",
+    "crs",
+    " e "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "r": {
+      "item": "techguns:itemshared",
+      "data": 36
+    },
+    "c": {
+      "item": "techguns:itemshared",
+      "data": 68
+    },
+    "s": {
+      "item": "techguns:itemshared",
+      "data": 44
+    },
+    "d": {
+      "item": "#DUSTREDSTONE"
+    },
+    "e": {
+      "item": "techguns:itemshared",
+      "data": 30
+    },
+    "g": {
+      "item": "#PANEGLASS"
+    }
+  }
+}

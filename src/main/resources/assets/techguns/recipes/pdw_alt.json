@@ -1,0 +1,29 @@
+{
+  "result": {
+    "item": "techguns:pdw",
+    "data": 40
+  },
+  "pattern": [
+    "brs",
+    " m "
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "b": {
+      "item": "techguns:itemshared",
+      "data": 40
+    },
+    "r": {
+      "item": "techguns:itemshared",
+      "data": 36
+    },
+    "s": {
+      "item": "techguns:itemshared",
+      "data": 44
+    },
+    "m": {
+      "item": "techguns:itemshared",
+      "data": 22
+    }
+  }
+}

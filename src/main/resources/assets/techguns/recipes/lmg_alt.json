@@ -1,0 +1,36 @@
+{
+  "result": {
+    "item": "techguns:lmg",
+    "data": 100
+  },
+  "pattern": [
+    " gr",
+    "bfs",
+    " m "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "r": {
+      "item": "minecraft:redstone"
+    },
+    "b": {
+      "item": "techguns:itemshared",
+      "data": 39
+    },
+    "s": {
+      "item": "techguns:itemshared",
+      "data": 43
+    },
+    "f": {
+      "item": "techguns:itemshared",
+      "data": 35
+    },
+    "g": {
+      "item": "#PANEGLASS"
+    },
+    "m": {
+      "item": "techguns:itemshared",
+      "data": 16
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "result": {
+    "item": "techguns:chainsaw",
+    "data": 300
+  },
+  "pattern": [
+    "ccp",
+    "mmr",
+    "ccf"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "p": {
+      "item": "techguns:itemshared",
+      "data": 55
+    },
+    "r": {
+      "item": "techguns:itemshared",
+      "data": 33
+    },
+    "c": {
+      "item": "techguns:itemshared",
+      "data": 57
+    },
+    "f": {
+      "item": "techguns:itemshared",
+      "data": 28
+    },
+    "m": {
+      "item": "#PLATEIRON"
+    }
+  }
+}

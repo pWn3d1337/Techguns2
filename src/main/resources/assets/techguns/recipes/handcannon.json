@@ -1,0 +1,23 @@
+{
+  "result": {
+    "item": "techguns:handcannon",
+    "data": 1
+  },
+  "pattern": [
+    "bfs"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "b": {
+      "item": "techguns:itemshared",
+      "data": 37
+    },
+    "s": {
+      "item": "techguns:itemshared",
+      "data": 42
+    },
+    "f": {
+      "item": "minecraft:flint_and_steel"
+    }
+  }
+}

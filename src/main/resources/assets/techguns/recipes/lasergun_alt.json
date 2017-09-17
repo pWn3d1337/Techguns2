@@ -1,0 +1,40 @@
+{
+  "result": {
+    "item": "techguns:lasergun",
+    "data": 45
+  },
+  "pattern": [
+    " gd",
+    "brs",
+    " em"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "b": {
+      "item": "techguns:itemshared",
+      "data": 41
+    },
+    "r": {
+      "item": "techguns:itemshared",
+      "data": 35
+    },
+    "s": {
+      "item": "techguns:itemshared",
+      "data": 43
+    },
+    "d": {
+      "item": "minecraft:redstone"
+    },
+    "e": {
+      "item": "techguns:itemshared",
+      "data": 30
+    },
+    "g": {
+      "item": "#PANEGLASS"
+    },
+    "m": {
+      "item": "techguns:itemshared",
+      "data": 59
+    }
+  }
+}

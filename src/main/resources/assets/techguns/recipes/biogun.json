@@ -1,0 +1,28 @@
+{
+  "result": {
+    "item": "techguns:biogun"
+  },
+  "pattern": [
+    "frs",
+    " m "
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "r": {
+      "item": "techguns:itemshared",
+      "data": 34
+    },
+    "s": {
+      "item": "techguns:itemshared",
+      "data": 43
+    },
+    "f": {
+      "item": "techguns:itemshared",
+      "data": 72
+    },
+    "m": {
+      "item": "techguns:itemshared",
+      "data": 25
+    }
+  }
+}

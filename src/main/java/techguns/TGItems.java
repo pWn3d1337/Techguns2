@@ -31,8 +31,8 @@ import techguns.items.additionalslots.ItemScubaTanks;
 import techguns.items.additionalslots.ItemTacticalMask;
 import techguns.items.tools.TGCrowbar;
 import techguns.items.tools.TGSword;
+import techguns.recipes.Recipewriter;
 import techguns.tools.ItemJsonCreator;
-import techguns.tools.Recipewriter;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.util.EnumHelper;
 
@@ -47,10 +47,7 @@ public class TGItems implements ITGInitializer{
 	 * TODO
 	 * DISABLE THIS BEFORE RELEASE
 	 */
-	public static boolean WRITE_RECIPES = true;
-	
-	//TODO: change
-	public static String hardenedGlassOrGlass = "blockGlass";
+	public static boolean WRITE_RECIPES = false;
 	
 	
 	public static final ArrayList<GenericItem> ITEMLIST = new ArrayList<>();

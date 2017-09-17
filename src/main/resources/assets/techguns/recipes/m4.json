@@ -1,0 +1,41 @@
+{
+  "result": {
+    "item": "techguns:m4"
+  },
+  "pattern": [
+    " gr",
+    "bfs",
+    "nmi"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "r": {
+      "item": "minecraft:redstone"
+    },
+    "b": {
+      "item": "techguns:itemshared",
+      "data": 39
+    },
+    "s": {
+      "item": "techguns:itemshared",
+      "data": 43
+    },
+    "f": {
+      "item": "techguns:itemshared",
+      "data": 34
+    },
+    "g": {
+      "item": "#PANEGLASS"
+    },
+    "i": {
+      "item": "#INGOTIRON"
+    },
+    "m": {
+      "item": "techguns:itemshared",
+      "data": 13
+    },
+    "n": {
+      "item": "#NUGGETIRON"
+    }
+  }
+}

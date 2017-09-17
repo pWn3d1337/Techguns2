@@ -1,0 +1,32 @@
+{
+  "result": {
+    "item": "techguns:ak47",
+    "data": 30
+  },
+  "pattern": [
+    "bfs",
+    "wm "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "b": {
+      "item": "techguns:itemshared",
+      "data": 39
+    },
+    "s": {
+      "item": "techguns:itemshared",
+      "data": 42
+    },
+    "f": {
+      "item": "techguns:itemshared",
+      "data": 33
+    },
+    "w": {
+      "item": "#LOGWOOD"
+    },
+    "m": {
+      "item": "techguns:itemshared",
+      "data": 14
+    }
+  }
+}
