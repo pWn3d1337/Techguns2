@@ -47,7 +47,11 @@ public class TGItems implements ITGInitializer{
 	 * TODO
 	 * DISABLE THIS BEFORE RELEASE
 	 */
-	public static boolean WRITE_RECIPES = false;
+	public static boolean WRITE_RECIPES = true;
+	
+	//TODO: change
+	public static String hardenedGlassOrGlass = "blockGlass";
+	
 	
 	public static final ArrayList<GenericItem> ITEMLIST = new ArrayList<>();
 	

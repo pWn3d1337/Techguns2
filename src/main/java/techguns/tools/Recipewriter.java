@@ -23,7 +23,6 @@ public class Recipewriter {
 		
 		RecipeJsonConverter.generateConstants();
 		
-		
 	}
 	
 	public static void registerItemRecipes(){
