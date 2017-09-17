@@ -26,7 +26,7 @@ public class BlockRotator {
 	protected static IBlockState getRotatedWithProperty(IBlockState state, int times, PropertyDirection property) {
 		EnumFacing facing = state.getValue(property);
 		while (times-- > 0) {
-			facing = facing.rotateYCCW();
+			facing = facing.rotateY();
 		}
 		return state.withProperty(property, facing);	
 	}

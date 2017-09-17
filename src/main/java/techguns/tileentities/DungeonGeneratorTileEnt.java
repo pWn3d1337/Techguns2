@@ -40,14 +40,20 @@ public class DungeonGeneratorTileEnt extends BasicOwnedTileEnt {
 
 	@Override
 	public void readClientDataFromNBT(NBTTagCompound tags) {
-		// TODO Auto-generated method stub
 		super.readClientDataFromNBT(tags);
+		this.sizeX = tags.getInteger("sizeX");
+		this.sizeY = tags.getInteger("sizeY");
+		this.sizeZ = tags.getInteger("sizeZ");
+		this.showGhost = tags.getBoolean("showGhost");
 	}
 
 	@Override
 	public void writeClientDataToNBT(NBTTagCompound tags) {
-		// TODO Auto-generated method stub
 		super.writeClientDataToNBT(tags);
+		tags.setInteger("sizeX", sizeX);
+		tags.setInteger("sizeY", sizeY);
+		tags.setInteger("sizeZ", sizeZ);
+		tags.setBoolean("showGhost", showGhost);
 	}
 
 	@Override

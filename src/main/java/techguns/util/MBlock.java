@@ -10,8 +10,8 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.ResourceLocation;
 
 public class MBlock implements Serializable {
-
-	private static final long serialVersionUID = 1L;
+	
+	private static final long serialVersionUID = 1L;	
 	
 	public transient Block block;
 	public int meta;
@@ -37,6 +37,16 @@ public class MBlock implements Serializable {
 		out.writeUTF(name.toString());
 		//out.writeInt(meta);
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((block == null) ? 0 : block.getRegistryName().hashCode());
+		result = prime * result + meta;
+		return result;
+	}
+
 
 	private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
 		in.defaultReadObject();
