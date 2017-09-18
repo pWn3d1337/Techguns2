@@ -4,6 +4,7 @@ import techguns.tileentities.operation.CamoBenchRecipes;
 import techguns.tileentities.operation.CamoBenchRecipes.CamoBenchRecipe;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import mezz.jei.api.IJeiHelpers;
@@ -34,4 +35,11 @@ public class CamoBenchJeiRecipe extends BasicRecipeWrapper {
 		
 		return recipes;
 	}
+
+	@Override
+	public List<String> getTooltipStrings(int mouseX, int mouseY) {
+		return Collections.EMPTY_LIST;
+	}
+	
+	
 }

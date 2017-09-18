@@ -1,0 +1,27 @@
+{
+  "result": {
+    "item": "techguns:simplemachine",
+    "data": 10
+  },
+  "pattern": [
+    "sgs",
+    "cbc",
+    "sgs"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "b": {
+      "item": "#CIRCUITBASIC"
+    },
+    "s": {
+      "item": "#PLATESTEEL"
+    },
+    "c": {
+      "item": "techguns:itemshared",
+      "data": 68
+    },
+    "g": {
+      "item": "#WIREGOLD"
+    }
+  }
+}

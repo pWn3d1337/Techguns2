@@ -12,9 +12,6 @@
     "p": {
       "item": "#PLATECARBON"
     },
-    "r": {
-      "item": "minecraft:redstone"
-    },
     "b": {
       "item": "techguns:itemshared",
       "data": 41

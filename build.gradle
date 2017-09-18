@@ -47,6 +47,10 @@ repositories {
 		name = "ModMaven"
 		url = "modmaven.k-4u.nl"
 	}
+	maven {
+        name = "CurseForge"
+        url = "https://minecraft.curseforge.com/api/maven/"
+    }
 }
 
 dependencies {

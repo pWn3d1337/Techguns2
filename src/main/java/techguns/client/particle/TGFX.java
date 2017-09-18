@@ -343,7 +343,7 @@ public class TGFX {
 								break;
 							case "}":
 								end = true;
-								System.out.println("Successfully parsed ParticleSystem "+name);
+								//System.out.println("Successfully parsed ParticleSystem "+name);
 								break;
 						}
 						
@@ -368,7 +368,7 @@ public class TGFX {
 		}
 
 		sc.close();
-		System.out.println("Successfully parsed file "+ filename+ ". " +count + " ParticleSystems loaded.");
+		//System.out.println("Successfully parsed file "+ filename+ ". " +count + " ParticleSystems loaded.");
 		return true;
 
 	}

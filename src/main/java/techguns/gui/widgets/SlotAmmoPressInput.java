@@ -7,7 +7,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
-import scala.tools.nsc.backend.jvm.BCodeGlue.BType;
 import techguns.tileentities.operation.AmmoPressBuildPlans;
 import techguns.tileentities.operation.ItemStackHandlerPlus;
 

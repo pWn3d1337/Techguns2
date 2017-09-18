@@ -139,8 +139,7 @@ public class GenericGunCharge extends GenericGun {
 			}
 		}
 
-		return new ActionResult<ItemStack>(EnumActionResult.FAIL, item);
-		
+		return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, item);
 	}
 
 	/**

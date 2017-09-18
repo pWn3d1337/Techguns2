@@ -18,9 +18,11 @@ import com.google.gson.GsonBuilder;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import techguns.TGConfig;
 import techguns.TGItems;
+import techguns.blocks.machines.BasicMachine;
 import techguns.items.GenericItemShared;
 
 
@@ -99,6 +101,16 @@ public class RecipeJsonConverter {
 			if(result.getItem()  instanceof GenericItemShared) {
 				suffix = suffix +"_"+ TGItems.SHARED_ITEM.get(result.getItemDamage()).getName();
 			}
+			if(result.getItem() instanceof ItemBlock) {
+				ItemBlock ib = (ItemBlock) result.getItem();
+				
+				Block b = ib.getBlock();
+				
+				if (b instanceof BasicMachine) {
+					BasicMachine bm = (BasicMachine) b;
+					suffix += "_"+ bm.getNameSuffix(result.getMetadata());
+				}
+			}
 			
 			File f = new File(RECIPE_DIR, name + suffix + ".json");
 
@@ -141,7 +153,19 @@ public class RecipeJsonConverter {
 			String name = result.getItem().getRegistryName().getResourcePath();
 			if(result.getItem()  instanceof GenericItemShared) {
 				suffix = suffix +"_"+ TGItems.SHARED_ITEM.get(result.getItemDamage()).getName();
+			} 
+
+			if(result.getItem() instanceof ItemBlock) {
+				ItemBlock ib = (ItemBlock) result.getItem();
+				
+				Block b = ib.getBlock();
+				
+				if (b instanceof BasicMachine) {
+					BasicMachine bm = (BasicMachine) b;
+					suffix += "_"+ bm.getNameSuffix(result.getMetadata());
+				}
 			}
+			
 			
 			File f = new File(RECIPE_DIR, name + suffix + ".json");
 

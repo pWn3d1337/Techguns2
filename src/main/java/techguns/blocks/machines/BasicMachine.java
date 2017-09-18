@@ -20,6 +20,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IBlockAccess;
@@ -71,6 +72,13 @@ public class BasicMachine<T extends Enum<T> & IStringSerializable & IMachineType
 		this.setDefaultState(this.getBlockState().getBaseState());
 	}
 
+	public String getNameSuffix(int meta) {
+		IBlockState state = this.getStateFromMeta(meta);
+		T t = state.getValue(MACHINE_TYPE);
+		return t.toString().toLowerCase();
+	}
+	
+	
 	@Override
 	public BlockStateContainer getBlockState() {
 		return this.blockStateOverride;
@@ -264,6 +272,10 @@ public class BasicMachine<T extends Enum<T> & IStringSerializable & IMachineType
 		}
 	}
 
+	public Class<T> getClazz() {
+		return clazz;
+	}
+
 	public GenericItemBlockMeta getItemblock() {
 		return itemblock;
 	}
@@ -274,7 +286,8 @@ public class BasicMachine<T extends Enum<T> & IStringSerializable & IMachineType
 		for(int i = 0; i< clazz.getEnumConstants().length;i++) {
 			IBlockState state = getDefaultState().withProperty(MACHINE_TYPE, clazz.getEnumConstants()[i]);
 			if(clazz.getEnumConstants()[i].getRenderType()==EnumBlockRenderType.MODEL) {
-				ModelLoader.setCustomModelResourceLocation(itemblock, i, new ModelResourceLocation(getRegistryName(),BlockUtils.getBlockStateVariantString(state)));
+				//ModelLoader.setCustomModelResourceLocation(itemblock, i, new ModelResourceLocation(this.getRegistryName(),BlockUtils.getBlockStateVariantString(state)));
+				ModelLoader.setCustomModelResourceLocation(itemblock, i, new ModelResourceLocation(new ResourceLocation(Techguns.MODID,clazz.getEnumConstants()[i].name().toLowerCase()),"inventory"));
 			} else {
 				ForgeHooksClient.registerTESRItemStack(itemblock, this.getMetaFromState(state), state.getValue(MACHINE_TYPE).getTileClass());
 				ModelLoader.setCustomModelResourceLocation(itemblock, i, new ModelResourceLocation(itemblock.getRegistryName(),"inventory"));
