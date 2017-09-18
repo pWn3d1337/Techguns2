@@ -37,6 +37,9 @@ public class BlockData {
 		blockLayers.put(Blocks.REDSTONE_TORCH, 2);
 		blockLayers.put(Blocks.WATER, 2);
 		blockLayers.put(Blocks.LAVA, 2);
+		blockLayers.put(Blocks.LEVER, 2);
+		blockLayers.put(Blocks.STONE_BUTTON,2);
+		blockLayers.put(Blocks.WOODEN_BUTTON, 2);
 	}
 	
 	public static int getBlockLayer(IBlockState state) {
