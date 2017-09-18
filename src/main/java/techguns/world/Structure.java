@@ -19,13 +19,13 @@ import techguns.util.MBlock;
 
 public class Structure implements Serializable{
 	
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L+1;
 	
 	int sizeX;
 	int sizeY;
 	int sizeZ;
 	List<MBlock> blocks = new ArrayList<MBlock>();
-	List<BlockEntry> blockEntries = new ArrayList<BlockEntry>();
+	HashMap<Integer, List<BlockEntry>> blockEntries = new HashMap<>();
 	
 
 	
@@ -42,14 +42,17 @@ public class Structure implements Serializable{
 			for (int j = 0; j < sizeY; j++) {
 				for (int k = 0; k < sizeZ; k++) {
 					BlockPos bpos = new BlockPos(x+i, y+j, z+k);
+					int layer = BlockData.getBlockLayer(world.getBlockState(bpos));
 					MBlock mblock = new MBlock(world.getBlockState(bpos));
 					int index = structure.blocks.indexOf(mblock);
-					if (index > -1) {
-						structure.blockEntries.add(structure.new BlockEntry(i,j,k,index));
-					} else {
+					if (index < 0) {
 						structure.blocks.add(mblock);
-						structure.blockEntries.add(structure.new BlockEntry(i,j,k,structure.blocks.indexOf(mblock)));
+						index = structure.blocks.indexOf(mblock);
 					}
+					if (!structure.blockEntries.containsKey(layer)) {						
+						structure.blockEntries.put(layer, new ArrayList<BlockEntry>());
+					}
+					structure.blockEntries.get(layer).add(structure.new BlockEntry(i,j,k,index));
 				}
 			}
 		}
@@ -61,21 +64,27 @@ public class Structure implements Serializable{
 		//BlockPos axis = new BlockPos(x+sizeX*0.5, y, z+sizeZ*0.5); //TODO
 		Vec3d axis = new Vec3d(x+sizeX*0.5, y, z+sizeZ*0.5);
 		
-		for (BlockEntry b : blockEntries) {
-			MBlock mb = blocks.get(b.blockIndex);
-			BlockPos pos = new BlockPos(x+b.x, y+b.y, z+b.z);
-			pos = BlockUtils.rotateAroundY(pos, axis, rotation);
-			
-			IBlockState state = mb.block.getStateFromMeta(mb.meta);
-			
-			if(state.getProperties().containsKey(BlockHorizontal.FACING)) {
-				state = BlockRotator.getRotatedHorizontal(state, rotation);
+		for (int i = BlockData.MIN_LAYER; i <= BlockData.MAX_LAYER; i++) {
+		
+			List<BlockEntry> blockList = blockEntries.get(i);
+			if (blockList != null) {
+				for (BlockEntry b : blockList) {
+					MBlock mb = blocks.get(b.blockIndex);
+					BlockPos pos = new BlockPos(x+b.x, y+b.y, z+b.z);
+					pos = BlockUtils.rotateAroundY(pos, axis, rotation);
+					
+					IBlockState state = mb.block.getStateFromMeta(mb.meta);
+					
+					if(state.getProperties().containsKey(BlockHorizontal.FACING)) {
+						state = BlockRotator.getRotatedHorizontal(state, rotation);
+					}
+					
+					world.setBlockState(pos, state);
+					
+					//AxisAlignedBB aabb = new AxisAlignedBB(pos1, axis);
+					
+				}
 			}
-			
-			world.setBlockState(pos, state);
-			
-			//AxisAlignedBB aabb = new AxisAlignedBB(pos1, axis);
-			
 		}
 	}
 	
