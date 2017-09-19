@@ -1,6 +1,5 @@
 package techguns.client;
 
-import java.awt.image.renderable.RenderableImageOp;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Iterator;

@@ -21,7 +21,7 @@ compileJava {
 }
 
 minecraft {
-    version = "1.12.1-14.22.0.2463"
+    version = "1.12.1-14.22.1.2485"
     runDir = "run"
     
     // the mappings can be changed at any time, and must be in the following format.
@@ -75,7 +75,10 @@ dependencies {
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
 
-	compile 'elucent:albedo:2.0-SNAPSHOT'
+	//compile 'elucent:albedo:2.0-SNAPSHOT'
+	deobfCompile 'albedo:albedo:0.1.1:deobf'
+	
+	compile 'crafttweaker:CraftTweaker2:1.12:4.0.6'
 	
 	 // compile against the JEI API but do not include it at runtime
 	deobfProvided "mezz.jei:jei_${mc_version}:${jei_version}:api"

@@ -166,11 +166,21 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 	public static ArrayList<GenericGun> guns = new ArrayList<>();
 	
 	/**
+	 * Lightpulse parameters
+	 */
+	public int light_lifetime =2;
+	public float light_radius_start = 3.0f;
+	public float light_radius_end = 3.0f;
+	public float light_r = 1f;
+	public float light_g = 0.9f;
+	public float light_b = 0.2f;
+	protected boolean muzzelight=true;
+	
+	/**
 	 * Should bind the texture on rendering?
 	 */
 	public boolean hasCustomTexture=true;
 
-	
 	private GenericGun(String name) {
 		super(name,false);
 		this.setMaxStackSize(1);
@@ -181,6 +191,28 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 	public GenericGun(String name, IProjectileFactory projectilefactory, AmmoType ammo, boolean semiAuto, int minFiretime, int clipsize, int reloadtime, float damage, SoundEvent firesound, SoundEvent reloadsound, int TTL, float accuracy){
 		this(true, name,projectilefactory,ammo, semiAuto, minFiretime, clipsize, reloadtime, damage, firesound, reloadsound, TTL, accuracy);
 	}
+	
+	public GenericGun setMuzzleLight(float r, float g, float b) {
+		this.light_r=r;
+		this.light_g=g;
+		this.light_b=b;
+		return this;
+	}
+	
+	public GenericGun setNoMuzzleLight() {
+		this.muzzelight=false;
+		return this;
+	}
+	
+	public GenericGun setMuzzleLight(int lifetime, float radius_start, float radius_end, float r, float g, float b) {
+		this.light_lifetime = lifetime;
+		this.light_radius_start= radius_start;
+		this.light_radius_end= radius_end;
+		this.setMuzzleLight(r, g, b);
+		return this;
+	}
+	
+	
 	
 	public GenericGun setNoCustomTexture() {
 		this.hasCustomTexture=false;
@@ -403,8 +435,9 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 				this.damageDropEnd, this.damageMin * damagebonus, this.penetration, getDoBlockDamage(player), firePos, radius, gravity);
 
 		float f=1.0f;
-		Techguns.proxy.createLightPulse(proj.posX+player.getLookVec().x*f, proj.posY+player.getLookVec().y*f, proj.posZ+player.getLookVec().z*f, 2, 3.0f, 3.0f, 1f, 0.9f, 0.2f);
-		
+		if(this.muzzelight) {
+			Techguns.proxy.createLightPulse(proj.posX+player.getLookVec().x*f, proj.posY+player.getLookVec().y*f, proj.posZ+player.getLookVec().z*f, this.light_lifetime, this.light_radius_start, this.light_radius_end, this.light_r, this.light_g, this.light_b);
+		}
 		if (silenced) {
 			proj.setSilenced();
 		}

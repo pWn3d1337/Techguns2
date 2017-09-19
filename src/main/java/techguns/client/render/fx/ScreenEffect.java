@@ -176,6 +176,7 @@ public class ScreenEffect {
 
 			if(is3p) {
 				GlStateManager.depthMask(false);
+				GlStateManager.disableCull();
 			}
 			
 			//Jitter
@@ -190,6 +191,7 @@ public class ScreenEffect {
 	        buffer.pos(offsetX+f, offsetY+f, offsetZ).tex(U2,V2).color(colorR, colorG, colorB, alpha).endVertex();
 	        
 	        if (is3p) {
+	        	
 	        	buffer.pos(offsetX-f, offsetY, offsetZ+f).tex(U1,V2).color(colorR, colorG, colorB, alpha).endVertex();
 	 	        buffer.pos(offsetX-f, offsetY, offsetZ-f).tex(U1,V1).color(colorR, colorG, colorB, alpha).endVertex();
 	 	        buffer.pos(offsetX+f, offsetY, offsetZ-f).tex(U2,V1).color(colorR, colorG, colorB, alpha).endVertex();
@@ -204,6 +206,7 @@ public class ScreenEffect {
 	        tessellator.draw();
 
 	        if(is3p) {
+	        	GlStateManager.enableCull();
 	        	GlStateManager.depthMask(true);
 	        }
            //TGRenderHelper.disableFXLighting();

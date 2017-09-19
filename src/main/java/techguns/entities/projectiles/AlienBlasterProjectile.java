@@ -1,10 +1,14 @@
 package techguns.entities.projectiles;
 
+import elucent.albedo.lighting.ILightProvider;
+import elucent.albedo.lighting.Light;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.Optional;
 import techguns.TGPackets;
+import techguns.TGuns;
 import techguns.api.damagesystem.DamageType;
 import techguns.client.ClientProxy;
 import techguns.damagesystem.TGDamageSource;
@@ -12,8 +16,10 @@ import techguns.deatheffects.EntityDeathUtils.DeathType;
 import techguns.items.guns.GenericGun;
 import techguns.items.guns.IProjectileFactory;
 import techguns.packets.PacketSpawnParticle;
+import techguns.util.MathUtil;
 
-public class AlienBlasterProjectile extends GenericProjectile {
+@Optional.Interface(iface="elucent.albedo.lighting.ILightProvider", modid="albedo")
+public class AlienBlasterProjectile extends GenericProjectile implements ILightProvider {
 
 	public static final int ENTITY_IGNITE_TIME = 3;
 	
@@ -85,6 +91,15 @@ public class AlienBlasterProjectile extends GenericProjectile {
 			return DamageType.FIRE;
 		}
 		
+	}
+
+	@Override
+	public Light provideLight() {
+		return Light.builder()
+				.pos(MathUtil.getInterpolatedEntityPos(this))
+				.color(TGuns.alienblaster.light_r,TGuns.alienblaster.light_g,TGuns.alienblaster.light_b)
+				.radius(4)
+				.build();
 	}
 	
 	
