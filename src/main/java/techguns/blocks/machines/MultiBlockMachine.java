@@ -164,4 +164,12 @@ public class MultiBlockMachine<T extends Enum<T> & IStringSerializable & IMachin
 			ModelLoader.setCustomModelResourceLocation(this.itemblock, this.getMetaFromState(state), new ModelResourceLocation(getRegistryName(),BlockUtils.getBlockStateVariantString(state)));
 		}
 	}
+
+	@Override
+	public boolean rotateBlock(World world, BlockPos pos, EnumFacing axis) {
+		//NO ROTATING ON MULTIBLOCK MACHINES
+		return false;
+	}
+	
+	
 }

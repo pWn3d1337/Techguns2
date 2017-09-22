@@ -1,0 +1,29 @@
+{
+    "multipart": [
+        {   "apply": { "model": "techguns:sandbags_center" }},
+        {   "when": { "north": "true" },
+            "apply": { "model": "techguns:sandbags_side", "uvlock": true }
+        },
+        {   "when": { "east": "true" },
+            "apply": { "model": "techguns:sandbags_side", "y": 90, "uvlock": true }
+        },
+        {   "when": { "south": "true" },
+            "apply": { "model": "techguns:sandbags_side", "y": 180, "uvlock": true }
+        },
+        {   "when": { "west": "true" },
+            "apply": { "model": "techguns:sandbags_side", "y": 270, "uvlock": true }
+        },
+		{   "when": { "corner_ne": "true" },
+            "apply": { "model": "techguns:sandbags_corner", "uvlock": true }
+        },
+        {   "when": { "corner_es": "true" },
+            "apply": { "model": "techguns:sandbags_corner", "y": 90, "uvlock": true }
+        },
+        {   "when": { "corner_sw": "true" },
+            "apply": { "model": "techguns:sandbags_corner", "y": 180, "uvlock": true }
+        },
+        {   "when": { "corner_wn": "true" },
+            "apply": { "model": "techguns:sandbags_corner", "y": 270, "uvlock": true }
+        }
+    ]
+}

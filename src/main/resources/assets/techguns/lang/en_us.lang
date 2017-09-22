@@ -481,3 +481,7 @@ techguns.msg.enablejetpack=Enable Jetpack
 techguns.msg.keybindtogglechange=changed
 techguns.msg.keybindtogglechange2=to
 techguns.multiblock.invalidblock=Invalid Block for Multiblock Structure at
+tile.techguns.lamp0.0.name=Lamp (Yellow)
+tile.techguns.lamp0.6.name=Lamp (White)
+tile.techguns.lamp0.12.name=Lantern (Yellow)
+tile.techguns.lamp0.13.name=Lantern (White)

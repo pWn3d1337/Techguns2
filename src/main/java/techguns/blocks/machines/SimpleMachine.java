@@ -21,8 +21,10 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IStringSerializable;
+import net.minecraft.util.Mirror;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
@@ -105,4 +107,27 @@ public class SimpleMachine<T extends Enum<T> & IStringSerializable & IMachineTyp
 			ModelLoader.setCustomModelResourceLocation(this.itemblock, this.getMetaFromState(state), new ModelResourceLocation(getRegistryName(),BlockUtils.getBlockStateVariantString(state)));
 		}
 	}
+
+	@Override
+	public IBlockState withRotation(IBlockState state, Rotation rot) {
+		EnumFacing facing = state.getValue(FACING);
+		switch(rot) {
+		case CLOCKWISE_180:
+			return state.withProperty(FACING, facing.getOpposite());
+		case CLOCKWISE_90:
+			return state.withProperty(FACING, facing.rotateY());
+		case COUNTERCLOCKWISE_90:
+			return state.withProperty(FACING, facing.rotateYCCW());
+		case NONE:
+		default:
+			return state;
+		}
+	}
+
+	@Override
+	public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
+		EnumFacing facing = state.getValue(FACING);
+		return state.withProperty(FACING,mirrorIn.mirror(facing));
+	}
+	
 }

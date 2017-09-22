@@ -1,4 +1,5 @@
 {   "parent": "block/thin_block",
+	"ambientocclusion": false,
     "textures": {
         "particle": "techguns:blocks/bioblob"
     },

@@ -202,11 +202,15 @@ public class BasicInventoryTileEnt extends TileEntity {
 		return hasRotation;
 	}
 	
-	public void rotateTile(EnumFacing sideHit) {
+	public void rotateTile() {
 		if(!this.world.isRemote && this.hasRotation) {
 			this.rotation = (byte) (this.rotation+1 %4);
 			this.needUpdate();
 		}
+	}
+	
+	public void rotateTile(EnumFacing sideHit) {
+		this.rotateTile();
 	}
 	
 	public boolean canBeWrenchRotated() {

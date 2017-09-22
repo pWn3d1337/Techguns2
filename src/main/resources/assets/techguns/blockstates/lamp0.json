@@ -1,0 +1,82 @@
+{
+    "multipart": [
+        {   "when": { "lamp_type": "yellow", "facing": "down" },
+            "apply": { "model": "techguns:lamp_yellow" }
+        },
+		{   "when": { "lamp_type": "yellow", "facing": "up" },
+            "apply": { "model": "techguns:lamp_yellow", "x": 180 }
+        },
+		{   "when": { "lamp_type": "yellow", "facing": "north" },
+            "apply": { "model": "techguns:lamp_yellow", "x": 90, "y":180 }
+        },
+		{   "when": { "lamp_type": "yellow", "facing": "west" },
+            "apply": { "model": "techguns:lamp_yellow", "x": 90, "y":90 }
+        },
+		{   "when": { "lamp_type": "yellow", "facing": "south" },
+            "apply": { "model": "techguns:lamp_yellow", "x": 90 }
+        },
+		{   "when": { "lamp_type": "yellow", "facing": "east" },
+            "apply": { "model": "techguns:lamp_yellow", "x": 90, "y":270 }
+        },
+		{   "when": { "lamp_type": "white", "facing": "down" },
+            "apply": { "model": "techguns:lamp_white" }
+        },
+		{   "when": { "lamp_type": "white", "facing": "up" },
+            "apply": { "model": "techguns:lamp_white", "x": 180 }
+        },
+		{   "when": { "lamp_type": "white", "facing": "north" },
+            "apply": { "model": "techguns:lamp_white", "x": 90, "y":180 }
+        },
+		{   "when": { "lamp_type": "white", "facing": "west" },
+            "apply": { "model": "techguns:lamp_white", "x": 90, "y":90 }
+        },
+		{   "when": { "lamp_type": "white", "facing": "south" },
+            "apply": { "model": "techguns:lamp_white", "x": 90 }
+        },
+		{   "when": { "lamp_type": "white", "facing": "east" },
+            "apply": { "model": "techguns:lamp_white", "x": 90, "y":270 }
+        },
+		{   "when": { "lamp_type": "yellow_lantern" },
+            "apply": { "model": "techguns:lantern_yellow" }
+        },
+		{   "when": { "lamp_type": "white_lantern" },
+            "apply": { "model": "techguns:lantern_white" }
+        },
+		{   "when": { "lamp_type": "yellow_lantern", "north": "true" },
+            "apply": { "model": "techguns:lantern_side_yellow", "y":270 }
+        },
+		{   "when": { "lamp_type": "yellow_lantern", "east": "true" },
+            "apply": { "model": "techguns:lantern_side_yellow" }
+        },
+		{   "when": { "lamp_type": "yellow_lantern", "south": "true" },
+            "apply": { "model": "techguns:lantern_side_yellow", "y":90 }
+        },
+		{   "when": { "lamp_type": "yellow_lantern", "west": "true" },
+            "apply": { "model": "techguns:lantern_side_yellow", "y":180 }
+        },
+		{   "when": { "lamp_type": "white_lantern", "up": "true" },
+            "apply": { "model": "techguns:lantern_top_white" }
+        },
+		{   "when": { "lamp_type": "white_lantern", "down": "true" },
+            "apply": { "model": "techguns:lantern_top_white", "x":180}
+        },
+		{   "when": { "lamp_type": "white_lantern", "north": "true" },
+            "apply": { "model": "techguns:lantern_side_white", "y":270 }
+        },
+		{   "when": { "lamp_type": "white_lantern", "east": "true" },
+            "apply": { "model": "techguns:lantern_side_white" }
+        },
+		{   "when": { "lamp_type": "white_lantern", "south": "true" },
+            "apply": { "model": "techguns:lantern_side_white", "y":90 }
+        },
+		{   "when": { "lamp_type": "white_lantern", "west": "true" },
+            "apply": { "model": "techguns:lantern_side_white", "y":180 }
+        },
+		{   "when": { "lamp_type": "white_lantern", "up": "true" },
+            "apply": { "model": "techguns:lantern_top_white" }
+        },
+		{   "when": { "lamp_type": "white_lantern", "down": "true" },
+            "apply": { "model": "techguns:lantern_top_white", "x":180}
+        }
+    ]
+}

@@ -221,4 +221,7 @@ public class MathUtil {
 		                + (-v*vec.x + u*vec.y)*Math.sin(theta);
 		return new Vec3d(xPrime, yPrime, zPrime);
     }
+	public static boolean inRange(int val, int min, int max) {
+		return val>=min && val <=max;
+	}
 }

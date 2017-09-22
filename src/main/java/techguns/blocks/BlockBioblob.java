@@ -40,13 +40,12 @@ public class BlockBioblob extends GenericBlock {
 	
 	public static final float FSIZE = 0.0625f;
 	
-	public static final PropertyDirection FACING = PropertyDirection.create("facing", Arrays.asList(EnumFacing.VALUES));
 	public static final PropertyInteger SIZE = PropertyInteger.create("size", 0, 2);
 	protected ItemBlock itemblock;
 	
 	public BlockBioblob(String name) {
 		super(name, Material.CLAY);
-		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.DOWN).withProperty(SIZE, 0));
+		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING_ALL, EnumFacing.DOWN).withProperty(SIZE, 0));
 	}
 
 	
@@ -58,11 +57,11 @@ public class BlockBioblob extends GenericBlock {
 		}
 		switch(size) {
 		case 0:
-			return getBBForRota(SIZE_0_W,SIZE_0_H,state.getValue(BlockBioblob.FACING));
+			return getBBForRota(SIZE_0_W,SIZE_0_H,state.getValue(BlockBioblob.FACING_ALL));
 		case 1:
-			return getBBForRota(SIZE_1_W,SIZE_1_H,state.getValue(BlockBioblob.FACING));
+			return getBBForRota(SIZE_1_W,SIZE_1_H,state.getValue(BlockBioblob.FACING_ALL));
 		default:
-			return getBBForRota(SIZE_2_W,SIZE_2_H,state.getValue(BlockBioblob.FACING));
+			return getBBForRota(SIZE_2_W,SIZE_2_H,state.getValue(BlockBioblob.FACING_ALL));
 		}
 	}
 	
@@ -125,17 +124,17 @@ public class BlockBioblob extends GenericBlock {
 
 	@Override
 	protected BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, FACING, SIZE);
+		return new BlockStateContainer(this, FACING_ALL, SIZE);
 	}
 
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
-		return this.getDefaultState().withProperty(FACING, EnumFacing.VALUES[meta]);
+		return this.getDefaultState().withProperty(FACING_ALL, EnumFacing.VALUES[meta]);
 	}
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		return state.getValue(FACING).getIndex();
+		return state.getValue(FACING_ALL).getIndex();
 	}
 
 	@Override

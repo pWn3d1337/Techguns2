@@ -1,0 +1,8 @@
+{
+    "parent": "techguns:block/lantern_base",
+    "textures": {
+        "side": "techguns:blocks/lantern01_side",
+		"particle": "techguns:blocks/lantern01_side",
+		"top": "techguns:blocks/lantern01_top"
+    }
+}

@@ -366,10 +366,14 @@ public class TGEventHandler {
 		event.getMap().registerSprite(SlotTG.INGOTDARKSLOT_TEX);
 	}
 
-	
+
+	@SideOnly(Side.CLIENT)
 	protected static Field Field_ItemRenderer_equippedProgressMainhand = ReflectionHelper.findField(ItemRenderer.class, "equippedProgressMainHand", "field_187469_f");
+	@SideOnly(Side.CLIENT)
 	protected static Field Field_ItemRenderer_equippedProgressOffhand = ReflectionHelper.findField(ItemRenderer.class, "equippedProgressOffHand", "field_187471_h");
+	@SideOnly(Side.CLIENT)
 	protected static Field Field_ItemRenderer_prevEquippedProgressMainhand = ReflectionHelper.findField(ItemRenderer.class, "prevEquippedProgressMainHand", "field_187470_g");
+	@SideOnly(Side.CLIENT)
 	protected static Field Field_ItemRenderer_prevEquippedProgressOffhand = ReflectionHelper.findField(ItemRenderer.class, "prevEquippedProgressOffHand", "field_187472_i");
 	
 	

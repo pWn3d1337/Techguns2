@@ -8,6 +8,7 @@ import com.mojang.realmsclient.gui.ChatFormatting;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 
 /**
@@ -37,6 +38,23 @@ public class ItemUtil {
 			return false;
 		} else {
 			return OreDictionary.itemMatches(item1, item2, true);
+		}
+	}
+	
+	/**
+	 * like isItemEqual for FluidStacks
+	 * @param item1
+	 * @param item2
+	 * @return true if both stacks are null or both are !=null AND Fluids are equal
+	 */
+	public static boolean isFluidEqual(FluidStack f1, FluidStack f2){
+		if(f1==null && f2==null){
+			return true;
+		} else if (f1==null || f2==null){
+			return false;
+		} else {
+		//return ( (item1==null && item2==null) || ( (item1!=null && item2!=null) && (item1.getItem() == item2.getItem()) && (item1.getItemDamage()==item2.getItemDamage()) ) );
+			return f1.equals(f2);
 		}
 	}
 	

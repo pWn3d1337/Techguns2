@@ -1,0 +1,6 @@
+{
+    "parent": "techguns:block/lamp_inventory_base",
+    "textures": {
+        "tex": "techguns:blocks/lamp01"
+    }
+}

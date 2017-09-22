@@ -299,5 +299,23 @@ public class BasicMachine<T extends Enum<T> & IStringSerializable & IMachineType
 	public boolean hasCustomBreakingProgress(IBlockState state) {
 		return true;
 	}
+
+	@Override
+	public boolean rotateBlock(World world, BlockPos pos, EnumFacing axis) {
+		
+		if (axis == EnumFacing.DOWN || axis==EnumFacing.UP) {
+			TileEntity tile = world.getTileEntity(pos);
+			if(tile!=null && tile instanceof BasicInventoryTileEnt) {
+				BasicInventoryTileEnt invtile = (BasicInventoryTileEnt) tile;
+				if (invtile.hasRotation()) {
+					invtile.rotateTile();
+					return true;
+				}
+			}
+		
+		}
+		return false;
+	}
+	
 	
 }

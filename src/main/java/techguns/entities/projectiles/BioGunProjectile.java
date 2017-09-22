@@ -101,7 +101,7 @@ public class BioGunProjectile extends GenericProjectile implements IEntityAdditi
 	    				 }
 	    				 
 	    				 if (canPlace){
-	    					 IBlockState state = TGBlocks.BIOBLOB.getDefaultState().withProperty(TGBlocks.BIOBLOB.FACING, mop.sideHit.getOpposite()).withProperty(TGBlocks.BIOBLOB.SIZE, 0);
+	    					 IBlockState state = TGBlocks.BIOBLOB.getDefaultState().withProperty(TGBlocks.BIOBLOB.FACING_ALL, mop.sideHit.getOpposite()).withProperty(TGBlocks.BIOBLOB.SIZE, 0);
 	    					 int lvl = 0;
 		    				 this.world.setBlockState(blobPos, TGBlocks.BIOBLOB.getDefaultState());
 		    				 if (this.level>1){

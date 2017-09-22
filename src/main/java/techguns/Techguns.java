@@ -9,6 +9,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -20,6 +21,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin.MCVersion;
 import techguns.init.ITGInitializer;
 import techguns.items.guns.ammo.AmmoTypes;
+import techguns.plugins.crafttweaker.TGCraftTweakerIntegration;
 import techguns.util.TGLogger;
 
 @Mod(modid = Techguns.MODID, version = Techguns.VERSION, name=Techguns.NAME, acceptedMinecraftVersions=Techguns.MCVERSION)
@@ -100,6 +102,10 @@ public class Techguns
     		init.preInit(event);
     	}
     	proxy.preInit(event);
+    	
+    	if(Loader.isModLoaded("crafttweaker")){
+    		TGCraftTweakerIntegration.init();
+    	}
     }
     
     @EventHandler

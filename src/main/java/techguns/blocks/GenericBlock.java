@@ -1,8 +1,13 @@
 package techguns.blocks;
 
+import java.util.Arrays;
+
 import net.minecraft.block.Block;
+import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.relauncher.Side;
@@ -12,8 +17,10 @@ import techguns.Techguns;
 
 public class GenericBlock extends Block {
 	
-	public GenericBlock(String name, Material mat, boolean addToItemList) {
-		super(mat);
+	public static final PropertyDirection FACING_ALL = PropertyDirection.create("facing", Arrays.asList(EnumFacing.VALUES));
+	
+	public GenericBlock(String name, Material mat, MapColor mc, boolean addToItemList) {
+		super(mat, mc);
 		this.setRegistryName(new ResourceLocation(Techguns.MODID,name));
 		this.setUnlocalizedName(Techguns.MODID+"."+name);
 		this.setCreativeTab(Techguns.tabTechgun);
@@ -25,7 +32,15 @@ public class GenericBlock extends Block {
 	}
 	
 	public GenericBlock(String name, Material mat) {
-		this(name,mat,true);
+		this(name,mat,mat.getMaterialMapColor(),true);
+	}
+	
+	public GenericBlock(String name, Material mat, boolean addToItemList) {
+		this(name,mat,mat.getMaterialMapColor(),addToItemList);
+	}
+	
+	public GenericBlock(String name, Material mat, MapColor mc) {
+		this(name,mat,mc,true);
 	}
 	
 	/**
