@@ -15,6 +15,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import techguns.blocks.BlockBioblob;
 import techguns.blocks.BlockSandbags;
 import techguns.blocks.BlockTGLamp;
+import techguns.blocks.BlockTGMetalPanel;
 import techguns.blocks.BlockTGOre;
 import techguns.blocks.EnumLampType;
 import techguns.blocks.GenericBlock;
@@ -46,6 +47,8 @@ public class TGBlocks implements ITGInitializer{
 	
 	public static BlockTGLamp<EnumLampType> LAMP_0;
 	
+	public static BlockTGMetalPanel METAL_PANEL;
+	
 	public void registerBlocks(RegistryEvent.Register<Block> event) {
 		BLOCKLIST.forEach(b -> b.registerBlock(event));
 	}
@@ -68,6 +71,7 @@ public class TGBlocks implements ITGInitializer{
 		BIOBLOB= new BlockBioblob("bioblob");
 		SANDBAGS = new BlockSandbags("sandbags");
 		LAMP_0 = new BlockTGLamp<EnumLampType>("lamp0", EnumLampType.class);
+		METAL_PANEL = new BlockTGMetalPanel("metalpanel");
 	}
 
 	@Override

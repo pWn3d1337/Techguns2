@@ -79,7 +79,7 @@ public class Structure implements Serializable{
 						state = BlockRotator.getRotatedHorizontal(state, rotation);
 					}
 					
-					world.setBlockState(pos, state);
+					world.setBlockState(pos, state, 2);
 					
 					//AxisAlignedBB aabb = new AxisAlignedBB(pos1, axis);
 					

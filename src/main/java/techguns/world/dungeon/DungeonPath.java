@@ -17,6 +17,29 @@ public class DungeonPath {
 	int sY;
 	int sZ;
 	
+	//Advanced Parameters
+	//---------
+	int startSegmentCount = 1; //Number of entrances to start generating from
+	int startHeightLevel = -1; //Which Y value are the start segments placed; negative numbers = top down
+	//int startHeightOffset = 1; //-1, 0 or 1; Start segments are placed in an extra layer with this offset
+	boolean allowVerticalStack = true; //Can segments be placed on top of each other
+	
+	float chanceStraight = 0.5f; //next segment will go forward; -> inverse chance to left/right
+	float chanceRamp = 0.25f; //when straight, roll again for a ramp
+	float chanceRoom = 0.25f; //else, roll for a room
+	float chanceFork = 0.2f; //roll again for another direction, when not a ramp
+	
+	int minRoomArea = 4;
+	int maxRoomArea = 16;
+	int minRoomWidth = 2;
+	int maxRoomWidth = 5;
+	
+	boolean usePillars = false;
+	boolean useFoundations = false;
+	//---------
+
+	private int numSegments = 0;
+	
 	//private static PathSegment ramp_blocker = DungeonPath.new PathSegment(-1, -1, -1);
 	
 	public DungeonPath(int sX, int sY, int sZ, Random rand) {
@@ -27,6 +50,10 @@ public class DungeonPath {
 		dungeonVolume = new PathSegment[sX][sY][sZ];
 	}
 
+	
+	public int getNumSegments() {
+		return numSegments;
+	}
 
 	public void generatePath() {
 		int startX = 0;
@@ -56,7 +83,7 @@ public class DungeonPath {
 			EnumFacing nextFacing = EnumFacing.getHorizontal(nextDir);
 			Vec3i nextPos = segment.getNextPos(nextDir);
 			if (isWithinBounds(nextPos)) {
-				if (dir == nextDir && !fork && rand.nextFloat() > 0.75f) { //ramp
+				if (dir == nextDir && !fork && rand.nextFloat() < chanceRamp) { //ramp
 					int dy = rand.nextBoolean() ? 1 : -1;
 					Vec3i elevPos = new Vec3i(x, y+dy,z);
 					if (isWithinBounds(elevPos) && !isOccupied(elevPos)) {
@@ -90,21 +117,7 @@ public class DungeonPath {
 								rampDummy.elevation = 1;
 								rampDummy.rampRotation = nextFacing.getOpposite().getHorizontalIndex();	
 							}
-							
-//							segment.elevation = dy;
-//							segment.isRamp = true;
-//							PathSegment rampDummy = new PathSegment(elevPos.getX(), elevPos.getY(), elevPos.getZ());
-//							rampDummy.elevation = -dy;
-//							rampDummy.isRamp = true;
-//							this.addSegment(rampDummy);
-//							if (success && !cont) rampDummy.setConnection(nextFacing, true);
-////							if (dy == -1) {
-////								segment.rampRotation = nextDir;
-////								rampDummy.rampRotation = nextFacing.getOpposite().getHorizontalIndex();	
-////							}else {
-//								segment.rampRotation = nextFacing.getOpposite().getHorizontalIndex();
-//								rampDummy.rampRotation = nextDir;
-//					//		}
+
 							if (cont) {
 								generateSegment(elevNextPos.getX(), elevNextPos.getY(), elevNextPos.getZ(), nextDir, rampDummy);
 							}
@@ -112,10 +125,10 @@ public class DungeonPath {
 					}
 					
 				} else if (!isOccupied(nextPos)) {	
-					if (rand.nextFloat() < 0.25f) {//Try to place a Room
+					if (rand.nextFloat() < chanceRoom) {//Try to place a Room
 						//check left and right first
-						int area = 4 + rand.nextInt(12);
-						boolean b = tryGrowRoom(nextPos,segment, nextFacing, 2+rand.nextInt(3), 2+rand.nextInt(3), area);
+						int area = minRoomArea + rand.nextInt(maxRoomArea-minRoomArea);
+						boolean b = tryGrowRoom(nextPos,segment, nextFacing, minRoomWidth+rand.nextInt(maxRoomWidth-minRoomWidth), minRoomWidth+rand.nextInt(maxRoomWidth-minRoomWidth), area);
 						if (b) {
 							success = true;
 						}else { //just a regular segment it is
@@ -137,7 +150,7 @@ public class DungeonPath {
 					}
 				}
 			}
-			if (success && canRollAgain && rand.nextFloat() > 0.8f) {
+			if (success && canRollAgain && rand.nextFloat() < chanceFork) {
 				success = false;
 				fork = true;
 			}
@@ -245,73 +258,6 @@ public class DungeonPath {
 				System.out.println("shit");
 				//segment.printPattern();
 			}
-			/*
-			//Place actual room
-			prev.setConnection(dir, true);
-			
-			//int x1 = 
-			
-			for (int i = 0; i <= bestl; i++) {
-				
-				for (int j = 0; j <= bestw_l; j++) {
-					Vec3i pos_ = new Vec3i(x + vLeft.getX() * j + vFront.getX()*i, y, z + vLeft.getZ() * j + vFront.getZ()*i);
-					PathSegment segment = addRoomSegment(pos_, dir, i, j, 0, bestl, bestw_l, bestw_r);
-//					PathSegment segment = new PathSegment(pos_.getX(), pos_.getY(), pos_.getZ());
-//					addSegment(segment);
-
-					if (i == 0 && j == 0) { //DOOR
-						segment.setConnection(dir.getOpposite(), true);
-					}
-//					int baseRot = ((dir.getHorizontalIndex()+2) % 4) * 2 + 1;
-//					if (l > 0) { //back
-//						segment.setConnection(dir.getOpposite(), true);
-//						if (j < bestw_l) { //back left
-//							segment.setConnection((baseRot + 5)%8, true);
-//						}
-//					}
-//					if (l < bestl) { //front
-//						segment.setConnection(dir, true);
-//						if (j < bestw_l) { //front left
-//							segment.setConnection((baseRot + 7)%8, true);
-//						}
-//						
-//					}
-//					if (j < bestw_l) {//left
-//						segment.setConnection((baseRot + 6)%8, true);
-//					}
-				}
-				
-				for (int j = 1; j <= bestw_r; j++) {
-					Vec3i pos_ = new Vec3i(x + vRight.getX() * j + vFront.getX()*i, y, z + vRight.getZ() * j + vFront.getZ()*i);
-					
-					PathSegment segment = addRoomSegment(pos_, dir, i, 0, j, bestl, bestw_l, bestw_r);
-//					PathSegment segment = new PathSegment(pos_.getX(), pos_.getY(), pos_.getZ());
-//					addSegment(segment);
-//					int baseRot = ((dir.getHorizontalIndex()+2) % 4) * 2 + 1;
-//					if (l > 0) { //back
-//						segment.setConnection(dir.getOpposite(), true);
-//						if (j < bestw_r) { //back right
-//							segment.setConnection((baseRot + 3)%8, true);
-//						}
-//					}
-//					if (l < bestl) { //front
-//						segment.setConnection(dir, true);
-//						if (j < bestw_r) { //front right
-//							segment.setConnection((baseRot + 1)%8, true);
-//						}
-//					}
-//					if (j < bestw_r) {//left
-//						segment.setConnection((baseRot + 2)%8, true);
-//					}
-				}
-			}
-			*/
-			
-//			//Place doors
-//			int numDoors = this.rand.nextInt(preferredArea / 8);
-//			for (int i = 0; i < numDoors; i++) {
-//				float f = rand.nextFloat();
-//			}
 			
 			return true;
 		}
@@ -393,7 +339,7 @@ public class DungeonPath {
 		}
 	}
 
-
+	@Deprecated
 	private PathSegment addRoomSegment(Vec3i pos, EnumFacing dir, int l, int w_l, int w_r, int maxL, int maxW_l, int maxW_r ) {
 		PathSegment segment = new PathSegment(pos.getX(), pos.getY(), pos.getZ());
 		addSegment(segment);
@@ -432,39 +378,6 @@ public class DungeonPath {
 	}
 			
 
-//		int x = pos.getX();
-//		int y = pos.getY(); //This won't change
-//		int z = pos.getZ();
-//		
-//		Vec3i vFront = dir.getDirectionVec();
-//		Vec3i vRight = dir.rotateY().getDirectionVec();
-//		Vec3i vLeft = dir.rotateYCCW().getDirectionVec();
-//		
-//		int l = 0;
-//		int w = 0;
-//		boolean stop = false;
-//		while (l < maxLength && w < maxWidth && !stop) {
-//			boolean free = true;
-//			//Grow Left
-//			w++;
-//			for (int i = 0; i < l; i++) {
-//				Vec3i pos_ = new Vec3i(x + vLeft.getX() * w + vFront.getX()*i, y, z + vLeft.getZ() * w + vFront.getZ()*i);
-//			}
-//			//Grow Right
-//			for (int i = 0; i < l; i++) {
-//				Vec3i pos_ = new Vec3i(x + vRight.getX() * w + vFront.getX()*i, y, z + vRight.getZ() * w + vFront.getZ()*i);
-//			}
-//			//Grow Front
-//			l++;
-//			for (int i = 0; i < w; i++) {
-//				Vec3i pos_ = new Vec3i(x + vRight.getX() * w + vFront.getX()*i, y, z + vRight.getZ() * w + vFront.getZ()*i);
-//			}
-//			
-//		}
-//		
-//		
-//		return false;
-//	}
 		
 		
 	private int countFreeSpaceInDir(Vec3i pos, EnumFacing dir) {
@@ -483,97 +396,9 @@ public class DungeonPath {
 			seg.y >= 0 && seg.y < sY &&
 			seg.z >= 0 && seg.z < sZ) {
 			dungeonVolume[seg.x][seg.y][seg.z] = seg;
+			this.numSegments ++;
 		}
 	}
-
-
-//		PathSegment segment = new PathSegment(x,y,z);
-//		if (prev != null) prev.setConnection(dir, true);
-//		segment.setConnection(EnumFacing.getHorizontal(dir).getOpposite(), true);
-//		
-//		int nextDir = -1;
-//		boolean lockedDir = false;
-//		if (prev != null && segment.y != prev.y) { //this is a ramp (or the entrance)
-//			segment.isRamp = true;
-//			segment.elevation = segment.y - prev.y;
-//			segment.rampRotation = dir;
-//			nextDir = dir; //next dir = same as prev dir
-//			lockedDir = true;
-//		}
-//		dungeonVolume[x][y][z] = segment;
-//
-//		int triesLeft = 3;
-//		while (triesLeft-- > 0) {
-//			//Next Segment:
-//			if (!lockedDir) nextDir = getRandomDir(dir);
-//			Vec3i nextPos = segment.getNextPos(nextDir);
-//
-//			if (isWithinBounds(nextPos)) {
-//				if (!isOccupied(nextPos)) { //Check if there is space
-//		
-//					//TODO: proper values
-//					float f = rand.nextFloat();
-//					if (f > 0.75f) {//Create Ramp up or down
-//						int dy = 1;
-//						Vec3i rampPos = null;
-//						if (rand.nextBoolean()) dy = -1;		
-//						if (segment.y+dy < this.sY && segment.y+dy >= 0) {
-//							rampPos = new Vec3i(nextPos.getX(), nextPos.getY()+dy, nextPos.getZ());
-//						}else if (segment.y-dy < this.sY && segment.y-dy >= 0) {
-//							rampPos = new Vec3i(nextPos.getX(), nextPos.getY()-dy, nextPos.getZ());
-//							dy = -dy;
-//						}
-//						if (rampPos != null && isWithinBounds(rampPos)) {
-//							if (!isOccupied(rampPos)) {
-//								EnumFacing facing = EnumFacing.getHorizontal(nextDir);
-//								Vec3i offset = facing.getDirectionVec();
-//								Vec3i rampPos2 = new Vec3i(rampPos.getX()+offset.getX(), rampPos.getY(), rampPos.getZ()+offset.getZ());
-//								if (isWithinBounds(rampPos2)) {
-//									PathSegment seg = this.get(rampPos2);
-//									if (seg == null || !seg.isRamp) {
-//										PathSegment blocker = new PathSegment(nextPos.getX(), nextPos.getY(), nextPos.getZ());
-//										blocker.isRamp = true;
-//										blocker.elevation = dy;
-//										blocker.rampRotation = facing.getOpposite().getHorizontalIndex();
-//										dungeonVolume[nextPos.getX()][nextPos.getY()][nextPos.getZ()] = blocker;
-//										nextPos = rampPos;
-//									}
-//								}
-//							}
-//						}
-//					}
-//					
-//					generateSegment(nextPos.getX(),nextPos.getY(),nextPos.getZ(), nextDir, segment);
-//					
-//					float f2 = rand.nextFloat();
-//					if (f2 > 0.25f) { //0.25 chance to roll again (=fork)
-//						return;
-//					}
-//				}else if (!segment.isRamp){ //Connect to existing segment
-//					PathSegment seg = this.get(segment.getNextPos(nextDir));
-//					if (seg != null && !seg.isRamp) {
-//						segment.setConnection(nextDir, true);
-//						seg.setConnection(EnumFacing.getHorizontal(nextDir).getOpposite(), true);
-//						return;
-//					}
-//				}
-//			}
-//		}
-		
-	
-
-
-	//dir = horizontal enumfacing
-//	private boolean canConnect(Vec3i pos), int dir) {
-//		PathSegment seg = this.get(pos);
-//		return seg == null || (!seg.i);// && seg.connectionAt(dir));
-//	}
-//	
-//	private boolean canConnect(Vec3i pos, EnumFacing facing) {
-//		PathSegment seg = this.get(pos);
-//		return seg == null || (seg.canConnect);// && seg.connectionAt(facing));
-//	}
-
 
 	private boolean isOccupied(Vec3i pos) {
 		return dungeonVolume[pos.getX()][pos.getY()][pos.getZ()] != null;
@@ -582,11 +407,10 @@ public class DungeonPath {
 
 	//Horizontal dir only
 	private int getRandomDir(int dir) {
-		//TODO: Proper values
 		float f = rand.nextFloat();
-		if (f > 0.5f) {
+		if (f < chanceStraight) {
 			return dir;
-		}else if (f > 0.25f) {
+		}else if (f < chanceStraight + (1.0f-chanceStraight)*0.5f) {
 			return EnumFacing.getHorizontal(dir).rotateY().getHorizontalIndex();
 		}else {
 			return EnumFacing.getHorizontal(dir).rotateYCCW().getHorizontalIndex();
