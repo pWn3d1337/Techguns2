@@ -7,6 +7,7 @@ import java.util.Set;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
+import techguns.items.armors.ICamoChangeable;
 import techguns.plugins.jei.CamoBenchJeiRecipe;
 
 public class CamoBenchRecipes {
@@ -28,12 +29,23 @@ public class CamoBenchRecipes {
 		protected Block blockType;
 		protected int firstMeta;
 		protected int lastMeta;
+		protected ICamoChangeable camoblock;
+		protected boolean customMeta=false;
 		
 		public CamoBenchRecipe(Block blockType) {
 			super();
 			this.blockType = blockType;
 			this.firstMeta=0;
 			this.lastMeta=15;
+		}
+		
+		public CamoBenchRecipe(Block blockType, ICamoChangeable camoblock) {
+			super();
+			this.blockType = blockType;
+			this.firstMeta=0;
+			this.lastMeta=camoblock.getCamoCount();
+			this.customMeta=true;
+			this.camoblock=camoblock;
 		}
 		
 		protected int getNextMeta(int m) {
@@ -55,9 +67,21 @@ public class CamoBenchRecipes {
 		}
 		
 		public void switchCamo(ItemStack item, boolean back) {
-			int meta = item.getMetadata();
-			int newMeta = back? getPrevMeta(meta) : getNextMeta(meta);
-			item.setItemDamage(newMeta);
+			if(!customMeta) {
+				int meta = item.getMetadata();
+				int newMeta = back? getPrevMeta(meta) : getNextMeta(meta);
+				item.setItemDamage(newMeta);
+			} else if (this.camoblock!=null){
+				this.camoblock.switchCamo(item, back);
+			}
+		}
+		
+		public ICamoChangeable getCamoblock() {
+			return camoblock;
+		}
+
+		public boolean hasCustomMeta() {
+			return customMeta;
 		}
 
 		@Override
@@ -66,8 +90,17 @@ public class CamoBenchRecipes {
 			
 			ArrayList<ItemStack> stacks = new ArrayList<>();
 			
-			for(int i=firstMeta; i<= lastMeta; i++) {
-				stacks.add(new ItemStack(blockType,1,i));
+			if(!this.customMeta) {
+				for(int i=firstMeta; i<= lastMeta; i++) {
+					stacks.add(new ItemStack(blockType,1,i));
+				}
+			} else {
+				ItemStack stack = new ItemStack(blockType,1,this.camoblock.getFirstItemCamoDamageValue());
+				for (int i =0; i < this.camoblock.getCamoCount(); i++) {
+					stacks.add(stack);
+					stack=stack.copy();
+					this.camoblock.switchCamo(stack);
+				}
 			}
 			
 			list.add(stacks);

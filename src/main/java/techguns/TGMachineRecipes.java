@@ -9,6 +9,7 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import techguns.blocks.EnumOreType;
+import techguns.items.armors.ICamoChangeable;
 import techguns.tileentities.operation.AmmoPressBuildPlans;
 import techguns.tileentities.operation.CamoBenchRecipes;
 import techguns.tileentities.operation.CamoBenchRecipes.CamoBenchRecipe;
@@ -147,6 +148,13 @@ public class TGMachineRecipes {
 		//CamoBenchRecipes.addRecipe(new CamoBenchRecipe(Blocks.BED));
 		CamoBenchRecipes.addRecipe(new CamoBenchRecipe(Blocks.STANDING_BANNER));
 		CamoBenchRecipes.addRecipe(new CamoBenchRecipe(Blocks.CARPET));
+		
+		TGBlocks.BLOCKLIST.forEach(b -> {
+			if (b instanceof ICamoChangeable) {
+				CamoBenchRecipes.addRecipe(new CamoBenchRecipe(b, (ICamoChangeable)b));
+			}
+		});
+		
 		
 		/**
 		 * CHARGING STATION

@@ -30,8 +30,9 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import techguns.Techguns;
+import techguns.items.armors.ICamoChangeable;
 
-public class BlockTGLamp<T extends Enum<T> & IStringSerializable> extends GenericBlock {
+public class BlockTGLamp<T extends Enum<T> & IStringSerializable> extends GenericBlock implements ICamoChangeable {
 	
 	public PropertyEnum<T> LAMP_TYPE;
 	protected Class<T> clazz;
@@ -249,4 +250,56 @@ public class BlockTGLamp<T extends Enum<T> & IStringSerializable> extends Generi
 		}
 	}
 
+	@Override
+	public BlockFaceShape getBlockFaceShape(IBlockAccess p_193383_1_, IBlockState state, BlockPos p_193383_3_,
+			EnumFacing p_193383_4_) {
+		
+		if (state.getValue(LAMP_TYPE).ordinal()>=2) {
+			return BlockFaceShape.CENTER;
+		} else {
+			return BlockFaceShape.UNDEFINED;
+		}
+	}
+
+	@Override
+	public int getCamoCount() {
+		return 1; //actually maxcamo
+	}
+
+	@Override
+	public int switchCamo(ItemStack item, boolean back) {
+		IBlockState state = this.getStateFromMeta(item.getMetadata());
+		int type = state.getValue(LAMP_TYPE).ordinal();
+		int newmeta=0;
+		if(type==0) {
+			newmeta = this.getMetaFromState(this.getDefaultState().withProperty(LAMP_TYPE, clazz.getEnumConstants()[1]));
+		} else if (type==1) {
+			newmeta = this.getMetaFromState(this.getDefaultState().withProperty(LAMP_TYPE, clazz.getEnumConstants()[0]));
+		} else if (type==2) {
+			newmeta = this.getMetaFromState(this.getDefaultState().withProperty(LAMP_TYPE, clazz.getEnumConstants()[3]));
+		} else if (type==3) {
+			newmeta = this.getMetaFromState(this.getDefaultState().withProperty(LAMP_TYPE, clazz.getEnumConstants()[2]));
+		}
+		item.setItemDamage(newmeta);
+		
+		return newmeta;
+	}
+
+	@Override
+	public int getCurrentCamoIndex(ItemStack item) {
+		IBlockState state = this.getStateFromMeta(item.getMetadata());
+		int type = state.getValue(LAMP_TYPE).ordinal();
+		if(type==0 || type==2 ) {
+			return 0;
+		} else {
+			return 1;
+		}
+	}
+
+	@Override
+	public String getCurrentCamoName(ItemStack item) {
+		return Techguns.MODID+"."+this.getRegistryName().getResourcePath()+".camoname."+this.getCurrentCamoIndex(item);
+	}
+
+	
 }

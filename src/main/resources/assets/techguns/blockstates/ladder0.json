@@ -1,0 +1,20 @@
+{
+	"variants": {
+        "facing=north,type=metal": { "model": "techguns:ladder_metal", "y": 180},
+		"facing=east,type=metal": { "model": "techguns:ladder_metal", "y": 270},
+		"facing=south,type=metal": { "model": "techguns:ladder_metal", "y": 0 },
+		"facing=west,type=metal": { "model": "techguns:ladder_metal", "y": 90 },
+		"facing=north,type=shiny": { "model": "techguns:ladder_shiny", "y": 180},
+		"facing=east,type=shiny": { "model": "techguns:ladder_shiny", "y": 270},
+		"facing=south,type=shiny": { "model": "techguns:ladder_shiny", "y": 0 },
+		"facing=west,type=shiny": { "model": "techguns:ladder_shiny", "y": 90 },
+		"facing=north,type=rusty": { "model": "techguns:ladder_rusty", "y": 180},
+		"facing=east,type=rusty": { "model": "techguns:ladder_rusty", "y": 270},
+		"facing=south,type=rusty": { "model": "techguns:ladder_rusty", "y": 0 },
+		"facing=west,type=rusty": { "model": "techguns:ladder_rusty", "y": 90 },
+		"facing=north,type=carbon": { "model": "techguns:ladder_carbon", "y": 180},
+		"facing=east,type=carbon": { "model": "techguns:ladder_carbon", "y": 270},
+		"facing=south,type=carbon": { "model": "techguns:ladder_carbon", "y": 0 },
+		"facing=west,type=carbon": { "model": "techguns:ladder_carbon", "y": 90 }
+    }
+}

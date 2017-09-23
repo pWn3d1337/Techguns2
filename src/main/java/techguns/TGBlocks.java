@@ -16,8 +16,10 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import techguns.blocks.BlockBioblob;
 import techguns.blocks.BlockSandbags;
+import techguns.blocks.BlockTGLadder;
 import techguns.blocks.BlockTGLamp;
 import techguns.blocks.BlockTGOre;
+import techguns.blocks.EnumLadderType;
 import techguns.blocks.EnumLampType;
 import techguns.blocks.GenericBlock;
 import techguns.blocks.GenericBlockMetaEnum;
@@ -51,6 +53,7 @@ public class TGBlocks implements ITGInitializer{
 	
 	public static BlockTGLamp<EnumLampType> LAMP_0;
 	
+	public static BlockTGLadder<EnumLadderType> LADDER_0;
 	
 	public void registerBlocks(RegistryEvent.Register<Block> event) {
 		BLOCKLIST.forEach(b -> b.registerBlock(event));
@@ -74,6 +77,7 @@ public class TGBlocks implements ITGInitializer{
 		BIOBLOB= new BlockBioblob("bioblob");
 		SANDBAGS = new BlockSandbags("sandbags");
 		LAMP_0 = new BlockTGLamp<EnumLampType>("lamp0", EnumLampType.class);
+		LADDER_0 = new BlockTGLadder<EnumLadderType>("ladder0", EnumLadderType.class);
 		
 		if(TGItems.WRITE_ITEM_JSON && event.getSide()==Side.CLIENT){
 			BLOCKLIST.stream().filter(new Predicate<GenericBlock>() {

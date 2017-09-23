@@ -78,8 +78,16 @@ public class CamoBenchGui extends OwnedTileEntGui {
         		Block b = ((ItemBlock) item.getItem()).getBlock();
         		CamoBenchRecipe r = CamoBenchRecipes.getRecipeFor(b);
         		if(r!=null) {
-        			int i = item.getMetadata()+1;
-        			s3+=(i>9?"":" ")+i+"/"+r.getCamoCount();
+        			if(!r.hasCustomMeta()) {
+	        			int i = item.getMetadata()+1;
+	        			s3+=(i>9?"":" ")+i+"/"+r.getCamoCount();
+	        			s2="";
+        			} else {
+        				ICamoChangeable camoblock = r.getCamoblock();
+        				int i = camoblock.getCurrentCamoIndex(item)+1;
+        				s3+=(i>9?"":" ")+i+"/"+(camoblock.getCamoCount()+1);
+        				s2=TextUtil.trans(camoblock.getCurrentCamoName(item));
+        			}
         		}
         	}
         }

@@ -49,4 +49,8 @@ public interface ICamoChangeable {
 	};
 	
 	public String getCurrentCamoName(ItemStack item);
+	
+	public default int getFirstItemCamoDamageValue() {
+		return 0;
+	}
 }
