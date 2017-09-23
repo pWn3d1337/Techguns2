@@ -1,5 +1,6 @@
 package techguns.blocks.machines;
 
+import net.minecraft.block.SoundType;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumBlockRenderType;
@@ -9,12 +10,12 @@ import techguns.tileentities.*;
 
 public enum EnumMultiBlockMachineType implements IStringSerializable, IMachineType<EnumMultiBlockMachineType> {
 		FABRICATOR_HOUSING(0,FabricatorTileEntSlave.class,true,EnumBlockRenderType.MODEL),
-		FABRICATOR_GLASS(1,FabricatorTileEntSlave.class,false,EnumBlockRenderType.MODEL,BlockRenderLayer.CUTOUT),
+		FABRICATOR_GLASS(1,FabricatorTileEntSlave.class,false,EnumBlockRenderType.MODEL,BlockRenderLayer.CUTOUT,SoundType.GLASS),
 		FABRICATOR_CONTROLLER(2,FabricatorTileEntMaster.class,true,EnumBlockRenderType.MODEL),
 	
 		REACTIONCHAMBER_HOUSING(3,ReactionChamberTileEntSlave.class,true,EnumBlockRenderType.MODEL),
-		REACTIONCHAMBER_GLASS(4,ReactionChamberTileEntSlave.class,false,EnumBlockRenderType.MODEL,BlockRenderLayer.CUTOUT),
-		REACTIONCHAMBER_CONTROLLER(5,ReactionChamberTileEntMaster.class,true,EnumBlockRenderType.MODEL,BlockRenderLayer.CUTOUT);
+		REACTIONCHAMBER_GLASS(4,ReactionChamberTileEntSlave.class,false,EnumBlockRenderType.MODEL,BlockRenderLayer.CUTOUT,SoundType.GLASS),
+		REACTIONCHAMBER_CONTROLLER(5,ReactionChamberTileEntMaster.class,true,EnumBlockRenderType.MODEL,BlockRenderLayer.CUTOUT,SoundType.METAL);
 		
 		private int id;
 		private String name;
@@ -22,18 +23,20 @@ public enum EnumMultiBlockMachineType implements IStringSerializable, IMachineTy
 		private boolean isFullCube;
 		private EnumBlockRenderType renderType;
 		private BlockRenderLayer renderLayer;
-
+		private SoundType soundType;
+		
 		EnumMultiBlockMachineType(int id, Class<? extends TileEntity> tile, boolean isFullCube, EnumBlockRenderType renderType) {
-			this(id,tile,isFullCube,renderType,BlockRenderLayer.SOLID);
+			this(id,tile,isFullCube,renderType,BlockRenderLayer.SOLID,SoundType.METAL);
 		}
 		
-		EnumMultiBlockMachineType(int id, Class<? extends TileEntity> tile, boolean isFullCube, EnumBlockRenderType renderType, BlockRenderLayer layer) {
+		EnumMultiBlockMachineType(int id, Class<? extends TileEntity> tile, boolean isFullCube, EnumBlockRenderType renderType, BlockRenderLayer layer, SoundType sound) {
 			this.id=id;
 			this.name=this.name().toLowerCase();
 			this.tile = tile;
 			this.isFullCube=isFullCube;
 			this.renderType=renderType;
 			this.renderLayer=layer;
+			this.soundType=sound;
 		}
 		
 		@Override
@@ -61,6 +64,11 @@ public enum EnumMultiBlockMachineType implements IStringSerializable, IMachineTy
 				e.printStackTrace();
 			}
 			return null;
+		}
+
+		@Override
+		public SoundType getSoundType() {
+			return this.soundType;
 		}
 
 		@Override

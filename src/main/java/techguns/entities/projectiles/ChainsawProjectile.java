@@ -1,5 +1,6 @@
 package techguns.entities.projectiles;
 
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.SoundCategory;
@@ -53,7 +54,7 @@ public class ChainsawProjectile extends GenericProjectile {
 	}
 
 	@Override
-	protected void doImpactEffects(Material mat, RayTraceResult rayTraceResult) {
+	protected void doImpactEffects(Material mat, RayTraceResult rayTraceResult, SoundType sound) {
 		if(!this.world.isRemote) {
 	    	double x = rayTraceResult.hitVec.x;
 	    	double y = rayTraceResult.hitVec.y;

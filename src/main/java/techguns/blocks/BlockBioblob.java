@@ -3,6 +3,7 @@ package techguns.blocks;
 import java.util.Arrays;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
@@ -45,6 +46,7 @@ public class BlockBioblob extends GenericBlock {
 	
 	public BlockBioblob(String name) {
 		super(name, Material.CLAY);
+		this.setSoundType(SoundType.SLIME);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING_ALL, EnumFacing.DOWN).withProperty(SIZE, 0));
 	}
 

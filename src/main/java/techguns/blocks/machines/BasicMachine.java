@@ -1,6 +1,7 @@
 package techguns.blocks.machines;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.properties.PropertyEnum;
@@ -9,6 +10,7 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
@@ -65,6 +67,7 @@ public class BasicMachine<T extends Enum<T> & IStringSerializable & IMachineType
 	
 	public BasicMachine(String name, Class<T> clazz) {
 		super(name, Material.IRON);
+		this.setSoundType(SoundType.METAL);
 		setHardness(4.0f);
 		this.clazz=clazz;
 		MACHINE_TYPE = PropertyEnum.create("machinetype",clazz);
@@ -316,6 +319,10 @@ public class BasicMachine<T extends Enum<T> & IStringSerializable & IMachineType
 		}
 		return false;
 	}
-	
-	
+
+	@Override
+	public SoundType getSoundType(IBlockState state, World world, BlockPos pos, Entity entity) {
+		return state.getValue(MACHINE_TYPE).getSoundType();
+	}
+
 }

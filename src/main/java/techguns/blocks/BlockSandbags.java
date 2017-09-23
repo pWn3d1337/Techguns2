@@ -7,6 +7,7 @@ import javax.annotation.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFence;
 import net.minecraft.block.BlockFenceGate;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -62,6 +63,7 @@ public class BlockSandbags extends GenericBlock {
     
 	public BlockSandbags(String name) {
 		super(name, Material.CLOTH, MapColor.BROWN);
+		this.setSoundType(SoundType.CLOTH);
 		this.setHardness(3.0f);
 		this.setResistance(15.0f);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(NORTH, false).withProperty(EAST, false).withProperty(SOUTH, false).withProperty(WEST, false));  

@@ -1,7 +1,6 @@
 {
     "parent": "techguns:block/lamp_base",
     "textures": {
-        "tex": "techguns:blocks/lamp01",
-		"particle": "techguns:blocks/lamp01"
+        "texture": "techguns:blocks/lamp01"
     }
 }

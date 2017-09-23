@@ -21,6 +21,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -44,9 +45,26 @@ public class BlockTGLamp<T extends Enum<T> & IStringSerializable> extends Generi
 	public static final PropertyBool CONNECT_W = PropertyBool.create("west");
 	public static final PropertyBool CONNECT_E = PropertyBool.create("east");
     
+	protected static final double lamp_side=0.25D;
+	protected static final double lamp_side_max=1.0D-lamp_side;
+	protected static final double lamp_h=0.1875D;
+	
+	public static final AxisAlignedBB LAMP_DOWN_AABB = new AxisAlignedBB(lamp_side, 0, lamp_side, lamp_side_max, lamp_h, lamp_side_max);
+	public static final AxisAlignedBB LAMP_UP_AABB = new AxisAlignedBB(lamp_side, 1.0D-lamp_h, lamp_side, lamp_side_max, 1.0D, lamp_side_max);
+	public static final AxisAlignedBB LAMP_NORTH_AABB = new AxisAlignedBB(lamp_side, lamp_side, 0.0D, lamp_side_max, lamp_side_max, lamp_h);
+	public static final AxisAlignedBB LAMP_SOUTH_AABB = new AxisAlignedBB(lamp_side, lamp_side, 1.0D-lamp_h, lamp_side_max, lamp_side_max, 1.0D);
+
+	public static final AxisAlignedBB LAMP_WEST_AABB = new AxisAlignedBB(0.0D, lamp_side, lamp_side, lamp_h, lamp_side_max, lamp_side_max);
+	public static final AxisAlignedBB LAMP_EAST_AABB = new AxisAlignedBB(1.0D-lamp_h, lamp_side, lamp_side, 1.0D, lamp_side_max, lamp_side_max);
+	
+	protected static final double lantern_side=0.25D;
+	protected static final double lantern_side_max=1.0D-lamp_side;
+	protected static final double lantern_h=0.125D;
+	public static final AxisAlignedBB LANTERN_AABB = new AxisAlignedBB(lantern_side, lantern_h, lantern_side, lantern_side_max, 1.0D-lantern_h, lamp_side_max);
 	
 	public BlockTGLamp(String name,  Class<T> clazz) {
 		super(name, Material.IRON, MapColor.YELLOW);
+		this.setSoundType(SoundType.GLASS);
 		this.clazz=clazz;
 		this.LAMP_TYPE = PropertyEnum.create("lamp_type", clazz);
 		this.blockStateOverride = new BlockStateContainer.Builder(this).add(LAMP_TYPE).add(FACING_ALL).add(CONNECT_DOWN)
@@ -67,6 +85,34 @@ public class BlockTGLamp<T extends Enum<T> & IStringSerializable> extends Generi
 	public int damageDropped(IBlockState state) {
 		return this.getMetaFromState(getDefaultState().withProperty(LAMP_TYPE, state.getValue(LAMP_TYPE)));
 	}
+	
+	@Override
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
+    {
+        state = this.getActualState(state, source, pos);
+       if(state.getValue(LAMP_TYPE)==clazz.getEnumConstants()[0] || state.getValue(LAMP_TYPE)==clazz.getEnumConstants()[1]) {
+    	   switch(state.getValue(FACING_ALL)) {
+		case UP:
+			return LAMP_UP_AABB;
+		case EAST:
+			return LAMP_EAST_AABB;
+		case NORTH:
+			return LAMP_NORTH_AABB;
+		case SOUTH:
+			return LAMP_SOUTH_AABB;
+		case WEST:
+			return LAMP_WEST_AABB;
+		case DOWN:
+		default:
+			return LAMP_DOWN_AABB;
+    	   }
+       } else {
+    	   return LANTERN_AABB;
+       }
+       
+       //return super.getBoundingBox(state, source, pos);
+    }
+
 	
 	  /**
      * Used to determine ambient occlusion and culling when rebuilding chunks for render

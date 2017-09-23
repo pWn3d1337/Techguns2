@@ -3,6 +3,7 @@ package techguns.entities.projectiles;
 import java.util.ArrayList;
 
 import io.netty.buffer.ByteBuf;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -62,7 +63,7 @@ public class SonicShotgunProjectile extends GenericProjectile implements IEntity
 	}
 	
 	@Override
-	protected void doImpactEffects(Material mat, RayTraceResult rayTraceResult) {
+	protected void doImpactEffects(Material mat, RayTraceResult rayTraceResult, SoundType sound) {
 		if (mainProjectile) {
 			if (!this.world.isRemote){
     			TGPackets.network.sendToAllAround(new PacketSpawnParticle("SonicShotgunImpact", this.posX,this.posY,this.posZ), TGPackets.targetPointAroundEnt(this, 50.0f));
