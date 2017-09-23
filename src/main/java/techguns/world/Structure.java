@@ -9,6 +9,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Rotation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
@@ -75,11 +76,11 @@ public class Structure implements Serializable{
 					
 					IBlockState state = mb.block.getStateFromMeta(mb.meta);
 					
-					if(state.getProperties().containsKey(BlockHorizontal.FACING)) {
-						state = BlockRotator.getRotatedHorizontal(state, rotation);
-					}
+					
+					state = BlockRotator.getRotatedHorizontal(state, rotation);
 					
 					world.setBlockState(pos, state, 2);
+
 					
 					//AxisAlignedBB aabb = new AxisAlignedBB(pos1, axis);
 					

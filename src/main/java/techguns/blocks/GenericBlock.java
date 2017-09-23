@@ -3,6 +3,7 @@ package techguns.blocks;
 import java.util.Arrays;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockDirectional;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyDirection;
@@ -17,7 +18,7 @@ import techguns.Techguns;
 
 public class GenericBlock extends Block {
 	
-	public static final PropertyDirection FACING_ALL = PropertyDirection.create("facing", Arrays.asList(EnumFacing.VALUES));
+	public static final PropertyDirection FACING_ALL = BlockDirectional.FACING;
 	
 	public GenericBlock(String name, Material mat, MapColor mc, boolean addToItemList) {
 		super(mat, mc);

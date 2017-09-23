@@ -1,7 +1,9 @@
 package techguns.world;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockDirectional;
 import net.minecraft.block.BlockHorizontal;
+import net.minecraft.block.BlockLever;
 import net.minecraft.block.BlockTorch;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.IBlockState;
@@ -15,10 +17,16 @@ public class BlockRotator {
 		if(state.getProperties().containsKey(BlockHorizontal.FACING)) {
 			return getRotatedWithProperty(state, times, BlockHorizontal.FACING);
 			
-		} else if (state.getBlock()==Blocks.TORCH) {
+		} else if (state.getProperties().containsKey(BlockDirectional.FACING)) {
+			return getRotatedWithProperty(state, times, BlockDirectional.FACING);
+			
+		} else if (state.getProperties().containsKey(BlockTorch.FACING)) {
 			return getRotatedWithProperty(state, times, BlockTorch.FACING);
+			
+		} else if (state.getProperties().containsKey(BlockLever.FACING)) {
+			return getRotatedLever(state, times);
+			
 		}
-		
 		
 		return state;
 	}
@@ -29,5 +37,40 @@ public class BlockRotator {
 			facing = facing.rotateYCCW();
 		}
 		return state.withProperty(property, facing);	
+	}
+	
+	protected static IBlockState getRotatedLever(IBlockState state, int times) {
+		BlockLever.EnumOrientation rot = state.getValue(BlockLever.FACING);	
+		while (times-- > 0) {
+			switch(rot) {
+			case DOWN_X:
+				rot = BlockLever.EnumOrientation.DOWN_Z;
+				break;
+			case DOWN_Z:
+				rot = BlockLever.EnumOrientation.DOWN_X;
+				break;
+			case EAST:
+				rot = BlockLever.EnumOrientation.NORTH;
+				break;
+			case NORTH:
+				rot = BlockLever.EnumOrientation.WEST;
+				break;
+			case SOUTH:
+				rot = BlockLever.EnumOrientation.EAST;
+				break;
+			case UP_X:
+				rot = BlockLever.EnumOrientation.UP_Z;
+				break;
+			case UP_Z:
+				rot = BlockLever.EnumOrientation.UP_X;
+				break;
+			case WEST:
+				rot = BlockLever.EnumOrientation.SOUTH;
+				break;
+			default:
+				break;		
+			}
+		}
+		return state.withProperty(BlockLever.FACING, rot);
 	}
 }
