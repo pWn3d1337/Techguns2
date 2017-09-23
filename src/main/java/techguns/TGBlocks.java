@@ -1,8 +1,10 @@
 package techguns;
 
 import java.util.ArrayList;
+import java.util.function.Predicate;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraftforge.event.RegistryEvent;
@@ -17,7 +19,9 @@ import techguns.blocks.BlockSandbags;
 import techguns.blocks.BlockTGLamp;
 import techguns.blocks.BlockTGOre;
 import techguns.blocks.EnumLampType;
+import techguns.blocks.EnumShitBlock;
 import techguns.blocks.GenericBlock;
+import techguns.blocks.GenericBlockMetaEnum;
 import techguns.blocks.GenericItemBlock;
 import techguns.blocks.machines.BasicMachine;
 import techguns.blocks.machines.EnumMachineType;
@@ -27,6 +31,8 @@ import techguns.blocks.machines.MultiBlockMachine;
 import techguns.blocks.machines.SimpleMachine;
 import techguns.init.ITGInitializer;
 import techguns.items.GenericItem;
+import techguns.tools.BlockJsonCreator;
+import techguns.tools.ItemJsonCreator;
 
 public class TGBlocks implements ITGInitializer{
 	public static final ArrayList<GenericBlock> BLOCKLIST = new ArrayList<>();
@@ -45,6 +51,7 @@ public class TGBlocks implements ITGInitializer{
 	public static BlockSandbags SANDBAGS;
 	
 	public static BlockTGLamp<EnumLampType> LAMP_0;
+	
 	
 	public void registerBlocks(RegistryEvent.Register<Block> event) {
 		BLOCKLIST.forEach(b -> b.registerBlock(event));
@@ -68,6 +75,16 @@ public class TGBlocks implements ITGInitializer{
 		BIOBLOB= new BlockBioblob("bioblob");
 		SANDBAGS = new BlockSandbags("sandbags");
 		LAMP_0 = new BlockTGLamp<EnumLampType>("lamp0", EnumLampType.class);
+		
+		if(TGItems.WRITE_ITEM_JSON && event.getSide()==Side.CLIENT){
+			BLOCKLIST.stream().filter(new Predicate<GenericBlock>() {
+				@Override
+				public boolean test(GenericBlock t) {
+					return t instanceof GenericBlockMetaEnum;
+				}
+			}).forEach(b -> BlockJsonCreator.writeBlockstateJsonFileForBlock((GenericBlockMetaEnum)b));			
+		}
+		
 	}
 
 	@Override
