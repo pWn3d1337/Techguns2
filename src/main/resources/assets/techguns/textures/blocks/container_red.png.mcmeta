@@ -1,0 +1,11 @@
+{
+  "ctm": {
+    "ctm_version": 1,
+    "type": "ctm",
+    "layer": "SOLID",
+    "textures": ["techguns:blocks/container_red-ctm"],
+    "extra": {
+      "light": 0
+    }
+  }
+}

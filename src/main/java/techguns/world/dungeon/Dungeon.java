@@ -4,6 +4,8 @@ import net.minecraft.world.World;
 
 public class Dungeon {
 	
+	private static final int GENERATE_ATTEMPTS = 5;
+	
 	DungeonTemplate template;
 	
 	//maximum block extents
@@ -31,11 +33,24 @@ public class Dungeon {
 		this.sZ = maxSizeZ / template.sizeXZ;
 		
 		//-- create path --
-		DungeonPath path = new DungeonPath(sX, sY, sZ, world.rand);
-		path.generatePath();
+		
+		long t_start = System.currentTimeMillis();
+		
+		DungeonPath path = null;
+		for (int i = 0; i < GENERATE_ATTEMPTS; i++) {			
+			DungeonPath p = new DungeonPath(sX, sY, sZ, world.rand);
+			p.generatePath();
+			if (path == null || p.getNumSegments() > path.getNumSegments()) {
+				path = p;
+			}
+		}
+		long t_path = System.currentTimeMillis();
 		//--
 		
 		path.generateDungeon(world, posX, posY, posZ, template);
+		long t_gen = System.currentTimeMillis();
+		
+		System.out.println(String.format("Path: %d ms, Blocks: %d ms", t_path-t_start, t_gen-t_start));
 		
 	}
 

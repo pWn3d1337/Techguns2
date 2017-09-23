@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "type=concrete_brown_light": {
+      "model": "techguns:concrete_brown_light"
+    },
+    "type=concrete_grey": {
+      "model": "techguns:concrete_grey"
+    },
+    "type=concrete_grey_dark": {
+      "model": "techguns:concrete_grey_dark"
+    },
+    "type=concrete_brown": {
+      "model": "techguns:concrete_brown"
+    }
+  }
+}
