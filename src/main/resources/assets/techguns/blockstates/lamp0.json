@@ -54,11 +54,11 @@
 		{   "when": { "lamp_type": "yellow_lantern", "west": "true" },
             "apply": { "model": "techguns:lantern_side_yellow", "y":180 }
         },
-		{   "when": { "lamp_type": "white_lantern", "up": "true" },
-            "apply": { "model": "techguns:lantern_top_white" }
+		{   "when": { "lamp_type": "yellow_lantern", "up": "true" },
+            "apply": { "model": "techguns:lantern_top_yellow" }
         },
-		{   "when": { "lamp_type": "white_lantern", "down": "true" },
-            "apply": { "model": "techguns:lantern_top_white", "x":180}
+		{   "when": { "lamp_type": "yellow_lantern", "down": "true" },
+            "apply": { "model": "techguns:lantern_top_yellow", "x":180}
         },
 		{   "when": { "lamp_type": "white_lantern", "north": "true" },
             "apply": { "model": "techguns:lantern_side_white", "y":270 }

@@ -11,6 +11,7 @@ import elucent.albedo.lighting.ILightProvider;
 import elucent.albedo.lighting.Light;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -489,28 +490,28 @@ public class GenericProjectile extends Entity implements IProjectile, IEntityAdd
 		BlockPos targetPos = raytraceResultIn.getBlockPos();
 		IBlockState target = this.world.getBlockState(targetPos);
 		Material mat = target.getMaterial();
-		
-		this.doImpactEffects(mat, raytraceResultIn);
+		SoundType sound = target.getBlock().getSoundType(target, world, targetPos, this);
+		this.doImpactEffects(mat, raytraceResultIn, sound);
 	}
 
-    protected void doImpactEffects(Material mat, RayTraceResult rayTraceResult) {
+    protected void doImpactEffects(Material mat, RayTraceResult rayTraceResult, SoundType sound) {
     	double x = rayTraceResult.hitVec.x;
     	double y = rayTraceResult.hitVec.y;
     	double z = rayTraceResult.hitVec.z;
     	boolean distdelay=true;
-    	if(mat==Material.ROCK) {
+    	if(sound==SoundType.STONE) {
 			this.world.playSound(x, y, z, TGSounds.BULLET_IMPACT_BRICKS, SoundCategory.AMBIENT, 1.0f, 1.0f, distdelay);
 			this.world.spawnParticle(EnumParticleTypes.LAVA, x, y, z, 0.0D, 0.0D, 0.0D);
 			
-		} else if(mat==Material.WOOD) {
+		} else if(sound==SoundType.WOOD) {
 			this.world.playSound(x, y, z, TGSounds.BULLET_IMPACT_WOOD, SoundCategory.AMBIENT, 1.0f, 1.0f, distdelay);
 			this.world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, x, y, z, 0.0D, 0.0D, 0.0D);
 			
-		} else if(mat==Material.GLASS) {
+		} else if(sound==SoundType.GLASS) {
 			this.world.playSound(x, y, z, TGSounds.BULLET_IMPACT_GLASS, SoundCategory.AMBIENT, 1.0f, 1.0f, distdelay);
 			this.world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, x, y, z, 0.0D, 0.0D, 0.0D);
 			
-		} else if(mat==Material.IRON||mat==Material.ANVIL) {
+		} else if(sound==SoundType.METAL) {
 			this.world.playSound(x, y, z, TGSounds.BULLET_IMPACT_METAL, SoundCategory.AMBIENT, 1.0f, 1.0f, distdelay);
 			this.world.spawnParticle(EnumParticleTypes.LAVA, x, y, z, 0.0D, 0.0D, 0.0D);
 			
