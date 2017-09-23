@@ -29,7 +29,8 @@ public class TemplateSegment {
 		addSegment(SegmentType.CROSS, 0, 3, 1, new boolean[]{f,t,f, t, f, t, f, t}, 1);
 		addSegment(SegmentType.END, 0, 4, 1, new boolean[]{f,f,f, t, f, f, f, f}, 4);
 		
-		addSegment(SegmentType.RAMP, 1, 0, 2, new boolean[]{f,f,f, t, f, f, f, t}, 4); //sizeY = 2
+		addSegment(SegmentType.RAMP, 1, 0, 2, false); // new boolean[]{f,f,f, t, f, f, f, t}, 4); //sizeY = 2
+		addSegment(SegmentType.ENTRANCE, 1, 1, 1, false);
 		
 		addSegment(SegmentType.ROOM_WALL, 2, 0, 1, new boolean[]{f,f,f, t, t, t, t, t}, 4);
 		addSegment(SegmentType.ROOM_CORNER, 2, 1, 1, new boolean[]{f,f,f, t, t, t, f, f}, 4);
@@ -39,6 +40,8 @@ public class TemplateSegment {
 		addSegment(SegmentType.ROOM_DOOR_CORNER2, 2, 5 ,1, new boolean[]{f,f,f, t, t, t, f, t}, 4);
 		addSegment(SegmentType.ROOM_DOOR_CORNER_DOUBLE, 2, 6, 1, new boolean[]{f,t,f, t, t, t, f, t}, 4);
 		
+		addSegment(SegmentType.FOUNDATION, 3, 0, 1, false);
+		addSegment(SegmentType.PILLARS, 3, 1, 1, false);
 	}
 	
 	private static void addSegment(SegmentType type, int row, int col) {
@@ -51,6 +54,10 @@ public class TemplateSegment {
 	
 	private static void addSegment(SegmentType type, int row, int col, int sizeY, boolean[] pattern, int rotations) {
 		templateSegments.put(type, new TemplateSegment(type, row, col, sizeY).setPattern(pattern, rotations));
+	}
+	
+	private static void addSegment(SegmentType type, int row, int col, int sizeY, boolean match) {
+		templateSegments.put(type, new TemplateSegment(type, row, col, sizeY).setMatch(match));
 	}
 	
 	//get maximum extends of the dungeon template
@@ -79,6 +86,8 @@ public class TemplateSegment {
 	
 	public int rotations = 1; //1-4
 	
+	public boolean match = true; //should this segment be used to match a DungeonPath ?
+	
 	public boolean[] pattern = new boolean[8]; //connection pattern
 	/*
 	 * 0 1 2
@@ -103,11 +112,26 @@ public class TemplateSegment {
 		return this;
 	}
 	
+	public TemplateSegment setMatch (boolean match) {
+		this.match = match;
+		return this;
+	}
+	
 
 	public enum SegmentType {
 		STRAIGHT, CURVE, FORK, CROSS, END,
-		RAMP,
-		ROOM_WALL, ROOM_CORNER, ROOM_INNER, ROOM_DOOR, ROOM_DOOR_CORNER1, ROOM_DOOR_CORNER2, ROOM_DOOR_CORNER_DOUBLE
+		RAMP, ENTRANCE,
+		ROOM_WALL, ROOM_CORNER, ROOM_INNER, ROOM_DOOR, ROOM_DOOR_CORNER1, ROOM_DOOR_CORNER2, ROOM_DOOR_CORNER_DOUBLE,
+		FOUNDATION, PILLARS;
+//		
+//		public boolean match = true;
+//		private SegmentType() {
+//			this(true);
+//		}
+//		
+//		private SegmentType(boolean match) {
+//			this.match = match;
+//		}
 	}
 	
 }

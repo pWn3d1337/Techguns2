@@ -56,7 +56,7 @@ public class RenderDungeonScanner extends TileEntitySpecialRenderer<DungeonScann
 		//draw floor
 		drawGhostBox(offset,offset,offset, sizeXZ-2*offset, 1.0-2*offset, sizeXZ-2*offset, 1.0f, 0.5f, 0.5f, 0.25f);
 		//draw ceiling
-		if (type != SegmentType.RAMP) drawGhostBox(offset, offset+sizeY-1, offset, sizeXZ-2*offset, 1.0-2*offset, sizeXZ-2*offset, 0.5f, 1.0f, 0.5f, 0.25f);
+		if (type != SegmentType.RAMP && type != SegmentType.FOUNDATION && type != SegmentType.PILLARS) drawGhostBox(offset, offset+sizeY-1, offset, sizeXZ-2*offset, 1.0-2*offset, sizeXZ-2*offset, 0.5f, 1.0f, 0.5f, 0.25f);
 		
 		switch (type) {
 		case STRAIGHT:
@@ -106,6 +106,13 @@ public class RenderDungeonScanner extends TileEntitySpecialRenderer<DungeonScann
 				drawGhostBox(offset + f*(float)i, offset+i, ((float)sizeXZ)*0.5f-0.5f, 1.0f-2*offset, 1.0f-2*offset, 1.0f-2*offset, 0.5f, 1.0f, 1.0f, 0.25f);
 			}
 			break;
+		case ENTRANCE:
+			drawGhostBox(offset, offset+1.0f, offset, sizeXZ-2*offset, sizeY-2-offset*2, 1.0f-2*offset, 0.5f, 0.5f, 1.0f, 0.25f);
+			drawGhostBox(offset, offset+1.0f, offset+sizeXZ-1, sizeXZ-2*offset, sizeY-2-offset*2, 1.0f-2*offset, 0.5f, 0.5f, 1.0f, 0.25f);
+			drawGhostBox(offset, offset+1.0f, offset+1.0f, 1.0f-2*offset, sizeY-2-offset*2, sizeXZ-2.0f-2*offset, 0.5f, 0.5f, 1.0f, 0.25f);
+			
+			drawGhostBox(-offset, 1, sizeXZ*0.5 - 0.5 - offset, 1+2*offset, 2+offset, 1+2*offset, 1.0f, 0.5f, 1.0f, 0.25f);
+			break;
 		case ROOM_WALL:
 			drawGhostBox(offset, offset+1.0f, offset, sizeXZ-2*offset, sizeY-2-offset*2, 1.0f-2*offset, 0.5f, 0.5f, 1.0f, 0.25f);
 			break;
@@ -138,6 +145,15 @@ public class RenderDungeonScanner extends TileEntitySpecialRenderer<DungeonScann
 			drawGhostBox(sizeXZ*0.5 - 0.5 - offset, 1, -offset, 1+2*offset, 2+offset, 1+2*offset, 1.0f, 0.5f, 1.0f, 0.25f);
 			drawGhostBox(-offset, 1, sizeXZ*0.5 - 0.5 - offset, 1+2*offset, 2+offset, 1+2*offset, 1.0f, 0.5f, 1.0f, 0.25f);
 			break;
+		case FOUNDATION:
+			drawGhostBox(offset, offset, offset, sizeXZ-2*offset, sizeY-offset*2, sizeXZ-2*offset, 0.5f, 0.5f, 1.0f, 0.25f);
+			break;
+		case PILLARS:
+			drawGhostBox(offset, offset, offset, 1.0f-2*offset, sizeY-offset*2, 1.0f-2*offset, 0.5f, 0.5f, 1.0f, 0.25f);
+			drawGhostBox(offset+sizeXZ-1, offset, offset, 1.0f-2*offset, sizeY-offset*2, 1.0f-2*offset, 0.5f, 0.5f, 1.0f, 0.25f);
+			drawGhostBox(offset+sizeXZ-1, offset, offset+sizeXZ-1, 1.0f-2*offset, sizeY-offset*2, 1.0f-2*offset, 0.5f, 0.5f, 1.0f, 0.25f);
+			drawGhostBox(offset, offset, offset+sizeXZ-1, 1.0f-2*offset, sizeY-offset*2, 1.0f-2*offset, 0.5f, 0.5f, 1.0f, 0.25f);
+			break;		
 		}
 		
 	}

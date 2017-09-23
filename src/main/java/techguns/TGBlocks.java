@@ -19,6 +19,7 @@ import techguns.blocks.BlockSandbags;
 import techguns.blocks.BlockTGLamp;
 import techguns.blocks.BlockTGMetalPanel;
 import techguns.blocks.BlockTGOre;
+import techguns.blocks.EnumConcreteType;
 import techguns.blocks.EnumLampType;
 import techguns.blocks.GenericBlock;
 import techguns.blocks.GenericBlockMetaEnum;
@@ -54,6 +55,8 @@ public class TGBlocks implements ITGInitializer{
 	
 	public static BlockTGMetalPanel METAL_PANEL;
 	
+	public static GenericBlockMetaEnum<EnumConcreteType> CONCRETE;
+	
 	public void registerBlocks(RegistryEvent.Register<Block> event) {
 		BLOCKLIST.forEach(b -> b.registerBlock(event));
 	}
@@ -77,6 +80,8 @@ public class TGBlocks implements ITGInitializer{
 		SANDBAGS = new BlockSandbags("sandbags");
 		LAMP_0 = new BlockTGLamp<EnumLampType>("lamp0", EnumLampType.class);
 		METAL_PANEL = new BlockTGMetalPanel("metalpanel");
+		CONCRETE = new GenericBlockMetaEnum<>("concrete", Material.ROCK, EnumConcreteType.class);
+		
 		
 		if(TGItems.WRITE_ITEM_JSON && event.getSide()==Side.CLIENT){
 			BLOCKLIST.stream().filter(new Predicate<GenericBlock>() {

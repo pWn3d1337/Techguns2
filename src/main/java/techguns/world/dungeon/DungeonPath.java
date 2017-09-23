@@ -1,5 +1,7 @@
 package techguns.world.dungeon;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import net.minecraft.util.EnumFacing;
@@ -12,6 +14,9 @@ public class DungeonPath {
 	Random rand;
 	
 	PathSegment[][][] dungeonVolume;
+	//List<PathSegment> entrancePath;
+	
+	private int nextRoomID = 1;
 	
 	int sX;
 	int sY;
@@ -20,9 +25,10 @@ public class DungeonPath {
 	//Advanced Parameters
 	//---------
 	int startSegmentCount = 1; //Number of entrances to start generating from
-	int startHeightLevel = -1; //Which Y value are the start segments placed; negative numbers = top down
-	//int startHeightOffset = 1; //-1, 0 or 1; Start segments are placed in an extra layer with this offset
-	boolean allowVerticalStack = true; //Can segments be placed on top of each other
+	int startHeightLevel = 0; //Which Y value are the start segments placed; negative numbers = top down
+	//int startHeightOffset = 2; //Additional height offset beyond the actual dungeon space for entrance;
+	
+	//boolean allowVerticalStack = true; //Can segments be placed on top of each other
 	
 	float chanceStraight = 0.5f; //next segment will go forward; -> inverse chance to left/right
 	float chanceRamp = 0.25f; //when straight, roll again for a ramp
@@ -34,8 +40,8 @@ public class DungeonPath {
 	int minRoomWidth = 2;
 	int maxRoomWidth = 5;
 	
-	boolean usePillars = false;
-	boolean useFoundations = false;
+	boolean usePillars = true;
+	boolean useFoundations = true;
 	//---------
 
 	private int numSegments = 0;
@@ -48,6 +54,7 @@ public class DungeonPath {
 		this.sZ = sZ;
 		this.rand = rand;
 		dungeonVolume = new PathSegment[sX][sY][sZ];
+		//entrancePath = new ArrayList<PathSegment>();
 	}
 
 	
@@ -57,17 +64,29 @@ public class DungeonPath {
 
 	public void generatePath() {
 		int startX = 0;
-		int startY = sY/2;
+		int startY = (sY+startHeightLevel)%sY;
 		int startZ = sZ/2;
-		int startDir = EnumFacing.getFacingFromVector(1, 0, 0).getHorizontalIndex();
-		generateSegment(startX, startY, startZ, startDir, null);
+		EnumFacing startFacing = EnumFacing.getFacingFromVector(1, 0, 0);
+		int startDir = startFacing.getHorizontalIndex();
+		
+//		Vec3i offset = startFacing.getOpposite().getDirectionVec();
+//		PathSegment startSegment = new PathSegment(startX+offset.getX(), startY, startZ+offset.getZ());
+//		startSegment.setConnection(startFacing, true);
+//		this.entrancePath.add(startSegment);
+		generateSegment(startX, startY, startZ, startDir, null); // startSegment);
+		
+		
 	}
 	
 	public void generateSegment(int x, int y, int z, int dir, PathSegment prev) {		
 		EnumFacing facing = EnumFacing.getHorizontal(dir);
 		PathSegment segment = new PathSegment(x,y,z);	
-		segment.setConnection(facing.getOpposite(), true);
-		if (prev != null) prev.setConnection(facing, true);
+		if (prev != null) {
+			segment.setConnection(facing.getOpposite(), true);
+			prev.setConnection(facing, true);
+		}else {
+			segment.isEntrance = true;
+		}
 		this.addSegment(segment);
 		
 		int maxRolls = 3;		
@@ -79,7 +98,12 @@ public class DungeonPath {
 		boolean fork = false;
 		
 		while (!success && roll++ < maxRolls) {
-			nextDir = getRandomDir(dir);
+			if (segment.isEntrance) {
+				nextDir = dir;
+				canRollAgain = false;
+			}else {
+				nextDir = getRandomDir(dir);
+			}
 			EnumFacing nextFacing = EnumFacing.getHorizontal(nextDir);
 			Vec3i nextPos = segment.getNextPos(nextDir);
 			if (isWithinBounds(nextPos)) {
@@ -95,7 +119,7 @@ public class DungeonPath {
 							cont = true;
 						}else {
 							PathSegment seg = this.get(elevNextPos);
-							if (seg != null && !seg.isRamp) {
+							if (seg != null && !seg.isRamp && !seg.isEntrance) {
 								//segment.setConnection(nextDir, true);
 								seg.setConnection(nextFacing.getOpposite(), true);
 								success = true;
@@ -143,7 +167,7 @@ public class DungeonPath {
 					}
 				}else { // if (!segment.isRamp){ //Connect to existing segment
 					PathSegment seg = this.get(nextPos);
-					if (seg != null && !seg.isRamp) {
+					if (seg != null && !seg.isRamp && !seg.isEntrance) {
 						segment.setConnection(nextFacing, true);
 						seg.setConnection(EnumFacing.getHorizontal(nextDir).getOpposite(), true);
 						success = true;
@@ -264,12 +288,14 @@ public class DungeonPath {
 	}
 		
 	private void placeRoomSegments(Vec3i min, Vec3i max) {
+		int roomID = nextRoomID++;
+		
 		int y = min.getY();//=constant
 		for (int x = min.getX(); x <= max.getX(); x++) {
 			for (int z = min.getZ(); z <= max.getZ(); z++) {
 				PathSegment segment = new PathSegment(x,y,z);
+				segment.roomID = roomID;
 				this.addSegment(segment);
-				
 				//Connections
 				if (x > min.getX()) segment.setConnection(7, true);
 				if (x < max.getX()) segment.setConnection(3, true);
@@ -331,7 +357,7 @@ public class DungeonPath {
 				generateSegment(nextPos.getX(), nextPos.getY(), nextPos.getZ(), facing.getHorizontalIndex(), segment);
 			}else { //connect to existing segment
 				PathSegment seg = this.get(nextPos);
-				if (seg != null && !seg.isRamp) {
+				if (seg != null && !seg.isRamp &&!seg.isEntrance) {
 					segment.setConnection(facing, true);
 					seg.setConnection(facing.getOpposite(), true);
 				}
@@ -428,6 +454,7 @@ public class DungeonPath {
 	}
 
 	class PathSegment {
+		public boolean isEntrance;
 		int x;
 		int y;
 		int z;
@@ -435,6 +462,8 @@ public class DungeonPath {
 		boolean isRamp = false; //Ramps can't connect
 		int elevation = 0;
 		int rampRotation = -1;
+		
+		int roomID = -1;
 		
 		//boolean[][] connections = new boolean[3][3];
 		//byte connections = 0;
@@ -546,7 +575,7 @@ public class DungeonPath {
 						
 							boolean ok = false;
 							for (TemplateSegment tempSeg : TemplateSegment.templateSegments.values()) {
-								if (tempSeg.sizeY > 1) /*|| !segment.isRamp)*/ continue;
+								if (!tempSeg.match) continue;
 								boolean match = false;
 								int r = 0;
 								while (!match && r < tempSeg.rotations) {
@@ -560,7 +589,11 @@ public class DungeonPath {
 									int px = posX+(i*template.sizeXZ);
 									int py = posY+(j*template.sizeY);
 									int pz = posZ+(k*template.sizeXZ);
-									template.segments.get(tempSeg.type).placeSegment(world, px, py, pz, r);
+									if (tempSeg.type == SegmentType.END && j == (sY+this.startHeightLevel)%sY) {										
+										template.segments.get(SegmentType.ENTRANCE).placeSegment(world, px, py, pz, r);
+									}else {										
+										template.segments.get(tempSeg.type).placeSegment(world, px, py, pz, r);
+									}
 									ok = true;
 									break;
 								}
@@ -568,6 +601,34 @@ public class DungeonPath {
 							if (!ok) {
 								System.out.println("couldn't match segment " + segment.toString());
 								segment.printPattern();
+							}
+						}
+					}else {
+						if (useFoundations || usePillars) {
+							boolean above = false;
+							for (int y = j+1; y < sY; y++) { //Check if there is a segment above this one
+								if (this.dungeonVolume[i][y][k] != null) {
+									above = true;
+									break;
+								}
+							}
+							boolean below = false;
+							for (int y = j-1; y >= 0; y--) { //Check if there is a segment above this one
+								if (this.dungeonVolume[i][y][k] != null) {
+									below = true;
+									break;
+								}
+							}
+							if (useFoundations && above && !below) {
+								int px = posX+(i*template.sizeXZ);
+								int py = posY+(j*template.sizeY);
+								int pz = posZ+(k*template.sizeXZ);
+								template.segments.get(SegmentType.FOUNDATION).placeSegment(world, px, py, pz, 0);
+							}else if (usePillars && above ) {
+								int px = posX+(i*template.sizeXZ);
+								int py = posY+(j*template.sizeY);
+								int pz = posZ+(k*template.sizeXZ);
+								template.segments.get(SegmentType.PILLARS).placeSegment(world, px, py, pz, 0);
 							}
 						}
 					}
