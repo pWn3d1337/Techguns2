@@ -20,7 +20,6 @@ import techguns.blocks.BlockTGLamp;
 import techguns.blocks.BlockTGMetalPanel;
 import techguns.blocks.BlockTGOre;
 import techguns.blocks.EnumLampType;
-import techguns.blocks.EnumShitBlock;
 import techguns.blocks.GenericBlock;
 import techguns.blocks.GenericBlockMetaEnum;
 import techguns.blocks.GenericItemBlock;
