@@ -6,6 +6,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.management.PlayerChunkMapEntry;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
@@ -23,6 +24,16 @@ public class Door3x3TileEntity extends BasicOwnedTileEnt {
 	
 	public Door3x3TileEntity() {
 		super(0, false);
+	}
+	
+	@Override
+	public AxisAlignedBB getRenderBoundingBox() {
+		IBlockState state = this.world.getBlockState(getPos());
+		if(state.getValue(BlockTGDoor3x3.ZPLANE)) {
+			return new AxisAlignedBB(getPos().north(2).down(), this.getPos().south().up(2));
+		} else {
+			return new AxisAlignedBB(getPos().west(2).down(), this.getPos().east().up(2));
+		}
 	}
 
 	@Override
@@ -52,7 +63,7 @@ public class Door3x3TileEntity extends BasicOwnedTileEnt {
 		return lastStateChangeTime;
 	}
 	
-	public void setLastStateChangeTime(long lastStateChangeTime) {
+	public void setLastStateChangeTime(long lastStateChangeTime) {		
 		this.lastStateChangeTime = lastStateChangeTime;
 	}
 
