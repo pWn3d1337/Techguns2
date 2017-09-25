@@ -87,6 +87,7 @@ import techguns.client.render.entities.projectiles.*;
 import techguns.client.render.fx.ScreenEffect;
 import techguns.client.render.item.*;
 import techguns.client.render.tileentities.RenderChargingStation;
+import techguns.client.render.tileentities.RenderDoor3x3Fast;
 import techguns.client.render.tileentities.RenderDungeonGenerator;
 import techguns.client.render.tileentities.RenderDungeonScanner;
 import techguns.client.render.tileentities.RenderFabricator;
@@ -121,6 +122,7 @@ import techguns.keybind.TGKeybinds;
 import techguns.tileentities.AmmoPressTileEnt;
 import techguns.tileentities.ChargingStationTileEnt;
 import techguns.tileentities.ChemLabTileEnt;
+import techguns.tileentities.Door3x3TileEntity;
 import techguns.tileentities.DungeonGeneratorTileEnt;
 import techguns.tileentities.DungeonScannerTileEnt;
 import techguns.tileentities.FabricatorTileEntMaster;
@@ -217,6 +219,7 @@ public class ClientProxy extends CommonProxy {
 		
 		RenderGrenade40mmProjectile.initModel();
 		RenderAttackHelicopter.initModels();
+		RenderDoor3x3Fast.initModels();
 		
 		Map<String, RenderPlayer> skinMap = Minecraft.getMinecraft().getRenderManager().getSkinMap();
 		
@@ -248,6 +251,8 @@ public class ClientProxy extends CommonProxy {
 		
 		ClientRegistry.bindTileEntitySpecialRenderer(DungeonScannerTileEnt.class, new RenderDungeonScanner());
 		ClientRegistry.bindTileEntitySpecialRenderer(DungeonGeneratorTileEnt.class, new RenderDungeonGenerator());
+		
+		ClientRegistry.bindTileEntitySpecialRenderer(Door3x3TileEntity.class, new RenderDoor3x3Fast());
 	}
 	
 	private void insertLayerAfterArmor(RenderPlayer r, TGLayerRendererer tglayer) {

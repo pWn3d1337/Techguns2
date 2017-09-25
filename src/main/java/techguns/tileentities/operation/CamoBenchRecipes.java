@@ -2,6 +2,7 @@ package techguns.tileentities.operation;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -13,11 +14,11 @@ import techguns.plugins.jei.CamoBenchJeiRecipe;
 public class CamoBenchRecipes {
 
 	protected static HashMap<Block, CamoBenchRecipe> recipes = new HashMap<>();
-	protected static ArrayList<CamoBenchRecipe> recipe_list = new ArrayList<>();
+	//protected static ArrayList<CamoBenchRecipe> recipe_list = new ArrayList<>();
 	
 	public static void addRecipe(CamoBenchRecipe r) {
 		recipes.put(r.blockType, r);
-		recipe_list.add(r);
+		//recipe_list.add(r);
 	}
 	
 	public static CamoBenchRecipe getRecipeFor(Block b) {
@@ -114,12 +115,81 @@ public class CamoBenchRecipes {
 		
 		
 	}
+	
+	public static class TGLampCamoBenchRecipe extends CamoBenchRecipe {
+		protected int num;
+		public TGLampCamoBenchRecipe(Block blockType, int num) {
+			super(blockType);
+			this.num=num;
+			this.customMeta=true;
+			this.camoblock = (ICamoChangeable) blockType;
+		}
+
+		@Override
+		protected int getNextMeta(int m) {
+			if (m==0) {
+				return 6;
+			} else if (m==6) {
+				return 0;
+			} else if (m==12) {
+				return 13;
+			} else if (m==13) {
+				return 12;
+			}
+			return 0;
+		}
+
+		@Override
+		protected int getPrevMeta(int m) {
+			return getNextMeta(m);
+		}
+
+		@Override
+		public int getCamoCount() {
+			return 2;
+		}
+
+		public List<List<ItemStack>> getItemInputs(int num) {
+			ArrayList<List<ItemStack>> list = new ArrayList<>();
+			
+			ArrayList<ItemStack> stacks = new ArrayList<>();
+			
+			if(num==0) {
+				stacks.add(new ItemStack(blockType,1,0));
+				stacks.add(new ItemStack(blockType,1,6));
+			} else {
+				stacks.add(new ItemStack(blockType,1,12));
+				stacks.add(new ItemStack(blockType,1,13));
+			}
+			
+			list.add(stacks);
+			return list;
+		}
+
+		@Override
+		public List<List<ItemStack>> getItemInputs() {
+			return getItemInputs(num);
+		}
+	
+	}
 
 	public static ArrayList<CamoBenchRecipe> getRecipes() {
 		/*Set<Block> keys = recipes.keySet();
 		ArrayList<CamoBenchRecipe> rec = new ArrayList<>();
 		keys.forEach(k -> rec.add(recipes.get(k)));
 		return rec;*/
+		
+		Iterator<Block> it = recipes.keySet().iterator();
+		ArrayList<CamoBenchRecipe> recipe_list = new ArrayList<>();
+		
+		while(it.hasNext()) {
+			CamoBenchRecipe rec = recipes.get(it.next());
+			recipe_list.add(rec);
+			if(rec instanceof TGLampCamoBenchRecipe) {
+				recipe_list.add(new TGLampCamoBenchRecipe(rec.blockType, 1));
+			} 
+		}
+		
 		return recipe_list;
 	}
 	

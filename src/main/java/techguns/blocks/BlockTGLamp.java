@@ -301,5 +301,9 @@ public class BlockTGLamp<T extends Enum<T> & IStringSerializable> extends Generi
 		return Techguns.MODID+"."+this.getRegistryName().getResourcePath()+".camoname."+this.getCurrentCamoIndex(item);
 	}
 
+	@Override
+	public boolean addBlockCamoChangeRecipes() {
+		return false;
+	}
 	
 }

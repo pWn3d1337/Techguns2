@@ -53,4 +53,8 @@ public interface ICamoChangeable {
 	public default int getFirstItemCamoDamageValue() {
 		return 0;
 	}
+	
+	public default boolean addBlockCamoChangeRecipes() {
+		return true;
+	}
 }

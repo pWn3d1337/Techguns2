@@ -1,0 +1,12 @@
+{
+    "variants": {
+        "master=false,open=false,type=metal,zplane=false": { "model": "techguns:testdoor_2" },
+		"master=true,open=false,type=metal,zplane=false": { "model": "techguns:testdoor" },
+		"master=false,open=false,type=metal,zplane=true": { "model": "techguns:testdoor_2" },
+		"master=true,open=false,type=metal,zplane=true": { "model": "techguns:testdoor", "y":90 },
+		"master=false,open=true,type=metal,zplane=false": { "model": "techguns:testdoor_2" },
+		"master=true,open=true,type=metal,zplane=false": { "model": "techguns:testdoor_open" },
+		"master=false,open=true,type=metal,zplane=true": { "model": "techguns:testdoor_2" },
+		"master=true,open=true,type=metal,zplane=true": { "model": "techguns:testdoor_open", "y":90 }
+    }
+}

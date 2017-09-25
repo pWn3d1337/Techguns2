@@ -1,0 +1,48 @@
+{
+  	"ambientocclusion": false,
+    "textures": {
+        "particle": "techguns:blocks/steelframe_dark",
+        "0": "techguns:blocks/steelframe_dark"
+    },
+    "elements": [
+        {
+            "name": "Cube7",
+            "from": [ 0.0, 25.0, 5.0 ], 
+            "to": [ 16.0, 32.0, 11.0 ], 
+            "faces": {
+                "north": { "texture": "#0", "uv": [ 0.0, 0.0, 16.0, 7.0 ] },
+                "east": { "texture": "#0", "uv": [ 0.0, 0.0, 6.0, 7.0 ] },
+                "south": { "texture": "#0", "uv": [ 0.0, 0.0, 16.0, 7.0 ] },
+                "west": { "texture": "#0", "uv": [ 0.0, 0.0, 6.0, 7.0 ] },
+                "up": { "texture": "#0", "uv": [ 0.0, 0.0, 16.0, 6.0 ] },
+                "down": { "texture": "#0", "uv": [ 0.0, 0.0, 16.0, 6.0 ] }
+            }
+        },
+        {
+            "name": "Cube8",
+            "from": [ 16.0, 25.0, 5.0 ], 
+            "to": [ 32.0, 32.0, 11.0 ], 
+            "faces": {
+                "north": { "texture": "#0", "uv": [ 0.0, 0.0, 16.0, 7.0 ] },
+                "east": { "texture": "#0", "uv": [ 0.0, 0.0, 6.0, 7.0 ] },
+                "south": { "texture": "#0", "uv": [ 0.0, 0.0, 16.0, 7.0 ] },
+                "west": { "texture": "#0", "uv": [ 0.0, 0.0, 6.0, 7.0 ] },
+                "up": { "texture": "#0", "uv": [ 0.0, 0.0, 16.0, 6.0 ] },
+                "down": { "texture": "#0", "uv": [ 0.0, 0.0, 16.0, 6.0 ] }
+            }
+        },
+        {
+            "name": "Cube9",
+            "from": [ -16.0, 25.0, 5.0 ], 
+            "to": [ 0.0, 32.0, 11.0 ], 
+            "faces": {
+                "north": { "texture": "#0", "uv": [ 0.0, 0.0, 16.0, 7.0 ] },
+                "east": { "texture": "#0", "uv": [ 0.0, 0.0, 6.0, 7.0 ] },
+                "south": { "texture": "#0", "uv": [ 0.0, 0.0, 16.0, 7.0 ] },
+                "west": { "texture": "#0", "uv": [ 0.0, 0.0, 6.0, 7.0 ] },
+                "up": { "texture": "#0", "uv": [ 0.0, 0.0, 16.0, 6.0 ] },
+                "down": { "texture": "#0", "uv": [ 0.0, 0.0, 16.0, 6.0 ] }
+            }
+        }
+    ]
+}

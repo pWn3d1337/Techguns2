@@ -16,9 +16,11 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.registries.IForgeRegistry;
 import techguns.api.tginventory.TGSlotType;
+import techguns.blocks.EnumDoorType;
 import techguns.init.ITGInitializer;
 import techguns.items.GenericItem;
 import techguns.items.GenericItemShared;
+import techguns.items.ItemTGDoor3x3;
 import techguns.items.additionalslots.ItemAntiGravPack;
 import techguns.items.additionalslots.ItemGasMask;
 import techguns.items.additionalslots.ItemGlider;
@@ -219,6 +221,8 @@ public class TGItems implements ITGInitializer{
 	//TOOL Materials
 	static ToolMaterial TG_STEEL = EnumHelper.addToolMaterial("Steel", 2, 1000, 7.5f, 2.5f, 12);
 		
+	//DOORS
+	public static ItemTGDoor3x3<EnumDoorType> DOOR3x3;
 	
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
@@ -375,6 +379,7 @@ public class TGItems implements ITGInitializer{
 		TACTICAL_MASK = new ItemTacticalMask("tacticalmask", 4, 24000);	
 		ANTI_GRAV_PACK = new ItemAntiGravPack("antigravpack", 5, 12000);
 		
+		DOOR3x3 = new ItemTGDoor3x3<EnumDoorType>("item_door3x3");
 		
 		COMBAT_KNIFE = new TGSword(TG_STEEL, "combatknife");
 		CROWBAR = new TGCrowbar(TG_STEEL, "crowbar");

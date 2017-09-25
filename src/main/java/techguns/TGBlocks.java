@@ -16,11 +16,13 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import techguns.blocks.BlockBioblob;
 import techguns.blocks.BlockSandbags;
+import techguns.blocks.BlockTGDoor3x3;
 import techguns.blocks.BlockTGLadder;
 import techguns.blocks.BlockTGLamp;
 import techguns.blocks.BlockTGMetalPanel;
 import techguns.blocks.BlockTGOre;
 import techguns.blocks.EnumConcreteType;
+import techguns.blocks.EnumDoorType;
 import techguns.blocks.EnumLadderType;
 import techguns.blocks.EnumLampType;
 import techguns.blocks.GenericBlock;
@@ -60,6 +62,8 @@ public class TGBlocks implements ITGInitializer{
 	
 	public static GenericBlockMetaEnum<EnumConcreteType> CONCRETE;
 	
+	public static BlockTGDoor3x3<EnumDoorType> DOOR3x3;
+	
 	public void registerBlocks(RegistryEvent.Register<Block> event) {
 		BLOCKLIST.forEach(b -> b.registerBlock(event));
 	}
@@ -85,7 +89,7 @@ public class TGBlocks implements ITGInitializer{
 		METAL_PANEL = new BlockTGMetalPanel("metalpanel");
 		CONCRETE = new GenericBlockMetaEnum<>("concrete", Material.ROCK, EnumConcreteType.class);
 		LADDER_0 = new BlockTGLadder<EnumLadderType>("ladder0", EnumLadderType.class);
-		
+		DOOR3x3 = new BlockTGDoor3x3<EnumDoorType>("door3x3", EnumDoorType.class, TGItems.DOOR3x3);
 		
 		if(TGItems.WRITE_ITEM_JSON && event.getSide()==Side.CLIENT){
 			BLOCKLIST.stream().filter(new Predicate<GenericBlock>() {

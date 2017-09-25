@@ -151,9 +151,12 @@ public class TGMachineRecipes {
 		
 		TGBlocks.BLOCKLIST.forEach(b -> {
 			if (b instanceof ICamoChangeable) {
-				CamoBenchRecipes.addRecipe(new CamoBenchRecipe(b, (ICamoChangeable)b));
+				if (((ICamoChangeable)b).addBlockCamoChangeRecipes() ) {
+					CamoBenchRecipes.addRecipe(new CamoBenchRecipe(b, (ICamoChangeable)b));
+				}
 			}
 		});
+		CamoBenchRecipes.addRecipe(new CamoBenchRecipes.TGLampCamoBenchRecipe(TGBlocks.LAMP_0,0));
 		
 		
 		/**

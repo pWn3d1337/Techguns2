@@ -503,7 +503,7 @@ public class GenericProjectile extends Entity implements IProjectile, IEntityAdd
 			this.world.playSound(x, y, z, TGSounds.BULLET_IMPACT_BRICKS, SoundCategory.AMBIENT, 1.0f, 1.0f, distdelay);
 			this.world.spawnParticle(EnumParticleTypes.LAVA, x, y, z, 0.0D, 0.0D, 0.0D);
 			
-		} else if(sound==SoundType.WOOD) {
+		} else if(sound==SoundType.WOOD || sound==SoundType.LADDER) {
 			this.world.playSound(x, y, z, TGSounds.BULLET_IMPACT_WOOD, SoundCategory.AMBIENT, 1.0f, 1.0f, distdelay);
 			this.world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, x, y, z, 0.0D, 0.0D, 0.0D);
 			
@@ -511,7 +511,7 @@ public class GenericProjectile extends Entity implements IProjectile, IEntityAdd
 			this.world.playSound(x, y, z, TGSounds.BULLET_IMPACT_GLASS, SoundCategory.AMBIENT, 1.0f, 1.0f, distdelay);
 			this.world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, x, y, z, 0.0D, 0.0D, 0.0D);
 			
-		} else if(sound==SoundType.METAL) {
+		} else if(sound==SoundType.METAL || sound==SoundType.ANVIL) {
 			this.world.playSound(x, y, z, TGSounds.BULLET_IMPACT_METAL, SoundCategory.AMBIENT, 1.0f, 1.0f, distdelay);
 			this.world.spawnParticle(EnumParticleTypes.LAVA, x, y, z, 0.0D, 0.0D, 0.0D);
 			
