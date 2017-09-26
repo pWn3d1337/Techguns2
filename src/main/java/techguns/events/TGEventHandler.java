@@ -21,6 +21,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumHandSide;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.FOVUpdateEvent;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.MouseEvent;
@@ -368,6 +369,8 @@ public class TGEventHandler {
 		
 		event.getMap().registerSprite(SlotTG.INGOTSLOT_TEX);
 		event.getMap().registerSprite(SlotTG.INGOTDARKSLOT_TEX);
+		
+		event.getMap().registerSprite(new ResourceLocation(Techguns.MODID,"blocks/techdoor3x3"));
 	}
 
 	@SideOnly(Side.CLIENT)
