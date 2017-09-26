@@ -21,6 +21,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumHandSide;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.FOVUpdateEvent;
 import net.minecraftforge.client.event.MouseEvent;
 import net.minecraftforge.client.event.RenderHandEvent;
@@ -54,6 +55,7 @@ import techguns.capabilities.TGExtendedPlayer;
 import techguns.client.ClientProxy;
 import techguns.client.ShooterValues;
 import techguns.client.render.entities.projectiles.DeathEffectEntityRenderer;
+import techguns.client.render.tileentities.RenderDoor3x3Fast;
 import techguns.damagesystem.DamageSystem;
 import techguns.damagesystem.TGDamageSource;
 import techguns.deatheffects.EntityDeathUtils;
@@ -364,6 +366,8 @@ public class TGEventHandler {
 		
 		event.getMap().registerSprite(SlotTG.INGOTSLOT_TEX);
 		event.getMap().registerSprite(SlotTG.INGOTDARKSLOT_TEX);
+		
+		event.getMap().registerSprite(new ResourceLocation(Techguns.MODID,"blocks/techdoor3x3"));
 	}
 
 
