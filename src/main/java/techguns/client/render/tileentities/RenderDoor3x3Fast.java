@@ -102,8 +102,8 @@ public class RenderDoor3x3Fast extends FastTESR<Door3x3TileEntity> {
         long diff = System.currentTimeMillis() - timestamp;
  
         float prog = 0;
-        if (diff < 2000) {
-        	prog = diff/2000.0f;
+        if (diff < 1000) {
+        	prog = diff/1000.0f;
         }
         
         double distance = 1.125d; //18 pixel

@@ -1,6 +1,7 @@
 package techguns.blocks;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyEnum;
@@ -33,15 +34,16 @@ public class GenericBlockMetaEnum<T extends Enum<T> & IStringSerializable> exten
 	protected GenericItemBlockMeta itemblock;
 	
 	public GenericBlockMetaEnum(String name, Material mat, Class<T> clazz) {
-		this(name,mat,mat.getMaterialMapColor(),clazz);
+		this(name,mat,mat.getMaterialMapColor(),SoundType.STONE, clazz);
 	}
 
-	public GenericBlockMetaEnum(String name, Material mat, MapColor mc,  Class<T> clazz) {
+	public GenericBlockMetaEnum(String name, Material mat, MapColor mc,  SoundType soundType, Class<T> clazz) {
 		super(name, mat, mc);
 		this.clazz=clazz;
 		TYPE = PropertyEnum.create("type",clazz);
 		this.blockStateOverride = new BlockStateContainer.Builder(this).add(TYPE).build();
 		this.setDefaultState(this.getBlockState().getBaseState());
+		this.setSoundType(soundType);
 	}
 
 	@Override

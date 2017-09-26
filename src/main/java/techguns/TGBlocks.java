@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.function.Predicate;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.player.EnumPlayerModelParts;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraftforge.event.RegistryEvent;
@@ -29,6 +31,7 @@ import techguns.blocks.EnumLampType;
 import techguns.blocks.GenericBlock;
 import techguns.blocks.GenericBlockMetaEnum;
 import techguns.blocks.GenericItemBlock;
+import techguns.blocks.TGMetalPanelType;
 import techguns.blocks.machines.BasicMachine;
 import techguns.blocks.machines.EnumMachineType;
 import techguns.blocks.machines.EnumMultiBlockMachineType;
@@ -58,7 +61,7 @@ public class TGBlocks implements ITGInitializer{
 	
 	public static BlockTGLamp<EnumLampType> LAMP_0;
 	
-	public static BlockTGMetalPanel METAL_PANEL;
+	public static GenericBlockMetaEnum METAL_PANEL;
 	public static BlockTGLadder<EnumLadderType> LADDER_0;
 	
 	public static GenericBlockMetaEnum<EnumConcreteType> CONCRETE;
@@ -89,8 +92,8 @@ public class TGBlocks implements ITGInitializer{
 		BIOBLOB= new BlockBioblob("bioblob");
 		SANDBAGS = new BlockSandbags("sandbags");
 		LAMP_0 = new BlockTGLamp<EnumLampType>("lamp0", EnumLampType.class);
-		METAL_PANEL = new BlockTGMetalPanel("metalpanel");
-		CONCRETE = new GenericBlockMetaEnum<>("concrete", Material.ROCK, EnumConcreteType.class);
+		METAL_PANEL = new GenericBlockMetaEnum<TGMetalPanelType>("metalpanel", Material.IRON, Material.IRON.getMaterialMapColor(), SoundType.METAL, TGMetalPanelType.class);
+		CONCRETE = new GenericBlockMetaEnum<EnumConcreteType>("concrete", Material.ROCK, EnumConcreteType.class);
 		LADDER_0 = new BlockTGLadder<EnumLadderType>("ladder0", EnumLadderType.class);
 		DOOR3x3 = new BlockTGDoor3x3<EnumDoorType>("door3x3", EnumDoorType.class, TGItems.DOOR3x3);
 		CAMONET = new BlockTGCamoNet("camonet");

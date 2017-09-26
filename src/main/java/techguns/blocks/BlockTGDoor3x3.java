@@ -44,11 +44,19 @@ public class BlockTGDoor3x3<T extends Enum<T> & IStringSerializable> extends Gen
 	
 	protected ItemTGDoor3x3<T> placer;
 	
-	protected static final double size = 0.3125D;
+	protected static final double size = 6/16D;//0.3125D;
+	protected static final double size2 = 4/16D;
 	
 	protected static final AxisAlignedBB BB_X = new AxisAlignedBB(size, 0, 0, 1-size, 1, 1);
 	protected static final AxisAlignedBB BB_Z = new AxisAlignedBB(0, 0, size, 1, 1, 1-size);
 	
+	protected static final AxisAlignedBB BB_X_openTop = new AxisAlignedBB(0,1-size2,size,1,1,1-size);
+	
+	protected static final AxisAlignedBB BB_Z_openLeft = new AxisAlignedBB(size, 0, 0, 1-size, 1, size2);
+	protected static final AxisAlignedBB BB_Z_openRight = new AxisAlignedBB(size, 0, 1-size2, 1-size, 1, 1);
+	
+	protected static final AxisAlignedBB BB_X_openLeft = new AxisAlignedBB(0, 0, size, size2, 1, 1-size);
+	protected static final AxisAlignedBB BB_X_openRight = new AxisAlignedBB(1-size2, 0, size, 1, 1, 1-size);
 	
 	public BlockTGDoor3x3(String name,  Class<T> clazz, ItemTGDoor3x3<T> doorplacer) {
 		super(name, Material.IRON);
@@ -156,9 +164,25 @@ public class BlockTGDoor3x3<T extends Enum<T> & IStringSerializable> extends Gen
 		} else {
 			BlockPos master = findMaster(source, pos, state);
 			if(state.getValue(MASTER) || master.getY()>= pos.getY()) {
+				
+				if(!state.getValue(ZPLANE)) {
+					if(pos.getX()<master.getX()) {
+						return BB_X_openLeft;
+					} else if ( pos.getX()>master.getX()) {
+						return BB_X_openRight;
+					}
+				} else {
+					if(pos.getZ()<master.getZ()) {
+						return BB_Z_openLeft;
+					} else if ( pos.getZ()>master.getZ()) {
+						return BB_Z_openRight;
+					}
+				}
 				return NO_COLLIDE;
 			} else {
-				return getBBforPlane(state);
+				return BB_X_openTop;
+				
+				//return getBBforPlane(state);
 			}
 		}
 	}
