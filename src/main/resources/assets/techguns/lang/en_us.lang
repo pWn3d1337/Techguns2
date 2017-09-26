@@ -496,3 +496,6 @@ techguns.ladder0.camoname.0=Metal
 techguns.ladder0.camoname.1=Shiny
 techguns.ladder0.camoname.2=Rusty
 techguns.ladder0.camoname.3=Carbon
+tile.techguns.camonet.0.name=Camo Net (Woodland)
+tile.techguns.camonet.1.name=Camo Net (Desert)
+tile.techguns.camonet.2.name=Camo Net (Snow)

@@ -22,6 +22,7 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumHandSide;
 import net.minecraftforge.client.event.FOVUpdateEvent;
+import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.MouseEvent;
 import net.minecraftforge.client.event.RenderHandEvent;
 import net.minecraftforge.client.event.RenderLivingEvent;
@@ -53,7 +54,10 @@ import techguns.api.guns.IGenericGun;
 import techguns.capabilities.TGExtendedPlayer;
 import techguns.client.ClientProxy;
 import techguns.client.ShooterValues;
+import techguns.client.render.entities.npcs.RenderAttackHelicopter;
 import techguns.client.render.entities.projectiles.DeathEffectEntityRenderer;
+import techguns.client.render.entities.projectiles.RenderGrenade40mmProjectile;
+import techguns.client.render.tileentities.RenderDoor3x3Fast;
 import techguns.damagesystem.DamageSystem;
 import techguns.damagesystem.TGDamageSource;
 import techguns.deatheffects.EntityDeathUtils;
@@ -366,7 +370,14 @@ public class TGEventHandler {
 		event.getMap().registerSprite(SlotTG.INGOTDARKSLOT_TEX);
 	}
 
-
+	@SideOnly(Side.CLIENT)
+	@SubscribeEvent
+	public static void onModelBake(ModelBakeEvent event) {
+		RenderGrenade40mmProjectile.initModel();
+		RenderAttackHelicopter.initModels();
+		RenderDoor3x3Fast.initModels();
+	}
+	
 	@SideOnly(Side.CLIENT)
 	protected static Field Field_ItemRenderer_equippedProgressMainhand = ReflectionHelper.findField(ItemRenderer.class, "equippedProgressMainHand", "field_187469_f");
 	@SideOnly(Side.CLIENT)

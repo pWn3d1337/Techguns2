@@ -216,11 +216,7 @@ public class ClientProxy extends CommonProxy {
 		
 		MinecraftForge.EVENT_BUS.register(new TGGuiEvents());
 		MinecraftForge.EVENT_BUS.register(new TGKeybinds());
-		
-		RenderGrenade40mmProjectile.initModel();
-		RenderAttackHelicopter.initModels();
-		RenderDoor3x3Fast.initModels();
-		
+	
 		Map<String, RenderPlayer> skinMap = Minecraft.getMinecraft().getRenderManager().getSkinMap();
 		
 		RenderPlayer slim =skinMap.get("slim");
