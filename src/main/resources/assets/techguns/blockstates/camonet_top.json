@@ -1,0 +1,98 @@
+{
+	"forge_marker": 1,
+    "variants": {
+		"type": {
+			"wood":{
+				"textures": { "0": "techguns:blocks/camonet"}
+			},
+			"desert": {
+				"textures": { "0": "techguns:blocks/camonet_desert"}
+			},
+			"snow": {
+				"textures": { "0": "techguns:blocks/camonet_snow"}
+			}
+		},
+		"connection": {
+			"none": {
+				"submodel": "techguns:camonet_top_center"
+			},
+			"w": {
+				"submodel": {
+                    "net1": { "model": "techguns:camonet_top_side", "y": 180, "uvlock": true }
+                }
+			},
+			"s": {
+				"submodel": {
+                    "net1": { "model": "techguns:camonet_top_side", "y": 90, "uvlock": true }
+                }
+			},
+			"sw": {
+				"submodel": {
+					"net1": { "model": "techguns:camonet_top_corner", "y": 180, "uvlock": true }
+                }
+			},
+			"e": {
+				"submodel": {
+					"net1": { "model": "techguns:camonet_top_side", "y": 0, "uvlock": true }
+                }
+			},
+			"ew": {
+				"submodel": {
+					"net1": { "model": "techguns:camonet_top_side", "y": 0, "uvlock": true },
+					"net2": { "model": "techguns:camonet_top_side", "y": 180, "uvlock": true }
+                }
+			},
+			"es": {
+				"submodel": {
+					"net1": { "model": "techguns:camonet_top_corner", "y": 90, "uvlock": true }
+                }
+			},
+			"esw": {
+				"submodel": {
+                    "net1": { "model": "techguns:camonet_top_side2", "y": 90, "uvlock": true }
+                }
+			},
+			"n": {
+				"submodel": {
+					"net1": { "model": "techguns:camonet_top_side", "y": -90, "uvlock": true }
+                }
+			},
+			"nw": {
+				"submodel": {
+					"net1": { "model": "techguns:camonet_top_corner", "y": -90, "uvlock": true }
+                }
+			},
+			"ns": {
+				"submodel": {
+					"net1": { "model": "techguns:camonet_top_side", "y": -90, "uvlock": true },
+					"net2": { "model": "techguns:camonet_top_side", "y": 90, "uvlock": true }
+                }
+			},
+			"nsw": {
+				"submodel": {
+                    "net1": { "model": "techguns:camonet_top_side2", "y": 180, "uvlock": true }
+                }
+			},
+			"ne": {
+				"submodel": {
+					"net1": { "model": "techguns:camonet_top_corner", "y": 0, "uvlock": true }
+                }
+			},
+			"new": {
+				"submodel": {
+                    "net1": { "model": "techguns:camonet_top_side2", "y": -90, "uvlock": true }
+                }
+			},
+			"nes": {
+				"submodel": {
+                    "net1": { "model": "techguns:camonet_top_side2", "y": 0, "uvlock": true }
+                }
+			},
+			"nesw": {
+				"submodel": {
+                    "net": { "model": "techguns:camonet_top_full" }
+                }
+			}
+		}
+	}
+}

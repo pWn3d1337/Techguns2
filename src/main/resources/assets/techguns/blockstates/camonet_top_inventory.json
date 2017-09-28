@@ -1,0 +1,19 @@
+{
+	"forge_marker": 1,
+	 "defaults": {
+        "model": "techguns:camonet_top_inventory"
+    },
+    "variants": {
+		"type": {
+			"wood":{
+				"textures": { "0": "techguns:blocks/camonet", "particle": "techguns:blocks/camonet"}
+			},
+			"desert": {
+				"textures": { "0": "techguns:blocks/camonet_desert", "particle": "techguns:blocks/camonet_desert"}
+			},
+			"snow": {
+				"textures": { "0": "techguns:blocks/camonet_snow", "particle": "techguns:blocks/camonet_snow"}
+			}
+		}
+	}
+}

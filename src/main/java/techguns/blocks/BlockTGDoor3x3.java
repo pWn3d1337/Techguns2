@@ -21,6 +21,8 @@ import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.IStringSerializable;
+import net.minecraft.util.Mirror;
+import net.minecraft.util.Rotation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3i;
@@ -51,6 +53,7 @@ public class BlockTGDoor3x3<T extends Enum<T> & IStringSerializable> extends Gen
 	protected static final AxisAlignedBB BB_Z = new AxisAlignedBB(0, 0, size, 1, 1, 1-size);
 	
 	protected static final AxisAlignedBB BB_X_openTop = new AxisAlignedBB(0,1-size2,size,1,1,1-size);
+	protected static final AxisAlignedBB BB_Z_openTop = new AxisAlignedBB(size,1-size2,0,1-size,1,1);
 	
 	protected static final AxisAlignedBB BB_Z_openLeft = new AxisAlignedBB(size, 0, 0, 1-size, 1, size2);
 	protected static final AxisAlignedBB BB_Z_openRight = new AxisAlignedBB(size, 0, 1-size2, 1-size, 1, 1);
@@ -180,8 +183,11 @@ public class BlockTGDoor3x3<T extends Enum<T> & IStringSerializable> extends Gen
 				}
 				return NO_COLLIDE;
 			} else {
-				return BB_X_openTop;
-				
+				if(!state.getValue(ZPLANE)) {
+					return BB_X_openTop;
+				} else {
+					return BB_Z_openTop;
+				}
 				//return getBBforPlane(state);
 			}
 		}
@@ -390,6 +396,19 @@ public class BlockTGDoor3x3<T extends Enum<T> & IStringSerializable> extends Gen
 		
 
 		super.breakBlock(worldIn, pos, state);
+	}
+
+	@Override
+	public IBlockState withRotation(IBlockState state, Rotation rot) {
+		if (rot == Rotation.COUNTERCLOCKWISE_90 || rot == Rotation.CLOCKWISE_90) {
+			return state.withProperty(ZPLANE, !state.getValue(ZPLANE));
+		}
+		return state;
+	}
+
+	@Override
+	public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
+		return state;
 	}	
 	
 	

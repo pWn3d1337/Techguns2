@@ -19,6 +19,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import techguns.blocks.BlockBioblob;
 import techguns.blocks.BlockSandbags;
 import techguns.blocks.BlockTGCamoNet;
+import techguns.blocks.BlockTGCamoNetTop;
 import techguns.blocks.BlockTGDoor3x3;
 import techguns.blocks.BlockTGLadder;
 import techguns.blocks.BlockTGLamp;
@@ -69,6 +70,7 @@ public class TGBlocks implements ITGInitializer{
 	public static BlockTGDoor3x3<EnumDoorType> DOOR3x3;
 	
 	public static BlockTGCamoNet CAMONET;
+	public static BlockTGCamoNetTop CAMONET_TOP;
 	
 	public void registerBlocks(RegistryEvent.Register<Block> event) {
 		BLOCKLIST.forEach(b -> b.registerBlock(event));
@@ -97,6 +99,7 @@ public class TGBlocks implements ITGInitializer{
 		LADDER_0 = new BlockTGLadder<EnumLadderType>("ladder0", EnumLadderType.class);
 		DOOR3x3 = new BlockTGDoor3x3<EnumDoorType>("door3x3", EnumDoorType.class, TGItems.DOOR3x3);
 		CAMONET = new BlockTGCamoNet("camonet");
+		CAMONET_TOP = new BlockTGCamoNetTop("camonet_top");
 		
 		if(TGItems.WRITE_ITEM_JSON && event.getSide()==Side.CLIENT){
 			BLOCKLIST.stream().filter(new Predicate<GenericBlock>() {

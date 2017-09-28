@@ -4,9 +4,11 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
+import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyEnum;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -25,10 +27,9 @@ public class BlockTGCamoNet extends GenericBlockMetaEnum<EnumCamoNetType> {
 	public static PropertyEnum<EnumConnectionType> CONNECTION = PropertyEnum.create("connection", EnumConnectionType.class);
 	
 	public BlockTGCamoNet(String name) {
-		super(name, Material.CLOTH, EnumCamoNetType.class);
+		super(name, Material.CLOTH, MapColor.GREEN, SoundType.CLOTH, EnumCamoNetType.class);
 		this.blockStateOverride = new BlockStateContainer.Builder(this).add(TYPE).add(CONNECTION).build();
 		this.setDefaultState(this.getBlockState().getBaseState());
-		this.setSoundType(SoundType.CLOTH);
 	}
 
 	public boolean isOpaqueCube(IBlockState state) {
@@ -38,58 +39,6 @@ public class BlockTGCamoNet extends GenericBlockMetaEnum<EnumCamoNetType> {
 	public boolean isFullCube(IBlockState state) {
 		return false;
 	}
-	
-	
-	/*protected static final AxisAlignedBB[] bounding_boxes = {
-	        new AxisAlignedBB(0.0F, 0.0F, 0.0F, 1.0F, height, 1.0f),
-	        new AxisAlignedBB(0.0F, 0.0F, 1-width, 1.0F, height, 1.0f),
-	        new AxisAlignedBB(0.0F, 0.0F, 0.0F, 1.0F, height, width),
-	        new AxisAlignedBB(0.0F, 0.0F, 1-width2, 1.0F, height, width2),
-	        new AxisAlignedBB(1-width, 0.0F, 0.0F, 1.0F, height, 1.0f),
-	        new AxisAlignedBB(1-width, 0.0F, 1-width, 1.0F, height, 1.0f),
-	        new AxisAlignedBB(1-width, 0.0F, 0, 1.0F, height, width),
-	        new AxisAlignedBB(1-width, 0.0F, 1-width2, 1.0F, height, width2),
-	        new AxisAlignedBB(0.0F, 0.0F, 0.0F, width, height, 1.0f),
-	        
-	        new AxisAlignedBB(0.0F, 0.0F, 1-width, width, height, 1.0f),
-	        new AxisAlignedBB(0.0F, 0.0F, 0.0F, width, height, width),
-	        new AxisAlignedBB(0.0F, 0.0F, 1-width2, width, height, width2),
-	        new AxisAlignedBB(1-width2, 0.0F, 0.0F, width2, height, 1.0f),
-	        new AxisAlignedBB(1-width2, 0.0F, 1-width, width2, height, 1.0f),
-	        new AxisAlignedBB(1-width2, 0.0F, 0, width2, height, width),
-	        
-	        new AxisAlignedBB(0.25F, 0.0F, 0.25F, 0.75F, height, 0.75f)
-	};
-	
-	@Override
-	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-		boolean north = canConnectTo(worldIn, pos, EnumFacing.NORTH);
-    	boolean east = canConnectTo(worldIn, pos, EnumFacing.EAST);
-    	boolean south = canConnectTo(worldIn, pos, EnumFacing.SOUTH);
-    	boolean west = canConnectTo(worldIn, pos, EnumFacing.WEST);
-
-	        if (north && south && east && west) return bounding_boxes[0];
-	        else if (north && south && east && !west) return bounding_boxes[1];
-	        else if (north && south && !east && west) return bounding_boxes[2];
-	        else if (north && south && !east && !west) return bounding_boxes[3];
-	        else if (north && !south && east && west) return bounding_boxes[4];
-	        else if (north && !south && east && !west) return bounding_boxes[5];
-	        else if (north && !south && !east && west) return bounding_boxes[6];
-	        else if (north && !south && !east && !west) return bounding_boxes[7];
-	        else if (!north && south && east && west) return bounding_boxes[8];
-	        
-	        else if (!north && south && east && !west) return bounding_boxes[9];
-	        else if (!north && south && !east && west) return bounding_boxes[10];
-	        else if (!north && south && !east && !west) return bounding_boxes[11];
-	        else if (!north && !south && east && west) return bounding_boxes[12];
-	        else if (!north && !south && east && !west) return bounding_boxes[13];
-	        else if (!north && !south && !east && west) return bounding_boxes[14];
-	         
-	        else return bounding_boxes[15];
-	}*/
-
-	
-	
 	
 	/**
      * Get the actual Block state of this Block at the given position. This applies properties not visible in the
@@ -186,6 +135,14 @@ public class BlockTGCamoNet extends GenericBlockMetaEnum<EnumCamoNetType> {
 	@Override
 	public BlockRenderLayer getBlockLayer() {
 		return BlockRenderLayer.CUTOUT;
+	}
+
+	
+	
+	@Override
+	public BlockFaceShape getBlockFaceShape(IBlockAccess p_193383_1_, IBlockState p_193383_2_, BlockPos p_193383_3_,
+			EnumFacing p_193383_4_) {
+		return BlockFaceShape.MIDDLE_POLE_THIN;
 	}
 
 	@Override

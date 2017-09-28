@@ -5,10 +5,12 @@ import net.minecraft.block.BlockDirectional;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.BlockLever;
 import net.minecraft.block.BlockTorch;
+import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
+import techguns.blocks.BlockTGDoor3x3;
 
 public class BlockRotator {
 
@@ -26,6 +28,8 @@ public class BlockRotator {
 		} else if (state.getProperties().containsKey(BlockLever.FACING)) {
 			return getRotatedLever(state, times);
 			
+		} else if (state.getProperties().containsKey(BlockTGDoor3x3.ZPLANE)) {
+			return rotateBooleanPlane(state, times, BlockTGDoor3x3.ZPLANE);
 		}
 		
 		return state;
@@ -37,6 +41,15 @@ public class BlockRotator {
 			facing = facing.rotateYCCW();
 		}
 		return state.withProperty(property, facing);	
+	}
+	
+	protected static IBlockState rotateBooleanPlane(IBlockState state, int times, PropertyBool property) {
+		boolean plane = state.getValue(property);
+		if((times % 2)==0) {
+			return state;
+		} else {
+			return state.withProperty(property, !plane);
+		}
 	}
 	
 	protected static IBlockState getRotatedLever(IBlockState state, int times) {
