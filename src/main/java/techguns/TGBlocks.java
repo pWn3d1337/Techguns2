@@ -20,6 +20,7 @@ import techguns.blocks.BlockBioblob;
 import techguns.blocks.BlockSandbags;
 import techguns.blocks.BlockTGCamoNet;
 import techguns.blocks.BlockTGCamoNetTop;
+import techguns.blocks.BlockTGDoor2x1;
 import techguns.blocks.BlockTGDoor3x3;
 import techguns.blocks.BlockTGLadder;
 import techguns.blocks.BlockTGLamp;
@@ -32,6 +33,7 @@ import techguns.blocks.EnumLampType;
 import techguns.blocks.GenericBlock;
 import techguns.blocks.GenericBlockMetaEnum;
 import techguns.blocks.GenericItemBlock;
+import techguns.blocks.IGenericBlock;
 import techguns.blocks.TGMetalPanelType;
 import techguns.blocks.machines.BasicMachine;
 import techguns.blocks.machines.EnumMachineType;
@@ -45,7 +47,7 @@ import techguns.tools.BlockJsonCreator;
 import techguns.tools.ItemJsonCreator;
 
 public class TGBlocks implements ITGInitializer{
-	public static final ArrayList<GenericBlock> BLOCKLIST = new ArrayList<>();
+	public static final ArrayList<IGenericBlock> BLOCKLIST = new ArrayList<>();
 	
 	//Machines
 	public static BasicMachine<EnumMachineType> BASIC_MACHINE;
@@ -71,6 +73,8 @@ public class TGBlocks implements ITGInitializer{
 	
 	public static BlockTGCamoNet CAMONET;
 	public static BlockTGCamoNetTop CAMONET_TOP;
+	
+	public static BlockTGDoor2x1 BUNKER_DOOR;
 	
 	public void registerBlocks(RegistryEvent.Register<Block> event) {
 		BLOCKLIST.forEach(b -> b.registerBlock(event));
@@ -100,11 +104,12 @@ public class TGBlocks implements ITGInitializer{
 		DOOR3x3 = new BlockTGDoor3x3<EnumDoorType>("door3x3", EnumDoorType.class, TGItems.DOOR3x3);
 		CAMONET = new BlockTGCamoNet("camonet");
 		CAMONET_TOP = new BlockTGCamoNetTop("camonet_top");
+		BUNKER_DOOR = new BlockTGDoor2x1("bunkerdoor",TGItems.BUNKER_DOOR);
 		
 		if(TGItems.WRITE_ITEM_JSON && event.getSide()==Side.CLIENT){
-			BLOCKLIST.stream().filter(new Predicate<GenericBlock>() {
+			BLOCKLIST.stream().filter(new Predicate<IGenericBlock>() {
 				@Override
-				public boolean test(GenericBlock t) {
+				public boolean test(IGenericBlock t) {
 					return t instanceof GenericBlockMetaEnum;
 				}
 			}).forEach(b -> BlockJsonCreator.writeBlockstateJsonFileForBlock((GenericBlockMetaEnum)b));			

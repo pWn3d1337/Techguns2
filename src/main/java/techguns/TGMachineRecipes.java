@@ -2,6 +2,7 @@ package techguns;
 
 import java.util.ArrayList;
 
+import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -152,7 +153,7 @@ public class TGMachineRecipes {
 		TGBlocks.BLOCKLIST.forEach(b -> {
 			if (b instanceof ICamoChangeable) {
 				if (((ICamoChangeable)b).addBlockCamoChangeRecipes() ) {
-					CamoBenchRecipes.addRecipe(new CamoBenchRecipe(b, (ICamoChangeable)b));
+					CamoBenchRecipes.addRecipe(new CamoBenchRecipe((Block)b, (ICamoChangeable)b));
 				}
 			}
 		});
