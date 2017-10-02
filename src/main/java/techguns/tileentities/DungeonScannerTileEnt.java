@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.util.HashMap;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
@@ -47,9 +48,15 @@ public class DungeonScannerTileEnt extends BasicOwnedTileEnt {
 	public int sizeY = 4;
 	
 	public boolean showGhost = true;
+	
+	public HashMap<SegmentType, Boolean> template_filter = new HashMap<>();
 
 	public DungeonScannerTileEnt() {
 		super(0, false);
+		
+		for (SegmentType type : TemplateSegment.templateSegments.keySet()) {
+			this.template_filter.put(type, true);
+		}
 	}
 
 	@Override

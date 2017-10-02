@@ -2,6 +2,7 @@ package techguns.gui;
 
 import java.awt.event.KeyEvent;
 import java.io.IOException;
+import java.util.HashMap;
 
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -19,6 +20,8 @@ import techguns.tileentities.ChemLabTileEnt;
 import techguns.tileentities.DungeonScannerTileEnt;
 import techguns.util.TextUtil;
 import techguns.world.dungeon.DungeonTemplate;
+import techguns.world.dungeon.TemplateSegment;
+import techguns.world.dungeon.TemplateSegment.SegmentType;
 
 public class DungeonScannerGui extends OwnedTileEntGui {
 
@@ -27,6 +30,12 @@ public class DungeonScannerGui extends OwnedTileEntGui {
 	protected DungeonScannerTileEnt tileEnt;
 	
 	private String textInput = "";
+	
+	//private HashMap<SegmentType, Boolean> template_filter = new HashMap<>();
+	private static final int tb_size = 4; //tb = template button
+	private static final int tb_spacing = 2;
+	private static final int tb_x = 5;
+	private static final int tb_y = 114;
 	
 	public DungeonScannerGui(InventoryPlayer ply, DungeonScannerTileEnt tile) {
 		super(new DungeonScannerContainer(ply, tile), tile);
@@ -96,6 +105,17 @@ public class DungeonScannerGui extends OwnedTileEntGui {
         	}
         	dy+=8;
         }
+        
+        for (SegmentType type : TemplateSegment.templateSegments.keySet()) {
+        	TemplateSegment seg = TemplateSegment.templateSegments.get(type);
+    		int x_ = tb_x + seg.col * (tb_size + tb_spacing);
+        	int y_ = tb_y + seg.row * (tb_size + tb_spacing);
+        	if (this.isInRect(mouseX, mouseY, k+x_, l+y_, tb_size, tb_size)) {
+        		this.tileEnt.template_filter.put(type, !this.tileEnt.template_filter.get(type));
+        		break;
+        	}
+        	
+        }
 	}
 
 	@Override
@@ -120,8 +140,65 @@ public class DungeonScannerGui extends OwnedTileEntGui {
         	}
         	dy+=8;
         }
+        
+//        int k = (this.width - this.xSize) / 2;
+//        int l = (this.height - this.ySize) / 2;
+        for (SegmentType type : TemplateSegment.templateSegments.keySet()) {
+        	this.drawSegmentButton(type,k, l, mouseX, mouseY);
+//        	TemplateSegment seg = TemplateSegment.templateSegments.get(type);
+//        	
+//        	int x_ = tb_x + seg.col * (tb_size + tb_spacing);
+//        	int y_ = tb_y + seg.row * (tb_size + tb_spacing);
+//        	
+//        	if (this.template_filter.get(type)) {
+//        		if(this.isInRect(mouseX, mouseY, k+x_, l+y_, tb_size, tb_size)) {
+//	        		this.drawRect(k+x_, l+y_, k+x_+tb_size, l+y_+tb_size, 0xffa6ffa6);
+//	        	}else {
+//	        		this.drawRect(k+x_, l+y_, k+x_+tb_size, l+y_+tb_size, 0xff00ff00);
+//	        	}
+//        	}else {
+//	        	if(this.isInRect(mouseX, mouseY, k+x_, l+y_, tb_size, tb_size)) {
+//	        		this.drawRect(k+x_, l+y_, k+x_+tb_size, l+y_+tb_size, 0xffdbdbdb);
+//	        	}else {
+//	        		this.drawRect(k+x_, l+y_, k+x_+tb_size, l+y_+tb_size, 0xff646464);
+//	        	}
+//        	}
+        }
 	}
 
+	private void drawSegmentButton(SegmentType type, int k, int l, int mouseX, int mouseY) {
+		
+		TemplateSegment seg = TemplateSegment.templateSegments.get(type);
+		int x_ = tb_x + seg.col * (tb_size + tb_spacing);
+    	int y_ = tb_y + seg.row * (tb_size + tb_spacing);
+    	
+    	int color = 0xff323232;
+    	if (this.tileEnt.template_filter.get(type)) color = 0xff008000;
+    	
+    	this.drawRect(k+x_, l+y_, k+x_+tb_size, l+y_+tb_size, color);
+    	
+    	
+    	color = 0xff646464;
+    	if (this.tileEnt.template_filter.get(type)) color = 0xff00ff00;
+    	
+    	this.drawRect(k+x_+1, l+y_+1, k+x_+tb_size-1, l+y_+tb_size-1, color);
+    	
+    	if (seg.pattern != null && seg.pattern.length >= 8) {
+	    	if (seg.pattern[0]) this.drawRect(k+x_, l+y_, k+x_+1, l+y_+1, color);
+	    	if (seg.pattern[1]) this.drawRect(k+x_+1, l+y_, k+x_+3, l+y_+1, color);
+	    	if (seg.pattern[2]) this.drawRect(k+x_+3, l+y_, k+x_+4, l+y_+1, color);
+	    	if (seg.pattern[3]) this.drawRect(k+x_+3, l+y_+1, k+x_+4, l+y_+3, color);
+	    	if (seg.pattern[4]) this.drawRect(k+x_+3, l+y_+3, k+x_+4, l+y_+4, color);  	
+	    	if (seg.pattern[5]) this.drawRect(k+x_+1, l+y_+3, k+x_+3, l+y_+4, color);    	
+	    	if (seg.pattern[6]) this.drawRect(k+x_, l+y_+3, k+x_+1, l+y_+4, color);
+	    	if (seg.pattern[7]) this.drawRect(k+x_, l+y_+1, k+x_+1, l+y_+3, color);
+    	}
+    	
+    	if (isInRect(mouseX, mouseY, k+x_, l+y_, tb_size,tb_size)) {
+    		this.drawRect(k+x_, l+y_, k+x_+tb_size, l+y_+tb_size, 0x80ffffff);
+    	}
+    	
+	}
 	
 	
 	@Override
@@ -154,6 +231,9 @@ public class DungeonScannerGui extends OwnedTileEntGui {
 	
 		this.buttonList.add(new GuiButtonExt(DungeonScannerTileEnt.BUTTON_ID_COPY_FIRST, this.guiLeft+5, this.guiTop+97, 64, 12, "Copy 1st Segment"));
 		
+//		for (SegmentType type : TemplateSegment.templateSegments.keySet()) {
+//			this.template_filter.put(type, true);
+//		}
 	}
 	
 	

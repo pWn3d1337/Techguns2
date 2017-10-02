@@ -1,6 +1,8 @@
 package techguns.entities.projectiles;
 
 import io.netty.buffer.ByteBuf;
+import net.minecraft.block.SoundType;
+import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
@@ -37,9 +39,15 @@ public class LaserProjectile extends AbstractBeamProjectile{
 		super(worldIn);
 	}
 
-	protected void createImpactEffect(Vec3d hitVec) {
-		TGPackets.network.sendToAllAround(new PacketSpawnParticle("LaserGunImpact", hitVec.x, hitVec.y, hitVec.z), TGPackets.targetPointAroundEnt(this, 35.0f));
+	@Override
+	protected void doImpactEffects(Material mat, RayTraceResult rayTraceResult, SoundType sound) {
+		Vec3d hitVec = rayTraceResult.hitVec;
+		TGPackets.network.sendToAllAround(new PacketSpawnParticle("LaserGunImpact", hitVec.x, hitVec.y, hitVec.z), TGPackets.targetPointAroundEnt(this, 35.0f));		
 	}
+	
+//	protected void createImpactEffect(Vec3d hitVec) {
+//		TGPackets.network.sendToAllAround(new PacketSpawnParticle("LaserGunImpact", hitVec.x, hitVec.y, hitVec.z), TGPackets.targetPointAroundEnt(this, 35.0f));
+//	}
 	
 	@Override
 	public void onUpdate() {
