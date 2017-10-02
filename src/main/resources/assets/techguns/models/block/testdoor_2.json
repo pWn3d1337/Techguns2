@@ -1,6 +1,6 @@
 {
 	"parent": "block/block",
 	"textures": {
-		"particle": "techguns:blocks/steelframe_dark"
+		"particle": "techguns:blocks/techdoor3x3"
     }
 }

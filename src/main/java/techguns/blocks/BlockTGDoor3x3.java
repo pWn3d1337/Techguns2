@@ -1,5 +1,6 @@
 package techguns.blocks;
 
+import java.util.List;
 import java.util.Random;
 
 import net.minecraft.block.Block;
@@ -11,6 +12,7 @@ import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -22,16 +24,20 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.Mirror;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraft.world.gen.feature.WorldGenReed;
 import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import techguns.TGItems;
 import techguns.Techguns;
+import techguns.events.TechgunsGuiHandler;
 import techguns.items.ItemTGDoor3x3;
 import techguns.tileentities.Door3x3TileEntity;
 
@@ -61,6 +67,11 @@ public class BlockTGDoor3x3<T extends Enum<T> & IStringSerializable> extends Gen
 	protected static final AxisAlignedBB BB_X_openLeft = new AxisAlignedBB(0, 0, size, size2, 1, 1-size);
 	protected static final AxisAlignedBB BB_X_openRight = new AxisAlignedBB(1-size2, 0, size, 1, 1, 1-size);
 	
+	public static final int BLOCK_UPDATE_DELAY=5;
+	
+	public static final int DOOR_OPEN_TIME=1000;
+	public static final int DOOR_AUTOCLOSE_DELAY = 5000;
+	
 	public BlockTGDoor3x3(String name,  Class<T> clazz, ItemTGDoor3x3<T> doorplacer) {
 		super(name, Material.IRON);
 		this.setSoundType(SoundType.METAL);
@@ -70,7 +81,7 @@ public class BlockTGDoor3x3<T extends Enum<T> & IStringSerializable> extends Gen
 		this.placer=doorplacer;
 		this.placer.setBlock(this);
 		
-		setHardness(0.25f);
+		setHardness(5.0f);
 	}
 	
     @Override
@@ -240,7 +251,12 @@ public class BlockTGDoor3x3<T extends Enum<T> & IStringSerializable> extends Gen
 		 if(tile!=null && tile instanceof Door3x3TileEntity) {
 			 Door3x3TileEntity door = (Door3x3TileEntity) tile;
 			 if(!w.isRemote) {
-				 door.changeStateServerSide();
+				door.changeStateServerSide();
+				 
+				if(door.isAutoClose()) {
+					w.scheduleBlockUpdate(masterPos, this, BLOCK_UPDATE_DELAY, 0);
+				}
+				door.setLastStateChangeTime(System.currentTimeMillis());
 			 } else {
 				 door.setLastStateChangeTime(System.currentTimeMillis());
 			 }
@@ -281,13 +297,54 @@ public class BlockTGDoor3x3<T extends Enum<T> & IStringSerializable> extends Gen
 	}
 
 	@Override
-	public int damageDropped(IBlockState state) {
-		return 0; //TODO
+	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
+		return this.placer;
 	}
 
 	@Override
-	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-		return this.placer;
+	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos,
+			EntityPlayer player) {
+
+		BlockPos masterPos = this.findMaster(world, pos, state);
+		TileEntity tile = world.getTileEntity(masterPos);
+		if(tile!=null && tile instanceof Door3x3TileEntity) {
+			Door3x3TileEntity door = (Door3x3TileEntity) tile;
+			return new ItemStack(this.placer,1,door.getDoorType());
+		}
+		
+		return super.getPickBlock(state, target, world, pos, player);
+	}
+
+	@Override
+	public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state,
+			int fortune) {
+	}
+
+	@Override
+	public void onBlockHarvested(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player) {
+		if (player.capabilities.isCreativeMode || worldIn.isRemote) return;
+		
+		ItemStack drop =ItemStack.EMPTY;
+		BlockPos masterPos = this.findMaster(worldIn, pos, state);
+		TileEntity tile = worldIn.getTileEntity(masterPos);
+
+		if(tile!=null && tile instanceof Door3x3TileEntity) {
+			Door3x3TileEntity door = (Door3x3TileEntity) tile;
+			drop = new ItemStack(this.placer,1,door.getDoorType());
+		}
+		
+		if (!drop.isEmpty() && !worldIn.restoringBlockSnapshots) // do not drop items while restoring blockstates, prevents item dupe
+		{
+			NonNullList<ItemStack> drops = NonNullList.<ItemStack>withSize(1, drop);
+			float chance = net.minecraftforge.event.ForgeEventFactory.fireBlockHarvesting(drops, worldIn, pos, state, 0, 1.0f, false, player);
+
+			if (chance>=1.0f || worldIn.rand.nextFloat() <= chance) {
+				spawnAsEntity(worldIn, pos, drop);
+			}
+
+		}
+		
+		super.onBlockHarvested(worldIn, pos, state, player);
 	}
 
 	public boolean canPlaceDoor(World worldIn, BlockPos pos, EnumFacing lookdirection) {
@@ -343,9 +400,86 @@ public class BlockTGDoor3x3<T extends Enum<T> & IStringSerializable> extends Gen
 			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		
 		BlockPos master = this.findMaster(worldIn, pos, state);
-		this.toggleState(worldIn, master);
+		
+		TileEntity tile = worldIn.getTileEntity(master);
+		if(tile!=null && tile instanceof Door3x3TileEntity) {
+			Door3x3TileEntity door = (Door3x3TileEntity) tile;
+			if(door.isUseableByPlayer(playerIn)) {
+			
+				if(playerIn.isSneaking()) {
+					boolean wrenchRight = (!playerIn.getHeldItemMainhand().isEmpty()) && playerIn.getHeldItemMainhand().getItem().getToolClasses(playerIn.getHeldItemMainhand()).contains("wrench");
+					boolean wrenchLeft = (!playerIn.getHeldItemMainhand().isEmpty()) && playerIn.getHeldItemMainhand().getItem().getToolClasses(playerIn.getHeldItemMainhand()).contains("wrench");
+					
+					if(wrenchRight || wrenchLeft) {
+						if(!worldIn.isRemote) {
+							TechgunsGuiHandler.openGuiForPlayer(playerIn, tile);
+						}
+					} else {
+						if(door.isOpenWithRightClick()) {
+							this.toggleState(worldIn, master);
+						}
+					}
+				} else {
+					if(door.isOpenWithRightClick()) {
+						this.toggleState(worldIn, master);
+					}
+				}
+			}
+		}
 		
 		return true;
+	}
+	
+	@Override
+	public boolean shouldCheckWeakPower(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
+		return true;
+	}
+
+	public boolean isPowered(World w, BlockPos masterPos) {
+		IBlockState masterstate = w.getBlockState(masterPos);
+		Vec3i[] offsets = pos_x;
+		if(masterstate.getValue(ZPLANE)) {
+			offsets=pos_z;
+		}
+		
+		for(int i=0;i<offsets.length; i++) {
+			BlockPos p = masterPos.add(offsets[i]);
+			if(w.isBlockPowered(p)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public void updateRedstoneState(IBlockAccess world, BlockPos masterPos) {
+		TileEntity tile = world.getTileEntity(masterPos);
+		if(tile!=null && tile instanceof Door3x3TileEntity) {
+			Door3x3TileEntity door = (Door3x3TileEntity) tile;
+			if(door.isRedstoneMode() && door.getRedstoneBehaviour()!=0) {
+				IBlockState masterstate = world.getBlockState(masterPos);
+				boolean powered = this.isPowered(door.getWorld(), masterPos);
+				//System.out.println("POWERED: "+powered);
+				if(door.getRedstoneBehaviour()==1) {
+					if((powered && !masterstate.getValue(OPENED)) || (!powered && masterstate.getValue(OPENED))) {
+						
+						this.toggleState(door.getWorld(), masterPos);
+					}
+				} else if (door.getRedstoneBehaviour()==2) {
+					if((!powered && !masterstate.getValue(OPENED)) || (powered && masterstate.getValue(OPENED))) { 
+						
+						this.toggleState(door.getWorld(), masterPos);
+					}
+				}
+			}
+		}
+	}
+
+	@Override
+	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block blockIn, BlockPos fromPos) {
+		if(!state.getValue(MASTER)) {
+			BlockPos masterpos = this.findMaster(world, pos, state);
+			this.updateRedstoneState(world, masterpos);
+		}
 	}
 
 	@Override
@@ -409,7 +543,77 @@ public class BlockTGDoor3x3<T extends Enum<T> & IStringSerializable> extends Gen
 	@Override
 	public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
 		return state;
+	}
+
+	@Override
+	public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
+	}
+
+	@Override
+	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
+		if(!worldIn.isRemote && state.getValue(MASTER)) {
+			TileEntity tile = worldIn.getTileEntity(pos);
+			if(tile!=null && tile instanceof Door3x3TileEntity) {
+				Door3x3TileEntity door = (Door3x3TileEntity) tile;
+				
+				if(door.isPlayerDetector()) {
+					worldIn.scheduleBlockUpdate(pos, this, BLOCK_UPDATE_DELAY, 0);
+				}
+				
+			}
+			
+		}
+	}
+
+	@Override
+	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
+		if(worldIn.isRemote || !state.getValue(MASTER)) return;
+		
+		//System.out.println("Block Update Tick!");
+		
+		TileEntity tile = worldIn.getTileEntity(pos);
+		if(tile!=null && tile instanceof Door3x3TileEntity) {
+			Door3x3TileEntity door = (Door3x3TileEntity) tile;
+
+			boolean openstate = state.getValue(OPENED);
+			if(door.getDoormode()==0) {
+				if ( door.isAutoClose()&&openstate) {
+					if (door.checkAutoCloseDelay()) {
+						this.toggleState(worldIn, pos);
+						openstate=false;
+					}
+					worldIn.scheduleBlockUpdate(pos, this, BLOCK_UPDATE_DELAY, 0);
+				}
+				
+			} else if (door.getDoormode()==2) {
+				
+				boolean open=checkOpenForNearPlayers(worldIn,door,pos);
+				if(open && !openstate) {
+					this.toggleState(worldIn, pos);
+					openstate=true;
+				} else if (!open && openstate && door.checkPlayerSensorAutoCloseDelay()) {
+					this.toggleState(worldIn, pos);
+					openstate=false;
+				}
+				worldIn.scheduleBlockUpdate(pos, this, BLOCK_UPDATE_DELAY, 0);
+			}
+
+		}
+		
 	}	
 	
+	protected boolean checkOpenForNearPlayers(World w, Door3x3TileEntity door, BlockPos masterPos) {
+		
+		AxisAlignedBB bb = new AxisAlignedBB(masterPos).grow(2, 1, 2);
+		List<EntityPlayer> nearbyPlayers = w.getEntitiesWithinAABB(EntityPlayer.class, bb);
+		
+		for (EntityPlayer ply : nearbyPlayers) {
+			if (door.isUseableByPlayer(ply)) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
 	
 }

@@ -8,6 +8,7 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.EnumPushReaction;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -16,6 +17,7 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
@@ -87,7 +89,11 @@ public class BlockTGDoor2x1 extends BlockDoor implements IGenericBlock {
         
     }
 	
-    /**
+    @Override
+	public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
+	}
+
+	/**
      * Gets the localized name of this block. Used for the statistics page.
      */
 	@Override

@@ -2,6 +2,7 @@ package techguns.factions;
 
 import java.util.UUID;
 
+import net.minecraft.entity.player.EntityPlayer;
 import techguns.api.npc.factions.TGNpcFaction;
 
 public class TGNpcFactions {
@@ -32,6 +33,10 @@ public class TGNpcFactions {
 		hostilityTable[f1.ordinal()][f1.ordinal()]=hostile;
 	}
 	
+	
+	public static boolean isHostile(EntityPlayer ply1, EntityPlayer ply2) {
+		return isHostile(EntityPlayer.getUUID(ply1.getGameProfile()), EntityPlayer.getUUID(ply2.getGameProfile()));
+	}
 	
 	public static boolean isHostile(UUID ply1, UUID ply2){
 		//return !friendsAPI.areFriends(ply1, ply2);

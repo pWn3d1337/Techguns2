@@ -9,6 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import techguns.blocks.EnumOreType;
 import techguns.items.armors.ICamoChangeable;
 import techguns.tileentities.operation.AmmoPressBuildPlans;
@@ -192,5 +193,31 @@ public class TGMachineRecipes {
 		ReactionChamberRecipe.addRecipe("RC_URANIUM",new ItemStackOreDict("dustUranium"), TGItems.RC_HEAT_RAY, TGFluids.WATER, new ItemStack[]{TGItems.newStack(TGItems.ENRICHED_URANIUM, 1)}, 5, 4, 7, 0, 3, 1000, 0f, RiskType.BREAK_ITEM, 250000);
 		
 		
+		//Smelting recipes
+		GameRegistry.addSmelting(TGBlocks.TG_ORE.getStackFor(EnumOreType.ORE_COPPER), TGItems.INGOT_COPPER, 0.5f);
+		GameRegistry.addSmelting(TGBlocks.TG_ORE.getStackFor(EnumOreType.ORE_TIN), TGItems.INGOT_TIN, 0.5f);
+		GameRegistry.addSmelting(TGBlocks.TG_ORE.getStackFor(EnumOreType.ORE_LEAD), TGItems.INGOT_LEAD, 1.0f);
+		
+		GameRegistry.addSmelting(TGItems.TURRET_ARMOR_IRON, new ItemStack(Items.IRON_INGOT,5), 0f);
+		GameRegistry.addSmelting(TGItems.TURRET_ARMOR_STEEL, TGItems.newStack(TGItems.INGOT_STEEL,5), 0f);
+		GameRegistry.addSmelting(TGItems.TURRET_ARMOR_OBSIDIAN_STEEL, TGItems.newStack(TGItems.INGOT_OBSIDIAN_STEEL,5), 0f);
+		
+		GameRegistry.addSmelting(TGItems.BARREL_IRON, new ItemStack(Items.IRON_INGOT,6), 0f);
+		GameRegistry.addSmelting(TGItems.BARREL_OBSIDIAN_STEEL, TGItems.newStack(TGItems.INGOT_OBSIDIAN_STEEL,6), 0f);
+		
+		GameRegistry.addSmelting(TGItems.PLATE_BRONZE, TGItems.INGOT_BRONZE, 0f);
+		GameRegistry.addSmelting(TGItems.PLATE_COPPER, TGItems.INGOT_COPPER, 0f);
+		GameRegistry.addSmelting(TGItems.PLATE_TIN, TGItems.INGOT_TIN, 0f);
+		GameRegistry.addSmelting(TGItems.PLATE_LEAD, TGItems.INGOT_LEAD, 0f);
+		GameRegistry.addSmelting(TGItems.PLATE_IRON, new ItemStack(Items.IRON_INGOT,1), 0f);
+		GameRegistry.addSmelting(TGItems.PLATE_OBSIDIAN_STEEL, TGItems.INGOT_OBSIDIAN_STEEL, 0f);
+		GameRegistry.addSmelting(TGItems.PLATE_TITANIUM, TGItems.INGOT_TITANIUM, 0f);
+		GameRegistry.addSmelting(TGItems.PLATE_STEEL, TGItems.INGOT_STEEL, 0f);
+		
+		GameRegistry.addSmelting(TGItems.RAW_RUBBER, TGItems.RUBBER_BAR,0);
+		GameRegistry.addSmelting(TGItems.RAW_PLASTIC,TGItems.PLASTIC_SHEET, 0);
+		
+		GameRegistry.addSmelting(TGItems.ORE_TITANIUM, TGItems.INGOT_TITANIUM, 0);
+	
 	}
 }

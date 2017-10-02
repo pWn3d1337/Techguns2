@@ -5,6 +5,7 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -13,6 +14,7 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import techguns.blocks.BlockTGDoor3x3;
+import techguns.tileentities.Door3x3TileEntity;
 
 public class ItemTGDoor3x3<T extends Enum<T> & IStringSerializable> extends GenericItem {
 
@@ -53,7 +55,7 @@ public class ItemTGDoor3x3<T extends Enum<T> & IStringSerializable> extends Gene
                 //int i = enumfacing.getFrontOffsetX();
                 //int j = enumfacing.getFrontOffsetZ();
               //  boolean flag = i < 0 && hitZ < 0.5F || i > 0 && hitZ > 0.5F || j < 0 && hitX > 0.5F || j > 0 && hitX < 0.5F;
-                placeDoor(worldIn, pos, enumfacing, itemstack.getMetadata());
+                placeDoor(worldIn, pos, enumfacing, itemstack.getMetadata(), player);
                 SoundType soundtype = worldIn.getBlockState(pos).getBlock().getSoundType(worldIn.getBlockState(pos), worldIn, pos, player);
                 worldIn.playSound(player, pos, soundtype.getPlaceSound(), SoundCategory.BLOCKS, (soundtype.getVolume() + 1.0F) / 2.0F, soundtype.getPitch() * 0.8F);
                 itemstack.shrink(1);
@@ -66,7 +68,7 @@ public class ItemTGDoor3x3<T extends Enum<T> & IStringSerializable> extends Gene
         }
     }
 
-    public void placeDoor(World worldIn, BlockPos pos, EnumFacing facing, int meta) {
+    public void placeDoor(World worldIn, BlockPos pos, EnumFacing facing, int meta, EntityPlayer player) {
     	boolean zplane = (facing==EnumFacing.EAST || facing==EnumFacing.WEST);
     	T type = this.block.getEnumClazz().getEnumConstants()[meta];
     	
@@ -93,6 +95,12 @@ public class ItemTGDoor3x3<T extends Enum<T> & IStringSerializable> extends Gene
         	worldIn.setBlockState(pos.west(), slavestate, 3);
         	worldIn.setBlockState(pos.west().up(), slavestate, 3);
         	worldIn.setBlockState(pos.west().up(2), slavestate, 3);
+    	}
+    	
+    	TileEntity tile = worldIn.getTileEntity(pos.up());
+    	if(tile!=null && tile instanceof Door3x3TileEntity) {
+    		Door3x3TileEntity door = (Door3x3TileEntity) tile;
+    		door.setOwner(player);
     	}
     }
 }

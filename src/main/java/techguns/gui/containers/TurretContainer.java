@@ -20,7 +20,7 @@ import techguns.tileentities.BasicPoweredTileEnt;
 import techguns.tileentities.TurretTileEnt;
 import techguns.tileentities.operation.ItemStackHandlerPlus;
 
-public class TurretContainer extends PoweredTileContainer {
+public class TurretContainer extends RedstoneTileContainer {
 	
 	protected int lastRepairTime=0;
 	protected boolean lastTurretDeath=false;

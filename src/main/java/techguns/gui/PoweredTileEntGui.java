@@ -17,7 +17,7 @@ import techguns.tileentities.BasicPoweredTileEnt;
 import techguns.util.TextUtil;
 import static techguns.gui.ButtonConstants.*;
 
-public abstract class PoweredTileEntGui extends OwnedTileEntGui {
+public abstract class PoweredTileEntGui extends RedstoneTileEntGui {
 	public static final String POWER_UNIT ="FE";
 	
 	protected BasicPoweredTileEnt poweredTileEnt;
@@ -54,19 +54,7 @@ public abstract class PoweredTileEntGui extends OwnedTileEntGui {
         if (hasUpgradeSlot) {
         	this.drawTexturedModalRect(k+upgradeSlotX, l+upgradeSlotY, 119, 59, 20, 20);
         }
-        
-        //draw redstone button backbround:
-        this.drawTexturedModalRect(k-22-5, l+10-5, 195, 0, 22+5, 30);
 
-        //draw Redstone control;
-        if(poweredTileEnt.isRedstoneEnabled()){
-        	this.drawTexturedModalRect(k+6, l+5, 240, 0, 5, 5);
-        	this.drawTexturedModalRect(k+6+5, l+5, 245, 5, 5, 5);
-        } else {
-        	this.drawTexturedModalRect(k+6, l+5, 240, 5, 5, 5);
-        	this.drawTexturedModalRect(k+6+5, l+5, 245, 0, 5, 5);
-        }
-		
 	}
 
 	@Override
@@ -82,22 +70,7 @@ public abstract class PoweredTileEntGui extends OwnedTileEntGui {
         	} else {
         		this.drawHoveringText(TextUtil.trans("techguns.container.power")+": "+this.poweredTileEnt.getEnergyStorage().getEnergyStored()+"/"+this.poweredTileEnt.getEnergyStorage().getMaxEnergyStored()+" "+POWER_UNIT, mx, my);
         	}	
-        } else if (isInRect(mx, my, 6, 5, 10, 5) || isInRect(mx,my,-22,10,20,20)){
-        	List<String> tooltip = new ArrayList<String>();
-        	tooltip.add(TextUtil.trans("techguns.container.redstone"));
-        	tooltip.add(TextUtil.trans("techguns.container.redstone.mode")+": "+TextUtil.trans(poweredTileEnt.getRedstoneModeText()));
-        	tooltip.add(TextUtil.trans("techguns.container.redstone.signal")+": "+TextUtil.trans(poweredTileEnt.getSignalStateText()));
-        	this.drawHoveringText(tooltip, mx, my);
         }
 	}
-
-	@Override
-	public void initGui() {
-		super.initGui();
-		this.buttonList.add(new GuiButtonRedstoneState(BUTTON_ID_REDSTONE, this.guiLeft-22, this.guiTop+10, 20, 20, "", poweredTileEnt));
-	}
-
-	
-	
 	
 }

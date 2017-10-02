@@ -55,6 +55,10 @@ public class BasicInventoryTileEnt extends TileEntity {
 		return inventory;
 	}
     
+    protected int getUseRangeSquared() {
+    	return 64;
+    }
+    
 	public boolean isUseableByPlayer(EntityPlayer player)
     {
         if (this.world.getTileEntity(this.pos) != this)
@@ -63,7 +67,7 @@ public class BasicInventoryTileEnt extends TileEntity {
         }
         else
         {
-            return player.getDistanceSq((double)this.pos.getX() + 0.5D, (double)this.pos.getY() + 0.5D, (double)this.pos.getZ() + 0.5D) <= 64.0D;
+            return player.getDistanceSq((double)this.pos.getX() + 0.5D, (double)this.pos.getY() + 0.5D, (double)this.pos.getZ() + 0.5D) <= getUseRangeSquared();
         }
     }
 
