@@ -34,6 +34,10 @@ public class BlockTGOre extends GenericBlock {
 		this.setDefaultState(this.blockState.getBaseState().withProperty(ORE_TYPE, EnumOreType.ORE_COPPER));
 	}
 	
+	public ItemStack getStackFor(EnumOreType type) {
+		return new ItemStack(this,1,this.getMetaFromState(this.getDefaultState().withProperty(ORE_TYPE, type)));
+	}
+	
 	@Override
 	public ItemBlock createItemBlock() {
 		GenericItemBlockMeta itemblock =  new GenericItemBlockMeta(this);

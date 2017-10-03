@@ -16,20 +16,14 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import techguns.TGBlocks;
 import techguns.Techguns;
 
-public class GenericBlock extends Block {
+public class GenericBlock extends Block implements IGenericBlock {
 	
 	public static final PropertyDirection FACING_ALL = BlockDirectional.FACING;
 	
 	public GenericBlock(String name, Material mat, MapColor mc, boolean addToItemList) {
 		super(mat, mc);
-		this.setRegistryName(new ResourceLocation(Techguns.MODID,name));
-		this.setUnlocalizedName(Techguns.MODID+"."+name);
-		this.setCreativeTab(Techguns.tabTechgun);
+		this.init(this, name, addToItemList);
 		this.setHardness(2.0f);
-		
-		if(addToItemList) {
-			TGBlocks.BLOCKLIST.add(this);
-		}
 	}
 	
 	public GenericBlock(String name, Material mat) {
@@ -47,14 +41,17 @@ public class GenericBlock extends Block {
 	/**
 	 * return the correct itemblock for initialization
 	 */
+	@Override
 	public ItemBlock createItemBlock() {
 		return new GenericItemBlock(this);
 	}
 	
+	@Override
 	public void registerBlock(RegistryEvent.Register<Block> event) {
 		event.getRegistry().register(this);
 	}
 	
+	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerItemBlockModels() {
 		

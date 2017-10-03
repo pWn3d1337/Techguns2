@@ -1,3 +1,26 @@
-"multipart": [
-        {   "apply": { "model": "techguns:testdoor_2" }}
-    ]
+{
+    "forge_marker": 1,
+    "defaults": {
+        "model": "techguns:testdoor_2"
+    },
+    "variants": {
+        "master": {
+            "true": {
+            },
+            "false": {
+            }
+        },
+		"open": {
+            "true": {
+            },
+            "false": {
+            }
+        },
+		"zplane": {
+            "true": {
+            },
+            "false": {
+            }
+        }
+	}
+}

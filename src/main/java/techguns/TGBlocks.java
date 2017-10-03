@@ -9,6 +9,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EnumPlayerModelParts;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -16,9 +17,12 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.oredict.OreDictionary;
 import techguns.blocks.BlockBioblob;
 import techguns.blocks.BlockSandbags;
 import techguns.blocks.BlockTGCamoNet;
+import techguns.blocks.BlockTGCamoNetTop;
+import techguns.blocks.BlockTGDoor2x1;
 import techguns.blocks.BlockTGDoor3x3;
 import techguns.blocks.BlockTGLadder;
 import techguns.blocks.BlockTGLamp;
@@ -28,9 +32,11 @@ import techguns.blocks.EnumConcreteType;
 import techguns.blocks.EnumDoorType;
 import techguns.blocks.EnumLadderType;
 import techguns.blocks.EnumLampType;
+import techguns.blocks.EnumOreType;
 import techguns.blocks.GenericBlock;
 import techguns.blocks.GenericBlockMetaEnum;
 import techguns.blocks.GenericItemBlock;
+import techguns.blocks.IGenericBlock;
 import techguns.blocks.TGMetalPanelType;
 import techguns.blocks.machines.BasicMachine;
 import techguns.blocks.machines.EnumMachineType;
@@ -44,7 +50,7 @@ import techguns.tools.BlockJsonCreator;
 import techguns.tools.ItemJsonCreator;
 
 public class TGBlocks implements ITGInitializer{
-	public static final ArrayList<GenericBlock> BLOCKLIST = new ArrayList<>();
+	public static final ArrayList<IGenericBlock> BLOCKLIST = new ArrayList<>();
 	
 	//Machines
 	public static BasicMachine<EnumMachineType> BASIC_MACHINE;
@@ -69,6 +75,9 @@ public class TGBlocks implements ITGInitializer{
 	public static BlockTGDoor3x3<EnumDoorType> DOOR3x3;
 	
 	public static BlockTGCamoNet CAMONET;
+	public static BlockTGCamoNetTop CAMONET_TOP;
+	
+	public static BlockTGDoor2x1 BUNKER_DOOR;
 	
 	public void registerBlocks(RegistryEvent.Register<Block> event) {
 		BLOCKLIST.forEach(b -> b.registerBlock(event));
@@ -97,11 +106,13 @@ public class TGBlocks implements ITGInitializer{
 		LADDER_0 = new BlockTGLadder<EnumLadderType>("ladder0", EnumLadderType.class);
 		DOOR3x3 = new BlockTGDoor3x3<EnumDoorType>("door3x3", EnumDoorType.class, TGItems.DOOR3x3);
 		CAMONET = new BlockTGCamoNet("camonet");
+		CAMONET_TOP = new BlockTGCamoNetTop("camonet_top");
+		BUNKER_DOOR = new BlockTGDoor2x1("bunkerdoor",TGItems.BUNKER_DOOR);
 		
 		if(TGItems.WRITE_ITEM_JSON && event.getSide()==Side.CLIENT){
-			BLOCKLIST.stream().filter(new Predicate<GenericBlock>() {
+			BLOCKLIST.stream().filter(new Predicate<IGenericBlock>() {
 				@Override
-				public boolean test(GenericBlock t) {
+				public boolean test(IGenericBlock t) {
 					return t instanceof GenericBlockMetaEnum;
 				}
 			}).forEach(b -> BlockJsonCreator.writeBlockstateJsonFileForBlock((GenericBlockMetaEnum)b));			
@@ -111,7 +122,12 @@ public class TGBlocks implements ITGInitializer{
 
 	@Override
 	public void init(FMLInitializationEvent event) {
-
+		OreDictionary.registerOre("oreCopper", TGBlocks.TG_ORE.getStackFor(EnumOreType.ORE_COPPER));
+		OreDictionary.registerOre("oreTin", TGBlocks.TG_ORE.getStackFor(EnumOreType.ORE_TIN));
+		OreDictionary.registerOre("oreLead", TGBlocks.TG_ORE.getStackFor(EnumOreType.ORE_LEAD));
+		OreDictionary.registerOre("oreUranium", TGBlocks.TG_ORE.getStackFor(EnumOreType.ORE_URANIUM));
+		OreDictionary.registerOre("oreTitaniumIron", TGBlocks.TG_ORE.getStackFor(EnumOreType.ORE_TITANIUM));
+		OreDictionary.registerOre("oreIllmenite", TGBlocks.TG_ORE.getStackFor(EnumOreType.ORE_TITANIUM));
 	}
 
 	@Override

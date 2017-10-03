@@ -16,6 +16,7 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin.MCVersion;
@@ -23,6 +24,7 @@ import techguns.init.ITGInitializer;
 import techguns.items.guns.ammo.AmmoTypes;
 import techguns.plugins.crafttweaker.TGCraftTweakerIntegration;
 import techguns.util.TGLogger;
+import techguns.world.OreGenerator;
 
 @Mod(modid = Techguns.MODID, version = Techguns.VERSION, name=Techguns.NAME, acceptedMinecraftVersions=Techguns.MCVERSION)
 public class Techguns
@@ -105,6 +107,10 @@ public class Techguns
     	
     	if(Loader.isModLoaded("crafttweaker")){
     		TGCraftTweakerIntegration.init();
+    	}
+    	
+    	if(TGConfig.doOreGenTitanium||TGConfig.doOreGenUranium||TGConfig.doOreGenLead||TGConfig.doOreGenTin||TGConfig.doOreGenCopper) {
+    		GameRegistry.registerWorldGenerator(new OreGenerator(), 1);
     	}
     }
     

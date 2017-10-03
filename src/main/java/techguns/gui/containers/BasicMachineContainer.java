@@ -5,7 +5,7 @@ import net.minecraft.inventory.IContainerListener;
 import techguns.tileentities.BasicInventoryTileEnt;
 import techguns.tileentities.BasicMachineTileEnt;
 
-public abstract class BasicMachineContainer extends PoweredTileContainer {	
+public abstract class BasicMachineContainer extends RedstoneTileContainer {	
 	protected int lastProgress = 0;
 	protected int lastTotaltime = 0;
 	protected int lastPowerStored = 0;

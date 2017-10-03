@@ -4,16 +4,17 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IContainerListener;
 import techguns.tileentities.BasicOwnedTileEnt;
 import techguns.tileentities.BasicPoweredTileEnt;
+import techguns.tileentities.BasicRedstoneTileEnt;
 
-public abstract class PoweredTileContainer extends OwnedTileContainer {
+public abstract class RedstoneTileContainer extends OwnedTileContainer {
 
-	BasicPoweredTileEnt tile;
+	BasicRedstoneTileEnt tile;
 	
 	protected byte lastRedstoneMode=0;
 	
 	public static final int FIELD_SYNC_ID_REDSTONE=FIELD_SYNC_ID_SECURITY+1;
 	
-	public PoweredTileContainer(InventoryPlayer player, BasicPoweredTileEnt ent) {
+	public RedstoneTileContainer(InventoryPlayer player, BasicRedstoneTileEnt ent) {
 		super(player, ent);
 		this.tile=ent;
 	}

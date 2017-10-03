@@ -189,6 +189,8 @@ public class TGSounds {
 	public static SoundEvent HELICOPTER_DEATH = createSoundEvent("npcs.apachedie");
 	public static SoundEvent HELICOPTER_EXPLODE = createSoundEvent("npcs.apacheexplode");
 	
+	public static SoundEvent BUNKER_DOOR_OPEN = createSoundEvent("blocks.metaldooropen");
+	
 	public static void registerSounds(RegistryEvent.Register<SoundEvent> event){
 		IForgeRegistry<SoundEvent> reg = event.getRegistry();
 		

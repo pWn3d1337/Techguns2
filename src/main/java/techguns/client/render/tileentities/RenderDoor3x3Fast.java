@@ -74,6 +74,8 @@ public class RenderDoor3x3Fast extends FastTESR<Door3x3TileEntity> {
 	public void renderTileEntityFast(Door3x3TileEntity te, double x, double y, double z, float partialTicks,
 			int destroyStage, float partial, BufferBuilder buffer) {
 
+		if (te == null) return;
+		
 		if(blockRenderer == null) blockRenderer = Minecraft.getMinecraft().getBlockRendererDispatcher();
 	       
 	    BlockPos pos = te.getPos();

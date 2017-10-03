@@ -6,12 +6,13 @@ import net.minecraftforge.fml.client.config.GuiButtonExt;
 import net.minecraftforge.fml.client.config.GuiUtils;
 import techguns.Techguns;
 import techguns.tileentities.BasicPoweredTileEnt;
+import techguns.tileentities.BasicRedstoneTileEnt;
 
 public class GuiButtonRedstoneState extends GuiButtonExt {
-	protected BasicPoweredTileEnt tileent;
+	protected BasicRedstoneTileEnt tileent;
 	public static final ResourceLocation texture_redstonestates = new ResourceLocation(Techguns.MODID,"textures/gui/ammo_press_gui.png");
 	
-	public GuiButtonRedstoneState(int id, int xPos, int yPos, int width, int height, String displayString,BasicPoweredTileEnt tile) {
+	public GuiButtonRedstoneState(int id, int xPos, int yPos, int width, int height, String displayString,BasicRedstoneTileEnt tile) {
 		super(id, xPos, yPos, width, height, displayString);
 		this.tileent=tile;
 	}

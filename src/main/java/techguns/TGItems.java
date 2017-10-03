@@ -20,6 +20,7 @@ import techguns.blocks.EnumDoorType;
 import techguns.init.ITGInitializer;
 import techguns.items.GenericItem;
 import techguns.items.GenericItemShared;
+import techguns.items.ItemTGDoor2x1;
 import techguns.items.ItemTGDoor3x3;
 import techguns.items.additionalslots.ItemAntiGravPack;
 import techguns.items.additionalslots.ItemGasMask;
@@ -218,6 +219,8 @@ public class TGItems implements ITGInitializer{
 	public static Item COMBAT_KNIFE;
 	public static Item CROWBAR;
 	
+	public static ItemTGDoor2x1 BUNKER_DOOR;
+	
 	//TOOL Materials
 	static ToolMaterial TG_STEEL = EnumHelper.addToolMaterial("Steel", 2, 1000, 7.5f, 2.5f, 12);
 		
@@ -383,6 +386,8 @@ public class TGItems implements ITGInitializer{
 		
 		COMBAT_KNIFE = new TGSword(TG_STEEL, "combatknife");
 		CROWBAR = new TGCrowbar(TG_STEEL, "crowbar");
+		
+		BUNKER_DOOR = new ItemTGDoor2x1("item_bunkerdoor");
 		
 		ITEMLIST_VANILLA_ITEM.add(COMBAT_KNIFE);
 		ITEMLIST_VANILLA_ITEM.add(CROWBAR);
