@@ -15,6 +15,7 @@ import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import techguns.TGBlocks;
 import techguns.TGPackets;
 import techguns.Techguns;
 import techguns.blocks.BlockTGDoor3x3;
@@ -55,13 +56,16 @@ public class Door3x3TileEntity extends BasicRedstoneTileEnt {
 	@Override
 	public AxisAlignedBB getRenderBoundingBox() {
 		IBlockState state = this.world.getBlockState(getPos());
-		if(state.getValue(BlockTGDoor3x3.ZPLANE)) {
-			//return new AxisAlignedBB(getPos().north(2).down(), this.getPos().south().up(2));
-			return new AxisAlignedBB(getPos()).grow(1, 1, 3);
-		} else {
-			//return new AxisAlignedBB(getPos().west(2).down(), this.getPos().east().up(2));
-			return new AxisAlignedBB(getPos()).grow(3, 1, 1);
+		if(state.getBlock() == TGBlocks.DOOR3x3) {
+			if(state.getValue(BlockTGDoor3x3.ZPLANE)) {
+				//return new AxisAlignedBB(getPos().north(2).down(), this.getPos().south().up(2));
+				return new AxisAlignedBB(getPos()).grow(1, 1, 3);
+			} else {
+				//return new AxisAlignedBB(getPos().west(2).down(), this.getPos().east().up(2));
+				return new AxisAlignedBB(getPos()).grow(3, 1, 1);
+			}
 		}
+		return super.getRenderBoundingBox();
 	}
 
 	@Override
@@ -91,8 +95,9 @@ public class Door3x3TileEntity extends BasicRedstoneTileEnt {
 
 	@Override
 	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
-		return !((oldState.getBlock()==newState.getBlock()) && (newState.getValue(BlockTGDoor3x3.MASTER) && oldState.getValue(BlockTGDoor3x3.MASTER) && 
+		boolean b = !((oldState.getBlock()==newState.getBlock()) && (newState.getValue(BlockTGDoor3x3.MASTER) && oldState.getValue(BlockTGDoor3x3.MASTER) && 
 				(oldState.getValue(BlockTGDoor3x3.ZPLANE)==newState.getValue(BlockTGDoor3x3.ZPLANE))));
+		return b;
 	}
 	
 	@Override

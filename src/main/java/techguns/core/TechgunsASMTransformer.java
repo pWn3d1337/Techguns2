@@ -522,10 +522,10 @@ public class TechgunsASMTransformer implements IClassTransformer {
         	
         	method.instructions.insert(targetNode, toInsert);
         	
-        	System.out.println("Successfully patched RenderItem.updateEquippedItem with ASM");
+        	System.out.println("Successfully patched ItemRenderer.updateEquippedItem with ASM");
         	
         } else {
-        	System.out.println("Error Patching RenderItem.updateEquippedIte with ASM");
+        	System.out.println("Error Patching ItemRenderer.updateEquippedItem with ASM");
         }
 	}
 	
