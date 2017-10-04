@@ -8,11 +8,17 @@ import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.EnumFacing;
+import techguns.TGBlocks;
 import techguns.blocks.BlockTGDoor3x3;
 
 public class BlockRotator {
 
 	public static IBlockState getRotatedHorizontal(IBlockState state, int times) {
+		
+		//DEBUG
+		if (state.getBlock() == TGBlocks.DOOR3x3) {
+			System.out.println("door");
+		}
 		
 		if(state.getProperties().containsKey(BlockHorizontal.FACING)) {
 			return getRotatedWithProperty(state, times, BlockHorizontal.FACING);
@@ -35,8 +41,10 @@ public class BlockRotator {
 	
 	protected static IBlockState getRotatedWithProperty(IBlockState state, int times, PropertyDirection property) {
 		EnumFacing facing = state.getValue(property);
-		while (times-- > 0) {
-			facing = facing.rotateYCCW();
+		if (!(facing == EnumFacing.UP || facing == EnumFacing.DOWN)) {
+			while (times-- > 0) {
+				facing = facing.rotateYCCW();
+			}
 		}
 		return state.withProperty(property, facing);	
 	}

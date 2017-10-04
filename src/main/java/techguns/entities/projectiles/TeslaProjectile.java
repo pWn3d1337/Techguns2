@@ -81,9 +81,9 @@ public class TeslaProjectile extends AbstractBeamProjectile{
 		if (raytraceresult != null) {
 			this.onHit(raytraceresult);
 			this.isDead = false;
-			if (!this.world.isRemote){
-				this.createImpactEffect(tgt);
-			}
+//			if (!this.world.isRemote){
+//				this.createImpactEffect(tgt);
+//			}
 		}
 	}
 	

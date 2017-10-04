@@ -3,6 +3,7 @@ package techguns.entities.projectiles;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -66,9 +67,9 @@ public abstract class AbstractBeamProjectile extends GenericProjectile {
 			this.isDead = false;
 			Vec3d hitVec = raytraceresult.hitVec;
 			distance = vec3d1.distanceTo(hitVec);
-			if (!this.world.isRemote){
-				this.createImpactEffect(hitVec);
-			}
+//			if (!this.world.isRemote){
+//				this.createImpactEffect(hitVec);
+//			}
 		}
 		laserPitch = this.rotationPitch;
 		laserYaw = this.rotationYaw;
@@ -77,7 +78,7 @@ public abstract class AbstractBeamProjectile extends GenericProjectile {
 		}
 	}
 	
-	protected void createImpactEffect(Vec3d hitVec) {}
+	//protected void createImpactEffect(Vec3d hitVec) {}
 	
 	@Override
 	public void onUpdate() {
@@ -103,5 +104,12 @@ public abstract class AbstractBeamProjectile extends GenericProjectile {
 		this.laserPitch = additionalData.readFloat();
 		this.laserYaw = additionalData.readFloat();
 		this.maxTicks = additionalData.readShort();
+	}
+	
+	@Override
+	public AxisAlignedBB getRenderBoundingBox() { //TODO
+		//Vec3d pos2 = new Vec3d(0, 0, distance).rotatePitch(laserPitch).rotateYaw(laserYaw);
+		Vec3d pos2 = new Vec3d(this.motionX, this.motionY, this.motionZ).normalize().scale(distance);
+		return new AxisAlignedBB(this.posX, this.posY, this.posZ, this.posX+pos2.z, this.posY + pos2.y, this.posZ + pos2.z);
 	}
 }
