@@ -8,8 +8,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import techguns.TGArmors;
-import techguns.client.models.ModelMultipart;
 
 public class RenderArmorItem extends RenderItemBase {
 

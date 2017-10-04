@@ -16,7 +16,6 @@ import techguns.gui.widgets.SlotTG;
 import techguns.gui.widgets.SlotTurretArmor;
 import techguns.gui.widgets.SlotTurretGun;
 import techguns.items.guns.GenericGun;
-import techguns.tileentities.BasicPoweredTileEnt;
 import techguns.tileentities.TurretTileEnt;
 import techguns.tileentities.operation.ItemStackHandlerPlus;
 

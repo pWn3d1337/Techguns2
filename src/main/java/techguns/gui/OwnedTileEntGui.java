@@ -1,5 +1,7 @@
 package techguns.gui;
 
+import static techguns.gui.ButtonConstants.BUTTON_ID_SECURITY;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -16,7 +18,6 @@ import techguns.gui.widgets.GuiButtonSecurity;
 import techguns.packets.PacketGuiButtonClick;
 import techguns.tileentities.BasicOwnedTileEnt;
 import techguns.util.TextUtil;
-import static techguns.gui.ButtonConstants.*;
 
 public abstract class OwnedTileEntGui extends TGBaseGui {
 

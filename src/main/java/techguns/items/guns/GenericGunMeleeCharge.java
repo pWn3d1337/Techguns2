@@ -17,11 +17,8 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.network.NetworkRegistry.TargetPoint;
-import net.minecraftforge.items.SlotItemHandler;
 import techguns.TGPackets;
 import techguns.TGSounds;
-import techguns.Techguns;
 import techguns.capabilities.TGExtendedPlayer;
 import techguns.client.ShooterValues;
 import techguns.client.audio.TGSoundCategory;
@@ -41,12 +38,12 @@ public class GenericGunMeleeCharge extends GenericGunCharge implements IGenericG
 	public HashMap<String, Integer> getMiningLevels() {
 		return mininglevels;
 	}
-
+	
 	@Override
-	public float getStrVsBlock(ItemStack stack, IBlockState state) {
+	public float getDestroySpeed(ItemStack stack, IBlockState state) {
 		return this.getDigSpeed(stack, state);
 	}
-	
+
 	@Override
 	public int getHarvestLevel(ItemStack stack, String toolClass, EntityPlayer player, IBlockState blockState) {
 		return this.getToolHarvestLevel(stack, toolClass, player, blockState);

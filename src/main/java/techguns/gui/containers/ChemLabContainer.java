@@ -7,7 +7,6 @@ import net.minecraft.inventory.IContainerListener;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
-import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
@@ -17,9 +16,7 @@ import techguns.gui.widgets.SlotMachineInput;
 import techguns.gui.widgets.SlotMachineUpgrade;
 import techguns.gui.widgets.SlotTG;
 import techguns.packets.PacketUpdateTileEntTanks;
-import techguns.tileentities.BasicMachineTileEnt;
 import techguns.tileentities.ChemLabTileEnt;
-import techguns.tileentities.MetalPressTileEnt;
 import techguns.tileentities.operation.ItemStackHandlerPlus;
 
 public class ChemLabContainer extends BasicMachineContainer {

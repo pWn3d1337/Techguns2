@@ -1,8 +1,6 @@
 package techguns.client.models.armor;
 
-import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import techguns.capabilities.TGExtendedPlayer;

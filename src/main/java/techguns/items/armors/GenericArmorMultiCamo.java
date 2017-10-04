@@ -1,10 +1,7 @@
 package techguns.items.armors;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-import javax.annotation.Nullable;
 
 import org.lwjgl.input.Keyboard;
 

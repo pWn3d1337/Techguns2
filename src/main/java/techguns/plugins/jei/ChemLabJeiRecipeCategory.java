@@ -1,6 +1,10 @@
 package techguns.plugins.jei;
 
-import static techguns.gui.containers.ChemLabContainer.*;
+import static techguns.gui.containers.ChemLabContainer.SLOTS_ROW1_Y;
+import static techguns.gui.containers.ChemLabContainer.SLOTS_ROW2_Y;
+import static techguns.gui.containers.ChemLabContainer.SLOT_INPUT1_X;
+import static techguns.gui.containers.ChemLabContainer.SLOT_INPUT2_X;
+import static techguns.gui.containers.ChemLabContainer.SLOT_OUTPUT_X;
 
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawableAnimated;
@@ -10,8 +14,6 @@ import mezz.jei.api.gui.IGuiItemStackGroup;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
 import net.minecraft.client.Minecraft;
-import net.minecraft.util.ResourceLocation;
-import techguns.gui.AmmoPressGui;
 import techguns.gui.ChemLabGui;
 import techguns.tileentities.ChemLabTileEnt;
 

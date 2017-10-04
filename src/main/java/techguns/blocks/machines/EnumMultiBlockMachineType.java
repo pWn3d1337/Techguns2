@@ -6,7 +6,10 @@ import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.IStringSerializable;
 import techguns.api.machines.IMachineType;
-import techguns.tileentities.*;
+import techguns.tileentities.FabricatorTileEntMaster;
+import techguns.tileentities.FabricatorTileEntSlave;
+import techguns.tileentities.ReactionChamberTileEntMaster;
+import techguns.tileentities.ReactionChamberTileEntSlave;
 
 public enum EnumMultiBlockMachineType implements IStringSerializable, IMachineType<EnumMultiBlockMachineType> {
 		FABRICATOR_HOUSING(0,FabricatorTileEntSlave.class,true,EnumBlockRenderType.MODEL),

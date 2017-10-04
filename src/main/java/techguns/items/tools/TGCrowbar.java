@@ -9,9 +9,10 @@ import org.lwjgl.input.Keyboard;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import techguns.util.ItemUtil;
-import techguns.util.TextUtil;
 
 public class TGCrowbar extends TGPickaxe {
 
@@ -41,4 +42,10 @@ public class TGCrowbar extends TGPickaxe {
 		}
 	}
 
+	@Override
+	public boolean doesSneakBypassUse(ItemStack stack, IBlockAccess world, BlockPos pos, EntityPlayer player) {
+		return true;
+	}
+
+	
 }

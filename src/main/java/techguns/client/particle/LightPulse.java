@@ -1,11 +1,8 @@
 package techguns.client.particle;
 
-import org.lwjgl.opengl.EXTAbgr;
-
 import elucent.albedo.lighting.Light;
 import net.minecraftforge.fml.common.Optional;
 import techguns.client.ClientProxy;
-import techguns.util.MathUtil;
 
 public class LightPulse {
 

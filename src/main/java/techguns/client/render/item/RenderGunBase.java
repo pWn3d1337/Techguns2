@@ -1,7 +1,5 @@
 package techguns.client.render.item;
 
-import com.mojang.realmsclient.gui.screens.RealmsClientOutdatedScreen;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType;
@@ -10,19 +8,14 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHandSide;
-import net.minecraft.util.ResourceLocation;
 import techguns.api.capabilities.AttackTime;
 import techguns.api.capabilities.ITGShooterValues;
-import techguns.api.guns.IGenericGun;
 import techguns.api.npc.INPCTechgunsShooter;
-import techguns.api.render.IItemRenderer;
 import techguns.capabilities.TGExtendedPlayer;
 import techguns.capabilities.TGShooterValues;
 import techguns.client.ClientProxy;
 import techguns.client.models.ModelMultipart;
-import techguns.client.render.TGRenderHelper;
 import techguns.client.render.fx.ScreenEffect;
-import techguns.debug.Keybinds;
 import techguns.items.guns.GenericGun;
 import techguns.items.guns.GenericGunCharge;
 

@@ -4,14 +4,12 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3i;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
 import techguns.Techguns;
 import techguns.gui.ButtonConstants;
 import techguns.world.dungeon.Dungeon;
 import techguns.world.dungeon.DungeonTemplate;
-import techguns.world.dungeon.TemplateSegment;
 
 public class DungeonGeneratorTileEnt extends BasicOwnedTileEnt {
 	

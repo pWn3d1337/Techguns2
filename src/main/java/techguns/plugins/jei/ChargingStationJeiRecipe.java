@@ -9,9 +9,7 @@ import mezz.jei.api.recipe.IStackHelper;
 import techguns.gui.PoweredTileEntGui;
 import techguns.gui.TGBaseGui;
 import techguns.tileentities.ChargingStationTileEnt;
-import techguns.tileentities.operation.AmmoPressBuildPlans;
 import techguns.tileentities.operation.ChargingStationRecipe;
-import techguns.tileentities.operation.IMachineRecipe;
 import techguns.util.TextUtil;
 
 public class ChargingStationJeiRecipe extends BasicRecipeWrapper {

@@ -2,7 +2,6 @@ package techguns.world;
 
 import java.util.Random;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -12,7 +11,6 @@ import net.minecraft.world.gen.feature.WorldGenMinable;
 import net.minecraftforge.fml.common.IWorldGenerator;
 import techguns.TGBlocks;
 import techguns.TGConfig;
-import techguns.Techguns;
 import techguns.blocks.EnumOreType;
 
 public class OreGenerator implements IWorldGenerator {

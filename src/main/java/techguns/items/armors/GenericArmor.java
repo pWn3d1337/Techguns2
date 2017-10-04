@@ -13,7 +13,6 @@ import com.mojang.realmsclient.gui.ChatFormatting;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -25,7 +24,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.ISpecialArmor;
-import net.minecraftforge.common.ISpecialArmor.ArmorProperties;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
@@ -252,7 +250,7 @@ public class GenericArmor extends ItemArmor implements ISpecialArmor , IItemTGRe
 			return 0.0f;
 		}
 		for (int i=0; i<4; i++){
-			ItemStack armor = ply.inventory.armorItemInSlot(i);
+			ItemStack armor = ply.inventory.armorInventory.get(i);
 			if (GenericArmor.isTechgunArmor(armor)){
 				
 				

@@ -19,12 +19,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
 import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
@@ -180,7 +178,7 @@ public class TGTickHandler {
 			 
 			 boolean wearingTechgunsArmor = false;
 			 for (int i =0;i<4;i++){
-				 ItemStack istack = event.player.inventory.armorItemInSlot(i);
+				 ItemStack istack = event.player.inventory.armorInventory.get(i);
 				 if (GenericArmor.isTechgunArmor(istack)){
 					 wearingTechgunsArmor = true;
 					 break;

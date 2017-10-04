@@ -1,23 +1,16 @@
 package techguns.gui;
 
-import java.awt.event.KeyEvent;
 import java.io.IOException;
 
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
-import techguns.TGItems;
 import techguns.TGPackets;
 import techguns.Techguns;
 import techguns.gui.containers.DungeonScannerContainer;
-import techguns.gui.widgets.GuiButtonToggleDrainTank;
 import techguns.packets.PacketGuiButtonClick;
-import techguns.tileentities.BasicOwnedTileEnt;
-import techguns.tileentities.ChemLabTileEnt;
 import techguns.tileentities.DungeonScannerTileEnt;
-import techguns.util.TextUtil;
 import techguns.world.dungeon.DungeonTemplate;
 
 public class DungeonScannerGui extends OwnedTileEntGui {

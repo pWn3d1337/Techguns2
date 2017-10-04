@@ -1,18 +1,9 @@
 package techguns.tileentities;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
-import net.minecraftforge.energy.EnergyStorage;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.items.CapabilityItemHandler;
 import techguns.TGConfig;
-import techguns.gui.RedstoneTileEntGui;
-
-import static techguns.gui.ButtonConstants.*;
 
 public abstract class BasicPoweredTileEnt extends BasicRedstoneTileEnt {
 	

@@ -10,8 +10,6 @@ import net.minecraftforge.items.IItemHandler;
 import techguns.gui.widgets.SlotItemHandlerOutput;
 import techguns.gui.widgets.SlotMachineInput;
 import techguns.gui.widgets.SlotMachineUpgrade;
-import techguns.gui.widgets.SlotTG;
-import techguns.tileentities.BasicMachineTileEnt;
 import techguns.tileentities.ChargingStationTileEnt;
 import techguns.tileentities.operation.ItemStackHandlerPlus;
 

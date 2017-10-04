@@ -10,8 +10,6 @@ import techguns.Techguns;
 import techguns.client.render.TGRenderHelper;
 import techguns.client.render.TGRenderHelper.RenderType;
 import techguns.entities.projectiles.AdvancedBulletProjectile;
-import techguns.entities.projectiles.BlasterProjectile;
-import techguns.entities.projectiles.GaussProjectile;
 import techguns.entities.projectiles.GenericProjectile;
 
 public class RenderAdvancedBulletProjectile<T extends AdvancedBulletProjectile> extends RenderGenericProjectile<T> {

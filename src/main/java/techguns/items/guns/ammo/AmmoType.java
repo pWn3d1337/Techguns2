@@ -3,8 +3,6 @@ package techguns.items.guns.ammo;
 import java.util.ArrayList;
 
 import net.minecraft.item.ItemStack;
-import techguns.TGItems;
-import techguns.items.guns.GenericGun;
 
 public class AmmoType {
 

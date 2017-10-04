@@ -84,7 +84,7 @@ public class TurretEntityAIWatchClosest extends EntityAIBase
         {
             return false;
         }
-        else if (this.entity.getDistanceSqToEntity(this.closestEntity) > (double)(this.maxDistanceForPlayer * this.maxDistanceForPlayer))
+        else if (this.entity.getDistanceSq(this.closestEntity) > (double)(this.maxDistanceForPlayer * this.maxDistanceForPlayer))
         {
             return false;
         }

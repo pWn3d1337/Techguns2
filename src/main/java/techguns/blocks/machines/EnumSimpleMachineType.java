@@ -5,10 +5,9 @@ import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.IStringSerializable;
 import techguns.api.machines.IMachineType;
-import techguns.tileentities.BasicInventoryTileEnt;
 import techguns.tileentities.CamoBenchTileEnt;
-import techguns.tileentities.RepairBenchTileEnt;
 import techguns.tileentities.ChargingStationTileEnt;
+import techguns.tileentities.RepairBenchTileEnt;
 
 public enum EnumSimpleMachineType implements IStringSerializable, IMachineType<EnumSimpleMachineType> {
 	CAMO_BENCH(0, CamoBenchTileEnt.class,true,EnumBlockRenderType.MODEL),

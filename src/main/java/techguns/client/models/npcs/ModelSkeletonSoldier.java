@@ -1,11 +1,6 @@
 package techguns.client.models.npcs;
 
-import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.client.model.ModelBiped.ArmPose;
-import net.minecraft.entity.Entity;
-import techguns.api.guns.IGenericGun;
-import techguns.entities.npcs.GenericNPC;
 
 public class ModelSkeletonSoldier extends ModelGenericNPC {
 

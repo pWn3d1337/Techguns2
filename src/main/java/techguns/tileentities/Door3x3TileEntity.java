@@ -1,5 +1,7 @@
 package techguns.tileentities;
 
+import static techguns.gui.ButtonConstants.BUTTON_ID_REDSTONE;
+
 import java.util.List;
 
 import net.minecraft.block.state.IBlockState;
@@ -20,9 +22,6 @@ import techguns.TGPackets;
 import techguns.Techguns;
 import techguns.blocks.BlockTGDoor3x3;
 import techguns.packets.PacketDoorStateChange;
-import techguns.packets.PacketUpdateTileEntTanks;
-
-import static techguns.gui.ButtonConstants.BUTTON_ID_REDSTONE;
 
 public class Door3x3TileEntity extends BasicRedstoneTileEnt {
 

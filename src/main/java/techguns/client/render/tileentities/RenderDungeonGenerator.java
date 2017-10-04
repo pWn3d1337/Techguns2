@@ -4,7 +4,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
@@ -12,9 +11,6 @@ import techguns.Techguns;
 import techguns.client.render.TGRenderHelper;
 import techguns.client.render.TGRenderHelper.RenderType;
 import techguns.tileentities.DungeonGeneratorTileEnt;
-import techguns.tileentities.DungeonScannerTileEnt;
-import techguns.world.dungeon.TemplateSegment;
-import techguns.world.dungeon.TemplateSegment.SegmentType;
 
 public class RenderDungeonGenerator extends TileEntitySpecialRenderer<DungeonGeneratorTileEnt> {
 

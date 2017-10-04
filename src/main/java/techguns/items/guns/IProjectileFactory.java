@@ -5,7 +5,6 @@ import net.minecraft.world.World;
 import techguns.api.damagesystem.DamageType;
 import techguns.entities.projectiles.EnumBulletFirePos;
 import techguns.entities.projectiles.GenericProjectile;
-import techguns.entities.projectiles.RocketProjectile;
 
 public interface IProjectileFactory<T extends GenericProjectile> {
 

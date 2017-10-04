@@ -2,7 +2,6 @@ package techguns.entities.ai;
 
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import techguns.api.npc.factions.ITGNpcTeam;
 import techguns.factions.TGNpcFactions;

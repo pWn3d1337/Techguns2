@@ -4,7 +4,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import techguns.api.damagesystem.DamageType;
-import techguns.entities.projectiles.GrenadeProjectile.Factory;
 import techguns.items.guns.IGrenadeProjectileFactory;
 
 public class FragGrenadeProjectile extends GrenadeProjectile {

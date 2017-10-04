@@ -13,7 +13,6 @@ import net.minecraftforge.fml.common.gameevent.InputEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import techguns.TGPackets;
-import techguns.api.guns.GunHandType;
 import techguns.api.guns.GunManager;
 import techguns.capabilities.TGExtendedPlayer;
 import techguns.items.guns.GenericGun;

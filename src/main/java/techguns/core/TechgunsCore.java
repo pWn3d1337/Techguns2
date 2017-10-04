@@ -2,7 +2,6 @@ package techguns.core;
 
 import com.google.common.eventbus.EventBus;
 
-import net.minecraft.client.model.ModelMinecart;
 import net.minecraftforge.fml.common.DummyModContainer;
 import net.minecraftforge.fml.common.LoadController;
 import net.minecraftforge.fml.common.ModMetadata;

@@ -3,7 +3,6 @@ package techguns.entities.projectiles;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
@@ -14,7 +13,6 @@ import techguns.damagesystem.TGDamageSource;
 import techguns.deatheffects.EntityDeathUtils.DeathType;
 import techguns.items.guns.GenericGun;
 import techguns.items.guns.IChargedProjectileFactory;
-import techguns.items.guns.IProjectileFactory;
 import techguns.packets.PacketSpawnParticle;
 
 public class PowerHammerProjectile extends GenericProjectile {

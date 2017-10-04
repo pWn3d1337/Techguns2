@@ -6,12 +6,9 @@ import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformT
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import techguns.TGItems;
-import techguns.api.capabilities.AttackTime;
 import techguns.api.npc.INPCTechgunsShooter;
 import techguns.api.render.IItemRenderer;
 import techguns.client.models.ModelMultipart;
-import techguns.debug.Keybinds;
 
 public class RenderItemBase implements IItemRenderer {
 

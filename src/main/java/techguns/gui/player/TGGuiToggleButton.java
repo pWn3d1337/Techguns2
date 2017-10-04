@@ -2,7 +2,6 @@ package techguns.gui.player;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.fml.client.config.GuiUtils;
 import techguns.TGPackets;
 import techguns.capabilities.TGExtendedPlayer;

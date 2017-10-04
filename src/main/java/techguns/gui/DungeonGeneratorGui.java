@@ -4,16 +4,13 @@ import java.io.IOException;
 
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
 import techguns.TGPackets;
 import techguns.Techguns;
 import techguns.gui.containers.DungeonGeneratorContainer;
 import techguns.packets.PacketGuiButtonClick;
-import techguns.tileentities.BasicOwnedTileEnt;
 import techguns.tileentities.DungeonGeneratorTileEnt;
-import techguns.tileentities.DungeonScannerTileEnt;
 import techguns.world.dungeon.DungeonTemplate;
 
 public class DungeonGeneratorGui extends OwnedTileEntGui {

@@ -1,7 +1,6 @@
 package techguns.capabilities;
 
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
 import techguns.deatheffects.EntityDeathUtils.DeathType;
 
 public class TGDeathTypeCap {

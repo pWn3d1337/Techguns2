@@ -6,13 +6,11 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 import techguns.TGPackets;
 import techguns.api.damagesystem.DamageType;
 import techguns.damagesystem.TGExplosion;
 import techguns.items.guns.IGrenadeProjectileFactory;
-import techguns.items.guns.IProjectileFactory;
 import techguns.packets.PacketSpawnParticle;
 
 public class GrenadeProjectile extends GenericProjectile {

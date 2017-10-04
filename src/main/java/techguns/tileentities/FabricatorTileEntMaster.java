@@ -1,7 +1,5 @@
 package techguns.tileentities;
 
-import java.util.ArrayList;
-
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
@@ -10,8 +8,6 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import techguns.TGBlocks;
 import techguns.TGItems;
 import techguns.TGSounds;
@@ -20,9 +16,7 @@ import techguns.blocks.machines.MultiBlockMachine;
 import techguns.tileentities.operation.FabricatorRecipe;
 import techguns.tileentities.operation.FabricatorRecipe.RecipeData;
 import techguns.tileentities.operation.ItemStackHandlerPlus;
-import techguns.tileentities.operation.MachineSlotFluid;
 import techguns.tileentities.operation.MachineSlotItem;
-import techguns.util.ItemStackOreDict;
 
 public class FabricatorTileEntMaster extends MultiBlockMachineTileEntMaster {
 

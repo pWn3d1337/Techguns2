@@ -1,14 +1,11 @@
 package techguns;
 
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
-import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.registries.IForgeRegistry;
@@ -35,21 +32,15 @@ import techguns.entities.projectiles.SonicShotgunProjectile;
 import techguns.entities.projectiles.StoneBulletProjectile;
 import techguns.entities.projectiles.TeslaProjectile;
 import techguns.init.ITGInitializer;
-import techguns.items.GenericItem;
 import techguns.items.guns.Chainsaw;
 import techguns.items.guns.GenericGrenade;
 import techguns.items.guns.GenericGun;
 import techguns.items.guns.GenericGunCharge;
-import techguns.items.guns.GenericGunMeleeCharge;
-import techguns.items.guns.GenericGunNoRenderHack;
 import techguns.items.guns.GuidedMissileLauncher;
 import techguns.items.guns.IProjectileFactory;
 import techguns.items.guns.PowerHammer;
 import techguns.items.guns.SonicShotgun;
-import techguns.items.guns.ammo.AmmoType;
 import techguns.items.guns.ammo.AmmoTypes;
-import techguns.recipes.RecipeJsonConverter;
-import techguns.recipes.Recipewriter;
 import techguns.tools.ItemJsonCreator;
 
 public class TGuns implements ITGInitializer {
@@ -149,7 +140,7 @@ public class TGuns implements ITGInitializer {
 	
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
-		OBJLoader.INSTANCE.addDomain(Techguns.MODID);
+
 		IProjectileFactory GENERIC_BULLET = new GenericProjectile.Factory();
 		IProjectileFactory BLASTER_PROJECTILE = new BlasterProjectile.Factory();
 		

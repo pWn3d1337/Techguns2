@@ -3,18 +3,12 @@ package techguns.gui;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import techguns.TGPackets;
-import techguns.Techguns;
 import techguns.gui.containers.RepairBenchContainer;
 import techguns.gui.widgets.GuiButtonRepair;
 import techguns.items.armors.GenericArmor;
-import techguns.packets.PacketGuiButtonClick;
-import techguns.tileentities.BasicOwnedTileEnt;
 import techguns.tileentities.RepairBenchTileEnt;
 import techguns.util.InventoryUtil;
 import techguns.util.TextUtil;

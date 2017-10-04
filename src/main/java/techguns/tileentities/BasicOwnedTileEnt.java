@@ -1,12 +1,13 @@
 package techguns.tileentities;
 
+import static techguns.gui.ButtonConstants.BUTTON_ID_SECURITY;
+
 import java.util.UUID;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import techguns.api.machines.ITGTileEntSecurity;
 import techguns.factions.TGNpcFactions;
-import static techguns.gui.ButtonConstants.*;
 
 public class BasicOwnedTileEnt extends BasicInventoryTileEnt implements ITGTileEntSecurity {
 	

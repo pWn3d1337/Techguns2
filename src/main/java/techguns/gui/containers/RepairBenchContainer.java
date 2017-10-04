@@ -10,7 +10,6 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import techguns.gui.widgets.SlotArmor;
-import techguns.tileentities.BasicInventoryTileEnt;
 import techguns.tileentities.RepairBenchTileEnt;
 
 public class RepairBenchContainer extends OwnedTileContainer {

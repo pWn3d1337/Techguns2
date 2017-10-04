@@ -18,8 +18,6 @@ import net.minecraft.world.World;
 import techguns.TGArmors;
 import techguns.TGuns;
 import techguns.Techguns;
-import techguns.debug.Keybinds;
-import techguns.items.armors.GenericArmorMultiCamo;
 
 public class SkeletonSoldier extends GenericNPC {
 

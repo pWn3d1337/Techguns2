@@ -1,40 +1,24 @@
 package techguns.blocks.machines;
 
-import java.util.Arrays;
-
-import com.google.common.base.Joiner;
-import com.google.common.collect.Iterables;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockHorizontal;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
-import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.Mirror;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.event.RegistryEvent.Register;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import techguns.Techguns;
 import techguns.api.machines.IMachineType;
-import techguns.blocks.GenericItemBlockMeta;
+import techguns.tileentities.BasicInventoryTileEnt;
 import techguns.util.BlockUtils;
 
 /**
@@ -129,5 +113,17 @@ public class SimpleMachine<T extends Enum<T> & IStringSerializable & IMachineTyp
 		EnumFacing facing = state.getValue(FACING);
 		return state.withProperty(FACING,mirrorIn.mirror(facing));
 	}
+
+	@Override
+	public boolean rotateBlock(World world, BlockPos pos, EnumFacing axis) {
+		if (axis == EnumFacing.DOWN || axis==EnumFacing.UP) {
+			IBlockState state = world.getBlockState(pos);
+			IBlockState statenew = state.withProperty(FACING, state.getValue(FACING).rotateY());
+			world.setBlockState(pos, statenew, 3);
+			return true;
+		}
+		return false;
+	}
+	
 	
 }

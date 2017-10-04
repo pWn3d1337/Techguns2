@@ -1,7 +1,5 @@
 package techguns.entities.projectiles;
 
-import java.util.List;
-
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
@@ -10,13 +8,10 @@ import net.minecraft.entity.MoverType;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import techguns.client.particle.TGFX;
-import techguns.client.particle.TGParticleSystem;
-import techguns.client.particle.TGParticleSystemType;
 import techguns.client.particle.DeathEffect.GoreData;
+import techguns.client.particle.TGParticleSystem;
 
 public class FlyingGibs extends Entity{
 

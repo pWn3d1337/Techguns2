@@ -3,18 +3,13 @@ package techguns.client.particle;
 import java.util.List;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.particle.IParticleFactory;
 import net.minecraft.client.particle.Particle;
-import net.minecraft.client.particle.ParticleExplosion;
-import net.minecraft.client.particle.ParticleExplosionHuge;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import techguns.client.ClientProxy;
 import techguns.client.particle.TGParticleSystemType.DirResult;
 import techguns.util.MathUtil;
 

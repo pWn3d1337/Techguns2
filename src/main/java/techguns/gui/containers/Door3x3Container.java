@@ -2,7 +2,6 @@ package techguns.gui.containers;
 
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IContainerListener;
-import techguns.tileentities.BasicOwnedTileEnt;
 import techguns.tileentities.Door3x3TileEntity;
 
 public class Door3x3Container extends OwnedTileContainer {

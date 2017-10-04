@@ -5,7 +5,6 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraftforge.common.model.TRSRTransformation;
 import techguns.capabilities.TGExtendedPlayer;
 import techguns.client.models.ModelMultipart;
 import techguns.client.render.TGRenderHelper;

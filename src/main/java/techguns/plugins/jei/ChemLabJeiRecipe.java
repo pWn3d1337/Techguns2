@@ -1,16 +1,12 @@
 package techguns.plugins.jei;
 
-import techguns.tileentities.operation.ChemLabRecipes;
-import techguns.tileentities.operation.ChemLabRecipes.ChemLabRecipe;
-import techguns.tileentities.operation.MetalPressRecipes.MetalPressRecipe;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.recipe.IStackHelper;
-import techguns.tileentities.operation.IMachineRecipe;
-import techguns.tileentities.operation.MetalPressRecipes;
+import techguns.tileentities.operation.ChemLabRecipes;
+import techguns.tileentities.operation.ChemLabRecipes.ChemLabRecipe;
 
 public class ChemLabJeiRecipe extends BasicRecipeWrapper {
 

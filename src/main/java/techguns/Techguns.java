@@ -1,14 +1,7 @@
 package techguns;
 
-import java.util.logging.Level;
-
-import net.minecraft.client.Minecraft;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -19,18 +12,16 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin.MCVersion;
 import techguns.init.ITGInitializer;
 import techguns.items.guns.ammo.AmmoTypes;
 import techguns.plugins.crafttweaker.TGCraftTweakerIntegration;
-import techguns.util.TGLogger;
 import techguns.world.OreGenerator;
 
 @Mod(modid = Techguns.MODID, version = Techguns.VERSION, name=Techguns.NAME, acceptedMinecraftVersions=Techguns.MCVERSION)
 public class Techguns
 {
     public static final String MODID = "techguns";
-    public static final String MCVERSION = "1.12.1";
+    public static final String MCVERSION = "1.12.2";
     public static final String VERSION = MCVERSION+"-2.0.1.0";
     public static final String NAME = "Techguns";
 
@@ -100,7 +91,6 @@ public class Techguns
     {
     	TGConfig.init(event);
     	for (ITGInitializer init : initializers){
-    		//TGLogger.logger_both.log(Level.WARNING, "PRE_INIT:"+init);
     		init.preInit(event);
     	}
     	proxy.preInit(event);

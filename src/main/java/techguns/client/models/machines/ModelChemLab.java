@@ -3,7 +3,6 @@ package techguns.client.models.machines;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
-import techguns.client.render.TGRenderHelper;
 
 public class ModelChemLab extends ModelMachine{
 

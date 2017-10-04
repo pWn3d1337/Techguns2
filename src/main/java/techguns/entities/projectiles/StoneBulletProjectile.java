@@ -3,7 +3,6 @@ package techguns.entities.projectiles;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.world.World;
 import techguns.api.damagesystem.DamageType;
-import techguns.client.ClientProxy;
 import techguns.items.guns.GenericGun;
 import techguns.items.guns.IProjectileFactory;
 

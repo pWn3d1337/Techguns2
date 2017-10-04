@@ -4,7 +4,6 @@ import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
-import techguns.capabilities.TGExtendedPlayer;
 
 public class ModelNightVisionGoggles extends ModelAdditionalSlotBase {
 	// fields

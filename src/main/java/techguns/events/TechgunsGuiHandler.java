@@ -48,21 +48,6 @@ import techguns.tileentities.RepairBenchTileEnt;
 import techguns.tileentities.TurretTileEnt;
 
 public class TechgunsGuiHandler implements IGuiHandler {
-
-	static {
-		GuiHandlerEntry.<CamoBenchTileEnt>addEntry(CamoBenchTileEnt.class, CamoBenchGui::new, CamoBenchContainer::new);
-		GuiHandlerEntry.<RepairBenchTileEnt>addEntry(RepairBenchTileEnt.class, RepairBenchGui::new, RepairBenchContainer::new);
-		GuiHandlerEntry.<AmmoPressTileEnt>addEntry(AmmoPressTileEnt.class, AmmoPressGui::new, AmmoPressContainer::new);
-		GuiHandlerEntry.<MetalPressTileEnt>addEntry(MetalPressTileEnt.class, MetalPressGui::new, MetalPressContainer::new);
-		GuiHandlerEntry.<ChemLabTileEnt>addEntry(ChemLabTileEnt.class, ChemLabGui::new, ChemLabContainer::new);
-		GuiHandlerEntry.<TurretTileEnt>addEntry(TurretTileEnt.class, TurretGui::new, TurretContainer::new);
-		GuiHandlerEntry.<FabricatorTileEntMaster>addEntry(FabricatorTileEntMaster.class, FabricatorGui::new, FabricatorContainer::new);
-		GuiHandlerEntry.<ChargingStationTileEnt>addEntry(ChargingStationTileEnt.class, ChargingStationGui::new, ChargingStationContainer::new);
-		GuiHandlerEntry.<ReactionChamberTileEntMaster>addEntry(ReactionChamberTileEntMaster.class, ReactionChamberGui::new, ReactionChamberContainer::new);
-		GuiHandlerEntry.<DungeonScannerTileEnt>addEntry(DungeonScannerTileEnt.class, DungeonScannerGui::new, DungeonScannerContainer::new);
-		GuiHandlerEntry.<DungeonGeneratorTileEnt>addEntry(DungeonGeneratorTileEnt.class, DungeonGeneratorGui::new, DungeonGeneratorContainer::new);
-		GuiHandlerEntry.<Door3x3TileEntity>addEntry(Door3x3TileEntity.class, Door3x3Gui::new, Door3x3Container::new);
-	}
 	
 	public static void openGuiForPlayer(EntityPlayer ply, TileEntity tile) {
 		int id = getGuiIdForTile(tile.getClass());
@@ -72,7 +57,7 @@ public class TechgunsGuiHandler implements IGuiHandler {
 	}
 	
 	public static int getGuiIdForTile(Class clazz) {
-		GuiHandlerEntry entry = GuiHandlerEntry.getByTileClass.get(clazz);
+		GuiHandlerEntry entry = Techguns.proxy.getGuihandlers().getByTileClass.get(clazz);
 		if (entry!=null) {
 			return entry.id;
 		}
@@ -86,7 +71,7 @@ public class TechgunsGuiHandler implements IGuiHandler {
 		} else {
 			TileEntity tileEntity = world.getTileEntity(new BlockPos(x,y,z));
 			if (tileEntity!=null) {
-				GuiHandlerEntry entry = GuiHandlerEntry.getByID.get(ID);
+				GuiHandlerEntry entry = Techguns.proxy.getGuihandlers().getByID.get(ID);
 				if (entry!=null) {
 					return entry.servergui.createElement(player.inventory, tileEntity);
 				}
@@ -104,7 +89,7 @@ public class TechgunsGuiHandler implements IGuiHandler {
 		else {
 			TileEntity tileEntity = world.getTileEntity(new BlockPos(x,y,z));
 			if (tileEntity!=null) {
-				GuiHandlerEntry entry = GuiHandlerEntry.getByID.get(ID);
+				GuiHandlerEntry entry = Techguns.proxy.getGuihandlers().getByID.get(ID);
 				if (entry!=null) {
 					return entry.clientgui.createElement(player.inventory, tileEntity);
 				}
@@ -114,41 +99,44 @@ public class TechgunsGuiHandler implements IGuiHandler {
 	}
 	
 	
+	public static class GuiHandlerRegister {
+		private int nextId=1;
+		private HashMap<Class, GuiHandlerEntry> getByTileClass = new HashMap<>();
+		private HashMap<Integer, GuiHandlerEntry> getByID = new HashMap<>();
+		
+		public <T extends TileEntity> void addEntry(Class<? extends T> tile, IGuiFactory<T> servergui) {
+			this.<T>addEntry(tile, null, servergui);
+		}
+		
+		public <T extends TileEntity> void addEntry(Class<? extends T> tile, IGuiFactory<T> clientgui, IGuiFactory<T> servergui) {
+			GuiHandlerEntry<T> entry = new GuiHandlerEntry(tile, clientgui, servergui, nextId++);
+			
+			getByTileClass.put(tile, entry);
+			getByID.put(entry.id, entry);
+		}
+	}
 	
-	private static class GuiHandlerEntry<T> {
-		private static int nextId=1;
-		
-		private static HashMap<Class, GuiHandlerEntry> getByTileClass = new HashMap<>();
-		private static HashMap<Integer, GuiHandlerEntry> getByID = new HashMap<>();
-		
+	public static class GuiHandlerEntry<T> {
 		protected int id;		
 		public Class<T> tileclass;
 		protected IGuiFactory<T> clientgui;
 		protected IGuiFactory<T> servergui;
 		
-		public static <T extends TileEntity> void addEntry(Class<? extends T> tile, IGuiFactory<T> clientgui, IGuiFactory<T> servergui) {
-			new GuiHandlerEntry(tile, clientgui, servergui);
-		}
-		
-		private GuiHandlerEntry(Class<T> tile, IGuiFactory<T> clientgui, IGuiFactory<T> servergui ) {
+		protected GuiHandlerEntry(Class<T> tile, IGuiFactory<T> clientgui, IGuiFactory<T> servergui, int id) {
 			super();
-			this.id=nextId++;
+			this.id=id;
 			this.tileclass = tile;
 			this.clientgui=clientgui;
 			this.servergui=servergui;
-			
-			getByTileClass.put(this.tileclass, this);
-			getByID.put(this.id, this);
 		}
 
-		public IGuiFactory<T> getClientgui() {
+		public IGuiFactory<T> getClientGui() {
 			return clientgui;
 		}
-
-		public IGuiFactory<T> getServergui() {
+		
+		public IGuiFactory<T> getServerGui() {
 			return servergui;
 		}
-		
 	}
 	
 }

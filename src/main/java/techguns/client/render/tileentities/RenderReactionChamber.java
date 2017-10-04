@@ -1,11 +1,8 @@
 package techguns.client.render.tileentities;
 
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -14,7 +11,6 @@ import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fluids.Fluid;
@@ -22,11 +18,8 @@ import net.minecraftforge.fluids.FluidStack;
 import techguns.Techguns;
 import techguns.client.render.TGRenderHelper;
 import techguns.client.render.TGRenderHelper.RenderType;
-import techguns.tileentities.ChargingStationTileEnt;
 import techguns.tileentities.ReactionChamberTileEntMaster;
 import techguns.tileentities.operation.ReactionBeamFocus;
-import techguns.util.MathUtil;
-import techguns.util.MathUtil.Vec2;
 
 public class RenderReactionChamber extends TileEntitySpecialRenderer<ReactionChamberTileEntMaster>{
 

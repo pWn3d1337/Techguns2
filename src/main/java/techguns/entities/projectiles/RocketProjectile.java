@@ -1,13 +1,11 @@
 package techguns.entities.projectiles;
 
-import net.minecraftforge.fml.common.Optional;
 import elucent.albedo.lighting.ILightProvider;
 import elucent.albedo.lighting.Light;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.Optional;
 import techguns.TGPackets;
 import techguns.Techguns;
 import techguns.api.damagesystem.DamageType;

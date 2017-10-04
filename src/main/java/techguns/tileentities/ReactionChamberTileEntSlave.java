@@ -1,17 +1,14 @@
 package techguns.tileentities;
 
 import net.minecraft.block.Block;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
 import techguns.TGBlocks;
 import techguns.blocks.machines.MultiBlockMachine;
-import techguns.util.BlockUtils;
 
 public class ReactionChamberTileEntSlave extends MultiBlockMachineTileEntSlave {
 	

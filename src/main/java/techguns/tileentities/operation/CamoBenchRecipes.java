@@ -4,12 +4,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import techguns.items.armors.ICamoChangeable;
-import techguns.plugins.jei.CamoBenchJeiRecipe;
 
 public class CamoBenchRecipes {
 

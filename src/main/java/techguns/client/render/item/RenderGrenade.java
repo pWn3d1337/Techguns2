@@ -8,7 +8,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import techguns.client.models.ModelMultipart;
 import techguns.items.guns.GenericGrenade;
-import techguns.items.guns.GenericGunCharge;
 import techguns.util.MathUtil;
 
 public class RenderGrenade extends RenderItemBase {

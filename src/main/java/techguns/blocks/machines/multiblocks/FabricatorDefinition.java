@@ -1,23 +1,15 @@
 package techguns.blocks.machines.multiblocks;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.Rotation;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import techguns.TGBlocks;
-import techguns.TGPackets;
 import techguns.blocks.machines.EnumMultiBlockMachineType;
-import techguns.blocks.machines.MultiBlockMachine;
-import techguns.packets.PacketSpawnParticle;
 import techguns.tileentities.FabricatorTileEntMaster;
-import techguns.tileentities.FabricatorTileEntSlave;
 import techguns.tileentities.MultiBlockMachineTileEntMaster;
 
 public class FabricatorDefinition extends MultiBlockMachineSchematic {

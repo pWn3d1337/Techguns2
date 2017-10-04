@@ -1,24 +1,20 @@
 package techguns.events;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 
 import elucent.albedo.event.GatherLightsEvent;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelBiped.ArmPose;
-import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.model.ModelPlayer;
+import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumHandSide;
 import net.minecraft.util.ResourceLocation;
@@ -27,24 +23,18 @@ import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.MouseEvent;
 import net.minecraftforge.client.event.RenderHandEvent;
 import net.minecraftforge.client.event.RenderLivingEvent;
-import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
-import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.network.NetworkRegistry.TargetPoint;
-import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import techguns.TGConfig;
@@ -71,7 +61,6 @@ import techguns.items.armors.TGArmorBonus;
 import techguns.items.guns.GenericGrenade;
 import techguns.items.guns.GenericGun;
 import techguns.items.guns.GenericGunCharge;
-import techguns.items.guns.IGenericGunMelee;
 import techguns.packets.PacketEntityDeathType;
 import techguns.packets.PacketRequestTGPlayerSync;
 import techguns.packets.PacketTGExtendedPlayerSync;
@@ -383,16 +372,6 @@ public class TGEventHandler {
 	}
 	
 	@SideOnly(Side.CLIENT)
-	protected static Field Field_ItemRenderer_equippedProgressMainhand = ReflectionHelper.findField(ItemRenderer.class, "equippedProgressMainHand", "field_187469_f");
-	@SideOnly(Side.CLIENT)
-	protected static Field Field_ItemRenderer_equippedProgressOffhand = ReflectionHelper.findField(ItemRenderer.class, "equippedProgressOffHand", "field_187471_h");
-	@SideOnly(Side.CLIENT)
-	protected static Field Field_ItemRenderer_prevEquippedProgressMainhand = ReflectionHelper.findField(ItemRenderer.class, "prevEquippedProgressMainHand", "field_187470_g");
-	@SideOnly(Side.CLIENT)
-	protected static Field Field_ItemRenderer_prevEquippedProgressOffhand = ReflectionHelper.findField(ItemRenderer.class, "prevEquippedProgressOffHand", "field_187472_i");
-	
-	
-	@SideOnly(Side.CLIENT)
 	@SubscribeEvent
 	public static void onRenderHand(RenderHandEvent event) {
 		float t = 1.0f;
@@ -404,15 +383,16 @@ public class TGEventHandler {
 
 			ItemRenderer itemrenderer = Minecraft.getMinecraft().getItemRenderer();
 			try {
+				ClientProxy cp = ClientProxy.get();
 				if(hand==EnumHand.MAIN_HAND) {
-					if(Field_ItemRenderer_equippedProgressMainhand.getFloat(itemrenderer)<t) {
-						Field_ItemRenderer_equippedProgressMainhand.setFloat(itemrenderer, t);
-						Field_ItemRenderer_prevEquippedProgressMainhand.setFloat(itemrenderer, t);
+					if(cp.Field_ItemRenderer_equippedProgressMainhand.getFloat(itemrenderer)<t) {
+						cp.Field_ItemRenderer_equippedProgressMainhand.setFloat(itemrenderer, t);
+						cp.Field_ItemRenderer_prevEquippedProgressMainhand.setFloat(itemrenderer, t);
 					}
 				} else {
-					if(Field_ItemRenderer_equippedProgressOffhand.getFloat(itemrenderer)<t) {
-						Field_ItemRenderer_equippedProgressOffhand.setFloat(itemrenderer, t);
-						Field_ItemRenderer_prevEquippedProgressOffhand.setFloat(itemrenderer, t);
+					if(cp.Field_ItemRenderer_equippedProgressOffhand.getFloat(itemrenderer)<t) {
+						cp.Field_ItemRenderer_equippedProgressOffhand.setFloat(itemrenderer, t);
+						cp.Field_ItemRenderer_prevEquippedProgressOffhand.setFloat(itemrenderer, t);
 					}
 				}
 			} catch (IllegalArgumentException e) {

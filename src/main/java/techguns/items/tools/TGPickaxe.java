@@ -7,7 +7,6 @@ import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
-import techguns.TGItems;
 import techguns.Techguns;
 import techguns.api.damagesystem.DamageType;
 import techguns.api.damagesystem.IToolTGDamageSystem;

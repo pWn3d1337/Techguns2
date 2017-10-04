@@ -1,6 +1,5 @@
 package techguns.packets;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 
 import crafttweaker.CraftTweakerAPI;

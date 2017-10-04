@@ -2,11 +2,10 @@ package techguns.items.guns;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import org.lwjgl.input.Keyboard;
 
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Multimap;
 import com.mojang.realmsclient.gui.ChatFormatting;
 
 import net.minecraft.client.util.ITooltipFlag;
@@ -19,45 +18,37 @@ import net.minecraft.entity.IEntityMultiPart;
 import net.minecraft.entity.IRangedAttackMob;
 import net.minecraft.entity.MultiPartEntityPart;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemSword;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.play.server.SPacketEntityVelocity;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry.TargetPoint;
-
-import java.util.Random;
 import techguns.TGItems;
 import techguns.TGPackets;
 import techguns.TGSounds;
-import techguns.TGuns;
 import techguns.Techguns;
-import techguns.api.capabilities.ITGExtendedPlayer;
 import techguns.api.damagesystem.DamageType;
+import techguns.api.guns.GunHandType;
+import techguns.api.guns.IGenericGun;
 import techguns.api.render.IItemTGRenderer;
 import techguns.capabilities.TGExtendedPlayer;
-import techguns.capabilities.TGExtendedPlayerCapProvider;
 import techguns.client.ClientProxy;
 import techguns.client.ShooterValues;
 import techguns.client.audio.TGSoundCategory;
@@ -78,8 +69,6 @@ import techguns.packets.ReloadStartedMessage;
 import techguns.util.InventoryUtil;
 import techguns.util.SoundUtil;
 import techguns.util.TextUtil;
-import techguns.api.guns.GunHandType;
-import techguns.api.guns.IGenericGun;
 
 public class GenericGun extends GenericItem implements IGenericGun, IItemTGRenderer, ICamoChangeable {
 	public static final float SOUND_DISTANCE=4.0f;
@@ -1021,7 +1010,7 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 								for (EntityLivingBase entitylivingbase : player.world.getEntitiesWithinAABB(EntityLivingBase.class,
 										targetEntity.getEntityBoundingBox().grow(1.0D, 0.25D, 1.0D))) {
 									if (entitylivingbase != player && entitylivingbase != targetEntity && !player.isOnSameTeam(entitylivingbase)
-											&& player.getDistanceSqToEntity(entitylivingbase) < 9.0D) {
+											&& player.getDistanceSq(entitylivingbase) < 9.0D) {
 										entitylivingbase.knockBack(player, 0.4F, (double) MathHelper.sin(player.rotationYaw * 0.017453292F),
 												(double) (-MathHelper.cos(player.rotationYaw * 0.017453292F)));
 										entitylivingbase.attackEntityFrom(getMeleeDamageSource(player,stack), f3);
@@ -1318,4 +1307,5 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 		}
 		
 	}
+
 }

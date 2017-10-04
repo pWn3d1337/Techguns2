@@ -7,10 +7,8 @@ import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
 import techguns.Techguns;
 import techguns.client.models.guns.ModelFragGrenade;
-import techguns.client.models.guns.ModelStielgranate;
 import techguns.client.render.item.RenderItemBase;
 import techguns.entities.projectiles.FragGrenadeProjectile;
-import techguns.entities.projectiles.GrenadeProjectile;
 
 public class RenderFragGrenadeProjectile extends Render<FragGrenadeProjectile> {
 

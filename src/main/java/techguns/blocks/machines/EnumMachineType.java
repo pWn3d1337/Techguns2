@@ -5,7 +5,12 @@ import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.IStringSerializable;
 import techguns.api.machines.IMachineType;
-import techguns.tileentities.*;
+import techguns.tileentities.AmmoPressTileEnt;
+import techguns.tileentities.ChemLabTileEnt;
+import techguns.tileentities.DungeonGeneratorTileEnt;
+import techguns.tileentities.DungeonScannerTileEnt;
+import techguns.tileentities.MetalPressTileEnt;
+import techguns.tileentities.TurretTileEnt;
 
 public enum EnumMachineType implements IStringSerializable, IMachineType<EnumMachineType> {
 	AMMO_PRESS(0,AmmoPressTileEnt.class,false,EnumBlockRenderType.ENTITYBLOCK_ANIMATED),

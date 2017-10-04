@@ -1,7 +1,6 @@
 package techguns.client.render.tileentities;
 
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 
 public class TessellatorCube {

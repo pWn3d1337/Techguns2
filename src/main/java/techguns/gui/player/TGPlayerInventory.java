@@ -7,7 +7,6 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
@@ -169,7 +168,7 @@ public class TGPlayerInventory implements IInventory {
 		if (this.player.isDead) {
 			return false;
 		} else {
-			return player.getDistanceSqToEntity(this.player) <= 64.0D;
+			return player.getDistanceSq(this.player) <= 64.0D;
 		}
 	}
 

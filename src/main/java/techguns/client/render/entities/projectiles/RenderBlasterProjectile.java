@@ -1,7 +1,5 @@
 package techguns.client.render.entities.projectiles;
 
-import javax.print.attribute.TextSyntax;
-
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;

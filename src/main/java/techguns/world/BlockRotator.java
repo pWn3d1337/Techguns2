@@ -1,6 +1,5 @@
 package techguns.world;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirectional;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.BlockLever;
@@ -8,7 +7,6 @@ import net.minecraft.block.BlockTorch;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
 import techguns.blocks.BlockTGDoor3x3;
 

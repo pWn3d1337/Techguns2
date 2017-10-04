@@ -8,12 +8,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.SlotItemHandler;
-import techguns.gui.widgets.SlotAmmoPressInput;
 import techguns.gui.widgets.SlotItemHandlerOutput;
 import techguns.gui.widgets.SlotMachineInput;
 import techguns.gui.widgets.SlotMachineUpgrade;
-import techguns.tileentities.AmmoPressTileEnt;
 import techguns.tileentities.MetalPressTileEnt;
 import techguns.tileentities.operation.ItemStackHandlerPlus;
 

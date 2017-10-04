@@ -7,10 +7,6 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import techguns.Techguns;
-import techguns.client.models.machines.ModelMachine;
-import techguns.client.models.machines.ModelTurretBase;
-import techguns.client.models.npcs.ModelTurret;
-import techguns.tileentities.BasicMachineTileEnt;
 import techguns.tileentities.TurretTileEnt;
 
 public class RenderTurret extends TileEntitySpecialRenderer<TurretTileEnt> {

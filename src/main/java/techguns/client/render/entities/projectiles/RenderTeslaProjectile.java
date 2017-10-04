@@ -9,10 +9,8 @@ import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
-import techguns.TGuns;
 import techguns.client.render.TGRenderHelper;
 import techguns.client.render.TGRenderHelper.RenderType;
-import techguns.entities.projectiles.LaserProjectile;
 import techguns.entities.projectiles.TeslaProjectile;
 
 public class RenderTeslaProjectile extends Render<TeslaProjectile> {

@@ -6,7 +6,6 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.inventory.Slot;
 import techguns.tileentities.BasicInventoryTileEnt;
-import techguns.tileentities.CamoBenchTileEnt;
 
 public class TGBaseContainer extends Container {
 	protected BasicInventoryTileEnt basictile;

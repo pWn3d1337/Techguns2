@@ -4,13 +4,10 @@ import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 import techguns.Techguns;
 import techguns.client.models.guns.ModelStielgranate;
-import techguns.client.models.projectiles.ModelRocket;
 import techguns.client.render.item.RenderItemBase;
-import techguns.debug.Keybinds;
 import techguns.entities.projectiles.GrenadeProjectile;
 
 public class RenderGrenadeProjectile extends Render<GrenadeProjectile> {

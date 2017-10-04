@@ -1,11 +1,9 @@
 package techguns.entities.projectiles;
 
 import io.netty.buffer.ByteBuf;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import techguns.TGPackets;
@@ -15,9 +13,7 @@ import techguns.capabilities.TGExtendedPlayer;
 import techguns.client.ClientProxy;
 import techguns.damagesystem.TGExplosion;
 import techguns.items.guns.GenericGun;
-import techguns.items.guns.GuidedMissileLauncher;
 import techguns.items.guns.IChargedProjectileFactory;
-import techguns.items.guns.IProjectileFactory;
 import techguns.packets.PacketSpawnParticle;
 import techguns.util.MathUtil;
 

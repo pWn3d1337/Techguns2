@@ -5,9 +5,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import techguns.api.damagesystem.DamageType;
 import techguns.items.guns.GenericGun;
-import techguns.items.guns.IGrenadeProjectileFactory;
 import techguns.items.guns.IProjectileBounceFactory;
-import techguns.items.guns.IProjectileFactory;
 
 public class Grenade40mmProjectile extends GrenadeProjectile {
 

@@ -14,7 +14,6 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
 import techguns.TGItems;
 import techguns.TGSounds;
-import techguns.Techguns;
 import techguns.util.InventoryUtil;
 import techguns.util.TextUtil;
 

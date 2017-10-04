@@ -12,12 +12,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHandSide;
-import techguns.api.guns.GunHandType;
 import techguns.api.guns.GunManager;
 import techguns.api.render.IItemRenderer;
 import techguns.api.render.IItemTGRenderer;
-import techguns.debug.Keybinds;
-import techguns.items.guns.GenericGun;
 import techguns.items.guns.IGenericGunMelee;
 
 public class ItemRenderHack {
@@ -33,12 +30,23 @@ public class ItemRenderHack {
 		return renderRegistry.get(item);
 	}
 	
-	public static float getAttackStrengthForRendering(EntityPlayer ply, float adjustTicks, ItemStack mainhand, ItemStack offhand) {
+	/*public static float getAttackStrengthForRendering(EntityPlayer ply, float adjustTicks, ItemStack mainhand, ItemStack offhand) {
 		//System.out.println("HACK IS WORKING");
 		if(!mainhand.isEmpty() && mainhand.getItem() instanceof IGenericGunMelee) {
 			return 1f;
 		}
 		return ply.getCooledAttackStrength(adjustTicks);
+	}*/
+	
+	public static float getAttackStrengthForRendering() { //, float adjustTicks, ItemStack mainhand, ItemStack offhand) {
+		//System.out.println("HACK IS WORKING");
+		EntityPlayer ply = Minecraft.getMinecraft().player;
+		ItemStack mainhand = ply.getHeldItemMainhand();
+		ItemStack offhand = ply.getHeldItemOffhand();
+		if(!mainhand.isEmpty() && mainhand.getItem() instanceof IGenericGunMelee) {
+			return 1f;
+		}
+		return ply.getCooledAttackStrength(1.0f);
 	}
 	
 	public static boolean renderItem(ItemStack stack, EntityLivingBase elb, ItemCameraTransforms.TransformType transform, boolean leftHanded){

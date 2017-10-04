@@ -1,5 +1,8 @@
 package techguns.plugins.jei;
 
+import static techguns.plugins.jei.BasicRecipeCategory.JEI_OFFSET_X;
+import static techguns.plugins.jei.BasicRecipeCategory.JEI_OFFSET_Y;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -17,14 +20,9 @@ import net.minecraft.client.gui.Gui;
 import techguns.gui.PoweredTileEntGui;
 import techguns.gui.ReactionChamberGui;
 import techguns.gui.TGBaseGui;
-import techguns.tileentities.operation.AmmoPressBuildPlans;
-import techguns.tileentities.operation.IMachineRecipe;
 import techguns.tileentities.operation.ReactionChamberOperation;
 import techguns.tileentities.operation.ReactionChamberRecipe;
 import techguns.util.TextUtil;
-
-import static techguns.plugins.jei.BasicRecipeCategory.JEI_OFFSET_X;
-import static techguns.plugins.jei.BasicRecipeCategory.JEI_OFFSET_Y;
 
 public class ReactionChamberJeiRecipe extends BasicRecipeWrapper {
 

@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.SoundEvent;
-import techguns.util.ItemStackOreDict;
-import techguns.util.ItemUtil;
 
 public class ReactionBeamFocus {
 	
