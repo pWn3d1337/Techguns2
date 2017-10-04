@@ -2,8 +2,6 @@ package techguns.capabilities;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import techguns.TGSounds;
 import techguns.client.audio.TGSound;
 import techguns.client.audio.TGSoundCategory;

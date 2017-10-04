@@ -42,7 +42,6 @@ import techguns.tileentities.BasicOwnedTileEnt;
 import techguns.tileentities.MultiBlockMachineTileEntMaster;
 import techguns.tileentities.MultiBlockMachineTileEntSlave;
 import techguns.tileentities.TurretTileEnt;
-import techguns.world.BlockRotator;
 
 /**
  * A Machine that is rendered with TESR and has no properties besides type, 16 types per block.

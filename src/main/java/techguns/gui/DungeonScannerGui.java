@@ -1,7 +1,6 @@
 package techguns.gui;
 
 import java.io.IOException;
-import java.util.HashMap;
 
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.InventoryPlayer;

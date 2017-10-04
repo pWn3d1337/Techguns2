@@ -226,7 +226,6 @@ import techguns.entities.projectiles.SonicShotgunProjectile;
 import techguns.entities.projectiles.StoneBulletProjectile;
 import techguns.entities.projectiles.TeslaProjectile;
 import techguns.events.TGGuiEvents;
-import techguns.events.TechgunsGuiHandler.GuiHandlerEntry;
 import techguns.events.TechgunsGuiHandler.GuiHandlerRegister;
 import techguns.gui.AmmoPressGui;
 import techguns.gui.CamoBenchGui;
