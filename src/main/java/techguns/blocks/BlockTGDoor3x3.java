@@ -567,7 +567,7 @@ public class BlockTGDoor3x3<T extends Enum<T> & IStringSerializable> extends Gen
 
 	@Override
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-		if(worldIn.isRemote || !state.getValue(MASTER)) return;
+		if(worldIn.isRemote || (state.getBlock()!=this) || !state.getValue(MASTER)) return;
 		
 		//System.out.println("Block Update Tick!");
 		

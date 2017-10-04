@@ -1,14 +1,14 @@
 [
 {
-  "modid": "examplemod",
-  "name": "Example Mod",
-  "description": "Example placeholder mod.",
+  "modid": "techguns",
+  "name": "Techguns",
+  "description": "Guns, Armors, NPCs, Machines and more",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "",
   "updateUrl": "",
-  "authorList": ["ExampleDude"],
-  "credits": "The Forge and FML guys, for making this example",
+  "authorList": ["pWn3d_1337, Th3_St4lk3r"],
+  "credits": "",
   "logoFile": "",
   "screenshots": [],
   "dependencies": []

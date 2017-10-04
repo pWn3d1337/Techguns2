@@ -28,6 +28,7 @@ import techguns.blocks.BlockTGLadder;
 import techguns.blocks.BlockTGLamp;
 import techguns.blocks.BlockTGMetalPanel;
 import techguns.blocks.BlockTGOre;
+import techguns.blocks.BlockTGStairs;
 import techguns.blocks.EnumConcreteType;
 import techguns.blocks.EnumDoorType;
 import techguns.blocks.EnumLadderType;
@@ -79,6 +80,8 @@ public class TGBlocks implements ITGInitializer{
 	
 	public static BlockTGDoor2x1 BUNKER_DOOR;
 	
+	public static BlockTGStairs METAL_STAIRS;
+	
 	public void registerBlocks(RegistryEvent.Register<Block> event) {
 		BLOCKLIST.forEach(b -> b.registerBlock(event));
 	}
@@ -108,6 +111,8 @@ public class TGBlocks implements ITGInitializer{
 		CAMONET = new BlockTGCamoNet("camonet");
 		CAMONET_TOP = new BlockTGCamoNetTop("camonet_top");
 		BUNKER_DOOR = new BlockTGDoor2x1("bunkerdoor",TGItems.BUNKER_DOOR);
+		
+		METAL_STAIRS = new BlockTGStairs("stairs_metal", Material.IRON);
 		
 		if(TGItems.WRITE_ITEM_JSON && event.getSide()==Side.CLIENT){
 			BLOCKLIST.stream().filter(new Predicate<IGenericBlock>() {

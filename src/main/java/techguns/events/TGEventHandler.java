@@ -71,6 +71,7 @@ import techguns.items.armors.TGArmorBonus;
 import techguns.items.guns.GenericGrenade;
 import techguns.items.guns.GenericGun;
 import techguns.items.guns.GenericGunCharge;
+import techguns.items.guns.IGenericGunMelee;
 import techguns.packets.PacketEntityDeathType;
 import techguns.packets.PacketRequestTGPlayerSync;
 import techguns.packets.PacketTGExtendedPlayerSync;
@@ -420,7 +421,26 @@ public class TGEventHandler {
 				e.printStackTrace();
 			}
 			
-		}
+		} /*else {
+			
+			if(!ply.getHeldItemMainhand().isEmpty() && ply.getHeldItemMainhand().getItem() instanceof IGenericGunMelee) {
+				ItemRenderer itemrenderer = Minecraft.getMinecraft().getItemRenderer();
+				float f = ply.getCooledAttackStrength(1.0f);
+				System.out.println("f:"+f);
+				if (f<1f) {
+					try {
+						System.out.println("Set to 1");
+						Field_ItemRenderer_equippedProgressMainhand.setFloat(itemrenderer, 1.0f);
+						Field_ItemRenderer_prevEquippedProgressMainhand.setFloat(itemrenderer, 1.0f);
+					} catch (IllegalArgumentException e) {
+						e.printStackTrace();
+					} catch (IllegalAccessException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+			
+		}*/
 
 	}
 	

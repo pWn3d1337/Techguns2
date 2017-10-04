@@ -24,6 +24,7 @@ import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.client.model.animation.FastTESR;
 import net.minecraftforge.common.model.IModelState;
 import net.minecraftforge.common.model.TRSRTransformation;
+import techguns.TGBlocks;
 import techguns.Techguns;
 import techguns.blocks.BlockTGDoor3x3;
 import techguns.tileentities.Door3x3TileEntity;
@@ -81,6 +82,7 @@ public class RenderDoor3x3Fast extends FastTESR<Door3x3TileEntity> {
 	    BlockPos pos = te.getPos();
         IBlockAccess world = MinecraftForgeClient.getRegionRenderCache(te.getWorld(), pos);
         IBlockState state = world.getBlockState(pos);
+        if(state.getBlock() != TGBlocks.DOOR3x3) return;
 		
         double px = x-pos.getX();
         double py = y-pos.getY();
