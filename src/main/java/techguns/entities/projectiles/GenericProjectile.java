@@ -605,7 +605,8 @@ public class GenericProjectile extends Entity implements IProjectile, IEntityAdd
 
 	@Override
 	protected void writeEntityToNBT(NBTTagCompound tags) {
-
+		
+		
 		tags.setFloat("damage", this.damage);
 		tags.setFloat("speed", this.speed);
 

@@ -2,6 +2,7 @@ package techguns.entities.projectiles;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.RayTraceResult;
@@ -140,6 +141,20 @@ public class GrenadeProjectile extends GenericProjectile {
 		this.setDead();
 	}
 	
+	@Override
+	protected void readEntityFromNBT(NBTTagCompound tags) {
+		super.readEntityFromNBT(tags);
+		this.bounces=tags.getByte("bounces");
+		this.bounced=tags.getBoolean("bounced");
+	}
+
+	@Override
+	protected void writeEntityToNBT(NBTTagCompound tags) {
+		super.writeEntityToNBT(tags);
+		tags.setByte("bounces", (byte) this.bounces);
+		tags.setBoolean("bounced", this.bounced);
+	}
+
 	public static class Factory implements IGrenadeProjectileFactory<GrenadeProjectile> {
 
 		@Override

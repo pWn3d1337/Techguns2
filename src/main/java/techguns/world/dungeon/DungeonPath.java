@@ -6,6 +6,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 import techguns.world.dungeon.TemplateSegment.SegmentType;
+import techguns.world.dungeon.presets.IDungeonPreset;
 
 public class DungeonPath {
 
@@ -551,23 +552,39 @@ public class DungeonPath {
 	}
 	
 
-	public void generateDungeon(World world, int posX, int posY, int posZ, DungeonTemplate template) {
+	public void generateDungeon(World world, int posX, int posY, int posZ, IDungeonPreset preset) {
 		for (int i = 0; i < sX; i++) {
 			for (int j = 0; j < sY; j++) {
 				for (int k = 0; k < sZ; k++) {
+					boolean above = false;
+					for (int y = j+1; y < sY; y++) { //Check if there is a segment above this one
+						if (this.dungeonVolume[i][y][k] != null) {
+							above = true;
+							break;
+						}
+					}
+					boolean below = false;
+					for (int y = j-1; y >= 0; y--) { //Check if there is a segment above this one
+						if (this.dungeonVolume[i][y][k] != null) {
+							below = true;
+							break;
+						}
+					}
+					
 					PathSegment segment = dungeonVolume[i][j][k];
 					if (segment != null) {
 						//SegmentType segType = segment.findSegmentType();
 						if (segment.isRamp) {
 							if (segment.elevation == 1) {
 								//TemplateSegment tempSeg = TemplateSegment.templateSegments.get(SegmentType.RAMP);
-								int px = posX+(i*template.sizeXZ);
-								int py = posY+(j*template.sizeY);
-								int pz = posZ+(k*template.sizeXZ);
+								int px = posX+(i*preset.getSizeXZ());
+								int py = posY+(j*preset.getSizeY());
+								int pz = posZ+(k*preset.getSizeXZ());
 								int r = segment.getRampRotation();
 								//Workaround
 								if (r== 0 || r == 2) r = (r+2)%4;
-								template.segments.get(SegmentType.RAMP).placeSegment(world, px, py, pz, (r+1) %4);
+								//template.segments.get(SegmentType.RAMP).placeSegment(world, px, py, pz, (r+1) %4);
+								preset.getSegment(SegmentType.RAMP, segment.y, 0, this.sY, above, below, world.rand.nextInt()).placeSegment(world, px, py, pz, (r+1) %4);
 							}
 						}else {
 						
@@ -584,13 +601,14 @@ public class DungeonPath {
 									}
 								}
 								if (match) {
-									int px = posX+(i*template.sizeXZ);
-									int py = posY+(j*template.sizeY);
-									int pz = posZ+(k*template.sizeXZ);
+									int px = posX+(i*preset.getSizeXZ());
+									int py = posY+(j*preset.getSizeY());
+									int pz = posZ+(k*preset.getSizeXZ());
 									if (tempSeg.type == SegmentType.END && j == (sY+this.startHeightLevel)%sY) {										
-										template.segments.get(SegmentType.ENTRANCE).placeSegment(world, px, py, pz, r);
+										preset.getSegment(SegmentType.ENTRANCE, segment.y, 0, this.sY, above, below, world.rand.nextInt()).placeSegment(world, px, py, pz, r);
 									}else {										
-										template.segments.get(tempSeg.type).placeSegment(world, px, py, pz, r);
+										int seed = segment.roomID > 0 ? segment.roomID : world.rand.nextInt();									
+										preset.getSegment(tempSeg.type, segment.y, 0, this.sY, above, below, seed).placeSegment(world, px, py, pz, r);
 									}
 									ok = true;
 									break;
@@ -603,30 +621,16 @@ public class DungeonPath {
 						}
 					}else {
 						if (useFoundations || usePillars) {
-							boolean above = false;
-							for (int y = j+1; y < sY; y++) { //Check if there is a segment above this one
-								if (this.dungeonVolume[i][y][k] != null) {
-									above = true;
-									break;
-								}
-							}
-							boolean below = false;
-							for (int y = j-1; y >= 0; y--) { //Check if there is a segment above this one
-								if (this.dungeonVolume[i][y][k] != null) {
-									below = true;
-									break;
-								}
-							}
 							if (useFoundations && above && !below) {
-								int px = posX+(i*template.sizeXZ);
-								int py = posY+(j*template.sizeY);
-								int pz = posZ+(k*template.sizeXZ);
-								template.segments.get(SegmentType.FOUNDATION).placeSegment(world, px, py, pz, 0);
+								int px = posX+(i*preset.getSizeXZ());
+								int py = posY+(j*preset.getSizeY());
+								int pz = posZ+(k*preset.getSizeXZ());
+								preset.getSegment(SegmentType.FOUNDATION, j, 0, this.sY, above, below, world.rand.nextInt()).placeSegment(world, px, py, pz, 0);
 							}else if (usePillars && above ) {
-								int px = posX+(i*template.sizeXZ);
-								int py = posY+(j*template.sizeY);
-								int pz = posZ+(k*template.sizeXZ);
-								template.segments.get(SegmentType.PILLARS).placeSegment(world, px, py, pz, 0);
+								int px = posX+(i*preset.getSizeXZ());
+								int py = posY+(j*preset.getSizeY());
+								int pz = posZ+(k*preset.getSizeXZ());
+								preset.getSegment(SegmentType.PILLARS, j, 0, this.sY, above, below, world.rand.nextInt()).placeSegment(world, px, py, pz, 0);
 							}
 						}
 					}

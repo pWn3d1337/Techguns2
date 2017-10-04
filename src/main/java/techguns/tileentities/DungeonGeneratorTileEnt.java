@@ -10,6 +10,8 @@ import techguns.Techguns;
 import techguns.gui.ButtonConstants;
 import techguns.world.dungeon.Dungeon;
 import techguns.world.dungeon.DungeonTemplate;
+import techguns.world.dungeon.presets.IDungeonPreset;
+import techguns.world.dungeon.presets.PresetTemplateTest;
 
 public class DungeonGeneratorTileEnt extends BasicOwnedTileEnt {
 	
@@ -75,9 +77,14 @@ public class DungeonGeneratorTileEnt extends BasicOwnedTileEnt {
 	}
 	
 	private void generateDungeon(String name) {
-		if (name == null || name.equals("") || name.length() ==0 || !DungeonTemplate.dungeonTemplates.containsKey(name)) return;
+		Dungeon dungeon;
+		if (name == null || name.equals("") || name.length() ==0 || !DungeonTemplate.dungeonTemplates.containsKey(name)) {
+			dungeon = new Dungeon(IDungeonPreset.PRESET_TECHFORTRESS);
+		}else {
+			dungeon = new Dungeon(new PresetTemplateTest(DungeonTemplate.dungeonTemplates.get(name)));
+		}
 		
-		Dungeon dungeon = new Dungeon(DungeonTemplate.dungeonTemplates.get(name));
+		 
 		dungeon.generate(this.world, this.pos.getX()+1, this.pos.getY(), this.pos.getZ()+1, this.sizeX,this.sizeY, this.sizeZ);
 		//TODO
 	}
