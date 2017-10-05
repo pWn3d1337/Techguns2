@@ -23,6 +23,7 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.client.model.ModelLoader;
@@ -39,6 +40,7 @@ import techguns.blocks.machines.multiblocks.MultiBlockRegister;
 import techguns.events.TechgunsGuiHandler;
 import techguns.tileentities.BasicInventoryTileEnt;
 import techguns.tileentities.BasicOwnedTileEnt;
+import techguns.tileentities.BasicRedstoneTileEnt;
 import techguns.tileentities.MultiBlockMachineTileEntMaster;
 import techguns.tileentities.MultiBlockMachineTileEntSlave;
 import techguns.tileentities.TurretTileEnt;
@@ -101,6 +103,20 @@ public class BasicMachine<T extends Enum<T> & IStringSerializable & IMachineType
 			((MultiBlockMachineTileEntSlave) tile).onBlockBreak();
 		}
 		super.breakBlock(worldIn, pos, state);
+	}
+	
+	
+	@Override
+	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
+		TileEntity tile = worldIn.getTileEntity(pos);
+		if(tile!=null && tile instanceof BasicRedstoneTileEnt){
+			((BasicRedstoneTileEnt)tile).onNeighborBlockChange();		
+		}
+	}
+
+	@Override
+	public boolean shouldCheckWeakPower(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
+		return true;
 	}
 
 	@Override

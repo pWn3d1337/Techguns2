@@ -202,7 +202,7 @@ public class BlockSandbags extends GenericBlock {
 	    }
 	    
 	    private boolean canConnectCorner(IBlockAccess world, BlockPos pos, EnumFacing f1, EnumFacing f2) {
-	    	return canFenceConnectTo(world, pos, f1) && canFenceConnectTo(world, pos, f2) && canFenceConnectTo(world, pos.offset(f1), f2) && canFenceConnectTo(world, pos.offset(f2), f1);
+	    	return canFenceConnectTo(world, pos, f1) && canFenceConnectTo(world, pos, f2) && (canFenceConnectTo(world, pos.offset(f1), f2) || canFenceConnectTo(world, pos.offset(f2), f1));
 	    }
 	    
 	    
@@ -293,9 +293,18 @@ public class BlockSandbags extends GenericBlock {
 		}
 
 		@Override
-		public BlockFaceShape getBlockFaceShape(IBlockAccess p_193383_1_, IBlockState p_193383_2_, BlockPos p_193383_3_,
-				EnumFacing p_193383_4_) {
-			return BlockFaceShape.MIDDLE_POLE_THICK;
+		public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos,
+				EnumFacing facing) {
+			if(facing==EnumFacing.UP || facing==EnumFacing.DOWN) {
+				return BlockFaceShape.MIDDLE_POLE_THICK;
+			} else {
+				return BlockFaceShape.UNDEFINED;
+			}
+		}
+
+		@Override
+		public boolean canPlaceTorchOnTop(IBlockState state, IBlockAccess world, BlockPos pos) {
+			return true;
 		}
 		
 }

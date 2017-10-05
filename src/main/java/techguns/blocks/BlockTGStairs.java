@@ -546,20 +546,10 @@ public class BlockTGStairs extends GenericBlock {
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void registerItemBlockModels() {
-//		for(int i = 0; i< clazz.getEnumConstants().length;i++) {
-//			IBlockState state = getDefaultState().withProperty(TYPE, clazz.getEnumConstants()[i]);
-//			ModelLoader.setCustomModelResourceLocation(this.itemblock, this.getMetaFromState(state), new ModelResourceLocation(getRegistryName(),BlockUtils.getBlockStateVariantString(state)));
-//		}
-		
 		IBlockState state = getDefaultState();
 		IBlockState state2 = getDefaultState().withProperty(TYPE2, true);
 		ModelLoader.setCustomModelResourceLocation(this.itemblock, this.getMetaFromState(state), new ModelResourceLocation(getRegistryName(),BlockUtils.getBlockStateVariantString(state)));
 		ModelLoader.setCustomModelResourceLocation(this.itemblock, this.getMetaFromState(state2), new ModelResourceLocation(getRegistryName(),BlockUtils.getBlockStateVariantString(state2)));
-
-		System.out.println("Meta1:"+this.getMetaFromState(state));
-		System.out.println("Meta2:"+this.getMetaFromState(state2));
-		System.out.println("Loc1:"+new ModelResourceLocation(getRegistryName(),BlockUtils.getBlockStateVariantString(state)));
-		System.out.println("Loc2:"+new ModelResourceLocation(getRegistryName(),BlockUtils.getBlockStateVariantString(state2)));
 	}
     
 }

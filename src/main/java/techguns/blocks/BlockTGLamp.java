@@ -127,7 +127,7 @@ public class BlockTGLamp<T extends Enum<T> & IStringSerializable> extends Generi
     
 	@Override
 	public ItemBlock createItemBlock() {
-		this.itemblock =  new GenericItemBlockMeta(this);
+		this.itemblock =  new ItemBlockLamp(this);
 		return itemblock;
 	}
 
@@ -169,12 +169,12 @@ public class BlockTGLamp<T extends Enum<T> & IStringSerializable> extends Generi
 					.withProperty(CONNECT_W, false).withProperty(CONNECT_N, false).withProperty(CONNECT_S, false);
 		} else {
 			
-			boolean u = this.canPlaceAt(worldIn, pos, EnumFacing.DOWN);
-			boolean d = this.canPlaceAt(worldIn, pos, EnumFacing.UP);
-			boolean n = this.canPlaceAt(worldIn, pos, EnumFacing.SOUTH);
-			boolean s = this.canPlaceAt(worldIn, pos, EnumFacing.NORTH);
-			boolean w = this.canPlaceAt(worldIn, pos, EnumFacing.EAST);
-			boolean e = this.canPlaceAt(worldIn, pos, EnumFacing.WEST);
+			boolean u = this.canPlaceAt(worldIn, pos, EnumFacing.UP);
+			boolean d = this.canPlaceAt(worldIn, pos, EnumFacing.DOWN);
+			boolean n = this.canPlaceAt(worldIn, pos, EnumFacing.NORTH);
+			boolean s = this.canPlaceAt(worldIn, pos, EnumFacing.SOUTH);
+			boolean w = this.canPlaceAt(worldIn, pos, EnumFacing.WEST);
+			boolean e = this.canPlaceAt(worldIn, pos, EnumFacing.EAST);
 			
 			return state.withProperty(CONNECT_UP, u).withProperty(CONNECT_DOWN,d).withProperty(CONNECT_E,e)
 					.withProperty(CONNECT_W, w).withProperty(CONNECT_N, n).withProperty(CONNECT_S, s);
@@ -198,6 +198,7 @@ public class BlockTGLamp<T extends Enum<T> & IStringSerializable> extends Generi
 		}
 	}
 
+	@Override
 	public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
     {
         for (EnumFacing enumfacing : FACING_ALL.getAllowedValues())
@@ -213,7 +214,7 @@ public class BlockTGLamp<T extends Enum<T> & IStringSerializable> extends Generi
 
     private boolean canPlaceAt(IBlockAccess worldIn, BlockPos pos, EnumFacing facing)
     {
-        BlockPos blockpos = pos.offset(facing.getOpposite());
+        BlockPos blockpos = pos.offset(facing);
         IBlockState iblockstate = worldIn.getBlockState(blockpos);
         Block block = iblockstate.getBlock();
         BlockFaceShape blockfaceshape = iblockstate.getBlockFaceShape(worldIn, blockpos, facing);
@@ -238,6 +239,70 @@ public class BlockTGLamp<T extends Enum<T> & IStringSerializable> extends Generi
         return state.getBlock().canPlaceTorchOnTop(state, worldIn, pos);
     }
     
+    /**
+     * Called after the block is set in the Chunk data, but before the Tile Entity is set
+     */
+    @Override
+    public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)
+    {
+        this.checkForDrop(worldIn, pos, state);
+    }
+
+    /**
+     * Called when a neighboring block was changed and marks that this state should perform any checks during a neighbor
+     * change. Cases may include when redstone power is updated, cactus blocks popping off due to a neighboring solid
+     * block, etc.
+     */
+    @Override
+    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
+    {
+        if (!this.checkForDrop(worldIn, pos, state))
+        {
+            return;
+        }
+        else
+        {
+            EnumFacing enumfacing = (EnumFacing)state.getValue(FACING_ALL);
+            EnumFacing.Axis enumfacing$axis = enumfacing.getAxis();
+            //EnumFacing enumfacing1 = enumfacing.getOpposite();
+            BlockPos blockpos = pos.offset(enumfacing);
+            boolean flag = false;
+
+            if (enumfacing$axis.isHorizontal() && worldIn.getBlockState(blockpos).getBlockFaceShape(worldIn, blockpos, enumfacing) != BlockFaceShape.SOLID)
+            {
+                flag = true;
+            }
+            else if (enumfacing$axis.isVertical() && !this.canPlaceOn(worldIn, blockpos))
+            {
+                flag = true;
+            }
+
+            if (flag)
+            {
+                this.dropBlockAsItem(worldIn, pos, state, 0);
+                worldIn.setBlockToAir(pos);
+            }
+        }
+    }
+    
+    protected boolean checkForDrop(World worldIn, BlockPos pos, IBlockState state)
+    {
+        if (state.getBlock() == this && this.canPlaceAt(worldIn, pos, (EnumFacing)state.getValue(FACING_ALL)))
+        {
+            return true;
+        }
+        else
+        {
+            if (worldIn.getBlockState(pos).getBlock() == this)
+            {
+                this.dropBlockAsItem(worldIn, pos, state, 0);
+                worldIn.setBlockToAir(pos);
+            }
+
+            return false;
+        }
+    }
+    
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void registerItemBlockModels() {
@@ -250,12 +315,7 @@ public class BlockTGLamp<T extends Enum<T> & IStringSerializable> extends Generi
 	@Override
 	public BlockFaceShape getBlockFaceShape(IBlockAccess p_193383_1_, IBlockState state, BlockPos p_193383_3_,
 			EnumFacing p_193383_4_) {
-		
-		if (state.getValue(LAMP_TYPE).ordinal()>=2) {
-			return BlockFaceShape.CENTER;
-		} else {
-			return BlockFaceShape.UNDEFINED;
-		}
+		return BlockFaceShape.UNDEFINED;
 	}
 
 	@Override

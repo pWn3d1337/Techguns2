@@ -100,7 +100,7 @@ public class BlockTGDoor3x3<T extends Enum<T> & IStringSerializable> extends Gen
 		return EnumPushReaction.BLOCK;
 	}
 
-	public BlockFaceShape getBlockFaceShape(IBlockAccess p_193383_1_, IBlockState p_193383_2_, BlockPos p_193383_3_, EnumFacing p_193383_4_)
+	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side)
     {
         return BlockFaceShape.UNDEFINED;
     }
@@ -610,5 +610,6 @@ public class BlockTGDoor3x3<T extends Enum<T> & IStringSerializable> extends Gen
 		
 		return false;
 	}
+	
 	
 }

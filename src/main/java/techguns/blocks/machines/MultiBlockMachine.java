@@ -4,6 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -57,7 +58,6 @@ public class MultiBlockMachine<T extends Enum<T> & IStringSerializable & IMachin
 			if(mastertile.isFormed()) {
 				EnumFacing dir = mastertile.getMultiblockDirection();
 				s = s.withProperty(MULTIBLOCK_DIRECTION, dir);
-				//System.out.println("Get ACTUAL STATE:"+s);
 				return s;
 			}
 		}
@@ -81,10 +81,6 @@ public class MultiBlockMachine<T extends Enum<T> & IStringSerializable & IMachin
 
 	@Override
 	public EnumBlockRenderType getRenderType(IBlockState state) {
-		/*boolean formed = state.getValue(FORMED);
-		if (formed) {
-			return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
-		}*/
 		T t = state.getValue(MACHINE_TYPE);
 		return t.getRenderType();
 	}
@@ -96,14 +92,6 @@ public class MultiBlockMachine<T extends Enum<T> & IStringSerializable & IMachin
 
 	@Override
 	public boolean isFullCube(IBlockState state) {
-		/*boolean formed = state.getValue(FORMED);
-		if (formed) {
-			System.out.println("FullCube:false");
-			return false;
-		}
-		T t = state.getValue(MACHINE_TYPE);
-		System.out.println("FullCube T:"+t.isFullCube());
-		return t.isFullCube();*/
 		return false;
 	}
 
@@ -118,13 +106,6 @@ public class MultiBlockMachine<T extends Enum<T> & IStringSerializable & IMachin
 			return false;
 		}
 		return this.isFullCube(state);
-		/*
-		boolean formed = state.getValue(FORMED);
-		if (formed) {
-			return false;
-		}
-		T t = state.getValue(MACHINE_TYPE);
-		return t.isFullCube();*/
 	}
 	
 	@Override
@@ -159,6 +140,15 @@ public class MultiBlockMachine<T extends Enum<T> & IStringSerializable & IMachin
 	public boolean rotateBlock(World world, BlockPos pos, EnumFacing axis) {
 		//NO ROTATING ON MULTIBLOCK MACHINES
 		return false;
+	}
+
+	@Override
+	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
+		boolean formed = state.getValue(FORMED);
+		if(formed) {
+			return BlockFaceShape.UNDEFINED;
+		}
+		return super.getBlockFaceShape(worldIn, state, pos, face);
 	}
 	
 	
