@@ -7,7 +7,6 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 import techguns.TGArmors;
 import techguns.TGuns;
@@ -32,7 +31,7 @@ public class Outcast extends GenericNPC {
 	}
 
 	@Override
-	protected void addRandomArmor(DifficultyInstance difficulty) {
+	protected void addRandomArmor(int difficulty) {
 
 		Random r = new Random();
 		// Armors

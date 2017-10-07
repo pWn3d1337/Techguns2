@@ -18,14 +18,14 @@ import techguns.packets.PacketSpawnParticle;
 public class PowerHammerProjectile extends GenericProjectile {
 
 	public PowerHammerProjectile(World worldIn, double posX, double posY, double posZ, float yaw, float pitch,
-			float damage, float speed, int TTL, float spread, int dmgDropStart, int dmgDropEnd, float dmgMin,
+			float damage, float speed, int TTL, float spread, float dmgDropStart, float dmgDropEnd, float dmgMin,
 			float penetration, boolean blockdamage, EnumBulletFirePos firePos) {
 		super(worldIn, posX, posY, posZ, yaw, pitch, damage, speed, TTL, spread, dmgDropStart, dmgDropEnd, dmgMin, penetration,
 				blockdamage, firePos);
 	}
 
 	public PowerHammerProjectile(World par2World, EntityLivingBase p, float damage, float speed, int TTL, float spread,
-			int dmgDropStart, int dmgDropEnd, float dmgMin, float penetration, boolean blockdamage,
+			float dmgDropStart, float dmgDropEnd, float dmgMin, float penetration, boolean blockdamage,
 			EnumBulletFirePos firePos) {
 		super(par2World, p, damage, speed, TTL, spread, dmgDropStart, dmgDropEnd, dmgMin, penetration, blockdamage, firePos);
 	}
@@ -69,7 +69,7 @@ public class PowerHammerProjectile extends GenericProjectile {
 	public static class Factory implements IChargedProjectileFactory<PowerHammerProjectile> {
 
 		@Override
-		public PowerHammerProjectile createProjectile(GenericGun gun, World world, EntityLivingBase p, float damage, float speed, int TTL, float spread, int dmgDropStart, int dmgDropEnd,
+		public PowerHammerProjectile createProjectile(GenericGun gun, World world, EntityLivingBase p, float damage, float speed, int TTL, float spread, float dmgDropStart, float dmgDropEnd,
 				float dmgMin, float penetration, boolean blockdamage, EnumBulletFirePos firePos, float radius, double gravity) {
 			return new PowerHammerProjectile(world,p,damage,speed,TTL,spread,dmgDropStart,dmgDropEnd,dmgMin,penetration,blockdamage,firePos);
 		}
@@ -81,7 +81,7 @@ public class PowerHammerProjectile extends GenericProjectile {
 
 		@Override
 		public PowerHammerProjectile createChargedProjectile(World world, EntityLivingBase p, float damage, float speed,
-				int TTL, float spread, int dmgDropStart, int dmgDropEnd, float dmgMin, float penetration,
+				int TTL, float spread, float dmgDropStart, float dmgDropEnd, float dmgMin, float penetration,
 				boolean blockdamage, EnumBulletFirePos firePos, float radius, double gravity, float charge,
 				int ammoConsumed) {
 			//TODO Charged Damage

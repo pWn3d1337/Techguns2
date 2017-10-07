@@ -24,15 +24,15 @@ public class GrenadeProjectile extends GenericProjectile {
 		super(worldIn);
 	}
 
-	public GrenadeProjectile(World worldIn, double posX, double posY, double posZ, float yaw, float pitch, float damage, float speed, int TTL, float spread, float penetration, boolean blockdamage, EnumBulletFirePos leftGun, double gravity, float radius, int bounces) {
-		super(worldIn, posX, posY, posZ, yaw, pitch, damage, speed, TTL, spread, 0,0,0, penetration, blockdamage, leftGun);
+	public GrenadeProjectile(World worldIn, double posX, double posY, double posZ, float yaw, float pitch, float damage, float speed, int TTL, float spread, float damageDropStart, float damageDropEnd, float dmgMin, float penetration, boolean blockdamage, EnumBulletFirePos leftGun, double gravity, float radius, int bounces) {
+		super(worldIn, posX, posY, posZ, yaw, pitch, damage, speed, TTL, spread, damageDropStart,damageDropEnd,dmgMin, penetration, blockdamage, leftGun);
 		this.bounces=bounces;
 		this.gravity=gravity;
 		this.radius=radius;
 	}
 	
-	public GrenadeProjectile(World par2World, EntityLivingBase p, float damage, float speed, int TTL, float spread, float penetration, boolean blockdamage, EnumBulletFirePos leftGun, double gravity, float radius, int bounces) {
-		super(par2World, p, damage, speed, TTL, spread, 0, 0, 0, penetration, blockdamage, leftGun);
+	public GrenadeProjectile(World par2World, EntityLivingBase p, float damage, float speed, int TTL, float spread, float dmgDropStart, float dmgDropEnd, float dmgMin, float penetration, boolean blockdamage, EnumBulletFirePos leftGun, double gravity, float radius, int bounces) {
+		super(par2World, p, damage, speed, TTL, spread, dmgDropStart,dmgDropEnd,dmgMin, penetration, blockdamage, leftGun);
 		this.bounces=bounces;
 		this.gravity=gravity;
 		this.radius=radius;
@@ -46,7 +46,7 @@ public class GrenadeProjectile extends GenericProjectile {
 	 * @param z
 	 */
 	public GrenadeProjectile(GrenadeProjectile other, double x, double y, double z) {
-		super(other.world,x,y,z,other.rotationYaw, other.rotationPitch, other.damage, other.speed, other.ticksToLive, 1.0f,0,0,0, other.penetration, other.blockdamage, EnumBulletFirePos.CENTER);
+		super(other.world,x,y,z,other.rotationYaw, other.rotationPitch, other.damage, other.speed, other.ticksToLive, 1.0f,other.damageDropStart,other.damageDropEnd,other.damageMin, other.penetration, other.blockdamage, EnumBulletFirePos.CENTER);
 		this.shooter=other.shooter;
 		this.bounces = other.bounces-1;
 		this.gravity=other.gravity;
@@ -158,11 +158,11 @@ public class GrenadeProjectile extends GenericProjectile {
 	public static class Factory implements IGrenadeProjectileFactory<GrenadeProjectile> {
 
 		@Override
-		public GrenadeProjectile createProjectile(World world, EntityLivingBase p, float damage, float speed, int TTL, float spread, float penetration, boolean blockdamage,
+		public GrenadeProjectile createProjectile(World world, EntityLivingBase p, float damage, float speed, int TTL, float spread, float dmgDropStart, float dmgDropEnd, float dmgMin, float penetration, boolean blockdamage,
 				EnumBulletFirePos leftGun, float radius, double gravity, float charge, int bounces) {
-			return new GrenadeProjectile(world, p, damage, speed, TTL, spread, penetration, blockdamage, leftGun, gravity, radius, bounces);
+			return new GrenadeProjectile(world, p, damage, speed, TTL, spread, dmgDropStart, dmgDropEnd, dmgMin, penetration, blockdamage, leftGun, gravity, radius, bounces);
 		}
-
+		
 		@Override
 		public DamageType getDamageType() {
 			return DamageType.EXPLOSION;

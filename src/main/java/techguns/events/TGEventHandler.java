@@ -23,6 +23,7 @@ import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.MouseEvent;
 import net.minecraftforge.client.event.RenderHandEvent;
 import net.minecraftforge.client.event.RenderLivingEvent;
+import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
@@ -35,6 +36,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import techguns.TGConfig;
@@ -53,6 +55,8 @@ import techguns.damagesystem.DamageSystem;
 import techguns.damagesystem.TGDamageSource;
 import techguns.deatheffects.EntityDeathUtils;
 import techguns.deatheffects.EntityDeathUtils.DeathType;
+import techguns.entities.npcs.TGDummySpawn;
+import techguns.entities.spawn.TGSpawnManager;
 import techguns.gui.player.TGPlayerInventory;
 import techguns.gui.widgets.SlotFabricator;
 import techguns.gui.widgets.SlotTG;
@@ -308,15 +312,12 @@ public class TGEventHandler {
 					//ply.getDataWatcher().updateObject(TechgunsExtendedPlayerProperties.DATA_WATCHER_ID_BACKSLOT, props.TG_inventory.inventory[TGPlayerInventory.SLOT_BACK]);
 				
 				}
-				
-				//TODO
-			} /*else if (event.entity instanceof TGDummySpawn){
+
+			} else if (event.getEntity() instanceof TGDummySpawn){
 				//
-				
-				TGSpawnManager.handleSpawn(event.world, event.entity);
+				TGSpawnManager.handleSpawn(event.getWorld(), event.getEntity());
 				event.setCanceled(true);
-				
-			}*/
+			}
 		}
 	}
 	
@@ -423,6 +424,13 @@ public class TGEventHandler {
 		}*/
 
 	}
+	
+	@SideOnly(Side.CLIENT)
+	@SubscribeEvent
+	public static void onRenderWorldLast(RenderWorldLastEvent event) {
+		ClientProxy.get().particleManager.renderParticles(Minecraft.getMinecraft().getRenderViewEntity(), event.getPartialTicks());
+	}
+	
 	
 	@Optional.Method(modid="albedo")
 	@SideOnly(Side.CLIENT)

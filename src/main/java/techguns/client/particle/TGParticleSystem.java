@@ -10,6 +10,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import techguns.client.ClientProxy;
 import techguns.client.particle.TGParticleSystemType.DirResult;
 import techguns.util.MathUtil;
 
@@ -17,7 +18,7 @@ import techguns.util.MathUtil;
  * A particle system which spawns particles
  */
 @SideOnly(Side.CLIENT)
-public class TGParticleSystem extends Particle {
+public class TGParticleSystem extends Particle implements ITGParticle {
 	
 	public TGParticleSystemType type;
 	
@@ -158,17 +159,17 @@ public class TGParticleSystem extends Particle {
 						particleStreak.setPrev(prevParticle);
 						prevParticle.setNext(particleStreak);
 					}
-					Minecraft.getMinecraft().effectRenderer.addEffect(particleStreak);
+					ClientProxy.get().particleManager.addEffect(particleStreak);
 					prevParticle = particleStreak;
 					particle = particleStreak;
 				}else {
 					particle = new TGParticle(this.world, this.posX+position.x, this.posY+position.y, this.posZ+position.z, motion.x*mf, motion.y*mf, motion.z*mf, this);
-					Minecraft.getMinecraft().effectRenderer.addEffect(particle);
+					ClientProxy.get().particleManager.addEffect(particle);
 				}
 				if (this.type.attachedSystem != null && !this.type.attachedSystem.equals("")) {
 					List<TGParticleSystem> systems = TGFX.createFXOnParticle(this.world, particle, this.type.attachedSystem);
 					if (systems!=null) {
-						systems.forEach(s -> Minecraft.getMinecraft().effectRenderer.addEffect(s));
+						systems.forEach(s -> ClientProxy.get().particleManager.addEffect(s));
 					}
 				}
 			}			
@@ -227,6 +228,27 @@ public class TGParticleSystem extends Particle {
 	
 	public double motionZ() {
 		return motionZ;
+	}
+
+	@Override
+	public Vec3d getPos() {
+		return new Vec3d(this.posX, this.posY, this.posZ);
+	}
+
+	@Override
+	public boolean shouldRemove() {
+		return !this.isAlive();
+	}
+
+	@Override
+	public void updateTick() {
+		this.onUpdate();
+	}
+
+	@Override
+	public void doRender(BufferBuilder buffer, Entity entityIn, float partialTickTime, float rotX, float rotZ,
+			float rotYZ, float rotXY, float rotXZ) {
+		this.renderParticle(buffer, entityIn, partialTickTime, rotX, rotZ, rotYZ, rotXY, rotXZ);
 	}
 
 	

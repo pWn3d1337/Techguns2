@@ -7,6 +7,7 @@ import java.util.UUID;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.particle.ParticleManager;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
@@ -463,6 +464,15 @@ public class TGTickHandler {
 					iter.remove();
 				}
 			}
+		}
+	}
+	
+	@SideOnly(Side.CLIENT)
+	@SubscribeEvent
+	public static void TickParticleSystems(ClientTickEvent event) {
+		if(event.phase==Phase.END) {
+			ClientProxy.get().particleManager.tickParticles();
+			//System.out.println("TGParticleCount:"+ClientProxy.get().particleManager.getList().getSizeDebug()+ " :: "+ClientProxy.get().particleManager.getList().getSize());
 		}
 	}
 	

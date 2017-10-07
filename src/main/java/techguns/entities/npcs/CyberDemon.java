@@ -9,7 +9,6 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 import techguns.TGuns;
 import techguns.Techguns;
@@ -34,7 +33,7 @@ public class CyberDemon extends GenericNPC {
 	}
 
 	@Override
-	protected void addRandomArmor(DifficultyInstance difficulty) {
+	protected void addRandomArmor(int difficulty) {
 
 		// No Armor
 		// Weapons

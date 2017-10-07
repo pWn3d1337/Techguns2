@@ -39,6 +39,26 @@ public class TGConfig {
 	public static int dataWatcherID_BackSlot;
 	
 	//public static int GUI_ID_tgplayerInventory;
+	/**
+	 * NPC Spawns
+	 */
+	public static int distanceSpawnLevel0;
+	public static int distanceSpawnLevel1;
+	public static int distanceSpawnLevel2;
+	
+	public static int spawnWeightZombieSoldier;
+	public static int spawnWeightZombieFarmer;
+	public static int spawnWeightZombieMiner;
+	public static int spawnWeightZombiePigmanSoldier;
+	public static int spawnWeightCyberDemon;
+	public static int spawnWeightSkeletonSoldier;
+	
+	public static int spawnWeightBandit;
+	
+	public static int spawnWeightPsychoSteve;
+	
+	public static int spawnWeightTGOverworld;
+	public static int spawnWeightTGNether;
 	
 	/**
 	 * CATEGORIES
@@ -71,6 +91,31 @@ public class TGConfig {
 		addSteelIngots = config.getBoolean("addSteelIngot", CATEGORY_ENABLING_ITEMS, true, "Adds Steel ingots.");
 		addSteelNuggets = config.getBoolean("addSteelNugget", CATEGORY_ENABLING_ITEMS, true, "Adds Steel nuggets.");
 	
+		
+		distanceSpawnLevel0 = config.getInt("DistanceSpawnLevel0", "NPC Spawn", 500, 0, Integer.MAX_VALUE, "Up to which distance to worldspawn only mobs with danger level up to 0 will spawn");
+		distanceSpawnLevel1 = config.getInt("DistanceSpawnLevel1", "NPC Spawn", 1000, 0, Integer.MAX_VALUE, "Up to which distance to worldspawn only mobs with danger level up to 1 will spawn");
+		distanceSpawnLevel2 = config.getInt("DistanceSpawnLevel2", "NPC Spawn", 2500, 0, Integer.MAX_VALUE, "Up to which distance to worldspawn only mobs with danger level up to 2 will spawn");
+				
+		spawnWeightTGOverworld = config.getInt("Techguns Spawnweight Overworld", "NPC Spawn", 600, 0, 10000, "Spawn weigth of Techguns NPCs, determines how many TG npcs spawn");
+		spawnWeightTGNether = config.getInt("Techguns Spawnweight NEther", "NPC Spawn", 300, 0, 10000, "Spawn weigth of Techguns NPCs in the Nether, determines how many TG npcs spawn");
+		
+		spawnWeightZombieSoldier  = config.getInt("SpawnWeightZombieSoldier", "NPC Spawn", 100, 0, 10000, "Spawn weight for spawning Zombie Soldiers, at 0 spawn will not be registered");
+		
+		spawnWeightZombieFarmer  = config.getInt("SpawnWeightZombieFarmer", "NPC Spawn", 200, 0, 10000, "Spawn weight for spawning Zombie Farmers, at 0 spawn will not be registered");
+		
+		spawnWeightZombieMiner = config.getInt("SpawnWeightZombieMiner", "NPC Spawn", 200, 0, 10000, "Spawn weight for spawning Zombie Miners, at 0 spawn will not be registered");
+		
+		spawnWeightZombiePigmanSoldier  = config.getInt("SpawnWeightZombiePigmanSoldier", "NPC Spawn", 100, 0, 10000, "Spawn weight for spawning Zombie Pigman Soldiers (Nether only), at 0 spawn will not be registered");
+		
+		spawnWeightCyberDemon = config.getInt("SpawnWeightCyberDemon", "NPC Spawn", 30, 0, 10000, "Spawn weight for spawning Cyber Demons (Nether only), at 0 spawn will not be registered");
+		
+		spawnWeightBandit = config.getInt("SpawnWeightBandit", "NPC Spawn", 50, 0, 10000, "Spawn weight for spawning Bandit groups, at 0 spawn will not be registered");
+		
+		spawnWeightSkeletonSoldier = config.getInt("SpawnWeightSkeletonSoldier", "NPC Spawn", 100, 0, 10000, "Spawn weight for spawning Skeleton Soldiers, at 0 spawn will not be registered");
+		
+		spawnWeightPsychoSteve = config.getInt("SpawnWeightPsychoSteve", "NPC Spawn", 3, 0, 10000, "Spawn weight for spawning Psycho Steve, early game boss, don't set to high value, at 0 spawn will not be registered");
+	
+		
 		
 		dataWatcherID_FaceSlot = config.getInt("DataWatcherID_FaceSlot", ID_CONFLICTS, 23, 2,31, "The ID used for DataWatcher synchronization of the face slot for Players, the ID must not conflict with vanilla or other mods slots, see http://www.minecraftforge.net/wiki/Datawatcher for details. Never useable for EntityPlayer (used by vanilla minecraft): 0,1, 6,7,8,9, 16,17,18");
 		

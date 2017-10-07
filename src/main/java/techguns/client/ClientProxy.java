@@ -125,6 +125,7 @@ import techguns.client.models.machines.ModelTurretBase;
 import techguns.client.models.projectiles.ModelRocket;
 import techguns.client.particle.LightPulse;
 import techguns.client.particle.TGFX;
+import techguns.client.particle.TGParticleManager;
 import techguns.client.particle.TGParticleSystem;
 import techguns.client.render.AdditionalSlotRenderRegistry;
 import techguns.client.render.ItemRenderHack;
@@ -145,6 +146,7 @@ import techguns.client.render.entities.npcs.RenderSkeletonSoldier;
 import techguns.client.render.entities.npcs.RenderStormTrooper;
 import techguns.client.render.entities.npcs.RenderSuperMutant;
 import techguns.client.render.entities.npcs.RenderZombieFarmer;
+import techguns.client.render.entities.npcs.RenderZombieMiner;
 import techguns.client.render.entities.npcs.RenderZombiePigmanSoldier;
 import techguns.client.render.entities.npcs.RenderZombieSoldier;
 import techguns.client.render.entities.projectiles.RenderAdvancedBulletProjectile;
@@ -201,6 +203,7 @@ import techguns.entities.npcs.SuperMutantBasic;
 import techguns.entities.npcs.SuperMutantElite;
 import techguns.entities.npcs.SuperMutantHeavy;
 import techguns.entities.npcs.ZombieFarmer;
+import techguns.entities.npcs.ZombieMiner;
 import techguns.entities.npcs.ZombiePigmanSoldier;
 import techguns.entities.npcs.ZombieSoldier;
 import techguns.entities.projectiles.AdvancedBulletProjectile;
@@ -269,6 +272,8 @@ import techguns.util.MathUtil;
 
 @Mod.EventBusSubscriber(Side.CLIENT)
 public class ClientProxy extends CommonProxy {
+	
+	public TGParticleManager particleManager = new TGParticleManager();
 	
 	//No longer needed after forge build 2412
 	//protected static Field ItemRender_field_itemStackMainHand = ReflectionHelper.findField(ItemRenderer.class, "itemStackMainHand", "field_187467_d");
@@ -925,6 +930,7 @@ public class ClientProxy extends CommonProxy {
 		
 		RenderingRegistry.registerEntityRenderingHandler(ZombieSoldier.class, RenderZombieSoldier::new);
 		RenderingRegistry.registerEntityRenderingHandler(ZombieFarmer.class, RenderZombieFarmer::new);
+		RenderingRegistry.registerEntityRenderingHandler(ZombieMiner.class, RenderZombieMiner::new);
 		RenderingRegistry.registerEntityRenderingHandler(ArmySoldier.class, RenderArmySoldier::new);
 		RenderingRegistry.registerEntityRenderingHandler(Bandit.class, RenderBandit::new);
 		RenderingRegistry.registerEntityRenderingHandler(Commando.class, RenderCommando::new);
@@ -1004,7 +1010,7 @@ public class ClientProxy extends CommonProxy {
 	public void createFX(String name, World world, double posX, double posY, double posZ, double motionX, double motionY, double motionZ){	
 		List<TGParticleSystem> systems = TGFX.createFX(world, name, posX, posY, posZ, motionX, motionY, motionZ);
 		if (systems!=null) {
-			systems.forEach(s -> Minecraft.getMinecraft().effectRenderer.addEffect(s));
+			systems.forEach(s -> particleManager.addEffect(s));//Minecraft.getMinecraft().effectRenderer.addEffect(s));
 		}
 	}
 	
@@ -1012,7 +1018,7 @@ public class ClientProxy extends CommonProxy {
 	public void createFXOnEntity(String name, Entity ent) {
 		List<TGParticleSystem> systems = TGFX.createFXOnEntity(ent, name);
 		if (systems!=null) {
-			systems.forEach(s -> Minecraft.getMinecraft().effectRenderer.addEffect(s));
+			systems.forEach(s -> particleManager.addEffect(s)); //Minecraft.getMinecraft().effectRenderer.addEffect(s));
 		}
 	}
 	

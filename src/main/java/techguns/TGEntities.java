@@ -1,10 +1,19 @@
 package techguns;
 
+import java.util.ArrayList;
+
+import com.google.common.collect.Iterables;
+
+import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.biome.Biome;
+import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import techguns.entities.npcs.AlienBug;
@@ -22,7 +31,9 @@ import techguns.entities.npcs.StormTrooper;
 import techguns.entities.npcs.SuperMutantBasic;
 import techguns.entities.npcs.SuperMutantElite;
 import techguns.entities.npcs.SuperMutantHeavy;
+import techguns.entities.npcs.TGDummySpawn;
 import techguns.entities.npcs.ZombieFarmer;
+import techguns.entities.npcs.ZombieMiner;
 import techguns.entities.npcs.ZombiePigmanSoldier;
 import techguns.entities.npcs.ZombieSoldier;
 import techguns.entities.projectiles.AdvancedBulletProjectile;
@@ -46,6 +57,8 @@ import techguns.entities.projectiles.RocketProjectile;
 import techguns.entities.projectiles.SonicShotgunProjectile;
 import techguns.entities.projectiles.StoneBulletProjectile;
 import techguns.entities.projectiles.TeslaProjectile;
+import techguns.entities.spawn.TGNpcSpawn;
+import techguns.entities.spawn.TGSpawnManager;
 import techguns.init.ITGInitializer;
 
 public class TGEntities implements ITGInitializer {
@@ -85,8 +98,10 @@ public class TGEntities implements ITGInitializer {
 		 * NPCS
 		 */
 		EntityRegistry.registerModEntity(new ResourceLocation(Techguns.MODID,"turret"),NPCTurret.class,  Techguns.MODID+".Turret", ++Techguns.modEntityID, Techguns.MODID, 80, 3, false);
+		EntityRegistry.registerModEntity(new ResourceLocation(Techguns.MODID,"TGDummySpawn"),TGDummySpawn.class,  Techguns.MODID+".DummySpawn", ++Techguns.modEntityID, Techguns.MODID, 80, 3, false);
 		registerModEntityWithEgg(ZombieSoldier.class, "ZombieSoldier",0x757468, 0x38B038);
 		registerModEntityWithEgg(ZombieFarmer.class, "ZombieFarmer",0x757468, 0x38B038);
+		registerModEntityWithEgg(ZombieMiner.class, "ZombieMiner",0x757468, 0x38B038);
 		registerModEntityWithEgg(ArmySoldier.class, "ArmySoldier",0x74806e, 0x191512);
 		registerModEntityWithEgg(Bandit.class, "Bandit",0x8f9d59, 0x2c3117);
 		registerModEntityWithEgg(Commando.class, "Commando",0x191512, 0x74806e);
@@ -100,23 +115,56 @@ public class TGEntities implements ITGInitializer {
 		registerModEntityWithEgg(SuperMutantBasic.class, "SuperMutantBasic", 0xc6a96b, 0x71552e);
 		registerModEntityWithEgg(SuperMutantElite.class, "SuperMutantElite", 0xc6a96b, 0x61451e);
 		registerModEntityWithEgg(SuperMutantHeavy.class, "SuperMutantHeavy", 0xc6a96b, 0x51350e);
-		registerModEntityWithEgg(AttackHelicopter.class, "AttackHelicopter", 0x373d23, 0x8ec0d7);
+		registerModEntityWithEgg(AttackHelicopter.class, "AttackHelicopter", 0x373d23, 0x8ec0d7,200);
 		registerModEntityWithEgg(AlienBug.class, "AlienBug", 0xc6a96b, 0x71552e);
 	}
+
 
 	static void registerModEntityWithEgg(Class parEntityClass, String parEntityName, 
 		      int parEggColor, int parEggSpotsColor)
 	{
-	    EntityRegistry.registerModEntity(new ResourceLocation(Techguns.MODID,parEntityName),parEntityClass, Techguns.MODID+"."+parEntityName, ++Techguns.modEntityID, Techguns.instance, 80, 3, false, parEggColor, parEggSpotsColor);
+		registerModEntityWithEgg(parEntityClass, parEntityName, parEggColor, parEggSpotsColor,80);
+	}
+	
+	static void registerModEntityWithEgg(Class parEntityClass, String parEntityName, 
+		      int parEggColor, int parEggSpotsColor, int trackingrange)
+	{
+	    EntityRegistry.registerModEntity(new ResourceLocation(Techguns.MODID,parEntityName),parEntityClass, Techguns.MODID+"."+parEntityName, ++Techguns.modEntityID, Techguns.instance, trackingrange, 3, false, parEggColor, parEggSpotsColor);
 	}
 	
 	@Override
 	public void init(FMLInitializationEvent event) {
+
+		TGSpawnManager.spawnTableOverworld.registerSpawn(new TGNpcSpawn(ZombieSoldier.class, TGConfig.spawnWeightZombieSoldier), 1);
+		TGSpawnManager.spawnTableOverworld.registerSpawn(new TGNpcSpawn(ZombieFarmer.class, TGConfig.spawnWeightZombieFarmer), 0);
+		TGSpawnManager.spawnTableOverworld.registerSpawn(new TGNpcSpawn(ZombieMiner.class, TGConfig.spawnWeightZombieMiner), 0);
+		TGSpawnManager.spawnTableOverworld.registerSpawn(new TGNpcSpawn(SkeletonSoldier.class, TGConfig.spawnWeightSkeletonSoldier), 1);
+		
+		TGSpawnManager.spawnTableOverworld.registerSpawn(new TGNpcSpawn(PsychoSteve.class, TGConfig.spawnWeightPsychoSteve), 1);
+		
+		TGSpawnManager.spawnTableOverworld.registerSpawn(new TGNpcSpawn(Bandit.class, TGConfig.spawnWeightBandit), 2);
+		
+		
+		TGSpawnManager.spawnTableNether.registerSpawn(new TGNpcSpawn(ZombiePigmanSoldier.class, TGConfig.spawnWeightZombiePigmanSoldier), 0);
+		TGSpawnManager.spawnTableNether.registerSpawn(new TGNpcSpawn(CyberDemon.class, TGConfig.spawnWeightCyberDemon), 0);
 		
 	}
 
 	@Override
 	public void postInit(FMLPostInitializationEvent event) {
+		ArrayList<Biome> overworldBiomes = new ArrayList<>();
+		ArrayList<Biome> netherBiomes = new ArrayList<>();
+		ForgeRegistries.BIOMES.forEach(b -> {
+			if (!BiomeDictionary.hasType(b, BiomeDictionary.Type.NETHER) && !BiomeDictionary.hasType(b, BiomeDictionary.Type.END)){
+				overworldBiomes.add(b);
+			} else if (BiomeDictionary.hasType(b, Type.NETHER)) {
+				netherBiomes.add(b);
+			}
+		});
+
+		EntityRegistry.addSpawn(TGDummySpawn.class, TGConfig.spawnWeightTGOverworld, 1, 3, EnumCreatureType.MONSTER,overworldBiomes.toArray(new Biome[overworldBiomes.size()]));
+			
+		EntityRegistry.addSpawn(TGDummySpawn.class, TGConfig.spawnWeightTGNether, 1, 3, EnumCreatureType.MONSTER,netherBiomes.toArray(new Biome[netherBiomes.size()]));
 		
 	}
 

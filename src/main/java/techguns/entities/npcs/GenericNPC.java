@@ -79,7 +79,7 @@ public class GenericNPC extends EntityMob implements IRangedAttackMob, INPCTechg
 			return hasAimedBowAnim;
 		}
 
-		protected GenericGun pickRandomGun(DifficultyInstance difficulty) {
+		protected GenericGun pickRandomGun(int difficulty) {
 			Random r = new Random();
 			GenericGun gun;
 			switch (r.nextInt(4)) {
@@ -175,11 +175,12 @@ public class GenericNPC extends EntityMob implements IRangedAttackMob, INPCTechg
 	    @Override
 	    protected void setEquipmentBasedOnDifficulty(DifficultyInstance difficulty)
 	    {
-	    	this.addRandomArmor(difficulty);
+	    	int d = Math.round(difficulty.getClampedAdditionalDifficulty()*3f);
+	    	this.addRandomArmor(d);
 	    } 
 	    
 	    
-	    protected void addRandomArmor(DifficultyInstance difficulty){
+	    protected void addRandomArmor(int difficulty){
 	        this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(this.pickRandomGun(difficulty)));
 	    	
 	    	this.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(TGArmors.t1_combat_Helmet));
@@ -205,10 +206,9 @@ public class GenericNPC extends EntityMob implements IRangedAttackMob, INPCTechg
 	    }*/
 
 	    public void onSpawnByManager(int difficulty) {
-	    	//super.onSpawnWithEgg(null);
-	    	
-	  //  	this.addRandomArmor(difficulty);
-	   // 	this.setCombatTask();
+	        this.setCanPickUpLoot(false);	
+	    	this.addRandomArmor(difficulty);
+	    	this.setCombatTask();
 	    }
 	    
 	    

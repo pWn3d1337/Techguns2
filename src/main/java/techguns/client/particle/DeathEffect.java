@@ -148,7 +148,7 @@ public class DeathEffect {
 			
 			//Spawn MainFX
 			TGParticleSystem sys = new TGParticleSystem(entity.world, data.type_main, x, entity.posY, z, entity.motionX, entity.motionY, entity.motionZ);
-			Minecraft.getMinecraft().effectRenderer.addEffect(sys);
+			ClientProxy.get().particleManager.addEffect(sys);
 
 			int count;
 			if (data.numGibs >= 0) { 

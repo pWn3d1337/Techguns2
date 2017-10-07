@@ -206,6 +206,8 @@ public class TGExplosion {
         {
             Entity entity = list.get(k2);
 
+            //System.out.println("Check entity:"+entity);
+            
             if (!entity.isImmuneToExplosions() && GenericProjectile.BULLET_TARGETS.apply(entity))
             {
             
@@ -217,6 +219,9 @@ public class TGExplosion {
 	            else if (distance <= secondaryRadius) damage = secondaryDamage + ((distance-primaryRadius)/(secondaryRadius-primaryRadius)) * (primaryDamage-secondaryDamage);
 	            else damage = 0.0;
 	            
+            	//System.out.println("Distance: "+ distance);
+            	//System.out.println("Damage: "+ damage);
+            	
 	            //trace blocks
 	            if (damage > 0.0) {
 	            	Vec3d start = this.position;
@@ -228,6 +233,7 @@ public class TGExplosion {
 	
 	            
 	            if (damage > 0.0) {
+	            	//System.out.println("Attack Damage: "+ damage +" against "+entity);
 	            	entity.attackEntityFrom(tgs,  (float)Math.max(0, damage));        	         	
 	            }
 

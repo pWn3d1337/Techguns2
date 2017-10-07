@@ -9,7 +9,7 @@ import techguns.entities.projectiles.GenericProjectile;
 public interface IProjectileFactory<T extends GenericProjectile> {
 
 	 public T createProjectile(GenericGun gun, World world, EntityLivingBase p, float damage, float speed, int TTL,
-				float spread, int dmgDropStart, int dmgDropEnd, float dmgMin, float penetration, boolean blockdamage, EnumBulletFirePos firePos, float radius, double gravity);
+				float spread, float dmgDropStart, float dmgDropEnd, float dmgMin, float penetration, boolean blockdamage, EnumBulletFirePos firePos, float radius, double gravity);
 
 	/**
 	 * Used for Tooltip display

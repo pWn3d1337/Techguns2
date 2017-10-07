@@ -13,14 +13,14 @@ public class Grenade40mmProjectile extends GrenadeProjectile {
 		super(other, x, y, z);
 	}
 
-	public Grenade40mmProjectile(World worldIn, double posX, double posY, double posZ, float yaw, float pitch, float damage, float speed, int TTL, float spread, float penetration,
+	public Grenade40mmProjectile(World worldIn, double posX, double posY, double posZ, float yaw, float pitch, float damage, float speed, int TTL, float spread, float dmgDropStart, float dmgDropEnd, float dmgMin, float penetration,
 			boolean blockdamage, EnumBulletFirePos leftGun, double gravity, float radius, int bounces) {
-		super(worldIn, posX, posY, posZ, yaw, pitch, damage, speed, TTL, spread, penetration, blockdamage, leftGun, gravity, radius, bounces);
+		super(worldIn, posX, posY, posZ, yaw, pitch, damage, speed, TTL, spread, dmgDropStart, dmgDropEnd, dmgMin, penetration, blockdamage, leftGun, gravity, radius, bounces);
 	}
 
-	public Grenade40mmProjectile(World par2World, EntityLivingBase p, float damage, float speed, int TTL, float spread, float penetration, boolean blockdamage, EnumBulletFirePos leftGun,
+	public Grenade40mmProjectile(World par2World, EntityLivingBase p, float damage, float speed, int TTL, float spread, float dmgDropStart, float dmgDropEnd, float dmgMin, float penetration, boolean blockdamage, EnumBulletFirePos leftGun,
 			double gravity, float radius, int bounces) {
-		super(par2World, p, damage, speed, TTL, spread, penetration, blockdamage, leftGun, gravity, radius, bounces);
+		super(par2World, p, damage, speed, TTL, spread, dmgDropStart, dmgDropEnd, dmgMin, penetration, blockdamage, leftGun, gravity, radius, bounces);
 	}
 
 	public Grenade40mmProjectile(World worldIn) {
@@ -43,12 +43,12 @@ public class Grenade40mmProjectile extends GrenadeProjectile {
 		}
 
 		@Override
-		public Grenade40mmProjectile createProjectile(GenericGun gun, World world, EntityLivingBase p, float damage, float speed, int TTL, float spread, int dmgDropStart,
-				int dmgDropEnd, float dmgMin, float penetration, boolean blockdamage, EnumBulletFirePos firePos, float radius, double gravity) {
-			return new Grenade40mmProjectile(world, p, damage, speed, TTL, spread, penetration, blockdamage, firePos, gravity, radius, 2);
+		public Grenade40mmProjectile createProjectile(GenericGun gun, World world, EntityLivingBase p, float damage, float speed, int TTL, float spread, float dmgDropStart,
+				float dmgDropEnd, float dmgMin, float penetration, boolean blockdamage, EnumBulletFirePos firePos, float radius, double gravity) {
+			return new Grenade40mmProjectile(world, p, damage, speed, TTL, spread, dmgDropStart, dmgDropEnd, dmgMin, penetration, blockdamage, firePos, gravity, radius, 2);
 			
 		}
-
+		
 		@Override
 		public Grenade40mmProjectile createBounceProjectile(Grenade40mmProjectile proj, double bounceX, double bounceY, double bounceZ) {
 			return new Grenade40mmProjectile(proj, bounceX, bounceY, bounceZ);

@@ -11,6 +11,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import techguns.client.particle.DeathEffect.GoreData;
+import techguns.client.ClientProxy;
 import techguns.client.particle.TGParticleSystem;
 
 public class FlyingGibs extends Entity{
@@ -49,7 +50,7 @@ public class FlyingGibs extends Entity{
 		this.data = data;
 		
 		trail_system = new TGParticleSystem(this, data.type_trail);
-		Minecraft.getMinecraft().effectRenderer.addEffect(trail_system);
+		ClientProxy.get().particleManager.addEffect(trail_system);
 	}
 
 	public FlyingGibs(World world) {

@@ -91,8 +91,8 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 	float speed = 2.0f;
 
 	float damageMin=1.0f;
-	int damageDropStart=20;
-	int damageDropEnd=40;
+	float damageDropStart=20f;
+	float damageDropEnd=40f;
 	float penetration = 0.0f;
 
 	AmmoType ammoType = AmmoTypes.PISTOL_ROUNDS;
@@ -799,7 +799,7 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 		//return b;
 	}
 	
-	public GenericGun setDamageDrop(int start, int end, float minDamage){
+	public GenericGun setDamageDrop(float start, float end, float minDamage){
 		this.damageDropStart=start;
 		this.damageDropEnd=end;
 		this.damageMin=minDamage;

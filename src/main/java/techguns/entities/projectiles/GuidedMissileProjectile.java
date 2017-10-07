@@ -25,14 +25,14 @@ public class GuidedMissileProjectile extends RocketProjectile{
 	
 	
 	public GuidedMissileProjectile(World par2World, EntityLivingBase p, float damage, float speed, int TTL,
-			float spread, int dmgDropStart, int dmgDropEnd, float dmgMin, float penetration, boolean blockdamage,
+			float spread, float dmgDropStart, float dmgDropEnd, float dmgMin, float penetration, boolean blockdamage,
 			EnumBulletFirePos leftGun, float radius, double gravity) {
 		super(par2World, p, damage, speed, TTL, spread, dmgDropStart, dmgDropEnd, dmgMin, penetration, blockdamage, leftGun,
 				radius, gravity);
 	}
 	
 	public GuidedMissileProjectile(World par2World, EntityLivingBase p, float damage, float speed, int TTL,
-			float spread, int dmgDropStart, int dmgDropEnd, float dmgMin, float penetration, boolean blockdamage,
+			float spread, float dmgDropStart, float dmgDropEnd, float dmgMin, float penetration, boolean blockdamage,
 			EnumBulletFirePos leftGun, float radius, Entity target) {
 		super(par2World, p, damage, speed, TTL, spread, dmgDropStart, dmgDropEnd, dmgMin, penetration, blockdamage, leftGun,
 				radius, 0.0f);
@@ -120,7 +120,7 @@ public class GuidedMissileProjectile extends RocketProjectile{
 	public static class Factory implements IChargedProjectileFactory<GuidedMissileProjectile> {
 
 		@Override
-		public GuidedMissileProjectile createProjectile(GenericGun gun, World world, EntityLivingBase p, float damage, float speed, int TTL, float spread, int dmgDropStart, int dmgDropEnd,
+		public GuidedMissileProjectile createProjectile(GenericGun gun, World world, EntityLivingBase p, float damage, float speed, int TTL, float spread, float dmgDropStart, float dmgDropEnd,
 				float dmgMin, float penetration, boolean blockdamage, EnumBulletFirePos firePos, float radius, double gravity) {
 		
 			Entity target = null;
@@ -147,7 +147,7 @@ public class GuidedMissileProjectile extends RocketProjectile{
 
 		@Override
 		public GuidedMissileProjectile createChargedProjectile(World world, EntityLivingBase p, float damage,
-				float speed, int TTL, float spread, int dmgDropStart, int dmgDropEnd, float dmgMin, float penetration,
+				float speed, int TTL, float spread, float dmgDropStart, float dmgDropEnd, float dmgMin, float penetration,
 				boolean blockdamage, EnumBulletFirePos firePos, float radius, double gravity, float charge, int ammoConsumed) {
 			if (p instanceof EntityPlayer) {
 				TGExtendedPlayer epc = TGExtendedPlayer.get((EntityPlayer)p);

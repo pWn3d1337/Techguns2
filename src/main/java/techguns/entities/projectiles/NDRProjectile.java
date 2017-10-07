@@ -12,6 +12,8 @@ import net.minecraft.world.World;
 import techguns.TGPackets;
 import techguns.Techguns;
 import techguns.api.damagesystem.DamageType;
+import techguns.damagesystem.TGDamageSource;
+import techguns.deatheffects.EntityDeathUtils.DeathType;
 import techguns.items.guns.GenericGun;
 import techguns.items.guns.IProjectileFactory;
 import techguns.packets.PacketSpawnParticle;
@@ -31,7 +33,7 @@ public class NDRProjectile extends AbstractBeamProjectile {
 	}
 	
 	public NDRProjectile(World par2World, EntityLivingBase p, float damage, float speed, int TTL, float spread,
-			int dmgDropStart, int dmgDropEnd, float dmgMin, float penetration, boolean blockdamage, EnumBulletFirePos leftGun) {
+			float dmgDropStart, float dmgDropEnd, float dmgMin, float penetration, boolean blockdamage, EnumBulletFirePos leftGun) {
 		super(par2World, p, damage, speed, TTL, spread, dmgDropStart, dmgDropEnd, dmgMin, penetration, blockdamage, leftGun);
 	}
 
@@ -167,17 +169,29 @@ public class NDRProjectile extends AbstractBeamProjectile {
 		return 0.0f;
 	}
 	
+	
+	
+	@Override
+	protected TGDamageSource getProjectileDamageSource() {
+		TGDamageSource src = TGDamageSource.causeRadiationDamage(this, this.shooter, DeathType.LASER);
+		src.armorPenetration = this.penetration;
+		src.setNoKnockback();
+		return src;
+	}
+
+
+
 	public static class Factory implements IProjectileFactory<NDRProjectile> {
 		@Override
 		public NDRProjectile createProjectile(GenericGun gun, World world, EntityLivingBase p, float damage, float speed,
-				int TTL, float spread, int dmgDropStart, int dmgDropEnd, float dmgMin, float penetration,
+				int TTL, float spread, float dmgDropStart, float dmgDropEnd, float dmgMin, float penetration,
 				boolean blockdamage, EnumBulletFirePos firePos, float radius, double gravity) {
 			return new NDRProjectile(world, p, damage, speed, BEAM_LIFETIME, spread, dmgDropStart, dmgDropEnd, dmgMin, penetration, blockdamage, firePos);
 		}
 
 		@Override
 		public DamageType getDamageType() {
-			return DamageType.ENERGY;
+			return DamageType.RADIATION;
 		}
 	}
 }

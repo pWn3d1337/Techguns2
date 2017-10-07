@@ -29,7 +29,7 @@ import techguns.util.MathUtil;
  * An actual spawned particle
  */
 @SideOnly(Side.CLIENT)
-public class TGParticle extends Particle{
+public class TGParticle extends Particle implements ITGParticle {
 	
 	 protected static final VertexFormat VERTEX_FORMAT = (new VertexFormat()).addElement(DefaultVertexFormats.POSITION_3F).addElement(DefaultVertexFormats.TEX_2F).addElement(DefaultVertexFormats.COLOR_4UB).addElement(DefaultVertexFormats.TEX_2S).addElement(DefaultVertexFormats.NORMAL_3B).addElement(DefaultVertexFormats.PADDING_1B);
 	   
@@ -497,5 +497,26 @@ public class TGParticle extends Particle{
 		  double d1 = axis.dotProduct(p1);
 		  return p1.scale(cosa).add(v1.scale(sina)).add(axis.scale(d1*(1.0 - cosa)));			
 		//  return p1.scale(cosa).add(axis.crossProduct(p1).scale(Math.sin(a))).add(axis.scale(axis.dotProduct(p1)*(1.0 - Math.cos(a))));			
+	}
+
+	@Override
+	public Vec3d getPos() {
+		return new Vec3d(this.posX, this.posY, this.posZ);
+	}
+
+	@Override
+	public boolean shouldRemove() {
+		return !this.isAlive();
+	}
+
+	@Override
+	public void updateTick() {
+		this.onUpdate();
+	}
+
+	@Override
+	public void doRender(BufferBuilder buffer, Entity entityIn, float partialTickTime, float rotX, float rotZ,
+			float rotYZ, float rotXY, float rotXZ) {
+		this.renderParticle(buffer, entityIn, partialTickTime, rotX, rotZ, rotYZ, rotXY, rotXZ);
 	}
 }

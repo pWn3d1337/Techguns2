@@ -20,13 +20,13 @@ import techguns.util.MathUtil;
 public class GaussProjectile extends AdvancedBulletProjectile implements ILightProvider {
 
 	public GaussProjectile(World par2World, EntityLivingBase p, float damage, float speed, int TTL, float spread,
-			int dmgDropStart, int dmgDropEnd, float dmgMin, float penetration, boolean blockdamage, EnumBulletFirePos leftGun) {
+			float dmgDropStart, float dmgDropEnd, float dmgMin, float penetration, boolean blockdamage, EnumBulletFirePos leftGun) {
 		super(par2World, p, damage, speed, TTL, spread, dmgDropStart, dmgDropEnd, dmgMin, penetration, blockdamage, leftGun);
 		// TODO Auto-generated constructor stub
 	}
 
 //	public GaussProjectile(World worldIn, double posX, double posY, double posZ, float yaw, float pitch, float damage,
-//			float speed, int TTL, float spread, int dmgDropStart, int dmgDropEnd, float dmgMin, float penetration,
+//			float speed, int TTL, float spread, float dmgDropStart, float dmgDropEnd, float dmgMin, float penetration,
 //			boolean blockdamage, boolean leftGun) {
 //		super(worldIn, posX, posY, posZ, yaw, pitch, damage, speed, TTL, spread, dmgDropStart, dmgDropEnd, dmgMin, penetration,
 //				blockdamage, leftGun);
@@ -79,7 +79,7 @@ public class GaussProjectile extends AdvancedBulletProjectile implements ILightP
 	public static class Factory implements IProjectileFactory<GaussProjectile> {
 
 		@Override
-		public GaussProjectile createProjectile(GenericGun gun, World world, EntityLivingBase p, float damage, float speed, int TTL, float spread, int dmgDropStart, int dmgDropEnd,
+		public GaussProjectile createProjectile(GenericGun gun, World world, EntityLivingBase p, float damage, float speed, int TTL, float spread, float dmgDropStart, float dmgDropEnd,
 				float dmgMin, float penetration, boolean blockdamage, EnumBulletFirePos firePos, float radius, double gravity) {
 			return new GaussProjectile(world,p,damage,speed,TTL,spread,dmgDropStart,dmgDropEnd,dmgMin,penetration,blockdamage,firePos);
 		}

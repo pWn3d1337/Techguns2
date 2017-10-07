@@ -17,7 +17,7 @@ import techguns.packets.PacketSpawnParticle;
 public class LaserProjectile extends AbstractBeamProjectile{
 
 	public LaserProjectile(World worldIn, double posX, double posY, double posZ, float yaw, float pitch, float damage,
-			float speed, int TTL, float spread, int dmgDropStart, int dmgDropEnd, float dmgMin, float penetration,
+			float speed, int TTL, float spread, float dmgDropStart, float dmgDropEnd, float dmgMin, float penetration,
 			boolean blockdamage, EnumBulletFirePos leftGun) {
 		super(worldIn, posX, posY, posZ, yaw, pitch, damage, speed, TTL, spread, dmgDropStart, dmgDropEnd, dmgMin, penetration,
 				blockdamage, leftGun);
@@ -25,7 +25,7 @@ public class LaserProjectile extends AbstractBeamProjectile{
 	}
 	
 	public LaserProjectile(World par2World, EntityLivingBase p, float damage, float speed, int TTL, float spread,
-			int dmgDropStart, int dmgDropEnd, float dmgMin, float penetration, boolean blockdamage, EnumBulletFirePos leftGun) {
+			float dmgDropStart, float dmgDropEnd, float dmgMin, float penetration, boolean blockdamage, EnumBulletFirePos leftGun) {
 		super(par2World, p, damage, speed, TTL, spread, dmgDropStart, dmgDropEnd, dmgMin, penetration, blockdamage, leftGun);
 		trace();
 	}
@@ -64,7 +64,7 @@ public class LaserProjectile extends AbstractBeamProjectile{
 	public static class Factory implements IProjectileFactory<LaserProjectile> {
 		@Override
 		public LaserProjectile createProjectile(GenericGun gun, World world, EntityLivingBase p, float damage, float speed,
-				int TTL, float spread, int dmgDropStart, int dmgDropEnd, float dmgMin, float penetration,
+				int TTL, float spread, float dmgDropStart, float dmgDropEnd, float dmgMin, float penetration,
 				boolean blockdamage, EnumBulletFirePos firePos, float radius, double gravity) {
 			return new LaserProjectile(world, p, damage, speed, 7, spread, dmgDropStart, dmgDropEnd, dmgMin, penetration, blockdamage, firePos);
 		}
