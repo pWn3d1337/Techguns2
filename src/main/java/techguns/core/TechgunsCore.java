@@ -12,7 +12,7 @@ public class TechgunsCore extends DummyModContainer {
 		super(new ModMetadata());
 		ModMetadata meta = this.getMetadata();
 		meta.modId = "techguns_core";
-		meta.version = "1.12-1.0";
+		meta.version = "1.12.2-1.0";
 		meta.name = "Techguns Core";
 	}
 
