@@ -470,7 +470,7 @@ public class TGTickHandler {
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent
 	public static void TickParticleSystems(ClientTickEvent event) {
-		if(event.phase==Phase.END) {
+		if(event.phase==Phase.START) {
 			ClientProxy.get().particleManager.tickParticles();
 			//System.out.println("TGParticleCount:"+ClientProxy.get().particleManager.getList().getSizeDebug()+ " :: "+ClientProxy.get().particleManager.getList().getSize());
 		}

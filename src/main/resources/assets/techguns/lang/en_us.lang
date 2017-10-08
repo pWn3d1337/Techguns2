@@ -277,6 +277,7 @@ item.techguns.vector.name=Vector
 item.techguns.mac10.name=Mac 10
 entity.techguns.ZombieSoldier.name=Zombie Soldier
 entity.techguns.ZombieFarmer.name=Zombie Farmer
+entity.techguns.ZombieMiner.name=Zombie Miner
 entity.techguns.ArmySoldier.name=Army Soldier
 entity.techguns.Bandit.name=Bandit
 entity.techguns.Commando.name=Commando

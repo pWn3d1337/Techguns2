@@ -6,6 +6,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.entity.Entity;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -249,6 +250,13 @@ public class TGParticleSystem extends Particle implements ITGParticle {
 	public void doRender(BufferBuilder buffer, Entity entityIn, float partialTickTime, float rotX, float rotZ,
 			float rotYZ, float rotXY, float rotXZ) {
 		this.renderParticle(buffer, entityIn, partialTickTime, rotX, rotZ, rotYZ, rotXY, rotXZ);
+	}
+
+	@Override
+	public AxisAlignedBB getRenderBoundingBox(float partialTickTime, Entity viewEntity) {
+		//DOESN'T MATTER, SYSTEM DOES NOT RENDER STUFF ANYWAY
+	    float s = 0.5f; 
+		return new AxisAlignedBB(this.posX-s, this.posY-s, this.posZ-s, this.posX+s, this.posY+s, this.posZ+s);
 	}
 
 	

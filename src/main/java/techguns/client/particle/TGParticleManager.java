@@ -8,6 +8,7 @@ import net.minecraft.client.particle.Particle;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -52,7 +53,7 @@ public class TGParticleManager {
 	 * @param entityIn renderViewEntity
 	 * @param partialTick
 	 */
-	public void renderParticles(Entity entityIn, float partialTick)
+	public void renderParticles(Entity entityIn, float partialTicks)
     {
         float f1 = MathHelper.cos(entityIn.rotationYaw * 0.017453292F);
         float f2 = MathHelper.sin(entityIn.rotationYaw * 0.017453292F);
@@ -63,9 +64,17 @@ public class TGParticleManager {
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder bufferbuilder = tessellator.getBuffer();
         
+        /*Entity entity = Minecraft.getMinecraft().getRenderViewEntity();
+        Frustum frust = new Frustum();
+        double d0 = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * (double)partialTicks;
+        double d1 = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * (double)partialTicks;
+        double d2 = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * (double)partialTicks;
+        frust.setPosition(d0, d1, d2);*/
+        
         GlStateManager.disableCull();
         this.list.forEach(p -> {
-        	p.doRender(bufferbuilder, entityIn, partialTick, f1, f5, f2, f3, f4);
+        	//if(frust.isBoundingBoxInFrustum(p.getRenderBoundingBox(partialTicks, entity)))
+        	p.doRender(bufferbuilder, entityIn, partialTicks, f1, f5, f2, f3, f4);
         });
         GlStateManager.enableCull();
     }
@@ -74,6 +83,9 @@ public class TGParticleManager {
 
 		@Override
 		public int compare(ITGParticle p1, ITGParticle p2) {
+			if(p1.doNotSort() && p2.doNotSort()) {
+				return 0;
+			}
 			Entity view = Minecraft.getMinecraft().getRenderViewEntity();
 			if(view!=null) {
 				double dist1 = p1.getPos().squareDistanceTo(view.posX, view.posY, view.posZ);

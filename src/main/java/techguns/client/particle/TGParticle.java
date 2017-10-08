@@ -13,6 +13,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.entity.Entity;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -313,18 +314,20 @@ public class TGParticle extends Particle implements ITGParticle {
 	        }	        		
 		}
 		
-		p1 = new Vec3d(p1.x + fPosX, p1.y + fPosY, p1.z + fPosZ);
+		/*p1 = new Vec3d(p1.x + fPosX, p1.y + fPosY, p1.z + fPosZ);
 		p2 = new Vec3d(p2.x + fPosX, p2.y + fPosY, p2.z + fPosZ);
 		p3 = new Vec3d(p3.x + fPosX, p3.y + fPosY, p3.z + fPosZ);
-		p4 = new Vec3d(p4.x + fPosX, p4.y + fPosY, p4.z + fPosZ);
+		p4 = new Vec3d(p4.x + fPosX, p4.y + fPosY, p4.z + fPosZ);*/
         
-		buffer.pos(p1.x, p1.y, p1.z).tex((double)ua, (double)va).color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).lightmap(0, 240).normal(0.0f, 1.0f, 0.0f).endVertex();
-		buffer.pos(p2.x, p2.y, p2.z).tex((double)ub, (double)vb).color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).lightmap(0, 240).normal(0.0f, 1.0f, 0.0f).endVertex();
-		buffer.pos(p3.x, p3.y, p3.z).tex((double)uc, (double)vc).color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).lightmap(0, 240).normal(0.0f, 1.0f, 0.0f).endVertex();
-		buffer.pos(p4.x, p4.y, p4.z).tex((double)ud, (double)vd).color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).lightmap(0, 240).normal(0.0f, 1.0f, 0.0f).endVertex();
+		buffer.pos(p1.x + fPosX, p1.y + fPosY, p1.z + fPosZ).tex((double)ua, (double)va).color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).lightmap(0, 240).normal(0.0f, 1.0f, 0.0f).endVertex();
+		buffer.pos(p2.x + fPosX, p2.y + fPosY, p2.z + fPosZ).tex((double)ub, (double)vb).color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).lightmap(0, 240).normal(0.0f, 1.0f, 0.0f).endVertex();
+		buffer.pos(p3.x + fPosX, p3.y + fPosY, p3.z + fPosZ).tex((double)uc, (double)vc).color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).lightmap(0, 240).normal(0.0f, 1.0f, 0.0f).endVertex();
+		buffer.pos(p4.x + fPosX, p4.y + fPosY, p4.z + fPosZ).tex((double)ud, (double)vd).color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).lightmap(0, 240).normal(0.0f, 1.0f, 0.0f).endVertex();
 
         Tessellator.getInstance().draw();
 
+        //System.out.println("DoRender");
+        
         disableBlendMode();
 
     }
@@ -518,5 +521,18 @@ public class TGParticle extends Particle implements ITGParticle {
 	public void doRender(BufferBuilder buffer, Entity entityIn, float partialTickTime, float rotX, float rotZ,
 			float rotYZ, float rotXY, float rotXZ) {
 		this.renderParticle(buffer, entityIn, partialTickTime, rotX, rotZ, rotYZ, rotXY, rotXZ);
+	}
+
+	@Override
+	public AxisAlignedBB getRenderBoundingBox(float partialTickTime, Entity viewEnt) {
+	    //float fPosX = (float)(this.prevPosX + (this.posX - this.prevPosX) * (double)partialTickTime - interpPosX);
+        //float fPosY = (float)(this.prevPosY + (this.posY - this.prevPosY) * (double)partialTickTime - interpPosY);
+        //float fPosZ = (float)(this.prevPosZ + (this.posZ - this.prevPosZ) * (double)partialTickTime - interpPosZ);
+		double fPosX = (this.posX-viewEnt.posX);
+		double fPosY = (this.posY-viewEnt.posY);
+		double fPosZ = (this.posZ-viewEnt.posZ);
+	    
+		double s = size*0.5;
+		return new AxisAlignedBB(fPosX-s, fPosY-s, fPosZ-s, fPosX+s, fPosY+s, fPosZ+s);
 	}
 }
