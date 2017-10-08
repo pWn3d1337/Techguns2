@@ -18,7 +18,7 @@ import techguns.items.guns.ammo.AmmoTypes;
 import techguns.plugins.crafttweaker.TGCraftTweakerIntegration;
 import techguns.world.OreGenerator;
 
-@Mod(modid = Techguns.MODID, version = Techguns.VERSION, name=Techguns.NAME, acceptedMinecraftVersions=Techguns.MCVERSION, guiFactory=Techguns.GUI_FACTORY)
+@Mod(modid = Techguns.MODID, version = Techguns.VERSION, name=Techguns.NAME, acceptedMinecraftVersions=Techguns.MCVERSION, guiFactory=Techguns.GUI_FACTORY, updateJSON=Techguns.UPDATEURL)
 public class Techguns
 {
     public static final String MODID = "techguns";
@@ -26,6 +26,7 @@ public class Techguns
     public static final String VERSION = MCVERSION+"-2.0.1.0";
     public static final String NAME = "Techguns";
     public static final String GUI_FACTORY = "techguns.gui.config.GuiFactoryTechguns";
+    public static final String UPDATEURL = "https://github.com/pWn3d1337/Techguns2/update.json";
     
     @Mod.Instance
     public static Techguns instance;
