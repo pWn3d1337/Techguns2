@@ -3,6 +3,8 @@ package techguns.client.particle;
 import java.util.Comparator;
 import java.util.Queue;
 
+import javax.xml.transform.TransformerFactoryConfigurationError;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.renderer.BufferBuilder;
@@ -12,6 +14,7 @@ import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import techguns.TGConfig;
 import techguns.client.particle.list.ParticleList;
 import techguns.client.particle.list.ParticleList.ParticleListIterator;
 
@@ -37,11 +40,13 @@ public class TGParticleManager {
 			}
 		}
 		
-		this.doSorting();
+		if(TGConfig.cl_sortPassesPerTick>0) {
+			this.doSorting();
+		}
 	}
 
 	public void doSorting() {
-		this.list.doBubbleSort(10, compare);
+		this.list.doBubbleSort(TGConfig.cl_sortPassesPerTick, compare);
 	}
 	
 	public ParticleList<ITGParticle> getList() {

@@ -1,8 +1,13 @@
 package techguns;
 
+import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.fml.client.event.ConfigChangedEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+@Mod.EventBusSubscriber(modid = Techguns.MODID)
 public class TGConfig {
 	public static Configuration config;
 	
@@ -60,12 +65,14 @@ public class TGConfig {
 	public static int spawnWeightTGOverworld;
 	public static int spawnWeightTGNether;
 	
+	public static int cl_sortPassesPerTick;
+	
 	/**
 	 * CATEGORIES
 	 */
 	private static final String CATEGORY_ENABLING_ITEMS = "Disable Items";
 	
-	private static final String CLIENTSIDE = "Clientside";
+	public static final String CLIENTSIDE = "Clientside";
 	private static final String ID_CONFLICTS = "ID Conflicts";
 	private static final String WORLDGEN="World Generation";
 	
@@ -74,6 +81,11 @@ public class TGConfig {
 		config = new Configuration(event.getSuggestedConfigurationFile());
 		config.load();
 		
+		initValues();
+	}
+	
+	public static void initValues() {
+		config.addCustomCategoryComment(CLIENTSIDE, "Clientside options, can be changed when playing on a server");
 		
 		debug = config.getBoolean("debug", config.CATEGORY_GENERAL, true, "Enable debug options, disable this for playing.");
 		
@@ -143,7 +155,19 @@ public class TGConfig {
 		
 		cl_fixedSprintFov = config.getFloat("FixedSprintFovMultiplier", CLIENTSIDE, 1.15f, 1.0f, 10.0f, "Multiply the FOV while sprinting by this value independent from the actual speed, has no effect when LockSpeedDependantFov is false, pure clientside check.");
 		
-		config.save();
+		cl_sortPassesPerTick = config.getInt("ParticleDepthSortPasses", CLIENTSIDE, 10, 0, 20, "How many bubble sort passes should be performed each tick on particles. 0=off. Clientside");
+		
+		if(config.hasChanged()) {
+			config.save();
+		}
+	}
+	
+	@SubscribeEvent
+	public static void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event){
+		if(event.getModID().equalsIgnoreCase(Techguns.MODID))
+		{
+			initValues();
+		}
 	}
 
 }

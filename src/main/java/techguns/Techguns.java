@@ -12,19 +12,20 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import techguns.gui.config.GuiFactoryTechguns;
 import techguns.init.ITGInitializer;
 import techguns.items.guns.ammo.AmmoTypes;
 import techguns.plugins.crafttweaker.TGCraftTweakerIntegration;
 import techguns.world.OreGenerator;
 
-@Mod(modid = Techguns.MODID, version = Techguns.VERSION, name=Techguns.NAME, acceptedMinecraftVersions=Techguns.MCVERSION)
+@Mod(modid = Techguns.MODID, version = Techguns.VERSION, name=Techguns.NAME, acceptedMinecraftVersions=Techguns.MCVERSION, guiFactory=Techguns.GUI_FACTORY)
 public class Techguns
 {
     public static final String MODID = "techguns";
     public static final String MCVERSION = "1.12.2";
     public static final String VERSION = MCVERSION+"-2.0.1.0";
     public static final String NAME = "Techguns";
-
+    public static final String GUI_FACTORY = "techguns.gui.config.GuiFactoryTechguns";
     
     @Mod.Instance
     public static Techguns instance;
