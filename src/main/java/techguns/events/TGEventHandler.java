@@ -1,6 +1,7 @@
 package techguns.events;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 
 import elucent.albedo.event.GatherLightsEvent;
 import net.minecraft.block.material.Material;
@@ -12,6 +13,7 @@ import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
@@ -36,6 +38,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -44,6 +47,8 @@ import techguns.TGPackets;
 import techguns.Techguns;
 import techguns.api.guns.GunManager;
 import techguns.api.guns.IGenericGun;
+import techguns.api.tginventory.ITGSpecialSlot;
+import techguns.api.tginventory.TGSlotType;
 import techguns.capabilities.TGExtendedPlayer;
 import techguns.client.ClientProxy;
 import techguns.client.ShooterValues;
@@ -68,6 +73,7 @@ import techguns.items.guns.GenericGunCharge;
 import techguns.packets.PacketEntityDeathType;
 import techguns.packets.PacketRequestTGPlayerSync;
 import techguns.packets.PacketTGExtendedPlayerSync;
+import techguns.util.InventoryUtil;
 
 @Mod.EventBusSubscriber(modid = Techguns.MODID)
 public class TGEventHandler {
@@ -431,6 +437,59 @@ public class TGEventHandler {
 		ClientProxy.get().particleManager.renderParticles(Minecraft.getMinecraft().getRenderViewEntity(), event.getPartialTicks());
 	}
 	
+	@SubscribeEvent
+	public static void onCraftEvent(ItemCraftedEvent event) {
+		if(event.crafting.getItem() instanceof GenericGun) {
+			boolean hasGun=false;
+			boolean hasAmmo=false;
+			boolean hasInvalid=false;
+			
+			ItemStack gun=ItemStack.EMPTY;
+			
+			for(int i=0; i<event.craftMatrix.getSizeInventory();i++) {
+				ItemStack stack = event.craftMatrix.getStackInSlot(i);
+				
+				if(!stack.isEmpty()) {
+					if( stack.getItem() instanceof GenericGun) {
+						if(!hasGun) {
+							hasGun=true;
+							gun=stack;
+						} else {
+							hasInvalid=true;
+							break;
+						}
+					} else if (stack.getItem() instanceof ITGSpecialSlot && ((ITGSpecialSlot)stack.getItem()).getSlot(stack)==TGSlotType.AMMOSLOT){
+						if(!hasAmmo) {
+							hasAmmo=true;
+						} else {
+							hasInvalid=true;
+							break;
+						}
+						
+					} else {
+						hasInvalid=true;
+						break;
+					}
+				}
+			}
+			if(!hasInvalid && hasGun && hasAmmo) {
+				//Was an Ammo change recipe!
+				GenericGun g = (GenericGun) gun.getItem();
+				List<ItemStack> items = g.getAmmoOnUnload(gun);
+				items.forEach(i -> {
+					int amount = InventoryUtil.addAmmoToPlayerInventory(event.player, i);
+					if(amount>0 && !event.player.world.isRemote) {
+						ItemStack it = i.copy();
+						it.setCount(amount);
+						event.player.world.spawnEntity(new EntityItem(event.player.world, event.player.posX, event.player.posY, event.player.posZ, it));
+					}		
+					});
+			}
+			
+		}
+
+		
+	}
 	
 	@Optional.Method(modid="albedo")
 	@SideOnly(Side.CLIENT)

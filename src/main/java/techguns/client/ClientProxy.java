@@ -218,6 +218,7 @@ import techguns.entities.projectiles.FlyingGibs;
 import techguns.entities.projectiles.FragGrenadeProjectile;
 import techguns.entities.projectiles.GaussProjectile;
 import techguns.entities.projectiles.GenericProjectile;
+import techguns.entities.projectiles.GenericProjectileIncendiary;
 import techguns.entities.projectiles.Grenade40mmProjectile;
 import techguns.entities.projectiles.GrenadeProjectile;
 import techguns.entities.projectiles.GuidedMissileProjectile;
@@ -902,6 +903,7 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	protected void registerEntityRenderers() {
 		RenderingRegistry.registerEntityRenderingHandler(GenericProjectile.class, RenderGenericProjectile<GenericProjectile>::new);
+		RenderingRegistry.registerEntityRenderingHandler(GenericProjectileIncendiary.class, RenderGenericProjectile<GenericProjectile>::new);
 		RenderingRegistry.registerEntityRenderingHandler(RocketProjectile.class, RenderRocketProjectile::new);
 		RenderingRegistry.registerEntityRenderingHandler(StoneBulletProjectile.class, RenderStoneBulletProjectile::new);
 		RenderingRegistry.registerEntityRenderingHandler(BioGunProjectile.class, RenderBioGunProjectile::new);

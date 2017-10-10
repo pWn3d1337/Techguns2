@@ -28,17 +28,17 @@ public class GenericGunCharge extends GenericGun {
 	public float fullChargeTime=20.0f;
 	public int ammoConsumedOnFullCharge=10;
 
-	protected IChargedProjectileFactory chargedProjectile;
+	protected ChargedProjectileSelector chargedProjectile_selector;
 	
 	public boolean hasChargedFireAnim = true;
 	public boolean canFireWhileCharging = false;
 	
-	public GenericGunCharge(String name, IChargedProjectileFactory projectile, AmmoType ammo, boolean semiAuto, int minFiretime, int clipsize, int reloadtime, float damage, SoundEvent firesound, SoundEvent reloadsound,
+	public GenericGunCharge(String name, ChargedProjectileSelector projectile_selector, boolean semiAuto, int minFiretime, int clipsize, int reloadtime, float damage, SoundEvent firesound, SoundEvent reloadsound,
 			int TTL, float accuracy, float fullChargeTime, int ammoConsumedOnFullCharge) {
-		super(name, projectile, ammo, semiAuto, minFiretime, clipsize, reloadtime, damage, firesound, reloadsound, TTL, accuracy);
+		super(name, projectile_selector, semiAuto, minFiretime, clipsize, reloadtime, damage, firesound, reloadsound, TTL, accuracy);
 		this.fullChargeTime=fullChargeTime;
 		this.ammoConsumedOnFullCharge=ammoConsumedOnFullCharge;
-		this.chargedProjectile=projectile;
+		this.chargedProjectile_selector=projectile_selector;
 	}
 	
 	@Override
@@ -256,7 +256,8 @@ public class GenericGunCharge extends GenericGun {
 	public void spawnChargedProjectile(final World world, final EntityLivingBase player, ItemStack itemStack, float spread, float charge, int ammoConsumed, EnumBulletFirePos firePos) {
 		/*world.spawnEntity(new GenericProjectile(world, player, damage, speed, this.ticksToLive, spread, this.damageDropStart, this.damageDropEnd,
 				this.damageMin, this.penetration, getDoBlockDamage(player), leftGun));*/
-		GenericProjectile proj = this.chargedProjectile.createChargedProjectile(world, player, damage, speed, this.ticksToLive, spread, this.damageDropStart, damageDropEnd, this.damageMin, penetration, getDoBlockDamage(player), firePos, radius, gravity, charge, ammoConsumed);
+		IChargedProjectileFactory fact = this.chargedProjectile_selector.getFactoryForType(this.getCurrentAmmoVariantKey(itemStack));
+		GenericProjectile proj = fact.createChargedProjectile(world, player, damage, speed, this.ticksToLive, spread, this.damageDropStart, damageDropEnd, this.damageMin, penetration, getDoBlockDamage(player), firePos, radius, gravity, charge, ammoConsumed);
 		if (proj != null) world.spawnEntity(proj);
 	}
 

@@ -17,18 +17,18 @@ import techguns.util.MathUtil;
 
 public class SonicShotgun extends GenericGun {
 
-	public SonicShotgun(String name, IProjectileFactory projectilefactory, AmmoType ammo, boolean semiAuto,
+	public SonicShotgun(boolean addToGunList, String name, ProjectileSelector projectile_selector, boolean semiAuto,
 			int minFiretime, int clipsize, int reloadtime, float damage, SoundEvent firesound, SoundEvent reloadsound,
 			int TTL, float accuracy) {
-		super(name, projectilefactory, ammo, semiAuto, minFiretime, clipsize, reloadtime, damage, firesound, reloadsound, TTL,
-				accuracy);
+		super(addToGunList, name, projectile_selector, semiAuto, minFiretime, clipsize, reloadtime, damage, firesound,
+				reloadsound, TTL, accuracy);
 	}
 
-	public SonicShotgun(boolean addToGunList, String name, IProjectileFactory projectilefactory, AmmoType ammo,
-			boolean semiAuto, int minFiretime, int clipsize, int reloadtime, float damage, SoundEvent firesound,
-			SoundEvent reloadsound, int TTL, float accuracy) {
-		super(addToGunList, name, projectilefactory, ammo, semiAuto, minFiretime, clipsize, reloadtime, damage, firesound,
-				reloadsound, TTL, accuracy);
+	public SonicShotgun(String name, ProjectileSelector projectileSelector, boolean semiAuto, int minFiretime,
+			int clipsize, int reloadtime, float damage, SoundEvent firesound, SoundEvent reloadsound, int TTL,
+			float accuracy) {
+		super(name, projectileSelector, semiAuto, minFiretime, clipsize, reloadtime, damage, firesound, reloadsound, TTL,
+				accuracy);
 	}
 
 	@Override

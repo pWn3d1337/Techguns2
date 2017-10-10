@@ -47,6 +47,7 @@ import techguns.entities.projectiles.FlamethrowerProjectile;
 import techguns.entities.projectiles.FragGrenadeProjectile;
 import techguns.entities.projectiles.GaussProjectile;
 import techguns.entities.projectiles.GenericProjectile;
+import techguns.entities.projectiles.GenericProjectileIncendiary;
 import techguns.entities.projectiles.Grenade40mmProjectile;
 import techguns.entities.projectiles.GrenadeProjectile;
 import techguns.entities.projectiles.GuidedMissileProjectile;
@@ -72,6 +73,7 @@ public class TGEntities implements ITGInitializer {
 		int bulletTrackRange = 128;
 		
 		EntityRegistry.registerModEntity(new ResourceLocation(Techguns.MODID,"GenericProjectile"),GenericProjectile.class, "GenericProjectile", ++Techguns.modEntityID, Techguns.MODID, bulletTrackRange, 1, true);
+		EntityRegistry.registerModEntity(new ResourceLocation(Techguns.MODID,"GenericProjectileIncendiary"),GenericProjectileIncendiary.class, "GenericProjectileIncendiary", ++Techguns.modEntityID, Techguns.MODID, bulletTrackRange, 1, true);
 		EntityRegistry.registerModEntity(new ResourceLocation(Techguns.MODID,"RocketProjectile"),RocketProjectile.class, "RocketProjectile", ++Techguns.modEntityID, Techguns.MODID, bulletTrackRange, 1, true);
 		EntityRegistry.registerModEntity(new ResourceLocation(Techguns.MODID,"StoneBulletProjectile"),StoneBulletProjectile.class, "StoneBulletProjectile", ++Techguns.modEntityID, Techguns.MODID, bulletTrackRange, 1, true);
 		EntityRegistry.registerModEntity(new ResourceLocation(Techguns.MODID,"BioGunProjectile"),BioGunProjectile.class, "BioGunProjectile", ++Techguns.modEntityID, Techguns.MODID, bulletTrackRange, 1, true);

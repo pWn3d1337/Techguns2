@@ -42,7 +42,7 @@ public class TGItems implements ITGInitializer{
 	 * TODO
 	 * DISABLE THIS BEFORE RELEASE
 	 */
-	public static boolean WRITE_ITEM_JSON = false;
+	public static boolean WRITE_ITEM_JSON = true;
 	/**
 	 * TODO
 	 * DISABLE THIS BEFORE RELEASE
@@ -192,6 +192,10 @@ public class TGItems implements ITGInitializer{
 	public static ItemStack OXYGEN_MASK;
 	
 	public static ItemStack MACHINE_UPGRADE_STACK;
+	
+	//Ammo Variants
+	public static ItemStack SHOTGUN_ROUNDS_INCENDIARY;
+	
 	/**
 	 * ADDITONAL SLOT ITEMS
 	 */
@@ -369,6 +373,7 @@ public class TGItems implements ITGInitializer{
 		RC_HEAT_RAY = SHARED_ITEM.addsharedVariant("rcheatray",false,TGSlotType.REACTION_CHAMBER_FOCUS,1,true);
 		RC_UV_EMITTER = SHARED_ITEM.addsharedVariant("rcuvemitter",false,TGSlotType.REACTION_CHAMBER_FOCUS,1,true);
 		
+		SHOTGUN_ROUNDS_INCENDIARY = SHARED_ITEM.addsharedVariant("shotgunrounds_incendiary", TGSlotType.AMMOSLOT);
 		/**
 		 * Additional Slot items
 		 */

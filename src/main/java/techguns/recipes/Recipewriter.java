@@ -103,9 +103,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 import techguns.TGBlocks;
 import techguns.TGItems;
+import techguns.TGuns;
 import techguns.blocks.machines.EnumMachineType;
 import techguns.blocks.machines.EnumMultiBlockMachineType;
 import techguns.blocks.machines.EnumSimpleMachineType;
+import techguns.items.guns.ammo.AmmoTypes;
 
 public class Recipewriter {
 
@@ -286,6 +288,12 @@ public class Recipewriter {
         RecipeJsonConverter.addShapedRecipe(TGItems.newStack(TGItems.QUARTZ_ROD,1), "  q", " q ", "q  ", 'q', "gemQuartz");
       
         addGunRecipes();
+        addAmmoChangeRecipes();
+	}
+	
+	public static void addAmmoChangeRecipes() {
+		RecipeJsonConverter.addShapelessAmmoSwapRecipe(TGuns.combatshotgun, AmmoTypes.SHOTGUN_ROUNDS, AmmoTypes.TYPE_INCENDIARY);
+		RecipeJsonConverter.addShapelessAmmoSwapRecipe(TGuns.combatshotgun, AmmoTypes.SHOTGUN_ROUNDS, AmmoTypes.TYPE_DEFAULT);
 	}
 	
 	public static void addGunRecipes() {

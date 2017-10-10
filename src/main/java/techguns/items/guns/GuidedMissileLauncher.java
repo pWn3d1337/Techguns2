@@ -25,13 +25,13 @@ public class GuidedMissileLauncher extends GenericGunCharge {
 	//public static final int LOCK_TICKS = 10; //ticks required for lock completion
 	//public static final int LOCK_COMPLETE_TICKS = 20; //This is value is used when the lock is complete
 
-	public GuidedMissileLauncher(String name, IChargedProjectileFactory projectile, AmmoType ammo, boolean semiAuto,
+	public GuidedMissileLauncher(String name, ChargedProjectileSelector projectile_selector, boolean semiAuto,
 			int minFiretime, int clipsize, int reloadtime, float damage, SoundEvent firesound, SoundEvent reloadsound,
 			int TTL, float accuracy, float fullChargeTime, int ammoConsumedOnFullCharge) {
-		super(name, projectile, ammo, semiAuto, minFiretime, clipsize, reloadtime, damage, firesound, reloadsound, TTL,
+		super(name, projectile_selector, semiAuto, minFiretime, clipsize, reloadtime, damage, firesound, reloadsound, TTL,
 				accuracy, fullChargeTime, ammoConsumedOnFullCharge);
 	}
-	
+
 	@Override
 	public void onUsingTick(ItemStack stack, EntityLivingBase player, int count) {
 		super.onUsingTick(stack, player, count);

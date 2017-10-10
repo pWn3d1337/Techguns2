@@ -431,9 +431,9 @@ public class TGParticle extends Particle implements ITGParticle {
     		//GL11.glEnable(GL11.GL_ALPHA_TEST);
     	}
         if (type.renderType == RenderType.ALPHA) {
-        	GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        	GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
         } else if (type.renderType == RenderType.ADDITIVE || type.renderType==RenderType.NO_Z_TEST) {
-        	GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
+        	GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE);
         }
         
         if (type.renderType==RenderType.NO_Z_TEST){
@@ -452,6 +452,12 @@ public class TGParticle extends Particle implements ITGParticle {
     		//GlStateManager.disableAlpha();
     		//GL11.glDisable(GL11.GL_ALPHA_TEST);
     	}
+		 if (type.renderType == RenderType.ALPHA) {
+        	GlStateManager.blendFunc(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+        } else if (type.renderType == RenderType.ADDITIVE || type.renderType==RenderType.NO_Z_TEST) {
+        	GlStateManager.blendFunc(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+        }
+		
         if (type.renderType==RenderType.NO_Z_TEST){
         	GlStateManager.depthMask(true);
         	GlStateManager.enableDepth();

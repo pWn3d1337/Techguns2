@@ -103,19 +103,19 @@ public class TeslaProjectile extends AbstractBeamProjectile{
 	}
 	
 	private EntityLivingBase findNextTarget(Entity lastTarget) {
-		List list = this.world.getEntitiesWithinAABBExcludingEntity(lastTarget, new AxisAlignedBB(lastTarget.posX
+		List<Entity> list = this.world.getEntitiesInAABBexcluding(lastTarget, new AxisAlignedBB(lastTarget.posX
 						- CHAIN_RANGE, lastTarget.posY
 						- CHAIN_RANGE, lastTarget.posZ
 						- CHAIN_RANGE, lastTarget.posX
 						+ CHAIN_RANGE, lastTarget.posY
 						+ CHAIN_RANGE, lastTarget.posZ
-						+ CHAIN_RANGE));
+						+ CHAIN_RANGE), BULLET_TARGETS);
 		
 		for (int i1 = 0; i1 < list.size(); ++i1)
         {
-			Object o = list.get(i1);
-			if (o instanceof EntityLivingBase) {
-				EntityLivingBase entity = (EntityLivingBase)o;
+			Entity e = list.get(i1);
+			if (e instanceof EntityLivingBase) {
+				EntityLivingBase entity = (EntityLivingBase)e;
 	            
 	            double distance = entity.getDistance(lastTarget.posX, lastTarget.posY+lastTarget.getEyeHeight()*0.5f, lastTarget.posZ);
 	            

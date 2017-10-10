@@ -82,6 +82,11 @@ public class TGParticleManager {
         	p.doRender(bufferbuilder, entityIn, partialTicks, f1, f5, f2, f3, f4);
         });
         GlStateManager.enableCull();
+        
+        //GlStateManager.disableBlend();
+        //GlStateManager.color(1f, 1f, 1f, 1f);
+        //GlStateManager.disableAlpha();
+        //TODO fix blending
     }
 	
 	public static class ComparatorParticleDepth implements Comparator<ITGParticle> {

@@ -1,4 +1,7 @@
 {
+  "recipes": {
+    "ammo_change_crafting": "techguns.recipes.AmmoSwitchRecipeFactory"
+  },
   "ingredients": {
     "electrumOrGold": "techguns.recipes.OreDictIngredientElectrumOrGold",
     "hardenedGlassOrGlass": "techguns.recipes.OreDictIngredientHardenedGlass"
