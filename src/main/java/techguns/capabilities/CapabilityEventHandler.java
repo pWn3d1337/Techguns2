@@ -3,16 +3,13 @@ package techguns.capabilities;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerChangedDimensionEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import techguns.Techguns;
-import techguns.api.capabilities.ITGExtendedPlayer;
 import techguns.api.npc.INPCTechgunsShooter;
 
 @Mod.EventBusSubscriber(modid = Techguns.MODID)
@@ -27,7 +24,12 @@ public class CapabilityEventHandler {
 			event.addCapability(TGShooterValuesCapProvider.ID, new TGShooterValuesCapProvider(cap));
 			
 		} else if (event.getObject() instanceof EntityPlayer) {
-			final TGExtendedPlayer cap = new TGExtendedPlayer((EntityPlayer) event.getObject());
+			TGExtendedPlayer cap;
+			if( event.getObject().world.isRemote) {
+				cap = new TGExtendedPlayerClient((EntityPlayer) event.getObject());
+			} else {
+				cap = new TGExtendedPlayer((EntityPlayer) event.getObject());
+			}
 			event.addCapability(TGExtendedPlayerCapProvider.ID, new TGExtendedPlayerCapProvider(cap));
 		} 
 	}

@@ -3,12 +3,10 @@ package techguns.packets;
 import java.util.BitSet;
 
 import io.netty.buffer.ByteBuf;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTException;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.common.FMLCommonHandler;
@@ -17,10 +15,8 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import techguns.TGPackets;
 import techguns.capabilities.TGExtendedPlayer;
-import techguns.client.ClientProxy;
 import techguns.gui.player.TGPlayerInventory;
 import techguns.util.DataUtil;
-import techguns.util.TGLogger;
 
 public class PacketTGExtendedPlayerSync implements IMessage {
 	public int entityId;

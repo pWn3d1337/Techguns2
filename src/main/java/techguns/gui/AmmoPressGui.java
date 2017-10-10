@@ -1,15 +1,12 @@
 package techguns.gui;
 
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
 import techguns.TGItems;
 import techguns.Techguns;
 import techguns.gui.containers.AmmoPressContainer;
-import techguns.gui.containers.CamoBenchContainer;
 import techguns.tileentities.AmmoPressTileEnt;
-import techguns.tileentities.CamoBenchTileEnt;
 import techguns.util.TextUtil;
 
 public class AmmoPressGui extends PoweredTileEntGui {

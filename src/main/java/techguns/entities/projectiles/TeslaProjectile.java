@@ -4,10 +4,8 @@ import java.util.List;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.RayTraceResult.Type;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import techguns.api.damagesystem.DamageType;
@@ -33,21 +31,21 @@ public class TeslaProjectile extends AbstractBeamProjectile{
 	}
 	
 //	public TeslaProjectile(World worldIn, double posX, double posY, double posZ, float yaw, float pitch, float damage,
-//			float speed, int TTL, float spread, int dmgDropStart, int dmgDropEnd, float dmgMin, float penetration,
+//			float speed, int TTL, float spread, float dmgDropStart, float dmgDropEnd, float dmgMin, float penetration,
 //			boolean blockdamage, boolean leftGun) {
 //		super(worldIn, posX, posY, posZ, yaw, pitch, damage, speed, TTL, spread, dmgDropStart, dmgDropEnd, dmgMin, penetration,
 //				blockdamage, leftGun);
 //	}
 	
 	public TeslaProjectile(World par2World, EntityLivingBase p, float damage, float speed, int TTL, float spread,
-			int dmgDropStart, int dmgDropEnd, float dmgMin, float penetration, boolean blockdamage, EnumBulletFirePos leftGun, int chainTargets) {
+			float dmgDropStart, float dmgDropEnd, float dmgMin, float penetration, boolean blockdamage, EnumBulletFirePos leftGun, int chainTargets) {
 		super(par2World, p, damage, speed, TTL, spread, dmgDropStart, dmgDropEnd, dmgMin, penetration, blockdamage, leftGun);
 		this.chainTargets = chainTargets;
 		trace();
 	}
 	
-	public TeslaProjectile(World world, EntityLivingBase shooter, Entity source, EntityLivingBase target, int chainTargets, float damage, float speed, int TTL, int dmgDropStart,
-			int dmgDropEnd, float dmgMin, float penetration, boolean blockdamage) {
+	public TeslaProjectile(World world, EntityLivingBase shooter, Entity source, EntityLivingBase target, int chainTargets, float damage, float speed, int TTL, float dmgDropStart,
+			float dmgDropEnd, float dmgMin, float penetration, boolean blockdamage) {
 		super(world, shooter, damage, speed, TTL, 0, dmgDropStart, dmgDropEnd, dmgMin, penetration, blockdamage, EnumBulletFirePos.CENTER);
 		maxTicks = (short) this.ticksToLive;
 		this.chainTargets = chainTargets;
@@ -105,19 +103,19 @@ public class TeslaProjectile extends AbstractBeamProjectile{
 	}
 	
 	private EntityLivingBase findNextTarget(Entity lastTarget) {
-		List list = this.world.getEntitiesWithinAABBExcludingEntity(lastTarget, new AxisAlignedBB(lastTarget.posX
+		List<Entity> list = this.world.getEntitiesInAABBexcluding(lastTarget, new AxisAlignedBB(lastTarget.posX
 						- CHAIN_RANGE, lastTarget.posY
 						- CHAIN_RANGE, lastTarget.posZ
 						- CHAIN_RANGE, lastTarget.posX
 						+ CHAIN_RANGE, lastTarget.posY
 						+ CHAIN_RANGE, lastTarget.posZ
-						+ CHAIN_RANGE));
+						+ CHAIN_RANGE), BULLET_TARGETS);
 		
 		for (int i1 = 0; i1 < list.size(); ++i1)
         {
-			Object o = list.get(i1);
-			if (o instanceof EntityLivingBase) {
-				EntityLivingBase entity = (EntityLivingBase)o;
+			Entity e = list.get(i1);
+			if (e instanceof EntityLivingBase) {
+				EntityLivingBase entity = (EntityLivingBase)e;
 	            
 	            double distance = entity.getDistance(lastTarget.posX, lastTarget.posY+lastTarget.getEyeHeight()*0.5f, lastTarget.posZ);
 	            
@@ -144,7 +142,7 @@ public class TeslaProjectile extends AbstractBeamProjectile{
 	public static class Factory implements IProjectileFactory<TeslaProjectile> {
 		@Override
 		public TeslaProjectile createProjectile(GenericGun gun, World world, EntityLivingBase p, float damage, float speed,
-				int TTL, float spread, int dmgDropStart, int dmgDropEnd, float dmgMin, float penetration,
+				int TTL, float spread, float dmgDropStart, float dmgDropEnd, float dmgMin, float penetration,
 				boolean blockdamage, EnumBulletFirePos firePos, float radius, double gravity) {
 			return new TeslaProjectile(world, p, damage, speed, TeslaProjectile.TTL, spread, dmgDropStart, dmgDropEnd, dmgMin, penetration, blockdamage, firePos, CHAIN_TARGETS);
 		}

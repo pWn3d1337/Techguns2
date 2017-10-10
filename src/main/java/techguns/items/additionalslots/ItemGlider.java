@@ -1,11 +1,7 @@
 package techguns.items.additionalslots;
 
-import javax.vecmath.Vector2d;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
 import techguns.api.tginventory.TGSlotType;

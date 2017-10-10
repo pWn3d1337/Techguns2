@@ -1,8 +1,6 @@
 package techguns.client.models.gibs;
 
-import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelQuadruped;
-import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
 public class ModelGibsQuadruped extends ModelGibs{    

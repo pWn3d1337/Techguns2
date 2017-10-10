@@ -2,37 +2,21 @@ package techguns.capabilities;
 
 import java.util.BitSet;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityInject;
-import net.minecraftforge.common.capabilities.CapabilityManager;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.server.permission.PermissionAPI;
 import techguns.TGPermissions;
-import techguns.TGSounds;
-import techguns.Techguns;
 import techguns.api.capabilities.AttackTime;
 import techguns.api.capabilities.ITGExtendedPlayer;
-import techguns.client.audio.TGSound;
-import techguns.client.audio.TGSoundCategory;
 import techguns.gui.player.TGPlayerInventory;
 import techguns.util.DataUtil;
-import techguns.util.SoundUtil;
 
 public class TGExtendedPlayer implements ITGExtendedPlayer {
 
@@ -75,13 +59,6 @@ public class TGExtendedPlayer implements ITGExtendedPlayer {
 	 * only used by client, not synced
 	 */
 	public boolean isGliding=false;
-	
-	// Client only fields
-	@SideOnly(Side.CLIENT)
-	public TGSound gliderLoop=null;
-	
-	@SideOnly(Side.CLIENT)
-	public TGSound jetPackLoop=null;
 	
 	/**
 	 * SAVED FIELDS
@@ -142,11 +119,8 @@ public class TGExtendedPlayer implements ITGExtendedPlayer {
 		this.gunOffHand=other.gunOffHand;
 		this.isJumpkeyPressed=other.isJumpkeyPressed;
 		this.isForwardKeyPressed=other.isForwardKeyPressed;
+
 		this.isGliding=other.isGliding;
-		
-		this.gliderLoop=other.gliderLoop;
-		
-		this.jetPackLoop=other.jetPackLoop;
 		
 		this.tg_inventory = other.tg_inventory;
 		
@@ -282,7 +256,7 @@ public class TGExtendedPlayer implements ITGExtendedPlayer {
 
 	public void setJumpkeyPressed(boolean isJumpkeyPressed) {
 		
-		if(this.entity.world.isRemote){
+		/*if(this.entity.world.isRemote){
 			if(isJumpkeyPressed==true && jetPackLoop==null){
 				jetPackLoop = new TGSound(TGSounds.JETPACK_LOOP, this.entity, 1.0f, 1.0f, true, true, false, TGSoundCategory.PLAYER_EFFECT);
 				SoundUtil.playSoundAtEntityPos(this.entity.world, this.entity, TGSounds.JETPACK_START, 1.0f, 1.0f, false, TGSoundCategory.PLAYER_EFFECT);
@@ -300,7 +274,7 @@ public class TGExtendedPlayer implements ITGExtendedPlayer {
 			}
 			
 			
-		}
+		}*/
 		
 		this.isJumpkeyPressed = isJumpkeyPressed;
 	}

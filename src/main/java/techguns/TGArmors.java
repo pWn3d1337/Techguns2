@@ -15,7 +15,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.registries.IForgeRegistry;
 import techguns.init.ITGInitializer;
-import techguns.items.GenericItem;
 import techguns.items.armors.ArmorPowerType;
 import techguns.items.armors.GenericArmor;
 import techguns.items.armors.GenericArmorMultiCamo;

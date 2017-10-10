@@ -1,21 +1,11 @@
 package techguns.gui;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-
-import com.mojang.realmsclient.gui.ChatFormatting;
-
 import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
 import techguns.TGConfig;
 import techguns.Techguns;
-import techguns.client.ClientProxy;
-import techguns.gui.widgets.GuiButtonRedstoneState;
-import techguns.gui.widgets.GuiButtonSecurity;
 import techguns.tileentities.BasicPoweredTileEnt;
 import techguns.util.TextUtil;
-import static techguns.gui.ButtonConstants.*;
 
 public abstract class PoweredTileEntGui extends RedstoneTileEntGui {
 	public static final String POWER_UNIT ="FE";

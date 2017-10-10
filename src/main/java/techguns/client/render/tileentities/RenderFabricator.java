@@ -1,12 +1,7 @@
 package techguns.client.render.tileentities;
 
-import org.lwjgl.opengl.GLSync;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
@@ -15,8 +10,6 @@ import net.minecraft.util.ResourceLocation;
 import techguns.Techguns;
 import techguns.client.models.machines.ModelFabricator;
 import techguns.client.models.machines.ModelMachine;
-import techguns.debug.Keybinds;
-import techguns.tileentities.BasicMachineTileEnt;
 import techguns.tileentities.FabricatorTileEntMaster;
 
 public class RenderFabricator extends TileEntitySpecialRenderer<FabricatorTileEntMaster> {
@@ -78,7 +71,7 @@ public class RenderFabricator extends TileEntitySpecialRenderer<FabricatorTileEn
 				 //GlStateManager.rotate(180, 0, 1, 0);
 				 GlStateManager.rotate(+90, 1, 0, 0);
 				 //Minecraft.getMinecraft().getRenderManager().doRenderEntity(this.entItem, 0.6, /*-1.25D +0.625D +0.9*/ 0.275, -0.5, 93.5F, 0.0f, false);
-				 Minecraft.getMinecraft().getRenderManager().doRenderEntity(this.entItem, -0.5f, 0f, -0.6f, 93.5F, 0.0f, false);
+				 Minecraft.getMinecraft().getRenderManager().renderEntity(this.entItem, -0.5f, 0f, -0.6f, 93.5F, 0.0f, false);
 				 GlStateManager.popMatrix();
 				/**
 				 * FIX LIGHTING AFTER ITEM RENDERING

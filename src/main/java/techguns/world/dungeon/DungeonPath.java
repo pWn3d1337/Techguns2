@@ -1,7 +1,5 @@
 package techguns.world.dungeon;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import net.minecraft.util.EnumFacing;

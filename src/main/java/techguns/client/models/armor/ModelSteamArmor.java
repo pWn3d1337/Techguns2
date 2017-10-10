@@ -2,7 +2,6 @@ package techguns.client.models.armor;
 
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.entity.Entity;
 
 public class ModelSteamArmor extends ModelBiped {
 

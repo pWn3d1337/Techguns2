@@ -2,11 +2,9 @@ package techguns.gui;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
 import techguns.Techguns;
 import techguns.gui.containers.ChargingStationContainer;
-import techguns.tileentities.BasicPoweredTileEnt;
 import techguns.tileentities.ChargingStationTileEnt;
 
 public class ChargingStationGui extends PoweredTileEntGui {

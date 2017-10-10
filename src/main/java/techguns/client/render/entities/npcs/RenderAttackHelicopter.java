@@ -29,7 +29,6 @@ import net.minecraftforge.client.model.pipeline.VertexBufferConsumer;
 import net.minecraftforge.client.model.pipeline.VertexLighterFlat;
 import net.minecraftforge.common.model.TRSRTransformation;
 import techguns.Techguns;
-import techguns.debug.Keybinds;
 import techguns.entities.npcs.AttackHelicopter;
 
 public class RenderAttackHelicopter extends RenderLiving<AttackHelicopter> {

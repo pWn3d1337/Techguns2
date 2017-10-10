@@ -1,31 +1,36 @@
 package techguns.core;
 
+import static org.objectweb.asm.Opcodes.ACONST_NULL;
+import static org.objectweb.asm.Opcodes.ALOAD;
+import static org.objectweb.asm.Opcodes.FCONST_1;
+import static org.objectweb.asm.Opcodes.FSTORE;
+import static org.objectweb.asm.Opcodes.GETSTATIC;
+import static org.objectweb.asm.Opcodes.ICONST_0;
+import static org.objectweb.asm.Opcodes.ICONST_1;
+import static org.objectweb.asm.Opcodes.IFNE;
+import static org.objectweb.asm.Opcodes.ILOAD;
+import static org.objectweb.asm.Opcodes.INVOKESPECIAL;
+import static org.objectweb.asm.Opcodes.INVOKESTATIC;
+import static org.objectweb.asm.Opcodes.INVOKEVIRTUAL;
+
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Objects;
-import java.util.logging.Level;
 
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
-import org.objectweb.asm.Type;
-import org.objectweb.asm.commons.Method;
 import org.objectweb.asm.tree.AbstractInsnNode;
 import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.FieldInsnNode;
-import org.objectweb.asm.tree.FrameNode;
 import org.objectweb.asm.tree.InsnList;
 import org.objectweb.asm.tree.InsnNode;
 import org.objectweb.asm.tree.JumpInsnNode;
 import org.objectweb.asm.tree.LabelNode;
 import org.objectweb.asm.tree.MethodInsnNode;
 import org.objectweb.asm.tree.MethodNode;
-import org.objectweb.asm.tree.TypeInsnNode;
 import org.objectweb.asm.tree.VarInsnNode;
-import net.minecraft.launchwrapper.IClassTransformer;
 
-import static org.objectweb.asm.Opcodes.*;
+import net.minecraft.launchwrapper.IClassTransformer;
 
 public class TechgunsASMTransformer implements IClassTransformer {
 
@@ -59,11 +64,11 @@ public class TechgunsASMTransformer implements IClassTransformer {
 	}
 	
 	private static String getMapping(String key, boolean deobf){
-		if (deobf){
+		//if (deobf){
 			return mappings_deobf.get(key);
-		} else {
-			return mappings_obf.get(key);
-		}
+		//} else {
+		//	return mappings_obf.get(key);
+		//}
 	}
 	
 	private static String getHookSignature(boolean deobf){
@@ -76,7 +81,8 @@ public class TechgunsASMTransformer implements IClassTransformer {
 	 * @return
 	 */
 	private static String getHookSignature2(boolean deobf){
-		return "(L"+getMapping("EntityPlayer",deobf)+";FL"+getMapping("ItemStack",deobf)+";L"+getMapping("ItemStack",deobf)+";)F";
+		//return "(L"+getMapping("EntityPlayer",deobf)+";FL"+getMapping("ItemStack",deobf)+";L"+getMapping("ItemStack",deobf)+";)F";
+		return "()F";
 	}
 	
 	@Override
@@ -86,7 +92,7 @@ public class TechgunsASMTransformer implements IClassTransformer {
 			boolean deobf = name.equals(transformedName);
 			
 			try {
-				
+				//System.out.println("Transforming:"+transformedName);
 				//Setup ASM
 				ClassNode classNode = new ClassNode();
 				ClassReader classReader = new ClassReader(basicClass);
@@ -105,7 +111,7 @@ public class TechgunsASMTransformer implements IClassTransformer {
 				}
 			
 				
-				ClassWriter classWriter  = new ClassWriter(ClassWriter.COMPUTE_MAXS | ClassWriter.COMPUTE_FRAMES);
+				ClassWriter classWriter  = new CustomClassWriter(ClassWriter.COMPUTE_MAXS | ClassWriter.COMPUTE_FRAMES);
 				classNode.accept(classWriter);
 				return classWriter.toByteArray();
 				
@@ -118,9 +124,7 @@ public class TechgunsASMTransformer implements IClassTransformer {
 
 	protected void patchRenderEntityItem(ClassNode classNode, boolean deobf){
 		
-		String targetMethodName = deobf ? "doRender" : "a";
-		
-		//String entityItemName = deobf ? "Lnet/minecraft/entity/item/EntityItem" : "acj";
+		String targetMethodName = deobf ? "doRender" : "func_76986_a";//"a";
 		
 		String signature = "(L"+getMapping("EntityItem",deobf)+";DDDFF)V";
 		
@@ -176,9 +180,11 @@ public class TechgunsASMTransformer implements IClassTransformer {
 	
 	protected void patchRenderItem(ClassNode classNode, boolean deobf){
 		
-		String targetMethodName = deobf ? "renderItem" : "a";
+		String targetMethodName = deobf ? "renderItem" : "func_184392_a";//"a";
 		
-		String targetMethodName2 = deobf ? "renderModel" : "a";
+		String targetMethodName2 = deobf ? "renderModel" : "func_191961_a";//"a";
+		
+		String targetMethodNameGui = deobf ? "renderItemModelIntoGUI" : "func_191962_a";//"a";
 		
 		String itemStackName = "L"+getMapping("ItemStack",deobf);
 		String camTransformTypeName = "L"+getMapping("TransformType",deobf);
@@ -186,17 +192,12 @@ public class TechgunsASMTransformer implements IClassTransformer {
 		String signature = "("+itemStackName+";L"+getMapping("ELB",deobf)+";"+camTransformTypeName+";Z)V";
 		String signature2 = "("+itemStackName+";"+camTransformTypeName+";)V"; 
 		
-		
-		String targetMethodNameGui = deobf ? "renderItemModelIntoGUI" : "a";
-		
-		
 		String signature_renderModel = "(L"+getMapping("IBakedModel",deobf)+";"+itemStackName+";)V";
-		
-		/* (Lnet/minecraft/item/ItemStack;IILnet/minecraft/client/renderer/block/model/IBakedModel;)V */
+
 		String signature3 = "("+itemStackName+";IIL"+getMapping("IBakedModel",deobf)+";)V";
 		
 	
-	/*	System.out.println("Target1:"+targetMethodName+":"+signature);
+		/*System.out.println("Target1:"+targetMethodName+":"+signature);
 		System.out.println("Target2:"+targetMethodName+":"+signature2);
 		System.out.println("Target3:"+targetMethodNameGui+":"+signature3);
 		System.out.println("Target3:"+targetMethodName2+":"+signature_renderModel);*/
@@ -222,10 +223,11 @@ public class TechgunsASMTransformer implements IClassTransformer {
 	}
 	
 	protected void patchItemRenderer(ClassNode classNode, boolean deobf){
-		String targetMethodName1 = deobf ? "updateEquippedItem" :"a";
+		String targetMethodName1 = deobf ? "updateEquippedItem" : "func_78441_a";//"a";
 		String signature1 = "()V";
 		
 		for (MethodNode m : classNode.methods){
+			//System.out.println("Checking Method:"+m.name+" "+m.desc);
 			if (m.name.equals(targetMethodName1) && m.desc.equals(signature1)) {
 				patchItemRenderer_updateEquippedItem(m,deobf);
 			}
@@ -500,7 +502,6 @@ public class TechgunsASMTransformer implements IClassTransformer {
                     	
                 		if ( instruction.getPrevious().getPrevious().getPrevious() !=null && instruction.getPrevious().getPrevious().getPrevious().getOpcode()== ALOAD && ((VarInsnNode) instruction.getPrevious().getPrevious().getPrevious()).var == 1)
                         {
-                        	
                             targetNode = instruction;
                             break;
                         }
@@ -513,10 +514,12 @@ public class TechgunsASMTransformer implements IClassTransformer {
         	
         	InsnList toInsert = new InsnList();
         	
-        	toInsert.add(new VarInsnNode(ALOAD, 1));
-        	toInsert.add(new InsnNode(FCONST_1));
+        	//toInsert.add(new VarInsnNode(ALOAD, 1));
+        	/*toInsert.add(new InsnNode(FCONST_1));
         	toInsert.add(new VarInsnNode(ALOAD, 2));
-        	toInsert.add(new VarInsnNode(ALOAD, 3));
+        	toInsert.add(new VarInsnNode(ALOAD, 3));*/
+        	//System.out.println("PATCH: with Hook Signature:"+getHookSignature2(deobf));
+        	
         	toInsert.add(new MethodInsnNode(INVOKESTATIC, ITEMRENDERHACK, "getAttackStrengthForRendering", getHookSignature2(deobf), false));
         	toInsert.add(new VarInsnNode(FSTORE, 4));
         	

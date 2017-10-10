@@ -30,12 +30,17 @@ public class AmmoTypes implements ITGInitializer{
 	public static AmmoType NUCLEAR_POWER_CELL;
 
 	
+	public static String TYPE_INCENDIARY = "incendiary";
+	public static String TYPE_DEFAULT = "default";
+	
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
 		STONE_BULLETS = new AmmoType(TGItems.STONE_BULLETS);
 		PISTOL_ROUNDS = new AmmoType(TGItems.PISTOL_ROUNDS);
 		RIFLE_ROUNDS = new AmmoType(TGItems.RIFLE_ROUNDS);
 		SHOTGUN_ROUNDS = new AmmoType(TGItems.SHOTGUN_ROUNDS);
+		SHOTGUN_ROUNDS.addVariant(TYPE_INCENDIARY,TGItems.SHOTGUN_ROUNDS_INCENDIARY);
+		
 		SMG_MAGAZINE = new AmmoType(TGItems.SMG_MAGAZINE, TGItems.SMG_MAGAZINE_EMPTY, TGItems.PISTOL_ROUNDS,2);
 		ASSAULT_RIFLE_MAGAZINE = new AmmoType(TGItems.ASSAULTRIFLE_MAGAZINE, TGItems.ASSAULTRIFLE_MAGAZINE_EMPTY, TGItems.RIFLE_ROUNDS, 3);
 		PISTOL_MAGAZINE = new AmmoType(TGItems.PISTOL_MAGAZINE, TGItems.PISTOL_MAGAZINE_EMPTY, TGItems.PISTOL_ROUNDS,3);

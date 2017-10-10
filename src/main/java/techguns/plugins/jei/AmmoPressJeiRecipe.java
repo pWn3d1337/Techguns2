@@ -4,14 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mezz.jei.api.IJeiHelpers;
-import mezz.jei.api.gui.IDrawableAnimated;
-import mezz.jei.api.gui.IDrawableStatic;
 import mezz.jei.api.recipe.IStackHelper;
 import net.minecraft.client.Minecraft;
 import techguns.TGItems;
 import techguns.Techguns;
-import techguns.gui.AmmoPressGui;
-import techguns.gui.TGBaseGui;
 import techguns.tileentities.AmmoPressTileEnt;
 import techguns.tileentities.operation.AmmoPressBuildPlans;
 import techguns.tileentities.operation.IMachineRecipe;

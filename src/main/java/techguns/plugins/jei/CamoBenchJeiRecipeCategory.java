@@ -4,7 +4,6 @@ import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IGuiItemStackGroup;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
-import net.minecraft.util.ResourceLocation;
 import techguns.gui.CamoBenchGui;
 import techguns.gui.containers.CamoBenchContainer;
 

@@ -14,10 +14,7 @@ import techguns.gui.widgets.SlotItemHandlerOutput;
 import techguns.gui.widgets.SlotMachineInput;
 import techguns.gui.widgets.SlotRCFocus;
 import techguns.packets.PacketUpdateTileEntTanks;
-import techguns.tileentities.BasicMachineTileEnt;
-import techguns.tileentities.FabricatorTileEntMaster;
 import techguns.tileentities.ReactionChamberTileEntMaster;
-import techguns.tileentities.operation.FabricatorRecipe;
 import techguns.tileentities.operation.ItemStackHandlerPlus;
 
 public class ReactionChamberContainer extends BasicMachineContainer {

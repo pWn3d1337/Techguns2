@@ -3,8 +3,6 @@ package techguns.util;
 import java.io.IOException;
 import java.util.BitSet;
 
-import javax.annotation.Nullable;
-
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufInputStream;
 import io.netty.buffer.ByteBufOutputStream;
@@ -14,7 +12,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTSizeTracker;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.PacketBuffer;
 
 public class DataUtil {
 

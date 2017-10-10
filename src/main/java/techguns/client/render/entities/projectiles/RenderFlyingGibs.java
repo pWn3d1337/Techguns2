@@ -1,25 +1,14 @@
 package techguns.client.render.entities.projectiles;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.Random;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.ModelBase;
-import net.minecraft.client.model.ModelBiped;
-import net.minecraft.client.model.ModelQuadruped;
-import net.minecraft.client.model.ModelVillager;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLivingBase;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
-import techguns.client.models.gibs.ModelGibs;
-import techguns.client.models.gibs.ModelGibsBiped;
-import techguns.client.models.gibs.ModelGibsGeneric;
-import techguns.client.models.gibs.ModelGibsQuadruped;
-import techguns.client.models.gibs.ModelGibsVillager;
 import techguns.client.particle.DeathEffect;
 import techguns.client.particle.DeathEffect.GoreData;
 import techguns.entities.projectiles.FlyingGibs;

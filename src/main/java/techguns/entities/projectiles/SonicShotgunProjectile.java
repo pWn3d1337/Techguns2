@@ -27,14 +27,14 @@ public class SonicShotgunProjectile extends GenericProjectile implements IEntity
 	public boolean mainProjectile = false;
 
 	public SonicShotgunProjectile(World worldIn, double posX, double posY, double posZ, float yaw, float pitch,
-			float damage, float speed, int TTL, float spread, int dmgDropStart, int dmgDropEnd, float dmgMin,
+			float damage, float speed, int TTL, float spread, float dmgDropStart, float dmgDropEnd, float dmgMin,
 			float penetration, boolean blockdamage, EnumBulletFirePos firePos) {
 		super(worldIn, posX, posY, posZ, yaw, pitch, damage, speed, TTL, spread, dmgDropStart, dmgDropEnd, dmgMin, penetration,
 				blockdamage, firePos);
 	}
 	
 	public SonicShotgunProjectile(World par2World, EntityLivingBase p, float damage, float speed, int TTL, float spread,
-			int dmgDropStart, int dmgDropEnd, float dmgMin, float penetration, boolean blockdamage,
+			float dmgDropStart, float dmgDropEnd, float dmgMin, float penetration, boolean blockdamage,
 			EnumBulletFirePos firePos) {
 		super(par2World, p, damage, speed, TTL, spread, dmgDropStart, dmgDropEnd, dmgMin, penetration, blockdamage, firePos);
 	}
@@ -122,7 +122,7 @@ public class SonicShotgunProjectile extends GenericProjectile implements IEntity
 	public static class Factory implements IProjectileFactory<SonicShotgunProjectile> {
 
 		@Override
-		public SonicShotgunProjectile createProjectile(GenericGun gun, World world, EntityLivingBase p, float damage, float speed, int TTL, float spread, int dmgDropStart, int dmgDropEnd,
+		public SonicShotgunProjectile createProjectile(GenericGun gun, World world, EntityLivingBase p, float damage, float speed, int TTL, float spread, float dmgDropStart, float dmgDropEnd,
 				float dmgMin, float penetration, boolean blockdamage, EnumBulletFirePos firePos, float radius, double gravity) {
 			return new SonicShotgunProjectile(world,p,damage,speed,TTL,spread,dmgDropStart,dmgDropEnd,dmgMin,penetration,blockdamage,firePos);
 		}

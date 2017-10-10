@@ -1,8 +1,5 @@
 package techguns.items.guns;
 
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.world.World;
-import techguns.api.damagesystem.DamageType;
 import techguns.entities.projectiles.GenericProjectile;
 
 public interface IProjectileBounceFactory<T extends GenericProjectile> extends IProjectileFactory<T> {

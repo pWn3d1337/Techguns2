@@ -1,10 +1,13 @@
 package techguns;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.client.event.ConfigChangedEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+@Mod.EventBusSubscriber(modid = Techguns.MODID)
 public class TGConfig {
 	public static Configuration config;
 	
@@ -41,13 +44,35 @@ public class TGConfig {
 	public static int dataWatcherID_BackSlot;
 	
 	//public static int GUI_ID_tgplayerInventory;
+	/**
+	 * NPC Spawns
+	 */
+	public static int distanceSpawnLevel0;
+	public static int distanceSpawnLevel1;
+	public static int distanceSpawnLevel2;
+	
+	public static int spawnWeightZombieSoldier;
+	public static int spawnWeightZombieFarmer;
+	public static int spawnWeightZombieMiner;
+	public static int spawnWeightZombiePigmanSoldier;
+	public static int spawnWeightCyberDemon;
+	public static int spawnWeightSkeletonSoldier;
+	
+	public static int spawnWeightBandit;
+	
+	public static int spawnWeightPsychoSteve;
+	
+	public static int spawnWeightTGOverworld;
+	public static int spawnWeightTGNether;
+	
+	public static int cl_sortPassesPerTick;
 	
 	/**
 	 * CATEGORIES
 	 */
 	private static final String CATEGORY_ENABLING_ITEMS = "Disable Items";
 	
-	private static final String CLIENTSIDE = "Clientside";
+	public static final String CLIENTSIDE = "Clientside";
 	private static final String ID_CONFLICTS = "ID Conflicts";
 	private static final String WORLDGEN="World Generation";
 	
@@ -56,6 +81,11 @@ public class TGConfig {
 		config = new Configuration(event.getSuggestedConfigurationFile());
 		config.load();
 		
+		initValues();
+	}
+	
+	public static void initValues() {
+		config.addCustomCategoryComment(CLIENTSIDE, "Clientside options, can be changed when playing on a server");
 		
 		debug = config.getBoolean("debug", config.CATEGORY_GENERAL, true, "Enable debug options, disable this for playing.");
 		
@@ -73,6 +103,31 @@ public class TGConfig {
 		addSteelIngots = config.getBoolean("addSteelIngot", CATEGORY_ENABLING_ITEMS, true, "Adds Steel ingots.");
 		addSteelNuggets = config.getBoolean("addSteelNugget", CATEGORY_ENABLING_ITEMS, true, "Adds Steel nuggets.");
 	
+		
+		distanceSpawnLevel0 = config.getInt("DistanceSpawnLevel0", "NPC Spawn", 500, 0, Integer.MAX_VALUE, "Up to which distance to worldspawn only mobs with danger level up to 0 will spawn");
+		distanceSpawnLevel1 = config.getInt("DistanceSpawnLevel1", "NPC Spawn", 1000, 0, Integer.MAX_VALUE, "Up to which distance to worldspawn only mobs with danger level up to 1 will spawn");
+		distanceSpawnLevel2 = config.getInt("DistanceSpawnLevel2", "NPC Spawn", 2500, 0, Integer.MAX_VALUE, "Up to which distance to worldspawn only mobs with danger level up to 2 will spawn");
+				
+		spawnWeightTGOverworld = config.getInt("Techguns Spawnweight Overworld", "NPC Spawn", 600, 0, 10000, "Spawn weigth of Techguns NPCs, determines how many TG npcs spawn");
+		spawnWeightTGNether = config.getInt("Techguns Spawnweight NEther", "NPC Spawn", 300, 0, 10000, "Spawn weigth of Techguns NPCs in the Nether, determines how many TG npcs spawn");
+		
+		spawnWeightZombieSoldier  = config.getInt("SpawnWeightZombieSoldier", "NPC Spawn", 100, 0, 10000, "Spawn weight for spawning Zombie Soldiers, at 0 spawn will not be registered");
+		
+		spawnWeightZombieFarmer  = config.getInt("SpawnWeightZombieFarmer", "NPC Spawn", 200, 0, 10000, "Spawn weight for spawning Zombie Farmers, at 0 spawn will not be registered");
+		
+		spawnWeightZombieMiner = config.getInt("SpawnWeightZombieMiner", "NPC Spawn", 200, 0, 10000, "Spawn weight for spawning Zombie Miners, at 0 spawn will not be registered");
+		
+		spawnWeightZombiePigmanSoldier  = config.getInt("SpawnWeightZombiePigmanSoldier", "NPC Spawn", 100, 0, 10000, "Spawn weight for spawning Zombie Pigman Soldiers (Nether only), at 0 spawn will not be registered");
+		
+		spawnWeightCyberDemon = config.getInt("SpawnWeightCyberDemon", "NPC Spawn", 30, 0, 10000, "Spawn weight for spawning Cyber Demons (Nether only), at 0 spawn will not be registered");
+		
+		spawnWeightBandit = config.getInt("SpawnWeightBandit", "NPC Spawn", 50, 0, 10000, "Spawn weight for spawning Bandit groups, at 0 spawn will not be registered");
+		
+		spawnWeightSkeletonSoldier = config.getInt("SpawnWeightSkeletonSoldier", "NPC Spawn", 100, 0, 10000, "Spawn weight for spawning Skeleton Soldiers, at 0 spawn will not be registered");
+		
+		spawnWeightPsychoSteve = config.getInt("SpawnWeightPsychoSteve", "NPC Spawn", 3, 0, 10000, "Spawn weight for spawning Psycho Steve, early game boss, don't set to high value, at 0 spawn will not be registered");
+	
+		
 		
 		dataWatcherID_FaceSlot = config.getInt("DataWatcherID_FaceSlot", ID_CONFLICTS, 23, 2,31, "The ID used for DataWatcher synchronization of the face slot for Players, the ID must not conflict with vanilla or other mods slots, see http://www.minecraftforge.net/wiki/Datawatcher for details. Never useable for EntityPlayer (used by vanilla minecraft): 0,1, 6,7,8,9, 16,17,18");
 		
@@ -100,7 +155,19 @@ public class TGConfig {
 		
 		cl_fixedSprintFov = config.getFloat("FixedSprintFovMultiplier", CLIENTSIDE, 1.15f, 1.0f, 10.0f, "Multiply the FOV while sprinting by this value independent from the actual speed, has no effect when LockSpeedDependantFov is false, pure clientside check.");
 		
-		config.save();
+		cl_sortPassesPerTick = config.getInt("ParticleDepthSortPasses", CLIENTSIDE, 10, 0, 20, "How many bubble sort passes should be performed each tick on particles. 0=off. Clientside");
+		
+		if(config.hasChanged()) {
+			config.save();
+		}
+	}
+	
+	@SubscribeEvent
+	public static void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event){
+		if(event.getModID().equalsIgnoreCase(Techguns.MODID))
+		{
+			initValues();
+		}
 	}
 
 }

@@ -1,15 +1,13 @@
 package techguns.plugins.jei;
 
-import techguns.tileentities.operation.CamoBenchRecipes;
-import techguns.tileentities.operation.CamoBenchRecipes.CamoBenchRecipe;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.recipe.IStackHelper;
-import techguns.tileentities.operation.IMachineRecipe;
+import techguns.tileentities.operation.CamoBenchRecipes;
+import techguns.tileentities.operation.CamoBenchRecipes.CamoBenchRecipe;
 
 public class CamoBenchJeiRecipe extends BasicRecipeWrapper {
 

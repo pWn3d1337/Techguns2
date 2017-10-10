@@ -1,13 +1,10 @@
 package techguns;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.CapabilityManager;
@@ -26,11 +23,12 @@ import techguns.capabilities.TGShooterValues;
 import techguns.capabilities.TGShooterValuesStorage;
 import techguns.client.audio.TGSoundCategory;
 import techguns.events.TechgunsGuiHandler;
+import techguns.events.TechgunsGuiHandler.GuiHandlerRegister;
 import techguns.init.ITGInitializer;
 import techguns.items.guns.GenericGun;
 
 @Mod.EventBusSubscriber
-public class CommonProxy implements ITGInitializer {
+public abstract class CommonProxy implements ITGInitializer {
 
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
@@ -134,4 +132,8 @@ public class CommonProxy implements ITGInitializer {
     public boolean clientInRangeSquared(double posX, double posZ, double distSq) {
 		return false;
 	}
+    
+    public void registerFluidModelsForFluidBlock(Block b) {};
+    
+    public abstract GuiHandlerRegister getGuihandlers();
 }

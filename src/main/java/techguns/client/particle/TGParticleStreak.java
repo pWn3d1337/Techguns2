@@ -219,4 +219,9 @@ public class TGParticleStreak extends TGParticle{
 		this.next = next;
 	}
 
+	@Override
+	public boolean doNotSort() {
+		return true;
+	}
+	
 }

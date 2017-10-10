@@ -1,21 +1,10 @@
 package techguns.client.render.tileentities;
 
-import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.entity.Entity;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.EnumSkyBlock;
-import net.minecraft.world.World;
-import techguns.client.models.machines.ModelAmmoPress;
 import techguns.client.models.machines.ModelMachine;
-import techguns.tileentities.AmmoPressTileEnt;
 import techguns.tileentities.BasicMachineTileEnt;
 
 public class RenderMachine extends TileEntitySpecialRenderer<BasicMachineTileEnt> {

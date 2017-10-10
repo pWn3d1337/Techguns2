@@ -3,7 +3,8 @@ package techguns.entities.spawn;
 import java.util.ArrayList;
 
 import net.minecraft.world.World;
-import net.minecraftforge.common.BiomeManager.BiomeType;
+import net.minecraft.world.biome.Biome;
+import net.minecraftforge.common.BiomeDictionary;
 import techguns.entities.npcs.GenericNPC;
 
 public class TGNpcSpawn {
@@ -12,9 +13,9 @@ public class TGNpcSpawn {
 	protected int spawnWeight;
 	
 	/**
-	 * Restricted to these biomes, null = all biomes
+	 * Restricted to these biomeTypes, null = all biomes
 	 */
-	ArrayList<BiomeType> biomeWhitelist;
+	ArrayList<Biome> biomeWhitelist;
 	
 	ArrayList<Integer> dimensionIDs;
 	
@@ -26,17 +27,17 @@ public class TGNpcSpawn {
 		this.dimensionIDs.add(0);
 	}
 	
-	public TGNpcSpawn(Class<? extends GenericNPC> type, int spawnWeight, BiomeType... biomes) {
+	public TGNpcSpawn(Class<? extends GenericNPC> type, int spawnWeight, Biome... biomes) {
 		this(type,spawnWeight);
-		this.biomeWhitelist = new ArrayList<BiomeType>(biomes.length);
+		this.biomeWhitelist = new ArrayList<Biome>(biomes.length);
 		for (int i =0; i<biomes.length; i++){
 			this.biomeWhitelist.add(biomes[i]);
 		}
 	}
 	
-	public TGNpcSpawn(Class<? extends GenericNPC> type, int spawnWeight, ArrayList<Integer> dimensions, BiomeType... biomes) {
+	public TGNpcSpawn(Class<? extends GenericNPC> type, int spawnWeight, ArrayList<Integer> dimensions, Biome... biomes) {
 		this(type,spawnWeight,dimensions);
-		this.biomeWhitelist = new ArrayList<BiomeType>(biomes.length);
+		this.biomeWhitelist = new ArrayList<Biome>(biomes.length);
 		for (int i =0; i<biomes.length; i++){
 			this.biomeWhitelist.add(biomes[i]);
 		}
@@ -47,7 +48,7 @@ public class TGNpcSpawn {
 		this.dimensionIDs=dimensions;
 	}
 	
-	public int getWeightForBiome(BiomeType biome){
+	public int getWeightForBiome(Biome biome){
 		if (this.biomeWhitelist == null) {
 			return this.spawnWeight;
 		} else {
@@ -61,12 +62,9 @@ public class TGNpcSpawn {
 	
 	public boolean dimensionMatches(World w){
 		int id = w.provider.getDimension();
-		//System.out.println("DimensionCheck:"+id);
-		if(this.dimensionIDs.contains(id)){
-			//System.out.println("true");
+		if(this.dimensionIDs == null || this.dimensionIDs.contains(id)){
 			return true;
 		} 
-		//System.out.println("false");
 		return false;
 	}
 }

@@ -1,7 +1,6 @@
 package techguns.gui.widgets;
 
 import net.minecraft.item.ItemStack;
-import techguns.TGItems;
 import techguns.api.tginventory.ITGSpecialSlot;
 import techguns.api.tginventory.TGSlotType;
 import techguns.tileentities.operation.ItemStackHandlerPlus;

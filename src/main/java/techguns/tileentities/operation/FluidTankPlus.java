@@ -4,7 +4,6 @@ import net.minecraftforge.fluids.FluidEvent;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import techguns.tileentities.BasicInventoryTileEnt;
-import techguns.tileentities.ChemLabTileEnt;
 
 public class FluidTankPlus extends FluidTank {
 

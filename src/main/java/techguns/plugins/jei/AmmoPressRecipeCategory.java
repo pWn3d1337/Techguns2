@@ -1,18 +1,21 @@
 package techguns.plugins.jei;
 
+import static techguns.gui.containers.AmmoPressContainer.SLOTS_INPUT_Y;
+import static techguns.gui.containers.AmmoPressContainer.SLOTS_OUTPUT_Y;
+import static techguns.gui.containers.AmmoPressContainer.SLOT_METAL1_X;
+import static techguns.gui.containers.AmmoPressContainer.SLOT_METAL2_X;
+import static techguns.gui.containers.AmmoPressContainer.SLOT_OUTPUT_X;
+import static techguns.gui.containers.AmmoPressContainer.SLOT_POWDER_X;
+
 import mezz.jei.api.IGuiHelper;
-import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IDrawableAnimated;
 import mezz.jei.api.gui.IDrawableStatic;
 import mezz.jei.api.gui.IGuiItemStackGroup;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
 import net.minecraft.client.Minecraft;
-import net.minecraft.util.ResourceLocation;
-import techguns.blocks.machines.EnumMachineType;
 import techguns.gui.AmmoPressGui;
 import techguns.tileentities.AmmoPressTileEnt;
-import static techguns.gui.containers.AmmoPressContainer.*;
 
 public class AmmoPressRecipeCategory extends BasicRecipeCategory<AmmoPressJeiRecipe> {
 

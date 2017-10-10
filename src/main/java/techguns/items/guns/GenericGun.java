@@ -2,13 +2,13 @@ package techguns.items.guns;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import org.lwjgl.input.Keyboard;
 
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Multimap;
 import com.mojang.realmsclient.gui.ChatFormatting;
 
+import crafttweaker.api.item.IItemStack;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -19,21 +19,16 @@ import net.minecraft.entity.IEntityMultiPart;
 import net.minecraft.entity.IRangedAttackMob;
 import net.minecraft.entity.MultiPartEntityPart;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemSword;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.play.server.SPacketEntityVelocity;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
@@ -41,23 +36,18 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry.TargetPoint;
-
-import java.util.Random;
 import techguns.TGItems;
 import techguns.TGPackets;
 import techguns.TGSounds;
-import techguns.TGuns;
 import techguns.Techguns;
-import techguns.api.capabilities.ITGExtendedPlayer;
 import techguns.api.damagesystem.DamageType;
+import techguns.api.guns.GunHandType;
+import techguns.api.guns.IGenericGun;
 import techguns.api.render.IItemTGRenderer;
 import techguns.capabilities.TGExtendedPlayer;
-import techguns.capabilities.TGExtendedPlayerCapProvider;
 import techguns.client.ClientProxy;
 import techguns.client.ShooterValues;
 import techguns.client.audio.TGSoundCategory;
@@ -78,8 +68,6 @@ import techguns.packets.ReloadStartedMessage;
 import techguns.util.InventoryUtil;
 import techguns.util.SoundUtil;
 import techguns.util.TextUtil;
-import techguns.api.guns.GunHandType;
-import techguns.api.guns.IGenericGun;
 
 public class GenericGun extends GenericItem implements IGenericGun, IItemTGRenderer, ICamoChangeable {
 	public static final float SOUND_DISTANCE=4.0f;
@@ -104,8 +92,8 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 	float speed = 2.0f;
 
 	float damageMin=1.0f;
-	int damageDropStart=20;
-	int damageDropEnd=40;
+	float damageDropStart=20f;
+	float damageDropEnd=40f;
 	float penetration = 0.0f;
 
 	AmmoType ammoType = AmmoTypes.PISTOL_ROUNDS;
@@ -137,7 +125,8 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 	
 	public ArrayList<ResourceLocation> textures;
 	
-	protected IProjectileFactory projectile;
+	//protected IProjectileFactory projectile;
+	protected ProjectileSelector projectile_selector; 
 	
 	GunHandType handType = GunHandType.TWO_HANDED; 
 	//Ammount of bullets the gun gets per bullet item
@@ -188,8 +177,8 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 		//TGuns.ITEMREGISTRY.register(this);
 	}
 
-	public GenericGun(String name, IProjectileFactory projectilefactory, AmmoType ammo, boolean semiAuto, int minFiretime, int clipsize, int reloadtime, float damage, SoundEvent firesound, SoundEvent reloadsound, int TTL, float accuracy){
-		this(true, name,projectilefactory,ammo, semiAuto, minFiretime, clipsize, reloadtime, damage, firesound, reloadsound, TTL, accuracy);
+	public GenericGun(String name, ProjectileSelector projectileSelector, boolean semiAuto, int minFiretime, int clipsize, int reloadtime, float damage, SoundEvent firesound, SoundEvent reloadsound, int TTL, float accuracy){
+		this(true, name,projectileSelector, semiAuto, minFiretime, clipsize, reloadtime, damage, firesound, reloadsound, TTL, accuracy);
 	}
 	
 	public GenericGun setMuzzleLight(float r, float g, float b) {
@@ -219,11 +208,11 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 		return this;
 	}
 	
-	public GenericGun(boolean addToGunList,String name, IProjectileFactory projectilefactory, AmmoType ammo, boolean semiAuto, int minFiretime, int clipsize, int reloadtime, float damage, SoundEvent firesound, SoundEvent reloadsound, int TTL, float accuracy){
+	public GenericGun(boolean addToGunList,String name, ProjectileSelector projectile_selector, boolean semiAuto, int minFiretime, int clipsize, int reloadtime, float damage, SoundEvent firesound, SoundEvent reloadsound, int TTL, float accuracy){
 		this(name);
 		setMaxDamage(clipsize);
 		
-		this.ammoType = ammo;
+		this.ammoType = projectile_selector.ammoType;
 		this.semiAuto = semiAuto;
 		this.minFiretime = minFiretime;
 		this.clipsize = clipsize;
@@ -242,7 +231,7 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 		this.damageDropEnd=TTL;
 		this.damageMin=damage;
 		
-		this.projectile = projectilefactory;
+		this.projectile_selector = projectile_selector;
 		
 		if (addToGunList) {
 			guns.add(this);
@@ -431,7 +420,9 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 		/*GenericProjectile proj = new GenericProjectile(world, player, damage * damagebonus, speed, this.getScaledTTL(), spread, this.damageDropStart, this.damageDropEnd,
 				this.damageMin * damagebonus, this.penetration, getDoBlockDamage(player), leftGun);*/
 		
-		GenericProjectile proj = this.projectile.createProjectile(this, world, player, damage * damagebonus, speed, this.getScaledTTL(), spread, this.damageDropStart,
+		IProjectileFactory<GenericProjectile> projectile = this.projectile_selector.getFactoryForType(this.getCurrentAmmoVariantKey(itemstack));
+		
+		GenericProjectile proj = projectile.createProjectile(this, world, player, damage * damagebonus, speed, this.getScaledTTL(), spread, this.damageDropStart,
 				this.damageDropEnd, this.damageMin * damagebonus, this.penetration, getDoBlockDamage(player), firePos, radius, gravity);
 
 		float f=1.0f;
@@ -717,7 +708,7 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 			int dmg = stack.getItemDamage();
 			
 			tags.setByte("camo", (byte) 0);
-			tags.setByte("ammovariant", (byte) 0);
+			tags.setString("ammovariant", AmmoTypes.TYPE_DEFAULT);
 			tags.setShort("ammo", dmg==0 ? (short)this.clipsize : (short)(this.clipsize-dmg));
 			stack.setItemDamage(0);
 		}
@@ -733,12 +724,17 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 	}
 	
 	public int getCurrentAmmoVariant(ItemStack stack){
+		String variant = this.getCurrentAmmoVariantKey(stack);
+		return this.getAmmoType().getIDforVariantKey(variant);
+	}
+	
+	public String getCurrentAmmoVariantKey(ItemStack stack){
 		NBTTagCompound tags = stack.getTagCompound();
 		if(tags==null){
 			this.onCreated(stack, null, null); //world and player are not needed
 			tags = stack.getTagCompound();
 		}
-		return tags.getByte("ammovariant");
+		return tags.getString("ammovariant");
 	}
 	
 	/**
@@ -812,7 +808,7 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 		//return b;
 	}
 	
-	public GenericGun setDamageDrop(int start, int end, float minDamage){
+	public GenericGun setDamageDrop(float start, float end, float minDamage){
 		this.damageDropStart=start;
 		this.damageDropEnd=end;
 		this.damageMin=minDamage;
@@ -850,7 +846,7 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 		if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)){
 			list.add(TextUtil.trans("techguns.gun.tooltip.handtype")+": "+this.getGunHandType().toString());
 			list.add(TextUtil.trans("techguns.gun.tooltip.ammo")+": "+(this.ammoCount>1 ? this.ammoCount+"x " : "")+ChatFormatting.WHITE+TextUtil.trans(this.ammoType.getAmmo(this.getCurrentAmmoVariant(stack)).getUnlocalizedName()+".name"));
-			list.add(TextUtil.trans("techguns.gun.tooltip.damageType")+": "+this.getDamageType().toString());
+			list.add(TextUtil.trans("techguns.gun.tooltip.damageType")+": "+this.getDamageType(stack).toString());
 			list.add(TextUtil.trans("techguns.gun.tooltip.damage")+(this.shotgun ? ("(x"+ (this.bulletcount+1)+")") : "" )+": "+this.damage+(this.damageMin<this.damage?"-"+this.damageMin:""));
 			list.add(TextUtil.trans("techguns.gun.tooltip.range")+": "+this.damageDropStart+","+this.damageDropEnd+","+this.ticksToLive);
 			list.add(TextUtil.trans("techguns.gun.tooltip.spread")+": "+this.accuracy);
@@ -876,8 +872,8 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 		//}
 	}
 
-	public DamageType getDamageType() {
-		return this.projectile.getDamageType();
+	public DamageType getDamageType(ItemStack stack) {
+		return this.projectile_selector.getFactoryForType(this.getCurrentAmmoVariantKey(stack)).getDamageType();
 	}
 
 	@Override
@@ -1021,7 +1017,7 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 								for (EntityLivingBase entitylivingbase : player.world.getEntitiesWithinAABB(EntityLivingBase.class,
 										targetEntity.getEntityBoundingBox().grow(1.0D, 0.25D, 1.0D))) {
 									if (entitylivingbase != player && entitylivingbase != targetEntity && !player.isOnSameTeam(entitylivingbase)
-											&& player.getDistanceSqToEntity(entitylivingbase) < 9.0D) {
+											&& player.getDistanceSq(entitylivingbase) < 9.0D) {
 										entitylivingbase.knockBack(player, 0.4F, (double) MathHelper.sin(player.rotationYaw * 0.017453292F),
 												(double) (-MathHelper.cos(player.rotationYaw * 0.017453292F)));
 										entitylivingbase.attackEntityFrom(getMeleeDamageSource(player,stack), f3);
@@ -1223,9 +1219,33 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
     	//}
     	
     	if (!shooter.world.isRemote){
-    		this.shootGun(shooter.world, shooter, null, this.zoombonus*accscale*acc,dmgscale*dmg,0, EnumHand.MAIN_HAND, firePos);
+    		this.shootGun(shooter.world, shooter, shooter.getHeldItemMainhand(), this.zoombonus*accscale*acc,dmgscale*dmg,0, EnumHand.MAIN_HAND, firePos);
     	}
 
+    }
+    
+    /**
+     * Get all ammo and magazines the gun currently holds is retrievable
+     * @param stack
+     * @return
+     */
+    public List<ItemStack> getAmmoOnUnload(ItemStack stack){
+    	List<ItemStack> items = new ArrayList<>();
+    	
+    	int ammo = this.getCurrentAmmo(stack);
+    	
+    	if(this.ammoCount>1 && this.getAmmoLeft(stack)>0) {
+    		items.add(TGItems.newStack(this.getAmmoType().getBullet(this.getCurrentAmmoVariant(stack)),this.getAmmoLeft(stack)));
+    	} else {
+	    	int bulletsBack = (int) Math.floor(ammo/this.ammoType.getShotsPerBullet(clipsize, ammo));
+			if (bulletsBack>0){
+				items.add(TGItems.newStack(this.getAmmoType().getBullet(this.getCurrentAmmoVariant(stack)),bulletsBack));
+			}
+    	}
+    	if(!this.ammoType.getEmptyMag().isEmpty()) {
+    		items.add(TGItems.newStack(this.ammoType.getEmptyMag(), 1));
+    	}
+    	return items;
     }
     
     /**
@@ -1318,4 +1338,5 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 		}
 		
 	}
+
 }

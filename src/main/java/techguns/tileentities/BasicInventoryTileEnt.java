@@ -2,8 +2,6 @@ package techguns.tileentities;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
@@ -20,7 +18,6 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import techguns.TGBlocks;
 import techguns.blocks.machines.BasicMachine;
-import techguns.blocks.machines.MultiBlockMachine;
 import techguns.tileentities.operation.ItemStackHandlerPlus;
 import techguns.util.InventoryUtil;
 

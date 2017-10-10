@@ -4,7 +4,6 @@ import java.util.HashMap;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import techguns.api.render.IItemTGRenderer;
 
 public class AdditionalSlotRenderRegistry {
 	protected static final HashMap<Item,RenderAdditionalSlotItem> registry = new HashMap<>();

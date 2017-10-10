@@ -6,9 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.inventory.Container;
-import techguns.TGConfig;
 import techguns.gui.widgets.GuiButtonRedstoneState;
-import techguns.tileentities.BasicOwnedTileEnt;
 import techguns.tileentities.BasicRedstoneTileEnt;
 import techguns.util.TextUtil;
 

@@ -6,10 +6,7 @@ import java.util.List;
 import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.recipe.IStackHelper;
 import techguns.tileentities.FabricatorTileEntMaster;
-import techguns.tileentities.operation.ChemLabRecipes;
 import techguns.tileentities.operation.FabricatorRecipe;
-import techguns.tileentities.operation.IMachineRecipe;
-import techguns.tileentities.operation.ChemLabRecipes.ChemLabRecipe;
 
 public class FabricatorJeiRecipe extends BasicRecipeWrapper {
 

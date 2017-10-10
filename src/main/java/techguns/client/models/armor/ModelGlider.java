@@ -2,15 +2,10 @@ package techguns.client.models.armor;
 
 import java.util.ArrayList;
 
-import net.minecraft.client.model.ModelBase;
-import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import techguns.capabilities.TGExtendedPlayer;
-import techguns.client.models.ModelMultipart;
 
 public class ModelGlider extends ModelAdditionalSlotBase {
 

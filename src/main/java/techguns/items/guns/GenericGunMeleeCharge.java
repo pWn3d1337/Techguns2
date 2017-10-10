@@ -17,11 +17,8 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.network.NetworkRegistry.TargetPoint;
-import net.minecraftforge.items.SlotItemHandler;
 import techguns.TGPackets;
 import techguns.TGSounds;
-import techguns.Techguns;
 import techguns.capabilities.TGExtendedPlayer;
 import techguns.client.ShooterValues;
 import techguns.client.audio.TGSoundCategory;
@@ -32,21 +29,23 @@ public class GenericGunMeleeCharge extends GenericGunCharge implements IGenericG
 
 	HashMap<String, Integer> mininglevels = new HashMap<>();
 	
-	public GenericGunMeleeCharge(String name, IChargedProjectileFactory projectile, AmmoType ammo, boolean semiAuto, int minFiretime, int clipsize, int reloadtime, float damage,
-			SoundEvent firesound, SoundEvent reloadsound, int TTL, float accuracy, float fullChargeTime, int ammoConsumedOnFullCharge) {
-		super(name, projectile, ammo, semiAuto, minFiretime, clipsize, reloadtime, damage, firesound, reloadsound, TTL, accuracy, fullChargeTime, ammoConsumedOnFullCharge);
+	public GenericGunMeleeCharge(String name, ChargedProjectileSelector projectile_selector, boolean semiAuto,
+			int minFiretime, int clipsize, int reloadtime, float damage, SoundEvent firesound, SoundEvent reloadsound,
+			int TTL, float accuracy, float fullChargeTime, int ammoConsumedOnFullCharge) {
+		super(name, projectile_selector, semiAuto, minFiretime, clipsize, reloadtime, damage, firesound, reloadsound, TTL,
+				accuracy, fullChargeTime, ammoConsumedOnFullCharge);
 	}
 
 	@Override
 	public HashMap<String, Integer> getMiningLevels() {
 		return mininglevels;
 	}
-
+	
 	@Override
-	public float getStrVsBlock(ItemStack stack, IBlockState state) {
+	public float getDestroySpeed(ItemStack stack, IBlockState state) {
 		return this.getDigSpeed(stack, state);
 	}
-	
+
 	@Override
 	public int getHarvestLevel(ItemStack stack, String toolClass, EntityPlayer player, IBlockState blockState) {
 		return this.getToolHarvestLevel(stack, toolClass, player, blockState);

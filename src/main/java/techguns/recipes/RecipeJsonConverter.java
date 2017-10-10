@@ -5,7 +5,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -24,6 +23,8 @@ import techguns.TGConfig;
 import techguns.TGItems;
 import techguns.blocks.machines.BasicMachine;
 import techguns.items.GenericItemShared;
+import techguns.items.guns.GenericGun;
+import techguns.items.guns.ammo.AmmoType;
 
 
 /**
@@ -39,11 +40,17 @@ public class RecipeJsonConverter {
 			factories.put(Recipewriter.hardenedGlassOrGlass, OreDictIngredientHardenedGlass.class.getName());
 			factories.put(Recipewriter.electrumOrGold, OreDictIngredientElectrumOrGold.class.getName());
 		}
-	
+
+		private static final String AMMO_CHANGE_COPY_NBT_RECIPE = "ammo_change_crafting";
+		private static HashMap<String,String> recipe_types = new HashMap<>();
+		static {
+			recipe_types.put(AMMO_CHANGE_COPY_NBT_RECIPE, AmmoSwitchRecipeFactory.class.getName());
+		}
 	
 		private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 		private static File RECIPE_DIR = null;
 		private static final Set<String> USED_OD_NAMES = new TreeSet<>();
+
 
 		private static void setupDir() {
 			if (RECIPE_DIR == null) {
@@ -181,6 +188,51 @@ public class RecipeJsonConverter {
 			}
 		}
 
+		public static void addShapelessAmmoSwapRecipe(GenericGun gun, AmmoType type, String key)
+		{
+			setupDir();
+
+			// addShapelessRecipe(result, components);
+
+			Map<String, Object> json = new HashMap<>();
+
+			boolean isOreDict = false;
+			List<Map<String, Object>> ingredients = new ArrayList<>();
+			/*for (Object o : components) {
+				if (o instanceof String)
+					isOreDict = true;
+				ingredients.add(serializeItem(o));
+			}*/
+			ingredients.add(serializeItem(new ItemStack(gun,1)));
+			ingredients.add(serializeItem(type.getAmmo(type.getIDforVariantKey(key))));
+			ItemStack result = new ItemStack(gun,1);
+			
+			json.put("ingredients", ingredients);
+			json.put("type", "techguns:"+AMMO_CHANGE_COPY_NBT_RECIPE);
+			json.put("result", serializeItem(result));
+
+			// names the json the same name as the output's registry name
+			// repeatedly adds _alt if a file already exists
+			// janky I know but it works
+			String suffix = "_ammo_"+key;
+			
+			String name = result.getItem().getRegistryName().getResourcePath();
+
+			
+			File f = new File(RECIPE_DIR, name + suffix + ".json");
+
+			while (f.exists()) {
+				suffix += "_alt";
+				f = new File(RECIPE_DIR, name + suffix + ".json");
+			}
+
+			try (FileWriter w = new FileWriter(f)) {
+				GSON.toJson(json, w);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
 		private static Map<String, Object> serializeItem(Object thing) {
 			if (thing instanceof Item) {
 				return serializeItem(new ItemStack((Item) thing));
@@ -240,6 +292,8 @@ public class RecipeJsonConverter {
 			
 			Map<String, Object> entry = new HashMap<>();
 			entry.put("ingredients", factories);
+			entry.put("recipes", recipe_types);
+			
 			
 			try (FileWriter w = new FileWriter(new File(RECIPE_DIR, "_factories.json"))) {
 				GSON.toJson(entry, w);

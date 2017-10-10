@@ -1,13 +1,11 @@
 package techguns.tileentities;
 
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ITickable;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import techguns.TGItems;
-import techguns.TGPackets;
 import techguns.tileentities.operation.MachineOperation;
 
 

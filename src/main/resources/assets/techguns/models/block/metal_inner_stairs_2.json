@@ -1,0 +1,8 @@
+{
+    "parent": "block/inner_stairs",
+    "textures": {
+        "bottom": "techguns:blocks/steelframe_dark",
+        "top": "techguns:blocks/steelframe_dark",
+        "side": "techguns:blocks/steelframe_dark"
+    }
+}

@@ -4,7 +4,6 @@ import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
 import techguns.Techguns;
 import techguns.entities.projectiles.FlamethrowerProjectile;
-import techguns.entities.projectiles.StoneBulletProjectile;
 
 public class RenderFlameThrowerProjectile extends RenderTextureProjectile<FlamethrowerProjectile>{
 

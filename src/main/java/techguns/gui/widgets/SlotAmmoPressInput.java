@@ -1,12 +1,7 @@
 package techguns.gui.widgets;
 
-import java.util.ArrayList;
-
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.SlotItemHandler;
 import techguns.tileentities.operation.AmmoPressBuildPlans;
 import techguns.tileentities.operation.ItemStackHandlerPlus;
 

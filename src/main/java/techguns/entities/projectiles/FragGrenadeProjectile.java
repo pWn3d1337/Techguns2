@@ -4,7 +4,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import techguns.api.damagesystem.DamageType;
-import techguns.entities.projectiles.GrenadeProjectile.Factory;
 import techguns.items.guns.IGrenadeProjectileFactory;
 
 public class FragGrenadeProjectile extends GrenadeProjectile {
@@ -14,17 +13,17 @@ public class FragGrenadeProjectile extends GrenadeProjectile {
 	}
 
 	public FragGrenadeProjectile(World worldIn, double posX, double posY, double posZ, float yaw, float pitch,
-			float damage, float speed, int TTL, float spread, float penetration, boolean blockdamage,
+			float damage, float speed, int TTL, float spread, float dmgDropStart, float dmgDropEnd, float dmgMin, float penetration, boolean blockdamage,
 			EnumBulletFirePos leftGun, double gravity, float radius, int bounces) {
-		super(worldIn, posX, posY, posZ, yaw, pitch, damage, speed, TTL, spread, penetration, blockdamage, leftGun, gravity,
-				radius, bounces);
+		super(worldIn, posX, posY, posZ, yaw, pitch, damage, speed, TTL, spread, dmgDropStart, dmgDropEnd, dmgMin, penetration,
+				blockdamage, leftGun, gravity, radius, bounces);
 		init();
 	}
 
-	public FragGrenadeProjectile(World par2World, EntityLivingBase p, float damage, float speed, int TTL, float spread,
+	public FragGrenadeProjectile(World par2World, EntityLivingBase p, float damage, float speed, int TTL, float spread, float dmgDropStart, float dmgDropEnd, float dmgMin,
 			float penetration, boolean blockdamage, EnumBulletFirePos leftGun, double gravity, float radius,
 			int bounces) {
-		super(par2World, p, damage, speed, TTL, spread, penetration, blockdamage, leftGun, gravity, radius, bounces);
+		super(par2World, p, damage, speed, TTL, spread, dmgDropStart, dmgDropEnd, dmgMin, penetration, blockdamage, leftGun, gravity, radius, bounces);
 		init();
 	}
 
@@ -47,9 +46,9 @@ public class FragGrenadeProjectile extends GrenadeProjectile {
 	public static class Factory implements IGrenadeProjectileFactory<FragGrenadeProjectile> {
 
 		@Override
-		public FragGrenadeProjectile createProjectile(World world, EntityLivingBase p, float damage, float speed, int TTL, float spread, float penetration, boolean blockdamage,
+		public FragGrenadeProjectile createProjectile(World world, EntityLivingBase p, float damage, float speed, int TTL, float spread, float dmgDropStart, float dmgDropEnd, float dmgMin, float penetration, boolean blockdamage,
 				EnumBulletFirePos leftGun, float radius, double gravity, float charge, int bounces) {
-			return new FragGrenadeProjectile(world, p, damage, speed, TTL, spread, penetration, blockdamage, leftGun, gravity, radius, bounces);
+			return new FragGrenadeProjectile(world, p, damage, speed, TTL, spread, dmgDropStart, dmgDropEnd, dmgMin, penetration, blockdamage, leftGun, gravity, radius, bounces);
 		}
 
 		@Override

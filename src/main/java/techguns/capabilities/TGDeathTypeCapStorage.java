@@ -5,7 +5,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.Capability.IStorage;
-import techguns.api.capabilities.ITGExtendedPlayer;
 
 public class TGDeathTypeCapStorage implements IStorage<TGDeathTypeCap> {
 

@@ -4,17 +4,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.HashMap;
 
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
-import techguns.tileentities.DungeonScannerTileEnt;
 import techguns.world.dungeon.TemplateSegment.SegmentType;
 
 public class DungeonTemplate implements Serializable{

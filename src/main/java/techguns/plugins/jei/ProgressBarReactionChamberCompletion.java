@@ -5,7 +5,6 @@ import mezz.jei.api.gui.IDrawableAnimated;
 import mezz.jei.api.gui.ITickTimer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
-import techguns.gui.ChemLabGui;
 import techguns.gui.ReactionChamberGui;
 import techguns.tileentities.operation.ReactionChamberOperation;
 

@@ -3,9 +3,7 @@ package techguns.blocks.machines;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.properties.PropertyEnum;
-import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -28,9 +26,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.ForgeHooksClient;
-import net.minecraftforge.client.ItemModelMesherForge;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
@@ -38,19 +34,16 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import techguns.Techguns;
 import techguns.api.machines.IMachineType;
 import techguns.blocks.GenericBlock;
-import techguns.blocks.GenericItemBlock;
 import techguns.blocks.GenericItemBlockMeta;
 import techguns.blocks.GenericItemBlockMetaMachineBlock;
 import techguns.blocks.machines.multiblocks.MultiBlockRegister;
-import techguns.capabilities.TGExtendedPlayer;
 import techguns.events.TechgunsGuiHandler;
 import techguns.tileentities.BasicInventoryTileEnt;
-import techguns.tileentities.BasicMachineTileEnt;
 import techguns.tileentities.BasicOwnedTileEnt;
+import techguns.tileentities.BasicRedstoneTileEnt;
 import techguns.tileentities.MultiBlockMachineTileEntMaster;
 import techguns.tileentities.MultiBlockMachineTileEntSlave;
 import techguns.tileentities.TurretTileEnt;
-import techguns.util.BlockUtils;
 
 /**
  * A Machine that is rendered with TESR and has no properties besides type, 16 types per block.
@@ -111,12 +104,27 @@ public class BasicMachine<T extends Enum<T> & IStringSerializable & IMachineType
 		}
 		super.breakBlock(worldIn, pos, state);
 	}
+	
+	
+	@Override
+	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
+		TileEntity tile = worldIn.getTileEntity(pos);
+		if(tile!=null && tile instanceof BasicRedstoneTileEnt){
+			((BasicRedstoneTileEnt)tile).onNeighborBlockChange();		
+		}
+	}
+
+	@Override
+	public boolean shouldCheckWeakPower(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
+		return true;
+	}
 
 	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		  /* if (world.isRemote) {
 	            return true;
 	        } else {*/
+
 				TileEntity tile = world.getTileEntity(pos);
 				if (!world.isRemote && tile!=null && tile instanceof BasicInventoryTileEnt) {
 					

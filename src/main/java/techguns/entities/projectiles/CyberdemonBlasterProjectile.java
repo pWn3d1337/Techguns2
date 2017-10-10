@@ -17,14 +17,14 @@ import techguns.packets.PacketSpawnParticle;
 public class CyberdemonBlasterProjectile extends GenericProjectile {
 
 	public CyberdemonBlasterProjectile(World worldIn, double posX, double posY, double posZ, float yaw, float pitch,
-			float damage, float speed, int TTL, float spread, int dmgDropStart, int dmgDropEnd, float dmgMin,
+			float damage, float speed, int TTL, float spread, float dmgDropStart, float dmgDropEnd, float dmgMin,
 			float penetration, boolean blockdamage, EnumBulletFirePos firePos) {
 		super(worldIn, posX, posY, posZ, yaw, pitch, damage, speed, TTL, spread, dmgDropStart, dmgDropEnd, dmgMin, penetration,
 				blockdamage, firePos);
 	}
 
 	public CyberdemonBlasterProjectile(World par2World, EntityLivingBase p, float damage, float speed, int TTL,
-			float spread, int dmgDropStart, int dmgDropEnd, float dmgMin, float penetration, boolean blockdamage,
+			float spread, float dmgDropStart, float dmgDropEnd, float dmgMin, float penetration, boolean blockdamage,
 			EnumBulletFirePos firePos) {
 		super(par2World, p, damage, speed, TTL, spread, dmgDropStart, dmgDropEnd, dmgMin, penetration, blockdamage, firePos);
 	}
@@ -58,7 +58,7 @@ public class CyberdemonBlasterProjectile extends GenericProjectile {
 	public static class Factory implements IProjectileFactory<CyberdemonBlasterProjectile> {
 
 		@Override
-		public CyberdemonBlasterProjectile createProjectile(GenericGun gun, World world, EntityLivingBase p, float damage, float speed, int TTL, float spread, int dmgDropStart, int dmgDropEnd,
+		public CyberdemonBlasterProjectile createProjectile(GenericGun gun, World world, EntityLivingBase p, float damage, float speed, int TTL, float spread, float dmgDropStart, float dmgDropEnd,
 				float dmgMin, float penetration, boolean blockdamage, EnumBulletFirePos firePos, float radius, double gravity) {
 			return new CyberdemonBlasterProjectile(world,p,damage,speed,TTL,spread,dmgDropStart,dmgDropEnd,dmgMin,penetration,blockdamage,firePos);
 		}

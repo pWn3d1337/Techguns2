@@ -2,7 +2,6 @@ package techguns.gui.containers;
 
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IContainerListener;
-import techguns.tileentities.BasicInventoryTileEnt;
 import techguns.tileentities.BasicMachineTileEnt;
 
 public abstract class BasicMachineContainer extends RedstoneTileContainer {	

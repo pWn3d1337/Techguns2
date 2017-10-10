@@ -9,22 +9,18 @@ import com.mojang.realmsclient.gui.ChatFormatting;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumHandSide;
-import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
 import techguns.TGPackets;
-import techguns.Techguns;
 import techguns.api.damagesystem.DamageType;
 import techguns.api.render.IItemTGRenderer;
 import techguns.client.audio.TGSoundCategory;
 import techguns.entities.projectiles.EnumBulletFirePos;
-import techguns.entities.projectiles.GenericProjectile;
 import techguns.entities.projectiles.GrenadeProjectile;
 import techguns.items.GenericItem;
 import techguns.packets.PacketPlaySound;
@@ -34,9 +30,12 @@ public class GenericGrenade extends GenericItem implements IItemTGRenderer{
 	private int maxUseDur;
 	
 	public float damage=20.0f;
-	public float radius=5.0f;
+	public float radius=3.0f;
 	public int maxBounces=3;
 
+	public float damageMin = 10.0f;
+	public float radiusMin = 5.0f;
+	
 	public float fullChargeTime=30.0f;
 	
 	public int ticksToLive = 200;
@@ -62,17 +61,15 @@ public class GenericGrenade extends GenericItem implements IItemTGRenderer{
 		this.startSound=sound;
 		return this;
 	}
+
+	public GenericGrenade setDamageAndRadius(float damage, float radiusMax, float damageMin, float radiusMin) {
+		this.damage=damage;
+		this.radius=radiusMax;
+		this.damageMin=damageMin;
+		this.radiusMin=radiusMin;
+		return this;
+	}
 	
-    public GenericGrenade setDamage(float damage) {
-		this.damage = damage;
-		return this;
-	}
-
-	public GenericGrenade setRadius(float radius) {
-		this.radius = radius;
-		return this;
-	}
-
 	public GenericGrenade setMaxBounces(int maxBounces) {
 		this.maxBounces = maxBounces;
 		return this;
@@ -147,7 +144,7 @@ public class GenericGrenade extends GenericItem implements IItemTGRenderer{
     public void spawnGrenade(World world, EntityLivingBase entityLiving,float charge, EnumBulletFirePos firePos){
     	float grav = (0.015f/charge);
     	
-    	GrenadeProjectile proj = this.projectile_factory.createProjectile(world, entityLiving, grav, speed, this.ticksToLive, spread, penetration, GenericGun.getDoBlockDamage(entityLiving), firePos, radius, grav, charge, maxBounces);
+    	GrenadeProjectile proj = this.projectile_factory.createProjectile(world, entityLiving, this.damage, speed, this.ticksToLive, spread,this.radius,this.radiusMin, this.damageMin, penetration, GenericGun.getDoBlockDamage(entityLiving), firePos, radiusMin, grav, charge, maxBounces);
     	
     	world.spawnEntity(proj);
     	

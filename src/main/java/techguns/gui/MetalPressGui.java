@@ -1,12 +1,10 @@
 package techguns.gui;
 
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
 import techguns.Techguns;
 import techguns.gui.containers.MetalPressContainer;
-import techguns.tileentities.BasicPoweredTileEnt;
 import techguns.tileentities.MetalPressTileEnt;
 import techguns.util.TextUtil;
 

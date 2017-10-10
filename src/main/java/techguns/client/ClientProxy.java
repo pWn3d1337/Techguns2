@@ -2,29 +2,28 @@ package techguns.client;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import org.apache.http.config.RegistryBuilder;
-
+import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.model.ModelBiped;
+import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.ItemRenderer;
-import net.minecraft.client.renderer.block.model.IBakedModel;
+import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.client.renderer.entity.RenderBiped;
+import net.minecraft.client.renderer.block.statemap.StateMapperBase;
 import net.minecraft.client.renderer.entity.RenderLivingBase;
-import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.client.renderer.entity.layers.LayerBipedArmor;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -33,12 +32,13 @@ import net.minecraft.util.EnumHandSide;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
-import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.UsernameCache;
 import net.minecraftforge.common.capabilities.CapabilityManager;
-import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fluids.IFluidBlock;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Loader;
@@ -47,6 +47,9 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import techguns.CommonProxy;
 import techguns.TGArmors;
 import techguns.TGBlocks;
@@ -56,36 +59,124 @@ import techguns.TGFluids;
 import techguns.TGItems;
 import techguns.TGuns;
 import techguns.Techguns;
-import techguns.api.capabilities.ITGExtendedPlayer;
-import techguns.api.render.IItemTGRenderer;
-import techguns.blocks.machines.SimpleMachine;
 import techguns.capabilities.TGDeathTypeCap;
 import techguns.capabilities.TGDeathTypeCapStorage;
-import techguns.capabilities.TGExtendedPlayer;
-import techguns.capabilities.TGExtendedPlayerStorage;
 import techguns.client.audio.TGSound;
 import techguns.client.audio.TGSoundCategory;
-import techguns.client.models.armor.*;
-import techguns.client.models.guns.*;
-import techguns.client.models.items.*;
+import techguns.client.models.armor.ModelAntiGravPack;
+import techguns.client.models.armor.ModelArmorCoat;
+import techguns.client.models.armor.ModelBeret;
+import techguns.client.models.armor.ModelExoSuit;
+import techguns.client.models.armor.ModelFaceMask;
+import techguns.client.models.armor.ModelGasMask;
+import techguns.client.models.armor.ModelGlider;
+import techguns.client.models.armor.ModelJetPack;
+import techguns.client.models.armor.ModelNightVisionGoggles;
+import techguns.client.models.armor.ModelOxygenTanks;
+import techguns.client.models.armor.ModelSteamArmor;
+import techguns.client.models.armor.ModelT3PowerArmor;
+import techguns.client.models.guns.ModelAK;
+import techguns.client.models.guns.ModelAS50;
+import techguns.client.models.guns.ModelAUG;
+import techguns.client.models.guns.ModelAlienBlaster;
+import techguns.client.models.guns.ModelBaseBaked;
+import techguns.client.models.guns.ModelBaseBakedGrenadeLauncher;
+import techguns.client.models.guns.ModelBiogun;
+import techguns.client.models.guns.ModelBlasterRifle;
+import techguns.client.models.guns.ModelBoltaction;
+import techguns.client.models.guns.ModelChainsaw;
+import techguns.client.models.guns.ModelCombatShotgun;
+import techguns.client.models.guns.ModelFlamethrower;
+import techguns.client.models.guns.ModelFragGrenade;
+import techguns.client.models.guns.ModelGoldenRevolver;
+import techguns.client.models.guns.ModelGrimReaper;
+import techguns.client.models.guns.ModelGuidedMissileLauncher;
+import techguns.client.models.guns.ModelHandgun;
+import techguns.client.models.guns.ModelLMG;
+import techguns.client.models.guns.ModelLasergun;
+import techguns.client.models.guns.ModelLasergun2;
+import techguns.client.models.guns.ModelM4;
+import techguns.client.models.guns.ModelM4Infiltrator;
+import techguns.client.models.guns.ModelMac10;
+import techguns.client.models.guns.ModelMibGun;
+import techguns.client.models.guns.ModelMinigun;
+import techguns.client.models.guns.ModelNDR;
+import techguns.client.models.guns.ModelNetherBlaster;
+import techguns.client.models.guns.ModelPDW;
+import techguns.client.models.guns.ModelPistol;
+import techguns.client.models.guns.ModelPowerHammer;
+import techguns.client.models.guns.ModelPulseRifle;
+import techguns.client.models.guns.ModelRevolver;
+import techguns.client.models.guns.ModelRocketLauncher;
+import techguns.client.models.guns.ModelSawedOff;
+import techguns.client.models.guns.ModelScar;
+import techguns.client.models.guns.ModelSonicShotgun;
+import techguns.client.models.guns.ModelStielgranate;
+import techguns.client.models.guns.ModelTeslaGun;
+import techguns.client.models.guns.ModelThompson;
+import techguns.client.models.guns.ModelVector;
+import techguns.client.models.items.ModelARMagazine;
+import techguns.client.models.items.ModelAS50Mag;
+import techguns.client.models.items.ModelLmgMag;
 import techguns.client.models.machines.ModelAmmoPress;
 import techguns.client.models.machines.ModelChemLab;
 import techguns.client.models.machines.ModelMetalPress;
 import techguns.client.models.machines.ModelTurretBase;
-import techguns.client.models.npcs.ModelSkeletonSoldier;
 import techguns.client.models.projectiles.ModelRocket;
 import techguns.client.particle.LightPulse;
 import techguns.client.particle.TGFX;
+import techguns.client.particle.TGParticleManager;
 import techguns.client.particle.TGParticleSystem;
 import techguns.client.render.AdditionalSlotRenderRegistry;
 import techguns.client.render.ItemRenderHack;
 import techguns.client.render.RenderAdditionalSlotItem;
 import techguns.client.render.RenderAdditionalSlotSharedItem;
 import techguns.client.render.entities.TGLayerRendererer;
-import techguns.client.render.entities.npcs.*;
-import techguns.client.render.entities.projectiles.*;
+import techguns.client.render.entities.npcs.RenderAlienBug;
+import techguns.client.render.entities.npcs.RenderArmySoldier;
+import techguns.client.render.entities.npcs.RenderAttackHelicopter;
+import techguns.client.render.entities.npcs.RenderBandit;
+import techguns.client.render.entities.npcs.RenderCommando;
+import techguns.client.render.entities.npcs.RenderCyberDemon;
+import techguns.client.render.entities.npcs.RenderDictatorDave;
+import techguns.client.render.entities.npcs.RenderNPCTurret;
+import techguns.client.render.entities.npcs.RenderOutcast;
+import techguns.client.render.entities.npcs.RenderPsychoSteve;
+import techguns.client.render.entities.npcs.RenderSkeletonSoldier;
+import techguns.client.render.entities.npcs.RenderStormTrooper;
+import techguns.client.render.entities.npcs.RenderSuperMutant;
+import techguns.client.render.entities.npcs.RenderZombieFarmer;
+import techguns.client.render.entities.npcs.RenderZombieMiner;
+import techguns.client.render.entities.npcs.RenderZombiePigmanSoldier;
+import techguns.client.render.entities.npcs.RenderZombieSoldier;
+import techguns.client.render.entities.projectiles.RenderAdvancedBulletProjectile;
+import techguns.client.render.entities.projectiles.RenderBioGunProjectile;
+import techguns.client.render.entities.projectiles.RenderBlasterProjectile;
+import techguns.client.render.entities.projectiles.RenderFlameThrowerProjectile;
+import techguns.client.render.entities.projectiles.RenderFlyingGibs;
+import techguns.client.render.entities.projectiles.RenderFragGrenadeProjectile;
+import techguns.client.render.entities.projectiles.RenderGenericProjectile;
+import techguns.client.render.entities.projectiles.RenderGrenade40mmProjectile;
+import techguns.client.render.entities.projectiles.RenderGrenadeProjectile;
+import techguns.client.render.entities.projectiles.RenderInvisibleProjectile;
+import techguns.client.render.entities.projectiles.RenderLaserProjectile;
+import techguns.client.render.entities.projectiles.RenderNDRProjectile;
+import techguns.client.render.entities.projectiles.RenderRocketProjectile;
+import techguns.client.render.entities.projectiles.RenderSonicShotgunProjectile;
+import techguns.client.render.entities.projectiles.RenderStoneBulletProjectile;
+import techguns.client.render.entities.projectiles.RenderTeslaProjectile;
 import techguns.client.render.fx.ScreenEffect;
-import techguns.client.render.item.*;
+import techguns.client.render.item.GunAnimation;
+import techguns.client.render.item.RenderArmorItem;
+import techguns.client.render.item.RenderGenericSharedItem3D;
+import techguns.client.render.item.RenderGrenade;
+import techguns.client.render.item.RenderGunBase;
+import techguns.client.render.item.RenderGunBase90;
+import techguns.client.render.item.RenderGunBaseObj;
+import techguns.client.render.item.RenderGunFlamethrower;
+import techguns.client.render.item.RenderItemBase;
+import techguns.client.render.item.RenderItemBaseRocketItem;
+import techguns.client.render.item.RenderItemLMGMag;
 import techguns.client.render.tileentities.RenderChargingStation;
 import techguns.client.render.tileentities.RenderDoor3x3Fast;
 import techguns.client.render.tileentities.RenderDungeonGenerator;
@@ -96,30 +187,78 @@ import techguns.client.render.tileentities.RenderReactionChamber;
 import techguns.client.render.tileentities.RenderTurret;
 import techguns.deatheffects.EntityDeathUtils.DeathType;
 import techguns.debug.Keybinds;
-import techguns.entities.npcs.NPCTurret;
-import techguns.entities.npcs.PsychoSteve;
-import techguns.entities.npcs.StormTrooper;
-import techguns.entities.npcs.ZombieFarmer;
-import techguns.entities.npcs.ZombieSoldier;
-import techguns.entities.npcs.Bandit;
-import techguns.entities.npcs.DictatorDave;
 import techguns.entities.npcs.AlienBug;
 import techguns.entities.npcs.ArmySoldier;
 import techguns.entities.npcs.AttackHelicopter;
+import techguns.entities.npcs.Bandit;
 import techguns.entities.npcs.Commando;
 import techguns.entities.npcs.CyberDemon;
-import techguns.entities.npcs.SkeletonSoldier;
+import techguns.entities.npcs.DictatorDave;
+import techguns.entities.npcs.NPCTurret;
 import techguns.entities.npcs.Outcast;
-import techguns.entities.npcs.ZombiePigmanSoldier;
+import techguns.entities.npcs.PsychoSteve;
+import techguns.entities.npcs.SkeletonSoldier;
+import techguns.entities.npcs.StormTrooper;
 import techguns.entities.npcs.SuperMutantBasic;
 import techguns.entities.npcs.SuperMutantElite;
 import techguns.entities.npcs.SuperMutantHeavy;
-import techguns.entities.projectiles.*;
-import techguns.events.TGGuiEvents;
+import techguns.entities.npcs.ZombieFarmer;
+import techguns.entities.npcs.ZombieMiner;
+import techguns.entities.npcs.ZombiePigmanSoldier;
+import techguns.entities.npcs.ZombieSoldier;
+import techguns.entities.projectiles.AdvancedBulletProjectile;
+import techguns.entities.projectiles.AlienBlasterProjectile;
+import techguns.entities.projectiles.BioGunProjectile;
+import techguns.entities.projectiles.BlasterProjectile;
+import techguns.entities.projectiles.ChainsawProjectile;
+import techguns.entities.projectiles.CyberdemonBlasterProjectile;
+import techguns.entities.projectiles.DeatomizerProjectile;
+import techguns.entities.projectiles.FlamethrowerProjectile;
 import techguns.entities.projectiles.FlyingGibs;
+import techguns.entities.projectiles.FragGrenadeProjectile;
+import techguns.entities.projectiles.GaussProjectile;
+import techguns.entities.projectiles.GenericProjectile;
+import techguns.entities.projectiles.GenericProjectileIncendiary;
+import techguns.entities.projectiles.Grenade40mmProjectile;
+import techguns.entities.projectiles.GrenadeProjectile;
+import techguns.entities.projectiles.GuidedMissileProjectile;
+import techguns.entities.projectiles.LaserProjectile;
+import techguns.entities.projectiles.NDRProjectile;
+import techguns.entities.projectiles.PowerHammerProjectile;
+import techguns.entities.projectiles.RocketProjectile;
+import techguns.entities.projectiles.SonicShotgunProjectile;
+import techguns.entities.projectiles.StoneBulletProjectile;
+import techguns.entities.projectiles.TeslaProjectile;
+import techguns.events.TGGuiEvents;
+import techguns.events.TechgunsGuiHandler.GuiHandlerRegister;
+import techguns.gui.AmmoPressGui;
+import techguns.gui.CamoBenchGui;
+import techguns.gui.ChargingStationGui;
+import techguns.gui.ChemLabGui;
+import techguns.gui.Door3x3Gui;
+import techguns.gui.DungeonGeneratorGui;
+import techguns.gui.DungeonScannerGui;
+import techguns.gui.FabricatorGui;
+import techguns.gui.MetalPressGui;
+import techguns.gui.ReactionChamberGui;
+import techguns.gui.RepairBenchGui;
+import techguns.gui.TurretGui;
+import techguns.gui.containers.AmmoPressContainer;
+import techguns.gui.containers.CamoBenchContainer;
+import techguns.gui.containers.ChargingStationContainer;
+import techguns.gui.containers.ChemLabContainer;
+import techguns.gui.containers.Door3x3Container;
+import techguns.gui.containers.DungeonGeneratorContainer;
+import techguns.gui.containers.DungeonScannerContainer;
+import techguns.gui.containers.FabricatorContainer;
+import techguns.gui.containers.MetalPressContainer;
+import techguns.gui.containers.ReactionChamberContainer;
+import techguns.gui.containers.RepairBenchContainer;
+import techguns.gui.containers.TurretContainer;
 import techguns.items.guns.GenericGun;
 import techguns.keybind.TGKeybinds;
 import techguns.tileentities.AmmoPressTileEnt;
+import techguns.tileentities.CamoBenchTileEnt;
 import techguns.tileentities.ChargingStationTileEnt;
 import techguns.tileentities.ChemLabTileEnt;
 import techguns.tileentities.Door3x3TileEntity;
@@ -128,18 +267,25 @@ import techguns.tileentities.DungeonScannerTileEnt;
 import techguns.tileentities.FabricatorTileEntMaster;
 import techguns.tileentities.MetalPressTileEnt;
 import techguns.tileentities.ReactionChamberTileEntMaster;
+import techguns.tileentities.RepairBenchTileEnt;
 import techguns.tileentities.TurretTileEnt;
 import techguns.util.MathUtil;
-import net.minecraftforge.fml.relauncher.ReflectionHelper;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 @Mod.EventBusSubscriber(Side.CLIENT)
 public class ClientProxy extends CommonProxy {
 	
+	public TGParticleManager particleManager = new TGParticleManager();
+	
 	//No longer needed after forge build 2412
 	//protected static Field ItemRender_field_itemStackMainHand = ReflectionHelper.findField(ItemRenderer.class, "itemStackMainHand", "field_187467_d");
 	//protected static Field ItemRender_field_itemStackOffHand = ReflectionHelper.findField(ItemRenderer.class, "itemStackOffHand", "field_187468_e");
+	
+	protected GuiHandlerRegister guihandler = new GuiHandlerRegister();
+	
+	public static Field Field_ItemRenderer_equippedProgressMainhand = ReflectionHelper.findField(ItemRenderer.class, "equippedProgressMainHand", "field_187469_f");
+	public static Field Field_ItemRenderer_equippedProgressOffhand = ReflectionHelper.findField(ItemRenderer.class, "equippedProgressOffHand", "field_187471_h");
+	public static Field Field_ItemRenderer_prevEquippedProgressMainhand = ReflectionHelper.findField(ItemRenderer.class, "prevEquippedProgressMainHand", "field_187470_g");
+	public static Field Field_ItemRenderer_prevEquippedProgressOffhand = ReflectionHelper.findField(ItemRenderer.class, "prevEquippedProgressOffHand", "field_187472_i");
 	
 	protected static Field RenderPlayer_LayerRenderers = ReflectionHelper.findField(RenderLivingBase.class, "layerRenderers", "field_177097_h");
 	
@@ -197,6 +343,7 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
 		super.preInit(event);
+		OBJLoader.INSTANCE.addDomain(Techguns.MODID);
 		TGFX.loadFXList();
 		if (!Loader.isModLoaded("albedo")){
 			this.lightPulsesEnabled=false;
@@ -249,8 +396,30 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(DungeonGeneratorTileEnt.class, new RenderDungeonGenerator());
 		
 		ClientRegistry.bindTileEntitySpecialRenderer(Door3x3TileEntity.class, new RenderDoor3x3Fast());
+		
+		this.initGuiHandler();
 	}
 	
+	protected void initGuiHandler() {
+		guihandler.<CamoBenchTileEnt>addEntry(CamoBenchTileEnt.class, CamoBenchGui::new, CamoBenchContainer::new);
+		guihandler.<RepairBenchTileEnt>addEntry(RepairBenchTileEnt.class, RepairBenchGui::new, RepairBenchContainer::new);
+		guihandler.<AmmoPressTileEnt>addEntry(AmmoPressTileEnt.class, AmmoPressGui::new, AmmoPressContainer::new);
+		guihandler.<MetalPressTileEnt>addEntry(MetalPressTileEnt.class, MetalPressGui::new, MetalPressContainer::new);
+		guihandler.<ChemLabTileEnt>addEntry(ChemLabTileEnt.class, ChemLabGui::new, ChemLabContainer::new);
+		guihandler.<TurretTileEnt>addEntry(TurretTileEnt.class, TurretGui::new, TurretContainer::new);
+		guihandler.<FabricatorTileEntMaster>addEntry(FabricatorTileEntMaster.class, FabricatorGui::new, FabricatorContainer::new);
+		guihandler.<ChargingStationTileEnt>addEntry(ChargingStationTileEnt.class, ChargingStationGui::new, ChargingStationContainer::new);
+		guihandler.<ReactionChamberTileEntMaster>addEntry(ReactionChamberTileEntMaster.class, ReactionChamberGui::new, ReactionChamberContainer::new);
+		guihandler.<DungeonScannerTileEnt>addEntry(DungeonScannerTileEnt.class, DungeonScannerGui::new, DungeonScannerContainer::new);
+		guihandler.<DungeonGeneratorTileEnt>addEntry(DungeonGeneratorTileEnt.class, DungeonGeneratorGui::new, DungeonGeneratorContainer::new);
+		guihandler.<Door3x3TileEntity>addEntry(Door3x3TileEntity.class, Door3x3Gui::new, Door3x3Container::new);
+	}
+	
+	@Override
+	public GuiHandlerRegister getGuihandlers() {
+		return guihandler;
+	}
+
 	private void insertLayerAfterArmor(RenderPlayer r, TGLayerRendererer tglayer) {
 		try {
 			List<LayerRenderer> layers = (List<LayerRenderer>) RenderPlayer_LayerRenderers.get(r);
@@ -566,7 +735,7 @@ public class ClientProxy extends CommonProxy {
 				}).setMuzzleFXPos3P(0.09f, -0.57f).setScope(ScreenEffect.sniperScope).setScopeRecoilAnim(GunAnimation.scopeRecoil, 0.05f, 1.0f));
 		
 		ItemRenderHack.registerItemRenderer(TGuns.powerhammer,new RenderGunBase90(new ModelPowerHammer(),2).setBaseTranslation(0.15f, -0.2f, RenderItemBase.SCALE-0.09f)
-				.setBaseScale(1.25f).setGUIScale(0.45f).setMuzzleFx(ScreenEffect.muzzleFlashSonic, 0, 0.26f, -0.67f, 0.5f,0).setTransformTranslations(new float[][]{
+				.setBaseScale(1.25f).setGUIScale(0.45f).setMuzzleFx(null, 0, 0.26f, -0.67f, 0.5f,0).setTransformTranslations(new float[][]{
 					{0f,0.18f,0.09f}, //First Person
 					{0f,0.04f,0.04f}, //Third Person
 					{0.03f,0.01f,0f}, //GUI
@@ -734,6 +903,7 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	protected void registerEntityRenderers() {
 		RenderingRegistry.registerEntityRenderingHandler(GenericProjectile.class, RenderGenericProjectile<GenericProjectile>::new);
+		RenderingRegistry.registerEntityRenderingHandler(GenericProjectileIncendiary.class, RenderGenericProjectile<GenericProjectile>::new);
 		RenderingRegistry.registerEntityRenderingHandler(RocketProjectile.class, RenderRocketProjectile::new);
 		RenderingRegistry.registerEntityRenderingHandler(StoneBulletProjectile.class, RenderStoneBulletProjectile::new);
 		RenderingRegistry.registerEntityRenderingHandler(BioGunProjectile.class, RenderBioGunProjectile::new);
@@ -762,6 +932,7 @@ public class ClientProxy extends CommonProxy {
 		
 		RenderingRegistry.registerEntityRenderingHandler(ZombieSoldier.class, RenderZombieSoldier::new);
 		RenderingRegistry.registerEntityRenderingHandler(ZombieFarmer.class, RenderZombieFarmer::new);
+		RenderingRegistry.registerEntityRenderingHandler(ZombieMiner.class, RenderZombieMiner::new);
 		RenderingRegistry.registerEntityRenderingHandler(ArmySoldier.class, RenderArmySoldier::new);
 		RenderingRegistry.registerEntityRenderingHandler(Bandit.class, RenderBandit::new);
 		RenderingRegistry.registerEntityRenderingHandler(Commando.class, RenderCommando::new);
@@ -841,7 +1012,7 @@ public class ClientProxy extends CommonProxy {
 	public void createFX(String name, World world, double posX, double posY, double posZ, double motionX, double motionY, double motionZ){	
 		List<TGParticleSystem> systems = TGFX.createFX(world, name, posX, posY, posZ, motionX, motionY, motionZ);
 		if (systems!=null) {
-			systems.forEach(s -> Minecraft.getMinecraft().effectRenderer.addEffect(s));
+			systems.forEach(s -> particleManager.addEffect(s));//Minecraft.getMinecraft().effectRenderer.addEffect(s));
 		}
 	}
 	
@@ -849,7 +1020,7 @@ public class ClientProxy extends CommonProxy {
 	public void createFXOnEntity(String name, Entity ent) {
 		List<TGParticleSystem> systems = TGFX.createFXOnEntity(ent, name);
 		if (systems!=null) {
-			systems.forEach(s -> Minecraft.getMinecraft().effectRenderer.addEffect(s));
+			systems.forEach(s -> particleManager.addEffect(s)); //Minecraft.getMinecraft().effectRenderer.addEffect(s));
 		}
 	}
 	
@@ -962,4 +1133,39 @@ public class ClientProxy extends CommonProxy {
 		
 		return posPly.getVecTo(pos).lenSquared() <= distSq;
 	}
+
+	@Override
+	public void registerFluidModelsForFluidBlock(Block b) {
+		if(!(b instanceof IFluidBlock)) {
+			System.out.println("Tried to register "+b+ " as Fluid, but block is no IFluidBlock");
+			return;
+		}
+		IFluidBlock f = (IFluidBlock) b;
+		
+		final Item item = Item.getItemFromBlock(b);
+		if(item==Items.AIR) {
+			System.out.println("No item found for IFluidBlock "+b);
+			return;
+		}
+		
+		ModelBakery.registerItemVariants(item);
+		
+		final ModelResourceLocation modelResourceLocation = new ModelResourceLocation(new ResourceLocation(Techguns.MODID, "fluid"), f.getFluid().getName());
+
+		ModelLoader.setCustomMeshDefinition(item, new ItemMeshDefinition() {
+			@Override
+			public ModelResourceLocation getModelLocation(ItemStack stack) {
+				return modelResourceLocation;
+			}
+		});
+
+		ModelLoader.setCustomStateMapper(b, new StateMapperBase() {
+			@Override
+			protected ModelResourceLocation getModelResourceLocation(final IBlockState bs) {
+				return modelResourceLocation;
+			}
+		});
+	}
+	
+	
 }

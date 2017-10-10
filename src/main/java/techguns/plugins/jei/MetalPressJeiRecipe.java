@@ -6,7 +6,6 @@ import java.util.List;
 import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.recipe.IStackHelper;
 import techguns.tileentities.MetalPressTileEnt;
-import techguns.tileentities.operation.IMachineRecipe;
 import techguns.tileentities.operation.MetalPressRecipes;
 import techguns.tileentities.operation.MetalPressRecipes.MetalPressRecipe;
 

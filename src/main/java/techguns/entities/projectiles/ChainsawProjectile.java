@@ -18,14 +18,14 @@ import techguns.packets.PacketSpawnParticle;
 public class ChainsawProjectile extends GenericProjectile {
 
 	public ChainsawProjectile(World worldIn, double posX, double posY, double posZ, float yaw, float pitch,
-			float damage, float speed, int TTL, float spread, int dmgDropStart, int dmgDropEnd, float dmgMin,
+			float damage, float speed, int TTL, float spread, float dmgDropStart, float dmgDropEnd, float dmgMin,
 			float penetration, boolean blockdamage, EnumBulletFirePos firePos) {
 		super(worldIn, posX, posY, posZ, yaw, pitch, damage, speed, TTL, spread, dmgDropStart, dmgDropEnd, dmgMin, penetration,
 				blockdamage, firePos);
 	}
 
 	public ChainsawProjectile(World par2World, EntityLivingBase p, float damage, float speed, int TTL, float spread,
-			int dmgDropStart, int dmgDropEnd, float dmgMin, float penetration, boolean blockdamage,
+			float dmgDropStart, float dmgDropEnd, float dmgMin, float penetration, boolean blockdamage,
 			EnumBulletFirePos firePos) {
 		super(par2World, p, damage, speed, TTL, spread, dmgDropStart, dmgDropEnd, dmgMin, penetration, blockdamage, firePos);
 	}
@@ -67,7 +67,7 @@ public class ChainsawProjectile extends GenericProjectile {
 	public static class Factory implements IChargedProjectileFactory<ChainsawProjectile> {
 
 		@Override
-		public ChainsawProjectile createProjectile(GenericGun gun, World world, EntityLivingBase p, float damage, float speed, int TTL, float spread, int dmgDropStart, int dmgDropEnd,
+		public ChainsawProjectile createProjectile(GenericGun gun, World world, EntityLivingBase p, float damage, float speed, int TTL, float spread, float dmgDropStart, float dmgDropEnd,
 				float dmgMin, float penetration, boolean blockdamage, EnumBulletFirePos firePos, float radius, double gravity) {
 			return new ChainsawProjectile(world,p,damage,speed,TTL,spread,dmgDropStart,dmgDropEnd,dmgMin,penetration,blockdamage,firePos);
 		}
@@ -79,7 +79,7 @@ public class ChainsawProjectile extends GenericProjectile {
 
 		@Override
 		public ChainsawProjectile createChargedProjectile(World world, EntityLivingBase p, float damage, float speed,
-				int TTL, float spread, int dmgDropStart, int dmgDropEnd, float dmgMin, float penetration,
+				int TTL, float spread, float dmgDropStart, float dmgDropEnd, float dmgMin, float penetration,
 				boolean blockdamage, EnumBulletFirePos firePos, float radius, double gravity, float charge,
 				int ammoConsumed) {
 			return new ChainsawProjectile(world,p,damage,speed,TTL,spread,dmgDropStart,dmgDropEnd,dmgMin,penetration,blockdamage,firePos);

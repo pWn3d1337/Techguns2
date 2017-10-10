@@ -4,7 +4,9 @@ import java.util.Map;
 
 import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
 
-
+@IFMLLoadingPlugin.Name("Techguns Core")
+@IFMLLoadingPlugin.MCVersion("1.12.2")
+@IFMLLoadingPlugin.SortingIndex(Integer.MAX_VALUE)
 public class TechgunsFMLPlugin implements IFMLLoadingPlugin {
 	//public static boolean deobf = false;
 		

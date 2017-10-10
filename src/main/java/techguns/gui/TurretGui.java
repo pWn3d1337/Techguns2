@@ -4,12 +4,10 @@ import com.mojang.realmsclient.gui.ChatFormatting;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
 import techguns.Techguns;
 import techguns.gui.containers.TurretContainer;
 import techguns.gui.widgets.GuiButtonTargetAnimals;
-import techguns.tileentities.BasicPoweredTileEnt;
 import techguns.tileentities.TurretTileEnt;
 import techguns.util.TextUtil;
 

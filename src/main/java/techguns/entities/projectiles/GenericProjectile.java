@@ -7,26 +7,16 @@ import javax.annotation.Nullable;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 
-import elucent.albedo.lighting.ILightProvider;
-import elucent.albedo.lighting.Light;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IProjectile;
-import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.entity.projectile.EntityArrow;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.play.server.SPacketChangeGameState;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntitySelectors;
 import net.minecraft.util.EnumHandSide;
 import net.minecraft.util.EnumParticleTypes;
@@ -37,7 +27,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -68,8 +57,8 @@ public class GenericProjectile extends Entity implements IProjectile, IEntityAdd
 	protected int lifetime = 100; // TTL but not reduced per tick
 
 	// DMG drop stats
-	int damageDropStart;
-	int damageDropEnd;
+	float damageDropStart;
+	float damageDropEnd;
 	float damageMin;
 	protected EntityLivingBase shooter;
 
@@ -109,7 +98,7 @@ public class GenericProjectile extends Entity implements IProjectile, IEntityAdd
 	}
 	
 	public GenericProjectile(World par2World, EntityLivingBase p, float damage, float speed, int TTL, float spread,
-			int dmgDropStart, int dmgDropEnd, float dmgMin, float penetration, boolean blockdamage, EnumBulletFirePos firePos) {
+			float dmgDropStart, float dmgDropEnd, float dmgMin, float penetration, boolean blockdamage, EnumBulletFirePos firePos) {
 		/*this(par2World, p.posX, p.posY + p.getEyeHeight(), p.posZ, p.rotationYawHead, p.rotationPitch, damage, speed,
 				TTL, spread, dmgDropStart, dmgDropEnd, dmgMin, penetration, blockdamage, getLeftHand(p,firePos));*/
 		this(par2World);
@@ -119,7 +108,7 @@ public class GenericProjectile extends Entity implements IProjectile, IEntityAdd
 	}
 
 	public GenericProjectile(World worldIn, double posX, double posY, double posZ, float yaw, float pitch, float damage,
-			float speed, int TTL, float spread, int dmgDropStart, int dmgDropEnd, float dmgMin, float penetration,
+			float speed, int TTL, float spread, float dmgDropStart, float dmgDropEnd, float dmgMin, float penetration,
 			boolean blockdamage, EnumBulletFirePos firePos) {
 		this(worldIn);
 		this.shooter = null;
@@ -127,7 +116,7 @@ public class GenericProjectile extends Entity implements IProjectile, IEntityAdd
 	}
 
 	private void initProjectile(World worldIn, double posX, double posY, double posZ, float yaw, float pitch, float damage,
-			float speed, int TTL, float spread, int dmgDropStart, int dmgDropEnd, float dmgMin, float penetration,
+			float speed, int TTL, float spread, float dmgDropStart, float dmgDropEnd, float dmgMin, float penetration,
 			boolean blockdamage, EnumBulletFirePos firePos) {
 
 		float offsetSide=0.16F;
@@ -160,7 +149,7 @@ public class GenericProjectile extends Entity implements IProjectile, IEntityAdd
 		this.motionZ = (double) (MathHelper.cos(this.rotationYaw / 180.0F * (float) Math.PI)
 				* MathHelper.cos(this.rotationPitch / 180.0F * (float) Math.PI) * f);
 		this.motionY = (double) (-MathHelper.sin((this.rotationPitch) / 180.0F * (float) Math.PI) * f);
-		this.setThrowableHeading(this.motionX, this.motionY, this.motionZ, 1.5f, 1.0F);
+		this.shoot(this.motionX, this.motionY, this.motionZ, 1.5f, 1.0F);
 
 		Vec3d motion = new Vec3d(this.motionX, this.motionY, this.motionZ);
 		motion.normalize();
@@ -189,7 +178,7 @@ public class GenericProjectile extends Entity implements IProjectile, IEntityAdd
 	 * direction.
 	 */
 	@Override
-	public void setThrowableHeading(double x, double y, double z, float velocity, float inaccuracy) {
+	public void shoot(double x, double y, double z, float velocity, float inaccuracy) {
 		float f = MathHelper.sqrt(x * x + y * y + z * z);
 		x = x / (double) f;
 		y = y / (double) f;
@@ -277,12 +266,16 @@ public class GenericProjectile extends Entity implements IProjectile, IEntityAdd
 		float f4 = MathHelper.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
 		this.rotationYaw = (float) (MathHelper.atan2(this.motionX, this.motionZ) * (180D / Math.PI));
 
-		for (this.rotationPitch = (float) (MathHelper.atan2(this.motionY, (double) f4)
-				* (180D / Math.PI)); this.rotationPitch
-						- this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F) {
+		/*for (this.rotationPitch = (float) (MathHelper.atan2(this.motionY, (double) f4) * (180D / Math.PI)); this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F) {
 			;
+		}*/
+		
+		this.rotationPitch = (float) (MathHelper.atan2(this.motionY, (double) f4) * (180D / Math.PI));
+		if (this.rotationPitch - this.prevRotationPitch < -180.0F) {
+			this.prevRotationPitch -= 360.0F;
 		}
-
+		
+		
 		while (this.rotationPitch - this.prevRotationPitch >= 180.0F) {
 			this.prevRotationPitch += 360.0F;
 		}
@@ -576,23 +569,20 @@ public class GenericProjectile extends Entity implements IProjectile, IEntityAdd
 	 * 
 	 * @return
 	 */
-	protected float getDamage() {
+    protected float getDamage() {
 
-		if (this.damageDropEnd==0) { //not having damage drop
+		if (this.damageDropEnd==0f) { //not having damage drop
 			return this.damage;
 		}
 		
 		double distance = this.getDistanceTravelled();
 
-		double dropStart = this.damageDropStart;
-		double dropEnd = this.damageDropEnd;
-
-		if (distance <= dropStart) {
+		if (distance <= this.damageDropStart) {
 			return this.damage;
-		} else if (distance > dropEnd) {
+		} else if (distance > this.damageDropEnd) {
 			return this.damageMin;
 		} else {
-			float factor = 1.0f - (float) ((distance - dropStart) / (dropEnd - dropStart));
+			float factor = 1.0f - (float) ((distance - this.damageDropStart) / (this.damageDropEnd - this.damageDropStart));
 			return (this.damageMin + (this.damage - this.damageMin) * factor);
 		}
 	}
@@ -603,7 +593,7 @@ public class GenericProjectile extends Entity implements IProjectile, IEntityAdd
 
 	@Override
 	protected void readEntityFromNBT(NBTTagCompound tags) {
-
+		
 		this.damage = tags.getFloat("damage");
 		this.speed = tags.getFloat("speed");
 
@@ -613,12 +603,14 @@ public class GenericProjectile extends Entity implements IProjectile, IEntityAdd
 		this.damageDropStart = tags.getShort("damageDropStart");
 		this.damageDropEnd = tags.getShort("damageDropEnd");
 		this.damageMin = tags.getFloat("damageMin");
-
+		
+		this.gravity = tags.getFloat("gravity");
 	}
 
 	@Override
 	protected void writeEntityToNBT(NBTTagCompound tags) {
-
+		
+		
 		tags.setFloat("damage", this.damage);
 		tags.setFloat("speed", this.speed);
 
@@ -628,6 +620,10 @@ public class GenericProjectile extends Entity implements IProjectile, IEntityAdd
 		tags.setShort("damageDropStart", (short) this.damageDropStart);
 		tags.setShort("damageDropEnd", (short) this.damageDropEnd);
 		tags.setFloat("damageMin", this.damageMin);
+		
+		if(this.gravity!=0d) {
+			tags.setFloat("gravity", (float)this.gravity);
+		}
 	}
 
 	@Override
@@ -643,7 +639,7 @@ public class GenericProjectile extends Entity implements IProjectile, IEntityAdd
 	public static class Factory implements IProjectileFactory<GenericProjectile> {
 
 		@Override
-		public GenericProjectile createProjectile(GenericGun gun, World world, EntityLivingBase p, float damage, float speed, int TTL, float spread, int dmgDropStart, int dmgDropEnd,
+		public GenericProjectile createProjectile(GenericGun gun, World world, EntityLivingBase p, float damage, float speed, int TTL, float spread, float dmgDropStart, float dmgDropEnd,
 				float dmgMin, float penetration, boolean blockdamage, EnumBulletFirePos firePos, float radius, double gravity) {
 			return new GenericProjectile(world,p,damage,speed,TTL,spread,dmgDropStart,dmgDropEnd,dmgMin,penetration,blockdamage,firePos);
 		}

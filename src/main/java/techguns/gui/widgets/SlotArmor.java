@@ -2,7 +2,6 @@ package techguns.gui.widgets;
 
 import javax.annotation.Nullable;
 
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;

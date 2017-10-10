@@ -8,7 +8,6 @@ import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
-import techguns.entities.projectiles.StoneBulletProjectile;
 
 public abstract class RenderTextureProjectile<T extends Entity> extends Render<T> {
 

@@ -2,13 +2,11 @@ package techguns.client.render;
 
 import java.util.HashMap;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import techguns.items.armors.ICamoChangeable;
 
 public class RenderAdditionalSlotSharedItem extends RenderAdditionalSlotItem {
 

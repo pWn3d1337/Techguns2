@@ -1,7 +1,6 @@
 package techguns.util;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;

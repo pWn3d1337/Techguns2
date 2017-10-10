@@ -4,7 +4,6 @@ import java.util.UUID;
 
 import com.google.common.base.Predicate;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityOwnable;
@@ -25,7 +24,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import techguns.TGPackets;
 import techguns.Techguns;
 import techguns.api.npc.INPCTechgunsShooter;
 import techguns.api.npc.factions.ITGNpcTeam;

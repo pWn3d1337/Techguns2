@@ -1,10 +1,8 @@
 package techguns;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -14,7 +12,25 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
 import techguns.init.ITGInitializer;
-import techguns.packets.*;
+import techguns.packets.GunFiredMessage;
+import techguns.packets.PacketDoorStateChange;
+import techguns.packets.PacketEntityDeathType;
+import techguns.packets.PacketGuiButtonClick;
+import techguns.packets.PacketMultiBlockFormInvalidBlockMessage;
+import techguns.packets.PacketOpenPlayerGUI;
+import techguns.packets.PacketPlaySound;
+import techguns.packets.PacketRequestTGPlayerSync;
+import techguns.packets.PacketRequestTileEntitySync;
+import techguns.packets.PacketShootGun;
+import techguns.packets.PacketShowKeybindConfirmMessage;
+import techguns.packets.PacketSpawnParticle;
+import techguns.packets.PacketSpawnParticleOnEntity;
+import techguns.packets.PacketSwapWeapon;
+import techguns.packets.PacketTGExtendedPlayerSync;
+import techguns.packets.PacketTGKeybindPress;
+import techguns.packets.PacketTGPlayerFieldSync;
+import techguns.packets.PacketUpdateTileEntTanks;
+import techguns.packets.ReloadStartedMessage;
 
 /**
  * Class for dealing with packets

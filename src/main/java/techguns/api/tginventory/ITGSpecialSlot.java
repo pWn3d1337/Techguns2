@@ -3,7 +3,6 @@ package techguns.api.tginventory;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
-import techguns.api.capabilities.ITGExtendedPlayer;
 import techguns.items.armors.TGArmorBonus;
 
 public interface ITGSpecialSlot {

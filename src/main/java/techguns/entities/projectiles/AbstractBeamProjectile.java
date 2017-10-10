@@ -1,15 +1,12 @@
 package techguns.entities.projectiles;
 
 import io.netty.buffer.ByteBuf;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import techguns.TGPackets;
-import techguns.packets.PacketSpawnParticle;
 
 public abstract class AbstractBeamProjectile extends GenericProjectile {
 
@@ -23,14 +20,14 @@ public abstract class AbstractBeamProjectile extends GenericProjectile {
 	}
 
 	public AbstractBeamProjectile(World par2World, EntityLivingBase p, float damage, float speed, int TTL, float spread,
-			int dmgDropStart, int dmgDropEnd, float dmgMin, float penetration, boolean blockdamage, EnumBulletFirePos leftGun) {
+			float dmgDropStart, float dmgDropEnd, float dmgMin, float penetration, boolean blockdamage, EnumBulletFirePos leftGun) {
 		super(par2World, p, damage, speed, TTL, spread, dmgDropStart, dmgDropEnd, dmgMin, penetration, blockdamage,
 				leftGun);
 		maxTicks = (short) this.ticksToLive;
 	}
 
 	public AbstractBeamProjectile(World worldIn, double posX, double posY, double posZ, float yaw, float pitch,
-			float damage, float speed, int TTL, float spread, int dmgDropStart, int dmgDropEnd, float dmgMin,
+			float damage, float speed, int TTL, float spread, float dmgDropStart, float dmgDropEnd, float dmgMin,
 			float penetration, boolean blockdamage, EnumBulletFirePos leftGun) {
 		super(worldIn, posX, posY, posZ, yaw, pitch, damage, speed, TTL, spread, dmgDropStart, dmgDropEnd, dmgMin,
 				penetration, blockdamage, leftGun);

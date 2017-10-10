@@ -2,7 +2,6 @@ package techguns.client.render.item;
 
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType;
-import net.minecraft.util.ResourceLocation;
 import techguns.client.models.ModelMultipart;
 
 public class RenderGunBase90 extends RenderGunBase {

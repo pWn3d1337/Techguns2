@@ -3,21 +3,17 @@ package techguns.client.particle;
 import java.awt.Color;
 
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GLUConstants;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
-import net.minecraft.client.particle.IParticleFactory;
 import net.minecraft.client.particle.Particle;
-import net.minecraft.client.particle.ParticleFlame;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -34,7 +30,7 @@ import techguns.util.MathUtil;
  * An actual spawned particle
  */
 @SideOnly(Side.CLIENT)
-public class TGParticle extends Particle{
+public class TGParticle extends Particle implements ITGParticle {
 	
 	 protected static final VertexFormat VERTEX_FORMAT = (new VertexFormat()).addElement(DefaultVertexFormats.POSITION_3F).addElement(DefaultVertexFormats.TEX_2F).addElement(DefaultVertexFormats.COLOR_4UB).addElement(DefaultVertexFormats.TEX_2S).addElement(DefaultVertexFormats.NORMAL_3B).addElement(DefaultVertexFormats.PADDING_1B);
 	   
@@ -318,18 +314,20 @@ public class TGParticle extends Particle{
 	        }	        		
 		}
 		
-		p1 = new Vec3d(p1.x + fPosX, p1.y + fPosY, p1.z + fPosZ);
+		/*p1 = new Vec3d(p1.x + fPosX, p1.y + fPosY, p1.z + fPosZ);
 		p2 = new Vec3d(p2.x + fPosX, p2.y + fPosY, p2.z + fPosZ);
 		p3 = new Vec3d(p3.x + fPosX, p3.y + fPosY, p3.z + fPosZ);
-		p4 = new Vec3d(p4.x + fPosX, p4.y + fPosY, p4.z + fPosZ);
+		p4 = new Vec3d(p4.x + fPosX, p4.y + fPosY, p4.z + fPosZ);*/
         
-		buffer.pos(p1.x, p1.y, p1.z).tex((double)ua, (double)va).color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).lightmap(0, 240).normal(0.0f, 1.0f, 0.0f).endVertex();
-		buffer.pos(p2.x, p2.y, p2.z).tex((double)ub, (double)vb).color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).lightmap(0, 240).normal(0.0f, 1.0f, 0.0f).endVertex();
-		buffer.pos(p3.x, p3.y, p3.z).tex((double)uc, (double)vc).color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).lightmap(0, 240).normal(0.0f, 1.0f, 0.0f).endVertex();
-		buffer.pos(p4.x, p4.y, p4.z).tex((double)ud, (double)vd).color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).lightmap(0, 240).normal(0.0f, 1.0f, 0.0f).endVertex();
+		buffer.pos(p1.x + fPosX, p1.y + fPosY, p1.z + fPosZ).tex((double)ua, (double)va).color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).lightmap(0, 240).normal(0.0f, 1.0f, 0.0f).endVertex();
+		buffer.pos(p2.x + fPosX, p2.y + fPosY, p2.z + fPosZ).tex((double)ub, (double)vb).color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).lightmap(0, 240).normal(0.0f, 1.0f, 0.0f).endVertex();
+		buffer.pos(p3.x + fPosX, p3.y + fPosY, p3.z + fPosZ).tex((double)uc, (double)vc).color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).lightmap(0, 240).normal(0.0f, 1.0f, 0.0f).endVertex();
+		buffer.pos(p4.x + fPosX, p4.y + fPosY, p4.z + fPosZ).tex((double)ud, (double)vd).color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).lightmap(0, 240).normal(0.0f, 1.0f, 0.0f).endVertex();
 
         Tessellator.getInstance().draw();
 
+        //System.out.println("DoRender");
+        
         disableBlendMode();
 
     }
@@ -433,9 +431,9 @@ public class TGParticle extends Particle{
     		//GL11.glEnable(GL11.GL_ALPHA_TEST);
     	}
         if (type.renderType == RenderType.ALPHA) {
-        	GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        	GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
         } else if (type.renderType == RenderType.ADDITIVE || type.renderType==RenderType.NO_Z_TEST) {
-        	GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
+        	GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE);
         }
         
         if (type.renderType==RenderType.NO_Z_TEST){
@@ -454,6 +452,12 @@ public class TGParticle extends Particle{
     		//GlStateManager.disableAlpha();
     		//GL11.glDisable(GL11.GL_ALPHA_TEST);
     	}
+		 if (type.renderType == RenderType.ALPHA) {
+        	GlStateManager.blendFunc(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+        } else if (type.renderType == RenderType.ADDITIVE || type.renderType==RenderType.NO_Z_TEST) {
+        	GlStateManager.blendFunc(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+        }
+		
         if (type.renderType==RenderType.NO_Z_TEST){
         	GlStateManager.depthMask(true);
         	GlStateManager.enableDepth();
@@ -502,5 +506,39 @@ public class TGParticle extends Particle{
 		  double d1 = axis.dotProduct(p1);
 		  return p1.scale(cosa).add(v1.scale(sina)).add(axis.scale(d1*(1.0 - cosa)));			
 		//  return p1.scale(cosa).add(axis.crossProduct(p1).scale(Math.sin(a))).add(axis.scale(axis.dotProduct(p1)*(1.0 - Math.cos(a))));			
+	}
+
+	@Override
+	public Vec3d getPos() {
+		return new Vec3d(this.posX, this.posY, this.posZ);
+	}
+
+	@Override
+	public boolean shouldRemove() {
+		return !this.isAlive();
+	}
+
+	@Override
+	public void updateTick() {
+		this.onUpdate();
+	}
+
+	@Override
+	public void doRender(BufferBuilder buffer, Entity entityIn, float partialTickTime, float rotX, float rotZ,
+			float rotYZ, float rotXY, float rotXZ) {
+		this.renderParticle(buffer, entityIn, partialTickTime, rotX, rotZ, rotYZ, rotXY, rotXZ);
+	}
+
+	@Override
+	public AxisAlignedBB getRenderBoundingBox(float partialTickTime, Entity viewEnt) {
+	    //float fPosX = (float)(this.prevPosX + (this.posX - this.prevPosX) * (double)partialTickTime - interpPosX);
+        //float fPosY = (float)(this.prevPosY + (this.posY - this.prevPosY) * (double)partialTickTime - interpPosY);
+        //float fPosZ = (float)(this.prevPosZ + (this.posZ - this.prevPosZ) * (double)partialTickTime - interpPosZ);
+		double fPosX = (this.posX-viewEnt.posX);
+		double fPosY = (this.posY-viewEnt.posY);
+		double fPosZ = (this.posZ-viewEnt.posZ);
+	    
+		double s = size*0.5;
+		return new AxisAlignedBB(fPosX-s, fPosY-s, fPosZ-s, fPosX+s, fPosY+s, fPosZ+s);
 	}
 }

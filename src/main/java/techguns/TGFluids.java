@@ -3,20 +3,10 @@ package techguns;
 import java.util.ArrayList;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.ItemMeshDefinition;
-import net.minecraft.client.renderer.block.model.ModelBakery;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.client.renderer.block.statemap.StateMapperBase;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.fluids.Fluid;
@@ -98,40 +88,8 @@ public class TGFluids implements ITGInitializer {
 	@SideOnly(Side.CLIENT)
 	public static void initModels() {
 		if(BLOCK_FLUID_ACID!=null) {
-			registerFluidModelsForFluidBlock(BLOCK_FLUID_ACID);
+			Techguns.proxy.registerFluidModelsForFluidBlock(BLOCK_FLUID_ACID);
 		}
-	}
-	
-	protected static void registerFluidModelsForFluidBlock(Block b) {
-		if(!(b instanceof IFluidBlock)) {
-			System.out.println("Tried to register "+b+ " as Fluid, but block is no IFluidBlock");
-			return;
-		}
-		IFluidBlock f = (IFluidBlock) b;
-		
-		final Item item = Item.getItemFromBlock(b);
-		if(item==Items.AIR) {
-			System.out.println("No item found for IFluidBlock "+b);
-			return;
-		}
-		
-		ModelBakery.registerItemVariants(item);
-		
-		final ModelResourceLocation modelResourceLocation = new ModelResourceLocation(new ResourceLocation(Techguns.MODID, "fluid"), f.getFluid().getName());
-
-		ModelLoader.setCustomMeshDefinition(item, new ItemMeshDefinition() {
-			@Override
-			public ModelResourceLocation getModelLocation(ItemStack stack) {
-				return modelResourceLocation;
-			}
-		});
-
-		ModelLoader.setCustomStateMapper(b, new StateMapperBase() {
-			@Override
-			protected ModelResourceLocation getModelResourceLocation(final IBlockState bs) {
-				return modelResourceLocation;
-			}
-		});
 	}
 
 	@Override

@@ -2,7 +2,6 @@ package techguns.gui.widgets;
 
 import java.util.ArrayList;
 
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import techguns.Techguns;

@@ -1,11 +1,8 @@
 package techguns.client.models.npcs;
 
-import techguns.debug.Keybinds;
-import techguns.entities.npcs.SuperMutantBasic;
-import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
+import techguns.entities.npcs.SuperMutantBasic;
 
 /**
  * ModelSupermutant - pWn3d

@@ -1,8 +1,6 @@
 package techguns.world.dungeon;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import net.minecraft.util.math.Vec3i;
 import techguns.tileentities.DungeonScannerTileEnt;

@@ -5,9 +5,7 @@ import net.minecraft.client.renderer.entity.layers.LayerBipedArmor;
 import net.minecraft.util.ResourceLocation;
 import techguns.Techguns;
 import techguns.client.models.npcs.ModelGenericNPC;
-import techguns.entities.npcs.GenericNPC;
 import techguns.entities.npcs.ZombieFarmer;
-import techguns.entities.npcs.ZombieSoldier;
 
 public class RenderZombieFarmer extends RenderGenericNPC<ZombieFarmer> {
 

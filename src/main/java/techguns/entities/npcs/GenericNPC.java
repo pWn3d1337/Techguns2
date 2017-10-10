@@ -1,19 +1,14 @@
 package techguns.entities.npcs;
 
-import java.util.Calendar;
-import java.util.List;
 import java.util.Random;
 
 import javax.annotation.Nullable;
 
-import net.minecraft.block.Block;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.IRangedAttackMob;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
-import net.minecraft.entity.ai.EntityAIAttackRangedBow;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAISwimming;
@@ -22,7 +17,6 @@ import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.monster.AbstractSkeleton;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
@@ -40,7 +34,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import techguns.TGArmors;
-import techguns.TGEntities;
 import techguns.TGItems;
 import techguns.TGuns;
 import techguns.api.npc.INPCTechgunsShooter;
@@ -86,7 +79,7 @@ public class GenericNPC extends EntityMob implements IRangedAttackMob, INPCTechg
 			return hasAimedBowAnim;
 		}
 
-		protected GenericGun pickRandomGun(DifficultyInstance difficulty) {
+		protected GenericGun pickRandomGun(int difficulty) {
 			Random r = new Random();
 			GenericGun gun;
 			switch (r.nextInt(4)) {
@@ -182,11 +175,12 @@ public class GenericNPC extends EntityMob implements IRangedAttackMob, INPCTechg
 	    @Override
 	    protected void setEquipmentBasedOnDifficulty(DifficultyInstance difficulty)
 	    {
-	    	this.addRandomArmor(difficulty);
+	    	int d = Math.round(difficulty.getClampedAdditionalDifficulty()*3f);
+	    	this.addRandomArmor(d);
 	    } 
 	    
 	    
-	    protected void addRandomArmor(DifficultyInstance difficulty){
+	    protected void addRandomArmor(int difficulty){
 	        this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(this.pickRandomGun(difficulty)));
 	    	
 	    	this.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(TGArmors.t1_combat_Helmet));
@@ -212,10 +206,9 @@ public class GenericNPC extends EntityMob implements IRangedAttackMob, INPCTechg
 	    }*/
 
 	    public void onSpawnByManager(int difficulty) {
-	    	//super.onSpawnWithEgg(null);
-	    	
-	  //  	this.addRandomArmor(difficulty);
-	   // 	this.setCombatTask();
+	        this.setCanPickUpLoot(false);	
+	    	this.addRandomArmor(difficulty);
+	    	this.setCombatTask();
 	    }
 	    
 	    

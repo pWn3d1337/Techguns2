@@ -50,7 +50,7 @@ public class DamageSystem {
 	
 	protected static Method ELB_damageEntity = ReflectionHelper.findMethod(EntityLivingBase.class, "damageEntity", "func_70665_d", DamageSource.class, float.class);
 	
-	protected static Method ELB_setBeenAttacked = ReflectionHelper.findMethod(EntityLivingBase.class, "setBeenAttacked", "func_70018_K");
+	protected static Method ELB_setBeenAttacked = ReflectionHelper.findMethod(EntityLivingBase.class, "markVelocityChanged", "func_70018_K");
 	
 	protected static Method ELB_checkTotemDeathProtection = ReflectionHelper.findMethod(EntityLivingBase.class, "checkTotemDeathProtection", "func_190628_d", DamageSource.class);
 	

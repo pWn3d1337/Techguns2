@@ -1,25 +1,13 @@
 package techguns.gui;
 
-import java.awt.Button;
-
 import com.mojang.realmsclient.gui.ChatFormatting;
 
-import net.minecraft.block.Block;
-import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
 import techguns.Techguns;
 import techguns.gui.containers.Door3x3Container;
-import techguns.gui.player.TGPlayerInventory;
 import techguns.gui.widgets.GuiButtonDoorRightClickSetting;
-import techguns.items.armors.ICamoChangeable;
-import techguns.tileentities.BasicOwnedTileEnt;
 import techguns.tileentities.Door3x3TileEntity;
-import techguns.tileentities.operation.CamoBenchRecipes;
-import techguns.tileentities.operation.CamoBenchRecipes.CamoBenchRecipe;
 import techguns.util.TextUtil;
 
 public class Door3x3Gui extends RedstoneTileEntGui {

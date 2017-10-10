@@ -6,14 +6,12 @@ import java.util.List;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
 import techguns.Techguns;
 import techguns.gui.containers.ChemLabContainer;
 import techguns.gui.widgets.GuiButtonToggleDrainTank;
-import techguns.tileentities.BasicPoweredTileEnt;
 import techguns.tileentities.ChemLabTileEnt;
 import techguns.util.TextUtil;
 

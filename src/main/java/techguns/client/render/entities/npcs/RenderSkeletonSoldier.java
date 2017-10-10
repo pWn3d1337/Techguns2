@@ -1,15 +1,10 @@
 package techguns.client.render.entities.npcs;
 
-import net.minecraft.client.model.ModelBiped;
-import net.minecraft.client.model.ModelZombie;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.layers.LayerBipedArmor;
-import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.util.ResourceLocation;
-import techguns.Techguns;
 import techguns.client.models.npcs.ModelSkeletonSoldier;
 import techguns.client.render.entities.LayerHeldItemTranslateGun;
-import techguns.entities.npcs.GenericNPC;
 import techguns.entities.npcs.SkeletonSoldier;
 
 public class RenderSkeletonSoldier extends RenderGenericNPC<SkeletonSoldier> {

@@ -5,7 +5,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
 import net.minecraftforge.fml.client.config.GuiUtils;
 import techguns.Techguns;
-import techguns.tileentities.BasicPoweredTileEnt;
 import techguns.tileentities.BasicRedstoneTileEnt;
 
 public class GuiButtonRedstoneState extends GuiButtonExt {
