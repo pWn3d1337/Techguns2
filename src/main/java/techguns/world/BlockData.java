@@ -40,6 +40,14 @@ public class BlockData {
 		blockLayers.put(Blocks.LEVER, 2);
 		blockLayers.put(Blocks.STONE_BUTTON,2);
 		blockLayers.put(Blocks.WOODEN_BUTTON, 2);
+		blockLayers.put(Blocks.WALL_SIGN, 2);
+		blockLayers.put(Blocks.WALL_BANNER, 2);
+		blockLayers.put(Blocks.STANDING_SIGN, 2);
+		blockLayers.put(Blocks.STANDING_BANNER, 2);
+		blockLayers.put(Blocks.ANVIL, 2);
+		//blockLayers.put(, 2);
+
+		
 	}
 	
 	public static int getBlockLayer(IBlockState state) {

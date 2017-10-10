@@ -4,12 +4,15 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirectional;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.BlockLever;
+import net.minecraft.block.BlockLog;
+import net.minecraft.block.BlockLog.EnumAxis;
 import net.minecraft.block.BlockTorch;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumFacing.Axis;
 import techguns.TGBlocks;
 import techguns.blocks.BlockTGDoor3x3;
 
@@ -36,6 +39,11 @@ public class BlockRotator {
 			
 		} else if (state.getProperties().containsKey(BlockTGDoor3x3.ZPLANE)) {
 			return rotateBooleanPlane(state, times, BlockTGDoor3x3.ZPLANE);
+		} else if (state.getProperties().containsKey(BlockLog.LOG_AXIS)) {
+			if (times == 1 || times == 3) {
+				if (state.getValue(BlockLog.LOG_AXIS) == EnumAxis.X) return state.withProperty(BlockLog.LOG_AXIS, EnumAxis.Z);
+				if (state.getValue(BlockLog.LOG_AXIS) == EnumAxis.Z) return state.withProperty(BlockLog.LOG_AXIS, EnumAxis.X);
+			}
 		}
 		
 		return state;

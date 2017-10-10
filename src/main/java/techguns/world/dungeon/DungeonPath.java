@@ -25,24 +25,26 @@ public class DungeonPath {
 	
 	//Advanced Parameters
 	//---------
-	int startSegmentCount = 1; //Number of entrances to start generating from
-	int startHeightLevel = 0; //Which Y value are the start segments placed; negative numbers = top down
+	public int startSegmentCount = 1; //Number of entrances to start generating from
+	public int startHeightLevel = 0; //Which Y value are the start segments placed; negative numbers = top down
 	//int startHeightOffset = 2; //Additional height offset beyond the actual dungeon space for entrance;
 	
 	//boolean allowVerticalStack = true; //Can segments be placed on top of each other
 	
-	float chanceStraight = 0.5f; //next segment will go forward; -> inverse chance to left/right
-	float chanceRamp = 0.25f; //when straight, roll again for a ramp
-	float chanceRoom = 0.25f; //else, roll for a room
-	float chanceFork = 0.2f; //roll again for another direction, when not a ramp
+	public float chanceStraight = 0.5f; //next segment will go forward; -> inverse chance to left/right
+	public float chanceRamp = 0.25f; //when straight, roll again for a ramp
+	public float chanceRoom = 0.25f; //else, roll for a room
+	public float chanceFork = 0.2f; //roll again for another direction, when not a ramp
+	public float chanceUp = 0.5f; //adjust to set bias towards upwards/downwards ramps
 	
-	int minRoomArea = 4;
-	int maxRoomArea = 16;
-	int minRoomWidth = 2;
-	int maxRoomWidth = 5;
+	public int minRoomArea = 4;
+	public int maxRoomArea = 16;
+	public int minRoomWidth = 2;
+	public int maxRoomWidth = 5;
 	
-	boolean usePillars = true;
-	boolean useFoundations = true;
+	public boolean usePillars = true;
+	public boolean useFoundations = true;
+	public boolean useRoof = false; //currently uses pillar segment of top template
 	//---------
 
 	private int numSegments = 0;
@@ -51,7 +53,7 @@ public class DungeonPath {
 	
 	public DungeonPath(int sX, int sY, int sZ, Random rand) {
 		this.sX =sX;
-		this.sY = sY;
+		this.sY = sY; System.out.println("sY = "+sY);
 		this.sZ = sZ;
 		this.rand = rand;
 		dungeonVolume = new PathSegment[sX][sY][sZ];
@@ -108,8 +110,9 @@ public class DungeonPath {
 			EnumFacing nextFacing = EnumFacing.getHorizontal(nextDir);
 			Vec3i nextPos = segment.getNextPos(nextDir);
 			if (isWithinBounds(nextPos)) {
-				if (dir == nextDir && !fork && rand.nextFloat() < chanceRamp) { //ramp
-					int dy = rand.nextBoolean() ? 1 : -1;
+				if (dir == nextDir && !segment.isEntrance && !fork && rand.nextFloat() < chanceRamp) { //ramp
+					float f = rand.nextFloat();
+					int dy = f < chanceUp ? 1 : -1;
 					Vec3i elevPos = new Vec3i(x, y+dy,z);
 					if (isWithinBounds(elevPos) && !isOccupied(elevPos)) {
 						Vec3i offset = nextFacing.getDirectionVec();
@@ -566,9 +569,11 @@ public class DungeonPath {
 						}
 					}
 					boolean below = false;
+					boolean directlyBelow = false;
 					for (int y = j-1; y >= 0; y--) { //Check if there is a segment above this one
 						if (this.dungeonVolume[i][y][k] != null) {
 							below = true;
+							if (y == j-1) directlyBelow = true;
 							break;
 						}
 					}
@@ -587,6 +592,17 @@ public class DungeonPath {
 								if (r== 0 || r == 2) r = (r+2)%4;
 								//template.segments.get(SegmentType.RAMP).placeSegment(world, px, py, pz, (r+1) %4);
 								preset.getSegment(SegmentType.RAMP, segment.y, 0, this.sY, above, below, world.rand.nextInt()).placeSegment(world, px, py, pz, (r+1) %4);
+							}else {
+								//Roof segment
+								int r = dungeonVolume[i][j-1][k].getRampRotation();
+								if (r== 0 || r == 2) r = (r+2)%4;
+								if (useRoof && !above && segment.y+1 < this.sY) {
+									int px = posX+(i*preset.getSizeXZ());
+									int py = posY+((j+1)*preset.getSizeY());
+									int pz = posZ+(k*preset.getSizeXZ());
+									int seed = segment.roomID > 0 ? segment.roomID : world.rand.nextInt();		
+									preset.getSegment(SegmentType.END, -1, 0, this.sY, above, below, seed).placeSegment(world, px, py, pz, (r+1) %4);
+								}
 							}
 						}else {
 						
@@ -613,6 +629,12 @@ public class DungeonPath {
 										preset.getSegment(tempSeg.type, segment.y, 0, this.sY, above, below, seed).placeSegment(world, px, py, pz, r);
 									}
 									ok = true;
+									//Roof segment
+									if (useRoof && !above && segment.y+1 < this.sY) {
+										py = posY+((j+1)*preset.getSizeY());
+										int seed = segment.roomID > 0 ? segment.roomID : world.rand.nextInt();		
+										preset.getSegment(tempSeg.type, -1, 0, this.sY, above, below, seed).placeSegment(world, px, py, pz, r);
+									}
 									break;
 								}
 							}
@@ -622,23 +644,32 @@ public class DungeonPath {
 							}
 						}
 					}else {
-						if (useFoundations || usePillars) {
-							if (useFoundations && above && !below) {
-								int px = posX+(i*preset.getSizeXZ());
-								int py = posY+(j*preset.getSizeY());
-								int pz = posZ+(k*preset.getSizeXZ());
-								preset.getSegment(SegmentType.FOUNDATION, j, 0, this.sY, above, below, world.rand.nextInt()).placeSegment(world, px, py, pz, 0);
-							}else if (usePillars && above ) {
-								int px = posX+(i*preset.getSizeXZ());
-								int py = posY+(j*preset.getSizeY());
-								int pz = posZ+(k*preset.getSizeXZ());
-								preset.getSegment(SegmentType.PILLARS, j, 0, this.sY, above, below, world.rand.nextInt()).placeSegment(world, px, py, pz, 0);
-							}
+						if (useFoundations && above && !below) {
+							int px = posX+(i*preset.getSizeXZ());
+							int py = posY+(j*preset.getSizeY());
+							int pz = posZ+(k*preset.getSizeXZ());
+							preset.getSegment(SegmentType.FOUNDATION, j, 0, this.sY, above, below, world.rand.nextInt()).placeSegment(world, px, py, pz, 0);
+						}else if (usePillars && above ) {
+							int px = posX+(i*preset.getSizeXZ());
+							int py = posY+(j*preset.getSizeY());
+							int pz = posZ+(k*preset.getSizeXZ());
+							preset.getSegment(SegmentType.PILLARS, j, 0, this.sY, above, below, world.rand.nextInt()).placeSegment(world, px, py, pz, 0);
+						}else if (useRoof && directlyBelow && !above) {
+							//do nothing
+							
+//							int px = posX+(i*preset.getSizeXZ());
+//							int py = posY+(j*preset.getSizeY());
+//							int pz = posZ+(k*preset.getSizeXZ());
+//							preset.getSegment(SegmentType.PILLARS, -1, 0, this.sY, above, below, world.rand.nextInt()).placeSegment(world, px, py, pz, 0);		
 						}
 					}
 				}
 			}
 		}
 	}
+	
+//	public void generateSpawnPositions() {
+//		
+//	}
 
 }

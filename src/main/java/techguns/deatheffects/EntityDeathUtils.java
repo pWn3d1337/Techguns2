@@ -25,6 +25,7 @@ import net.minecraft.entity.passive.EntitySquid;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.entity.player.EntityPlayer;
+import techguns.entities.npcs.*;
 
 
 public class EntityDeathUtils {
@@ -45,18 +46,18 @@ public class EntityDeathUtils {
 		listGore.add(EntityPig.class);
 		listGore.add(EntityChicken.class);
 		listGore.add(EntityPigZombie.class);
-	//	listGore.add(ZombieSoldier.class);
-	//	listGore.add(ArmySoldier.class);
-	//	listGore.add(CyberDemon.class);
-	//	listGore.add(ZombiePigmanSoldier.class);
+		listGore.add(ZombieSoldier.class);
+		listGore.add(ArmySoldier.class);
+		listGore.add(CyberDemon.class);
+		listGore.add(ZombiePigmanSoldier.class);
 		listGore.add(EntitySpider.class);
 		listGore.add(EntityCaveSpider.class);
 		listGore.add(EntityWitch.class);
 		listGore.add(EntitySlime.class);
-	//	listGore.add(ZombieFarmer.class);
-	//	listGore.add(ZombieMiner.class);
-	//	listGore.add(Bandit.class);
-	//	listGore.add(ZombieSoldier.class);
+		listGore.add(ZombieFarmer.class);
+		//listGore.add(ZombieMiner.class);
+		listGore.add(Bandit.class);
+		listGore.add(ZombieSoldier.class);
 		listGore.add(EntityHorse.class);
 		listGore.add(EntityMooshroom.class);
 		listGore.add(EntityWolf.class);

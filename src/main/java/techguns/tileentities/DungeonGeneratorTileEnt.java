@@ -25,8 +25,8 @@ public class DungeonGeneratorTileEnt extends BasicOwnedTileEnt {
 	
 	
 	public int sizeX = 48;
-	public int sizeY = 16;
-	public int sizeZ = 32;
+	public int sizeY = 26;
+	public int sizeZ = 48;
 	
 	public boolean showGhost = true;
 	
@@ -81,7 +81,7 @@ public class DungeonGeneratorTileEnt extends BasicOwnedTileEnt {
 	private void generateDungeon(String name) {
 		Dungeon dungeon;
 		if (name == null || name.equals("") || name.length() ==0 || !DungeonTemplate.dungeonTemplates.containsKey(name)) {
-			dungeon = new Dungeon(IDungeonPreset.PRESET_TECHFORTRESS);
+			dungeon = new Dungeon(IDungeonPreset.PRESET_CASTLE);
 		}else {
 			dungeon = new Dungeon(new PresetTemplateTest(DungeonTemplate.dungeonTemplates.get(name)));
 		}
