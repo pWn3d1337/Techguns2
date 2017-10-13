@@ -63,10 +63,9 @@ public class TGParticle extends Particle implements ITGParticle {
 	TGParticleSystem particleSystem;
 	TGParticleSystemType type;
 	
-	ModelBase testModel = new ModelRocket();
-	
-	
 	int variationFrame;
+	
+	protected double depth;
 	
 	//int angle;
 
@@ -540,5 +539,15 @@ public class TGParticle extends Particle implements ITGParticle {
 	    
 		double s = size*0.5;
 		return new AxisAlignedBB(fPosX-s, fPosY-s, fPosZ-s, fPosX+s, fPosY+s, fPosZ+s);
+	}
+
+	@Override
+	public double getDepth() {
+		return this.depth;
+	}
+
+	@Override
+	public void setDepth(double depth) {
+		this.depth=depth;
 	}
 }

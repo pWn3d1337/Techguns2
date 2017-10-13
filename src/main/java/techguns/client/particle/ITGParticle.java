@@ -19,4 +19,8 @@ public interface ITGParticle {
 	public default boolean doNotSort() {
 		return false;
 	}
+	
+	public double getDepth();
+	
+	public void setDepth(double depth);
 }

@@ -259,6 +259,15 @@ public class TGParticleSystem extends Particle implements ITGParticle {
 		return new AxisAlignedBB(this.posX-s, this.posY-s, this.posZ-s, this.posX+s, this.posY+s, this.posZ+s);
 	}
 
+	@Override
+	public double getDepth() {
+		return 0;
+	}
+
+	@Override
+	public void setDepth(double depth) {
+	}
+
 	
 //ACTUALLY WE DON'T NEED THIS	
 //	@SideOnly(Side.CLIENT)

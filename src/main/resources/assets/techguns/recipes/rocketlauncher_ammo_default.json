@@ -1,0 +1,15 @@
+{
+  "result": {
+    "item": "techguns:rocketlauncher"
+  },
+  "ingredients": [
+    {
+      "item": "techguns:rocketlauncher"
+    },
+    {
+      "item": "techguns:itemshared",
+      "data": 7
+    }
+  ],
+  "type": "techguns:ammo_change_crafting"
+}

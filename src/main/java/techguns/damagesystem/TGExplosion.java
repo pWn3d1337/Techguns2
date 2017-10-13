@@ -55,7 +55,7 @@ public class TGExplosion {
     float blockDropChance = 0.5f;
     
     Explosion explosionDummy;
-    
+    TGDamageSource dmgSrc=null;
      
 //    @SideOnly(Side.CLIENT)
 //    public TGExplosion(World worldIn, Entity entityIn, double x, double y, double z, float size, List<BlockPos> affectedPositions)
@@ -97,6 +97,11 @@ public class TGExplosion {
         this.explosionDummy = new Explosion(world, exploder, x, y, z, (float)Math.max(primaryRadius, secondaryRadius), false, this.damagesTerrain);
     }
 
+    public TGExplosion setDmgSrc(TGDamageSource src) {
+    	this.dmgSrc=src;
+    	return this;
+    }
+    
     /**
      * Does the first part of the explosion (destroy blocks)
      */
@@ -201,7 +206,14 @@ public class TGExplosion {
         
         breakBlocks();
 
-    	TGDamageSource tgs = TGDamageSource.causeExplosionDamage(projectile,exploder, DeathType.GORE);
+        TGDamageSource tgs;
+    	if(this.dmgSrc==null) {
+    		tgs = TGDamageSource.causeExplosionDamage(projectile,exploder, DeathType.GORE);
+    	} else {
+    		tgs = TGDamageSource.copyWithNewEnt(this.dmgSrc, projectile, exploder);
+    	}
+
+    	
         for (int k2 = 0; k2 < list.size(); ++k2)
         {
             Entity entity = list.get(k2);

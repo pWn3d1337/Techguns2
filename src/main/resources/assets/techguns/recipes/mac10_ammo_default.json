@@ -1,0 +1,15 @@
+{
+  "result": {
+    "item": "techguns:mac10"
+  },
+  "ingredients": [
+    {
+      "item": "techguns:mac10"
+    },
+    {
+      "item": "techguns:itemshared",
+      "data": 9
+    }
+  ],
+  "type": "techguns:ammo_change_crafting"
+}

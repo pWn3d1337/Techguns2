@@ -1,0 +1,15 @@
+{
+  "result": {
+    "item": "techguns:ak47"
+  },
+  "ingredients": [
+    {
+      "item": "techguns:ak47"
+    },
+    {
+      "item": "techguns:itemshared",
+      "data": 13
+    }
+  ],
+  "type": "techguns:ammo_change_crafting"
+}

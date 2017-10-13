@@ -29,14 +29,9 @@ public class ModelRocketLauncher extends ModelMultipart {
 	ModelRenderer Shape20;
 	ModelRenderer Shape22;
 	ModelRenderer Shape21;
-	ModelRenderer R1;
-	ModelRenderer R7;
-	ModelRenderer R4;
-	ModelRenderer R2;
-	ModelRenderer R5;
-	ModelRenderer R3;
-	ModelRenderer R6;
 
+	ModelRocket rocket;
+	
 	public ModelRocketLauncher() {
 		textureWidth = 128;
 		textureHeight = 64;
@@ -175,88 +170,118 @@ public class ModelRocketLauncher extends ModelMultipart {
 		Shape20.setTextureSize(128, 64);
 		Shape20.mirror = true;
 		setRotation(Shape20, 0F, 0F, 0F);
-		R1 = new ModelRenderer(this, 0, 0);
-		R1.addBox(0F, 0F, 0F, 6, 4, 4);
-		R1.setRotationPoint(21F, -1.5F, -1.5F);
-		R1.setTextureSize(128, 64);
-		R1.mirror = true;
-		setRotation(R1, 0F, 0F, 0F);
-		R7 = new ModelRenderer(this, 30, 0);
-		R7.addBox(0F, 0F, 0F, 2, 1, 6);
-		R7.setRotationPoint(22.1F, 0F, -2.5F);
-		R7.setTextureSize(128, 64);
-		R7.mirror = true;
-		setRotation(R7, 0F, 0F, 0F);
-		R4 = new ModelRenderer(this, 12, 9);
-		R4.addBox(0F, 0F, 0F, 4, 2, 5);
-		R4.setRotationPoint(22F, -0.5F, -2F);
-		R4.setTextureSize(128, 64);
-		R4.mirror = true;
-		setRotation(R4, 0F, 0F, 0F);
-		R2 = new ModelRenderer(this, 0, 16);
-		R2.addBox(0F, 0F, 0F, 10, 3, 3);
-		R2.setRotationPoint(18F, -1F, -1F);
-		R2.setTextureSize(128, 64);
-		R2.mirror = true;
-		setRotation(R2, 0F, 0F, 0F);
-		R5 = new ModelRenderer(this, 0, 8);
-		R5.addBox(0F, 0F, 0F, 4, 5, 2);
-		R5.setRotationPoint(22F, -2F, -0.5F);
-		R5.setTextureSize(128, 64);
-		R5.mirror = true;
-		setRotation(R5, 0F, 0F, 0F);
-		R3 = new ModelRenderer(this, 20, 3);
-		R3.addBox(0F, 0F, 0F, 1, 2, 2);
-		R3.setRotationPoint(28F, -0.5F, -0.5F);
-		R3.setTextureSize(128, 64);
-		R3.mirror = true;
-		setRotation(R3, 0F, 0F, 0F);
-		R6 = new ModelRenderer(this, 30, 7);
-		R6.addBox(0F, 0F, 0F, 2, 6, 1);
-		R6.setRotationPoint(22.1F, -2.5F, 0F);
-		R6.setTextureSize(128, 64);
-		R6.mirror = true;
-		setRotation(R6, 0F, 0F, 0F);
+		
+		rocket = new ModelRocket();
 	}
 
 	
 	
 	@Override
-	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float f5, int ammoLeft,
+	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale, int ammoLeft,
 			float reloadProgress, TransformType transformType, int part, float fireProgress) {
 		
-		Shape1.render(f5);
-		Shape2.render(f5);
-		Shape3.render(f5);
-		Shape4.render(f5);
-		Shape5.render(f5);
-		Shape6.render(f5);
-		Shape7.render(f5);
-		Shape8.render(f5);
-		Shape9.render(f5);
-		Shape10.render(f5);
-		Shape11.render(f5);
-		Shape12.render(f5);
-		Shape13.render(f5);
-		Shape14.render(f5);
-		Shape15.render(f5);
-		Shape16.render(f5);
-		Shape21.render(f5);
-		Shape22.render(f5);
-		Shape17.render(f5);
-		Shape18.render(f5);
-		Shape19.render(f5);
-		Shape20.render(f5);
-		
-		if ((reloadProgress ==0 && ammoLeft > 0) || (reloadProgress > 0.5f)) {
-			R1.render(f5);
-			R7.render(f5);
-			R4.render(f5);
-			R2.render(f5);
-			R5.render(f5);
-			R3.render(f5);
-			R6.render(f5);
+		if(part==0) {
+			Shape1.render(scale);
+			Shape2.render(scale);
+			Shape3.render(scale);
+			Shape4.render(scale);
+			Shape5.render(scale);
+			Shape6.render(scale);
+			Shape7.render(scale);
+			Shape8.render(scale);
+			Shape9.render(scale);
+			Shape10.render(scale);
+			Shape11.render(scale);
+			Shape12.render(scale);
+			Shape13.render(scale);
+			Shape14.render(scale);
+			Shape15.render(scale);
+			Shape16.render(scale);
+			Shape21.render(scale);
+			Shape22.render(scale);
+			Shape17.render(scale);
+			Shape18.render(scale);
+			Shape19.render(scale);
+			Shape20.render(scale);
+		} else if(part==1) {
+			if ((reloadProgress ==0 && ammoLeft > 0) || (reloadProgress > 0.5f)) {
+				this.rocket.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, ammoLeft, reloadProgress, transformType, part, fireProgress);
+			}
 		}
+	}
+	
+	protected static class ModelRocket extends ModelMultipart {
+	
+		ModelRenderer R1;
+		ModelRenderer R7;
+		ModelRenderer R4;
+		ModelRenderer R2;
+		ModelRenderer R5;
+		ModelRenderer R3;
+		ModelRenderer R6;
+		
+		public ModelRocket() {
+			super();
+			textureWidth = 64;
+			textureHeight = 32;
+			
+			R1 = new ModelRenderer(this, 0, 0);
+			R1.addBox(0F, 0F, 0F, 6, 4, 4);
+			R1.setRotationPoint(21F, -1.5F, -1.5F);
+			R1.setTextureSize(128, 64);
+			R1.mirror = true;
+			setRotation(R1, 0F, 0F, 0F);
+			R7 = new ModelRenderer(this, 30, 0);
+			R7.addBox(0F, 0F, 0F, 2, 1, 6);
+			R7.setRotationPoint(22.1F, 0F, -2.5F);
+			R7.setTextureSize(128, 64);
+			R7.mirror = true;
+			setRotation(R7, 0F, 0F, 0F);
+			R4 = new ModelRenderer(this, 12, 9);
+			R4.addBox(0F, 0F, 0F, 4, 2, 5);
+			R4.setRotationPoint(22F, -0.5F, -2F);
+			R4.setTextureSize(128, 64);
+			R4.mirror = true;
+			setRotation(R4, 0F, 0F, 0F);
+			R2 = new ModelRenderer(this, 0, 16);
+			R2.addBox(0F, 0F, 0F, 10, 3, 3);
+			R2.setRotationPoint(18F, -1F, -1F);
+			R2.setTextureSize(128, 64);
+			R2.mirror = true;
+			setRotation(R2, 0F, 0F, 0F);
+			R5 = new ModelRenderer(this, 0, 8);
+			R5.addBox(0F, 0F, 0F, 4, 5, 2);
+			R5.setRotationPoint(22F, -2F, -0.5F);
+			R5.setTextureSize(128, 64);
+			R5.mirror = true;
+			setRotation(R5, 0F, 0F, 0F);
+			R3 = new ModelRenderer(this, 20, 3);
+			R3.addBox(0F, 0F, 0F, 1, 2, 2);
+			R3.setRotationPoint(28F, -0.5F, -0.5F);
+			R3.setTextureSize(128, 64);
+			R3.mirror = true;
+			setRotation(R3, 0F, 0F, 0F);
+			R6 = new ModelRenderer(this, 30, 7);
+			R6.addBox(0F, 0F, 0F, 2, 6, 1);
+			R6.setRotationPoint(22.1F, -2.5F, 0F);
+			R6.setTextureSize(128, 64);
+			R6.mirror = true;
+			setRotation(R6, 0F, 0F, 0F);
+		}
+
+		@Override
+		public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw,
+				float headPitch, float scale, int ammoLeft, float reloadProgress, TransformType transformType, int part,
+				float fireProgress) {
+			R1.render(scale);
+			R7.render(scale);
+			R4.render(scale);
+			R2.render(scale);
+			R5.render(scale);
+			R3.render(scale);
+			R6.render(scale);
+		}
+		
 	}
 
 }

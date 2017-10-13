@@ -1,0 +1,15 @@
+{
+  "result": {
+    "item": "techguns:thompson"
+  },
+  "ingredients": [
+    {
+      "item": "techguns:thompson"
+    },
+    {
+      "item": "techguns:itemshared",
+      "data": 9
+    }
+  ],
+  "type": "techguns:ammo_change_crafting"
+}

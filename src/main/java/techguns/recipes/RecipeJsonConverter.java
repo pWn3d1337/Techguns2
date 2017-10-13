@@ -2,8 +2,10 @@ package techguns.recipes;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -35,6 +37,8 @@ public class RecipeJsonConverter {
 	// Replace calls to GameRegistry.addShapeless/ShapedRecipe with these methods, which will dump it to a json in your dir of choice
 	// Also works with OD, replace GameRegistry.addRecipe(new ShapedOreRecipe/ShapelessOreRecipe with the same calls
 
+		private static final String recipeDirPath = "../../../src/main/resources/assets/techguns/recipes";
+	
 		private static HashMap<String,String> factories = new HashMap<>();
 		static {
 			factories.put(Recipewriter.hardenedGlassOrGlass, OreDictIngredientHardenedGlass.class.getName());
@@ -54,7 +58,20 @@ public class RecipeJsonConverter {
 
 		private static void setupDir() {
 			if (RECIPE_DIR == null) {
-				RECIPE_DIR = TGConfig.config.getConfigFile().toPath().resolve("../recipes/").toFile();
+				RECIPE_DIR = TGConfig.config.getConfigFile().toPath().resolve(recipeDirPath).toFile();
+				
+				File[] files = RECIPE_DIR.listFiles(new FilenameFilter() {
+					
+					@Override
+					public boolean accept(File dir, String name) {
+						return name.endsWith(".json");
+					}
+				});
+				System.out.println("Deleting recipes, THIS SHOULD ONLY BE DONE IN DEV ENVIRONMENT!!!");
+				Arrays.stream(files).forEach(f -> {
+					f.delete();
+				});
+				
 			}
 
 			if (!RECIPE_DIR.exists()) {

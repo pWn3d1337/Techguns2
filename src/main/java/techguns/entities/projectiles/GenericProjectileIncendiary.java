@@ -10,6 +10,7 @@ import techguns.damagesystem.TGDamageSource;
 import techguns.deatheffects.EntityDeathUtils.DeathType;
 import techguns.items.guns.GenericGun;
 import techguns.items.guns.IProjectileFactory;
+import techguns.items.guns.ammo.DamageModifier;
 
 public class GenericProjectileIncendiary extends GenericProjectile {
 
@@ -78,6 +79,8 @@ public class GenericProjectileIncendiary extends GenericProjectile {
 
 	public static class Factory implements IProjectileFactory<GenericProjectile>{
 
+		protected DamageModifier mod = new DamageModifier().setDmg(1.1f, 0f);
+		
 		protected boolean fireTrail;
 			
 		public Factory(boolean fireTrail) {
@@ -88,7 +91,7 @@ public class GenericProjectileIncendiary extends GenericProjectile {
 		public GenericProjectileIncendiary createProjectile(GenericGun gun, World world, EntityLivingBase p,
 				float damage, float speed, int TTL, float spread, float dmgDropStart, float dmgDropEnd, float dmgMin,
 				float penetration, boolean blockdamage, EnumBulletFirePos firePos, float radius, double gravity) {
-			return new GenericProjectileIncendiary(world, p, damage, speed, TTL, spread, dmgDropStart, dmgDropEnd, dmgMin, penetration, blockdamage, firePos, this.fireTrail);
+			return new GenericProjectileIncendiary(world, p, mod.getDamage(damage), speed, TTL, spread, dmgDropStart, dmgDropEnd, mod.getDamage(dmgMin), penetration, blockdamage, firePos, this.fireTrail);
 		}
 
 		@Override

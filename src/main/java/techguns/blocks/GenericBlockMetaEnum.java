@@ -19,7 +19,7 @@ import techguns.Techguns;
 import techguns.items.armors.ICamoChangeable;
 import techguns.util.BlockUtils;
 
-public class GenericBlockMetaEnum<T extends Enum<T> & IStringSerializable> extends GenericBlock implements ICamoChangeable {
+public class GenericBlockMetaEnum<T extends Enum<T> & IStringSerializable> extends GenericBlock {
 
 	protected Class<T> clazz;
 	
@@ -93,46 +93,6 @@ public class GenericBlockMetaEnum<T extends Enum<T> & IStringSerializable> exten
 			IBlockState state = getDefaultState().withProperty(TYPE, clazz.getEnumConstants()[i]);
 			ModelLoader.setCustomModelResourceLocation(this.itemblock, this.getMetaFromState(state), new ModelResourceLocation(getRegistryName(),BlockUtils.getBlockStateVariantString(state)));
 		}
-	}
-
-	@Override
-	public int getCamoCount() {
-		return clazz.getEnumConstants().length-1;
-	}
-
-	@Override
-	public int switchCamo(ItemStack item, boolean back) {
-		IBlockState state = this.getStateFromMeta(item.getMetadata());
-		
-		int type = state.getValue(TYPE).ordinal();
-		
-		if(back) {
-			type--;
-			if(type<0) {
-				type=clazz.getEnumConstants().length-1;
-			}
-		} else {
-			type++;
-			if(type>=clazz.getEnumConstants().length) {
-				type=0;
-			}
-		}
-		int newmeta = this.getMetaFromState(state.withProperty(TYPE, clazz.getEnumConstants()[type]));
-		item.setItemDamage(newmeta);
-		
-		return newmeta;
-	}
-
-	@Override
-	public int getCurrentCamoIndex(ItemStack item) {
-		int meta = item.getMetadata();
-		IBlockState state = this.getStateFromMeta(meta);
-		return state.getValue(TYPE).ordinal();
-	}
-
-	@Override
-	public String getCurrentCamoName(ItemStack item) {
-		return "tile."+Techguns.MODID+"."+this.getRegistryName().getResourcePath()+"."+getCurrentCamoIndex(item)+".name";
 	}
 
 	

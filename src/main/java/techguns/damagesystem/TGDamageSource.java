@@ -133,7 +133,15 @@ public class TGDamageSource extends EntityDamageSourceIndirect {
 	    }*/
 		
 
-
+		public static TGDamageSource copyWithNewEnt(TGDamageSource other, Entity damagingEntity, Entity attacker) {
+			TGDamageSource newSrc = new TGDamageSource(other.getDamageType(), damagingEntity, attacker, other.damageType, other.deathType);
+			newSrc.knockbackMultiplier = other.knockbackMultiplier;
+			newSrc.armorPenetration = other.armorPenetration;
+			newSrc.goreChance = other.goreChance;
+			newSrc.ignoreHurtresistTime = other.ignoreHurtresistTime;
+			return newSrc;
+		}
+		
 		public TGDamageSource(String name, Entity damagingEntity, Entity attacker, DamageType damageType, DeathType deathType) {
 			super(name, damagingEntity, attacker);
 			this.attacker = attacker;

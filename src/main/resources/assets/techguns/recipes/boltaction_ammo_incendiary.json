@@ -1,0 +1,15 @@
+{
+  "result": {
+    "item": "techguns:boltaction"
+  },
+  "ingredients": [
+    {
+      "item": "techguns:boltaction"
+    },
+    {
+      "item": "techguns:itemshared",
+      "data": 110
+    }
+  ],
+  "type": "techguns:ammo_change_crafting"
+}

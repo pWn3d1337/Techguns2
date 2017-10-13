@@ -55,6 +55,7 @@ import techguns.entities.projectiles.LaserProjectile;
 import techguns.entities.projectiles.NDRProjectile;
 import techguns.entities.projectiles.PowerHammerProjectile;
 import techguns.entities.projectiles.RocketProjectile;
+import techguns.entities.projectiles.RocketProjectileNuke;
 import techguns.entities.projectiles.SonicShotgunProjectile;
 import techguns.entities.projectiles.StoneBulletProjectile;
 import techguns.entities.projectiles.TeslaProjectile;
@@ -94,6 +95,7 @@ public class TGEntities implements ITGInitializer {
 		EntityRegistry.registerModEntity(new ResourceLocation(Techguns.MODID,"PowerHammerProjectile"),PowerHammerProjectile.class, "PowerHammerProjectile", ++Techguns.modEntityID, Techguns.MODID, bulletTrackRange, 1, true);
 		EntityRegistry.registerModEntity(new ResourceLocation(Techguns.MODID,"ChainsawProjectile"),ChainsawProjectile.class, "ChainsawProjectile", ++Techguns.modEntityID, Techguns.MODID, bulletTrackRange, 1, true);
 		EntityRegistry.registerModEntity(new ResourceLocation(Techguns.MODID,"FragGrenadeProjectile"),FragGrenadeProjectile.class, "FragGrenadeProjectile", ++Techguns.modEntityID, Techguns.MODID, bulletTrackRange, 1, true);
+		EntityRegistry.registerModEntity(new ResourceLocation(Techguns.MODID,"RocketProjectileNuke"),RocketProjectileNuke.class, "RocketProjectileNuke", ++Techguns.modEntityID, Techguns.MODID, bulletTrackRange, 1, true);
 		
 		
 		/**

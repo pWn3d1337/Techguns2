@@ -734,7 +734,9 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 			this.onCreated(stack, null, null); //world and player are not needed
 			tags = stack.getTagCompound();
 		}
-		return tags.getString("ammovariant");
+		String var = tags.getString("ammovariant");
+		if(var==null || var.equals("")) return AmmoTypes.TYPE_DEFAULT;
+		return var;
 	}
 	
 	/**
@@ -1237,14 +1239,19 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
     	if(this.ammoCount>1 && this.getAmmoLeft(stack)>0) {
     		items.add(TGItems.newStack(this.getAmmoType().getBullet(this.getCurrentAmmoVariant(stack)),this.getAmmoLeft(stack)));
     	} else {
-	    	int bulletsBack = (int) Math.floor(ammo/this.ammoType.getShotsPerBullet(clipsize, ammo));
-			if (bulletsBack>0){
-				items.add(TGItems.newStack(this.getAmmoType().getBullet(this.getCurrentAmmoVariant(stack)),bulletsBack));
-			}
+    		if (!this.isFullyLoaded(stack)) {
+		    	int bulletsBack = (int) Math.floor(ammo/this.ammoType.getShotsPerBullet(clipsize, ammo));
+				if (bulletsBack>0){
+					items.add(TGItems.newStack(this.getAmmoType().getBullet(this.getCurrentAmmoVariant(stack)),bulletsBack));
+				}
+		    	if(!this.ammoType.getEmptyMag().isEmpty()) {
+		    		items.add(TGItems.newStack(this.ammoType.getEmptyMag(), 1));
+		    	}
+    		} else {
+    			items.add(TGItems.newStack(this.ammoType.getAmmo(this.getCurrentAmmoVariant(stack)), 1));
+    		}
     	}
-    	if(!this.ammoType.getEmptyMag().isEmpty()) {
-    		items.add(TGItems.newStack(this.ammoType.getEmptyMag(), 1));
-    	}
+
     	return items;
     }
     
@@ -1339,4 +1346,7 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 		
 	}
 
+	public int getClipsize() {
+		return clipsize;
+	}
 }

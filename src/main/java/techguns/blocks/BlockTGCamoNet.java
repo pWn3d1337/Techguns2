@@ -20,7 +20,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 
-public class BlockTGCamoNet extends GenericBlockMetaEnum<EnumCamoNetType> {
+public class BlockTGCamoNet extends GenericBlockMetaEnumCamoChangeable<EnumCamoNetType> {
 
 	public static PropertyEnum<EnumConnectionType> CONNECTION = PropertyEnum.create("connection", EnumConnectionType.class);
 	

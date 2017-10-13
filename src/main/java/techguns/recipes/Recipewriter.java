@@ -107,6 +107,8 @@ import techguns.TGuns;
 import techguns.blocks.machines.EnumMachineType;
 import techguns.blocks.machines.EnumMultiBlockMachineType;
 import techguns.blocks.machines.EnumSimpleMachineType;
+import techguns.items.guns.GenericGun;
+import techguns.items.guns.ammo.AmmoType;
 import techguns.items.guns.ammo.AmmoTypes;
 
 public class Recipewriter {
@@ -292,8 +294,16 @@ public class Recipewriter {
 	}
 	
 	public static void addAmmoChangeRecipes() {
-		RecipeJsonConverter.addShapelessAmmoSwapRecipe(TGuns.combatshotgun, AmmoTypes.SHOTGUN_ROUNDS, AmmoTypes.TYPE_INCENDIARY);
-		RecipeJsonConverter.addShapelessAmmoSwapRecipe(TGuns.combatshotgun, AmmoTypes.SHOTGUN_ROUNDS, AmmoTypes.TYPE_DEFAULT);
+		GenericGun.guns.forEach(g -> {
+			AmmoType a = g.getAmmoType();
+			if(a.hasMultipleVariants()) {
+				a.getVariants().forEach(v -> {
+					RecipeJsonConverter.addShapelessAmmoSwapRecipe(g, a, v.getKey());
+				});
+			}
+		});
+		//RecipeJsonConverter.addShapelessAmmoSwapRecipe(TGuns.combatshotgun, AmmoTypes.SHOTGUN_ROUNDS, AmmoTypes.TYPE_INCENDIARY);
+		//RecipeJsonConverter.addShapelessAmmoSwapRecipe(TGuns.combatshotgun, AmmoTypes.SHOTGUN_ROUNDS, AmmoTypes.TYPE_DEFAULT);
 	}
 	
 	public static void addGunRecipes() {

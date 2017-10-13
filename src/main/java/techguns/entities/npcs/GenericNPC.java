@@ -358,4 +358,14 @@ public class GenericNPC extends EntityMob implements IRangedAttackMob, INPCTechg
 	    {
 	        return ((Boolean)this.dataManager.get(SWINGING_ARMS)).booleanValue();
 	    }
+
+		@Override
+		protected void despawnEntity() {
+			super.despawnEntity();
+			if(this.isDead) {
+				System.out.println("Despawned Entity:"+this);
+			}
+		}
+	    
+	    
 }
