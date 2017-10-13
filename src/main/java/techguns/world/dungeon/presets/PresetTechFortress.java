@@ -26,7 +26,7 @@ public class PresetTechFortress implements IDungeonPreset{
 	@Override
 	public DungeonSegment getSegment(SegmentType type, int y, int yMin, int yMax, boolean isSegmentAbove, boolean isSegmentBelow, int seed) {
 		Random rand = new Random(seed);
-		if (!isSegmentAbove) { //y == yMax) {
+		if (!isSegmentAbove && y > 0) { //y == yMax) {
 			return topTemplates.get(rand.nextInt(topTemplates.size())).segments.get(type);
 		}else {
 			return mainTemplates.get(rand.nextInt(topTemplates.size())).segments.get(type);

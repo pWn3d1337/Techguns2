@@ -40,6 +40,7 @@ public class Dungeon {
 		DungeonPath path = null;
 		for (int i = 0; i < GENERATE_ATTEMPTS; i++) {			
 			DungeonPath p = new DungeonPath(sX, sY, sZ, world.rand);
+			preset.initDungeonPath(p);
 			p.generatePath();
 			if (path == null || p.getNumSegments() > path.getNumSegments()) {
 				path = p;
