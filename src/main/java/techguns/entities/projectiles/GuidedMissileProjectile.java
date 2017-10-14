@@ -107,14 +107,14 @@ public class GuidedMissileProjectile extends RocketProjectile{
 			this.motionY = motion.y;
 			this.motionZ = motion.z;
 		}
-		System.out.println("Motion.length="+new Vec3d(motionX, motionY, motionZ).lengthVector());
+		//System.out.println("Motion.length="+new Vec3d(motionX, motionY, motionZ).lengthVector());
 		super.onUpdate();		
 	}
 	
 
 //	@Override
 //	public void setVelocity(double x, double y, double z) {
-//		// TODO Auto-generated method stub
+//		
 //	}
 
 	public static class Factory implements IChargedProjectileFactory<GuidedMissileProjectile> {

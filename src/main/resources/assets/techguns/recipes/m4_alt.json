@@ -11,7 +11,7 @@
   "type": "forge:ore_shaped",
   "key": {
     "r": {
-      "item": "minecraft:redstone"
+      "item": "#DUSTREDSTONE"
     },
     "b": {
       "item": "techguns:itemshared",

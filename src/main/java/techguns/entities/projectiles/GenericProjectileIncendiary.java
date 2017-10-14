@@ -88,6 +88,11 @@ public class GenericProjectileIncendiary extends GenericProjectile {
 		}
 
 		@Override
+		public DamageModifier getDamageModifier() {
+			return mod;
+		}
+		
+		@Override
 		public GenericProjectileIncendiary createProjectile(GenericGun gun, World world, EntityLivingBase p,
 				float damage, float speed, int TTL, float spread, float dmgDropStart, float dmgDropEnd, float dmgMin,
 				float penetration, boolean blockdamage, EnumBulletFirePos firePos, float radius, double gravity) {

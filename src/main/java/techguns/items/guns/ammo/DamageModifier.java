@@ -2,6 +2,8 @@ package techguns.items.guns.ammo;
 
 public class DamageModifier {
 
+	public static final DamageModifier DEFAULT_MODIFIER = new DamageModifier();
+	
 	protected float dmgMul=1.0f;
 	protected float dmgAdd=0f;
 	
@@ -44,6 +46,34 @@ public class DamageModifier {
 	public int getTTL(int ttl) {
 		return Math.round(ttl*rangeMul +rangeAdd);
 	}
+
+	
+	
+	public float getDmgMul() {
+		return dmgMul;
+	}
+
+	public float getDmgAdd() {
+		return dmgAdd;
+	}
+
+	public float getRadiusMul() {
+		return radiusMul;
+	}
+
+	public float getRadiusAdd() {
+		return radiusAdd;
+	}
+
+	public float getRangeMul() {
+		return rangeMul;
+	}
+
+	public float getRangeAdd() {
+		return rangeAdd;
+	}
+	
+	
 	
 	/*public GenericProjectile applyTo(GenericProjectile proj) {
 		if(this.dmgMul!=1 || this.dmgAdd!=0){

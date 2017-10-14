@@ -5,6 +5,7 @@ import net.minecraft.world.World;
 import techguns.api.damagesystem.DamageType;
 import techguns.entities.projectiles.EnumBulletFirePos;
 import techguns.entities.projectiles.GenericProjectile;
+import techguns.items.guns.ammo.DamageModifier;
 
 public interface IProjectileFactory<T extends GenericProjectile> {
 
@@ -16,4 +17,8 @@ public interface IProjectileFactory<T extends GenericProjectile> {
 	 * @return
 	 */
 	 public DamageType getDamageType();
+	 
+	 public default DamageModifier getDamageModifier() {
+		 return DamageModifier.DEFAULT_MODIFIER;
+	 }
 }

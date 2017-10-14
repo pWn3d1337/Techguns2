@@ -64,7 +64,11 @@ public class RocketProjectileNuke extends RocketProjectile {
 
 		protected DamageModifier mod = new DamageModifier().setDmg(5f, 0f).setRadius(5f, 0f).setRange(5f, 0f);
 		
-		
+		@Override
+		public DamageModifier getDamageModifier() {
+			return mod;
+		}
+
 		@Override
 		public RocketProjectileNuke createProjectile(GenericGun gun, World world, EntityLivingBase p, float damage, float speed, int TTL, float spread, float dmgDropStart, float dmgDropEnd,
 				float dmgMin, float penetration, boolean blockdamage, EnumBulletFirePos firePos, float radius, double gravity) {

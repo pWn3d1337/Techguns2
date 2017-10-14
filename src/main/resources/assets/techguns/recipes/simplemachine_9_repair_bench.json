@@ -14,7 +14,7 @@
       "item": "#PLATEIRON"
     },
     "c": {
-      "item": "minecraft:crafting_table"
+      "item": "#WORKBENCH"
     },
     "i": {
       "item": "#NUGGETIRON"

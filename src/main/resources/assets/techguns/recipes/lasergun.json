@@ -22,7 +22,7 @@
       "data": 43
     },
     "d": {
-      "item": "minecraft:redstone"
+      "item": "#DUSTREDSTONE"
     },
     "e": {
       "item": "techguns:itemshared",

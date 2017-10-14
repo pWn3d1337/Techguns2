@@ -1,0 +1,28 @@
+{
+  "result": {
+    "item": "techguns:itemshared",
+    "data": 118,
+    "count": 2
+  },
+  "pattern": [
+    "pcp",
+    "tut",
+    "pcp"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "p": {
+      "item": "#PLATELEAD"
+    },
+    "c": {
+      "item": "#CIRCUITBASIC"
+    },
+    "t": {
+      "item": "techguns:itemshared",
+      "data": 75
+    },
+    "u": {
+      "item": "#INGOTURANIUMENRICHED"
+    }
+  }
+}

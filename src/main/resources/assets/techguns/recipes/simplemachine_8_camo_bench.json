@@ -11,7 +11,7 @@
   "type": "forge:ore_shaped",
   "key": {
     "c": {
-      "item": "minecraft:crafting_table"
+      "item": "#WORKBENCH"
     },
     "d": {
       "item": "#DYE"

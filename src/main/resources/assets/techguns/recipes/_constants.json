@@ -44,6 +44,13 @@
   {
     "ingredient": {
       "type": "forge:ore_dict",
+      "ore": "dirt"
+    },
+    "name": "DIRT"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
       "ore": "dustRedstone"
     },
     "name": "DUSTREDSTONE"
@@ -136,6 +143,13 @@
       "ore": "ingotSteel"
     },
     "name": "INGOTSTEEL"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "ingotUraniumEnriched"
+    },
+    "name": "INGOTURANIUMENRICHED"
   },
   {
     "ingredient": {
@@ -245,6 +259,13 @@
   {
     "ingredient": {
       "type": "forge:ore_dict",
+      "ore": "sand"
+    },
+    "name": "SAND"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
       "ore": "sheetPlastic"
     },
     "name": "SHEETPLASTIC"
@@ -259,9 +280,23 @@
   {
     "ingredient": {
       "type": "forge:ore_dict",
+      "ore": "stickWood"
+    },
+    "name": "STICKWOOD"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
       "ore": "stone"
     },
     "name": "STONE"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "string"
+    },
+    "name": "STRING"
   },
   {
     "ingredient": {
@@ -276,5 +311,12 @@
       "ore": "wireGold"
     },
     "name": "WIREGOLD"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "workbench"
+    },
+    "name": "WORKBENCH"
   }
 ]

@@ -42,12 +42,12 @@ public class TGItems implements ITGInitializer{
 	 * TODO
 	 * DISABLE THIS BEFORE RELEASE
 	 */
-	public static boolean WRITE_ITEM_JSON = false;
+	public static boolean WRITE_ITEM_JSON = true;
 	/**
 	 * TODO
 	 * DISABLE THIS BEFORE RELEASE
 	 */
-	public static boolean WRITE_RECIPES = false;
+	public static boolean WRITE_RECIPES = true;
 	
 	
 	public static final ArrayList<GenericItem> ITEMLIST = new ArrayList<>();
@@ -207,6 +207,7 @@ public class TGItems implements ITGInitializer{
 	public static ItemStack LMG_MAGAZINE_INCENDIARY;
 	
 	public static ItemStack ROCKET_NUKE;
+	public static ItemStack TACTICAL_NUKE_WARHEAD;
 	
 	/**
 	 * ADDITONAL SLOT ITEMS
@@ -400,6 +401,7 @@ public class TGItems implements ITGInitializer{
 		LMG_MAGAZINE_INCENDIARY = SHARED_ITEM.addsharedVariant("lmgmagazine_incendiary",true, TGSlotType.AMMOSLOT);
 		
 		ROCKET_NUKE = SHARED_ITEM.addsharedVariant("rocket_nuke", true, TGSlotType.AMMOSLOT);
+		TACTICAL_NUKE_WARHEAD = SHARED_ITEM.addsharedVariant("tacticalnukewarhead");
 		
 		/**
 		 * Additional Slot items
