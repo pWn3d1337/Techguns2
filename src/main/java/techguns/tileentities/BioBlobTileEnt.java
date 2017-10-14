@@ -12,12 +12,14 @@ import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.server.management.PlayerChunkMapEntry;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.fml.common.network.NetworkRegistry.TargetPoint;
 import techguns.TGPackets;
+import techguns.TGSounds;
 import techguns.api.machines.ITGTileEntSecurity;
 import techguns.damagesystem.TGDamageSource;
 import techguns.damagesystem.TGExplosion;
@@ -158,13 +160,14 @@ public class BioBlobTileEnt extends TileEntity implements ITGTileEntSecurity, IT
 				dmgSrc.armorPenetration=0.35f;
 				
 				TGExplosion explosion = new TGExplosion(world, attacker, null, this.pos.getX()+0.5, this.pos.getY()+0.5, this.pos.getZ()+0.5, 30, 15, radius, radius*1.5f,0.0f);
-			//TODO
+				explosion.setDmgSrc(dmgSrc);
 				//	explosion.setDamageSource(dmgSrc);
 			//	explosion.setExplosionSound("techguns:effects.biodeath");
 				
 				this.world.setBlockState(this.getPos(),Blocks.AIR.getDefaultState());
 				//explosion.doExplosion(false, attacker);
-				explosion.doExplosion(true);
+				explosion.doExplosion(false);
+				this.world.playSound((EntityPlayer)null, this.pos, TGSounds.DEATH_BIO, SoundCategory.BLOCKS, 4.0F, 1.0F);   
 				
 				if(!this.world.isRemote){
 					TGPackets.network.sendToAllAround(new PacketSpawnParticle("bioblobExplosion", this.pos.getX()+0.5,this.pos.getY()+0.5, this.pos.getZ()+0.5), new TargetPoint(this.world.provider.getDimension(), this.pos.getX()+0.5,this.pos.getY()+0.5, this.pos.getZ()+0.5, 50.0D));

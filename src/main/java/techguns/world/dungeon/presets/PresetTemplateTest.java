@@ -32,7 +32,6 @@ public class PresetTemplateTest implements IDungeonPreset{
 
 	@Override
 	public void initDungeonPath(DungeonPath path) {
-		// TODO Auto-generated method stub		
 	}
 
 }

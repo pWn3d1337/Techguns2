@@ -113,7 +113,6 @@ public class GrenadeProjectile extends GenericProjectile {
 	}
 
 	protected void createProjectileTrail(GrenadeProjectile gren) {
-		// TODO Auto-generated method stub
 		
 	}
 
