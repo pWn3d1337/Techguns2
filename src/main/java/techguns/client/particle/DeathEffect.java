@@ -23,6 +23,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityCaveSpider;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.monster.EntityEnderman;
+import net.minecraft.entity.monster.EntityPigZombie;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.EntitySlime;
 import net.minecraft.entity.monster.EntitySpider;
@@ -45,9 +46,13 @@ import techguns.client.models.gibs.ModelGibsBiped;
 import techguns.client.models.gibs.ModelGibsGeneric;
 import techguns.client.models.gibs.ModelGibsQuadruped;
 import techguns.client.models.gibs.ModelGibsVillager;
+import techguns.client.models.npcs.ModelAlienBug;
+import techguns.client.models.npcs.ModelCyberDemon;
+import techguns.client.models.npcs.ModelSuperMutant;
 import techguns.client.render.entities.projectiles.DeathEffectEntityRenderer;
 import techguns.deatheffects.EntityDeathUtils.DeathType;
 import techguns.entities.projectiles.FlyingGibs;
+import techguns.entities.npcs.*;
 
 public class DeathEffect {
 	
@@ -55,12 +60,12 @@ public class DeathEffect {
 	
 	private static GoreData genericGore;
 	static {
-		ModelGibs modelBiped = new ModelGibsBiped(new ModelBiped(0.0f));
+		ModelGibs modelBiped = new ModelGibsBiped(new ModelBiped(0.0f, 0.0f, 64, 64));
 		ModelGibs modelBipedPlayer = new ModelGibsBiped(new ModelBiped(0.0f, 0.0f, 64, 32));
 		goreStats.put(EntityPlayer.class, (new GoreData(modelBipedPlayer, 160,21,31)));
 		goreStats.put(EntityZombie.class, (new GoreData(modelBiped, 110,21,41)));
-//		goreStats.put(ZombieSoldier.class, (new GoreData(modelBiped, 6,new ResourceLocation("techguns","textures/entity/zombie_soldier.png"), 0.66f, 110,21,41)));
-//		goreStats.put(ArmySoldier.class, (new GoreData(modelBiped, 6,new ResourceLocation("techguns","textures/entity/army_soldier.png"), 0.66f, 160,21,31)));
+		goreStats.put(ZombieSoldier.class, (new GoreData(modelBiped, 110,21,41)));
+		goreStats.put(ArmySoldier.class, (new GoreData(modelBiped, 160,21,31)));
 		goreStats.put(EntitySkeleton.class, (new GoreData(new ModelGibsBiped(new ModelSkeleton()), 255,255,255)));
 		goreStats.put(EntityVillager.class, (new GoreData(new ModelGibsVillager(new ModelVillager(0.0f)), 150,21,51)));
 		goreStats.put(EntityCow.class, (new GoreData(new ModelGibsQuadruped(new ModelCow()), 170,26,37)));
@@ -69,21 +74,31 @@ public class DeathEffect {
 		goreStats.put(EntityCreeper.class, (new GoreData(new ModelGibsGeneric(new ModelCreeper()), 50,175,57)));		
 		goreStats.put(EntityEnderman.class, (new GoreData(new ModelGibsBiped(new ModelEnderman(0.0f)),160,36,167)));
 		goreStats.put(EntityPig.class, (new GoreData(new ModelGibsQuadruped(new ModelPig()), 170,26,37)).setFXscale(0.8f));
-		goreStats.put(EntitySpider.class, (new GoreData(new ModelGibsGeneric(new ModelSpider()),  85,156,17)));		
+		goreStats.put(EntitySpider.class, (new GoreData(new ModelGibsGeneric(new ModelSpider()), 85,156,17)));		
 		goreStats.put(EntityCaveSpider.class, (new GoreData(new ModelGibsGeneric(new ModelSpider()), 85,156,17)).setFXscale(0.7f));		
 //		
-//		goreStats.put(EntityPigZombie.class, (new GoreData(modelBiped, 6,new ResourceLocation("textures/entity/zombie_pigman.png"), 0.66f, 110,51,11)));	
-//		goreStats.put(ZombiePigmanSoldier.class, (new GoreData(modelBiped, 6,new ResourceLocation("textures/entity/zombie_pigman.png"), 0.66f, 110,51,11)));	
-//		goreStats.put(CyberDemon.class, (new GoreData(new ModelGibsBipedGeneric(new ModelCyberDemon()), 6,new ResourceLocation("techguns","textures/entity/cyberdemon.png"), 1.00f, 85,156,17)));			
+		goreStats.put(EntityPigZombie.class, (new GoreData(modelBiped, 110,51,11)));	
+		goreStats.put(ZombiePigmanSoldier.class, (new GoreData(modelBiped, 110,51,11)));	
+		goreStats.put(CyberDemon.class, (new GoreData(new ModelGibsBiped(new ModelCyberDemon()), 85,156,17)));	
+		
+		goreStats.put(SuperMutantBasic.class, (new GoreData(new ModelGibsBiped(new ModelSuperMutant()), 109,60,25)).setFXscale(1.2f));
+		goreStats.put(SuperMutantElite.class, (new GoreData(new ModelGibsBiped(new ModelSuperMutant()), 109,60,25)).setFXscale(1.2f));
+		goreStats.put(SuperMutantHeavy.class, (new GoreData(new ModelGibsBiped(new ModelSuperMutant()), 109,60,25)).setFXscale(1.2f));
+		
+		goreStats.put(StormTrooper.class, (new GoreData(modelBiped, 160,21,31)));
+		goreStats.put(Commando.class, (new GoreData(modelBiped, 160,21,31)));
+		goreStats.put(DictatorDave.class, (new GoreData(modelBiped, 160,21,31)));
+		goreStats.put(PsychoSteve.class, (new GoreData(modelBiped, 160,21,31)));
+		
 		goreStats.put(EntityWitch.class, (new GoreData(new ModelGibsVillager(new ModelWitch(1.0f)), 160,21,31)));			
 		goreStats.put(EntitySlime.class, (new GoreData(null,40,255,40)));
 //		
-//		goreStats.put(ZombieFarmer.class, (new GoreData(modelBiped, 6,new ResourceLocation("techguns","textures/entity/zombie_soldier.png"), 0.66f, 110,21,41)));
-//		goreStats.put(ZombieMiner.class, (new GoreData(modelBiped, 6,new ResourceLocation("techguns","textures/entity/zombie_soldier.png"), 0.66f, 110,21,41)));
+		goreStats.put(ZombieFarmer.class, (new GoreData(modelBiped, 110,21,41)));
+		goreStats.put(ZombieMiner.class, (new GoreData(modelBiped, 110,21,41)));
 //		
-//		goreStats.put(Bandit.class, new GoreData(modelBiped,6,new ResourceLocation("techguns","textures/entity/bandit.png"), 0.66f, 160,21,31));
-//		goreStats.put(SkeletonSoldier.class, (new GoreData(new ModelGibsSkeleton(1.0f), 6,new ResourceLocation("textures/entity/skeleton/skeleton.png"), 0.66f, 255,255,255).setBlood(false)));
-//		goreStats.put(AlienBug.class, (new GoreData(new ModelGibsAlienBug(),8, new ResourceLocation("techguns", "textures/entity/alienbug.png"), 0.8f, 235, 255, 70)));
+		goreStats.put(Bandit.class, new GoreData(modelBiped, 160,21,31));
+		goreStats.put(SkeletonSoldier.class, (new GoreData(new ModelGibsBiped(new ModelSkeleton()), 255,255,255)));
+		goreStats.put(AlienBug.class, (new GoreData(new ModelGibsGeneric(new ModelAlienBug()), 235, 255, 70)));
 		
 		goreStats.values().forEach(stat -> stat.init());
 		

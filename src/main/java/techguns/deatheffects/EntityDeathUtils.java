@@ -53,21 +53,27 @@ public class EntityDeathUtils {
 		listGore.add(EntitySpider.class);
 		listGore.add(EntityCaveSpider.class);
 		listGore.add(EntityWitch.class);
-		listGore.add(EntitySlime.class);
+		//listGore.add(EntitySlime.class);
 		listGore.add(ZombieFarmer.class);
-		//listGore.add(ZombieMiner.class);
+		listGore.add(ZombieMiner.class);
 		listGore.add(Bandit.class);
 		listGore.add(ZombieSoldier.class);
 		listGore.add(EntityHorse.class);
 		listGore.add(EntityMooshroom.class);
 		listGore.add(EntityWolf.class);
 		listGore.add(EntitySquid.class);
-		listGore.add(EntityGhast.class);
+		//listGore.add(EntityGhast.class);
 		listGore.add(EntityVillager.class);
-	//	listGore.add(PsychoSteve.class);
-	//	listGore.add(DictatorDave.class);
-	//	listGore.add(SkeletonSoldier.class);
-	//	listGore.add(AlienBug.class);
+		listGore.add(PsychoSteve.class);
+		listGore.add(DictatorDave.class);
+		listGore.add(SkeletonSoldier.class);
+		listGore.add(AlienBug.class);
+		listGore.add(StormTrooper.class);
+		listGore.add(SuperMutantElite.class);
+		listGore.add(SuperMutantHeavy.class);
+		listGore.add(SuperMutantBasic.class);
+		listGore.add(Outcast.class);
+		listGore.add(Commando.class);
 		entityDeathTypes.put(DeathType.GORE, listGore);
 	}
 	
@@ -80,7 +86,7 @@ public class EntityDeathUtils {
 		}*/
 		
 		//TEST CODE:
-		if (deathtype == DeathType.BIO || deathtype == DeathType.LASER || deathtype == DeathType.GORE) return true;
+		if (deathtype == DeathType.BIO || deathtype == DeathType.LASER) return true;
 		
 		//GenericGore
 		if (entityDeathTypes.get(DeathType.GORE).contains(entityLiving.getClass())){
