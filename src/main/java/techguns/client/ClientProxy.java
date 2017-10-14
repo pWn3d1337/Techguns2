@@ -177,6 +177,7 @@ import techguns.client.render.item.RenderGunFlamethrower;
 import techguns.client.render.item.RenderItemBase;
 import techguns.client.render.item.RenderItemBaseRocketItem;
 import techguns.client.render.item.RenderItemLMGMag;
+import techguns.client.render.item.RenderRocketLauncher;
 import techguns.client.render.tileentities.RenderChargingStation;
 import techguns.client.render.tileentities.RenderDoor3x3Fast;
 import techguns.client.render.tileentities.RenderDungeonGenerator;
@@ -226,6 +227,7 @@ import techguns.entities.projectiles.LaserProjectile;
 import techguns.entities.projectiles.NDRProjectile;
 import techguns.entities.projectiles.PowerHammerProjectile;
 import techguns.entities.projectiles.RocketProjectile;
+import techguns.entities.projectiles.RocketProjectileNuke;
 import techguns.entities.projectiles.SonicShotgunProjectile;
 import techguns.entities.projectiles.StoneBulletProjectile;
 import techguns.entities.projectiles.TeslaProjectile;
@@ -494,17 +496,33 @@ public class ClientProxy extends CommonProxy {
 		})
 		
 		*/
-		sharedRenderer.addRenderForType("assaultriflemagazine", new RenderItemBase(new ModelARMagazine(false), new ResourceLocation(Techguns.MODID,"textures/guns/m4texture.png")).setBaseScale(1.25f).setGUIScale(0.85f).setBaseTranslation(0, -0.2f, 0).setTransformTranslations(m4magTranslations));
-		sharedRenderer.addRenderForType("assaultriflemagazineempty", new RenderItemBase(new ModelARMagazine(true), new ResourceLocation(Techguns.MODID,"textures/guns/m4texture.png")).setBaseScale(1.25f).setGUIScale(0.85f).setBaseTranslation(0, -0.2f, 0).setTransformTranslations(m4magTranslations));
+		sharedRenderer.addRenderForType("assaultriflemagazine", new RenderItemBase(new ModelARMagazine(false), new ResourceLocation(Techguns.MODID,"textures/guns/ar_mag.png")).setBaseScale(1.25f).setGUIScale(0.85f).setBaseTranslation(0, -0.2f, 0).setTransformTranslations(m4magTranslations));
+		sharedRenderer.addRenderForType("assaultriflemagazineempty", new RenderItemBase(new ModelARMagazine(true), new ResourceLocation(Techguns.MODID,"textures/guns/ar_mag.png")).setBaseScale(1.25f).setGUIScale(0.85f).setBaseTranslation(0, -0.2f, 0).setTransformTranslations(m4magTranslations));
 		
-		sharedRenderer.addRenderForType("lmgmagazine", new RenderItemLMGMag(new ModelLmgMag(false), new ResourceLocation(Techguns.MODID,"textures/guns/mg2_texture.png")).setBaseScale(1.25f).setGUIScale(0.75f).setBaseTranslation(0, 0f, 0.2f).setTransformTranslations(lmgmagTranslations));
-		sharedRenderer.addRenderForType("lmgmagazineempty", new RenderItemLMGMag(new ModelLmgMag(true), new ResourceLocation(Techguns.MODID,"textures/guns/mg2_texture.png")).setBaseScale(1.25f).setGUIScale(0.75f).setBaseTranslation(0, 0f, 0.2f).setTransformTranslations(lmgmagTranslations));	
-		
-		sharedRenderer.addRenderForType("as50magazine", new RenderItemBase(new ModelAS50Mag(false), new ResourceLocation(Techguns.MODID,"textures/guns/as50texture.png")).setBaseScale(1.5f).setGUIScale(0.75f).setBaseTranslation(0.0325f, -0.2f, 0.33f).setTransformTranslations(as50magTranslations));
-		sharedRenderer.addRenderForType("as50magazineempty", new RenderItemBase(new ModelAS50Mag(true), new ResourceLocation(Techguns.MODID,"textures/guns/as50texture.png")).setBaseScale(1.5f).setGUIScale(0.75f).setBaseTranslation(0.0325f, -0.2f, 0.33f).setTransformTranslations(as50magTranslations));
+		sharedRenderer.addRenderForType("assaultriflemagazine_incendiary", new RenderItemBase(new ModelARMagazine(false), new ResourceLocation(Techguns.MODID,"textures/guns/ar_mag_inc.png")).setBaseScale(1.25f).setGUIScale(0.85f).setBaseTranslation(0, -0.2f, 0).setTransformTranslations(m4magTranslations));
 		
 		
-		sharedRenderer.addRenderForType("rocket", new RenderItemBaseRocketItem(new ModelRocket(), new ResourceLocation(Techguns.MODID,"textures/guns/rocketlauncher.png")).setBaseScale(1.5f).setGUIScale(0.5f).setBaseTranslation(0, 0, 0.1f).setTransformTranslations(new float[][]{
+		sharedRenderer.addRenderForType("lmgmagazine", new RenderItemLMGMag(new ModelLmgMag(false), new ResourceLocation(Techguns.MODID,"textures/guns/lmg_mag.png")).setBaseScale(1.25f).setGUIScale(0.75f).setBaseTranslation(0, 0f, 0.2f).setTransformTranslations(lmgmagTranslations));
+		sharedRenderer.addRenderForType("lmgmagazineempty", new RenderItemLMGMag(new ModelLmgMag(true), new ResourceLocation(Techguns.MODID,"textures/guns/lmg_mag.png")).setBaseScale(1.25f).setGUIScale(0.75f).setBaseTranslation(0, 0f, 0.2f).setTransformTranslations(lmgmagTranslations));	
+		
+		sharedRenderer.addRenderForType("lmgmagazine_incendiary", new RenderItemLMGMag(new ModelLmgMag(false), new ResourceLocation(Techguns.MODID,"textures/guns/lmg_mag_inc.png")).setBaseScale(1.25f).setGUIScale(0.75f).setBaseTranslation(0, 0f, 0.2f).setTransformTranslations(lmgmagTranslations));
+		
+		
+		sharedRenderer.addRenderForType("as50magazine", new RenderItemBase(new ModelAS50Mag(false), new ResourceLocation(Techguns.MODID,"textures/guns/as50_mag.png")).setBaseScale(1.5f).setGUIScale(0.75f).setBaseTranslation(0.0325f, -0.2f, 0.33f).setTransformTranslations(as50magTranslations));
+		sharedRenderer.addRenderForType("as50magazineempty", new RenderItemBase(new ModelAS50Mag(true), new ResourceLocation(Techguns.MODID,"textures/guns/as50_mag.png")).setBaseScale(1.5f).setGUIScale(0.75f).setBaseTranslation(0.0325f, -0.2f, 0.33f).setTransformTranslations(as50magTranslations));
+		
+		sharedRenderer.addRenderForType("as50magazine_incendiary", new RenderItemBase(new ModelAS50Mag(false), new ResourceLocation(Techguns.MODID,"textures/guns/as50_mag_inc.png")).setBaseScale(1.5f).setGUIScale(0.75f).setBaseTranslation(0.0325f, -0.2f, 0.33f).setTransformTranslations(as50magTranslations));
+		
+		
+		sharedRenderer.addRenderForType("rocket", new RenderItemBaseRocketItem(new ModelRocket(), new ResourceLocation(Techguns.MODID,"textures/guns/rocket.png")).setBaseScale(1.5f).setGUIScale(0.5f).setBaseTranslation(0, 0, 0.1f).setTransformTranslations(new float[][]{
+			{0,0f,0f}, //First Person
+			{0f,-0.1f,0.02f}, //Third Person
+			{0.0f,0.0f,0}, //GUI
+			{0.0f,0.0f,0}, //Ground
+			{0,0,0f} //frame
+		}).setFirstPersonScale(0.35f));
+		
+		sharedRenderer.addRenderForType("rocket_nuke", new RenderItemBaseRocketItem(new ModelRocket(), new ResourceLocation(Techguns.MODID,"textures/guns/rocket_nuke.png")).setBaseScale(1.5f).setGUIScale(0.5f).setBaseTranslation(0, 0, 0.1f).setTransformTranslations(new float[][]{
 			{0,0f,0f}, //First Person
 			{0f,-0.1f,0.02f}, //Third Person
 			{0.0f,0.0f,0}, //GUI
@@ -599,7 +617,7 @@ public class ClientProxy extends CommonProxy {
 					{0,0,0f} //frame
 				}).setRecoilAnim(GunAnimation.genericRecoil, 0.025f, 12.0f).setMuzzleFlashJitter(0.01f, 0.01f, 5.0f, 0.05f).setMuzzleFXPos3P(0.07f, -0.26f));
 		
-		ItemRenderHack.registerItemRenderer(TGuns.rocketlauncher,new RenderGunBase90(new ModelRocketLauncher(),1).setBaseTranslation(-0.4f, -0.2f, -RenderItemBase.SCALE*0.5f)
+		ItemRenderHack.registerItemRenderer(TGuns.rocketlauncher,new RenderRocketLauncher(new ModelRocketLauncher(),2).setBaseTranslation(-0.4f, -0.2f, -RenderItemBase.SCALE*0.5f)
 				.setGUIScale(0.45f).setMuzzleFx(ScreenEffect.muzzleFlash_gun, 0, 0.39f, -0.6f, 0.87f, 0).setTransformTranslations(new float[][]{
 					{-0.13f,0.3f,0.32f}, //First Person
 					{0,0.02f,0.07f}, //Third Person
@@ -925,7 +943,7 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerEntityRenderingHandler(PowerHammerProjectile.class, RenderInvisibleProjectile<PowerHammerProjectile>::new);
 		RenderingRegistry.registerEntityRenderingHandler(ChainsawProjectile.class, RenderInvisibleProjectile<ChainsawProjectile>::new);
 		RenderingRegistry.registerEntityRenderingHandler(FragGrenadeProjectile.class, RenderFragGrenadeProjectile::new);
-		
+		RenderingRegistry.registerEntityRenderingHandler(RocketProjectileNuke.class, RenderRocketProjectile::new);
 		
 		//NPCS
 		RenderingRegistry.registerEntityRenderingHandler(NPCTurret.class, RenderNPCTurret::new);

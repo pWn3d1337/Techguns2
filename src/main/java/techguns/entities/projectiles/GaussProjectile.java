@@ -22,17 +22,8 @@ public class GaussProjectile extends AdvancedBulletProjectile implements ILightP
 	public GaussProjectile(World par2World, EntityLivingBase p, float damage, float speed, int TTL, float spread,
 			float dmgDropStart, float dmgDropEnd, float dmgMin, float penetration, boolean blockdamage, EnumBulletFirePos leftGun) {
 		super(par2World, p, damage, speed, TTL, spread, dmgDropStart, dmgDropEnd, dmgMin, penetration, blockdamage, leftGun);
-		// TODO Auto-generated constructor stub
 	}
 
-//	public GaussProjectile(World worldIn, double posX, double posY, double posZ, float yaw, float pitch, float damage,
-//			float speed, int TTL, float spread, float dmgDropStart, float dmgDropEnd, float dmgMin, float penetration,
-//			boolean blockdamage, boolean leftGun) {
-//		super(worldIn, posX, posY, posZ, yaw, pitch, damage, speed, TTL, spread, dmgDropStart, dmgDropEnd, dmgMin, penetration,
-//				blockdamage, leftGun);
-//		// TODO Auto-generated constructor stub
-//	}
-	
 	public GaussProjectile(World worldIn) {
 		super(worldIn);
 		if(worldIn.isRemote) {
@@ -43,7 +34,6 @@ public class GaussProjectile extends AdvancedBulletProjectile implements ILightP
 	
 //	@Override
 //	public void onUpdate() {
-//		// TODO Auto-generated method stub
 //		super.onUpdate();
 //		//System.out.println(String.format("Motion: X=%.3f, Y=%.3f, Z=%.3f", motionX, motionY, motionZ));
 //	}
@@ -93,7 +83,7 @@ public class GaussProjectile extends AdvancedBulletProjectile implements ILightP
 	
 	@Override
 	public void setVelocity(double x, double y, double z) {
-		// TODO Auto-generated method stub
+		// TODO ?
 	}
 	
 	

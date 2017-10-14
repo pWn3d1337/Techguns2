@@ -22,8 +22,8 @@ public class ModelRocket extends ModelMultipart
   
   public ModelRocket()
   {
-    textureWidth = 128;
-    textureHeight = 64;
+    textureWidth = 64;
+    textureHeight = 32;
     
       R9 = new ModelRenderer(this, 0, 0);
       R9.addBox(0F, 0F, 0F, 6, 4, 4);

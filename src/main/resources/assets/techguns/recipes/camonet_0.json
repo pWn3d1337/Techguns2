@@ -1,0 +1,20 @@
+{
+  "result": {
+    "item": "techguns:camonet",
+    "data": 0,
+    "count": 8
+  },
+  "pattern": [
+    "sds",
+    "sds"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "s": {
+      "item": "#STICKWOOD"
+    },
+    "d": {
+      "item": "#DIRT"
+    }
+  }
+}

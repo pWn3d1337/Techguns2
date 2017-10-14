@@ -1,0 +1,15 @@
+{
+  "result": {
+    "item": "techguns:combatshotgun"
+  },
+  "ingredients": [
+    {
+      "item": "techguns:combatshotgun"
+    },
+    {
+      "item": "techguns:itemshared",
+      "data": 2
+    }
+  ],
+  "type": "techguns:ammo_change_crafting"
+}

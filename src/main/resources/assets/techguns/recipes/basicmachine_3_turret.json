@@ -14,7 +14,7 @@
       "item": "#PLATEIRON"
     },
     "r": {
-      "item": "minecraft:redstone"
+      "item": "#DUSTREDSTONE"
     },
     "c": {
       "item": "minecraft:concrete",

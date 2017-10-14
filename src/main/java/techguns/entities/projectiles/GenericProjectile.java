@@ -276,7 +276,7 @@ public class GenericProjectile extends Entity implements IProjectile, IEntityAdd
 		}
 		
 		
-		while (this.rotationPitch - this.prevRotationPitch >= 180.0F) {
+		/*while (this.rotationPitch - this.prevRotationPitch >= 180.0F) {
 			this.prevRotationPitch += 360.0F;
 		}
 
@@ -286,7 +286,19 @@ public class GenericProjectile extends Entity implements IProjectile, IEntityAdd
 
 		while (this.rotationYaw - this.prevRotationYaw >= 180.0F) {
 			this.prevRotationYaw += 360.0F;
+		}*/
+		if (this.rotationPitch - this.prevRotationPitch >= 180.0F) {
+			this.prevRotationPitch += 360.0F;
 		}
+
+		if (this.rotationYaw - this.prevRotationYaw < -180.0F) {
+			this.prevRotationYaw -= 360.0F;
+		}
+
+		if (this.rotationYaw - this.prevRotationYaw >= 180.0F) {
+			this.prevRotationYaw += 360.0F;
+		}
+		
 
 		this.rotationPitch = this.prevRotationPitch + (this.rotationPitch - this.prevRotationPitch) * 0.2F;
 		this.rotationYaw = this.prevRotationYaw + (this.rotationYaw - this.prevRotationYaw) * 0.2F;

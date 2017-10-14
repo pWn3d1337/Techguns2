@@ -10,12 +10,15 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import techguns.Techguns;
 import techguns.client.models.projectiles.ModelRocket;
+import techguns.entities.projectiles.RocketProjectileNuke;
 
 @SideOnly(Side.CLIENT)
 public class RenderRocketProjectile extends Render {
 
 	private float scale;
-	private ResourceLocation textureLoc = new ResourceLocation(Techguns.MODID,"textures/guns/rocketlauncher.png");
+	private ResourceLocation textureLoc = new ResourceLocation(Techguns.MODID,"textures/guns/rocket.png");
+	private ResourceLocation textureLocNuke = new ResourceLocation(Techguns.MODID,"textures/guns/rocket_nuke.png");
+	
 	private ModelBase model = new ModelRocket();
 
 	public RenderRocketProjectile(RenderManager renderManager) {
@@ -51,6 +54,9 @@ public class RenderRocketProjectile extends Render {
 
 	@Override
 	protected ResourceLocation getEntityTexture(Entity entity) {
+		if(entity instanceof RocketProjectileNuke) {
+			return textureLocNuke;
+		}
 		return textureLoc;
 	}
 }

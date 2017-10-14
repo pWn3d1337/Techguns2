@@ -16,7 +16,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.client.model.ModelLoader;
 
-public class BlockTGCamoNetTop extends GenericBlockMetaEnum<EnumCamoNetType> {
+public class BlockTGCamoNetTop extends GenericBlockMetaEnumCamoChangeable<EnumCamoNetType> {
 
 	public static PropertyEnum<EnumConnectionType> CONNECTION = BlockTGCamoNet.CONNECTION;
 	

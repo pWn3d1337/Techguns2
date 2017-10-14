@@ -1,0 +1,15 @@
+{
+  "result": {
+    "item": "techguns:goldenrevolver"
+  },
+  "ingredients": [
+    {
+      "item": "techguns:goldenrevolver"
+    },
+    {
+      "item": "techguns:itemshared",
+      "data": 109
+    }
+  ],
+  "type": "techguns:ammo_change_crafting"
+}

@@ -179,7 +179,6 @@ public class FabricatorTileEntMaster extends MultiBlockMachineTileEntMaster {
 
 	@Override
 	public AxisAlignedBB getBBforSlave(BlockPos slavePos) {
-		// TODO Auto-generated method stub
 		return Block.FULL_BLOCK_AABB;
 	}
 

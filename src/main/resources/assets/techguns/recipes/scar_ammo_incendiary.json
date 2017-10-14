@@ -1,0 +1,15 @@
+{
+  "result": {
+    "item": "techguns:scar"
+  },
+  "ingredients": [
+    {
+      "item": "techguns:scar"
+    },
+    {
+      "item": "techguns:itemshared",
+      "data": 115
+    }
+  ],
+  "type": "techguns:ammo_change_crafting"
+}

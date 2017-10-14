@@ -19,6 +19,8 @@ import techguns.api.capabilities.ITGExtendedPlayer;
 import techguns.api.capabilities.ITGShooterValues;
 import techguns.capabilities.TGExtendedPlayer;
 import techguns.capabilities.TGExtendedPlayerStorage;
+import techguns.capabilities.TGGenericNPCData;
+import techguns.capabilities.TGGenericNPCDataStorage;
 import techguns.capabilities.TGShooterValues;
 import techguns.capabilities.TGShooterValuesStorage;
 import techguns.client.audio.TGSoundCategory;
@@ -74,6 +76,7 @@ public abstract class CommonProxy implements ITGInitializer {
 	public void registerCapabilities(){
 		CapabilityManager.INSTANCE.register(ITGExtendedPlayer.class, new TGExtendedPlayerStorage(), () -> new TGExtendedPlayer(null));
 		CapabilityManager.INSTANCE.register(ITGShooterValues.class, new TGShooterValuesStorage(), TGShooterValues::new);
+		CapabilityManager.INSTANCE.register(TGGenericNPCData.class, new TGGenericNPCDataStorage(), TGGenericNPCData::new);
 	}
 
 	/**

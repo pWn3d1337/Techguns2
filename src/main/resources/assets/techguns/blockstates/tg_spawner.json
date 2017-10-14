@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "type=hole": {
+      "model": "techguns:hole"
+    }
+  }
+}

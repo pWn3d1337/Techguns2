@@ -1,0 +1,15 @@
+{
+  "result": {
+    "item": "techguns:lmg"
+  },
+  "ingredients": [
+    {
+      "item": "techguns:lmg"
+    },
+    {
+      "item": "techguns:itemshared",
+      "data": 15
+    }
+  ],
+  "type": "techguns:ammo_change_crafting"
+}

@@ -10,15 +10,15 @@
     },
     {
       "item": "techguns:itemshared",
-      "data": 3
+      "data": 6
     },
     {
       "item": "techguns:itemshared",
-      "data": 3
+      "data": 6
     },
     {
       "item": "techguns:itemshared",
-      "data": 3
+      "data": 6
     }
   ],
   "type": "minecraft:crafting_shapeless"

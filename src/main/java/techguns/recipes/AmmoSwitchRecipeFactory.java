@@ -69,7 +69,12 @@ public class AmmoSwitchRecipeFactory implements IRecipeFactory {
 				
 				String variant = type.getAmmoVariantKeyfor(ammo);
 				newTags.setString("ammovariant", variant);
-				newTags.setShort("ammo", (short) 1);
+				
+				if(g.getAmmoCount()>1) {
+					newTags.setShort("ammo", (short) 1);
+				} else {
+					newTags.setShort("ammo", (short)g.getClipsize());
+				}
 			}
 			ItemStack out = super.getCraftingResult(var1);
 			if(newTags!=null){

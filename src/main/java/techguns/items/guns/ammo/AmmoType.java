@@ -22,9 +22,7 @@ public class AmmoType {
 	}
 	
 	public AmmoType addVariant(String key, ItemStack ammo) {
-		this.variants.add(new AmmoVariant(key, ammo, ammo));
-		ammoVariantIDs.put(key, this.variants.size()-1);
-		return this;
+		return this.addVariant(key, ammo, ammo);
 	}
 	
 	public int getIDforVariantKey(String key) {
@@ -37,6 +35,7 @@ public class AmmoType {
 	
 	public AmmoType addVariant(String key, ItemStack ammo, ItemStack bullet) {
 		this.variants.add(new AmmoVariant(key, ammo, bullet));
+		ammoVariantIDs.put(key, this.variants.size()-1);
 		return this;
 	}
 	
@@ -72,6 +71,10 @@ public class AmmoType {
 		return variants;
 	}
 
+	public boolean hasMultipleVariants() {
+		return this.variants.size()>1;
+	}
+	
 	public float getShotsPerBullet (int clipsize, int ammoCount){
 		if(ammoCount==1 && bulletsPerMag==0){
 			return clipsize;

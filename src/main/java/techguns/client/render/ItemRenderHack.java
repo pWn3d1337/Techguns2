@@ -109,7 +109,7 @@ public class ItemRenderHack {
 	 */
 	protected static void JEI_Fix_undo() {
 		Minecraft.getMinecraft().getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-		Minecraft.getMinecraft().getTextureManager().getTexture(TextureMap.LOCATION_BLOCKS_TEXTURE).setBlurMipmap(false, false);
+		//Minecraft.getMinecraft().getTextureManager().getTexture(TextureMap.LOCATION_BLOCKS_TEXTURE).setBlurMipmap(false, false); //Actually bad
 		
 		GlStateManager.popMatrix();
 	}

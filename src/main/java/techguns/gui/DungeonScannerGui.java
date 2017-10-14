@@ -206,7 +206,6 @@ public class DungeonScannerGui extends OwnedTileEntGui {
 
 	@Override
 	public void initGui() {
-		// TODO Auto-generated method stub
 		super.initGui();
 		this.buttonList.add(new GuiButtonExt(DungeonScannerTileEnt.BUTTON_ID_GHOST, this.guiLeft+5, this.guiTop+5, 12, 12, "G"));
 		

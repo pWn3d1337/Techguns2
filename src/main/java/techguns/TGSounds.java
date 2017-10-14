@@ -185,6 +185,8 @@ public class TGSounds {
 	
 	public static SoundEvent BUNKER_DOOR_OPEN = createSoundEvent("blocks.metaldooropen");
 	
+	public static SoundEvent NUKE_EXPLOSION = createSoundEvent("effects.nukeexplosion");
+	
 	public static void registerSounds(RegistryEvent.Register<SoundEvent> event){
 		IForgeRegistry<SoundEvent> reg = event.getRegistry();
 		

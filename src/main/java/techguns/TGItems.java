@@ -47,7 +47,7 @@ public class TGItems implements ITGInitializer{
 	 * TODO
 	 * DISABLE THIS BEFORE RELEASE
 	 */
-	public static boolean WRITE_RECIPES = false;
+	public static boolean WRITE_RECIPES = true;
 	
 	
 	public static final ArrayList<GenericItem> ITEMLIST = new ArrayList<>();
@@ -195,6 +195,19 @@ public class TGItems implements ITGInitializer{
 	
 	//Ammo Variants
 	public static ItemStack SHOTGUN_ROUNDS_INCENDIARY;
+	public static ItemStack AS50_MAGAZINE_INCENDIARY;
+	public static ItemStack SNIPER_ROUNDS_INCENDIARY;
+	public static ItemStack PISTOL_ROUNDS_INCENDIARY;
+	public static ItemStack RIFLE_ROUNDS_INCENDIARY;
+	public static ItemStack RIFLE_ROUNDS_STACK_INCENDIARY;
+	public static ItemStack PISTOL_MAGAZINE_INCENDIARY;
+	public static ItemStack MINIGUN_DRUM_INCENDIARY;
+	public static ItemStack SMG_MAGAZINE_INCENDIARY;
+	public static ItemStack ASSAULTRIFLE_MAGAZINE_INCENDIARY;
+	public static ItemStack LMG_MAGAZINE_INCENDIARY;
+	
+	public static ItemStack ROCKET_NUKE;
+	public static ItemStack TACTICAL_NUKE_WARHEAD;
 	
 	/**
 	 * ADDITONAL SLOT ITEMS
@@ -374,6 +387,22 @@ public class TGItems implements ITGInitializer{
 		RC_UV_EMITTER = SHARED_ITEM.addsharedVariant("rcuvemitter",false,TGSlotType.REACTION_CHAMBER_FOCUS,1,true);
 		
 		SHOTGUN_ROUNDS_INCENDIARY = SHARED_ITEM.addsharedVariant("shotgunrounds_incendiary", TGSlotType.AMMOSLOT);
+		AS50_MAGAZINE_INCENDIARY = SHARED_ITEM.addsharedVariant("as50magazine_incendiary", true, TGSlotType.AMMOSLOT);
+		SNIPER_ROUNDS_INCENDIARY = SHARED_ITEM.addsharedVariant("sniperrounds_incendiary",TGSlotType.AMMOSLOT);
+		
+		PISTOL_ROUNDS_INCENDIARY = SHARED_ITEM.addsharedVariant("pistolrounds_incendiary",TGSlotType.AMMOSLOT);
+		RIFLE_ROUNDS_INCENDIARY = SHARED_ITEM.addsharedVariant("riflerounds_incendiary",TGSlotType.AMMOSLOT);
+		RIFLE_ROUNDS_STACK_INCENDIARY = SHARED_ITEM.addsharedVariant("rifleroundsstack_incendiary",TGSlotType.AMMOSLOT);
+		
+		SMG_MAGAZINE_INCENDIARY = SHARED_ITEM.addsharedVariant("smgmagazine_incendiary",TGSlotType.AMMOSLOT);
+		PISTOL_MAGAZINE_INCENDIARY = SHARED_ITEM.addsharedVariant("pistolmagazine_incendiary",TGSlotType.AMMOSLOT);
+		MINIGUN_DRUM_INCENDIARY = SHARED_ITEM.addsharedVariant("minigundrum_incendiary", TGSlotType.AMMOSLOT);
+		ASSAULTRIFLE_MAGAZINE_INCENDIARY = SHARED_ITEM.addsharedVariant("assaultriflemagazine_incendiary",true, TGSlotType.AMMOSLOT);
+		LMG_MAGAZINE_INCENDIARY = SHARED_ITEM.addsharedVariant("lmgmagazine_incendiary",true, TGSlotType.AMMOSLOT);
+		
+		ROCKET_NUKE = SHARED_ITEM.addsharedVariant("rocket_nuke", true, TGSlotType.AMMOSLOT);
+		TACTICAL_NUKE_WARHEAD = SHARED_ITEM.addsharedVariant("tacticalnukewarhead");
+		
 		/**
 		 * Additional Slot items
 		 */

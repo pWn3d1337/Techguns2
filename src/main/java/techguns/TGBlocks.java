@@ -23,6 +23,7 @@ import techguns.blocks.BlockTGDoor3x3;
 import techguns.blocks.BlockTGLadder;
 import techguns.blocks.BlockTGLamp;
 import techguns.blocks.BlockTGOre;
+import techguns.blocks.BlockTGSpawner;
 import techguns.blocks.BlockTGStairs;
 import techguns.blocks.EnumConcreteType;
 import techguns.blocks.EnumDoorType;
@@ -30,6 +31,7 @@ import techguns.blocks.EnumLadderType;
 import techguns.blocks.EnumLampType;
 import techguns.blocks.EnumOreType;
 import techguns.blocks.GenericBlockMetaEnum;
+import techguns.blocks.GenericBlockMetaEnumCamoChangeable;
 import techguns.blocks.IGenericBlock;
 import techguns.blocks.TGMetalPanelType;
 import techguns.blocks.machines.BasicMachine;
@@ -73,6 +75,8 @@ public class TGBlocks implements ITGInitializer{
 	
 	public static BlockTGStairs METAL_STAIRS;
 	
+	public static BlockTGSpawner MONSTER_SPAWNER;
+	
 	public void registerBlocks(RegistryEvent.Register<Block> event) {
 		BLOCKLIST.forEach(b -> b.registerBlock(event));
 	}
@@ -95,8 +99,8 @@ public class TGBlocks implements ITGInitializer{
 		BIOBLOB= new BlockBioblob("bioblob");
 		SANDBAGS = new BlockSandbags("sandbags");
 		LAMP_0 = new BlockTGLamp<EnumLampType>("lamp0", EnumLampType.class);
-		METAL_PANEL = new GenericBlockMetaEnum<TGMetalPanelType>("metalpanel", Material.IRON, Material.IRON.getMaterialMapColor(), SoundType.METAL, TGMetalPanelType.class);
-		CONCRETE = new GenericBlockMetaEnum<EnumConcreteType>("concrete", Material.ROCK, EnumConcreteType.class);
+		METAL_PANEL = new GenericBlockMetaEnumCamoChangeable<TGMetalPanelType>("metalpanel", Material.IRON, Material.IRON.getMaterialMapColor(), SoundType.METAL, TGMetalPanelType.class);
+		CONCRETE = new GenericBlockMetaEnumCamoChangeable<EnumConcreteType>("concrete", Material.ROCK, EnumConcreteType.class);
 		LADDER_0 = new BlockTGLadder<EnumLadderType>("ladder0", EnumLadderType.class);
 		DOOR3x3 = new BlockTGDoor3x3<EnumDoorType>("door3x3", EnumDoorType.class, TGItems.DOOR3x3);
 		CAMONET = new BlockTGCamoNet("camonet");
@@ -104,6 +108,8 @@ public class TGBlocks implements ITGInitializer{
 		BUNKER_DOOR = new BlockTGDoor2x1("bunkerdoor",TGItems.BUNKER_DOOR);
 		
 		METAL_STAIRS = new BlockTGStairs("stairs_metal", Material.IRON);
+		
+		MONSTER_SPAWNER = new BlockTGSpawner("tg_spawner");
 		
 		if(TGItems.WRITE_ITEM_JSON && event.getSide()==Side.CLIENT){
 			BLOCKLIST.stream().filter(new Predicate<IGenericBlock>() {

@@ -1,0 +1,15 @@
+{
+  "result": {
+    "item": "techguns:sawedoff"
+  },
+  "ingredients": [
+    {
+      "item": "techguns:sawedoff"
+    },
+    {
+      "item": "techguns:itemshared",
+      "data": 106
+    }
+  ],
+  "type": "techguns:ammo_change_crafting"
+}

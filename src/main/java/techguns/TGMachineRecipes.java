@@ -73,17 +73,17 @@ public class TGMachineRecipes {
 		}
 		//ChemLabRecipes.addRecipe(new ItemStack(Blocks.SAND),1, new ItemStack(Blocks.GRAVEL),1, null,0, new FluidStack(FluidRegistry.WATER,250), null, new ItemStack(TGBlocks.concrete,2), true,5);
 		if(TGFluids.OIL!=null){
-			ChemLabRecipes.addRecipe(new ItemStack(Items.SLIME_BALL), 1, new ItemStack(Items.COAL), 1, null, 0, new FluidStack(FluidRegistry.WATER,1000), new FluidStack(TGFluids.OIL,250), null, true, 20);
+			ChemLabRecipes.addRecipe("slimeball", 1, new ItemStack(Items.COAL), 1, null, 0, new FluidStack(FluidRegistry.WATER,1000), new FluidStack(TGFluids.OIL,250), null, true, 20);
 			ChemLabRecipes.addRecipe("itemRawRubber", 1, (ItemStack)null, 0, null, 0, new FluidStack(TGFluids.OIL,500), null, TGItems.newStack(TGItems.RAW_PLASTIC, 1), false, 25);
 		} else {
 			ChemLabRecipes.addRecipe("itemRawRubber", 1, new ItemStack(Items.COAL,1), 1, null, 0, new FluidStack(TGFluids.WATER,1000), null, TGItems.newStack(TGItems.RAW_PLASTIC, 1), true, 25);
 		}
 		
-		//ChemLabRecipes.addRecipe(TGItems.BIOMASS, 1, new ItemStack(Items.GUNPOWDER), 1, null, 0, new FluidStack(TGFluids.WATER,1000), new FluidStack(TGFluids.ACID,1000), null, true, 20);
+		ChemLabRecipes.addRecipe(TGItems.BIOMASS, 1, new ItemStack(Items.GUNPOWDER), 1, null, 0, new FluidStack(TGFluids.WATER,1000), new FluidStack(TGFluids.ACID,1000), null, true, 20);
 		
 		if (ItemUtil.existsInOredict("itemBioFuel")){
 			ChemLabRecipes.addRecipe("itemBioFuel",4, TGItems.newStack(TGItems.BIO_TANK_EMPTY,1), 1, null, 0, new FluidStack(TGFluids.WATER,500), null, TGItems.newStack(TGItems.BIO_TANK, 1), false, 1);
-		//	ChemLabRecipes.addRecipe("itemBioFuel",4, new ItemStack(Items.GUNPOWDER), 1, null, 0, new FluidStack(TGFluids.WATER,1000), new FluidStack(TGFluids.ACID,1000), null, false, 20);
+			ChemLabRecipes.addRecipe("itemBioFuel",4, new ItemStack(Items.GUNPOWDER), 1, null, 0, new FluidStack(TGFluids.WATER,1000), new FluidStack(TGFluids.ACID,1000), null, false, 20);
 				
 		}
 		
@@ -115,7 +115,7 @@ public class TGMachineRecipes {
 		
 		ItemStackOreDict uranium = new ItemStackOreDict("oreUranium").setNoStrictMode();
 
-		//ChemLabRecipes.addRecipe(uranium, 1, nullStack, 0, null, 0, new FluidStack(TGFluids.ACID,250), null, TGItems.newStack(TGItems.YELLOWCAKE, 1), false, 20);
+		ChemLabRecipes.addRecipe(uranium, 1, nullStack, 0, null, 0, new FluidStack(TGFluids.ACID,250), null, TGItems.newStack(TGItems.YELLOWCAKE, 1), false, 20);
 		
 		ChemLabRecipes.addRecipe(TGItems.NUCLEAR_POWERCELL_EMPTY, 1, TGItems.ENRICHED_URANIUM, 1, null, 0, new FluidStack(TGFluids.WATER,1000), null, TGItems.newStack(TGItems.NUCLEAR_POWERCELL, 1), true, 40);
 		
@@ -123,8 +123,14 @@ public class TGMachineRecipes {
 			ChemLabRecipes.addRecipe(new ItemStack(Items.DYE,1,2), 1, "itemRawRubber", 1, null, 0, new FluidStack(TGFluids.MILK,500), null, new ItemStack(Items.SLIME_BALL), true, 25);
 		}
 		
-		//ChemLabRecipes.addRecipe(new ItemStack(Items.LEATHER,2), 2, new ItemStack(Items.SLIME_BALL,1), 1, null, 0, new FluidStack(TGFluids.ACID,500), null, TGItems.newStack(TGItems.TREATED_LEATHER,2), false, 20);
+		ChemLabRecipes.addRecipe(new ItemStack(Items.LEATHER,2), 2, "slimeball", 1, null, 0, new FluidStack(TGFluids.ACID,500), null, TGItems.newStack(TGItems.TREATED_LEATHER,2), false, 20);
 
+		
+		ChemLabRecipes.addRecipe(TGItems.RIFLE_ROUNDS, 1, new ItemStack(Items.BLAZE_POWDER), 1, null, 0, new FluidStack(TGFluids.LAVA,250), null, TGItems.newStack(TGItems.RIFLE_ROUNDS_INCENDIARY,1), false, 25);
+		ChemLabRecipes.addRecipe(TGItems.PISTOL_ROUNDS, 2, new ItemStack(Items.BLAZE_POWDER), 1, null, 0, new FluidStack(TGFluids.LAVA,250), null, TGItems.newStack(TGItems.PISTOL_ROUNDS_INCENDIARY,2), false, 25);
+		ChemLabRecipes.addRecipe(TGItems.SNIPER_ROUNDS, 1, new ItemStack(Items.BLAZE_POWDER), 1, null, 0, new FluidStack(TGFluids.LAVA,250), null, TGItems.newStack(TGItems.SNIPER_ROUNDS_INCENDIARY,1), false, 25);
+		ChemLabRecipes.addRecipe(TGItems.SHOTGUN_ROUNDS, 8, new ItemStack(Items.BLAZE_POWDER), 1, null, 0, new FluidStack(TGFluids.LAVA,250), null, TGItems.newStack(TGItems.SHOTGUN_ROUNDS_INCENDIARY,8), false, 25);
+		
 		
 		/**
 		 * FABRICATOR

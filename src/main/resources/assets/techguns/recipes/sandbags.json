@@ -1,0 +1,36 @@
+{
+  "result": {
+    "item": "techguns:sandbags",
+    "count": 8
+  },
+  "ingredients": [
+    {
+      "item": "#ITEMRUBBER"
+    },
+    {
+      "item": "#SAND"
+    },
+    {
+      "item": "#SAND"
+    },
+    {
+      "item": "#SAND"
+    },
+    {
+      "item": "#SAND"
+    },
+    {
+      "item": "#SAND"
+    },
+    {
+      "item": "#SAND"
+    },
+    {
+      "item": "#SAND"
+    },
+    {
+      "item": "#SAND"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

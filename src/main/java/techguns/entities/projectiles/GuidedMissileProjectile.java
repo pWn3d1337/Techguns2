@@ -56,7 +56,7 @@ public class GuidedMissileProjectile extends RocketProjectile{
 	protected void explodeRocket() {
 		if (!this.world.isRemote){
 			TGPackets.network.sendToAllAround(new PacketSpawnParticle("GuidedMissileExplosion", this.posX,this.posY,this.posZ), TGPackets.targetPointAroundEnt(this, 50.0f));
-			TGExplosion explosion = new TGExplosion(world, this.shooter, this, posX, posY, posZ, this.damage, this.damage*0.1, 1.0, 2.0, this.blockdamage?0.25:0.0);
+			TGExplosion explosion = new TGExplosion(world, this.shooter, this, posX, posY, posZ, this.damage, this.damageMin, this.damageDropStart, this.damageDropEnd, this.blockdamage?0.25:0.0);
 			
 			explosion.doExplosion(true);
 		}else {
@@ -107,14 +107,14 @@ public class GuidedMissileProjectile extends RocketProjectile{
 			this.motionY = motion.y;
 			this.motionZ = motion.z;
 		}
-		System.out.println("Motion.length="+new Vec3d(motionX, motionY, motionZ).lengthVector());
+		//System.out.println("Motion.length="+new Vec3d(motionX, motionY, motionZ).lengthVector());
 		super.onUpdate();		
 	}
 	
 
 //	@Override
 //	public void setVelocity(double x, double y, double z) {
-//		// TODO Auto-generated method stub
+//		
 //	}
 
 	public static class Factory implements IChargedProjectileFactory<GuidedMissileProjectile> {

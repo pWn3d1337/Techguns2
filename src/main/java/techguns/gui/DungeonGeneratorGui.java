@@ -120,7 +120,6 @@ public static final ResourceLocation texture = new ResourceLocation(Techguns.MOD
 
 	@Override
 		public void initGui() {
-			// TODO Auto-generated method stub
 			super.initGui();
 			
 			this.buttonList.add(new GuiButtonExt(DungeonGeneratorTileEnt.BUTTON_ID_GHOST, this.guiLeft+5, this.guiTop+5, 12, 12, "G"));

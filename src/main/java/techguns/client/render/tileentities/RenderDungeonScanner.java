@@ -19,7 +19,6 @@ public class RenderDungeonScanner extends TileEntitySpecialRenderer<DungeonScann
 	public static final ResourceLocation GHOST_TEXTURE = new ResourceLocation(Techguns.MODID, "textures/entity/white.png");
 	
 	public RenderDungeonScanner() {
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

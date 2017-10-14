@@ -190,11 +190,7 @@ public class RenderGunBase extends RenderItemBase {
 
 		GlStateManager.pushMatrix();
 		
-		if(gun.hasCustomTexture) {
-			Minecraft.getMinecraft().getTextureManager().bindTexture(gun.getCurrentTexture(stack));
-		} else {
-			Minecraft.getMinecraft().getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-		}
+		
 
 		float fireProgress = 0.0f;
 		float reloadProgress = 0.0f;
@@ -296,7 +292,8 @@ public class RenderGunBase extends RenderItemBase {
 			this.setBaseRotation(transform);
 			this.applyBaseTranslation();
 
-			for (int i = 0; i < parts; i++) {	
+			for (int i = 0; i < parts; i++) {
+				this.bindTextureForPart(gun, i, stack);
 				model.render(entityIn, 0, 0, 0, 0, 0, SCALE, gun.getAmmoLeft(stack), reloadProgress, transform, i, fireProgress);
 			}
 			
@@ -433,5 +430,15 @@ public class RenderGunBase extends RenderItemBase {
 		this.mf_jitterAngle = jAngle;
 		this.mf_jitterScale = jScale;
 		return this;
+	}
+	
+	public void bindTextureForPart(GenericGun gun, int part, ItemStack stack) {
+		if(part==0) {
+			if(gun.hasCustomTexture) {
+				Minecraft.getMinecraft().getTextureManager().bindTexture(gun.getCurrentTexture(stack));
+			} else {
+				Minecraft.getMinecraft().getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+			}
+		}
 	}
 }

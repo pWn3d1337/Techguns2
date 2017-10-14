@@ -45,7 +45,6 @@ public class ModelGibsQuadruped extends ModelGibs{
 
 	@Override
 	public int getNumGibs() {
-		// TODO Auto-generated method stub
 		return 6;
 	}
 

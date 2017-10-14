@@ -187,7 +187,6 @@ public class RenderTeslaProjectile extends Render<TeslaProjectile> {
 		width1*=scale;
 		width2*=scale;
 //		for (int i = 0; i < 4; i++) { //crossed planes with backsides
-			//TODO:<disable backface cull>
 			//GL11.glDisable(GL11.GL_CULL_FACE);
 		
 		GlStateManager.pushMatrix();

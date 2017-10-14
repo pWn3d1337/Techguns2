@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "techguns:item_bunkerdoor",
+    "count": 2
+  },
+  "pattern": [
+    "pp",
+    "pp",
+    "pp"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "p": {
+      "item": "#PLATEIRON"
+    }
+  }
+}

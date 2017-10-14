@@ -30,6 +30,7 @@ public class TGParticleManager {
     }
 	
 	public void tickParticles() {
+		Entity viewEnt = Minecraft.getMinecraft().getRenderViewEntity();
 		ParticleListIterator<ITGParticle> it = list.iterator();
 		while(it.hasNext()) {
 			ITGParticle p = it.next();
@@ -37,6 +38,10 @@ public class TGParticleManager {
 			p.updateTick();
 			if(p.shouldRemove()) {
 				it.remove();
+			} else {
+				if(viewEnt!=null) {
+					p.setDepth(this.distanceToPlane(viewEnt, p.getPos()));
+				}
 			}
 		}
 		
@@ -77,17 +82,25 @@ public class TGParticleManager {
         frust.setPosition(d0, d1, d2);*/
         
         GlStateManager.disableCull();
-        this.list.forEach(p -> {
+        this.list.forEach(p -> {	
         	//if(frust.isBoundingBoxInFrustum(p.getRenderBoundingBox(partialTicks, entity)))
         	p.doRender(bufferbuilder, entityIn, partialTicks, f1, f5, f2, f3, f4);
         });
         GlStateManager.enableCull();
-        
-        //GlStateManager.disableBlend();
-        //GlStateManager.color(1f, 1f, 1f, 1f);
-        //GlStateManager.disableAlpha();
-        //TODO fix blending
+
     }
+
+	
+	public double distanceToPlane(Entity viewEntity, Vec3d pos) {
+		//Formula from: http://geomalgorithms.com/a04-_planes.html
+		Vec3d n = viewEntity.getLookVec();
+		double dot1 = -n.dotProduct(pos.subtract(viewEntity.getPositionVector()));
+		double dot2 = n.dotProduct(n);
+		double f = dot1/dot2;
+		
+		Vec3d pos2 = pos.add(n.scale(f));
+		return pos.squareDistanceTo(pos2);
+	}
 	
 	public static class ComparatorParticleDepth implements Comparator<ITGParticle> {
 
@@ -98,8 +111,10 @@ public class TGParticleManager {
 			}
 			Entity view = Minecraft.getMinecraft().getRenderViewEntity();
 			if(view!=null) {
-				double dist1 = p1.getPos().squareDistanceTo(view.posX, view.posY, view.posZ);
-				double dist2 = p2.getPos().squareDistanceTo(view.posX, view.posY, view.posZ);
+				double dist1=p1.getDepth();
+				double dist2=p2.getDepth();
+				//double dist1 = p1.getPos().squareDistanceTo(view.posX, view.posY, view.posZ);
+				//double dist2 = p2.getPos().squareDistanceTo(view.posX, view.posY, view.posZ);
 				
 				if(dist1<dist2) {
 					return 1;

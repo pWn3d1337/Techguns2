@@ -1,0 +1,15 @@
+{
+  "result": {
+    "item": "techguns:revolver"
+  },
+  "ingredients": [
+    {
+      "item": "techguns:revolver"
+    },
+    {
+      "item": "techguns:itemshared",
+      "data": 109
+    }
+  ],
+  "type": "techguns:ammo_change_crafting"
+}
