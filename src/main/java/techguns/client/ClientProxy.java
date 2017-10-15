@@ -1035,6 +1035,18 @@ public class ClientProxy extends CommonProxy {
 	}
 	
 	@Override
+	public void createFX(String name, World world, double posX, double posY, double posZ, double motionX, double motionY, double motionZ, float pitch, float yaw){	
+		List<TGParticleSystem> systems = TGFX.createFX(world, name, posX, posY, posZ, motionX, motionY, motionZ);
+		if (systems!=null) {
+			for (TGParticleSystem s : systems) {
+				s.rotationPitch = pitch;
+				s.rotationYaw = yaw;
+				particleManager.addEffect(s);
+			}
+		}
+	}
+	
+	@Override
 	public void createFXOnEntity(String name, Entity ent) {
 		List<TGParticleSystem> systems = TGFX.createFXOnEntity(ent, name);
 		if (systems!=null) {
