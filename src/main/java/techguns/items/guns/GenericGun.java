@@ -945,7 +945,7 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 			list.add(TextUtil.trans("techguns.gun.tooltip.clipsize")+": "+this.clipsize);
 			list.add(TextUtil.trans("techguns.gun.tooltip.reloadTime")+": "+this.reloadtime*0.05f+"s");
 			if (this.penetration>0.0f){
-				list.add(TextUtil.trans("techguns.gun.tooltip.armorPen")+": "+this.penetration*100+"%");
+				list.add(TextUtil.trans("techguns.gun.tooltip.armorPen")+": "+String.format("%.1f", this.penetration));
 			}
 			if (this.canZoom) {
 				list.add(TextUtil.trans("techguns.gun.tooltip.zoom")+":"+(this.toggleZoom ? "("+TextUtil.trans("techguns.gun.tooltip.zoom.toogle")+")":"("+TextUtil.trans("techguns.gun.tooltip.zoom.hold")+")")+" "+TextUtil.trans("techguns.gun.tooltip.zoom.multiplier")+":"+this.zoomMult);

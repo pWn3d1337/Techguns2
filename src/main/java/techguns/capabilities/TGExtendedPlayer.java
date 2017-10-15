@@ -278,4 +278,30 @@ public class TGExtendedPlayer implements ITGExtendedPlayer {
 		
 		this.isJumpkeyPressed = isJumpkeyPressed;
 	}
+	
+	/**
+	 * Drops to world (player death)
+	 */
+	public void dropInventory(EntityPlayer player){
+		if(!player.world.isRemote){
+			if (!player.world.getGameRules().getBoolean("keepInventory"))
+	        {
+	            //this.inventory.dropAllItems();
+	            int i;
+	        
+	            player.captureDrops=true;
+	            for (i = 0; i < this.tg_inventory.inventory.size(); ++i)
+	            {
+	                if (!this.tg_inventory.inventory.get(i).isEmpty())
+	                {
+	                	//System.out.println("Dropping "+TG_inventory.inventory[i].getDisplayName()+" x"+TG_inventory.inventory[i].stackSize);
+	                    player.dropItem(this.tg_inventory.inventory.get(i), true, false);
+	                    this.tg_inventory.inventory.set(i, ItemStack.EMPTY);
+	                }
+	            }
+	            player.captureDrops=false;
+	         
+	        }
+		}
+	}
 }

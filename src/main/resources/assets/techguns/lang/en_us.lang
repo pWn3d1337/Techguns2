@@ -37,6 +37,7 @@ techguns.armorTooltip.coolingsystem=Cooling System
 techguns.armorTooltip.flyspeed=Flying Speed
 techguns.armorTooltip.creativeFlight=Creative Flight
 techguns.armorTooltip.resistances=Armor Values
+techguns.armorTooltip.toughness=Toughness
 techguns.gun.tooltip.shift1=Press
 techguns.gun.tooltip.shift2=[SHIFT]
 techguns.gun.tooltip.shift3=for detailed tooltip

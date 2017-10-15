@@ -7,6 +7,7 @@ import java.lang.reflect.Method;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.MobEffects;
@@ -14,12 +15,14 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.CombatRules;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import techguns.api.damagesystem.DamageType;
+import techguns.api.npc.INpcTGDamageSystem;
 import techguns.items.armors.GenericArmor;
 
 public class DamageSystem {
@@ -60,6 +63,8 @@ public class DamageSystem {
 	
 	protected static Method ELB_playHurtSound = ReflectionHelper.findMethod(EntityLivingBase.class, "playHurtSound", "func_184581_c", DamageSource.class);
 	
+	protected static Method ELB_applyPotionDamageCalculations = ReflectionHelper.findMethod(EntityLivingBase.class, "applyPotionDamageCalculations", "func_70672_c", DamageSource.class, float.class);
+	protected static Method ELB_damageArmor = ReflectionHelper.findMethod(EntityLivingBase.class, "damageArmor", "func_70675_k", float.class);
 	
 	public static float getTotalArmorAgainstType(EntityPlayer ply, DamageType type){
 		float value=0.0f;
@@ -98,7 +103,7 @@ public class DamageSystem {
 			case ICE:
 			case LIGHTNING:
 			case DARK:
-				return Math.round(armor*0.5f);
+				return armor*0.5f;
 			case FIRE:
 				if(elb.isImmuneToFire()){
 					return armor*2;
@@ -354,4 +359,46 @@ public class DamageSystem {
         }
     }
 
+    
+    public static void livingHurt(EntityLivingBase elb, DamageSource damageSrc, float damageAmount) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+    	damageAmount = ELB_applyArmorCalculations(elb,damageSrc, damageAmount);
+        //damageAmount = elb.applyPotionDamageCalculations(damageSrc, damageAmount);
+        damageAmount = (Float)ELB_applyPotionDamageCalculations.invoke(elb, damageSrc, damageAmount);
+        float f = damageAmount;
+        damageAmount = Math.max(damageAmount - elb.getAbsorptionAmount(), 0.0F);
+        elb.setAbsorptionAmount(elb.getAbsorptionAmount() - (f - damageAmount));
+
+        if (damageAmount != 0.0F)
+        {
+            float f1 = elb.getHealth();
+            elb.setHealth(f1 - damageAmount);
+            elb.getCombatTracker().trackDamage(damageSrc, f1, damageAmount);
+            elb.setAbsorptionAmount(elb.getAbsorptionAmount() - damageAmount);
+        }
+    }
+    
+    /**
+     * Reduces damage, depending on armor
+     */
+    public static float ELB_applyArmorCalculations(EntityLivingBase elb, DamageSource source, float damage) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
+    {
+        if (!source.isUnblockable())
+        {
+            ELB_damageArmor.invoke(elb, damage);
+             
+            TGDamageSource dmgsrc = TGDamageSource.getFromGenericDamageSource(source);
+            INpcTGDamageSystem tg = (INpcTGDamageSystem) elb;
+            
+            float toughness = tg.getToughnessAfterPentration(elb, dmgsrc);
+            System.out.println("DamageBefore:"+damage);
+            System.out.println("Armor:"+tg.getTotalArmorAgainstType(dmgsrc));
+            System.out.println("Pen:"+dmgsrc.armorPenetration);
+            System.out.println("ToughnessAfterPen:"+toughness);
+            
+            damage = CombatRules.getDamageAfterAbsorb(damage, tg.getTotalArmorAgainstType(dmgsrc), toughness);
+        }
+
+        System.out.println("DamageAfter:"+damage);
+        return damage;
+    }
 }

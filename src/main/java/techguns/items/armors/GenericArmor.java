@@ -382,7 +382,7 @@ public class GenericArmor extends ItemArmor implements ISpecialArmor , IItemTGRe
 		EntityEquipmentSlot slot = this.armorType;
 		
 		if (this.getPenetrationResistance()>0.0f){
-			list.add(ChatFormatting.DARK_GRAY+trans("armorTooltip.penetrationResistance")+" "+formatArmor.format(this.getPenetrationResistance()*100)+"%");
+			list.add(" "+ChatFormatting.GRAY+trans("armorTooltip.penetrationResistance")+": "+formatArmor.format(this.getPenetrationResistance()));
 		}
 		
 		list.add(ChatFormatting.DARK_GRAY+" AR: "+formatAV(this.material.getArmorValueSlot(slot, DamageType.PHYSICAL),DamageType.PHYSICAL));
@@ -407,7 +407,11 @@ public class GenericArmor extends ItemArmor implements ISpecialArmor , IItemTGRe
 			list.add(trans("armorTooltip.durability")+": "+(item.getMaxDamage()-item.getItemDamage())+"/"+(item.getMaxDamage()));
 			//list.add(trans("armorTooltip.armorvalue")+": " +this.armorValue);
 			
-			list.add(trans("armorTooltip.resistances")+":");
+			if(this.toughness>0) {
+				list.add(ChatFormatting.GRAY+trans("armorTooltip.toughness")+": " + this.toughness);
+			}
+			
+			list.add(ChatFormatting.BLUE+trans("armorTooltip.resistances")+":");
 			//list.add(EnumChatFormatting.DARK_GRAY+" AR:"+this.material.getArmorValueSlot(this.armorType, DamageType.PHYSICAL));
 			this.addArmorvaluesInformation(item, list);
 			

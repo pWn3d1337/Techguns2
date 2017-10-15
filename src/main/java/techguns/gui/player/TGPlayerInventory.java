@@ -10,6 +10,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
+import techguns.capabilities.TGExtendedPlayer;
 
 public class TGPlayerInventory implements IInventory {
 	private static final String name = "TechgunsPlayerInventory";
@@ -70,17 +71,15 @@ public class TGPlayerInventory implements IInventory {
 	public void setInventorySlotContents(int slotid, ItemStack itemstack) {
 		this.inventory.set(slotid, itemstack);
 
-		// TODO ??
-		/*
-		 * if (slotid == SLOT_FACE){
-		 * player.getDataWatcher().updateObject(TechgunsExtendedPlayerProperties
-		 * .DATA_WATCHER_ID_FACESLOT, this.inventory[slotid]); } else if (slotid
-		 * == SLOT_BACK){
-		 * player.getDataWatcher().updateObject(TechgunsExtendedPlayerProperties
-		 * .DATA_WATCHER_ID_BACKSLOT, this.inventory[slotid]); }
-		 */
+		if(slotid == SLOT_FACE) {
+			player.getDataManager().set(TGExtendedPlayer.DATA_FACE_SLOT, itemstack);
+		} else if (slotid== SLOT_BACK) {
+			player.getDataManager().set(TGExtendedPlayer.DATA_BACK_SLOT, itemstack);
+		} else if (slotid == SLOT_HAND) {
+			player.getDataManager().set(TGExtendedPlayer.DATA_HAND_SLOT, itemstack);
+		}
 
-		// this.markDirty();
+		this.markDirty();
 	}
 
 	@Override
