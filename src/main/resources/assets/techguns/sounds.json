@@ -1170,8 +1170,17 @@
         "techguns:effects/impact_dirt-01",
         "techguns:effects/impact_dirt-02",
         "techguns:effects/impact_dirt-03",
-        "techguns:effects/impact_dirt-04",
-        "techguns:effects/impact_dirt-05"
+        "techguns:effects/impact_dirt-04"
+    ]
+},
+
+"guns.impact.rock": {
+    "category": "ambient",
+    "sounds": [
+        "techguns:effects/impact_rock-01",
+        "techguns:effects/impact_rock-02",
+        "techguns:effects/impact_rock-03",
+        "techguns:effects/impact_rock-04"
     ]
 },
 

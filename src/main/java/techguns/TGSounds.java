@@ -156,6 +156,7 @@ public class TGSounds {
 	public static SoundEvent REACTION_CHAMBER_WARNING = createSoundEvent("machines.rc_warning");
 	
 	public static SoundEvent BULLET_IMPACT_BRICKS = createSoundEvent("guns.impact.bricks");
+	public static SoundEvent BULLET_IMPACT_STONE = createSoundEvent("guns.impact.rock");
 	public static SoundEvent BULLET_IMPACT_WOOD = createSoundEvent("guns.impact.wood");
 	public static SoundEvent BULLET_IMPACT_GLASS = createSoundEvent("guns.impact.glass");
 	public static SoundEvent BULLET_IMPACT_METAL = createSoundEvent("guns.impact.metal");

@@ -2,6 +2,316 @@ FXLIST TestFX {
 GoreFX_Blood
 }
 
+FXList Impact_BulletDefault {
+BulletImpactFlare
+BulletImpactSparks
+BulletImpactDust
+}
+
+FXList Impact_BulletDirt {
+BulletImpactFlare
+BulletImpactSparks
+BulletImpactDust
+BulletImpactDirt
+}
+
+FXList Impact_BulletRock {
+BulletImpactFlare
+BulletImpactSparks
+BulletImpactDust
+BulletImpactDebris
+}
+
+FXList Impact_BulletMetal {
+BulletImpactFlare
+BulletImpactSparks
+BulletImpactDust
+BulletImpactSparksExtra
+}
+
+FXList Impact_BulletWood {
+BulletImpactFlare
+BulletImpactSparks
+BulletImpactDust
+BulletImpactDebrisWood
+}
+
+FXList Impact_BulletGlass {
+BulletImpactFlare
+BulletImpactSparks
+BulletImpactDust
+BulletImpactDebrisGlass
+}
+
+//BulletImpactDebris //For Rock
+//BulletImpactDirt //For Dirt
+//BulletImpactSparksExtra //Metal
+//BulletImpactDebrisWood
+//BulletImpactDebrisGlass
+
+BulletImpactSparks {
+Texture = techguns:textures/fx/impactsparks.png
+RenderType = ADDITIVE
+Rows = 2
+Columns = 2
+Frames = 4
+angle = 0 360
+angleRate = -10 10
+angleRateDamping = 0.87 0.89
+Lifetime = 3 4
+SpawnDelay = 9 9
+SystemLifetime = 1 1
+Size = 1.9 3.2
+SizeRate = 0.9 1.2
+SizeRateDamping = 0.9 0.93
+//Alpha = 0 0
+Color = 255 128 0 0
+Color = 0 0 0 1
+ParticleCount = 1 1
+Gravity = 0
+VolumeType = SPHERE
+Volume1 = 0.1
+VelocityType = ORTHO
+Velocity1 = 0 0
+Velocity2 = 0 0
+Velocity3 = 2 3
+VelocityDamping = 0.93 0.95
+InitialDelay = 0 0
+SystemVelocityFactor = 0.0 0.0
+}
+
+BulletImpactFlare {
+Texture = techguns:textures/fx/lensflare1.png
+RenderType = ADDITIVE
+Rows = 1
+Columns = 1
+Frames = 1
+angle = 0 360
+angleRate = -10 10
+angleRateDamping = 0.87 0.89
+Lifetime = 3 3
+SpawnDelay = 9 9
+SystemLifetime = 1 1
+Size = 0.4 0.6
+SizeRate = 0.9 1.2
+SizeRateDamping = 0.9 0.93
+//Alpha = 0 0
+Color = 255 196 128 0
+Color = 0 0 0 1
+ParticleCount = 1 1
+Gravity = 0
+VolumeType = SPHERE
+Volume1 = 0.05
+VelocityType = ORTHO
+Velocity1 = 0 0
+Velocity2 = 0 0
+Velocity3 = 0.6 0.8
+VelocityDamping = 0.93 0.95
+InitialDelay = 0 0
+SystemVelocityFactor = 0.0 0.0
+}
+
+BulletImpactDust {
+Texture = techguns:textures/fx/dustclouds02.png
+RenderType = ALPHA
+Rows = 3
+Columns =3
+Frames = 9
+angle = 0 360
+angleRate = -10 10
+angleRateDamping = 0.94 0.97
+Lifetime = 12 15
+SpawnDelay = 9 9
+SystemLifetime = 1 1
+InitialDelay = 0 0
+Size = 0.2 0.3
+SizeRate = 0.2 0.3
+SizeRateDamping = 0.95 0.96
+Alpha = 0.0 0
+Alpha = 0.75 0.25
+Alpha = 0 1.0
+Color = 255 255 255 0
+Color = 192 168 128 1
+ParticleCount = 2 2
+Gravity = 0.01
+VolumeType = SPHERE
+Volume1 = 0.15
+VelocityType = ORTHO
+Velocity1 = 0 0
+Velocity2 = 0 0
+Velocity3 = 1 2
+VelocityDamping = 0.92 0.94
+}
+
+
+BulletImpactDebris {
+Texture = techguns:textures/fx/debris3x3.png
+RenderType = ALPHA
+Rows = 3
+Columns =3
+Frames = 9
+HasVariations = true
+angle = 0 360
+angleRate = -30 30
+angleRateDamping = 0.98 0.99
+Lifetime = 12 18
+SpawnDelay = 9 9
+SystemLifetime = 1 1
+InitialDelay = 0 0
+Size = 0.05 0.4
+SizeRate = 0.025 0.1
+SizeRateDamping = 0.87 0.9
+Alpha = 0.0 0
+Alpha = 1.0 0.25
+Alpha = 1.0 0.75
+Alpha = 0 1.0
+Color = 128 128 96 0
+//Color = 192 168 128 1
+ParticleCount = 2 3
+Gravity = 0.08
+VolumeType = SPHERE
+Volume1 = 0.15
+VelocityType = ORTHO
+Velocity1 = -1 1
+Velocity2 = -1 1
+Velocity3 = 1 3
+VelocityDamping = 0.88 0.9
+}
+
+BulletImpactDirt {
+Texture = techguns:textures/fx/dirt3x3.png
+RenderType = ALPHA
+Rows = 3
+Columns =3
+Frames = 9
+HasVariations = true
+angle = -90 90
+angleRate = -10 10
+angleRateDamping = 0.94 0.96
+Lifetime = 10 13
+SpawnDelay = 9 9
+SystemLifetime = 1 1
+InitialDelay = 0 0
+Size = 0.15 0.24
+SizeRate = 0.15 0.21
+SizeRateDamping = 0.92 0.94
+Alpha = 0.0 0
+Alpha = 0.75 0.25
+Alpha = 0 1.0
+Color = 128 128 96 0
+//Color = 192 168 128 1
+ParticleCount = 3 4
+Gravity = 0.05
+VolumeType = SPHERE
+Volume1 = 0.1
+VelocityType = ORTHO
+Velocity1 = -1 1
+Velocity2 = -1 1
+Velocity3 = 2 4
+VelocityDamping = 0.88 0.9
+}
+
+BulletImpactSparksExtra {
+Texture = techguns:textures/fx/sparks.png
+RenderType = ADDITIVE
+Rows = 1
+Columns = 1
+Frames = 1
+angle = 0 360
+angleRate = -10 10
+angleRateDamping = 0.87 0.89
+Lifetime = 8 9
+SpawnDelay = 9 9
+SystemLifetime = 1 1
+Size = 1.0 1.5
+SizeRate = 0.4 0.8
+SizeRateDamping = 0.9 0.93
+//Alpha = 0 0
+Color = 0 0 0 0
+Color = 255 255 255 0.25
+//Color = 255 255 255 0.75
+Color = 0 0 0 1
+ParticleCount = 1 1
+Gravity = 0.1
+VolumeType = SPHERE
+Volume1 = 0.15
+VelocityType = ORTHO
+Velocity1 = -1 1
+Velocity2 = -1 1
+Velocity3 = 2 3
+VelocityDamping = 0.93 0.95
+InitialDelay = 0 0
+SystemVelocityFactor = 0.0 0.0
+}
+
+BulletImpactDebrisWood {
+Texture = techguns:textures/fx/debris_wood.png
+RenderType = ALPHA
+Rows = 2
+Columns =2
+Frames = 4
+HasVariations = true
+angle = 0 360
+angleRate = -20 20
+angleRateDamping = 0.98 0.99
+Lifetime = 12 14
+SpawnDelay = 9 9
+SystemLifetime = 1 1
+InitialDelay = 0 0
+Size = 0.2 0.6
+SizeRate = 0.1 0.2
+SizeRateDamping = 0.87 0.9
+Alpha = 0.0 0
+Alpha = 1.0 0.25
+Alpha = 1.0 0.75
+Alpha = 0 1.0
+//Color = 128 128 96 0
+Color = 192 168 128 0
+ParticleCount = 2 2
+Gravity = 0.08
+VolumeType = SPHERE
+Volume1 = 0.05
+VelocityType = ORTHO
+Velocity1 = -1 1
+Velocity2 = -1 1
+Velocity3 = 1 3
+VelocityDamping = 0.88 0.9
+}
+
+BulletImpactDebrisGlass {
+Texture = techguns:textures/fx/debris_glass.png
+RenderType = ALPHA
+Rows = 1
+Columns =1
+Frames = 1
+angle = 0 360
+angleRate = -10 10
+angleRateDamping = 0.92 0.94
+Lifetime = 9 11
+SpawnDelay = 9 9
+SystemLifetime = 1 1
+InitialDelay = 0 0
+Size = 0.1 0.3
+SizeRate = 0.25 0.5
+SizeRateDamping = 0.87 0.9
+Alpha = 0.0 0
+Alpha = 1.0 0.25
+//Alpha = 1.0 0.75
+Alpha = 0 1.0
+Color = 255 255 255 0
+//Color = 192 168 128 1
+ParticleCount = 1 1
+Gravity = 0.05
+VolumeType = SPHERE
+Volume1 = 0.05
+VelocityType = ORTHO
+Velocity1 = -1 1
+Velocity2 = -1 1
+Velocity3 = 1 3
+VelocityDamping = 0.88 0.9
+}
+
+
 FXLIST GaussRifleImpact_Block {
 GaussRifleImpactSpark
 GaussRifleImpactWave
