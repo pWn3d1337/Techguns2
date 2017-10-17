@@ -16,6 +16,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -110,7 +111,6 @@ public class BlockTGDoor3x3<T extends Enum<T> & IStringSerializable> extends Gen
 		return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
 	}
 
-	
 	public boolean hasTileEntity(IBlockState state)
     {
        return state.getValue(MASTER);

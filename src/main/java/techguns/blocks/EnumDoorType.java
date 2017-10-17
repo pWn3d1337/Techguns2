@@ -3,7 +3,8 @@ package techguns.blocks;
 import net.minecraft.util.IStringSerializable;
 
 public enum EnumDoorType implements IStringSerializable {
-	METAL;
+	METAL,
+	HANGAR_UP;
 
 	@Override
 	public String getName() {

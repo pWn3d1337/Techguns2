@@ -6,16 +6,21 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockRendererDispatcher;
 import net.minecraft.client.renderer.BufferBuilder;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GlStateManager.DestFactor;
+import net.minecraft.client.renderer.GlStateManager.SourceFactor;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.client.MinecraftForgeClient;
+import net.minecraftforge.client.model.Attributes;
 import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.client.model.animation.FastTESR;
+import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.common.model.IModelState;
 import net.minecraftforge.common.model.TRSRTransformation;
 import techguns.TGBlocks;
@@ -32,10 +37,16 @@ public class RenderDoor3x3Fast extends FastTESR<Door3x3TileEntity> {
 	protected static final ResourceLocation door_left_loc = new ResourceLocation(Techguns.MODID,"block/techdoor3x3_left");
 	protected static final ResourceLocation door_right_loc = new ResourceLocation(Techguns.MODID,"block/techdoor3x3_right");
 	
+	protected static final ResourceLocation hangar_up_upper_loc = new ResourceLocation(Techguns.MODID,"block/hangar_door_upper.obj");
+	protected static final ResourceLocation hangar_up_mid_loc = new ResourceLocation(Techguns.MODID,"block/hangar_door_mid.obj");
+	protected static final ResourceLocation hangar_up_mid2_loc = new ResourceLocation(Techguns.MODID,"block/hangar_door_mid2.obj");
+	protected static final ResourceLocation hangar_up_mid3_loc = new ResourceLocation(Techguns.MODID,"block/hangar_door_mid3.obj");
+	protected static final ResourceLocation hangar_up_lower_loc = new ResourceLocation(Techguns.MODID,"block/hangar_door_lower.obj");
+	
 	
 	public static IBakedModel loadBakedModel(ResourceLocation model_loc, IModelState transform) {
 		 IModel model = ModelLoaderRegistry.getModelOrLogError(model_loc,"Could not load model:"+model_loc.toString());
-	     return model.bake(transform,DefaultVertexFormats.BLOCK,ModelLoader.defaultTextureGetter());
+	     return model.bake(transform,Attributes.DEFAULT_BAKED_FORMAT,ModelLoader.defaultTextureGetter());
 	}
 	
 	protected static final TRSRTransformation rot90;
@@ -54,6 +65,22 @@ public class RenderDoor3x3Fast extends FastTESR<Door3x3TileEntity> {
 	protected static IBakedModel doorsegment_r;
 	protected static IBakedModel doorsegment_r_90;
 	
+	
+	protected static IBakedModel hangar_up_upper;
+	protected static IBakedModel hangar_up_upper_90;
+	
+	protected static IBakedModel hangar_up_mid;
+	protected static IBakedModel hangar_up_mid_90;
+	
+	protected static IBakedModel hangar_up_mid2;
+	protected static IBakedModel hangar_up_mid2_90;
+	
+	protected static IBakedModel hangar_up_mid3;
+	protected static IBakedModel hangar_up_mid3_90;
+	
+	protected static IBakedModel hangar_up_lower;
+	protected static IBakedModel hangar_up_lower_90;
+	
 	public static void initModels() {
 		doorframe = loadBakedModel(doorframe_loc, TRSRTransformation.identity());
 		doorframe_90 = loadBakedModel(doorframe_loc, rot90);
@@ -63,6 +90,22 @@ public class RenderDoor3x3Fast extends FastTESR<Door3x3TileEntity> {
 		
 		doorsegment_r = loadBakedModel(door_right_loc, TRSRTransformation.identity());
 		doorsegment_r_90 = loadBakedModel(door_right_loc, rot90);
+		
+		
+		hangar_up_upper = loadBakedModel(hangar_up_upper_loc, TRSRTransformation.identity());
+		hangar_up_upper_90 = loadBakedModel(hangar_up_upper_loc, rot90);
+		
+		hangar_up_mid = loadBakedModel(hangar_up_mid_loc, TRSRTransformation.identity());
+		hangar_up_mid_90 = loadBakedModel(hangar_up_mid_loc, rot90);
+		
+		hangar_up_mid2 = loadBakedModel(hangar_up_mid2_loc, TRSRTransformation.identity());
+		hangar_up_mid2_90 = loadBakedModel(hangar_up_mid2_loc, rot90);
+		
+		hangar_up_mid3 = loadBakedModel(hangar_up_mid3_loc, TRSRTransformation.identity());
+		hangar_up_mid3_90 = loadBakedModel(hangar_up_mid3_loc, rot90);
+		
+		hangar_up_lower = loadBakedModel(hangar_up_lower_loc, TRSRTransformation.identity());
+		hangar_up_lower_90 = loadBakedModel(hangar_up_lower_loc, rot90);
 	}
 	
 	@Override
@@ -82,12 +125,37 @@ public class RenderDoor3x3Fast extends FastTESR<Door3x3TileEntity> {
         double py = y-pos.getY();
         double pz = z-pos.getZ();
         
-        IBakedModel model = doorframe;
+        long timestamp = te.getLastStateChangeTime();
+        long diff = System.currentTimeMillis() - timestamp;
+ 
+        float prog = 0;
+        if (diff < 1000) {
+        	prog = diff/1000.0f;
+        }
+        boolean zplane = state.getValue(BlockTGDoor3x3.ZPLANE);
+
+        switch(te.getDoorType()) {
+        case 0:
+        	this.renderDoor0(world, state, buffer, pos, zplane, px, py, pz, prog);
+        	break;
+        case 1:
+        	this.renderDoor1(world, state, buffer, pos, zplane, px, py, pz, prog);
+        	break;
+        }
+      
+        buffer.setTranslation(0, 0, 0);
+	}
+
+
+
+	protected void renderDoor0(IBlockAccess world, IBlockState state, BufferBuilder buffer, BlockPos pos, boolean zplane, double px, double py, double pz, float prog) {
+		
+		IBakedModel model = doorframe;
         IBakedModel model_seg1 = doorsegment_l;
         IBakedModel model_seg2 = doorsegment_r;
         int dx = 1;
         int dz = 0;
-        if(state.getValue(BlockTGDoor3x3.ZPLANE)) {
+        if(zplane) {
         	model = doorframe_90;
         	model_seg1 = doorsegment_l_90;
         	model_seg2 = doorsegment_r_90;
@@ -96,18 +164,9 @@ public class RenderDoor3x3Fast extends FastTESR<Door3x3TileEntity> {
         	dz = 1;
         }
         
-        long timestamp = te.getLastStateChangeTime();
-        long diff = System.currentTimeMillis() - timestamp;
- 
-        float prog = 0;
-        if (diff < 1000) {
-        	prog = diff/1000.0f;
-        }
-        
+        buffer.setTranslation(px,py,pz);
         double distance = 1.125d; //18 pixel
          
-        buffer.setTranslation(px,py,pz);
-
         blockRenderer.getBlockModelRenderer().renderModel(world, model, state, pos, buffer, false);
         	
         if (prog==0.0f) {
@@ -132,7 +191,68 @@ public class RenderDoor3x3Fast extends FastTESR<Door3x3TileEntity> {
         	 buffer.setTranslation(px + ((double)dx*distance*prog), py, pz - ((double)dz*distance*prog));
         	 blockRenderer.getBlockModelRenderer().renderModel(world, model_seg2, state, pos, buffer, false);
         }
-        buffer.setTranslation(0, 0, 0);
 	}
+	/**
+	 * HangarDoor up
+	 */
+	protected void renderDoor1(IBlockAccess world, IBlockState state, BufferBuilder buffer, BlockPos pos, boolean zplane, double px, double py, double pz, float prog) {
+		IBakedModel model_up = hangar_up_upper;
+        IBakedModel model_segment = hangar_up_mid;
+        IBakedModel model_segment2 = hangar_up_mid2;
+        IBakedModel model_segment3 = hangar_up_mid3;
+        IBakedModel model_lower = hangar_up_lower;
+        int dx = 1;
+        int dz = 0;
+        if(zplane) {
+        	model_up = hangar_up_upper_90;
+        	model_segment = hangar_up_mid_90;
+        	model_segment2 = hangar_up_mid2_90;
+        	model_segment3 = hangar_up_mid3_90;
+        	model_lower = hangar_up_lower_90;
+        	pz+=1D;
+        	dx = 0;
+        	dz = 1;
+        } 
+         
+        buffer.setTranslation(px,py,pz);
+        blockRenderer.getBlockModelRenderer().renderModel(world, model_up, state, pos, buffer, false);
+        	
+        if (prog==0.0f) {
+        	 if(state.getValue(BlockTGDoor3x3.OPENED)) {
+        		 //Render opened door
+        		 buffer.setTranslation(px,py+3d,pz);
+        		 blockRenderer.getBlockModelRenderer().renderModel(world, model_lower, state, pos, buffer, false);
+        	 } else {
+        		 //render closed door
+        		 blockRenderer.getBlockModelRenderer().renderModel(world, model_lower, state, pos, buffer, false);
+	        	 blockRenderer.getBlockModelRenderer().renderModel(world, model_segment, state, pos, buffer, false);
+	        	 blockRenderer.getBlockModelRenderer().renderModel(world, model_segment2, state, pos, buffer, false);
+	        	 blockRenderer.getBlockModelRenderer().renderModel(world, model_segment3, state, pos, buffer, false); 
+        	 }
+        } else {
+			if (!state.getValue(BlockTGDoor3x3.OPENED)) {
+				prog = 1.0f - prog;
+			}
 
+			double dist = prog * 3d;
+			buffer.setTranslation(px, py + dist, pz);
+			blockRenderer.getBlockModelRenderer().renderModel(world, model_lower, state, pos, buffer, false);
+			blockRenderer.getBlockModelRenderer().renderModel(world, model_segment, state, pos, buffer, false);
+
+			if(dist<=2d) {
+				buffer.setTranslation(px, py + dist, pz);
+				blockRenderer.getBlockModelRenderer().renderModel(world, model_segment2, state, pos, buffer, false);
+			}
+			if(dist<=1d) {
+				buffer.setTranslation(px, py + dist, pz);
+				blockRenderer.getBlockModelRenderer().renderModel(world, model_segment3, state, pos, buffer, false);
+			}
+        	/*
+        	 buffer.setTranslation(px - ((double)dx*distance*prog), py, pz + ((double)dz*distance*prog));
+        	 blockRenderer.getBlockModelRenderer().renderModel(world, model_seg1, state, pos, buffer, false);
+        	 
+        	 buffer.setTranslation(px + ((double)dx*distance*prog), py, pz - ((double)dz*distance*prog));
+        	 blockRenderer.getBlockModelRenderer().renderModel(world, model_seg2, state, pos, buffer, false);*/
+        }
+	}
 }

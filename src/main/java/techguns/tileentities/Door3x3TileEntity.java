@@ -25,7 +25,7 @@ import techguns.packets.PacketDoorStateChange;
 
 public class Door3x3TileEntity extends BasicRedstoneTileEnt {
 
-	protected int textureType=0;
+	protected int doorType=0;
 	protected long lastStateChangeTime=0L;
 	
 	/**
@@ -49,7 +49,7 @@ public class Door3x3TileEntity extends BasicRedstoneTileEnt {
 	}
 	
 	public int getDoorType() {
-		return 0;
+		return doorType;
 	}
 	
 	@Override
@@ -67,6 +67,10 @@ public class Door3x3TileEntity extends BasicRedstoneTileEnt {
 		return super.getRenderBoundingBox();
 	}
 
+	public void setDoorType(int doorType) {
+		this.doorType = doorType;
+	}
+
 	@Override
 	public ITextComponent getDisplayName() {
 		return new TextComponentTranslation(Techguns.MODID+".container.door3x3", new Object[0]);
@@ -75,7 +79,7 @@ public class Door3x3TileEntity extends BasicRedstoneTileEnt {
 	@Override
 	public void readClientDataFromNBT(NBTTagCompound tags) {
 		super.readClientDataFromNBT(tags);
-		this.textureType=tags.getByte("texturetype");
+		this.doorType=tags.getByte("doortype");
 	//	this.openWithRightClick=tags.getBoolean("openWithRightClick");
 		this.autoClose=tags.getBoolean("autoClose");
 		this.doormode=tags.getByte("doormode");
@@ -85,7 +89,7 @@ public class Door3x3TileEntity extends BasicRedstoneTileEnt {
 	@Override
 	public void writeClientDataToNBT(NBTTagCompound tags) {
 		super.writeClientDataToNBT(tags);
-		tags.setByte("texturetype",(byte) this.textureType);
+		tags.setByte("doortype",(byte) this.doorType);
 	//	tags.setBoolean("openWithRightClick", this.openWithRightClick);
 		tags.setBoolean("autoClose", this.autoClose);
 	//	tags.setBoolean("playerDetector", this.playerDetector);

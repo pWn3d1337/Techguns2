@@ -88,11 +88,9 @@ public class BlockTGOre extends GenericBlock {
 
 	@Override
 	public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> items) {
-		if(tab == this.getCreativeTabToDisplayOn()){
-			for (EnumOreType t : EnumOreType.class.getEnumConstants()) {
-				if (t.isEnabled()) {
-					items.add(new ItemStack(this,1,this.getMetaFromState(getDefaultState().withProperty(ORE_TYPE, t))));
-				}
+		for (EnumOreType t : EnumOreType.class.getEnumConstants()) {
+			if (t.isEnabled()) {
+				items.add(new ItemStack(this,1,this.getMetaFromState(getDefaultState().withProperty(ORE_TYPE, t))));
 			}
 		}
 	}

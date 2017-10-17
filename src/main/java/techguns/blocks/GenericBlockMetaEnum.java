@@ -54,10 +54,8 @@ public class GenericBlockMetaEnum<T extends Enum<T> & IStringSerializable> exten
 	
 	@Override
 	public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> items) {
-		if(tab == this.getCreativeTabToDisplayOn()){
-			for (T t : clazz.getEnumConstants()) {
-				items.add(new ItemStack(this,1,this.getMetaFromState(getDefaultState().withProperty(TYPE, t))));
-			}
+		for (T t : clazz.getEnumConstants()) {
+			items.add(new ItemStack(this,1,this.getMetaFromState(getDefaultState().withProperty(TYPE, t))));
 		}
 	}
 	

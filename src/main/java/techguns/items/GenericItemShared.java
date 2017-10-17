@@ -122,7 +122,7 @@ public class GenericItemShared extends GenericItem implements IItemTGRenderer, I
 
 	@Override
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
-		if(super.isInCreativeTab(tab)){
+		if(this.isInCreativeTab(tab)){
 			for (int i=0;i<this.sharedItems.size();i++){
 				if ( this.sharedItems.get(i).isEnabled()) {
 					items.add(new ItemStack(this,1,i));

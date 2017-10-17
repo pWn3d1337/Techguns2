@@ -415,7 +415,7 @@ public class TGItems implements ITGInitializer{
 		TACTICAL_MASK = new ItemTacticalMask("tacticalmask", 4, 24000);	
 		ANTI_GRAV_PACK = new ItemAntiGravPack("antigravpack", 5, 12000);
 		
-		DOOR3x3 = new ItemTGDoor3x3<EnumDoorType>("item_door3x3");
+		DOOR3x3 = new ItemTGDoor3x3<EnumDoorType>("item_door3x3",EnumDoorType.class);
 		
 		COMBAT_KNIFE = new TGSword(TG_STEEL, "combatknife");
 		CROWBAR = new TGCrowbar(TG_STEEL, "crowbar");

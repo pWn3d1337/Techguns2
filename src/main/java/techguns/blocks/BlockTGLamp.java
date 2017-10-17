@@ -191,10 +191,8 @@ public class BlockTGLamp<T extends Enum<T> & IStringSerializable> extends Generi
 
 	@Override
 	public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> items) {
-		if(tab == this.getCreativeTabToDisplayOn()){
-			for (T t : clazz.getEnumConstants()) {
-				items.add(new ItemStack(this,1,this.getMetaFromState(getDefaultState().withProperty(LAMP_TYPE, t))));
-			}
+		for (T t : clazz.getEnumConstants()) {
+			items.add(new ItemStack(this,1,this.getMetaFromState(getDefaultState().withProperty(LAMP_TYPE, t))));
 		}
 	}
 
