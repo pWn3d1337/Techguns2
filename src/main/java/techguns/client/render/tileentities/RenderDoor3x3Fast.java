@@ -10,6 +10,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.GlStateManager.DestFactor;
 import net.minecraft.client.renderer.GlStateManager.SourceFactor;
 import net.minecraft.client.renderer.block.model.IBakedModel;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -80,6 +81,11 @@ public class RenderDoor3x3Fast extends FastTESR<Door3x3TileEntity> {
 	
 	protected static IBakedModel hangar_up_lower;
 	protected static IBakedModel hangar_up_lower_90;
+	
+	public static void stitchTextures(TextureMap map) {
+		map.registerSprite(new ResourceLocation(Techguns.MODID,"blocks/techdoor3x3"));
+		map.registerSprite(new ResourceLocation(Techguns.MODID,"blocks/hangar_door"));
+	}
 	
 	public static void initModels() {
 		doorframe = loadBakedModel(doorframe_loc, TRSRTransformation.identity());

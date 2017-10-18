@@ -36,7 +36,10 @@ import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.fml.common.network.NetworkRegistry.TargetPoint;
@@ -355,7 +358,7 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 	 * @param stack
 	 */
 	public boolean gunSecondaryAction(EntityPlayer player, ItemStack stack) {
-		if (player.world.isRemote && canZoom  && this.toggleZoom && !player.isSneaking() && !ShooterValues.getPlayerIsReloading(player, false)) {
+		if (player.world.isRemote && canZoom  && this.toggleZoom && !ShooterValues.getPlayerIsReloading(player, false)) {
 			ClientProxy cp = ClientProxy.get();
 			if (cp.player_zoom != 1.0f) {
 				cp.player_zoom= 1.0f;
@@ -364,7 +367,7 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 			}
 			return true;
     	}
-		return (this.getGunHandType() == GunHandType.TWO_HANDED); //Block the mouse click if two-handed gun
+		return false; //(this.getGunHandType() == GunHandType.TWO_HANDED); //Block the mouse click if two-handed gun
 	}
 
 	@Override
@@ -382,11 +385,21 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
-		if(this.getGunHandType() == GunHandType.TWO_HANDED) {
-			return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, playerIn.getHeldItem(handIn));
+		/*if(this.getGunHandType() == GunHandType.TWO_HANDED) {
+			if (this.canClickBlock(worldIn, playerIn, handIn)) {
+				System.out.println("PASS!");
+				return new ActionResult<ItemStack>(EnumActionResult.PASS, playerIn.getHeldItem(handIn));
+			} else {
+				return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, playerIn.getHeldItem(handIn));
+			}
 		} else {
 			return new ActionResult<ItemStack>(EnumActionResult.PASS, playerIn.getHeldItem(handIn));
-		}
+		}*/
+		/*if (this.gunSecondaryAction(playerIn, playerIn.getHeldItem(handIn))) {
+			return new ActionResult<ItemStack>(EnumActionResult.PASS, playerIn.getHeldItem(handIn));
+		}*/
+		this.gunSecondaryAction(playerIn, playerIn.getHeldItem(handIn));
+		return new ActionResult<ItemStack>(EnumActionResult.PASS, playerIn.getHeldItem(handIn));
 	}
 
 	public ItemStack getReloadItem(ItemStack stack) {
@@ -1438,4 +1451,19 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 		return clipsize;
 	}
 	
+	@Override
+	public boolean doesSneakBypassUse(ItemStack stack, IBlockAccess world, BlockPos pos, EntityPlayer player) {
+		return !(this.handType == GunHandType.TWO_HANDED);
+	}
+
+	public boolean canClickBlock(World world, EntityPlayer player, EnumHand hand) {
+		 //ItemStack itemstack = player.getHeldItem(hand);
+	     RayTraceResult raytraceresult = this.rayTrace(world, player, false);
+	    
+	     if (raytraceresult==null || raytraceresult.typeOfHit!=RayTraceResult.Type.BLOCK) {
+	    	 return false;
+	     }
+	    
+	     return true;
+	}
 }

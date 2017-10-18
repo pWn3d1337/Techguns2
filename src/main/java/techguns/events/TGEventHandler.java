@@ -17,6 +17,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumHandSide;
 import net.minecraft.util.ResourceLocation;
@@ -35,9 +36,11 @@ import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerDropsEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Optional;
+import net.minecraftforge.fml.common.eventhandler.Event.Result;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
@@ -47,6 +50,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import techguns.TGConfig;
 import techguns.TGPackets;
 import techguns.Techguns;
+import techguns.api.guns.GunHandType;
 import techguns.api.guns.GunManager;
 import techguns.api.guns.IGenericGun;
 import techguns.api.npc.INpcTGDamageSystem;
@@ -108,18 +112,21 @@ public class TGEventHandler {
 						}
 		
 					}
-				} else if (event.getButton() == 1 && !GunManager.canUseOffhand(ply)) {
+				} /*else if (event.getButton() == 1 && !GunManager.canUseOffhand(ply)) {
 					if(!ply.getHeldItemMainhand().isEmpty()&&ply.getHeldItemMainhand().getItem() instanceof GenericGunCharge) {
 						//Charging gun is allowed
 					} else if (!ply.getHeldItemMainhand().isEmpty() && ply.getHeldItemMainhand().getItem() instanceof GenericGun){
+						GenericGun g = (GenericGun) ply.getHeldItemMainhand().getItem();
+						
 						//Cancel and call secondary action
-						if (event.isButtonstate()) {
-							boolean use = ((GenericGun)ply.getHeldItemMainhand().getItem()).gunSecondaryAction(ply, ply.getHeldItemMainhand());
+						if (!ply.isSneaking() && event.isButtonstate()) {
+							boolean use = g.gunSecondaryAction(ply, ply.getHeldItemMainhand());
 							event.setCanceled(use);
 						}
+					
 					}
 					
-				} else if (event.getButton() == 1 && !ply.isSneaking() && !ply.getHeldItemOffhand().isEmpty() && ply.getHeldItemOffhand().getItem() instanceof IGenericGun) {
+				} */ else if (event.getButton() == 1 && !ply.isSneaking() && !ply.getHeldItemOffhand().isEmpty() && ply.getHeldItemOffhand().getItem() instanceof IGenericGun && GunManager.canUseOffhand(ply)) {
 					
 					ClientProxy cp = ClientProxy.get();
 					
@@ -139,8 +146,61 @@ public class TGEventHandler {
 					}
 
 				}
+				
+				//System.out.println("EVENT CANCELLED: "+event.isCanceled());
+				
 			}
 		}
+	}
+	
+	
+	protected static boolean allowOffhandUse(EntityPlayer player, EnumHand hand) {
+		if (hand == EnumHand.MAIN_HAND) return true;
+		if(!player.getHeldItemMainhand().isEmpty() && player.getHeldItemMainhand().getItem() instanceof IGenericGun) {
+			IGenericGun g = (IGenericGun) player.getHeldItemMainhand().getItem();
+			if(g.getGunHandType()==GunHandType.TWO_HANDED) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	@SubscribeEvent(priority=EventPriority.HIGH, receiveCanceled=false)
+	public static void rightClickEvent(PlayerInteractEvent.RightClickItem event) {
+		boolean cancel = !allowOffhandUse(event.getEntityPlayer(), event.getHand());
+		if (cancel) {
+			event.setCanceled(cancel);
+			event.setCancellationResult(EnumActionResult.PASS);
+		}
+		//System.out.println("Right Click Item:"+event.getEntityPlayer()+" "+event.getHand());
+	}
+	
+	@SubscribeEvent(priority=EventPriority.HIGH, receiveCanceled=false)
+	public static void rightClickEvent(PlayerInteractEvent.RightClickBlock event) {
+		boolean cancel = !allowOffhandUse(event.getEntityPlayer(), event.getHand());
+		if (cancel) {
+			event.setCanceled(cancel);
+			event.setUseBlock(Result.ALLOW);
+			event.setUseItem(Result.DENY);
+			event.setCancellationResult(EnumActionResult.PASS);
+		} else if (event.getHand() == EnumHand.MAIN_HAND){
+			
+			EntityPlayer ply = event.getEntityPlayer();
+			if(ply.isSneaking() && !ply.getHeldItemOffhand().isEmpty() && (ply.getHeldItemOffhand().getItem() instanceof GenericGun) && (!event.getItemStack().isEmpty() && !(event.getItemStack().getItem() instanceof GenericGun)) ) {
+				event.setUseBlock(Result.ALLOW);
+			}
+			
+		}
+	}
+	
+	@SubscribeEvent(priority=EventPriority.HIGH, receiveCanceled=false)
+	public static void rightClickEvent(PlayerInteractEvent.EntityInteract event) {
+		boolean cancel = !allowOffhandUse(event.getEntityPlayer(), event.getHand());
+		if (cancel) {
+			event.setCanceled(cancel);
+			event.setCancellationResult(EnumActionResult.PASS);
+		}
+		//System.out.println("EntityInteract:"+event.getEntityPlayer()+" "+event.getHand());
 	}
 	
 	
@@ -386,7 +446,7 @@ public class TGEventHandler {
 		event.getMap().registerSprite(SlotTG.INGOTSLOT_TEX);
 		event.getMap().registerSprite(SlotTG.INGOTDARKSLOT_TEX);
 		
-		event.getMap().registerSprite(new ResourceLocation(Techguns.MODID,"blocks/techdoor3x3"));
+		RenderDoor3x3Fast.stitchTextures(event.getMap());
 	}
 
 	@SideOnly(Side.CLIENT)

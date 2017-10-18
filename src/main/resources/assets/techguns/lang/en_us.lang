@@ -531,3 +531,4 @@ item.techguns.tacticalnukewarhead.name=Small Nuclear Warhead
 item.techguns.item_door3x3.name=Techdoor
 tile.techguns.tg_spawner.0.name=Monster Hole
 techguns.block.hasTileEntityData=Has TileEntity Data
+tile.techguns.bioblob.0.name=Bioblob
