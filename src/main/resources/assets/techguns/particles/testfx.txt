@@ -2,6 +2,363 @@ FXLIST TestFX {
 GoreFX_Blood
 }
 
+FXList Impact_IncendiaryBullet {
+IncendiaryBulletImpactFlare
+IncendiaryBulletImpactSparks
+IncendiaryBulletImpactSparksExtra
+IncendiaryBulletImpactFlames
+IncendiaryBulletImpactRicochet
+}
+
+
+IncendiaryBulletImpactSparks {
+Texture = techguns:textures/fx/impactsparks.png
+RenderType = ADDITIVE
+Rows = 2
+Columns = 2
+Frames = 4
+angle = 0 360
+angleRate = -10 10
+angleRateDamping = 0.87 0.89
+Lifetime = 4 5
+SpawnDelay = 9 9
+SystemLifetime = 1 1
+Size = 1.9 3.2
+SizeRate = 1.9 2.2
+SizeRateDamping = 0.9 0.93
+Alpha = 1 0
+Alpha = 0 1
+Color = 255 192 128 0
+//Color = 0 0 0 1
+ParticleCount = 1 1
+Gravity = 0
+VolumeType = SPHERE
+Volume1 = 0.1
+VelocityType = ORTHO
+Velocity1 = 0 0
+Velocity2 = 0 0
+Velocity3 = 2 3
+VelocityDamping = 0.93 0.95
+InitialDelay = 0 0
+SystemVelocityFactor = 0.0 0.0
+}
+
+IncendiaryBulletImpactFlare {
+Texture = techguns:textures/fx/lensflare1.png
+RenderType = ADDITIVE
+Rows = 1
+Columns = 1
+Frames = 1
+angle = 0 360
+angleRate = -10 10
+angleRateDamping = 0.87 0.89
+Lifetime = 3 4
+SpawnDelay = 9 9
+SystemLifetime = 1 1
+Size = 1.4 1.6
+SizeRate = 1.9 2.2
+SizeRateDamping = 0.88 0.9
+Alpha = 0 0
+Alpha = 1 0.25
+Alpha = 0 1
+Color = 255 196 128 0
+//Color = 0 0 0 1
+ParticleCount = 1 1
+Gravity = 0
+VolumeType = SPHERE
+Volume1 = 0.05
+VelocityType = ORTHO
+Velocity1 = 0 0
+Velocity2 = 0 0
+Velocity3 = 0.6 0.8
+VelocityDamping = 0.93 0.95
+InitialDelay = 0 0
+SystemVelocityFactor = 0.0 0.0
+}
+
+IncendiaryBulletImpactSparksExtra {
+Texture = techguns:textures/fx/sparks.png
+RenderType = ADDITIVE
+Rows = 1
+Columns = 1
+Frames = 1
+angle = 0 360
+angleRate = -10 10
+angleRateDamping = 0.87 0.89
+Lifetime = 10 12
+SpawnDelay = 9 9
+SystemLifetime = 1 1
+Size = 1 2
+SizeRate = 1 2
+SizeRateDamping = 0.85 0.88
+//Alpha = 0 0
+Color = 0 0 0 0
+Color = 255 255 255 0.25
+//Color = 255 255 255 0.75
+Color = 0 0 0 1
+ParticleCount = 1 1
+Gravity = 0.1
+VolumeType = SPHERE
+Volume1 = 0.15
+VelocityType = ORTHO
+Velocity1 = -1 1
+Velocity2 = -1 1
+Velocity3 = 3 5
+VelocityDamping = 0.92 0.95
+InitialDelay = 0 0
+SystemVelocityFactor = 0.0 0.0
+}
+
+IncendiaryBulletImpactFlames {
+Texture = techguns:textures/fx/flames1.png
+RenderType = ADDITIVE
+Rows = 6
+Columns = 6
+Frames = 36
+//HasVariations = true
+AnimationSpeed = 0.2 0.3
+angle = -45 45
+angleRate = -10 10
+angleRateDamping = 0.87 0.89
+Lifetime = 9 12
+SystemLifetime = 1 1
+Size = 0.2 0.4
+SizeRate = 0.2 0.4
+SizeRateDamping = 0.9 0.93
+//StartSizeRate = 0.9 1.2
+Alpha = 0 0
+Alpha = 0.75 0.25
+Alpha = 0 1
+//Color = 0 0 0 0
+Color = 255 255 255 0
+//Color = 0 0 0 1
+ParticleCount = 1 1
+InitialDelay = 0 0
+SpawnDelay = 0 0
+VelocityType = ORTHO
+Velocity1 = -1 1
+Velocity2 = -1 1
+Velocity3 = 2 4
+VelocityDamping = 0.84 0.86
+Gravity = -0.015
+VolumeType = POINT
+SystemVelocityFactor = 0 0
+}
+
+IncendiaryBulletImpactRicochet {
+Texture = techguns:textures/fx/lensflare1.png
+RenderType = ADDITIVE
+Rows = 1
+Columns = 1
+Frames = 1
+angle = 0 360
+angleRate = -10 10
+angleRateDamping = 0.87 0.89
+Lifetime = 5 6
+SpawnDelay = 9 9
+SystemLifetime = 1 1
+Size = 1.4 1.6
+SizeRate = 0.2 0.4
+SizeRateDamping = 0.88 0.9
+Alpha = 0 0
+Alpha = 1 0.25
+Alpha = 1 0.75
+Alpha = 0 1
+Color = 255 196 128 0
+//Color = 0 0 0 1
+ParticleCount = 1 1
+Gravity = 0.2
+VolumeType = SPHERE
+Volume1 = 0.05
+VelocityType = ORTHO
+Velocity1 = -3 3
+Velocity2 = -3 3
+Velocity3 = 4 9
+VelocityDamping = 0.93 0.96
+InitialDelay = 0 0
+SystemVelocityFactor = 0.0 0.0
+AttachedSystem = IncendiaryBulletImpactRicochetTrail
+}
+
+IncendiaryBulletImpactRicochetTrail {
+Texture = techguns:textures/fx/missiletrail01.png
+RenderType = ADDITIVE
+Streak = true
+Lifetime = 4 5
+SpawnDelay = 0 0
+SystemLifetime = 4 5
+Size = 0.40 0.55
+SizeRate = -0.1 -0.125
+SizeRateDamping = 0.98 0.99
+//StartSizeRate = 0.25 0.25
+Alpha = 0 0
+Alpha = 1 0.125
+Alpha = 0 1
+Color = 255 128 64 0
+//Color = 0 0 0 1
+ParticleCount = 1 1
+Gravity = 0.0
+VolumeType = POINT
+VelocityType = SPHERICAL
+Velocity1 = 0 0.1
+VelocityDamping = 0.92 0.93
+InitialDelay = 0 0
+offset = 0 0 0
+}
+
+FXLIST IncendiaryShotgunTrail {
+IncendiaryShotgunTrailFlames
+IncendiaryShotgunTrailTrail
+IncendiaryShotgunTrailSparks
+IncendiaryShotgunTrailSparks2
+IncendiaryShotgunTrailFlare
+}
+
+
+IncendiaryShotgunTrailFlames {
+Texture = techguns:textures/fx/flames1.png
+RenderType = ADDITIVE
+Rows = 6
+Columns = 6
+Frames = 36
+HasVariations = true
+//AnimationSpeed = 0.2 0.3
+angle = -45 45
+angleRate = -10 10
+angleRateDamping = 0.87 0.89
+Lifetime = 7 8
+SystemLifetime = 3 3
+Size = 0.1 0.2
+SizeRate = 0.1 0.2
+SizeRateDamping = 0.87 0.9
+StartSizeRate = 0.9 1.2
+Alpha = 0 0
+Alpha = 0.5 0.25
+Alpha = 0 1
+//Color = 0 0 0 0
+Color = 255 255 255 0
+//Color = 0 0 0 1
+ParticleCount = 1 1
+InitialDelay = 0 1
+SpawnDelay = 0 0
+VelocityType = SPHERICAL
+Velocity1 = 0 1
+VelocityDamping = 0.84 0.86
+Gravity = -0.02
+VolumeType = POINT
+SystemVelocityFactor = 0.25 0.5
+}
+
+IncendiaryShotgunTrailTrail {
+Texture = techguns:textures/fx/missiletrail01.png
+RenderType = ADDITIVE
+Streak = true
+Lifetime = 5 7
+SpawnDelay = 0 0
+SystemLifetime = 0 0
+Size = 0.20 0.25
+SizeRate = -0.1 -0.125
+SizeRateDamping = 0.98 0.99
+StartSizeRate = 0.25 0.25
+Alpha = 0 0
+Alpha = 1 0.125
+Alpha = 0 1
+Color = 255 128 64 0
+//Color = 0 0 0 1
+ParticleCount = 1 1
+Gravity = 0.0
+VolumeType = POINT
+VelocityType = SPHERICAL
+Velocity1 = 0 0.1
+VelocityDamping = 0.92 0.93
+InitialDelay = 0 0
+offset = 0 0 0
+}
+
+IncendiaryShotgunTrailSparks {
+Texture = techguns:textures/fx/sparks.png
+RenderType = ADDITIVE
+angle = 0 360
+angleRate = -5 5
+angleRateDamping = 0.82 0.84
+Lifetime = 8 12
+SystemLifetime = 2 2
+Size = 0.5 0.8
+SizeRate = 1 2
+SizeRateDamping = 0.85 0.94
+Alpha = 0.75 0
+Color = 0 0 0 0
+Color = 255 255 255 0.25
+Color = 0 0 0 1
+ParticleCount = 1 1
+InitialDelay = 0 1
+SpawnDelay = 0 0
+VelocityType = SPHERICAL
+Velocity1 = 0 2
+VelocityDamping = 0.84 0.86
+Gravity = 0.03
+VolumeType = POINT
+SystemVelocityFactor = 0.25 0.5
+}
+
+IncendiaryShotgunTrailSparks2 {
+Texture = techguns:textures/fx/impactsparks.png
+RenderType = ADDITIVE
+Rows = 2
+Columns = 2
+Frames = 4
+angle = 0 360
+angleRate = -10 10
+angleRateDamping = 0.87 0.89
+Lifetime = 5 6
+SpawnDelay = 0 0
+SystemLifetime = 1 1
+Size = 3 4
+SizeRate = 0.9 1.2
+SizeRateDamping = 0.9 0.93
+//Alpha = 0 0
+Color = 255 128 0 0
+Color = 0 0 0 1
+ParticleCount = 1 1
+Gravity = 0
+VolumeType = SPHERE
+Volume1 = 0.1
+VelocityType = SPHERICAL
+Velocity1 = 0.0 0.25
+VelocityDamping = 0.93 0.95
+InitialDelay = 1 1
+SystemVelocityFactor = 0.75 0.8
+}
+
+IncendiaryShotgunTrailFlare {
+Texture = techguns:textures/fx/lensflare1.png
+RenderType = ADDITIVE
+angle = 0 360
+angleRate = -10 10
+angleRateDamping = 0.87 0.89
+Lifetime = 3 3
+SpawnDelay = 0 0
+SystemLifetime = 0 0
+Size = 2 2
+SizeRate = 2 4
+SizeRateDamping = 0.9 0.93
+Alpha = 1 0
+Alpha = 0 1
+Color = 255 170 128 0
+//Color = 0 0 0 1
+ParticleCount = 1 1
+Gravity = 0
+VolumeType = SPHERE
+Volume1 = 0.1
+VelocityType = SPHERICAL
+Velocity1 = 0.0 0.25
+VelocityDamping = 0.93 0.95
+InitialDelay = 1 1
+SystemVelocityFactor = 0.75 0.8
+}
+
+//---------------------------------
+
 FXList Impact_BulletDefault {
 BulletImpactFlare
 BulletImpactSparks

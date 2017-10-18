@@ -190,7 +190,7 @@ public class TGParticle extends Particle implements ITGParticle {
 		/* ------------
 		 * SIZE
 		 */
-		size += sizeRate;
+		size = Math.max(0.0f, size+sizeRate);
 		sizeRate *= sizeRateDamping;
 		
 		/*
