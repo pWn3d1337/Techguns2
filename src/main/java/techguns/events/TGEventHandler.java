@@ -32,6 +32,8 @@ import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.player.PlayerDropsEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import net.minecraftforge.fml.common.Mod;
@@ -47,6 +49,7 @@ import techguns.TGPackets;
 import techguns.Techguns;
 import techguns.api.guns.GunManager;
 import techguns.api.guns.IGenericGun;
+import techguns.api.npc.INpcTGDamageSystem;
 import techguns.api.tginventory.ITGSpecialSlot;
 import techguns.api.tginventory.TGSlotType;
 import techguns.capabilities.TGExtendedPlayer;
@@ -222,6 +225,22 @@ public class TGEventHandler {
 			} catch (IllegalArgumentException e) {
 				e.printStackTrace();
 			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+			} catch (InvocationTargetException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	@SubscribeEvent(priority=EventPriority.HIGH, receiveCanceled=false)
+	public static void onLivingHurt(LivingHurtEvent event) {
+		if(event.getEntity() instanceof INpcTGDamageSystem) {
+			event.setCanceled(true);
+			try {
+				DamageSystem.livingHurt(event.getEntityLiving(), event.getSource(), event.getAmount());
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+			} catch (IllegalArgumentException e) {
 				e.printStackTrace();
 			} catch (InvocationTargetException e) {
 				e.printStackTrace();
@@ -490,6 +509,31 @@ public class TGEventHandler {
 
 		
 	}
+	
+	@SubscribeEvent(priority=EventPriority.NORMAL, receiveCanceled=false)
+	public static void onPlayerDrops(PlayerDropsEvent event){
+		EntityPlayer ply = event.getEntityPlayer();
+		TGExtendedPlayer props = TGExtendedPlayer.get(ply);
+		
+		if(props!=null){
+			
+			ply.captureDrops=true;
+			
+			props.dropInventory(ply);
+			
+			ply.captureDrops=false;
+					
+		}	
+		
+	}
+	
+	@SubscribeEvent
+	public static void damageTest(LivingHurtEvent event) {
+		if (event.getEntityLiving() instanceof EntityPlayer) {
+			System.out.println("Attacking"+event.getEntityLiving()+" for "+event.getAmount() +" with "+event.getSource());
+		}
+	}
+	
 	
 	@Optional.Method(modid="albedo")
 	@SideOnly(Side.CLIENT)

@@ -3,6 +3,7 @@ package techguns.items;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -10,6 +11,7 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.IStringSerializable;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -19,13 +21,24 @@ import techguns.tileentities.Door3x3TileEntity;
 public class ItemTGDoor3x3<T extends Enum<T> & IStringSerializable> extends GenericItem {
 
 	protected BlockTGDoor3x3<T> block;
+	protected Class<T> clazz;
 	
-	public ItemTGDoor3x3(String name) {
+	public ItemTGDoor3x3(String name, Class<T> clazz) {
 		super(name);
+		this.clazz=clazz;
 	}
 	
 	public void setBlock(BlockTGDoor3x3<T> block) {
 		this.block = block;
+	}
+
+	@Override
+	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
+		if(this.isInCreativeTab(tab)) {
+			for(int i=0; i<this.clazz.getEnumConstants().length;i++) {
+				items.add(new ItemStack(this,1,i));
+			}	
+		}
 	}
 
 	/**
@@ -101,6 +114,7 @@ public class ItemTGDoor3x3<T extends Enum<T> & IStringSerializable> extends Gene
     	if(tile!=null && tile instanceof Door3x3TileEntity) {
     		Door3x3TileEntity door = (Door3x3TileEntity) tile;
     		door.setOwner(player);
+    		door.setDoorType(meta);
     	}
     }
 }

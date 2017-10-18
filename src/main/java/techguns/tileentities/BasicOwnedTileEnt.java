@@ -88,6 +88,15 @@ public class BasicOwnedTileEnt extends BasicInventoryTileEnt implements ITGTileE
 		}
 	}
 
+	
+	
+	
+	@Override
+	public void writeNBTforDismantling(NBTTagCompound compound) {
+		super.writeNBTforDismantling(compound);
+		compound.removeTag("owner");
+	}
+
 	@Override
 	public void buttonClicked(int id, EntityPlayer ply, String data) {
 		if (id==BUTTON_ID_SECURITY &&(this.isOwnedByPlayer(ply))){

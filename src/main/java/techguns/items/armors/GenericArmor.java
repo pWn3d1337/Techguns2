@@ -108,9 +108,6 @@ public class GenericArmor extends ItemArmor implements ISpecialArmor , IItemTGRe
 	    //techgunArmors.add(this);
 	}
 	
-	/*public static double getArmorCap(DamageType damageType){
-		return ARMOR_CAP;
-	}*/
 	
 	/**
 	 * SteamArmor (0,1)
@@ -340,33 +337,6 @@ public class GenericArmor extends ItemArmor implements ISpecialArmor , IItemTGRe
 			model.isRiding = entityLiving.isRiding();
 			model.isChild = entityLiving.isChild();
 			
-			//model.leftArmPose = _default.leftArmPose;
-			//model.rightArmPose = _default.rightArmPose;
-			
-			//model.swingProgress = _default.swingProgress;
-			
-			/*model.heldItemRight = entityLiving.getEquipmentInSlot(0) != null ? 1 :0;
-			if(entityLiving instanceof EntityPlayer){
-				ItemStack stack=entityLiving.getHeldItem();
-				if(stack!=null && stack.getItem() instanceof GenericGun){
-					model.aimedBow=true;
-				} else {			            
-					model.aimedBow =((EntityPlayer)entityLiving).getItemInUseDuration() > 2 && ((EntityPlayer)entityLiving).getItemInUse().getItemUseAction() == EnumAction.bow;
-				}
-				
-				if (stack != null && stack.getItemUseAction() == EnumAction.block && ((EntityPlayer)entityLiving).getItemInUseCount()>0){
-					model.heldItemRight = 3;
-				}
-				
-			} else if (entityLiving instanceof GenericNPC){
-				
-				if (((GenericNPC)entityLiving).getHasAimedBowAnim()){
-					ItemStack stack=entityLiving.getHeldItem();
-					if(stack!=null && stack.getItem() instanceof GenericGun){
-						model.aimedBow=true;
-					}
-				}
-			}*/
 			return model;
 		}
 		return null;
@@ -382,7 +352,7 @@ public class GenericArmor extends ItemArmor implements ISpecialArmor , IItemTGRe
 		EntityEquipmentSlot slot = this.armorType;
 		
 		if (this.getPenetrationResistance()>0.0f){
-			list.add(ChatFormatting.DARK_GRAY+trans("armorTooltip.penetrationResistance")+" "+formatArmor.format(this.getPenetrationResistance()*100)+"%");
+			list.add(" "+ChatFormatting.GRAY+trans("armorTooltip.penetrationResistance")+": "+formatArmor.format(this.getPenetrationResistance()));
 		}
 		
 		list.add(ChatFormatting.DARK_GRAY+" AR: "+formatAV(this.material.getArmorValueSlot(slot, DamageType.PHYSICAL),DamageType.PHYSICAL));
@@ -407,7 +377,11 @@ public class GenericArmor extends ItemArmor implements ISpecialArmor , IItemTGRe
 			list.add(trans("armorTooltip.durability")+": "+(item.getMaxDamage()-item.getItemDamage())+"/"+(item.getMaxDamage()));
 			//list.add(trans("armorTooltip.armorvalue")+": " +this.armorValue);
 			
-			list.add(trans("armorTooltip.resistances")+":");
+			if(this.toughness>0) {
+				list.add(ChatFormatting.GRAY+trans("armorTooltip.toughness")+": " + this.toughness);
+			}
+			
+			list.add(ChatFormatting.BLUE+trans("armorTooltip.resistances")+":");
 			//list.add(EnumChatFormatting.DARK_GRAY+" AR:"+this.material.getArmorValueSlot(this.armorType, DamageType.PHYSICAL));
 			this.addArmorvaluesInformation(item, list);
 			
@@ -524,16 +498,16 @@ public class GenericArmor extends ItemArmor implements ISpecialArmor , IItemTGRe
 	
 	
 	public GenericArmor setRepairMats(ItemStack metal, ItemStack cloth, float metalpercent, int totalmats){
-		if(metal!=null){
+		if(metal!=null && !metal.isEmpty()){
 			this.repairItem = TGItems.newStack(metal, 1);
-		} else if (cloth!=null){
+		} else if (cloth!=null && !cloth.isEmpty()){
 			this.repairItem = TGItems.newStack(cloth, 1);
 		}
 		
-		if(metal!=null){
+		if(metal!=null && !metal.isEmpty()){
 			this.repairMatMetal=TGItems.newStack(metal, 1);
 		}
-		if(cloth!=null){
+		if(cloth!=null && !cloth.isEmpty()){
 			this.repairMatCloth=TGItems.newStack(cloth, 1);
 		}
 		this.repairMatCount=totalmats;

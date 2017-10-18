@@ -39,15 +39,13 @@ import techguns.tools.ItemJsonCreator;
 public class TGItems implements ITGInitializer{
 
 	/**
-	 * TODO
-	 * DISABLE THIS BEFORE RELEASE
+	 * TODO DISABLE THIS BEFORE RELEASE
 	 */
-	public static boolean WRITE_ITEM_JSON = true;
+	public static boolean WRITE_ITEM_JSON = false;
 	/**
-	 * TODO
-	 * DISABLE THIS BEFORE RELEASE
+	 * TODO DISABLE THIS BEFORE RELEASE
 	 */
-	public static boolean WRITE_RECIPES = true;
+	public static boolean WRITE_RECIPES = false;
 	
 	
 	public static final ArrayList<GenericItem> ITEMLIST = new ArrayList<>();
@@ -415,7 +413,7 @@ public class TGItems implements ITGInitializer{
 		TACTICAL_MASK = new ItemTacticalMask("tacticalmask", 4, 24000);	
 		ANTI_GRAV_PACK = new ItemAntiGravPack("antigravpack", 5, 12000);
 		
-		DOOR3x3 = new ItemTGDoor3x3<EnumDoorType>("item_door3x3");
+		DOOR3x3 = new ItemTGDoor3x3<EnumDoorType>("item_door3x3",EnumDoorType.class);
 		
 		COMBAT_KNIFE = new TGSword(TG_STEEL, "combatknife");
 		CROWBAR = new TGCrowbar(TG_STEEL, "crowbar");

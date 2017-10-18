@@ -254,21 +254,25 @@ public class GenericNPC extends EntityMob implements IRangedAttackMob, INPCTechg
 	    			
 	    			EnumDifficulty difficulty = this.world.getDifficulty();
 	    	    	float acc=1.0f;
+	    	    	float dmg=1.0f;
 	    	    	switch(difficulty){
 	    	    		case EASY:
 	    	    			acc=1.3f;
+	    	    			dmg=0.6f;
 	    	    			break;
 	    	    		case NORMAL:
 	    	    			acc = 1.15f;
+	    	    			dmg = 0.8f;
 	    	    			break;
 	    	    		case HARD:
 	    	    			acc = 1.0f;
+	    	    			dmg = 1.0f;
 	    	    			break;
 						default:
 							break;
 	    	    	}
 	    			
-	    			((GenericGun) gun).fireWeaponFromNPC(this,0.5f,acc);
+	    			((GenericGun) gun).fireWeaponFromNPC(this,dmg,acc);
 	    		}
 		
 	    	}
@@ -325,7 +329,7 @@ public class GenericNPC extends EntityMob implements IRangedAttackMob, INPCTechg
 			//ItemStack[] inv = new ItemStack[]{this.getEquipmentInSlot(1),this.getEquipmentInSlot(2),this.getEquipmentInSlot(3),this.getEquipmentInSlot(4)};
 			float totalArmor=0.0f;
 			for (ItemStack stack: inv){
-				if(stack!=null && stack.getItem() instanceof ItemArmor){
+				if(!stack.isEmpty() && stack.getItem() instanceof ItemArmor){
 					
 					if(stack.getItem() instanceof GenericArmor){
 						GenericArmor genArmor = (GenericArmor) stack.getItem();
@@ -345,7 +349,36 @@ public class GenericNPC extends EntityMob implements IRangedAttackMob, INPCTechg
 
 		@Override
 		public float getPenetrationResistance(TGDamageSource dmgsrc) {
-			return 0.0f;
+			Iterable<ItemStack> inv = this.getArmorInventoryList();
+			float res=0.0f;
+			for (ItemStack stack: inv){
+				if(!stack.isEmpty() && stack.getItem() instanceof GenericArmor){	
+					GenericArmor genArmor = (GenericArmor) stack.getItem();
+					float antipen = genArmor.getPenetrationResistance();
+					res+=antipen;
+				}
+			}
+			return res;
+		}
+
+		
+		
+		@Override
+		public float getToughnessAfterPentration(EntityLivingBase elb, TGDamageSource src) {
+			Iterable<ItemStack> inv = this.getArmorInventoryList();
+			float t=0.0f;
+			for (ItemStack stack: inv){
+				if(!stack.isEmpty() && stack.getItem() instanceof GenericArmor){	
+					GenericArmor genArmor = (GenericArmor) stack.getItem();
+					float dt = genArmor.toughness-(Math.max(src.armorPenetration-genArmor.getPenetrationResistance(), 0f));
+					t+=Math.max(dt, 0f);
+				} else if (!stack.isEmpty() && stack.getItem() instanceof ItemArmor) {
+					ItemArmor a = (ItemArmor) stack.getItem();
+					float dt = a.toughness- src.armorPenetration;
+					t+=Math.max(dt, 0f);
+				}
+			}
+			return t;
 		}
 
 		@Override

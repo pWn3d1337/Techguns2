@@ -50,6 +50,16 @@ public abstract class MultiBlockMachineTileEntMaster extends BasicMachineTileEnt
 		super.onBlockBreak();
 		this.onMultiBlockBreak();
 	}
+	
+	@Override
+	public boolean canBeWrenchRotated() {
+		return false;
+	}
+
+	@Override
+	public boolean canBeWrenchDismantled() {
+		return false;
+	}
 
 	public void onMultiBlockBreak() {
 		if(!this.world.isRemote && this.formed) {

@@ -1,5 +1,6 @@
 package techguns.tileentities;
 
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
@@ -34,6 +35,18 @@ public abstract class BasicPoweredTileEnt extends BasicRedstoneTileEnt {
 		}
 	}
 	
+	@Override
+	public void writeNBTforDismantling(NBTTagCompound compound) {
+		super.writeNBTforDismantling(compound);
+		compound.setInteger("powerStored", this.energy.getEnergyStored());
+	}
+
+	@Override
+	public void readNBTfromStackTag(NBTTagCompound compound) {
+		super.readNBTfromStackTag(compound);
+		this.energy.setEnergyStored(compound.getInteger("powerStored"));
+	}
+
 	@Override
 	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
 		return capability == CapabilityEnergy.ENERGY || super.hasCapability(capability, facing);

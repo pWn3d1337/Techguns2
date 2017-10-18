@@ -10,9 +10,11 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumBlockRenderType;
@@ -23,6 +25,7 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.ForgeHooksClient;
@@ -44,6 +47,7 @@ import techguns.tileentities.BasicRedstoneTileEnt;
 import techguns.tileentities.MultiBlockMachineTileEntMaster;
 import techguns.tileentities.MultiBlockMachineTileEntSlave;
 import techguns.tileentities.TurretTileEnt;
+import techguns.util.TextUtil;
 
 /**
  * A Machine that is rendered with TESR and has no properties besides type, 16 types per block.
@@ -87,10 +91,8 @@ public class BasicMachine<T extends Enum<T> & IStringSerializable & IMachineType
 	
 	@Override
 	public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> items) {
-		if(tab == this.getCreativeTabToDisplayOn()){
-			for (T t : clazz.getEnumConstants()) {
-				items.add(new ItemStack(this,1,this.getMetaFromState(getDefaultState().withProperty(MACHINE_TYPE, t))));
-			}
+		for (T t : clazz.getEnumConstants()) {
+			items.add(new ItemStack(this,1,this.getMetaFromState(getDefaultState().withProperty(MACHINE_TYPE, t))));
 		}
 	}
 	
@@ -148,8 +150,20 @@ public class BasicMachine<T extends Enum<T> & IStringSerializable & IMachineType
 						ItemStack helditem = player.getHeldItem(hand);
 						if (!helditem.isEmpty() && helditem.getItem().getToolClasses(helditem).contains("wrench")) {
 							
-							if (player.isSneaking() && tileent.canBeWrenchDismantled()) {
-								//TODO: dismantle block
+							if (player.isSneaking() && tileent.canBeWrenchDismantled() && !world.isRemote) {
+								
+								NBTTagCompound tileEntTags =new NBTTagCompound();
+								tileent.writeNBTforDismantling(tileEntTags);
+								ItemStack item = new ItemStack(this,1,this.damageDropped(state));
+								NBTTagCompound itemnbt = item.getTagCompound();
+								if (itemnbt==null){
+									itemnbt=new NBTTagCompound();
+									item.setTagCompound(itemnbt);
+								}
+								itemnbt.setTag("TileEntityData", tileEntTags);
+								tileent.emptyContent();
+								world.setBlockToAir(pos);
+								world.spawnEntity(new EntityItem(world,pos.getX()+0.5d, pos.getY()+0.5d, pos.getZ()+0.5d, item));
 								
 							} else if (tileent.canBeWrenchRotated()) {
 								if(tileent.hasRotation()) {
@@ -166,8 +180,7 @@ public class BasicMachine<T extends Enum<T> & IStringSerializable & IMachineType
 						}
 					
 					} else {
-						//TODO: Message no permission
-						System.out.println("NO PERMISSON");
+						player.sendStatusMessage(new TextComponentString(TextUtil.trans("techguns.container.security.denied")), true);
 					}
 
 				} else if (tile!=null && tile instanceof MultiBlockMachineTileEntSlave) {
@@ -266,6 +279,10 @@ public class BasicMachine<T extends Enum<T> & IStringSerializable & IMachineType
 				int dir = MathHelper.floor((double)(placer.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
 				invtile.rotation = (byte) (dir%4);
 				
+			}
+			
+			if (stack.getTagCompound()!=null && stack.getTagCompound().hasKey("TileEntityData")) {
+				invtile.readNBTfromStackTag(stack.getTagCompound().getCompoundTag("TileEntityData"));
 			}
 		}
 		

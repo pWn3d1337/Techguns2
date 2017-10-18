@@ -63,14 +63,5 @@ public class CapabilityEventHandler {
 			newValues.copyFrom(oldValues);
 		}
 	}
-
-	/**
-	 *
-	 */
-	/*@SubscribeEvent
-	public static void playerChangeDimension(final PlayerChangedDimensionEvent event) {
-		//TODO ?
-	}*/
-
 	
 }

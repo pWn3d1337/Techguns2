@@ -24,6 +24,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.play.server.SPacketEntityVelocity;
@@ -945,7 +946,7 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 			list.add(TextUtil.trans("techguns.gun.tooltip.clipsize")+": "+this.clipsize);
 			list.add(TextUtil.trans("techguns.gun.tooltip.reloadTime")+": "+this.reloadtime*0.05f+"s");
 			if (this.penetration>0.0f){
-				list.add(TextUtil.trans("techguns.gun.tooltip.armorPen")+": "+this.penetration*100+"%");
+				list.add(TextUtil.trans("techguns.gun.tooltip.armorPen")+": "+String.format("%.1f", this.penetration));
 			}
 			if (this.canZoom) {
 				list.add(TextUtil.trans("techguns.gun.tooltip.zoom")+":"+(this.toggleZoom ? "("+TextUtil.trans("techguns.gun.tooltip.zoom.toogle")+")":"("+TextUtil.trans("techguns.gun.tooltip.zoom.hold")+")")+" "+TextUtil.trans("techguns.gun.tooltip.zoom.multiplier")+":"+this.zoomMult);
@@ -1276,14 +1277,11 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
     	SoundUtil.playSoundOnEntityGunPosition(shooter.world, shooter ,firesound, SOUND_DISTANCE, 1.0F, false, false, TGSoundCategory.GUN_FIRE);
     	
     	
-    	float dmg=0.5f;
-    	float acc=1.0f;
-    	
     	EnumBulletFirePos firePos = EnumBulletFirePos.RIGHT;
     	
     	if (shooter instanceof NPCTurret){
-    		dmg=1.0f;
-    		acc=1.0f;
+    		//dmgscale=1.0f;
+    		//accscale=1.0f;
     		firePos=EnumBulletFirePos.CENTER;
     	}
     	/*} else {
@@ -1311,7 +1309,7 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
     	//}
     	
     	if (!shooter.world.isRemote){
-    		this.shootGun(shooter.world, shooter, shooter.getHeldItemMainhand(), this.zoombonus*accscale*acc,dmgscale*dmg,0, EnumHand.MAIN_HAND, firePos);
+    		this.shootGun(shooter.world, shooter, shooter.getHeldItemMainhand(), this.zoombonus*accscale,dmgscale,0, EnumHand.MAIN_HAND, firePos);
     	}
 
     }

@@ -11,6 +11,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.SoundCategory;
@@ -93,7 +94,6 @@ public class TGExplosion {
         
         this.position = new Vec3d(this.x, this.y, this.z);
         
-        //TODO: CRASH WHEN YOU EXPLODE TNT
         this.explosionDummy = new Explosion(world, exploder, x, y, z, (float)Math.max(primaryRadius, secondaryRadius), false, this.damagesTerrain);
     }
 
@@ -245,8 +245,14 @@ public class TGExplosion {
 	
 	            
 	            if (damage > 0.0) {
+	            	
+	            	float f = 1.0f;
+	            	if(exploder!=null && exploder instanceof EntityLivingBase && entity instanceof EntityLivingBase) {
+	            		f = DamageSystem.getDamageFactor((EntityLivingBase)exploder, (EntityLivingBase)entity);
+	            	}
+	            	
 	            	//System.out.println("Attack Damage: "+ damage +" against "+entity);
-	            	entity.attackEntityFrom(tgs,  (float)Math.max(0, damage));        	         	
+	            	entity.attackEntityFrom(tgs,  (float)Math.max(0, damage*f));        	         	
 	            }
 
             }
