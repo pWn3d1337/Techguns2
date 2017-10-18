@@ -866,7 +866,7 @@ public class ClientProxy extends CommonProxy {
 				}).setMuzzleFXPos3P(0.09f, -1.26f).setRecoilAnim(GunAnimation.genericRecoil, 0.25f, 7.5f).setScope(ScreenEffect.techScope,2.125f).setScopeRecoilAnim(GunAnimation.scopeRecoil, 0.15f, 1.0f));
 	
 		ItemRenderHack.registerItemRenderer(TGuns.guidedmissilelauncher,new RenderGunBase90(new ModelGuidedMissileLauncher(),1).setBaseTranslation(-0.4f, -0.2f, RenderItemBase.SCALE*0.5f)
-				.setGUIScale(0.35f).setMuzzleFx(ScreenEffect.muzzleFlash_gun, 0, 0.39f, -0.6f, 0.87f, 0).setTransformTranslations(new float[][]{
+				.setGUIScale(0.35f).setChargeTranslationAmount(0).setMuzzleFx(ScreenEffect.muzzleFlash_gun, 0, 0.39f, -0.6f, 0.87f, 0).setTransformTranslations(new float[][]{
 					{-0.13f,0.3f,0.62f}, //First Person
 					{0,0.09f,0.28f}, //Third Person
 					{0.0f,0.03f,0.0f}, //GUI

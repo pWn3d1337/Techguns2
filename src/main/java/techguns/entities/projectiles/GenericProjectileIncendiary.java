@@ -1,11 +1,19 @@
 package techguns.entities.projectiles;
 
 import io.netty.buffer.ByteBuf;
+import net.minecraft.block.SoundType;
+import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.RayTraceResult.Type;
 import net.minecraft.world.World;
+import techguns.TGSounds;
+import techguns.Techguns;
 import techguns.api.damagesystem.DamageType;
+import techguns.client.ClientProxy;
 import techguns.damagesystem.TGDamageSource;
 import techguns.deatheffects.EntityDeathUtils.DeathType;
 import techguns.items.guns.GenericGun;
@@ -50,6 +58,40 @@ public class GenericProjectileIncendiary extends GenericProjectile {
 			ent.setFire(3);
 		}
 	}
+	
+	@Override
+	protected void doImpactEffects(Material mat, RayTraceResult rayTraceResult, SoundType sound) {
+		//super.doImpactEffects(mat, rayTraceResult, sound);
+		
+		double x = rayTraceResult.hitVec.x;
+    	double y = rayTraceResult.hitVec.y;
+    	double z = rayTraceResult.hitVec.z;
+    	boolean distdelay=true;
+    	
+    	float pitch = 0.0f;
+    	float yaw = 0.0f;
+    	if (rayTraceResult.typeOfHit == Type.BLOCK) {
+    		if (rayTraceResult.sideHit == EnumFacing.UP) {
+    			pitch = -90.0f;
+    		}else if (rayTraceResult.sideHit == EnumFacing.DOWN) {
+    			pitch = 90.0f;
+    		}else {
+    			yaw = rayTraceResult.sideHit.getHorizontalAngle();
+    		}
+    	}else {
+    		pitch = -this.rotationPitch;
+    		yaw = -this.rotationYaw;
+    	}    	
+		
+		Techguns.proxy.createFX("Impact_IncendiaryBullet", world, x, y, z, 0.0D, 0.0D, 0.0D, pitch, yaw);
+		
+		if (this.showFireTrail) {
+			this.world.playSound(x, y, z, TGSounds.BULLET_IMPACT_DIRT, SoundCategory.AMBIENT, 1.0f, 1.0f, distdelay);
+		}else {
+			super.doImpactEffects(mat, rayTraceResult, sound);
+		}
+			
+	}
 
 	@Override
 	public void writeSpawnData(ByteBuf buffer) {
@@ -60,20 +102,23 @@ public class GenericProjectileIncendiary extends GenericProjectile {
 	@Override
 	public void readSpawnData(ByteBuf additionalData) {
 		super.readSpawnData(additionalData);
-		this.showFireTrail=additionalData.readBoolean();
+		this.showFireTrail=additionalData.readBoolean();		
+		if (showFireTrail) {
+			ClientProxy.get().createFXOnEntity("IncendiaryShotgunTrail", this);
+		}
 	}
 
 	
 	
-	@Override
-	public void onUpdate() {
-		super.onUpdate();
-		if (this.showFireTrail && !this.isInWater()) {
-			this.world.spawnParticle(EnumParticleTypes.FLAME, this.posX - this.motionX * 0.25D,
-						this.posY - this.motionY * 0.25D, this.posZ - this.motionZ * 0.25D, this.motionX*0.5, this.motionY*0.5,
-						this.motionZ*0.5);
-		}
-	}
+//	@Override
+//	public void onUpdate() {
+//		super.onUpdate();
+//		if (this.showFireTrail && !this.isInWater()) {
+//			this.world.spawnParticle(EnumParticleTypes.FLAME, this.posX - this.motionX * 0.25D,
+//						this.posY - this.motionY * 0.25D, this.posZ - this.motionZ * 0.25D, this.motionX*0.5, this.motionY*0.5,
+//						this.motionZ*0.5);
+//		}
+//	}
 
 
 

@@ -34,13 +34,18 @@ public class GuidedMissileLauncher extends GenericGunCharge {
 
 	@Override
 	public void onUsingTick(ItemStack stack, EntityLivingBase player, int count) {
+		TGExtendedPlayer epc = TGExtendedPlayer.get((EntityPlayer)player);
+//		if (epc.isReloading(false)) {
+//			this.onPlayerStoppedUsing(stack, player.world, player, 0);
+//			return;
+//		}
+//		
 		super.onUsingTick(stack, player, count);
 		//System.out.println("onUsingTick: "+count);
 		traceTarget(player);
 		
 		//Handle sounds
-		if (player instanceof EntityPlayer) {
-			TGExtendedPlayer epc = TGExtendedPlayer.get((EntityPlayer)player);
+		if (player instanceof EntityPlayer) {			
 			if (epc.lockOnTicks >= this.lockOnTicks) {
 				if (count % 4 == 0) SoundUtil.playSoundOnEntityGunPosition(player.world, player, TGSounds.LOCKED_BEEP, SOUND_DISTANCE, 1.0F, false, false, TGSoundCategory.PLAYER_EFFECT);
 			}else if (epc.lockOnTicks > 0) {
@@ -53,12 +58,15 @@ public class GuidedMissileLauncher extends GenericGunCharge {
 
 	@Override
 	protected void startCharge(ItemStack item, World world, EntityPlayer player) {
+		TGExtendedPlayer txp = TGExtendedPlayer.get(player);
+		//if (txp.isReloading(false)) return;
+		if (((GenericGunCharge)item.getItem()).getAmmoLeft(item) <= 0) return;
+		
 		super.startCharge(item, world, player);
 		TGExtendedPlayer epc = TGExtendedPlayer.get(player);
 		epc.lockOnEntity = null;
 		epc.lockOnTicks = -1;
 	}
-	
 	
 	protected void traceTarget(EntityLivingBase shooter) {
 		Vec3d vec3d1 = new Vec3d(shooter.posX, shooter.posY+shooter.getEyeHeight(), shooter.posZ);
@@ -168,5 +176,10 @@ public class GuidedMissileLauncher extends GenericGunCharge {
 		}
 
 		return entity;
+	}
+	
+	@Override
+	public int consumeAmmoCharge(ItemStack item, float f, boolean creative) {
+		return 0;
 	}
 }
