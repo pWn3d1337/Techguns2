@@ -317,7 +317,7 @@ public class GenericProjectile extends Entity implements IProjectile, IEntityAdd
 						this.motionZ);
 			}
 
-			f1 = 0.6F;
+			f1 = 0.85F;
 		}
 
 		if (this.isWet()) {

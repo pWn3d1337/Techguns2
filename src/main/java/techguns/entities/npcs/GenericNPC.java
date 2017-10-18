@@ -254,21 +254,25 @@ public class GenericNPC extends EntityMob implements IRangedAttackMob, INPCTechg
 	    			
 	    			EnumDifficulty difficulty = this.world.getDifficulty();
 	    	    	float acc=1.0f;
+	    	    	float dmg=1.0f;
 	    	    	switch(difficulty){
 	    	    		case EASY:
 	    	    			acc=1.3f;
+	    	    			dmg=0.6f;
 	    	    			break;
 	    	    		case NORMAL:
 	    	    			acc = 1.15f;
+	    	    			dmg = 0.8f;
 	    	    			break;
 	    	    		case HARD:
 	    	    			acc = 1.0f;
+	    	    			dmg = 1.0f;
 	    	    			break;
 						default:
 							break;
 	    	    	}
 	    			
-	    			((GenericGun) gun).fireWeaponFromNPC(this,0.5f,acc);
+	    			((GenericGun) gun).fireWeaponFromNPC(this,dmg,acc);
 	    		}
 		
 	    	}

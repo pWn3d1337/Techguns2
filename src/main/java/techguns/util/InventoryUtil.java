@@ -126,9 +126,7 @@ public class InventoryUtil {
     
     public static boolean consumeAmmoPlayer(EntityPlayer ply, ItemStack ammo){
     	TGExtendedPlayer props = TGExtendedPlayer.get(ply);
-    	
-    	//TODO check if working
-    	
+
     	if ( props!=null ){
         	int amount = ammo.getCount();
         	if (amount ==1){     

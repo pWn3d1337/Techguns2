@@ -275,5 +275,4 @@ public class GenericGunCharge extends GenericGun {
 		this.canFireWhileCharging = canFire;
 		return this;
 	}
-	
 }

@@ -102,6 +102,16 @@ public class BasicInventoryTileEnt extends BasicTGTileEntity {
 		super.readFromNBT(compound);
 	}
 	
+	public void writeNBTforDismantling(NBTTagCompound compound) {
+		compound.setTag("inventory", inventory.serializeNBT());
+		this.writeClientDataToNBT(compound);
+	}
+	
+	public void readNBTfromStackTag(NBTTagCompound compound) {
+		inventory.deserializeNBT(compound.getCompoundTag("inventory"));
+		this.readClientDataFromNBT(compound);
+	}
+	
 	/**
 	 * Called when a gui button is clicked, does nothing on default, override in subclasss
 	 * @param id

@@ -527,6 +527,13 @@ public class TGEventHandler {
 		
 	}
 	
+	@SubscribeEvent
+	public static void damageTest(LivingHurtEvent event) {
+		if (event.getEntityLiving() instanceof EntityPlayer) {
+			System.out.println("Attacking"+event.getEntityLiving()+" for "+event.getAmount() +" with "+event.getSource());
+		}
+	}
+	
 	
 	@Optional.Method(modid="albedo")
 	@SideOnly(Side.CLIENT)

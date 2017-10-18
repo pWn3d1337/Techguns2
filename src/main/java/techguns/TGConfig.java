@@ -67,6 +67,10 @@ public class TGConfig {
 	
 	public static int cl_sortPassesPerTick;
 	
+	public static float damagePvP;
+	public static float damageTurretToPlayer;
+	public static float damageFactorNPC;
+	
 	/**
 	 * CATEGORIES
 	 */
@@ -75,6 +79,7 @@ public class TGConfig {
 	public static final String CLIENTSIDE = "Clientside";
 	private static final String ID_CONFLICTS = "ID Conflicts";
 	private static final String WORLDGEN="World Generation";
+	private static final String DAMAGE_FACTORS="Damage Factors";
 	
 	public static void init(FMLPreInitializationEvent event){
 		//Load the config file
@@ -128,10 +133,16 @@ public class TGConfig {
 		spawnWeightPsychoSteve = config.getInt("SpawnWeightPsychoSteve", "NPC Spawn", 3, 0, 10000, "Spawn weight for spawning Psycho Steve, early game boss, don't set to high value, at 0 spawn will not be registered");
 	
 		
+		damagePvP = config.getFloat("DamagePvP", DAMAGE_FACTORS, 0.5f, 0.0f, 100.0f, "Damage factor Techguns weapons deal when fired from players against other players, is zero when PvP is disabled");
 		
-		dataWatcherID_FaceSlot = config.getInt("DataWatcherID_FaceSlot", ID_CONFLICTS, 23, 2,31, "The ID used for DataWatcher synchronization of the face slot for Players, the ID must not conflict with vanilla or other mods slots, see http://www.minecraftforge.net/wiki/Datawatcher for details. Never useable for EntityPlayer (used by vanilla minecraft): 0,1, 6,7,8,9, 16,17,18");
+		damageTurretToPlayer = config.getFloat("DamageTurretToPlayer", DAMAGE_FACTORS, 0.5f, 0.0f, 100.0f, "Damage factor Techguns Turrets deal when hitting players");
 		
-		dataWatcherID_BackSlot = config.getInt("DataWatcherID_BackSlot", ID_CONFLICTS, 24, 2,31, "The ID used for DataWatcher synchronization of the back slot for Players, the ID must not conflict with vanilla or other mods slots, see http://www.minecraftforge.net/wiki/Datawatcher for details. Never useable for EntityPlayer (used by vanilla minecraft): 0,1, 6,7,8,9, 16,17,18");
+		damageFactorNPC = config.getFloat("DamageFactorNPC", DAMAGE_FACTORS, 1.0f, 0.0f, 100.0f, "Damage factor for all NPCs other than turrets, they already have a difficulty dependent damage penalty, this can be used to further reduce their damage, or increase it");
+	
+		
+		//dataWatcherID_FaceSlot = config.getInt("DataWatcherID_FaceSlot", ID_CONFLICTS, 23, 2,31, "The ID used for DataWatcher synchronization of the face slot for Players, the ID must not conflict with vanilla or other mods slots, see http://www.minecraftforge.net/wiki/Datawatcher for details. Never useable for EntityPlayer (used by vanilla minecraft): 0,1, 6,7,8,9, 16,17,18");
+		
+		//dataWatcherID_BackSlot = config.getInt("DataWatcherID_BackSlot", ID_CONFLICTS, 24, 2,31, "The ID used for DataWatcher synchronization of the back slot for Players, the ID must not conflict with vanilla or other mods slots, see http://www.minecraftforge.net/wiki/Datawatcher for details. Never useable for EntityPlayer (used by vanilla minecraft): 0,1, 6,7,8,9, 16,17,18");
 		
 	//	GUI_ID_tgplayerInventory = config.getInt("TechgunsGUI_TabID", ID_CONFLICTS, 17, 0, 1000, "ID for the button used by the Techguns inventory tab.");
 		

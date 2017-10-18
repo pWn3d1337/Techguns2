@@ -156,11 +156,10 @@ public class TGArmors implements ITGInitializer {
 		t2_combat_Boots = new GenericArmorMultiCamo("t2_combat_boots", T2_COMBAT, t2_combat_textures, EntityEquipmentSlot.FEET).setSpeedBoni(0.1f, 0.1f).setRepairMats(TGItems.INGOT_OBSIDIAN_STEEL, TGItems.HEAVY_CLOTH, 0.5f, 2).setKnockbackResistance(0.10f); // 3 for boots
 		
 		//T2 Commando Armor
-		//TODO set repair mats
-		t2_commando_Helmet = new GenericArmor("t2_commando_helmet", T2_COMMANDO, "t2_commando", EntityEquipmentSlot.HEAD).setSpeedBoni(0.10f,0.f).setMiningBoniWater(1.25f).setGunBonus(0.05f).setKnockbackResistance(0.05f).setOxygenGear(1.0f); //0 for helmet
-		t2_commando_Chestplate = new GenericArmor("t2_commando_chestplate", T2_COMMANDO, "t2_commando", EntityEquipmentSlot.CHEST).setSpeedBoni(0.10f,0.f).setMiningBoniWater(1.25f).setGunBonus(0.05f).setKnockbackResistance(0.20f); // 1 for chestplate
-		t2_commando_Leggings = new GenericArmor("t2_commando_leggings", T2_COMMANDO, "t2_commando", EntityEquipmentSlot.LEGS).setSpeedBoni(0.10f,0.f).setMiningBoniWater(1.25f).setGunBonus(0.05f).setKnockbackResistance(0.10f); // 2 for leggings
-		t2_commando_Boots = new GenericArmor("t2_commando_boots", T2_COMMANDO, "t2_commando", EntityEquipmentSlot.FEET).setSpeedBoni(0.10f,0.1f).setMiningBoniWater(1.25f).setGunBonus(0.05f).setKnockbackResistance(0.05f).setFallProtection(0.2f, 1.0f); // 3 for boots
+		t2_commando_Helmet = new GenericArmor("t2_commando_helmet", T2_COMMANDO, "t2_commando", EntityEquipmentSlot.HEAD).setSpeedBoni(0.10f,0.f).setRepairMats(TGItems.INGOT_OBSIDIAN_STEEL, TGItems.RUBBER_BAR, 0.5f, 2).setMiningBoniWater(1.25f).setGunBonus(0.05f).setKnockbackResistance(0.05f).setOxygenGear(1.0f); //0 for helmet
+		t2_commando_Chestplate = new GenericArmor("t2_commando_chestplate", T2_COMMANDO, "t2_commando", EntityEquipmentSlot.CHEST).setSpeedBoni(0.10f,0.f).setRepairMats(TGItems.INGOT_OBSIDIAN_STEEL, TGItems.RUBBER_BAR, 0.5f, 4).setMiningBoniWater(1.25f).setGunBonus(0.05f).setKnockbackResistance(0.20f); // 1 for chestplate
+		t2_commando_Leggings = new GenericArmor("t2_commando_leggings", T2_COMMANDO, "t2_commando", EntityEquipmentSlot.LEGS).setSpeedBoni(0.10f,0.f).setRepairMats(TGItems.INGOT_OBSIDIAN_STEEL, TGItems.RUBBER_BAR, 1.0f/3.0f, 3).setMiningBoniWater(1.25f).setGunBonus(0.05f).setKnockbackResistance(0.10f); // 2 for leggings
+		t2_commando_Boots = new GenericArmor("t2_commando_boots", T2_COMMANDO, "t2_commando", EntityEquipmentSlot.FEET).setSpeedBoni(0.10f,0.1f).setRepairMats(TGItems.INGOT_OBSIDIAN_STEEL, TGItems.RUBBER_BAR, 0.5f, 2).setMiningBoniWater(1.25f).setGunBonus(0.05f).setKnockbackResistance(0.05f).setFallProtection(0.2f, 1.0f); // 3 for boots
 		
 		//T2.5 Riot Gear Armor
 		String[] t2_riot_textures = {"t2_riot"};

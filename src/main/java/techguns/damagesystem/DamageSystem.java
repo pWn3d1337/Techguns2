@@ -5,6 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -15,21 +16,42 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.CombatRules;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.GameRules;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
+import techguns.TGConfig;
 import techguns.api.damagesystem.DamageType;
 import techguns.api.npc.INpcTGDamageSystem;
+import techguns.entities.npcs.NPCTurret;
 import techguns.items.armors.GenericArmor;
 
 public class DamageSystem {
 
-	public static float getDamageFactor(EntityLivingBase shooter, EntityLivingBase ent) {
-		// TODO Implement this
-		return 1.0f;
+	public static float getDamageFactor(EntityLivingBase attacker, EntityLivingBase target) {
+		if (attacker instanceof EntityPlayer && target instanceof EntityPlayer){
+			if (FMLCommonHandler.instance().getMinecraftServerInstance().isPVPEnabled()){
+				return TGConfig.damagePvP;
+			} else {
+				return 0.0f;
+			}
+		} else if (target instanceof EntityPlayer){
+			if ( attacker instanceof NPCTurret){
+				return TGConfig.damageTurretToPlayer;
+			} else {
+				return TGConfig.damageFactorNPC;
+			}
+
+		} else if (attacker instanceof EntityPlayer){
+			return 1.0f;
+		}
+		
+		return TGConfig.damageFactorNPC;
 	}
 	
 	
