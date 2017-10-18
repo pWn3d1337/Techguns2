@@ -100,7 +100,7 @@ public class GenericGunCharge extends GenericGun {
 							}
 						}
 					}
-
+					
 					extendedPlayer.setFireDelay(handIn, this.reloadtime-this.minFiretime);
 
 					if (ammoCount > 1) {
@@ -123,7 +123,7 @@ public class GenericGunCharge extends GenericGun {
 
 						//ClientProxy cp = ClientProxy.get();
 						//cp.setplayerReloadtime(player,System.currentTimeMillis()+time, time, (byte)1);
-						ShooterValues.setRecoiltime(player, handIn==EnumHand.OFF_HAND, System.currentTimeMillis()+time, time, (byte)1);
+						ShooterValues.setReloadtime(player, handIn==EnumHand.OFF_HAND, System.currentTimeMillis()+time, time, (byte)1);
 						
 						
 						client_startReload();
