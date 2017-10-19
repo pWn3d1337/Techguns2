@@ -129,8 +129,8 @@ public class GuidedMissileProjectile extends RocketProjectile{
 				if (epc.lockOnEntity != null && epc.lockOnTicks >= ((GenericGun)p.getActiveItemStack().getItem()).getLockOnTicks()) {
 					target = epc.lockOnEntity;
 				}
-	//			epc.lockOnEntity = null;
-	//			epc.lockOnTicks = 0;
+				epc.lockOnEntity = null;
+				epc.lockOnTicks = 0;
 			}
 
 			if (target != null) {
@@ -149,11 +149,11 @@ public class GuidedMissileProjectile extends RocketProjectile{
 		public GuidedMissileProjectile createChargedProjectile(World world, EntityLivingBase p, float damage,
 				float speed, int TTL, float spread, float dmgDropStart, float dmgDropEnd, float dmgMin, float penetration,
 				boolean blockdamage, EnumBulletFirePos firePos, float radius, double gravity, float charge, int ammoConsumed) {
-			if (p instanceof EntityPlayer) {
-				TGExtendedPlayer epc = TGExtendedPlayer.get((EntityPlayer)p);
-				epc.lockOnEntity = null;
-				epc.lockOnTicks = 0;
-			}			
+//			if (p instanceof EntityPlayer) {
+//				TGExtendedPlayer epc = TGExtendedPlayer.get((EntityPlayer)p);
+//				epc.lockOnEntity = null;
+//				epc.lockOnTicks = 0;
+//			}			
 			return null;
 		}
 		
