@@ -1,0 +1,18 @@
+{
+  "result": {
+    "item": "techguns:ladder0",
+    "data": 8,
+    "count": 16
+  },
+  "pattern": [
+    "iii",
+    " i ",
+    "iii"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "i": {
+      "item": "#PLATETIN"
+    }
+  }
+}

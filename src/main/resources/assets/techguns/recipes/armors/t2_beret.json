@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "techguns:t2_beret"
+  },
+  "pattern": [
+    "cc ",
+    "l l"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "c": {
+      "item": "techguns:itemshared",
+      "data": 60
+    },
+    "l": {
+      "item": "minecraft:leather"
+    }
+  }
+}

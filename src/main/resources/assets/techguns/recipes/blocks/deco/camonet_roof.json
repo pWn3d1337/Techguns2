@@ -1,0 +1,25 @@
+{
+  "result": {
+    "item": "techguns:camonet_top",
+    "data": 0,
+    "count": 16
+  },
+  "pattern": [
+    "wdw",
+    "dsd",
+    "wdw"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "w": {
+      "item": "#STICKWOOD"
+    },
+    "d": {
+      "item": "minecraft:dirt",
+      "data": 0
+    },
+    "s": {
+      "item": "minecraft:string"
+    }
+  }
+}

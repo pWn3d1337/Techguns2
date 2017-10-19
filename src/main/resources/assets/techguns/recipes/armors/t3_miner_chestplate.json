@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "techguns:t3_miner_chestplate"
+  },
+  "pattern": [
+    "p p",
+    "lcl",
+    "lpl"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "p": {
+      "item": "#PLATECARBON"
+    },
+    "c": {
+      "item": "#CIRCUITELITE"
+    },
+    "l": {
+      "item": "#PLATETITANIUM"
+    }
+  }
+}

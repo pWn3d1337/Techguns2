@@ -1,0 +1,45 @@
+{
+  "result": {
+    "item": "techguns:itemshared",
+    "data": 15
+  },
+  "ingredients": [
+    {
+      "item": "techguns:itemshared",
+      "data": 16
+    },
+    {
+      "item": "techguns:itemshared",
+      "data": 3
+    },
+    {
+      "item": "techguns:itemshared",
+      "data": 3
+    },
+    {
+      "item": "techguns:itemshared",
+      "data": 3
+    },
+    {
+      "item": "techguns:itemshared",
+      "data": 3
+    },
+    {
+      "item": "techguns:itemshared",
+      "data": 3
+    },
+    {
+      "item": "techguns:itemshared",
+      "data": 3
+    },
+    {
+      "item": "techguns:itemshared",
+      "data": 3
+    },
+    {
+      "item": "techguns:itemshared",
+      "data": 3
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

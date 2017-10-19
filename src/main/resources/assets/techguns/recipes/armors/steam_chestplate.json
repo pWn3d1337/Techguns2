@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "techguns:steam_chestplate"
+  },
+  "pattern": [
+    "s s",
+    "sss",
+    "sss"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "s": {
+      "item": "techguns:itemshared",
+      "data": 45
+    }
+  }
+}
