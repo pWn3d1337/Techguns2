@@ -15,10 +15,6 @@
                                 "min": 1,
                                 "max": 2
                             }
-                        },
-                        {
-                            "function": "set_nbt",
-                            "tag": "{}"
                         }
                     ],
                     "conditions": [
@@ -53,10 +49,6 @@
                                 "min": 1,
                                 "max": 2
                             }
-                        },
-                        {
-                            "function": "set_nbt",
-                            "tag": "{}"
                         }
                     ],
                     "conditions": [
@@ -91,10 +83,6 @@
                                 "min": 1,
                                 "max": 2
                             }
-                        },
-                        {
-                            "function": "set_nbt",
-                            "tag": "{}"
                         }
                     ],
                     "conditions": [
@@ -133,10 +121,6 @@
                         {
                             "function": "set_data",
                             "data": 60
-                        },
-                        {
-                            "function": "set_nbt",
-                            "tag": "{}"
                         }
                     ],
                     "conditions": [

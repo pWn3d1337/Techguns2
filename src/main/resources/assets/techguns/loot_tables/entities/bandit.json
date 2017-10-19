@@ -19,10 +19,6 @@
                         {
                             "function": "set_data",
                             "data": 60
-                        },
-                        {
-                            "function": "set_nbt",
-                            "tag": "{}"
                         }
                     ],
                     "conditions": [
@@ -57,10 +53,6 @@
                                 "min": 1,
                                 "max": 2
                             }
-                        },
-                        {
-                            "function": "set_nbt",
-                            "tag": "{}"
                         }
                     ],
                     "conditions": [
@@ -95,10 +87,6 @@
                                 "min": 1,
                                 "max": 2
                             }
-                        },
-                        {
-                            "function": "set_nbt",
-                            "tag": "{}"
                         }
                     ],
                     "conditions": [
@@ -137,10 +125,6 @@
                         {
                             "function": "set_data",
                             "data": 2
-                        },
-                        {
-                            "function": "set_nbt",
-                            "tag": "{}"
                         }
                     ],
                     "conditions": [
@@ -179,10 +163,6 @@
                         {
                             "function": "set_data",
                             "data": 1
-                        },
-                        {
-                            "function": "set_nbt",
-                            "tag": "{}"
                         }
                     ],
                     "conditions": [
@@ -221,10 +201,6 @@
                          {
                             "function": "set_data",
                             "data": 3
-                        },
-                        {
-                            "function": "set_nbt",
-                            "tag": "{}"
                         }
                     ],
                     "conditions": [

@@ -1,0 +1,24 @@
+{
+  "result": {
+    "item": "techguns:t3_power_chestplate"
+  },
+  "pattern": [
+    "p p",
+    "ece",
+    "ppp"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "p": {
+      "item": "techguns:itemshared",
+      "data": 67
+    },
+    "c": {
+      "item": "#CIRCUITELITE"
+    },
+    "e": {
+      "item": "techguns:itemshared",
+      "data": 70
+    }
+  }
+}

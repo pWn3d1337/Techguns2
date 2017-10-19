@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "techguns:t1_scout_leggings"
+  },
+  "pattern": [
+    "ccc",
+    "c c",
+    "c c"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "c": {
+      "item": "techguns:itemshared",
+      "data": 60
+    }
+  }
+}

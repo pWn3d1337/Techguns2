@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "techguns:t1_scout_chestplate"
+  },
+  "pattern": [
+    "c c",
+    "ccc",
+    "ccc"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "c": {
+      "item": "techguns:itemshared",
+      "data": 60
+    }
+  }
+}

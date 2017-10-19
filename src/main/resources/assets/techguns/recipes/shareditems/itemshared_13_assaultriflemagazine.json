@@ -1,16 +1,12 @@
 {
   "result": {
     "item": "techguns:itemshared",
-    "data": 21
+    "data": 13
   },
   "ingredients": [
     {
       "item": "techguns:itemshared",
-      "data": 22
-    },
-    {
-      "item": "techguns:itemshared",
-      "data": 3
+      "data": 14
     },
     {
       "item": "techguns:itemshared",
