@@ -3,11 +3,17 @@ package techguns.entities.projectiles;
 import elucent.albedo.lighting.ILightProvider;
 import elucent.albedo.lighting.Light;
 import io.netty.buffer.ByteBuf;
+import net.minecraft.block.SoundType;
+import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.RayTraceResult.Type;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Optional;
 import techguns.TGPackets;
+import techguns.TGSounds;
 import techguns.Techguns;
 import techguns.api.damagesystem.DamageType;
 import techguns.client.ClientProxy;
@@ -31,12 +37,54 @@ public class GaussProjectile extends AdvancedBulletProjectile implements ILightP
 		}
 	}
 
-	
-//	@Override
-//	public void onUpdate() {
-//		super.onUpdate();
-//		//System.out.println(String.format("Motion: X=%.3f, Y=%.3f, Z=%.3f", motionX, motionY, motionZ));
-//	}
+	@Override
+	protected void doImpactEffects(Material mat, RayTraceResult rayTraceResult, SoundType sound) {
+    	double x = rayTraceResult.hitVec.x;
+    	double y = rayTraceResult.hitVec.y;
+    	double z = rayTraceResult.hitVec.z;
+    	boolean distdelay=true;
+    	
+    	float pitch = 0.0f;
+    	float yaw = 0.0f;
+    	if (rayTraceResult.typeOfHit == Type.BLOCK) {
+    		if (rayTraceResult.sideHit == EnumFacing.UP) {
+    			pitch = -90.0f;
+    		}else if (rayTraceResult.sideHit == EnumFacing.DOWN) {
+    			pitch = 90.0f;
+    		}else {
+    			yaw = rayTraceResult.sideHit.getHorizontalAngle();
+    		}
+    	}else {
+    		pitch = -this.rotationPitch;
+    		yaw = -this.rotationYaw;
+    	}
+    	
+    	if(sound==SoundType.STONE) {
+			this.world.playSound(x, y, z, TGSounds.BULLET_IMPACT_STONE, SoundCategory.AMBIENT, 1.0f, 1.0f, distdelay);
+			Techguns.proxy.createFX("Impact_BulletRock_Blue", world, x, y, z, 0.0D, 0.0D, 0.0D, pitch, yaw);
+			
+		} else if(sound==SoundType.WOOD || sound==SoundType.LADDER) {
+			this.world.playSound(x, y, z, TGSounds.BULLET_IMPACT_WOOD, SoundCategory.AMBIENT, 1.0f, 1.0f, distdelay);
+			Techguns.proxy.createFX("Impact_BulletWood_Blue", world, x, y, z, 0.0D, 0.0D, 0.0D, pitch, yaw);
+			
+		} else if(sound==SoundType.GLASS) {
+			this.world.playSound(x, y, z, TGSounds.BULLET_IMPACT_GLASS, SoundCategory.AMBIENT, 1.0f, 1.0f, distdelay);
+			Techguns.proxy.createFX("Impact_BulletGlass_Blue", world, x, y, z, 0.0D, 0.0D, 0.0D, pitch, yaw);
+			
+		} else if(sound==SoundType.METAL || sound==SoundType.ANVIL) {
+			this.world.playSound(x, y, z, TGSounds.BULLET_IMPACT_METAL, SoundCategory.AMBIENT, 1.0f, 1.0f, distdelay);
+			Techguns.proxy.createFX("Impact_BulletMetal_Blue", world, x, y, z, 0.0D, 0.0D, 0.0D, pitch, yaw);
+			
+		} else if(sound ==SoundType.GROUND || sound == SoundType.SAND) {
+			this.world.playSound(x, y, z, TGSounds.BULLET_IMPACT_DIRT, SoundCategory.AMBIENT, 1.0f, 1.0f, distdelay);
+	    	Techguns.proxy.createFX("Impact_BulletDirt_Blue", world, x, y, z, 0.0D, 0.0D, 0.0D, pitch, yaw);
+	    	
+		} else {
+			this.world.playSound(x, y, z, TGSounds.BULLET_IMPACT_DIRT, SoundCategory.AMBIENT, 1.0f, 1.0f, distdelay);
+	    	Techguns.proxy.createFX("Impact_BulletDefault_Blue", world, x, y, z, 0.0D, 0.0D, 0.0D, pitch, yaw);
+			//this.world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, x, y, z, 0.0D, 0.0D, 0.0D);
+		}		
+	}
 	
 	@Override
 	protected void onHitEffect(EntityLivingBase ent, RayTraceResult rayTraceResult) {

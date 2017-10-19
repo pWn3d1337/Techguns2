@@ -400,6 +400,48 @@ BulletImpactDust
 BulletImpactDebrisGlass
 }
 
+//------------------------
+FXList Impact_BulletDefault_Blue {
+BulletImpactFlare_Blue
+BulletImpactSparks_Blue
+BulletImpactDust
+}
+
+FXList Impact_BulletDirt_Blue {
+BulletImpactFlare_Blue
+BulletImpactSparks_Blue
+BulletImpactDust
+BulletImpactDirt
+}
+
+FXList Impact_BulletRock_Blue {
+BulletImpactFlare_Blue
+BulletImpactSparks_Blue
+BulletImpactDust
+BulletImpactDebris
+}
+
+FXList Impact_BulletMetal_Blue {
+BulletImpactFlare_Blue
+BulletImpactSparks_Blue
+BulletImpactDust
+BulletImpactSparksExtra
+}
+
+FXList Impact_BulletWood_Blue {
+BulletImpactFlare_Blue
+BulletImpactSparks_Blue
+BulletImpactDust
+BulletImpactDebrisWood
+}
+
+FXList Impact_BulletGlass_Blue {
+BulletImpactFlare_Blue
+BulletImpactSparks_Blue
+BulletImpactDust
+BulletImpactDebrisGlass
+}
+
 //BulletImpactDebris //For Rock
 //BulletImpactDirt //For Dirt
 //BulletImpactSparksExtra //Metal
@@ -437,6 +479,38 @@ InitialDelay = 0 0
 SystemVelocityFactor = 0.0 0.0
 }
 
+BulletImpactSparks_Blue {
+Texture = techguns:textures/fx/impactsparks.png
+RenderType = ADDITIVE
+Rows = 2
+Columns = 2
+Frames = 4
+angle = 0 360
+angleRate = -10 10
+angleRateDamping = 0.87 0.89
+Lifetime = 3 4
+SpawnDelay = 9 9
+SystemLifetime = 1 1
+Size = 1.9 3.2
+SizeRate = 0.9 1.2
+SizeRateDamping = 0.9 0.93
+Alpha = 1.0 0
+Alpha = 0.0 1
+Color = 96 196 255 0
+//Color = 0 0 0 1
+ParticleCount = 1 1
+Gravity = 0
+VolumeType = SPHERE
+Volume1 = 0.1
+VelocityType = ORTHO
+Velocity1 = 0 0
+Velocity2 = 0 0
+Velocity3 = 2 3
+VelocityDamping = 0.93 0.95
+InitialDelay = 0 0
+SystemVelocityFactor = 0.0 0.0
+}
+
 BulletImpactFlare {
 Texture = techguns:textures/fx/lensflare1.png
 RenderType = ADDITIVE
@@ -455,6 +529,38 @@ SizeRateDamping = 0.9 0.93
 //Alpha = 0 0
 Color = 255 196 128 0
 Color = 0 0 0 1
+ParticleCount = 1 1
+Gravity = 0
+VolumeType = SPHERE
+Volume1 = 0.05
+VelocityType = ORTHO
+Velocity1 = 0 0
+Velocity2 = 0 0
+Velocity3 = 0.6 0.8
+VelocityDamping = 0.93 0.95
+InitialDelay = 0 0
+SystemVelocityFactor = 0.0 0.0
+}
+
+BulletImpactFlare_Blue {
+Texture = techguns:textures/fx/lensflare1.png
+RenderType = ADDITIVE
+Rows = 1
+Columns = 1
+Frames = 1
+angle = 0 360
+angleRate = -10 10
+angleRateDamping = 0.87 0.89
+Lifetime = 3 3
+SpawnDelay = 9 9
+SystemLifetime = 1 1
+Size = 0.4 0.6
+SizeRate = 0.9 1.2
+SizeRateDamping = 0.9 0.93
+Alpha = 1.0 0
+Alpha = 0.0 1
+Color = 96 196 255 0
+//Color = 0 0 0 1
 ParticleCount = 1 1
 Gravity = 0
 VolumeType = SPHERE
