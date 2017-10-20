@@ -1,6 +1,40 @@
 FXLIST TestFX {
-GoreFX_Blood
+MuzzleFXFlare
 }
+
+MuzzleFXFlare {
+Texture = techguns:textures/fx/lensflare1.png
+RenderType = ADDITIVE
+Rows = 1
+Columns = 1
+Frames = 1
+angle = 0 360
+angleRate = -10 10
+angleRateDamping = 0.87 0.89
+Lifetime = 5 5
+SpawnDelay = 0 0
+SystemLifetime = 2 2
+Size = 3 4
+SizeRate = -0.50 -0.30
+SizeRateDamping = 0.9 0.9
+Alpha = 0 0
+Alpha = 1 0.25
+Alpha = 0 1
+Color = 255 196 128 0
+//Color = 0 0 0 1
+ParticleCount = 5 6
+Gravity = 0
+VolumeType = POINT
+VelocityType = ORTHO
+Velocity1 = 0 0
+Velocity2 = 0 0
+Velocity3 = 5 15
+VelocityDamping = 0.93 0.95
+InitialDelay = 0 0
+SystemVelocityFactor = 0.0 0.0
+}
+
+
 
 FXList Impact_IncendiaryBullet {
 IncendiaryBulletImpactFlare

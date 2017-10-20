@@ -67,6 +67,8 @@ public class ScreenEffect {
 	protected boolean flipY=false;
 	protected boolean flipX=false;
 	
+	public ScreenEffect() {};
+	
 	public ScreenEffect(String fxTexture, int cols,
 			int rows, int numSprites, RenderType type) {
 		super();

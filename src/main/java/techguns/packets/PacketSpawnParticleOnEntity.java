@@ -16,6 +16,12 @@ public class PacketSpawnParticleOnEntity implements IMessage {
 
 	String name;
 	int entityID;
+	
+	float offsetX = 0.0f;
+	float offsetY = 0.0f;
+	float offsetZ = 0.0f;
+	
+	boolean attachToHead = false;
 
 	
 	public PacketSpawnParticleOnEntity() {
@@ -27,7 +33,16 @@ public class PacketSpawnParticleOnEntity implements IMessage {
 		this.name=name;
 		this.entityID=ent.getEntityId();
 	}
-
+	
+	public PacketSpawnParticleOnEntity(String name, Entity ent, float offsetX, float offsetY, float offsetZ, boolean attachToHead) {
+		super();
+		this.name=name;
+		this.entityID=ent.getEntityId();
+		this.offsetX = offsetX;
+		this.offsetY = offsetY;
+		this.offsetZ = offsetZ;
+		this.attachToHead = attachToHead;
+	}
 
 	@Override
 	public void fromBytes(ByteBuf buf) {
@@ -35,6 +50,12 @@ public class PacketSpawnParticleOnEntity implements IMessage {
 		this.name = buf.readCharSequence(len, StandardCharsets.UTF_8).toString();
 		
 		this.entityID=buf.readInt();
+		
+		this.offsetX=buf.readFloat();
+		this.offsetY=buf.readFloat();
+		this.offsetZ=buf.readFloat();
+		
+		this.attachToHead = buf.readBoolean();
 	}
 
 	@Override
@@ -44,6 +65,12 @@ public class PacketSpawnParticleOnEntity implements IMessage {
 		buf.writeCharSequence(name, StandardCharsets.UTF_8);
 		
 		buf.writeInt(entityID);
+		
+		buf.writeFloat(this.offsetX);
+		buf.writeFloat(this.offsetY);
+		buf.writeFloat(this.offsetZ);
+		
+		buf.writeBoolean(this.attachToHead);
 	}
 	
 	public static class Handler implements IMessageHandler<PacketSpawnParticleOnEntity, IMessage> {
@@ -56,7 +83,11 @@ public class PacketSpawnParticleOnEntity implements IMessage {
 		private void handle(PacketSpawnParticleOnEntity m, MessageContext ctx) {
 			Entity ent = Minecraft.getMinecraft().player.world.getEntityByID(m.entityID);
 			if (ent!=null){
-				ClientProxy.get().createFXOnEntity(m.name, ent);
+				if (!m.attachToHead && m.offsetX == 0 && m.offsetY == 0 && m.offsetZ ==0) {
+					ClientProxy.get().createFXOnEntity(m.name, ent);
+				}else {
+					ClientProxy.get().createFXOnEntityWithOffset(m.name, ent, m.offsetX, m.offsetY, m.offsetZ, m.attachToHead);
+				}
 			} else {
 				TGLogger.logger_client.warning("Got Packet for FX "+m.name+" on Entity, but ent was null");
 			}

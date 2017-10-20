@@ -6,7 +6,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -50,6 +52,8 @@ public class TGParticleSystem extends Particle implements ITGParticle {
 //	private long timediff = 0;
 	
 	Entity entity; //parent entity (if attached to an entity)
+	public boolean attachToHead = false;
+	public Vec3d entityOffset = null;
 	TGParticle parent; //parent particle (if attached to a particle)
 	
 	public TGParticleSystem(World worldIn, TGParticleSystemType type, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn) {
@@ -97,16 +101,45 @@ public class TGParticleSystem extends Particle implements ITGParticle {
 			return;
 		}
 
-		if (this.entity!=null){
-			
-			this.posX=entity.posX;
-			this.posY=entity.posY;
-			this.posZ=entity.posZ;
-			this.rotationPitch=entity.rotationPitch;
-			this.rotationYaw=entity.rotationYaw;
-			this.motionX = entity.motionX;
-			this.motionY = entity.motionY;
-			this.motionZ = entity.motionZ;
+		if (this.entity!=null){		
+			if (entityOffset != null) {
+				if (this.attachToHead && entity instanceof EntityLivingBase) {
+					EntityLivingBase elb = (EntityLivingBase) entity;
+	
+					this.rotationPitch=elb.rotationPitch;
+					this.rotationYaw=elb.rotationYawHead;
+								
+					Vec3d offset = this.entityOffset;
+					
+					offset = offset.rotatePitch((float) (-elb.rotationPitch*MathUtil.D2R));
+					offset = offset.rotateYaw((float) ((-elb.rotationYawHead)*MathUtil.D2R));		
+					
+					this.posX = elb.posX + offset.x;
+					this.posY = elb.posY + elb.getEyeHeight() + offset.y;
+					this.posZ = elb.posZ + offset.z;
+				}else {
+					this.rotationPitch=entity.rotationPitch;
+					this.rotationYaw=entity.rotationYaw;
+								
+					Vec3d offset = this.entityOffset;
+					
+					offset = offset.rotatePitch((float) (-entity.rotationPitch*MathUtil.D2R));
+					offset = offset.rotateYaw((float) ((-entity.rotationYaw)*MathUtil.D2R));		
+					
+					this.posX = entity.posX + offset.x;
+					this.posY = entity.posY + offset.y;
+					this.posZ = entity.posZ + offset.z;
+				}
+			}else {
+				this.posX=entity.posX;
+				this.posY=entity.posY;
+				this.posZ=entity.posZ;
+				this.rotationPitch=entity.rotationPitch;
+				this.rotationYaw=entity.rotationYaw;
+				this.motionX = entity.motionX;
+				this.motionY = entity.motionY;
+				this.motionZ = entity.motionZ;
+			}
 			
 		} else if (this.parent != null) {
 			this.posX=parent.posX();

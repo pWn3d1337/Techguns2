@@ -31,6 +31,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumHandSide;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
@@ -1051,6 +1052,18 @@ public class ClientProxy extends CommonProxy {
 		List<TGParticleSystem> systems = TGFX.createFXOnEntity(ent, name);
 		if (systems!=null) {
 			systems.forEach(s -> particleManager.addEffect(s)); //Minecraft.getMinecraft().effectRenderer.addEffect(s));
+		}
+	}
+	
+	@Override
+	public void createFXOnEntityWithOffset(String name, Entity ent, float offsetX, float offsetY, float offsetZ, boolean attachToHead) {
+		List<TGParticleSystem> systems = TGFX.createFXOnEntity(ent, name);
+		if (systems!=null) {
+			for (TGParticleSystem s : systems) {
+				s.entityOffset = new Vec3d(offsetX, offsetY, offsetZ);
+				s.attachToHead = attachToHead;
+				particleManager.addEffect(s);
+			}
 		}
 	}
 	

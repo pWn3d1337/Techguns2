@@ -1,18 +1,26 @@
 package techguns.entities.projectiles;
 
+import java.util.List;
+
 import elucent.albedo.lighting.ILightProvider;
 import elucent.albedo.lighting.Light;
+import net.minecraft.client.Minecraft;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Optional;
 import techguns.TGPackets;
 import techguns.Techguns;
 import techguns.api.damagesystem.DamageType;
 import techguns.client.ClientProxy;
+import techguns.client.particle.TGFX;
+import techguns.client.particle.TGParticleSystem;
 import techguns.damagesystem.TGDamageSource;
 import techguns.damagesystem.TGExplosion;
 import techguns.deatheffects.EntityDeathUtils.DeathType;
+import techguns.debug.Keybinds;
 import techguns.items.guns.GenericGun;
 import techguns.items.guns.IProjectileFactory;
 import techguns.packets.PacketSpawnParticle;
@@ -38,6 +46,20 @@ public class RocketProjectile extends GenericProjectile implements ILightProvide
 	public RocketProjectile(World worldIn) {
 		super(worldIn);
 		this.createTrailFX();
+		
+//		//TEST
+//		//TODO: Remove this!
+//		Entity e = Minecraft.getMinecraft().player;
+//		List<TGParticleSystem> systems = TGFX.createFXOnEntity(e, "TestFX");		
+//		Vec3d offset = new Vec3d(-0.15, -0.05, 0.50).add(new Vec3d(Keybinds.X, Keybinds.Y, Keybinds.Z));
+//		
+//		if (systems!=null) {
+//			for (TGParticleSystem sys : systems) {
+//				sys.attachToMuzzle = true;
+//				sys.muzzleOffset = offset;
+//				ClientProxy.get().particleManager.addEffect(sys);
+//			}
+//		}
 	}
 	
 	protected void createTrailFX() {

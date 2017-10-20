@@ -16,6 +16,7 @@ import techguns.deatheffects.EntityDeathUtils.DeathType;
 import techguns.items.guns.GenericGun;
 import techguns.items.guns.IProjectileFactory;
 import techguns.packets.PacketSpawnParticle;
+import techguns.packets.PacketSpawnParticleOnEntity;
 import techguns.util.MathUtil;
 
 @Optional.Interface(iface="elucent.albedo.lighting.ILightProvider", modid="albedo")
@@ -121,6 +122,11 @@ public class FlamethrowerProjectile extends GenericProjectile implements ILightP
 		@Override
 		public FlamethrowerProjectile createProjectile(GenericGun gun, World world, EntityLivingBase p, float damage, float speed, int TTL, float spread, float dmgDropStart, float dmgDropEnd,
 				float dmgMin, float penetration, boolean blockdamage, EnumBulletFirePos firePos, float radius, double gravity) {
+			float fx_offsetX = 0.16f;
+			float fx_offsetY = -0.9f;
+			float fx_offsetZ = 0.45f;
+			TGPackets.network.sendToAllAround(new PacketSpawnParticleOnEntity("FlamethrowerFireFX", p, fx_offsetX, fx_offsetY, fx_offsetZ, true), TGPackets.targetPointAroundEnt(p, 25.0f));
+			
 			return new FlamethrowerProjectile(world,p,damage,speed,TTL,spread,dmgDropStart,dmgDropEnd,dmgMin,penetration,blockdamage,firePos,gravity);
 		}
 
