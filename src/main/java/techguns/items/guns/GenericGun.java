@@ -109,6 +109,8 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 	int bulletcount = 7;
 	float accuracy = 0.0f;
 
+	float projectileForwardOffset = 0.0f;
+	
 	int maxLoopDelay = 0;
 	int recoiltime = 5; // ticks;
 
@@ -278,6 +280,11 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 		this.spread=spread;
 		this.bulletcount=count;
 		this.burst=burst;
+		return this;
+	}
+	
+	public GenericGun setForwardOffset(float offset) {
+		this.projectileForwardOffset = offset;
 		return this;
 	}
 	
@@ -453,7 +460,7 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 			proj.setSilenced();
 		}
 		if (offset > 0.0f) {
-			proj.shiftForward(offset); // System.out.println("Shifted
+			proj.shiftForward(offset/speed); // System.out.println("Shifted
 										// by"+offset);
 		}
 		world.spawnEntity(proj);
@@ -703,16 +710,16 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 	    	TGPackets.network.sendToAllAround(new GunFiredMessage(player,msg_recoiltime,msg_muzzleflashtime,attackType,checkRecoil,leftGun), TGPackets.targetPointAroundEnt(player, 100.0f));
 		}
     	//
-		spawnProjectile(world, player,itemstack, accuracy*accuracybonus,0,damagebonus, firePos);
+		spawnProjectile(world, player,itemstack, accuracy*accuracybonus, projectileForwardOffset,damagebonus, firePos);
 		
         if (shotgun){
         	float offset=0;
         	if (this.burst){
-        		offset = 1.0f/(this.bulletcount);
+        		offset = this.speed/(this.bulletcount);
         	}
         	
         	for (int i=0; i<bulletcount; i++) {
-        		spawnProjectile(world, player,itemstack, spread*accuracybonus,offset*(i+1.0f),damagebonus, firePos);
+        		spawnProjectile(world, player,itemstack, spread*accuracybonus,projectileForwardOffset+offset*(i+1.0f),damagebonus, firePos);
         	}
         }		
 	}

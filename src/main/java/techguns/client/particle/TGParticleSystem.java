@@ -58,7 +58,7 @@ public class TGParticleSystem extends Particle implements ITGParticle {
 	
 	public TGParticleSystem(World worldIn, TGParticleSystemType type, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn) {
 		//super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0.0D, 0.0D, 0.0D);
-		super(worldIn, xCoordIn, yCoordIn, zCoordIn);
+		super(worldIn, xCoordIn + type.offset.x, yCoordIn+type.offset.y, zCoordIn+type.offset.z);
 		this.motionX = xSpeedIn;
 		this.motionY = ySpeedIn;
 		this.motionZ = zSpeedIn;
@@ -102,49 +102,43 @@ public class TGParticleSystem extends Particle implements ITGParticle {
 		}
 
 		if (this.entity!=null){		
-			if (entityOffset != null) {
-				if (this.attachToHead && entity instanceof EntityLivingBase) {
-					EntityLivingBase elb = (EntityLivingBase) entity;
-	
-					this.rotationPitch=elb.rotationPitch;
-					this.rotationYaw=elb.rotationYawHead;
-								
-					Vec3d offset = this.entityOffset;
-					
-					offset = offset.rotatePitch((float) (-elb.rotationPitch*MathUtil.D2R));
-					offset = offset.rotateYaw((float) ((-elb.rotationYawHead)*MathUtil.D2R));		
-					
-					this.posX = elb.posX + offset.x;
-					this.posY = elb.posY + elb.getEyeHeight() + offset.y;
-					this.posZ = elb.posZ + offset.z;
-				}else {
-					this.rotationPitch=entity.rotationPitch;
-					this.rotationYaw=entity.rotationYaw;
-								
-					Vec3d offset = this.entityOffset;
-					
-					offset = offset.rotatePitch((float) (-entity.rotationPitch*MathUtil.D2R));
-					offset = offset.rotateYaw((float) ((-entity.rotationYaw)*MathUtil.D2R));		
-					
-					this.posX = entity.posX + offset.x;
-					this.posY = entity.posY + offset.y;
-					this.posZ = entity.posZ + offset.z;
-				}
+			if (this.attachToHead && entity instanceof EntityLivingBase) {
+				EntityLivingBase elb = (EntityLivingBase) entity;
+
+				this.rotationPitch=elb.rotationPitch;
+				this.rotationYaw=elb.rotationYawHead;
+							
+				Vec3d offset = type.offset;
+				if (this.entityOffset != null) offset = offset.add(this.entityOffset);
+				
+				offset = offset.rotatePitch((float) (-elb.rotationPitch*MathUtil.D2R));
+				offset = offset.rotateYaw((float) ((-elb.rotationYawHead)*MathUtil.D2R));		
+				
+				this.posX = elb.posX + offset.x;
+				this.posY = elb.posY + elb.getEyeHeight() + offset.y;
+				this.posZ = elb.posZ + offset.z;
 			}else {
-				this.posX=entity.posX;
-				this.posY=entity.posY;
-				this.posZ=entity.posZ;
 				this.rotationPitch=entity.rotationPitch;
 				this.rotationYaw=entity.rotationYaw;
-				this.motionX = entity.motionX;
-				this.motionY = entity.motionY;
-				this.motionZ = entity.motionZ;
+						
+				Vec3d offset = type.offset;
+				if (this.entityOffset != null) offset = offset.add(this.entityOffset);
+				
+				offset = offset.rotatePitch((float) (-entity.rotationPitch*MathUtil.D2R));
+				offset = offset.rotateYaw((float) ((-entity.rotationYaw)*MathUtil.D2R));		
+				
+				this.posX = entity.posX + offset.x;
+				this.posY = entity.posY + offset.y;
+				this.posZ = entity.posZ + offset.z;
 			}
+			this.motionX = entity.motionX;
+			this.motionY = entity.motionY;
+			this.motionZ = entity.motionZ;
 			
 		} else if (this.parent != null) {
-			this.posX=parent.posX();
-			this.posY=parent.posY();
-			this.posZ=parent.posZ();
+			this.posX=parent.posX() + type.offset.x;
+			this.posY=parent.posY() + type.offset.y;
+			this.posZ=parent.posZ() + type.offset.z;
 		} else {
 			this.posX+=motionX;
 			this.posY+=motionY;
@@ -167,7 +161,7 @@ public class TGParticleSystem extends Particle implements ITGParticle {
 				DirResult dir = this.type.new DirResult();
 				Vec3d position = type.volumeType.getPosition(this, dir, i, count);
 				//System.out.printf("Dir: %.3f,  %.3f,  %.3f\n", dir[0], dir[1], dir[2]);
-				position = position.addVector(type.offset.x, type.offset.y, type.offset.z);
+				//position = position.addVector(type.offset.x, type.offset.y, type.offset.z);
 				Vec3d motion = type.velocityType.getVelocity(this, dir.values);
 				//apply ParticleSystem's entity rotation
 				
