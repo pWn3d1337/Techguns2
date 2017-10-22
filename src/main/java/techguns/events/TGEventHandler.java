@@ -1,10 +1,14 @@
 package techguns.events;
 
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.List;
 
 import elucent.albedo.event.GatherLightsEvent;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockBanner.BlockBannerHanging;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.model.ModelBiped.ArmPose;
@@ -18,9 +22,15 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumHandSide;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.RayTraceResult.Type;
+import net.minecraft.util.math.Vec3d;
+import net.minecraftforge.client.event.DrawBlockHighlightEvent;
 import net.minecraftforge.client.event.FOVUpdateEvent;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.MouseEvent;
@@ -37,6 +47,7 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerDropsEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.world.BlockEvent.HarvestDropsEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Optional;
@@ -45,6 +56,7 @@ import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import techguns.TGConfig;
@@ -77,9 +89,12 @@ import techguns.items.armors.TGArmorBonus;
 import techguns.items.guns.GenericGrenade;
 import techguns.items.guns.GenericGun;
 import techguns.items.guns.GenericGunCharge;
+import techguns.items.guns.GenericGunMeleeCharge;
+import techguns.items.guns.MiningDrill;
 import techguns.packets.PacketEntityDeathType;
 import techguns.packets.PacketRequestTGPlayerSync;
 import techguns.packets.PacketTGExtendedPlayerSync;
+import techguns.util.BlockUtils;
 import techguns.util.InventoryUtil;
 
 @Mod.EventBusSubscriber(modid = Techguns.MODID)
@@ -345,15 +360,48 @@ public class TGEventHandler {
 	    }  
 	}
 	
-	@SubscribeEvent(priority=EventPriority.NORMAL, receiveCanceled=false)
-	public static void onBreakEvent(BreakSpeed speed){
-		float bonus = 1.0f+GenericArmor.getArmorBonusForPlayer(speed.getEntityPlayer(), TGArmorBonus.BREAKSPEED,true);
-		float waterbonus=1.0f;
-		if(speed.getEntityPlayer().isInsideOfMaterial(Material.WATER)  || speed.getEntityPlayer().isInsideOfMaterial(Material.LAVA)){
-			waterbonus += GenericArmor.getArmorBonusForPlayer(speed.getEntityPlayer(), TGArmorBonus.BREAKSPEED_WATER,true);
+	@SubscribeEvent(priority=EventPriority.HIGH, receiveCanceled=false)
+	public static void onBreakEventHigh(BreakSpeed event){
+		EntityPlayer ply = event.getEntityPlayer();
+		ItemStack item = ply.getHeldItemMainhand();
+		if(!item.isEmpty() && item.getItem() instanceof GenericGunMeleeCharge) {
+			GenericGunMeleeCharge g = (GenericGunMeleeCharge) item.getItem();
+			if(g.getMiningRadius(item)>0) {	
+				EnumFacing sidehit = g.getSideHitMining(ply.world, ply);
+				
+				if (sidehit!=null) {
+					IBlockState state = event.getState();
+					float mainHardness = state.getBlockHardness(ply.world, event.getPos());
+					
+					List<BlockPos> blocks = BlockUtils.getBlockPlaneAroundAxisForMining(ply.world,ply, event.getPos(), sidehit.getAxis(), g.getMiningRadius(item), false, g, item);
+					float maxHardness = 0f;
+					for (BlockPos p: blocks) {
+						IBlockState s = ply.world.getBlockState(p);
+						float h = s.getBlockHardness(ply.world, p);
+						if(h>maxHardness) {
+							maxHardness=h;
+						}
+					}
+					
+					if (maxHardness>mainHardness) {
+						event.setNewSpeed(event.getNewSpeed()*mainHardness/maxHardness);
+					}
+				}
+			}
 		}
-
-		speed.setNewSpeed(speed.getNewSpeed()*bonus*waterbonus);
+	}
+	
+	
+	@SubscribeEvent(priority=EventPriority.NORMAL, receiveCanceled=false)
+	public static void onBreakEvent(BreakSpeed event){
+		EntityPlayer ply = event.getEntityPlayer();
+		float bonus = 1.0f+GenericArmor.getArmorBonusForPlayer(ply, TGArmorBonus.BREAKSPEED,true);
+		float waterbonus=1.0f;
+		if(ply.isInsideOfMaterial(Material.WATER)  || ply.isInsideOfMaterial(Material.LAVA)){
+			waterbonus += GenericArmor.getArmorBonusForPlayer(ply, TGArmorBonus.BREAKSPEED_WATER,true);
+		}
+		
+		event.setNewSpeed(event.getNewSpeed()*bonus*waterbonus);
 	}
 	
 	@SubscribeEvent(priority=EventPriority.NORMAL, receiveCanceled=false)
@@ -587,6 +635,41 @@ public class TGEventHandler {
 		
 	}
 	
+	public static Method Block_getSilkTouchDrop = ReflectionHelper.findMethod(Block.class, "getSilkTouchDrop", "func_180643_i", IBlockState.class);
+
+	@SubscribeEvent
+	public static void onBlockDrops(HarvestDropsEvent event) {
+		EntityPlayer ply = event.getHarvester();
+		if(ply!=null) {
+			ItemStack stack = ply.getHeldItemMainhand();
+			if(!stack.isEmpty() && stack.getItem() instanceof MiningDrill && ply.isSneaking()) {
+				IBlockState state = event.getState();
+				if (state.getBlock().canSilkHarvest(ply.world, event.getPos(), state, ply)){
+				
+					MiningDrill md = (MiningDrill) stack.getItem();
+					if (md.getAmmoLeft(stack)>0) {
+						
+						List drops = event.getDrops();
+						drops.clear();
+						
+						try {
+							drops.add(Block_getSilkTouchDrop.invoke(state.getBlock(), state));
+						} catch (IllegalAccessException e) {
+							e.printStackTrace();
+						} catch (IllegalArgumentException e) {
+							e.printStackTrace();
+						} catch (InvocationTargetException e) {
+							e.printStackTrace();
+						}
+						
+						event.setDropChance(1.0f);
+					}
+				}
+			}
+		}
+		
+	}
+	
 	@SubscribeEvent
 	public static void damageTest(LivingHurtEvent event) {
 		if (event.getEntityLiving() instanceof EntityPlayer) {
@@ -594,6 +677,26 @@ public class TGEventHandler {
 		}
 	}
 	
+	@SideOnly(Side.CLIENT)
+	@SubscribeEvent
+	public static void onBlockHighlight(DrawBlockHighlightEvent event) {
+		EntityPlayer ply = event.getPlayer();
+		ItemStack item = ply.getHeldItemMainhand();
+		if(!ply.isSneaking() && !item.isEmpty() && item.getItem() instanceof GenericGunMeleeCharge) {
+			GenericGunMeleeCharge g = (GenericGunMeleeCharge) item.getItem();
+			if (g.getMiningRadius(item)>0 && g.getAmmoLeft(item)>0) {
+				RayTraceResult target = event.getTarget();
+				if(target!=null && target.typeOfHit == Type.BLOCK) {
+					BlockPos p = target.getBlockPos();
+					List<BlockPos> otherblocks = BlockUtils.getBlockPlaneAroundAxisForMining(ply.world, ply, p, target.sideHit.getAxis(), g.getMiningRadius(item), false, g, item);
+					otherblocks.forEach(b -> {
+						RayTraceResult result = new RayTraceResult(new Vec3d(b.getX()+0.5d,  b.getY()+0.5d,  b.getZ()+0.5d),target.sideHit,b);
+						event.getContext().drawSelectionBox(ply, result, 0, event.getPartialTicks());
+					});
+				}
+			}
+		}
+	}
 	
 	@Optional.Method(modid="albedo")
 	@SideOnly(Side.CLIENT)

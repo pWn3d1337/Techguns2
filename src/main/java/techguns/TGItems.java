@@ -229,6 +229,9 @@ public class TGItems implements ITGInitializer{
 	public static ItemStack RC_HEAT_RAY;
 	public static ItemStack RC_UV_EMITTER;
 	
+	public static ItemStack MININGDRILLHEAD_OBSIDIAN;
+	public static ItemStack MININGDRILLHEAD_CARBON;
+	
 	//Tools/weapons
 	public static Item COMBAT_KNIFE;
 	public static Item CROWBAR;
@@ -400,6 +403,9 @@ public class TGItems implements ITGInitializer{
 		
 		ROCKET_NUKE = SHARED_ITEM.addsharedVariant("rocket_nuke", true, TGSlotType.AMMOSLOT);
 		TACTICAL_NUKE_WARHEAD = SHARED_ITEM.addsharedVariant("tacticalnukewarhead");
+		
+		MININGDRILLHEAD_OBSIDIAN = SHARED_ITEM.addsharedVariant("miningdrillhead_obsidian");
+		MININGDRILLHEAD_CARBON = SHARED_ITEM.addsharedVariant("miningdrillhead_carbon");
 		
 		/**
 		 * Additional Slot items

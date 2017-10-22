@@ -162,12 +162,7 @@ public class TGTickHandler {
 			 
 		 } else if (event.phase == Phase.END){
 		 
-		 	//TODO: update extra slots
-			/*if(!event.player.world.isRemote){
-				event.player.getDataWatcher().updateObject(TechgunsExtendedPlayerProperties.DATA_WATCHER_ID_FACESLOT, props.TG_inventory.inventory[TGPlayerInventory.SLOT_FACE]);
-				event.player.getDataWatcher().updateObject(TechgunsExtendedPlayerProperties.DATA_WATCHER_ID_BACKSLOT, props.TG_inventory.inventory[TGPlayerInventory.SLOT_BACK]);
-			 }*/
-			 if(!event.player.world.isRemote) {
+		 	 if(!event.player.world.isRemote) {
 				 event.player.getDataManager().set(TGExtendedPlayer.DATA_FACE_SLOT, props.tg_inventory.getStackInSlot(TGPlayerInventory.SLOT_FACE));
 				 event.player.getDataManager().set(TGExtendedPlayer.DATA_BACK_SLOT, props.tg_inventory.getStackInSlot(TGPlayerInventory.SLOT_BACK));
 				 event.player.getDataManager().set(TGExtendedPlayer.DATA_HAND_SLOT, props.tg_inventory.getStackInSlot(TGPlayerInventory.SLOT_HAND));
@@ -470,7 +465,7 @@ public class TGTickHandler {
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent
 	public static void TickParticleSystems(ClientTickEvent event) {
-		if(event.phase==Phase.START) {
+		if(event.phase==Phase.END) {
 			ClientProxy.get().particleManager.tickParticles();
 			//System.out.println("TGParticleCount:"+ClientProxy.get().particleManager.getList().getSizeDebug()+ " :: "+ClientProxy.get().particleManager.getList().getSize());
 		}

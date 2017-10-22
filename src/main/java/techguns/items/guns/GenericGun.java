@@ -738,7 +738,16 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 			tags.setString("ammovariant", AmmoTypes.TYPE_DEFAULT);
 			tags.setShort("ammo", dmg==0 ? (short)this.clipsize : (short)(this.clipsize-dmg));
 			stack.setItemDamage(0);
+			this.addInitialTags(tags);
 		}
+	}
+	
+	/**
+	 * Add subclass tags here
+	 * @param tags
+	 */
+	protected void addInitialTags(NBTTagCompound tags) {
+		
 	}
 	
 	public int getCurrentAmmo(ItemStack stack){

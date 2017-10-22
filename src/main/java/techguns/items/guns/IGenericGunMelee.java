@@ -31,23 +31,28 @@ public interface IGenericGunMelee<T extends GenericGun> {
 	 * @return
 	 */
 	public default float getDigSpeed(ItemStack itemstack, IBlockState state) {
-		GenericGun g = (GenericGun) this;
-		if(g.getCurrentAmmo(itemstack)>=g.getMiningAmmoConsumption()){
-			
-			String toolclass = state.getBlock().getHarvestTool(state);			
-			
-			if (toolclass!=null){
-				if(this.getMiningLevels().containsKey(toolclass)){
-					return this.getEffectiveDigSpeed();
-				} else{
-					return 1.0f;
-				}
-			} else{
-				return this.getEffectiveDigSpeed();
-			}
+		if(this.isEffectiveToolForState(itemstack, state)) {
+			return this.getEffectiveDigSpeed(itemstack);
 		} else {
 			return 1.0f;
 		}
+	}
+	
+	public default boolean isEffectiveToolForState(ItemStack stack, IBlockState state) {
+		GenericGun g = (GenericGun) this;
+		if (g.getCurrentAmmo(stack)>=g.getMiningAmmoConsumption()) {
+			String toolclass = state.getBlock().getHarvestTool(state);			
+			if (toolclass!=null){
+				if(this.getMiningLevels().containsKey(toolclass)){
+					return true;
+				} else{
+					return false;
+				}
+			} else{
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	/**
@@ -61,17 +66,21 @@ public interface IGenericGunMelee<T extends GenericGun> {
 			return -1;
 		}
 		if(toolClass==null){
-			return this.getMiningLevels().get("default");
+			return this.getMiningLevels().get("default")+getExtraMiningLevel(stack,toolClass,player,blockState);
 		} else if(this.getMiningLevels().containsKey(toolClass)){
-			return this.getMiningLevels().get(toolClass);
+			return this.getMiningLevels().get(toolClass)+getExtraMiningLevel(stack,toolClass,player,blockState);
 		} else {
 			return -1;
 		}
 	}
 	
+	public default int getExtraMiningLevel(ItemStack stack, String toolClass, EntityPlayer player, IBlockState blockState) {
+		return 0;
+	}
+	
 	public T setDigSpeed(float speed);
 	
-	public float getEffectiveDigSpeed();
+	public float getEffectiveDigSpeed(ItemStack itemstack);
 	
 	public HashMap<String,Integer> getMiningLevels();
 }

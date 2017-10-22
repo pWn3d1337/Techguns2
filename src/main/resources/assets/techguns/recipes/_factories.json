@@ -1,5 +1,6 @@
 {
   "recipes": {
+    "miningtool_upgrade": "techguns.recipes.MiningToolUpgradeHeadRecipeFactory",
     "ammo_change_crafting": "techguns.recipes.AmmoSwitchRecipeFactory"
   },
   "ingredients": {
