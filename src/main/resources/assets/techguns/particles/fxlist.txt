@@ -2132,7 +2132,7 @@ VelocityDamping = 0.92 0.94
 FXLIST FlamethrowerTrail {
 FlamethrowerTrailFlames
 FlamethrowerTrailFlames2
-FlamethrowerTrailStartFlames
+//FlamethrowerTrailStartFlames
 }
 
 FlamethrowerTrailFlames {
@@ -2265,6 +2265,43 @@ VelocityDamping = 0.94 0.97
 InitialDelay = 0 0
 }
 
+FXLIST GaussFireFX {
+GaussFireFlare
+}
+
+GaussFireFlare {
+Texture = techguns:textures/fx/lensflare3.png
+RenderType = ADDITIVE
+Angle = 0 360
+AngleRate = -5 5
+AngleRateDamping = 0.98 0.99
+Lifetime = 4 5
+SystemLifetime = 3 3
+Size = 1 2
+SizeRate = 0.25 0.58
+SizeRateDamping = 0.92 0.94
+StartSizeRate = -0.1 -0.1
+Alpha = 0.0 0
+Alpha = 0.50 0.25
+Alpha = 0.0 1.0
+Color = 125 175 255 0
+ParticleCount = 4 4
+InitialDelay = 0 0
+SpawnDelay = 0 0
+VelocityType = ORTHO
+Velocity1 = -0.1 0.1
+Velocity2 = -0.1 0.1
+Velocity3 = 2 5
+VelocityDamping = 0.95 0.97
+Gravity = 0.0
+VolumeType = POINT
+IsHollow =false
+RemoveOnGround = false
+SystemVelocityFactor = 0 0
+//Offset = -0.14 -0.09 0.5
+}
+
+
 FXLIST GaussProjectileTrail {
 GaussTrail
 GaussTrailFlare
@@ -2319,7 +2356,7 @@ Color = 0 25 55 0.125
 Color = 0 4 8 0.5
 Color = 0 0 0 1
 ParticleCount = 12 15
-InitialDelay = 0 0
+InitialDelay = 1 1
 SpawnDelay = 0 0
 VelocityType = SPHERICAL
 Velocity1 = 0 0.2
@@ -2352,7 +2389,7 @@ Alpha = 0 1.0
 Color = 128 148 255 0
 Color = 0 0 0 1
 ParticleCount = 0 3
-InitialDelay = 0 0
+InitialDelay = 1 1
 SpawnDelay = 0 0
 VelocityType = SPHERICAL
 Velocity1 = 0 0.2
@@ -2383,7 +2420,7 @@ SizeRateDamping = 0.84 0.86
 Color = 128 128 128 0
 Color = 0 0 0 1
 ParticleCount = 1 1
-InitialDelay = 0 2
+InitialDelay = 1 2
 SpawnDelay = 1 3
 VelocityType = NONE
 VelocityDamping = 0.96 0.97
@@ -2414,7 +2451,7 @@ Alpha = 0.25 0
 Alpha = 0 1.0
 Color = 215 235 255 0
 ParticleCount = 1 2
-InitialDelay = 0 0
+InitialDelay = 1 1
 SpawnDelay = 0 0
 VelocityType = SPHERICAL
 Velocity1 = 0 0.5

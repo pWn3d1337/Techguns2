@@ -20,6 +20,7 @@ import techguns.client.ClientProxy;
 import techguns.items.guns.GenericGun;
 import techguns.items.guns.IProjectileFactory;
 import techguns.packets.PacketSpawnParticle;
+import techguns.packets.PacketSpawnParticleOnEntity;
 import techguns.util.MathUtil;
 
 @Optional.Interface(iface="elucent.albedo.lighting.ILightProvider", modid="albedo")
@@ -119,6 +120,14 @@ public class GaussProjectile extends AdvancedBulletProjectile implements ILightP
 		@Override
 		public GaussProjectile createProjectile(GenericGun gun, World world, EntityLivingBase p, float damage, float speed, int TTL, float spread, float dmgDropStart, float dmgDropEnd,
 				float dmgMin, float penetration, boolean blockdamage, EnumBulletFirePos firePos, float radius, double gravity) {
+			//-0.14 -0.09 0.5
+			float offsetX = 0.0f;
+			if (firePos == EnumBulletFirePos.RIGHT) offsetX = -0.14f;
+			else if (firePos == EnumBulletFirePos.LEFT) offsetX = 0.14f;			
+			float offsetY = -0.09f;
+			float offsetZ = 0.5f;
+			
+			TGPackets.network.sendToAllAround(new PacketSpawnParticleOnEntity("GaussFireFX", p, offsetX, offsetY, offsetZ, true), TGPackets.targetPointAroundEnt(p, 25.0f));
 			return new GaussProjectile(world,p,damage,speed,TTL,spread,dmgDropStart,dmgDropEnd,dmgMin,penetration,blockdamage,firePos);
 		}
 

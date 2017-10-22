@@ -27,7 +27,7 @@ public class TGFX {
 //	}
 	
 	public static final String FXLIST_DIR = "/assets/techguns/particles/";
-	public static String[] FXFILES = {"fxlist.txt","nuke.txt", "deathfx.txt", "testfx.txt"};
+	public static String[] FXFILES = {"fxlist.txt","nuke.txt", "deathfx.txt", "impactfx.txt", "testfx.txt"};
 	
 	public static HashMap<String, TGFXType> FXList = new HashMap<String, TGFXType>();
 

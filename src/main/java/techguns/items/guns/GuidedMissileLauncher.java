@@ -58,7 +58,7 @@ public class GuidedMissileLauncher extends GenericGunCharge {
 
 	@Override
 	protected void startCharge(ItemStack item, World world, EntityPlayer player) {
-		TGExtendedPlayer txp = TGExtendedPlayer.get(player);
+		//TGExtendedPlayer txp = TGExtendedPlayer.get(player);
 		//if (txp.isReloading(false)) return;
 		//if (((GenericGunCharge)item.getItem()).getAmmoLeft(item) <= 0) return;
 		

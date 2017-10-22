@@ -222,8 +222,10 @@ public class TGGuiEvents extends Gui{
 		ScaledResolution sr = new ScaledResolution(mc);
 		EntityPlayer player = mc.player;
 		TGExtendedPlayer epc = TGExtendedPlayer.get(player);
-		if (player.getActiveItemStack().getItem() instanceof GenericGun) {
-			GenericGun gun = (GenericGun)player.getActiveItemStack().getItem();
+		//if (player.getActiveItemStack().getItem() instanceof GenericGun) {
+		if (player.getHeldItemMainhand().getItem() instanceof GenericGun) {
+			//GenericGun gun = (GenericGun)player.getActiveItemStack().getItem();
+			GenericGun gun = (GenericGun)player.getHeldItemMainhand().getItem();
 			if (gun.getLockOnTicks() > 0 && epc.lockOnEntity != null && epc.lockOnTicks > 0) {
 				float maxTicks = (float)gun.getLockOnTicks(); //TODO: Store in capabilities
 				float progress = (float)epc.lockOnTicks/maxTicks;
