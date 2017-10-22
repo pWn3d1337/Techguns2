@@ -5,6 +5,8 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
 import techguns.Techguns;
+import techguns.client.render.TGRenderHelper;
+import techguns.client.render.TGRenderHelper.RenderType;
 import techguns.entities.projectiles.BioGunProjectile;
 
 public class RenderBioGunProjectile extends RenderTextureProjectile<BioGunProjectile>{
@@ -37,13 +39,16 @@ public class RenderBioGunProjectile extends RenderTextureProjectile<BioGunProjec
 		  GlStateManager.enableRescaleNormal();
 		  GlStateManager.scale(baseSize*scale, baseSize*scale, baseSize*scale);
 		  
-		  GlStateManager.disableLighting();
+		  //GlStateManager.disableLighting();
+		  TGRenderHelper.enableBlendMode(RenderType.ADDITIVE);
 		  
           this.bindEntityTexture(entity);
           Tessellator tessellator = Tessellator.getInstance();
           this.drawProjectile(tessellator);
           
-          GlStateManager.enableLighting();
+          TGRenderHelper.disableBlendMode(RenderType.ADDITIVE);
+          
+          //GlStateManager.enableLighting();
           
           GlStateManager.disableRescaleNormal();
           GlStateManager.popMatrix();

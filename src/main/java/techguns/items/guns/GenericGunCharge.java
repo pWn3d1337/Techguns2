@@ -8,8 +8,10 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumHandSide;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import techguns.TGItems;
+import techguns.TGPackets;
 import techguns.capabilities.TGExtendedPlayer;
 import techguns.client.ClientProxy;
 import techguns.client.ShooterValues;
@@ -17,6 +19,8 @@ import techguns.client.audio.TGSoundCategory;
 import techguns.entities.projectiles.EnumBulletFirePos;
 import techguns.entities.projectiles.GenericProjectile;
 import techguns.items.guns.ammo.AmmoType;
+import techguns.packets.PacketSpawnParticleOnEntity;
+import techguns.util.EntityCondition;
 import techguns.util.InventoryUtil;
 import techguns.util.SoundUtil;
 
@@ -32,6 +36,12 @@ public class GenericGunCharge extends GenericGun {
 	
 	public boolean hasChargedFireAnim = true;
 	public boolean canFireWhileCharging = false;
+	
+	SoundEvent startChargeSound = null;
+	String chargeFX = null;
+	private float chargeFXoffsetX = 0.0f;
+	private float chargeFXoffsetY = 0.0f;
+	private float chargeFXoffsetZ = 0.0f;
 	
 	public GenericGunCharge(String name, ChargedProjectileSelector projectile_selector, boolean semiAuto, int minFiretime, int clipsize, int reloadtime, float damage, SoundEvent firesound, SoundEvent reloadsound,
 			int TTL, float accuracy, float fullChargeTime, int ammoConsumedOnFullCharge) {
@@ -78,6 +88,18 @@ public class GenericGunCharge extends GenericGun {
 					//player.setItemInUse(item, this.getMaxItemUseDuration(item));
 					
 					this.startCharge( item, world, player);
+					TGExtendedPlayer txp = TGExtendedPlayer.get(player);
+					txp.setChargingWeapon(true);
+					
+					if (this.startChargeSound != null) {
+						SoundUtil.playSoundOnEntityGunPosition(world, player ,this.startChargeSound, SOUND_DISTANCE, 1.0F, false, true, false, TGSoundCategory.GUN_FIRE, EntityCondition.CHARGING_WEAPON);
+						//SoundUtil.playSoundOnEntityGunPosition(world, player ,this.startChargeSound, SOUND_DISTANCE, 1.0F, false, false, TGSoundCategory.GUN_FIRE);
+					}
+					
+					if (this.chargeFX != null) {
+						float x = this.chargeFXoffsetX;
+						TGPackets.network.sendToAllAround(new PacketSpawnParticleOnEntity(this.chargeFX, player, x, this.chargeFXoffsetY, this.chargeFXoffsetZ, true, EntityCondition.CHARGING_WEAPON), TGPackets.targetPointAroundEnt(player, 25.0f));						
+					}
 				}
 
 			} else {
@@ -159,6 +181,9 @@ public class GenericGunCharge extends GenericGun {
 	public void onPlayerStoppedUsing(ItemStack item, World world, EntityLivingBase entityLiving, int timeLeft) {
 		if ( entityLiving instanceof EntityPlayer){
 			EntityPlayer player = (EntityPlayer) entityLiving;
+			
+			TGExtendedPlayer txp = TGExtendedPlayer.get(player);
+			txp.setChargingWeapon(false);
 			
 			int j = this.getMaxItemUseDuration(item) - timeLeft;
 	
@@ -273,6 +298,20 @@ public class GenericGunCharge extends GenericGun {
 	
 	public GenericGunCharge setFireWhileCharging(boolean canFire) {
 		this.canFireWhileCharging = canFire;
+		return this;
+	}
+	
+	
+	public GenericGunCharge setChargeSound(SoundEvent startChargeSound) {
+		this.startChargeSound = startChargeSound;
+		return this;
+	}
+	
+	public GenericGunCharge setChargeFX(String fx, float offsetX, float offsetY, float offsetZ) {
+		this.chargeFX = fx;
+		this.chargeFXoffsetX = offsetX;
+		this.chargeFXoffsetY = offsetY;
+		this.chargeFXoffsetZ = offsetZ;
 		return this;
 	}
 }

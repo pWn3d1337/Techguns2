@@ -24,6 +24,8 @@ public class TGExtendedPlayer implements ITGExtendedPlayer {
 	public static final DataParameter<ItemStack> DATA_BACK_SLOT = EntityDataManager.<ItemStack>createKey(EntityPlayer.class, DataSerializers.ITEM_STACK);
 	public static final DataParameter<ItemStack> DATA_HAND_SLOT = EntityDataManager.<ItemStack>createKey(EntityPlayer.class, DataSerializers.ITEM_STACK);
 	
+	public static final DataParameter<Boolean> DATA_FLAG_CHARGING_WEAPON = EntityDataManager.<Boolean>createKey(EntityPlayer.class, DataSerializers.BOOLEAN);
+	
 	public int fireDelayMainhand=0;
 	public int fireDelayOffhand=0;
 	
@@ -91,6 +93,8 @@ public class TGExtendedPlayer implements ITGExtendedPlayer {
 		entity.getDataManager().register(DATA_FACE_SLOT, ItemStack.EMPTY);
 		entity.getDataManager().register(DATA_BACK_SLOT, ItemStack.EMPTY);
 		entity.getDataManager().register(DATA_HAND_SLOT, ItemStack.EMPTY);
+		
+		entity.getDataManager().register(DATA_FLAG_CHARGING_WEAPON, false);
 	}
 	
 	@Override
@@ -303,5 +307,13 @@ public class TGExtendedPlayer implements ITGExtendedPlayer {
 	         
 	        }
 		}
+	}
+	
+	public boolean isChargingWeapon() {
+		return this.entity.getDataManager().get(DATA_FLAG_CHARGING_WEAPON);
+	}
+	
+	public void setChargingWeapon(boolean charging) {
+		this.entity.getDataManager().set(DATA_FLAG_CHARGING_WEAPON, charging);
 	}
 }

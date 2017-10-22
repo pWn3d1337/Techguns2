@@ -272,6 +272,7 @@ import techguns.tileentities.MetalPressTileEnt;
 import techguns.tileentities.ReactionChamberTileEntMaster;
 import techguns.tileentities.RepairBenchTileEnt;
 import techguns.tileentities.TurretTileEnt;
+import techguns.util.EntityCondition;
 import techguns.util.MathUtil;
 
 @Mod.EventBusSubscriber(Side.CLIENT)
@@ -597,7 +598,7 @@ public class ClientProxy extends CommonProxy {
 					{0f,0f,0f}, //GUI
 					{0f,0f,0f}, //Ground
 					{0f,0f,-0.05f} //frame
-				}).setMuzzleFXPos3P(0.1f, -0.51f));
+				}).setMuzzleFXPos3P(0.1f, -0.51f).setChargeTranslationAmount(0.05f));
 	
 		ItemRenderHack.registerItemRenderer(TGuns.flamethrower,new RenderGunFlamethrower(new ModelFlamethrower(),1).setBaseTranslation(0, -0.2f, RenderItemBase.SCALE-0.1f)
 				.setGUIScale(0.45f).setMuzzleFx(ScreenEffect.FlamethrowerMuzzleFlash, 0, 0.16f, -0.9f, 0.45f,0).setTransformTranslations(new float[][]{
@@ -990,7 +991,7 @@ public class ClientProxy extends CommonProxy {
 	
 	@Override
 	public void handleSoundEvent(EntityPlayer ply, int entityId, SoundEvent soundname, float volume, float pitch, boolean repeat, boolean moving,
-			boolean gunPosition,boolean playOnOwnPlayer, TGSoundCategory soundCategory) {
+			boolean gunPosition,boolean playOnOwnPlayer, TGSoundCategory soundCategory, EntityCondition condition) {
 		Entity entity = null;
 		if (entityId != -1) {
 			entity = ply.world.getEntityByID(entityId);
@@ -1015,10 +1016,23 @@ public class ClientProxy extends CommonProxy {
 			this.playSoundOnEntity(ent, soundname, volume, pitch, repeat, moving, gunPosition, category);
 		}
 	}
+	
+	@Override
+	public void playSoundOnEntity(Entity ent, SoundEvent soundname, float volume, float pitch, boolean repeat,
+			boolean moving, boolean gunPosition, boolean playForOwnPlayer, TGSoundCategory category, EntityCondition condition) {
+		if(playForOwnPlayer || ent != this.getPlayerClient()) {
+			this.playSoundOnEntity(ent, soundname, volume, pitch, repeat, moving, gunPosition, category, condition);
+		}
+	}
 
 	@Override
 	public void playSoundOnEntity(Entity ent, SoundEvent soundname, float volume, float pitch, boolean repeat, boolean moving, boolean gunPosition, TGSoundCategory category) {
 		Minecraft.getMinecraft().getSoundHandler().playSound(new TGSound(soundname,ent, volume, pitch, repeat, moving, gunPosition, category));
+	}
+	
+	@Override
+	public void playSoundOnEntity(Entity ent, SoundEvent soundname, float volume, float pitch, boolean repeat, boolean moving, boolean gunPosition, TGSoundCategory category, EntityCondition condition) {
+		Minecraft.getMinecraft().getSoundHandler().playSound(new TGSound(soundname,ent, volume, pitch, repeat, moving, gunPosition, category, condition));
 	}
 	
 	
@@ -1056,12 +1070,13 @@ public class ClientProxy extends CommonProxy {
 	}
 	
 	@Override
-	public void createFXOnEntityWithOffset(String name, Entity ent, float offsetX, float offsetY, float offsetZ, boolean attachToHead) {
+	public void createFXOnEntityWithOffset(String name, Entity ent, float offsetX, float offsetY, float offsetZ, boolean attachToHead, EntityCondition condition) {
 		List<TGParticleSystem> systems = TGFX.createFXOnEntity(ent, name);
 		if (systems!=null) {
 			for (TGParticleSystem s : systems) {
 				s.entityOffset = new Vec3d(offsetX, offsetY, offsetZ);
 				s.attachToHead = attachToHead;
+				s.condition = condition;
 				particleManager.addEffect(s);
 			}
 		}

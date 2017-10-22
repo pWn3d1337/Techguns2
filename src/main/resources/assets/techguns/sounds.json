@@ -191,6 +191,13 @@
     ]
 },
 
+"guns.bioguncharge": {
+    "category": "player",
+    "sounds": [
+        "techguns:guns/biogun_charge"
+    ]
+},
+
 "effects.biogunimpact": {
     "category": "player",
     "sounds": [

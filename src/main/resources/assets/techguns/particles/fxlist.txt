@@ -519,7 +519,9 @@ RenderType = ADDITIVE
 Rows = 5
 Columns = 5
 Frames = 20
-RandomRotation = true
+angle = 0 360
+angleRate = -10 10
+angleRateDamping = 0.88 0.91
 Lifetime = 12 17
 SystemLifetime = 1 1
 Size = 1.8 2.9
@@ -550,7 +552,9 @@ RenderType = ADDITIVE
 Rows = 3
 Columns = 3
 Frames = 6
-RandomRotation = true
+angle = 0 360
+angleRate = -10 10
+angleRateDamping = 0.88 0.91
 Lifetime = 30 45
 SpawnDelay = 1 1
 SystemLifetime = 5 5
@@ -582,7 +586,9 @@ RenderType = ADDITIVE
 Rows = 4
 Columns = 4
 Frames = 16
-RandomRotation = true
+angle = 0 360
+angleRate = -20 20
+angleRateDamping = 0.92 0.94
 Lifetime = 25 35
 SpawnDelay = 1 1
 SystemLifetime = 5 5
@@ -603,6 +609,77 @@ VelocityType = OUTWARD
 Velocity1 = 1.5 4.5 //Outward
 Velocity2 = 6 12 //Up
 VelocityDamping = 0.96 0.98
+InitialDelay = 0 0
+HasVariations = true
+RemoveOnGround = true
+}
+
+FXLIST biogunImpact {
+biogunImpactSplat
+biogunImpactBlobs
+}
+
+biogunImpactSplat {
+Texture = techguns:textures/fx/splat.png
+RenderType = ADDITIVE
+Rows = 3
+Columns = 3
+Frames = 6
+angle = 0 360
+angleRate = -10 10
+angleRateDamping = 0.88 0.91
+Lifetime = 20 25
+SpawnDelay = 1 1
+SystemLifetime = 1 1
+Size = 0.8 1.8
+SizeRate = 0.3 0.5
+SizeRateDamping = 0.84 0.87
+Alpha = 0 0
+Alpha = 1 0.25
+Alpha = 0 1
+Color = 0 255 0 0
+Color = 45 255 30 1
+ParticleCount = 2 3
+Gravity = 0.05
+VolumeType = POINT
+VelocityType = ORTHO
+Velocity1 = -1 1
+Velocity2 = -1 1
+Velocity3 = 0 4
+VelocityDamping = 0.92 0.96
+InitialDelay = 0 0
+HasVariations = true
+RemoveOnGround = true
+}
+
+biogunImpactBlobs {
+Texture = techguns:textures/fx/blobs.png
+RenderType = ADDITIVE
+Rows = 4
+Columns = 4
+Frames = 16
+angle = 0 360
+angleRate = -20 20
+angleRateDamping = 0.92 0.94
+Lifetime = 12 15
+SpawnDelay = 1 1
+SystemLifetime = 1 1
+Size = 0.5 1
+SizeRate = 0.15 0.75
+SizeRateDamping = 0.85 0.86
+Alpha = 0 0
+Alpha = 1 0.25
+Alpha = 0 1
+Color = 255 255 255 0
+Color = 255 255 255 1
+ParticleCount = 3 3
+Gravity = 0.10
+VolumeType = POINT
+VelocityType = ORTHO
+Velocity1 = -1 1
+Velocity2 = -1 1
+Velocity3 = 0 4
+VelocityDamping = 0.93 0.95
 InitialDelay = 0 0
 HasVariations = true
 RemoveOnGround = true
@@ -1202,14 +1279,14 @@ Columns = 3
 Frames = 6
 //RandomRotation = true
 Angle = 0 360
-AngleRate = -1 1
+AngleRate = -10 10
 AngleRateDamping = 0.93 0.97
 Lifetime = 8 12
 SpawnDelay = 0 0
 SystemLifetime = 0 0
-Size = 0.5 1.5
+Size = 0.25 1.0
 SizeRate = 0.5 1.5
-SizeRateDamping = 0.9 0.93
+SizeRateDamping = 0.85 0.93
 Alpha = 0 0
 Alpha = 1 0.25
 Alpha = 0 1
@@ -1221,7 +1298,7 @@ VolumeType = POINT
 VelocityType = SPHERICAL
 Velocity1 = 0.5 1.5
 VelocityDamping = 0.92 0.96
-InitialDelay = 0 0
+InitialDelay = 1 1
 HasVariations = true
 RemoveOnGround = true
 }
@@ -1238,7 +1315,7 @@ AngleRateDamping = 0.93 0.97
 Lifetime = 5 5
 SpawnDelay = 0 0
 SystemLifetime = 0 0
-Size = 2.0 2.5
+Size = 1.5 2.0
 SizeRate = 0.8 1.6
 SizeRateDamping = 0.85 0.86
 Alpha = 0 0
@@ -1252,7 +1329,7 @@ VolumeType = POINT
 VelocityType = SPHERICAL
 Velocity1 = 0.0 0.1
 VelocityDamping = 0.90 0.92
-InitialDelay = 0 0
+InitialDelay = 1 1
 HasVariations = true
 RemoveOnGround = true
 }
@@ -2263,6 +2340,45 @@ Velocity1 = 0.5 1 //Outward
 Velocity2 = 0.1 0.8 //Up
 VelocityDamping = 0.94 0.97
 InitialDelay = 0 0
+}
+
+
+FXLIST FlamethrowerFireFX {
+FlamethrowerFireFXFlames
+}
+
+FlamethrowerFireFXFlames {
+Texture = techguns:textures/fx/flamethrower.png
+RenderType = ADDITIVE
+Rows = 4
+Columns = 4
+Frames = 16
+angle = -45 45
+angleRate = -10 10
+angleRateDamping = 0.87 0.89
+Lifetime = 7 9
+SystemLifetime = 2 2
+Size = 0.35 0.65
+SizeRate = 0.25 0.45
+SizeRateDamping = 0.88 0.91
+Alpha = 0.0 0
+Alpha = 0.45 0.35
+Alpha = 0 1.0
+//Alpha = 1 1 0
+Color = 255 255 255 0
+//Color = 0 0 0 1
+ParticleCount = 2 3
+InitialDelay = 0 0
+SpawnDelay = 0 0
+VelocityType = ORTHO
+Velocity1 = -0.2 0.2
+Velocity2 = -0.2 0.2
+Velocity3 = 1 6
+VelocityDamping = 0.84 0.86
+Gravity = -0.01
+VolumeType = POINT
+SystemVelocityFactor = 0 0
+//offset = -0.15 -0.05 0.5
 }
 
 FXLIST GaussFireFX {

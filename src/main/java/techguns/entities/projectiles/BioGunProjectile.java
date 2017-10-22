@@ -1,28 +1,37 @@
 package techguns.entities.projectiles;
 
 import io.netty.buffer.ByteBuf;
+import net.minecraft.block.SoundType;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.RayTraceResult.Type;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.BlockSnapshot;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 import techguns.TGBlocks;
+import techguns.TGPackets;
+import techguns.TGSounds;
+import techguns.Techguns;
 import techguns.api.damagesystem.DamageType;
 import techguns.client.ClientProxy;
 import techguns.damagesystem.TGDamageSource;
 import techguns.deatheffects.EntityDeathUtils.DeathType;
 import techguns.items.guns.GenericGun;
 import techguns.items.guns.IChargedProjectileFactory;
+import techguns.packets.PacketSpawnParticle;
 import techguns.tileentities.BioBlobTileEnt;
 
 public class BioGunProjectile extends GenericProjectile implements IEntityAdditionalSpawnData{
@@ -52,6 +61,10 @@ public class BioGunProjectile extends GenericProjectile implements IEntityAdditi
 	 @Override
 	protected void onHitEffect(EntityLivingBase ent, RayTraceResult rayTraceResult) {
  		ent.addPotionEffect(new PotionEffect(MobEffects.POISON,100,3,false,true));
+ 		
+ 		doImpactEffects(null, rayTraceResult, null);
+ 		
+		//TGPackets.network.sendToAllAround(new PacketSpawnParticle("biogunImpact", -rayTraceResult.hitVec.x,-rayTraceResult.hitVec.y,-rayTraceResult.hitVec.z), TGPackets.targetPointAroundEnt(this, 25.0f));			
 	}
 	 
 	@Override
@@ -63,7 +76,32 @@ public class BioGunProjectile extends GenericProjectile implements IEntityAdditi
     	return src;
 	}
 
-	
+	@Override
+	protected void doImpactEffects(Material mat, RayTraceResult rayTraceResult, SoundType sound) {
+		double x = rayTraceResult.hitVec.x;
+    	double y = rayTraceResult.hitVec.y;
+    	double z = rayTraceResult.hitVec.z;
+    	boolean distdelay=true;
+    	
+    	float pitch = 0.0f;
+    	float yaw = 0.0f;
+    	if (rayTraceResult.typeOfHit == Type.BLOCK) {
+    		if (rayTraceResult.sideHit == EnumFacing.UP) {
+    			pitch = -90.0f;
+    		}else if (rayTraceResult.sideHit == EnumFacing.DOWN) {
+    			pitch = 90.0f;
+    		}else {
+    			yaw = rayTraceResult.sideHit.getHorizontalAngle();
+    		}
+    	}else {
+    		pitch = -this.rotationPitch;
+    		yaw = -this.rotationYaw;
+    	}
+    	
+		this.world.playSound(x, y, z, TGSounds.BIOGUN_IMPACT, SoundCategory.AMBIENT, 1.0f, 1.0f, distdelay);
+		Techguns.proxy.createFX("biogunImpact", world, x, y, z, 0.0D, 0.0D, 0.0D, pitch, yaw);
+			
+	}
 	
 	
 	@Override
@@ -125,7 +163,10 @@ public class BioGunProjectile extends GenericProjectile implements IEntityAdditi
     		 }
 		 }
 	
-	    this.world.spawnParticle(EnumParticleTypes.SLIME,mop.hitVec.x,mop.hitVec.y,mop.hitVec.z,0.0D, 0.0D, 0.0D);
+		 super.hitBlock(mop);
+	    //this.world.spawnParticle(EnumParticleTypes.SLIME,mop.hitVec.x,mop.hitVec.y,mop.hitVec.z,0.0D, 0.0D, 0.0D);
+		//TGPackets.network.sendToAllAround(new PacketSpawnParticle("biogunImpact", mop.hitVec.x,mop.hitVec.y,mop.hitVec.z), TGPackets.targetPointAroundEnt(this, 25.0f));
+			
 	}
 
 	
