@@ -1,9 +1,9 @@
 package techguns.client.particle;
 
 import java.util.Comparator;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.Queue;
-
-import javax.xml.transform.TransformerFactoryConfigurationError;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.Particle;
@@ -20,17 +20,33 @@ import techguns.client.particle.list.ParticleList.ParticleListIterator;
 
 public class TGParticleManager {
 
+	protected LinkedList<TGParticleSystem> list_systems = new LinkedList<>();
 	protected ParticleList<ITGParticle> list = new ParticleList<>();
 	protected ComparatorParticleDepth compare = new ComparatorParticleDepth();
 	
 	public void addEffect(ITGParticle effect)
     {
         if (effect == null) return;
-        list.add(effect);
+        if(effect instanceof TGParticleSystem) {
+        	list_systems.add((TGParticleSystem) effect);
+        } else {
+        	list.add(effect);
+        }
     }
 	
 	public void tickParticles() {
 		Entity viewEnt = Minecraft.getMinecraft().getRenderViewEntity();
+		
+		Iterator<TGParticleSystem> sysit = list_systems.iterator();
+		while(sysit.hasNext()) {
+			TGParticleSystem p = sysit.next();
+			
+			p.updateTick();
+			if(p.shouldRemove()) {
+				sysit.remove();
+			}
+		}
+		
 		ParticleListIterator<ITGParticle> it = list.iterator();
 		while(it.hasNext()) {
 			ITGParticle p = it.next();
@@ -54,9 +70,9 @@ public class TGParticleManager {
 		this.list.doBubbleSort(TGConfig.cl_sortPassesPerTick, compare);
 	}
 	
-	public ParticleList<ITGParticle> getList() {
+	/*public ParticleList<ITGParticle> getList() {
 		return list;
-	}
+	}*/
 
 	/**
 	 * 
