@@ -100,6 +100,7 @@ import techguns.client.models.guns.ModelM4Infiltrator;
 import techguns.client.models.guns.ModelMac10;
 import techguns.client.models.guns.ModelMibGun;
 import techguns.client.models.guns.ModelMinigun;
+import techguns.client.models.guns.ModelMiningDrill;
 import techguns.client.models.guns.ModelNDR;
 import techguns.client.models.guns.ModelNetherBlaster;
 import techguns.client.models.guns.ModelPDW;
@@ -873,6 +874,15 @@ public class ClientProxy extends CommonProxy {
 					{0.0f,0.0f,0}, //Ground
 					{0,0,-0.04f} //frame
 				}).setMuzzleFXPos3P(0.09f, -0.26f));
+		
+		ItemRenderHack.registerItemRenderer(TGuns.miningdrill,new RenderGunBase90(new ModelMiningDrill(),1).setBaseTranslation(0, -0.2f, -RenderItemBase.SCALE*0.5f).setBaseScale(2.0f)
+				.setGUIScale(0.35f).setTransformTranslations(new float[][]{
+					{0f,-0.03f,0.0f}, //First Person
+					{0f,-0.57f,0.08f}, //Third Person
+					{0.01f,-0.01f,0f}, //GUI
+					{0f,0f,0f}, //Ground
+					{0f,-0.08f,-0.05f} //frame
+				}).setRecoilAnim(GunAnimation.genericRecoil, 0.05f, 1.0f));
 		
 		ItemRenderHack.registerItemRenderer(TGArmors.steam_Helmet,  new RenderArmorItem(new ModelSteamArmor(0), new ResourceLocation(Techguns.MODID,"textures/models/armor/steam_armor.png"), EntityEquipmentSlot.HEAD) );
 		ItemRenderHack.registerItemRenderer(TGArmors.steam_Chestplate,  new RenderArmorItem(new ModelSteamArmor(0), new ResourceLocation(Techguns.MODID,"textures/models/armor/steam_armor.png"), EntityEquipmentSlot.CHEST) );

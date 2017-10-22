@@ -26,12 +26,15 @@ import techguns.TGItems;
 import techguns.blocks.machines.BasicMachine;
 import techguns.items.GenericItemShared;
 import techguns.items.guns.GenericGun;
+import techguns.items.guns.GenericGunMeleeCharge;
 import techguns.items.guns.ammo.AmmoType;
 
 
 /**
- * From
+ * Based on:
  * https://gist.github.com/williewillus/a1a899ce5b0f0ba099078d46ae3dae6e
+ * 
+ * added some stuff
  */
 public class RecipeJsonConverter {
 	// Replace calls to GameRegistry.addShapeless/ShapedRecipe with these methods, which will dump it to a json in your dir of choice
@@ -45,10 +48,11 @@ public class RecipeJsonConverter {
 			factories.put(Recipewriter.electrumOrGold, OreDictIngredientElectrumOrGold.class.getName());
 		}
 
-		private static final String AMMO_CHANGE_COPY_NBT_RECIPE = "ammo_change_crafting";
+		public static final String AMMO_CHANGE_COPY_NBT_RECIPE = "ammo_change_crafting";
 		private static HashMap<String,String> recipe_types = new HashMap<>();
 		static {
 			recipe_types.put(AMMO_CHANGE_COPY_NBT_RECIPE, AmmoSwitchRecipeFactory.class.getName());
+			recipe_types.put(MiningToolUpgradeHeadRecipeFactory.MINING_TOOL_UPGRADE_RECIPE, MiningToolUpgradeHeadRecipeFactory.class.getName());
 		}
 	
 		private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
@@ -232,6 +236,51 @@ public class RecipeJsonConverter {
 			// repeatedly adds _alt if a file already exists
 			// janky I know but it works
 			String suffix = "_ammo_"+key;
+			
+			String name = result.getItem().getRegistryName().getResourcePath();
+
+			
+			File f = new File(RECIPE_DIR, name + suffix + ".json");
+
+			while (f.exists()) {
+				suffix += "_alt";
+				f = new File(RECIPE_DIR, name + suffix + ".json");
+			}
+
+			try (FileWriter w = new FileWriter(f)) {
+				GSON.toJson(json, w);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		public static void addShapelessMiningHeadUpgradeRecipe(GenericGun gun, ItemStack upgradeItem)
+		{
+			setupDir();
+
+			// addShapelessRecipe(result, components);
+
+			Map<String, Object> json = new HashMap<>();
+
+			boolean isOreDict = false;
+			List<Map<String, Object>> ingredients = new ArrayList<>();
+			/*for (Object o : components) {
+				if (o instanceof String)
+					isOreDict = true;
+				ingredients.add(serializeItem(o));
+			}*/
+			ingredients.add(serializeItem(new ItemStack(gun,1)));
+			ingredients.add(serializeItem(upgradeItem));
+			ItemStack result = new ItemStack(gun,1);
+			
+			json.put("ingredients", ingredients);
+			json.put("type", "techguns:"+MiningToolUpgradeHeadRecipeFactory.MINING_TOOL_UPGRADE_RECIPE);
+			json.put("result", serializeItem(result));
+
+			// names the json the same name as the output's registry name
+			// repeatedly adds _alt if a file already exists
+			// janky I know but it works
+			String suffix = "_upgrade_"+upgradeItem.getItem().getUnlocalizedName();
 			
 			String name = result.getItem().getRegistryName().getResourcePath();
 

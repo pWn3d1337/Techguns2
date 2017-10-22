@@ -1,0 +1,15 @@
+{
+  "result": {
+    "item": "techguns:miningdrill"
+  },
+  "ingredients": [
+    {
+      "item": "techguns:miningdrill"
+    },
+    {
+      "item": "techguns:itemshared",
+      "data": 120
+    }
+  ],
+  "type": "techguns:miningtool_upgrade"
+}

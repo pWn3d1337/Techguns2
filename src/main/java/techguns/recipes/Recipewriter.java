@@ -269,7 +269,12 @@ public class Recipewriter {
         
         
         addGunRecipes();
+        addUpgradeRecipes();
         addAmmoChangeRecipes();
+	}
+	
+	public static void addUpgradeRecipes() {
+		RecipeJsonConverter.addShapelessMiningHeadUpgradeRecipe(TGuns.miningdrill, TGItems.MININGDRILLHEAD_CARBON);
 	}
 	
 	public static void addAmmoChangeRecipes() {

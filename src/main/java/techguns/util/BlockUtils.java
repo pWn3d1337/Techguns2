@@ -1,5 +1,8 @@
 package techguns.util;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map.Entry;
 
 import javax.annotation.Nullable;
@@ -10,8 +13,15 @@ import com.google.common.collect.Iterables;
 
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockPos.MutableBlockPos;
+import techguns.items.guns.GenericGunMeleeCharge;
+import techguns.items.guns.MiningDrill;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
 
 public class BlockUtils {
 	
@@ -71,5 +81,45 @@ public class BlockUtils {
 			newOffsetZ=-tmp;
 		}
 		return new BlockPos(axis.x+newOffsetX, pos.getY(), axis.z+newOffsetZ);
+	}
+	
+	protected static boolean checkMiningLevels(World world, EntityPlayer ply, BlockPos b, GenericGunMeleeCharge miningtool, ItemStack stack) {
+		IBlockState state = world.getBlockState(b);
+		String tool = state.getBlock().getHarvestTool(state);
+		if (state.getBlock().canCollideCheck(state, false) && state.getBlock().canHarvestBlock(world, b, ply)) {
+			if(tool==null) {
+				return true;
+			} else {
+				return state.getBlock().getHarvestLevel(state) <= miningtool.getHarvestLevel(stack, tool, ply, state);
+			}
+		}
+		return false;
+	}
+	
+	public static List<BlockPos> getBlockPlaneAroundAxisForMining(World world, EntityPlayer ply, BlockPos center, EnumFacing.Axis axis, int radius, boolean includeCenter, @Nullable GenericGunMeleeCharge miningtool, ItemStack stack){
+		List<BlockPos> entries = new ArrayList<BlockPos>();
+		
+		Iterable<BlockPos> blocks;
+		switch(axis) {
+			case X:
+				blocks = BlockPos.getAllInBox(center.add(0, -radius, -radius), center.add(0, radius, radius));
+				break;
+			case Y:
+				blocks = BlockPos.getAllInBox(center.add(-radius,0, -radius), center.add(radius,0, radius));
+				break;
+			case Z:
+			default:
+				blocks = BlockPos.getAllInBox(center.add(-radius, -radius,0), center.add(radius, radius,0));
+				break;
+		}
+
+		blocks.forEach(b -> {
+			if(includeCenter || !b.equals(center)) {
+				if(miningtool==null || stack.isEmpty() || checkMiningLevels(world,ply, b, miningtool, stack)) {
+					entries.add(b);
+				}
+			}
+		});
+		return entries;
 	}
 }
