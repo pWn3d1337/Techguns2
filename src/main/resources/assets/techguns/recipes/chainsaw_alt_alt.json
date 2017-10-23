@@ -1,31 +1,33 @@
 {
   "result": {
-    "item": "techguns:flamethrower"
+    "item": "techguns:chainsaw",
+    "data": 300
   },
   "pattern": [
-    "prs",
-    "fm "
+    "ccp",
+    "mmr",
+    "ccf"
   ],
-  "type": "minecraft:crafting_shaped",
+  "type": "forge:ore_shaped",
   "key": {
     "p": {
       "item": "techguns:itemshared",
-      "data": 72
+      "data": 55
     },
     "r": {
       "item": "techguns:itemshared",
       "data": 33
     },
-    "s": {
+    "c": {
       "item": "techguns:itemshared",
-      "data": 43
+      "data": 57
     },
     "f": {
-      "item": "minecraft:flint_and_steel"
+      "item": "techguns:itemshared",
+      "data": 28
     },
     "m": {
-      "item": "techguns:itemshared",
-      "data": 27
+      "item": "#PLATEIRON"
     }
   }
 }

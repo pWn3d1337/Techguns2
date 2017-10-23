@@ -66,15 +66,15 @@ public interface IGenericGunMelee<T extends GenericGun> {
 			return -1;
 		}
 		if(toolClass==null){
-			return this.getMiningLevels().get("default")+getExtraMiningLevel(stack,toolClass,player,blockState);
+			return this.getMiningLevels().get("default")+getExtraMiningLevel(stack,toolClass,player);
 		} else if(this.getMiningLevels().containsKey(toolClass)){
-			return this.getMiningLevels().get(toolClass)+getExtraMiningLevel(stack,toolClass,player,blockState);
+			return this.getMiningLevels().get(toolClass)+getExtraMiningLevel(stack,toolClass,player);
 		} else {
 			return -1;
 		}
 	}
 	
-	public default int getExtraMiningLevel(ItemStack stack, String toolClass, EntityPlayer player, IBlockState blockState) {
+	public default int getExtraMiningLevel(ItemStack stack, String toolClass, EntityPlayer player) {
 		return 0;
 	}
 	

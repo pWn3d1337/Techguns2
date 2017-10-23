@@ -1,0 +1,15 @@
+{
+  "result": {
+    "item": "techguns:powerhammer"
+  },
+  "ingredients": [
+    {
+      "item": "techguns:powerhammer"
+    },
+    {
+      "item": "techguns:itemshared",
+      "data": 122
+    }
+  ],
+  "type": "techguns:miningtool_upgrade"
+}

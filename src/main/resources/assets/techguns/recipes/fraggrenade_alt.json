@@ -1,0 +1,23 @@
+{
+  "result": {
+    "item": "techguns:fraggrenade",
+    "count": 16
+  },
+  "pattern": [
+    " if",
+    "iti",
+    " i "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "t": {
+      "item": "minecraft:tnt"
+    },
+    "f": {
+      "item": "minecraft:flint_and_steel"
+    },
+    "i": {
+      "item": "#INGOTSTEEL"
+    }
+  }
+}

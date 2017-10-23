@@ -275,6 +275,8 @@ public class Recipewriter {
 	
 	public static void addUpgradeRecipes() {
 		RecipeJsonConverter.addShapelessMiningHeadUpgradeRecipe(TGuns.miningdrill, TGItems.MININGDRILLHEAD_CARBON);
+		RecipeJsonConverter.addShapelessMiningHeadUpgradeRecipe(TGuns.powerhammer, TGItems.POWERHAMMERHEAD_OBSIDIAN);
+		RecipeJsonConverter.addShapelessMiningHeadUpgradeRecipe(TGuns.powerhammer, TGItems.POWERHAMMERHEAD_CARBON);
 	}
 	
 	public static void addAmmoChangeRecipes() {

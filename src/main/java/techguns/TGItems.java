@@ -41,11 +41,11 @@ public class TGItems implements ITGInitializer{
 	/**
 	 * TODO DISABLE THIS BEFORE RELEASE
 	 */
-	public static boolean WRITE_ITEM_JSON = false;
+	public static boolean WRITE_ITEM_JSON = true;
 	/**
 	 * TODO DISABLE THIS BEFORE RELEASE
 	 */
-	public static boolean WRITE_RECIPES = false;
+	public static boolean WRITE_RECIPES = true;
 	
 	
 	public static final ArrayList<GenericItem> ITEMLIST = new ArrayList<>();
@@ -232,6 +232,9 @@ public class TGItems implements ITGInitializer{
 	public static ItemStack MININGDRILLHEAD_OBSIDIAN;
 	public static ItemStack MININGDRILLHEAD_CARBON;
 	
+	public static ItemStack POWERHAMMERHEAD_OBSIDIAN;
+	public static ItemStack POWERHAMMERHEAD_CARBON;
+	
 	//Tools/weapons
 	public static Item COMBAT_KNIFE;
 	public static Item CROWBAR;
@@ -406,6 +409,9 @@ public class TGItems implements ITGInitializer{
 		
 		MININGDRILLHEAD_OBSIDIAN = SHARED_ITEM.addsharedVariant("miningdrillhead_obsidian");
 		MININGDRILLHEAD_CARBON = SHARED_ITEM.addsharedVariant("miningdrillhead_carbon");
+		
+		POWERHAMMERHEAD_OBSIDIAN = SHARED_ITEM.addsharedVariant("powerhammerhead_obsidian");
+		POWERHAMMERHEAD_CARBON = SHARED_ITEM.addsharedVariant("powerhammerhead_carbon");
 		
 		/**
 		 * Additional Slot items

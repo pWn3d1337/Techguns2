@@ -1,31 +1,28 @@
 {
   "result": {
-    "item": "techguns:flamethrower"
+    "item": "techguns:grenadelauncher",
+    "data": 6
   },
   "pattern": [
-    "prs",
-    "fm "
+    "mrs",
+    " p "
   ],
-  "type": "minecraft:crafting_shaped",
+  "type": "forge:ore_shaped",
   "key": {
     "p": {
-      "item": "techguns:itemshared",
-      "data": 72
+      "item": "#PLATESTEEL"
     },
     "r": {
       "item": "techguns:itemshared",
-      "data": 33
+      "data": 34
     },
     "s": {
       "item": "techguns:itemshared",
       "data": 43
     },
-    "f": {
-      "item": "minecraft:flint_and_steel"
-    },
     "m": {
       "item": "techguns:itemshared",
-      "data": 27
+      "data": 39
     }
   }
 }

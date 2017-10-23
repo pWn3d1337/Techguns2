@@ -1,31 +1,23 @@
 {
   "result": {
-    "item": "techguns:flamethrower"
+    "item": "techguns:handcannon",
+    "data": 1
   },
   "pattern": [
-    "prs",
-    "fm "
+    "bfs"
   ],
   "type": "minecraft:crafting_shaped",
   "key": {
-    "p": {
+    "b": {
       "item": "techguns:itemshared",
-      "data": 72
-    },
-    "r": {
-      "item": "techguns:itemshared",
-      "data": 33
+      "data": 37
     },
     "s": {
       "item": "techguns:itemshared",
-      "data": 43
+      "data": 42
     },
     "f": {
       "item": "minecraft:flint_and_steel"
-    },
-    "m": {
-      "item": "techguns:itemshared",
-      "data": 27
     }
   }
 }

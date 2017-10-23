@@ -1,0 +1,28 @@
+{
+  "result": {
+    "item": "techguns:combatshotgun",
+    "data": 8
+  },
+  "pattern": [
+    "bfs",
+    "i  "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "b": {
+      "item": "techguns:itemshared",
+      "data": 39
+    },
+    "s": {
+      "item": "techguns:itemshared",
+      "data": 43
+    },
+    "f": {
+      "item": "techguns:itemshared",
+      "data": 34
+    },
+    "i": {
+      "item": "#INGOTSTEEL"
+    }
+  }
+}
