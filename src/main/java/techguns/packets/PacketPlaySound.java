@@ -10,6 +10,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import techguns.TGPackets;
 import techguns.Techguns;
 import techguns.client.audio.TGSoundCategory;
+import techguns.util.EntityCondition;
 
 public class PacketPlaySound implements IMessage {
 
@@ -26,6 +27,8 @@ public class PacketPlaySound implements IMessage {
 	int soundz=0;
 	TGSoundCategory category;
 	
+	EntityCondition condition;
+	
 	public PacketPlaySound() {
 		
 	}
@@ -33,6 +36,12 @@ public class PacketPlaySound implements IMessage {
 	public PacketPlaySound(SoundEvent soundname, Entity entity, float volume, float pitch, boolean repeat, boolean moving, boolean gunPosition, boolean playOnOwnPlayer, TGSoundCategory category) {
 		this(soundname, entity, volume, pitch, repeat, moving, gunPosition, category);
 		this.playOnOwnPlayer=playOnOwnPlayer;
+	}
+	
+	public PacketPlaySound(SoundEvent soundname, Entity entity, float volume, float pitch, boolean repeat, boolean moving, boolean gunPosition, boolean playOnOwnPlayer, TGSoundCategory category, EntityCondition condition) {
+		this(soundname, entity, volume, pitch, repeat, moving, gunPosition, category);
+		this.playOnOwnPlayer=playOnOwnPlayer;
+		this.condition = condition;
 	}
 	
 	public PacketPlaySound(SoundEvent soundname, Entity entity, float volume, float pitch, boolean repeat, boolean moving, boolean gunPosition, TGSoundCategory category) {
@@ -90,6 +99,9 @@ public class PacketPlaySound implements IMessage {
 		this.soundz = buf.readInt();
 		
 		this.category=TGSoundCategory.get(buf.readByte());
+		
+		this.condition = EntityCondition.fromByte(buf.readByte());
+		
 		byte[] bytes = new byte[buf.readableBytes()];
 		buf.readBytes(bytes);
 		soundname = new String(bytes);
@@ -110,6 +122,16 @@ public class PacketPlaySound implements IMessage {
 		buf.writeInt(soundz);
 		
 		buf.writeByte(category.getId());
+		
+		if (condition == null) {
+			buf.writeByte(EntityCondition.NONE.id);
+		}
+		else {
+			buf.writeByte(condition.id);
+		}
+		
+		
+		
 		buf.writeBytes(soundname.getBytes());
 	}
 	
@@ -123,7 +145,7 @@ public class PacketPlaySound implements IMessage {
 			SoundEvent event = SoundEvent.REGISTRY.getObject(new ResourceLocation(msg.soundname));
 			
 			if (msg.entityId!=-1){
-				Techguns.proxy.handleSoundEvent(ply, msg.entityId, event, msg.volume, msg.pitch, msg.repeat, msg.moving, msg.gunPosition, msg.playOnOwnPlayer, msg.category);
+				Techguns.proxy.handleSoundEvent(ply, msg.entityId, event, msg.volume, msg.pitch, msg.repeat, msg.moving, msg.gunPosition, msg.playOnOwnPlayer, msg.category, msg.condition);
 			//	System.out.println("Received sound Event:"+msg.soundname+" play for own:"+msg.playOnOwnPlayer);
 			} else {
 				Techguns.proxy.playSoundOnPosition(event,msg.soundx, msg.soundy, msg.soundz, msg.volume, msg.pitch, msg.repeat, msg.category);

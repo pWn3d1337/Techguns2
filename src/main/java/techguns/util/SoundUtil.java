@@ -15,6 +15,19 @@ public class SoundUtil {
 	/**
 	 * Plays a moving Sound on the specified Entity, in front of the entity.
 	 */
+	public static void playSoundOnEntityGunPosition(World world, Entity entity, SoundEvent soundname, float volume, float pitch, boolean repeat, boolean moving, boolean playOnOwnPlayer, TGSoundCategory category, EntityCondition condition) {
+		if (!world.isRemote) {
+			TGPackets.network.sendToAllAround(new PacketPlaySound(soundname, entity, volume, pitch, repeat, moving, true, playOnOwnPlayer, category, condition),
+				new TargetPoint(entity.dimension, entity.posX, entity.posY, entity.posZ, 100.0f));
+		}else {
+			Techguns.proxy.playSoundOnEntity(entity, soundname, volume, pitch, repeat, moving,true, true, category, condition);
+		}
+	}
+	
+	
+	/**
+	 * Plays a moving Sound on the specified Entity, in front of the entity.
+	 */
 	public static void playSoundOnEntityGunPosition(World world, Entity entity, SoundEvent soundname, float volume, float pitch, boolean repeat, boolean moving, boolean playOnOwnPlayer, TGSoundCategory category) {
 		if (!world.isRemote) {
 			TGPackets.network.sendToAllAround(new PacketPlaySound(soundname, entity, volume, pitch, repeat, moving, true, playOnOwnPlayer, category),

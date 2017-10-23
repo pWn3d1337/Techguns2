@@ -15,6 +15,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import techguns.client.ClientProxy;
 import techguns.client.particle.TGParticleSystemType.DirResult;
+import techguns.util.EntityCondition;
 import techguns.util.MathUtil;
 
 /**
@@ -24,6 +25,8 @@ import techguns.util.MathUtil;
 public class TGParticleSystem extends Particle implements ITGParticle {
 	
 	public TGParticleSystemType type;
+	
+	public EntityCondition condition = EntityCondition.NONE;
 	
 //	public double posX;
 //	public double posY;
@@ -39,6 +42,9 @@ public class TGParticleSystem extends Particle implements ITGParticle {
 	public float scale; //global scale
 	public float rotationYaw;
 	public float rotationPitch;
+	
+	public float prevRotationYaw;
+	public float prevRotationPitch;
 	
 	public int initialDelay;
 	public int ticksExisted = 0;
@@ -95,6 +101,12 @@ public class TGParticleSystem extends Particle implements ITGParticle {
 //		if (this.ticksExisted == 0) {
 //			System.out.println("Timediff: "+(System.currentTimeMillis()-timediff));
 //		}
+		this.prevRotationPitch = this.rotationPitch;
+		this.prevRotationYaw = this.rotationYaw;
+		
+		this.prevPosX = this.posX;
+		this.prevPosY = this.posY;
+		this.prevPosZ = this.posZ;
 		
 		if (type == null) {
 			this.setExpired();
@@ -102,6 +114,11 @@ public class TGParticleSystem extends Particle implements ITGParticle {
 		}
 
 		if (this.entity!=null){		
+	    	if (!condition.evaluate(entity)) {
+	    		this.setExpired();
+	    		return;
+	    	}			
+			
 			if (this.attachToHead && entity instanceof EntityLivingBase) {
 				EntityLivingBase elb = (EntityLivingBase) entity;
 

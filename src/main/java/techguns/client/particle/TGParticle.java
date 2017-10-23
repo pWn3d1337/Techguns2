@@ -136,29 +136,29 @@ public class TGParticle extends Particle implements ITGParticle {
 		/*---
 		 * Move with System
 		 */
-//		if (this.type.particlesMoveWithSystem) {		
-//			double dP = this.particleSystem.rotationPitch - this.particleSystem.prevRotationPitch;
-//			double dY = this.particleSystem.rotationYaw - this.particleSystem.prevRotationYaw;
-//			
-//			Vec3 pos = Vec3.createVectorHelper(this.posX,  this.posY, this.posZ);
-//			Vec3 sysPos = Vec3.createVectorHelper(this.particleSystem.posX, this.particleSystem.posY, this.particleSystem.posZ);
-//			
-//			Vec3 offset = sysPos.subtract(pos);
-//			offset.rotateAroundY((float)dY);
-//			offset.rotateAroundZ((float)dP);
-//			
-//			Vec3 motion = Vec3.createVectorHelper(this.motionX, this.motionY, this.motionZ);
-//			motion.rotateAroundY((float)dY);
-//			motion.rotateAroundZ((float)dP);
-//			
-//			this.posX = sysPos.xCoord+offset.xCoord;
-//			this.posY = sysPos.yCoord+offset.yCoord;
-//			this.posZ = sysPos.zCoord+offset.zCoord;
-//			
-//			this.motionX = motion.xCoord;
-//			this.motionY = motion.yCoord;
-//			this.motionZ = motion.zCoord;
-//		}
+		if (this.type.particlesMoveWithSystem) {		
+			double dP = (this.particleSystem.rotationPitch - this.particleSystem.prevRotationPitch)*MathUtil.D2R;
+			double dY = (this.particleSystem.rotationYaw - this.particleSystem.prevRotationYaw)*MathUtil.D2R;
+			
+			Vec3d pos = new Vec3d(this.posX,  this.posY, this.posZ);
+			Vec3d sysPos = new Vec3d(this.particleSystem.posX(), this.particleSystem.posY(), this.particleSystem.posZ());
+			
+			Vec3d offset = sysPos.subtract(pos);
+			offset = offset.rotateYaw((float)-dY);
+			offset = offset.rotatePitch((float)-dP);
+			
+			Vec3d motion = new Vec3d (this.motionX, this.motionY, this.motionZ);
+			motion = motion.rotateYaw((float)-dY);
+			motion = motion.rotatePitch((float)-dP);
+			
+			this.posX = sysPos.x+offset.x;
+			this.posY = sysPos.y+offset.y;
+			this.posZ = sysPos.z+offset.z;
+			
+			this.motionX = motion.x;
+			this.motionY = motion.y;
+			this.motionZ = motion.z;
+		}
 		
 		
 		/* -------------

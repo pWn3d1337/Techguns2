@@ -2,6 +2,41 @@ FXLIST TestFX {
 MuzzleFXFlare
 }
 
+FXLIST biogunCharge {
+biogunChargeFlare
+}
+
+biogunChargeFlare {
+Texture = techguns:textures/fx/lensflare1.png
+RenderType = ADDITIVE
+Rows = 1
+Columns = 1
+Frames = 1
+angle = 0 360
+angleRate = -10 10
+angleRateDamping = 0.87 0.89
+Lifetime = 3 3
+SpawnDelay = 0 0
+SystemLifetime = 0 0
+Size = 0.5 0.75
+SizeRate = 0.25 0.5
+SizeRateDamping = 0.9 0.9
+Alpha = 0 0
+Alpha = 0.15 0.5
+Alpha = 0 1
+Color = 128 255 64 0
+//Color = 0 0 0 1
+ParticleCount = 1 1
+Gravity = 0
+VolumeType = POINT
+VelocityType = NONE
+VelocityDamping = 0.93 0.95
+InitialDelay = 0 0
+SystemVelocityFactor = 0.0 0.0
+//offset = -0.13 -0.08 0.25
+particlesMoveWithSystem = true
+}
+
 
 MuzzleFXFlare {
 Texture = techguns:textures/fx/lensflare1.png
@@ -33,45 +68,6 @@ Velocity3 = 5 15
 VelocityDamping = 0.93 0.95
 InitialDelay = 0 0
 SystemVelocityFactor = 0.0 0.0
-}
-
-
-FXLIST FlamethrowerFireFX {
-FlamethrowerFireFXFlames
-}
-
-FlamethrowerFireFXFlames {
-Texture = techguns:textures/fx/flamethrower.png
-RenderType = ADDITIVE
-Rows = 4
-Columns = 4
-Frames = 16
-angle = -45 45
-angleRate = -10 10
-angleRateDamping = 0.87 0.89
-Lifetime = 7 9
-SystemLifetime = 2 2
-Size = 0.35 0.65
-SizeRate = 0.25 0.45
-SizeRateDamping = 0.88 0.91
-Alpha = 0.0 0
-Alpha = 0.45 0.35
-Alpha = 0 1.0
-//Alpha = 1 1 0
-Color = 255 255 255 0
-//Color = 0 0 0 1
-ParticleCount = 2 3
-InitialDelay = 0 0
-SpawnDelay = 0 0
-VelocityType = ORTHO
-Velocity1 = -0.2 0.2
-Velocity2 = -0.2 0.2
-Velocity3 = 1 6
-VelocityDamping = 0.84 0.86
-Gravity = -0.01
-VolumeType = POINT
-SystemVelocityFactor = 0 0
-//offset = -0.15 -0.05 0.5
 }
 
 

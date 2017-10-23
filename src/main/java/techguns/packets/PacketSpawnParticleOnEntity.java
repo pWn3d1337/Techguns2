@@ -10,6 +10,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import techguns.client.ClientProxy;
+import techguns.util.EntityCondition;
 import techguns.util.TGLogger;
 
 public class PacketSpawnParticleOnEntity implements IMessage {
@@ -22,19 +23,20 @@ public class PacketSpawnParticleOnEntity implements IMessage {
 	float offsetZ = 0.0f;
 	
 	boolean attachToHead = false;
-
 	
-	public PacketSpawnParticleOnEntity() {
-		super();
-	}	
+	EntityCondition condition;
+	
+	public PacketSpawnParticleOnEntity() {};
 	
 	public PacketSpawnParticleOnEntity(String name, Entity ent) {
-		super();
-		this.name=name;
-		this.entityID=ent.getEntityId();
+		this(name, ent, 0.0f, 0.0f, 0.0f, false, EntityCondition.NONE);
 	}
 	
 	public PacketSpawnParticleOnEntity(String name, Entity ent, float offsetX, float offsetY, float offsetZ, boolean attachToHead) {
+		this(name, ent, offsetX, offsetY, offsetZ, attachToHead, EntityCondition.NONE);
+	}
+	
+	public PacketSpawnParticleOnEntity(String name, Entity ent, float offsetX, float offsetY, float offsetZ, boolean attachToHead, EntityCondition condition) {
 		super();
 		this.name=name;
 		this.entityID=ent.getEntityId();
@@ -42,6 +44,7 @@ public class PacketSpawnParticleOnEntity implements IMessage {
 		this.offsetY = offsetY;
 		this.offsetZ = offsetZ;
 		this.attachToHead = attachToHead;
+		this.condition = condition;
 	}
 
 	@Override
@@ -56,6 +59,8 @@ public class PacketSpawnParticleOnEntity implements IMessage {
 		this.offsetZ=buf.readFloat();
 		
 		this.attachToHead = buf.readBoolean();
+		
+		this.condition = EntityCondition.fromByte(buf.readByte());
 	}
 
 	@Override
@@ -71,6 +76,13 @@ public class PacketSpawnParticleOnEntity implements IMessage {
 		buf.writeFloat(this.offsetZ);
 		
 		buf.writeBoolean(this.attachToHead);
+		
+		if (condition == null) {
+			buf.writeByte(EntityCondition.NONE.id);
+		}
+		else {
+			buf.writeByte(condition.id);
+		}
 	}
 	
 	public static class Handler implements IMessageHandler<PacketSpawnParticleOnEntity, IMessage> {
@@ -83,11 +95,11 @@ public class PacketSpawnParticleOnEntity implements IMessage {
 		private void handle(PacketSpawnParticleOnEntity m, MessageContext ctx) {
 			Entity ent = Minecraft.getMinecraft().player.world.getEntityByID(m.entityID);
 			if (ent!=null){
-				if (!m.attachToHead && m.offsetX == 0 && m.offsetY == 0 && m.offsetZ ==0) {
-					ClientProxy.get().createFXOnEntity(m.name, ent);
-				}else {
-					ClientProxy.get().createFXOnEntityWithOffset(m.name, ent, m.offsetX, m.offsetY, m.offsetZ, m.attachToHead);
-				}
+//				if (!m.attachToHead && m.offsetX == 0 && m.offsetY == 0 && m.offsetZ ==0) {
+//					ClientProxy.get().createFXOnEntity(m.name, ent);
+//				}else {
+					ClientProxy.get().createFXOnEntityWithOffset(m.name, ent, m.offsetX, m.offsetY, m.offsetZ, m.attachToHead, m.condition);
+//				}
 			} else {
 				TGLogger.logger_client.warning("Got Packet for FX "+m.name+" on Entity, but ent was null");
 			}

@@ -38,6 +38,8 @@ public class TGSounds {
 	
 	public static SoundEvent BIOGUN_FIRE = createSoundEvent("guns.biogunfire");
 	public static SoundEvent BIOGUN_RELOAD = createSoundEvent("guns.biogunreload");
+	public static SoundEvent BIOGUN_CHARGE = createSoundEvent("guns.bioguncharge");
+	public static SoundEvent BIOGUN_IMPACT = createSoundEvent("effects.biogunimpact");
 	
 	public static SoundEvent SAWEDOFF_FIRE = createSoundEvent("guns.sawedofffire");
 	public static SoundEvent SAWEDOFF_RELOAD = createSoundEvent("guns.sawedoffreload");
@@ -85,6 +87,7 @@ public class TGSounds {
 	public static SoundEvent POWERHAMMER_RELOAD = createSoundEvent("guns.powerhammerreload");
 	public static SoundEvent POWERHAMMER_SWING = createSoundEvent("guns.powerhammerswing");
 	public static SoundEvent POWERHAMMER_IMPACT = createSoundEvent("guns.powerhammerimpactground");
+	public static SoundEvent POWERHAMMER_CHARGE = createSoundEvent("guns.powerhammercharge");
 	
 	public static SoundEvent BLASTER_RIFLE_FIRE = createSoundEvent("guns.blasterriflefire");
 	

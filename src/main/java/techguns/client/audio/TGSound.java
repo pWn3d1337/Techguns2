@@ -7,6 +7,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.Vec2f;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import techguns.util.EntityCondition;
 import techguns.util.MathUtil;
 
 @SideOnly(Side.CLIENT)
@@ -16,6 +17,13 @@ public class TGSound extends MovingSound {
 
 	boolean gunPosition;
 	boolean moving;
+	
+	EntityCondition condition = EntityCondition.NONE;
+	
+	public TGSound(SoundEvent soundname, Entity entity, float volume, float pitch, boolean repeat, boolean moving, boolean gunPosition, TGSoundCategory category, EntityCondition condition) {
+		this(soundname, entity, volume, pitch, repeat, moving, gunPosition, category);
+		this.condition = condition;
+	}
 	
 	public TGSound(SoundEvent soundname, Entity entity, float volume, float pitch, boolean repeat, boolean moving, boolean gunPosition, TGSoundCategory category) {
 		this(soundname, entity, volume, pitch, repeat, moving, category);
@@ -78,7 +86,11 @@ public class TGSound extends MovingSound {
 
     @Override
     public void update()
-    {
+    {	
+    	if (entity != null && !condition.evaluate(entity)) {
+    		this.setDonePlaying();
+    	}
+    	
        //TODO: Auto-remove?
         if (moving && entity != null) {
 	        xPosF = (float) entity.posX;
