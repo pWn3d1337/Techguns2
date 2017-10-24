@@ -326,7 +326,7 @@ public class TurretTileEnt extends BasicPoweredTileEnt implements ITickable{
 			}
 		}
 	}
-
+	
 	@Override
 	public void update() {
 

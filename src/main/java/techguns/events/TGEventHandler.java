@@ -177,6 +177,12 @@ public class TGEventHandler {
 				return false;
 			}
 		}
+		if(!player.getHeldItemOffhand().isEmpty() && player.getHeldItemOffhand().getItem() instanceof IGenericGun) {
+			IGenericGun g = (IGenericGun) player.getHeldItemOffhand().getItem();
+			if(g.getGunHandType()==GunHandType.TWO_HANDED) {
+				return false;
+			}
+		}
 		return true;
 	}
 	

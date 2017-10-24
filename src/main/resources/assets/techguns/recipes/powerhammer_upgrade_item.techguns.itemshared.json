@@ -4,7 +4,10 @@
   },
   "ingredients": [
     {
-      "item": "techguns:powerhammer"
+      "item": "techguns:powerhammer",
+      "type": "itemstackHasNBTInt",
+      "value": 0,
+      "key": "miningHead"
     },
     {
       "item": "techguns:itemshared",

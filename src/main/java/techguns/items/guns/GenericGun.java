@@ -723,7 +723,7 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
         	}
         }		
 	}
-	
+		
 	@Override
 	public void onCreated(ItemStack stack, World world, EntityPlayer player) {
 		//super.onCreated(stack, world, player);
@@ -806,13 +806,8 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 	@Override
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
 		if (this.isInCreativeTab(tab)){
-		
 			ItemStack gun = new ItemStack(this, 1,0);
-			NBTTagCompound tags = new NBTTagCompound();
-			tags.setByte("camo", (byte) 0);
-			tags.setShort("ammo", (short)this.clipsize);
-			gun.setTagCompound(tags);
-			
+			this.onCreated(gun, null, null);
 			items.add(gun);
 		}
 	}

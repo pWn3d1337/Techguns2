@@ -4,7 +4,10 @@
   },
   "ingredients": [
     {
-      "item": "techguns:miningdrill"
+      "item": "techguns:miningdrill",
+      "type": "itemstackHasNBTInt",
+      "value": 0,
+      "key": "miningHead"
     },
     {
       "item": "techguns:itemshared",

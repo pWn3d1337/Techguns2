@@ -125,24 +125,25 @@ public class GenericGunMeleeCharge extends GenericGunCharge implements IGenericG
 	@Override
 	protected void addInitialTags(NBTTagCompound tags) {
 		super.addInitialTags(tags);
-		tags.setByte("miningHead", (byte) 0);
+		tags.setInteger("miningHead", 0);
 	}
 
 	public int getMiningHeadLevel(ItemStack stack) {
 		NBTTagCompound tags = stack.getTagCompound();
-		if(tags!=null) {
-			return tags.getByte("miningHead");
+		if(tags==null) {
+			this.onCreated(stack, null, null);
 		}
-		return 0;
+		return tags.getInteger("miningHead");
 	}
 	
-	public byte getMiningHeadLevelForHead(ItemStack head) {
+	public int getMiningHeadLevelForHead(ItemStack head) {
 		if(this.miningHeads !=null) {
 			int i=0;
 			while(i<this.miningHeads.length) {
 				if (ItemUtil.isItemEqual(this.miningHeads[i], head)) {
-					return (byte) i;
+					return i+1;
 				}
+				i++;
 			}
 		}
 		return 0;
@@ -151,7 +152,7 @@ public class GenericGunMeleeCharge extends GenericGunCharge implements IGenericG
 	@SideOnly(Side.CLIENT)
 	public String getCurrentMiningHeadForTooltip(ItemStack stack) {
 		if(this.miningHeads!=null && this.getMiningHeadLevel(stack)>0) {
-			return this.miningHeads[this.getMiningHeadLevel(stack)-1].getUnlocalizedName();
+			return this.miningHeads[this.getMiningHeadLevel(stack)-1].getUnlocalizedName()+".name";
 		}
 		return Techguns.MODID+".default";
 	}
@@ -262,7 +263,7 @@ public class GenericGunMeleeCharge extends GenericGunCharge implements IGenericG
 		
 		if(longTooltip) {
 			if(this.miningHeads!=null) {
-				list.add(TextUtil.trans("techguns.tooltip.mininghead")+": "+TextUtil.trans(this.getCurrentMiningHeadForTooltip(stack)));
+				list.add(TextUtil.trans("techguns.tooltip.mininghead")+": "+ChatFormatting.WHITE+TextUtil.trans(this.getCurrentMiningHeadForTooltip(stack)));
 			}
 			
 			list.add(TextUtil.trans("techguns.tooltip.toolclasses")+":");
