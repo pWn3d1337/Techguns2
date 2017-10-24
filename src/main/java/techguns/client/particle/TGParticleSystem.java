@@ -131,9 +131,9 @@ public class TGParticleSystem extends Particle implements ITGParticle {
 				offset = offset.rotatePitch((float) (-elb.rotationPitch*MathUtil.D2R));
 				offset = offset.rotateYaw((float) ((-elb.rotationYawHead)*MathUtil.D2R));		
 				
-				this.posX = elb.posX + offset.x;
-				this.posY = elb.posY + elb.getEyeHeight() + offset.y;
-				this.posZ = elb.posZ + offset.z;
+				this.posX = elb.prevPosX + offset.x;
+				this.posY = elb.prevPosY + elb.getEyeHeight() + offset.y;
+				this.posZ = elb.prevPosZ + offset.z;
 			}else {
 				this.rotationPitch=entity.rotationPitch;
 				this.rotationYaw=entity.rotationYaw;
@@ -144,9 +144,9 @@ public class TGParticleSystem extends Particle implements ITGParticle {
 				offset = offset.rotatePitch((float) (-entity.rotationPitch*MathUtil.D2R));
 				offset = offset.rotateYaw((float) ((-entity.rotationYaw)*MathUtil.D2R));		
 				
-				this.posX = entity.posX + offset.x;
-				this.posY = entity.posY + offset.y;
-				this.posZ = entity.posZ + offset.z;
+				this.posX = entity.prevPosX + offset.x;
+				this.posY = entity.prevPosY + offset.y;
+				this.posZ = entity.prevPosZ + offset.z;
 			}
 			this.motionX = entity.motionX;
 			this.motionY = entity.motionY;

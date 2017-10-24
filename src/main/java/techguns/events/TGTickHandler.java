@@ -46,6 +46,7 @@ import techguns.items.armors.GenericArmor;
 import techguns.items.armors.PoweredArmor;
 import techguns.items.armors.TGArmorBonus;
 import techguns.items.guns.GenericGun;
+import techguns.items.guns.GenericGunCharge;
 import techguns.packets.PacketPlaySound;
 import techguns.packets.PacketShootGun;
 import techguns.packets.PacketSwapWeapon;
@@ -437,7 +438,17 @@ public class TGTickHandler {
 				 props.gunMainHand=gunMH;
 				 props.gunOffHand=gunOH;
 			 }
-			 
+			
+			 /*
+			  * Charging weapon
+			  */
+			 if (event.side == Side.SERVER) {
+				 if (props.isChargingWeapon()) {
+					if (event.player.getItemInUseCount() <= 0  || !(event.player.getHeldItemMainhand().getItem() instanceof GenericGunCharge)) {
+						props.setChargingWeapon(false);
+					}
+				 }
+			 }
 		 }
 	}
 	
