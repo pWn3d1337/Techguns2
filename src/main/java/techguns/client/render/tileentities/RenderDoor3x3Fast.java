@@ -38,10 +38,10 @@ public class RenderDoor3x3Fast extends FastTESR<Door3x3TileEntity> {
 	protected static final ResourceLocation door_left_loc = new ResourceLocation(Techguns.MODID,"block/techdoor3x3_left");
 	protected static final ResourceLocation door_right_loc = new ResourceLocation(Techguns.MODID,"block/techdoor3x3_right");
 	
-	protected static final ResourceLocation hangar_up_upper_loc = new ResourceLocation(Techguns.MODID,"block/hangar_door_upper.obj");
-	protected static final ResourceLocation hangar_up_mid_loc = new ResourceLocation(Techguns.MODID,"block/hangar_door_mid.obj");
-	protected static final ResourceLocation hangar_up_mid2_loc = new ResourceLocation(Techguns.MODID,"block/hangar_door_mid2.obj");
-	protected static final ResourceLocation hangar_up_mid3_loc = new ResourceLocation(Techguns.MODID,"block/hangar_door_mid3.obj");
+	protected static final ResourceLocation hangar_up_upper_loc = new ResourceLocation(Techguns.MODID,"block/hangar_door_upperj");
+	protected static final ResourceLocation hangar_up_mid_loc = new ResourceLocation(Techguns.MODID,"block/hangar_door_mid1j");
+	protected static final ResourceLocation hangar_up_mid2_loc = new ResourceLocation(Techguns.MODID,"block/hangar_door_mid2j");
+	protected static final ResourceLocation hangar_up_mid3_loc = new ResourceLocation(Techguns.MODID,"block/hangar_door_mid3j");
 	protected static final ResourceLocation hangar_up_lower_loc = new ResourceLocation(Techguns.MODID,"block/hangar_door_lower.obj");
 	
 	

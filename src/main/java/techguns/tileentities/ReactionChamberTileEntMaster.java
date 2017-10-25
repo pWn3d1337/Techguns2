@@ -479,7 +479,8 @@ public class ReactionChamberTileEntMaster extends MultiBlockMachineTileEntMaster
 			if (type == 0){
 			
 				TGPackets.network.sendToAllAround(new PacketSpawnParticle("FragGrenadeExplosion", centerPos.getX()+0.5d, centerPos.getY()+0.5d, centerPos.getZ()+0.5d), new TargetPoint(this.world.provider.getDimension(), centerPos.getX()+0.5d, centerPos.getY()+0.5d, centerPos.getZ()+0.5d, 50.0f));
-				this.world.playSound(centerPos.getX()+0.5d, centerPos.getY()+0.5d, centerPos.getZ()+0.5d, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.BLOCKS, 4.0F, (1.0F + (this.world.rand.nextFloat() - this.world.rand.nextFloat()) * 0.2F) * 0.7F, false);
+				this.world.playSound((EntityPlayer)null, centerPos.getX()+0.5d, centerPos.getY()+0.5d, centerPos.getZ()+0.5d, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.BLOCKS, 4.0F, (1.0F + (this.world.rand.nextFloat() - this.world.rand.nextFloat()) * 0.2F) * 0.7F);
+
 			} else if (type == 1){
 				//int radius=4;
 				//TGPackets.network.sendToAllAround(new PacketSpawnParticle("RocketExplosion", centerPos.x+0.5d, centerPos.y+0.5d, centerPos.z+0.5d), new TargetPoint(this.worldObj.provider.dimensionId, centerPos.x+0.5d, centerPos.y+0.5d, centerPos.z+0.5d, 50.0f));
@@ -496,6 +497,7 @@ public class ReactionChamberTileEntMaster extends MultiBlockMachineTileEntMaster
 			if (type==1 && fluidBlock!=null){
 				this.world.setBlockState(centerPos, fluidBlock.getDefaultState(), 3);
 				this.world.setBlockState(centerPos.up(), Blocks.AIR.getDefaultState(), 3);
+				this.world.setBlockState(centerPos.down(), Blocks.GRAVEL.getDefaultState(), 3);
 			}
 			
 			this.energy.setEnergyStored(0);

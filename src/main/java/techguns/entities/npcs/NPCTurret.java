@@ -215,10 +215,11 @@ public class NPCTurret extends EntityCreature implements IAnimals, IRangedAttack
 				}
 				
 			} else {
-				
+				if (this.mountedTileEnt.mountedTurret!=this) {
+					this.setDead();
+					//System.out.println("KILLED ORPHAN TURRET");
+				}
 				//normal logic;
-				
-				
 			}
 		} else {
 			//Client Side
