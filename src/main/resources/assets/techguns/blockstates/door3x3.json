@@ -4,20 +4,28 @@
         "model": "techguns:testdoor_2"
     },
     "variants": {
-        "master": {
-            "true": {
+		"state": {
+            "opened": {
+				"model": "techguns:techdoor3x3_frame"
             },
-            "false": {
+            "closed": {
+				"model": "techguns:techdoor3x3_full"
+            },
+			"opening": {
+            },
+			"closing": {
             }
         },
-		"open": {
+		"master": {
             "true": {
             },
             "false": {
+				"model": "techguns:testdoor_2"
             }
         },
 		"zplane": {
             "true": {
+				"y" = 90
             },
             "false": {
             }

@@ -53,6 +53,11 @@ public class Door3x3TileEntity extends BasicRedstoneTileEnt {
 	}
 	
 	@Override
+	public boolean hasFastRenderer() {
+		return true;
+	}
+
+	@Override
 	public AxisAlignedBB getRenderBoundingBox() {
 		IBlockState state = this.world.getBlockState(getPos());
 		if(state.getBlock() == TGBlocks.DOOR3x3) {
@@ -101,11 +106,6 @@ public class Door3x3TileEntity extends BasicRedstoneTileEnt {
 		boolean b = !((oldState.getBlock()==newState.getBlock()) && (newState.getValue(BlockTGDoor3x3.MASTER) && oldState.getValue(BlockTGDoor3x3.MASTER) && 
 				(oldState.getValue(BlockTGDoor3x3.ZPLANE)==newState.getValue(BlockTGDoor3x3.ZPLANE))));
 		return b;
-	}
-	
-	@Override
-	public boolean hasFastRenderer() {
-		return true;
 	}
 
 	public long getLastStateChangeTime() {
