@@ -179,6 +179,7 @@ import techguns.client.render.item.RenderGunFlamethrower;
 import techguns.client.render.item.RenderItemBase;
 import techguns.client.render.item.RenderItemBaseRocketItem;
 import techguns.client.render.item.RenderItemLMGMag;
+import techguns.client.render.item.RenderMiningToolMultiTexture;
 import techguns.client.render.item.RenderRocketLauncher;
 import techguns.client.render.tileentities.RenderChargingStation;
 import techguns.client.render.tileentities.RenderDoor3x3Fast;
@@ -755,7 +756,8 @@ public class ClientProxy extends CommonProxy {
 					{0f,0f,-0.05f} //frame
 				}).setMuzzleFXPos3P(0.09f, -0.57f).setScope(ScreenEffect.sniperScope).setScopeRecoilAnim(GunAnimation.scopeRecoil, 0.05f, 1.0f));
 		
-		ItemRenderHack.registerItemRenderer(TGuns.powerhammer,new RenderGunBase90(new ModelPowerHammer(),2).setBaseTranslation(0.15f, -0.2f, RenderItemBase.SCALE-0.09f)
+		ResourceLocation[] powerhammer_textures = {new ResourceLocation(Techguns.MODID, "textures/guns/powerHammer.png"),new ResourceLocation(Techguns.MODID, "textures/guns/powerHammer_obsidian.png"),new ResourceLocation(Techguns.MODID, "textures/guns/powerHammer_carbon.png")};
+		ItemRenderHack.registerItemRenderer(TGuns.powerhammer,new RenderMiningToolMultiTexture(new ModelPowerHammer(),2, powerhammer_textures).setBaseTranslation(0.15f, -0.2f, RenderItemBase.SCALE-0.09f)
 				.setBaseScale(1.25f).setGUIScale(0.45f).setMuzzleFx(null, 0, 0.26f, -0.67f, 0.5f,0).setTransformTranslations(new float[][]{
 					{0f,0.18f,0.09f}, //First Person
 					{0f,0.04f,0.04f}, //Third Person
@@ -877,7 +879,8 @@ public class ClientProxy extends CommonProxy {
 					{0,0,-0.04f} //frame
 				}).setMuzzleFXPos3P(0.09f, -0.26f));
 		
-		ItemRenderHack.registerItemRenderer(TGuns.miningdrill,new RenderGunBase90(new ModelMiningDrill(),1).setBaseTranslation(0, -0.2f, -RenderItemBase.SCALE*0.5f).setBaseScale(2.0f)
+		ResourceLocation[] drill_textures = {new ResourceLocation(Techguns.MODID, "textures/guns/miningdrill_obsidian.png"), new ResourceLocation(Techguns.MODID, "textures/guns/miningdrill_carbon.png")};
+		ItemRenderHack.registerItemRenderer(TGuns.miningdrill,new RenderMiningToolMultiTexture(new ModelMiningDrill(),2, drill_textures).setBaseTranslation(0, -0.2f, -RenderItemBase.SCALE*0.5f).setBaseScale(2.0f)
 				.setGUIScale(0.35f).setTransformTranslations(new float[][]{
 					{0f,-0.03f,0.0f}, //First Person
 					{0f,-0.57f,0.08f}, //Third Person

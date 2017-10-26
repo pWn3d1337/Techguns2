@@ -27,6 +27,7 @@ import net.minecraftforge.common.model.TRSRTransformation;
 import techguns.TGBlocks;
 import techguns.Techguns;
 import techguns.blocks.BlockTGDoor3x3;
+import techguns.blocks.EnumDoorState;
 import techguns.tileentities.Door3x3TileEntity;
 import techguns.util.MathUtil;
 
@@ -38,10 +39,10 @@ public class RenderDoor3x3Fast extends FastTESR<Door3x3TileEntity> {
 	protected static final ResourceLocation door_left_loc = new ResourceLocation(Techguns.MODID,"block/techdoor3x3_left");
 	protected static final ResourceLocation door_right_loc = new ResourceLocation(Techguns.MODID,"block/techdoor3x3_right");
 	
-	protected static final ResourceLocation hangar_up_upper_loc = new ResourceLocation(Techguns.MODID,"block/hangar_door_upper.obj");
-	protected static final ResourceLocation hangar_up_mid_loc = new ResourceLocation(Techguns.MODID,"block/hangar_door_mid.obj");
-	protected static final ResourceLocation hangar_up_mid2_loc = new ResourceLocation(Techguns.MODID,"block/hangar_door_mid2.obj");
-	protected static final ResourceLocation hangar_up_mid3_loc = new ResourceLocation(Techguns.MODID,"block/hangar_door_mid3.obj");
+	protected static final ResourceLocation hangar_up_upper_loc = new ResourceLocation(Techguns.MODID,"block/hangar_door_upperj");
+	protected static final ResourceLocation hangar_up_mid_loc = new ResourceLocation(Techguns.MODID,"block/hangar_door_mid1j");
+	protected static final ResourceLocation hangar_up_mid2_loc = new ResourceLocation(Techguns.MODID,"block/hangar_door_mid2j");
+	protected static final ResourceLocation hangar_up_mid3_loc = new ResourceLocation(Techguns.MODID,"block/hangar_door_mid3j");
 	protected static final ResourceLocation hangar_up_lower_loc = new ResourceLocation(Techguns.MODID,"block/hangar_door_lower.obj");
 	
 	
@@ -125,8 +126,12 @@ public class RenderDoor3x3Fast extends FastTESR<Door3x3TileEntity> {
 	    BlockPos pos = te.getPos();
         IBlockAccess world = MinecraftForgeClient.getRegionRenderCache(te.getWorld(), pos);
         IBlockState state = world.getBlockState(pos);
-        if(state.getBlock() != TGBlocks.DOOR3x3) return;
+        //if(state.getBlock() != TGBlocks.DOOR3x3) return;
 		
+        if(state.getValue(BlockTGDoor3x3.STATE)==EnumDoorState.OPENED || state.getValue(BlockTGDoor3x3.STATE)==EnumDoorState.CLOSED){
+        	return;
+        }
+        
         double px = x-pos.getX();
         double py = y-pos.getY();
         double pz = z-pos.getZ();
@@ -173,29 +178,29 @@ public class RenderDoor3x3Fast extends FastTESR<Door3x3TileEntity> {
         buffer.setTranslation(px,py,pz);
         double distance = 1.125d; //18 pixel
          
-        blockRenderer.getBlockModelRenderer().renderModel(world, model, state, pos, buffer, false);
+        blockRenderer.getBlockModelRenderer().renderModel(world, model, state, pos, buffer, true);
         	
         if (prog==0.0f) {
-        	 if(state.getValue(BlockTGDoor3x3.OPENED)) {
+        	 if(state.getValue(BlockTGDoor3x3.STATE) == EnumDoorState.OPENING) {
         		 buffer.setTranslation(px - ((double)dx*distance), py, pz + ((double)dz*distance));
-	        	 blockRenderer.getBlockModelRenderer().renderModel(world, model_seg1, state, pos, buffer, false);
+	        	 blockRenderer.getBlockModelRenderer().renderModel(world, model_seg1, state, pos, buffer, true);
 	        	 
 	        	 buffer.setTranslation(px + ((double)dx*distance), py, pz - ((double)dz*distance));
-	        	 blockRenderer.getBlockModelRenderer().renderModel(world, model_seg2, state, pos, buffer, false);
+	        	 blockRenderer.getBlockModelRenderer().renderModel(world, model_seg2, state, pos, buffer, true);
         	 } else {
-        		 blockRenderer.getBlockModelRenderer().renderModel(world, model_seg1, state, pos, buffer, false);
-	        	 blockRenderer.getBlockModelRenderer().renderModel(world, model_seg2, state, pos, buffer, false);
+        		 blockRenderer.getBlockModelRenderer().renderModel(world, model_seg1, state, pos, buffer, true);
+	        	 blockRenderer.getBlockModelRenderer().renderModel(world, model_seg2, state, pos, buffer, true);
         	 }
         } else {
-        	if(!state.getValue(BlockTGDoor3x3.OPENED)){
+        	if(state.getValue(BlockTGDoor3x3.STATE)==EnumDoorState.CLOSING){
         		prog = 1.0f-prog;
         	}
         	
         	 buffer.setTranslation(px - ((double)dx*distance*prog), py, pz + ((double)dz*distance*prog));
-        	 blockRenderer.getBlockModelRenderer().renderModel(world, model_seg1, state, pos, buffer, false);
+        	 blockRenderer.getBlockModelRenderer().renderModel(world, model_seg1, state, pos, buffer, true);
         	 
         	 buffer.setTranslation(px + ((double)dx*distance*prog), py, pz - ((double)dz*distance*prog));
-        	 blockRenderer.getBlockModelRenderer().renderModel(world, model_seg2, state, pos, buffer, false);
+        	 blockRenderer.getBlockModelRenderer().renderModel(world, model_seg2, state, pos, buffer, true);
         }
 	}
 	/**
@@ -224,7 +229,7 @@ public class RenderDoor3x3Fast extends FastTESR<Door3x3TileEntity> {
         blockRenderer.getBlockModelRenderer().renderModel(world, model_up, state, pos, buffer, false);
         	
         if (prog==0.0f) {
-        	 if(state.getValue(BlockTGDoor3x3.OPENED)) {
+        	 if(state.getValue(BlockTGDoor3x3.STATE)==EnumDoorState.OPENING) {
         		 //Render opened door
         		 buffer.setTranslation(px,py+3d,pz);
         		 blockRenderer.getBlockModelRenderer().renderModel(world, model_lower, state, pos, buffer, false);
@@ -236,7 +241,7 @@ public class RenderDoor3x3Fast extends FastTESR<Door3x3TileEntity> {
 	        	 blockRenderer.getBlockModelRenderer().renderModel(world, model_segment3, state, pos, buffer, false); 
         	 }
         } else {
-			if (!state.getValue(BlockTGDoor3x3.OPENED)) {
+			if (state.getValue(BlockTGDoor3x3.STATE)==EnumDoorState.CLOSING) {
 				prog = 1.0f - prog;
 			}
 

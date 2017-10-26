@@ -182,77 +182,78 @@ public class ModelMiningDrill extends ModelMultipart {
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw,
 			float headPitch, float scale, int ammoLeft, float reloadProgress, TransformType transformType, int part,
 			float fireProgress) {
-		
-		this.Shape93.render(scale);
-		this.Shape136.render(scale);
-		this.Shape134.render(scale);
-		this.Grip01.render(scale);
-		this.Shape13.render(scale);
-		this.Shape151.render(scale);
-		GlStateManager.pushMatrix();
-		GlStateManager.translate(this.Grip.offsetX, this.Grip.offsetY, this.Grip.offsetZ);
-		GlStateManager.translate(this.Grip.rotationPointX * scale, this.Grip.rotationPointY * scale, this.Grip.rotationPointZ * scale);
-		GlStateManager.scale(1.5D, 1.5D, 1.0D);
-		GlStateManager.translate(-this.Grip.offsetX, -this.Grip.offsetY, -this.Grip.offsetZ);
-		GlStateManager.translate(-this.Grip.rotationPointX * scale, -this.Grip.rotationPointY * scale,
-				-this.Grip.rotationPointZ * scale);
-		this.Grip.render(scale);
-		GlStateManager.popMatrix();
-		this.Shape9.render(scale);
-		this.Shape92.render(scale);
-		this.Shape152.render(scale);
-		GlStateManager.pushMatrix();
-		GlStateManager.translate(this.Grip03.offsetX, this.Grip03.offsetY, this.Grip03.offsetZ);
-		GlStateManager.translate(this.Grip03.rotationPointX * scale, this.Grip03.rotationPointY * scale,
-				this.Grip03.rotationPointZ * scale);
-		GlStateManager.scale(1.0D, 1.0D, 0.98D);
-		GlStateManager.translate(-this.Grip03.offsetX, -this.Grip03.offsetY, -this.Grip03.offsetZ);
-		GlStateManager.translate(-this.Grip03.rotationPointX * scale, -this.Grip03.rotationPointY * scale,
-				-this.Grip03.rotationPointZ * scale);
-		this.Grip03.render(scale);
-		GlStateManager.popMatrix();
-		this.Shape15.render(scale);
-		this.Grip02.render(scale);
-		this.Shape131_1.render(scale);
-		this.Shape34.render(scale);
-		this.Grip2_03.render(scale);
-		this.Shape32.render(scale);
-		this.Shape135.render(scale);
-		this.Shape33.render(scale);
-		this.Shape132.render(scale);
-		this.Shape131.render(scale);
-		this.Shape91.render(scale);
-		GlStateManager.pushMatrix();
-		GlStateManager.translate(this.Grip03_1.offsetX, this.Grip03_1.offsetY, this.Grip03_1.offsetZ);
-		GlStateManager.translate(this.Grip03_1.rotationPointX * scale, this.Grip03_1.rotationPointY * scale,
-				this.Grip03_1.rotationPointZ * scale);
-		GlStateManager.scale(1.0D, 1.0D, 0.96D);
-		GlStateManager.translate(-this.Grip03_1.offsetX, -this.Grip03_1.offsetY, -this.Grip03_1.offsetZ);
-		GlStateManager.translate(-this.Grip03_1.rotationPointX * scale, -this.Grip03_1.rotationPointY * scale,
-				-this.Grip03_1.rotationPointZ * scale);
-		this.Grip03_1.render(scale);
-		GlStateManager.popMatrix();
-		this.Grip2_02.render(scale);
-		this.Shape133.render(scale);
-		this.Grip2_01.render(scale);
-		this.Shape31.render(scale);
-		
-		GlStateManager.pushMatrix();
-		GlStateManager.translate(0,0.1d,0.04d);
-		GlStateManager.rotate(360f*fireProgress, 1, 0, 0);
-		GlStateManager.translate(0,-0.1d,-0.04d);
-		this.Drill01.render(scale);
-		this.Drill02.render(scale);
-		this.Drill03.render(scale);
-		this.Drill04.render(scale);
-		this.Drill05.render(scale);
-		this.Drill06.render(scale);
-		this.Drill07.render(scale);
-		this.Drill08.render(scale);
-		this.Drill09.render(scale);
-		this.Drill010.render(scale);
-		this.Drill011.render(scale);
-		GlStateManager.popMatrix();
+		if (part==0) {
+			this.Shape93.render(scale);
+			this.Shape136.render(scale);
+			this.Shape134.render(scale);
+			this.Grip01.render(scale);
+			this.Shape13.render(scale);
+			this.Shape151.render(scale);
+			GlStateManager.pushMatrix();
+			GlStateManager.translate(this.Grip.offsetX, this.Grip.offsetY, this.Grip.offsetZ);
+			GlStateManager.translate(this.Grip.rotationPointX * scale, this.Grip.rotationPointY * scale, this.Grip.rotationPointZ * scale);
+			GlStateManager.scale(1.5D, 1.5D, 1.0D);
+			GlStateManager.translate(-this.Grip.offsetX, -this.Grip.offsetY, -this.Grip.offsetZ);
+			GlStateManager.translate(-this.Grip.rotationPointX * scale, -this.Grip.rotationPointY * scale,
+					-this.Grip.rotationPointZ * scale);
+			this.Grip.render(scale);
+			GlStateManager.popMatrix();
+			this.Shape9.render(scale);
+			this.Shape92.render(scale);
+			this.Shape152.render(scale);
+			GlStateManager.pushMatrix();
+			GlStateManager.translate(this.Grip03.offsetX, this.Grip03.offsetY, this.Grip03.offsetZ);
+			GlStateManager.translate(this.Grip03.rotationPointX * scale, this.Grip03.rotationPointY * scale,
+					this.Grip03.rotationPointZ * scale);
+			GlStateManager.scale(1.0D, 1.0D, 0.98D);
+			GlStateManager.translate(-this.Grip03.offsetX, -this.Grip03.offsetY, -this.Grip03.offsetZ);
+			GlStateManager.translate(-this.Grip03.rotationPointX * scale, -this.Grip03.rotationPointY * scale,
+					-this.Grip03.rotationPointZ * scale);
+			this.Grip03.render(scale);
+			GlStateManager.popMatrix();
+			this.Shape15.render(scale);
+			this.Grip02.render(scale);
+			this.Shape131_1.render(scale);
+			this.Shape34.render(scale);
+			this.Grip2_03.render(scale);
+			this.Shape32.render(scale);
+			this.Shape135.render(scale);
+			this.Shape33.render(scale);
+			this.Shape132.render(scale);
+			this.Shape131.render(scale);
+			this.Shape91.render(scale);
+			GlStateManager.pushMatrix();
+			GlStateManager.translate(this.Grip03_1.offsetX, this.Grip03_1.offsetY, this.Grip03_1.offsetZ);
+			GlStateManager.translate(this.Grip03_1.rotationPointX * scale, this.Grip03_1.rotationPointY * scale,
+					this.Grip03_1.rotationPointZ * scale);
+			GlStateManager.scale(1.0D, 1.0D, 0.96D);
+			GlStateManager.translate(-this.Grip03_1.offsetX, -this.Grip03_1.offsetY, -this.Grip03_1.offsetZ);
+			GlStateManager.translate(-this.Grip03_1.rotationPointX * scale, -this.Grip03_1.rotationPointY * scale,
+					-this.Grip03_1.rotationPointZ * scale);
+			this.Grip03_1.render(scale);
+			GlStateManager.popMatrix();
+			this.Grip2_02.render(scale);
+			this.Shape133.render(scale);
+			this.Grip2_01.render(scale);
+			this.Shape31.render(scale);
+		} else if (part==1) {
+			GlStateManager.pushMatrix();
+			GlStateManager.translate(0,0.1d,0.04d);
+			GlStateManager.rotate(360f*fireProgress, 1, 0, 0);
+			GlStateManager.translate(0,-0.1d,-0.04d);
+			this.Drill01.render(scale);
+			this.Drill02.render(scale);
+			this.Drill03.render(scale);
+			this.Drill04.render(scale);
+			this.Drill05.render(scale);
+			this.Drill06.render(scale);
+			this.Drill07.render(scale);
+			this.Drill08.render(scale);
+			this.Drill09.render(scale);
+			this.Drill010.render(scale);
+			this.Drill011.render(scale);
+			GlStateManager.popMatrix();
+		}
 		
 	}
 

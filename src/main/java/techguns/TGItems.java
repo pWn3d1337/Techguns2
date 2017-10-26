@@ -232,6 +232,9 @@ public class TGItems implements ITGInitializer{
 	public static ItemStack MININGDRILLHEAD_OBSIDIAN;
 	public static ItemStack MININGDRILLHEAD_CARBON;
 	
+	public static ItemStack POWERHAMMERHEAD_OBSIDIAN;
+	public static ItemStack POWERHAMMERHEAD_CARBON;
+	
 	//Tools/weapons
 	public static Item COMBAT_KNIFE;
 	public static Item CROWBAR;
@@ -406,6 +409,9 @@ public class TGItems implements ITGInitializer{
 		
 		MININGDRILLHEAD_OBSIDIAN = SHARED_ITEM.addsharedVariant("miningdrillhead_obsidian");
 		MININGDRILLHEAD_CARBON = SHARED_ITEM.addsharedVariant("miningdrillhead_carbon");
+		
+		POWERHAMMERHEAD_OBSIDIAN = SHARED_ITEM.addsharedVariant("powerhammerhead_obsidian");
+		POWERHAMMERHEAD_CARBON = SHARED_ITEM.addsharedVariant("powerhammerhead_carbon");
 		
 		/**
 		 * Additional Slot items

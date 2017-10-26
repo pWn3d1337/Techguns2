@@ -7,9 +7,11 @@ import org.omg.PortableServer.POAManagerPackage.State;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
+import com.mojang.realmsclient.gui.ChatFormatting;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -30,14 +32,19 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.RayTraceResult.Type;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import techguns.TGPackets;
 import techguns.TGSounds;
+import techguns.Techguns;
 import techguns.capabilities.TGExtendedPlayer;
 import techguns.client.ShooterValues;
 import techguns.client.audio.TGSoundCategory;
 import techguns.items.guns.ammo.AmmoType;
 import techguns.packets.PacketPlaySound;
 import techguns.util.BlockUtils;
+import techguns.util.ItemUtil;
+import techguns.util.TextUtil;
 
 public class GenericGunMeleeCharge extends GenericGunCharge implements IGenericGunMelee<GenericGunMeleeCharge> {
 
@@ -48,6 +55,8 @@ public class GenericGunMeleeCharge extends GenericGunCharge implements IGenericG
 	 */
 	protected int miningRadius=0;
 	
+	protected ItemStack[] miningHeads = null;
+	
 	public GenericGunMeleeCharge(String name, ChargedProjectileSelector projectile_selector, boolean semiAuto,
 			int minFiretime, int clipsize, int reloadtime, float damage, SoundEvent firesound, SoundEvent reloadsound,
 			int TTL, float accuracy, float fullChargeTime, int ammoConsumedOnFullCharge) {
@@ -55,6 +64,11 @@ public class GenericGunMeleeCharge extends GenericGunCharge implements IGenericG
 				accuracy, fullChargeTime, ammoConsumedOnFullCharge);
 	}
 
+	public GenericGunMeleeCharge setMiningHeads(ItemStack... heads) {
+		this.miningHeads = heads;
+		return this;
+	}
+	
 	public GenericGunMeleeCharge setMiningRadius(int miningRadius) {
 		this.miningRadius = miningRadius;
 		return this;
@@ -111,23 +125,40 @@ public class GenericGunMeleeCharge extends GenericGunCharge implements IGenericG
 	@Override
 	protected void addInitialTags(NBTTagCompound tags) {
 		super.addInitialTags(tags);
-		tags.setByte("miningHead", (byte) 0);
+		tags.setInteger("miningHead", 0);
 	}
 
 	public int getMiningHeadLevel(ItemStack stack) {
 		NBTTagCompound tags = stack.getTagCompound();
-		if(tags!=null) {
-			return tags.getByte("miningHead");
+		if(tags==null) {
+			this.onCreated(stack, null, null);
+		}
+		return tags.getInteger("miningHead");
+	}
+	
+	public int getMiningHeadLevelForHead(ItemStack head) {
+		if(this.miningHeads !=null) {
+			int i=0;
+			while(i<this.miningHeads.length) {
+				if (ItemUtil.isItemEqual(this.miningHeads[i], head)) {
+					return i+1;
+				}
+				i++;
+			}
 		}
 		return 0;
 	}
 	
-	public byte getMiningHeadLevelForHead(ItemStack head) {
-		return 0;
+	@SideOnly(Side.CLIENT)
+	public String getCurrentMiningHeadForTooltip(ItemStack stack) {
+		if(this.miningHeads!=null && this.getMiningHeadLevel(stack)>0) {
+			return this.miningHeads[this.getMiningHeadLevel(stack)-1].getUnlocalizedName()+".name";
+		}
+		return Techguns.MODID+".default";
 	}
 	
 	@Override
-	public int getExtraMiningLevel(ItemStack stack, String toolClass, EntityPlayer player, IBlockState blockState) {
+	public int getExtraMiningLevel(ItemStack stack, String toolClass, EntityPlayer player) {
 		return getMiningHeadLevel(stack);
 	}
 
@@ -221,6 +252,44 @@ public class GenericGunMeleeCharge extends GenericGunCharge implements IGenericG
         }
 
 		return multimap;
+	}
+
+	
+	
+	@Override
+	protected void addMiningTooltip(ItemStack stack, World world, List<String> list, ITooltipFlag flagIn,
+			boolean longTooltip) {
+		super.addMiningTooltip(stack, world, list, flagIn, longTooltip);
+		
+		if(longTooltip) {
+			if(this.miningHeads!=null) {
+				list.add(TextUtil.trans("techguns.tooltip.mininghead")+": "+ChatFormatting.WHITE+TextUtil.trans(this.getCurrentMiningHeadForTooltip(stack)));
+			}
+			
+			list.add(TextUtil.trans("techguns.tooltip.toolclasses")+":");
+			for(String s: this.getMiningLevels().keySet()){
+				if(!s.equals("default")) {
+					list.add(" "+s+": "+(this.getMiningLevels().get(s)+this.getExtraMiningLevel(stack, s, null)));
+				}
+			}
+			int r = this.getMiningRadius(stack)*2 +1;
+			list.add(TextUtil.trans("techguns.tooltip.miningradius")+": "+r+"x"+r);
+		} else {
+			String toolclasses = null;
+			for(String s: this.getMiningLevels().keySet()){
+				if(!s.equals("default")) {
+					if(toolclasses!=null) {
+						toolclasses+=", "+s;
+					} else {
+						toolclasses=s;
+					}
+				}
+			}
+			if(toolclasses!=null) {
+				list.add(TextUtil.trans("techguns.tooltip.toolclasses")+": "+toolclasses);
+			}
+		}
+		
 	}
 
 	@Override

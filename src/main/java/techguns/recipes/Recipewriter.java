@@ -46,6 +46,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import techguns.TGBlocks;
 import techguns.TGItems;
 import techguns.TGuns;
+import techguns.Techguns;
 import techguns.blocks.machines.EnumMachineType;
 import techguns.blocks.machines.EnumMultiBlockMachineType;
 import techguns.blocks.machines.EnumSimpleMachineType;
@@ -57,7 +58,7 @@ public class Recipewriter {
 
 	public static final String hardenedGlassOrGlass = "hardenedGlassOrGlass";
 	public static final String electrumOrGold = "electrumOrGold";
-
+	public static final String itemStackHasNBTInt = "itemstackHasNBTInt";
 	
 	public static void writeRecipes() {
 		
@@ -274,7 +275,9 @@ public class Recipewriter {
 	}
 	
 	public static void addUpgradeRecipes() {
-		RecipeJsonConverter.addShapelessMiningHeadUpgradeRecipe(TGuns.miningdrill, TGItems.MININGDRILLHEAD_CARBON);
+		RecipeJsonConverter.addShapelessMiningHeadUpgradeRecipe(TGuns.miningdrill, TGItems.MININGDRILLHEAD_CARBON, "miningHead",0);
+		RecipeJsonConverter.addShapelessMiningHeadUpgradeRecipe(TGuns.powerhammer, TGItems.POWERHAMMERHEAD_OBSIDIAN, "miningHead",0);
+		RecipeJsonConverter.addShapelessMiningHeadUpgradeRecipe(TGuns.powerhammer, TGItems.POWERHAMMERHEAD_CARBON, "miningHead",1);
 	}
 	
 	public static void addAmmoChangeRecipes() {

@@ -1,0 +1,46 @@
+{
+	"textures": {
+		"0": "techguns:blocks/hangar_door",
+		"particle": "techguns:blocks/hangar_door"
+	},
+	"elements": [
+		{
+			"name": "cube",
+			"from": [-16, 31, 6],
+			"to": [32, 32, 10],
+			"faces": {
+				"north": {
+					"uv": [0, 1.25, 12, 1.5],
+					"texture": "#0",
+					"cullface": "north"
+				},
+				"east": {
+					"uv": [0, 1.75, 1, 2],
+					"texture": "#0",
+					"cullface": "east"
+				},
+				"south": {
+					"uv": [0, 1.25, 12, 1.5],
+					"texture": "#0",
+					"cullface": "south"
+				},
+				"west": {
+					"uv": [0, 1.75, 1, 2],
+					"texture": "#0",
+					"cullface": "west"
+				},
+				"up": {
+					"uv": [0, 0, 12, 1],
+					"texture": "#0",
+					"cullface": "up"
+				},
+				"down": {
+					"uv": [0, 0, 12, 1],
+					"texture": "#0",
+					"cullface": "down"
+				}
+			}
+		}
+	],
+	"groups": [0]
+}

@@ -5,6 +5,7 @@
   },
   "ingredients": {
     "electrumOrGold": "techguns.recipes.OreDictIngredientElectrumOrGold",
-    "hardenedGlassOrGlass": "techguns.recipes.OreDictIngredientHardenedGlass"
+    "hardenedGlassOrGlass": "techguns.recipes.OreDictIngredientHardenedGlass",
+    "itemstackHasNBTInt": "techguns.recipes.IngredientFactoryMatchNBTInt"
   }
 }

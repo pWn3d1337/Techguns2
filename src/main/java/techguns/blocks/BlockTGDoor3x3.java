@@ -8,6 +8,7 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.EnumPushReaction;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
+import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -41,7 +42,8 @@ public class BlockTGDoor3x3<T extends Enum<T> & IStringSerializable> extends Gen
 
 	public static final PropertyBool MASTER = PropertyBool.create("master");
 	public static final PropertyBool ZPLANE = PropertyBool.create("zplane");
-	public static final PropertyBool OPENED = PropertyBool.create("open");
+	//public static final PropertyBool OPENED = PropertyBool.create("open");
+	public static final PropertyEnum<EnumDoorState> STATE = PropertyEnum.<EnumDoorState>create("state", EnumDoorState.class);
 	
 	protected Class<T> clazz;
 	protected BlockStateContainer blockStateOverride;
@@ -68,12 +70,14 @@ public class BlockTGDoor3x3<T extends Enum<T> & IStringSerializable> extends Gen
 	public static final int DOOR_OPEN_TIME=1000;
 	public static final int DOOR_AUTOCLOSE_DELAY = 5000;
 	
+	public static final int DOOR_OPEN_TICKS = DOOR_OPEN_TIME/50;
+	
 	public BlockTGDoor3x3(String name,  Class<T> clazz, ItemTGDoor3x3<T> doorplacer) {
 		super(name, Material.IRON);
 		this.setSoundType(SoundType.METAL);
 		this.clazz=clazz;
-		this.blockStateOverride = new BlockStateContainer.Builder(this).add(MASTER).add(ZPLANE).add(OPENED).build();
-		this.setDefaultState(this.getBlockState().getBaseState().withProperty(MASTER, false).withProperty(ZPLANE, false).withProperty(OPENED, false));
+		this.blockStateOverride = new BlockStateContainer.Builder(this).add(MASTER).add(ZPLANE).add(STATE).build();
+		this.setDefaultState(this.getBlockState().getBaseState().withProperty(MASTER, false).withProperty(ZPLANE, false).withProperty(STATE, EnumDoorState.CLOSED));
 		this.placer=doorplacer;
 		this.placer.setBlock(this);
 		
@@ -86,17 +90,19 @@ public class BlockTGDoor3x3<T extends Enum<T> & IStringSerializable> extends Gen
 		GameRegistry.registerTileEntity(Door3x3TileEntity.class, Techguns.MODID+":"+"door3x3tileent");
 	}
 
+    @Override
 	public boolean isOpaqueCube(IBlockState state)
     {
-        return false;
+		return false;
     }
 
+	@Override
     public boolean isFullCube(IBlockState state)
     {
         return false;
     }
-	
-    @Override
+
+	@Override
 	public EnumPushReaction getMobilityFlag(IBlockState state) {
 		return EnumPushReaction.BLOCK;
 	}
@@ -108,7 +114,11 @@ public class BlockTGDoor3x3<T extends Enum<T> & IStringSerializable> extends Gen
     
 	@Override
 	public EnumBlockRenderType getRenderType(IBlockState state) {
-		return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
+		/*if(state.getValue(STATE)==EnumDoorState.CLOSING || state.getValue(STATE)==EnumDoorState.OPENING ) {
+			return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
+		} else {*/
+			return EnumBlockRenderType.MODEL;
+		//}
 	}
 
 	public boolean hasTileEntity(IBlockState state)
@@ -165,10 +175,14 @@ public class BlockTGDoor3x3<T extends Enum<T> & IStringSerializable> extends Gen
 		return pos;
 	}
 	
+	public boolean isStateOpen(IBlockState state) {
+		return state.getValue(STATE) == EnumDoorState.OPENED || state.getValue(STATE) ==EnumDoorState.OPENING;
+	}
+	
 	public static AxisAlignedBB NO_COLLIDE=new AxisAlignedBB(0, 0, 0, 0, 0, 0);
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-		if(!state.getValue(OPENED)) {
+		if(!isStateOpen(state)) {
 			return getBBforPlane(state);
 		} else {
 			BlockPos master = findMaster(source, pos, state);
@@ -209,7 +223,7 @@ public class BlockTGDoor3x3<T extends Enum<T> & IStringSerializable> extends Gen
 	
 	@Override
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
-		if(blockState.getValue(OPENED)) {
+		if(isStateOpen(blockState)) {
 			return NULL_AABB;
 		} else {
 			return getBBforPlane(blockState);
@@ -226,9 +240,26 @@ public class BlockTGDoor3x3<T extends Enum<T> & IStringSerializable> extends Gen
 	        return this.blockMaterial == Material.IRON ? 1005 : 1006;
 	    }
 	
+	    
+	public EnumDoorState getNextOpenState(EnumDoorState current) {
+		switch(current) {
+		case CLOSED:
+			return EnumDoorState.OPENING;
+		case OPENED:
+			return EnumDoorState.CLOSING;
+		case OPENING:
+			return EnumDoorState.OPENED;
+		case CLOSING:
+		default:
+			return EnumDoorState.CLOSED;
+		}
+	}
+	    
+	    
 	public void toggleState(World w, BlockPos masterPos) {
 		IBlockState masterstate = w.getBlockState(masterPos);
-		boolean opened = !masterstate.getValue(OPENED);
+		
+		EnumDoorState nextState = this.getNextOpenState(masterstate.getValue(STATE));
 		
 		Vec3i[] offsets = pos_x;
 		if(masterstate.getValue(ZPLANE)) {
@@ -237,10 +268,10 @@ public class BlockTGDoor3x3<T extends Enum<T> & IStringSerializable> extends Gen
 		
 		for(int i=0;i<offsets.length; i++) {
 			BlockPos p = masterPos.add(offsets[i]);
-			this.setOpenedStateForBlock(w, p, opened);
+			this.setOpenedStateForBlock(w, p, nextState);
 		}
-		this.setOpenedStateForBlock(w, masterPos, opened);
-		 w.playEvent((EntityPlayer)null, opened ? this.getOpenSound() : this.getCloseSound(), masterPos, 0);
+		this.setOpenedStateForBlock(w, masterPos, nextState);
+		 w.playEvent((EntityPlayer)null, this.getOpenSound() /*: TODO this.getCloseSound()*/, masterPos, 0);
 		 
 		 TileEntity tile = w.getTileEntity(masterPos);
 		 if(tile!=null && tile instanceof Door3x3TileEntity) {
@@ -248,7 +279,10 @@ public class BlockTGDoor3x3<T extends Enum<T> & IStringSerializable> extends Gen
 			 if(!w.isRemote) {
 				door.changeStateServerSide();
 				 
-				if(door.isAutoClose()) {
+				if(nextState==EnumDoorState.OPENING || nextState==EnumDoorState.CLOSING) {
+					w.scheduleBlockUpdate(masterPos, this, DOOR_OPEN_TICKS-1, 0);
+					
+				} else if(door.isAutoClose() && nextState==EnumDoorState.OPENED) {
 					w.scheduleBlockUpdate(masterPos, this, BLOCK_UPDATE_DELAY, 0);
 				}
 				door.setLastStateChangeTime(System.currentTimeMillis());
@@ -258,10 +292,10 @@ public class BlockTGDoor3x3<T extends Enum<T> & IStringSerializable> extends Gen
 		 } 
 	}
 	
-	public void setOpenedStateForBlock(World w, BlockPos p, boolean b) {
+	public void setOpenedStateForBlock(World w, BlockPos p, EnumDoorState doorstate) {
 		IBlockState state = w.getBlockState(p);
 		if(state.getBlock()==this) {
-			IBlockState newstate = state.withProperty(OPENED,b);
+			IBlockState newstate = state.withProperty(STATE,doorstate);
 			w.setBlockState(p, newstate, 3);
 		}
 	}
@@ -273,7 +307,7 @@ public class BlockTGDoor3x3<T extends Enum<T> & IStringSerializable> extends Gen
 
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
-		return this.getDefaultState().withProperty(OPENED, (meta&2)>0).withProperty(ZPLANE, (meta&4)>0).withProperty(MASTER, (meta&8)>0);
+		return this.getDefaultState().withProperty(STATE, EnumDoorState.values()[meta&3]).withProperty(ZPLANE, (meta&4)>0).withProperty(MASTER, (meta&8)>0);
 	}
 
 	@Override
@@ -285,9 +319,7 @@ public class BlockTGDoor3x3<T extends Enum<T> & IStringSerializable> extends Gen
 		if(state.getValue(ZPLANE)) {
 			meta+=4;
 		}
-		if(state.getValue(OPENED)) {
-			meta+=2;
-		}
+		meta += state.getValue(STATE).ordinal();
 		return meta;
 	}
 
@@ -387,7 +419,7 @@ public class BlockTGDoor3x3<T extends Enum<T> & IStringSerializable> extends Gen
 	@Override
 	public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
 		IBlockState state = worldIn.getBlockState(pos);
-		return state.getValue(OPENED);
+		return this.isStateOpen(state);
 	}
 
 	@Override
@@ -455,12 +487,12 @@ public class BlockTGDoor3x3<T extends Enum<T> & IStringSerializable> extends Gen
 				boolean powered = this.isPowered(door.getWorld(), masterPos);
 				//System.out.println("POWERED: "+powered);
 				if(door.getRedstoneBehaviour()==1) {
-					if((powered && !masterstate.getValue(OPENED)) || (!powered && masterstate.getValue(OPENED))) {
+					if((powered && masterstate.getValue(STATE)==EnumDoorState.CLOSED) || (!powered && masterstate.getValue(STATE)==EnumDoorState.OPENED)) {
 						
 						this.toggleState(door.getWorld(), masterPos);
 					}
 				} else if (door.getRedstoneBehaviour()==2) {
-					if((!powered && !masterstate.getValue(OPENED)) || (powered && masterstate.getValue(OPENED))) { 
+					if((!powered && masterstate.getValue(STATE)==EnumDoorState.CLOSED) || (powered && masterstate.getValue(STATE)==EnumDoorState.OPENED)) { 
 						
 						this.toggleState(door.getWorld(), masterPos);
 					}
@@ -570,12 +602,21 @@ public class BlockTGDoor3x3<T extends Enum<T> & IStringSerializable> extends Gen
 		if(tile!=null && tile instanceof Door3x3TileEntity) {
 			Door3x3TileEntity door = (Door3x3TileEntity) tile;
 
-			boolean openstate = state.getValue(OPENED);
-			if(door.getDoormode()==0) {
+			boolean openstate = state.getValue(STATE)==EnumDoorState.OPENED;
+			boolean closedstate = state.getValue(STATE) == EnumDoorState.CLOSED;
+			
+			if (!openstate && !closedstate) {
+				worldIn.scheduleBlockUpdate(pos, this, 1, 0);
+				
+				if (System.currentTimeMillis()-door.getLastStateChangeTime()>DOOR_OPEN_TIME) {
+					this.toggleState(worldIn, pos);
+				}
+				
+			} else if(door.getDoormode()==0) {
 				if ( door.isAutoClose()&&openstate) {
 					if (door.checkAutoCloseDelay()) {
 						this.toggleState(worldIn, pos);
-						openstate=false;
+						//openstate=false;
 					}
 					worldIn.scheduleBlockUpdate(pos, this, BLOCK_UPDATE_DELAY, 0);
 				}
@@ -583,12 +624,12 @@ public class BlockTGDoor3x3<T extends Enum<T> & IStringSerializable> extends Gen
 			} else if (door.getDoormode()==2) {
 				
 				boolean open=checkOpenForNearPlayers(worldIn,door,pos);
-				if(open && !openstate) {
+				if(open && closedstate) {
 					this.toggleState(worldIn, pos);
-					openstate=true;
+					//openstate=true;
 				} else if (!open && openstate && door.checkPlayerSensorAutoCloseDelay()) {
 					this.toggleState(worldIn, pos);
-					openstate=false;
+					//openstate=false;
 				}
 				worldIn.scheduleBlockUpdate(pos, this, BLOCK_UPDATE_DELAY, 0);
 			}

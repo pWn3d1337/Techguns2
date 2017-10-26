@@ -65,7 +65,7 @@ public class MiningToolUpgradeHeadRecipeFactory implements IRecipeFactory {
 				GenericGunMeleeCharge g = (GenericGunMeleeCharge) gun.getItem();
 				AmmoType type = g.getAmmoType();
 				
-				newTags.setByte("miningHead", g.getMiningHeadLevelForHead(head));
+				newTags.setInteger("miningHead", g.getMiningHeadLevelForHead(head));
 			}
 			ItemStack out = super.getCraftingResult(var1);
 			if(newTags!=null){

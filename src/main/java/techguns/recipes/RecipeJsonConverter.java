@@ -23,6 +23,7 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import techguns.TGConfig;
 import techguns.TGItems;
+import techguns.Techguns;
 import techguns.blocks.machines.BasicMachine;
 import techguns.items.GenericItemShared;
 import techguns.items.guns.GenericGun;
@@ -46,6 +47,7 @@ public class RecipeJsonConverter {
 		static {
 			factories.put(Recipewriter.hardenedGlassOrGlass, OreDictIngredientHardenedGlass.class.getName());
 			factories.put(Recipewriter.electrumOrGold, OreDictIngredientElectrumOrGold.class.getName());
+			factories.put(Recipewriter.itemStackHasNBTInt, IngredientFactoryMatchNBTInt.class.getName());
 		}
 
 		public static final String AMMO_CHANGE_COPY_NBT_RECIPE = "ammo_change_crafting";
@@ -254,7 +256,7 @@ public class RecipeJsonConverter {
 			}
 		}
 		
-		public static void addShapelessMiningHeadUpgradeRecipe(GenericGun gun, ItemStack upgradeItem)
+		public static void addShapelessMiningHeadUpgradeRecipe(GenericGun gun, ItemStack upgradeItem, String key, int value)
 		{
 			setupDir();
 
@@ -269,7 +271,7 @@ public class RecipeJsonConverter {
 					isOreDict = true;
 				ingredients.add(serializeItem(o));
 			}*/
-			ingredients.add(serializeItem(new ItemStack(gun,1)));
+			ingredients.add(serializeItemNBTTag(new ItemStack(gun,1),key, value));
 			ingredients.add(serializeItem(upgradeItem));
 			ItemStack result = new ItemStack(gun,1);
 			
@@ -331,6 +333,25 @@ public class RecipeJsonConverter {
 			}
 
 			throw new IllegalArgumentException("Not a block, item, stack, or od name");
+		}
+		
+		private static Map<String, Object> serializeItemNBTTag(ItemStack stack, String key, Object value) {
+	
+			Map<String, Object> ret = new HashMap<>();
+			
+			ret.put("type", Recipewriter.itemStackHasNBTInt);
+			ret.put("item", stack.getItem().getRegistryName().toString());
+			if (stack.getItem().getHasSubtypes() || stack.getItemDamage() != 0) {
+				ret.put("data", stack.getItemDamage());
+			}
+			if (stack.getCount() > 1) {
+				ret.put("count", stack.getCount());
+			}
+			
+			ret.put("key", key);
+			ret.put("value", value);
+
+			return ret;
 		}
 
 		public static void generateConstants() {

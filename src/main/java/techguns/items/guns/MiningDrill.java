@@ -1,5 +1,8 @@
 package techguns.items.guns;
 
+import java.util.List;
+
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
@@ -10,6 +13,7 @@ import net.minecraft.world.World;
 import techguns.TGItems;
 import techguns.TGSounds;
 import techguns.util.ItemUtil;
+import techguns.util.TextUtil;
 
 public class MiningDrill extends GenericGunMeleeCharge {
 
@@ -18,6 +22,8 @@ public class MiningDrill extends GenericGunMeleeCharge {
 			float accuracy, float fullChargeTime, int ammoConsumedOnFullCharge) {
 		super(name, projectile_selector, semiAuto, minFiretime, clipsize, reloadtime, damage, firesound, reloadsound, TTL,
 				accuracy, fullChargeTime, ammoConsumedOnFullCharge);
+		
+		this.setMiningHeads(TGItems.MININGDRILLHEAD_CARBON);
 	}
 
 	@Override
@@ -25,6 +31,17 @@ public class MiningDrill extends GenericGunMeleeCharge {
 		ItemStack stack = player.getHeldItem(handIn);
 		this.shootGunPrimary(stack, worldIn, player, false, handIn);
 		return new ActionResult<ItemStack>(EnumActionResult.FAIL, stack);
+	}
+
+	
+	
+	@Override
+	protected void addMiningTooltip(ItemStack stack, World world, List<String> list, ITooltipFlag flagIn,
+			boolean longTooltip) {
+		super.addMiningTooltip(stack, world, list, flagIn, longTooltip);
+		if (longTooltip) {
+			list.add(TextUtil.trans("techguns.tooltip.sneaksilktouch"));
+		}
 	}
 
 	@Override
@@ -40,14 +57,6 @@ public class MiningDrill extends GenericGunMeleeCharge {
 	@Override
 	protected SoundEvent getBlockBreakSound() {
 		return TGSounds.CHAINSAW_HIT;
-	}
-
-	@Override
-	public byte getMiningHeadLevelForHead(ItemStack head) {
-		if (ItemUtil.isItemEqual(head, TGItems.MININGDRILLHEAD_CARBON)) {
-			return 1;
-		}
-		return 0;
 	}
 	
 }

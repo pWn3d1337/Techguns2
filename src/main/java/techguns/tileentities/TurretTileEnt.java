@@ -326,7 +326,7 @@ public class TurretTileEnt extends BasicPoweredTileEnt implements ITickable{
 			}
 		}
 	}
-
+	
 	@Override
 	public void update() {
 
@@ -386,18 +386,24 @@ public class TurretTileEnt extends BasicPoweredTileEnt implements ITickable{
 					}
 					
 				}
-			} else if(this.mountedTurret==null && !this.turretDeath) {
+			} /*else if(this.mountedTurret==null && !this.turretDeath) {
 				this.onTurretDeath();
-			}
+			}*/
 		} else {
 			/**
 			 * CLIENT SIDE
 			 */
-			//System.out.println("Mounted Turret:"+this.mountedTurret);
+			/*System.out.println("Mounted Turret:"+this.mountedTurret);
+			if(this.mountedTurret!=null) {
+				System.out.println("MTT:"+this.mountedTurret.mountedTileEnt);
+			}  else {
+				System.out.println("MTT: Null");
+			}*/
+			
 			if (this.mountedTurret==null && !this.turretDeath){
-				if((Minecraft.getSystemTime()-this.lastRequest)>1000){
+				if((System.currentTimeMillis()-this.lastRequest)>1000){
 					TGPackets.network.sendToServer(new PacketRequestTileEntitySync(this.getPos()));
-					this.lastRequest=Minecraft.getSystemTime();
+					this.lastRequest=System.currentTimeMillis();
 	//				System.out.println("Sent request for sync");
 				}
 			} else if (this.mountedTurret!=null && this.mountedTurret.mountedTileEnt==null){
@@ -468,6 +474,7 @@ public class TurretTileEnt extends BasicPoweredTileEnt implements ITickable{
 			this.setTurretPosition();
 			this.mountedTurret.setHealth(health);
 			this.mountedTurret.setTurretFacing(this.facing);
+			this.turretDeath=false;
 			w.spawnEntity(this.mountedTurret);
 		}
 	}
@@ -478,6 +485,7 @@ public class TurretTileEnt extends BasicPoweredTileEnt implements ITickable{
 			//this.mountedTurret.setPosition(p.getX()+0.5d, p.getY()+1, p.getZ()+0.5d);
 			this.setTurretPosition();
 			this.mountedTurret.setTurretFacing(this.facing);
+			this.turretDeath=false;
 			w.spawnEntity(this.mountedTurret);
 		}
 	}
