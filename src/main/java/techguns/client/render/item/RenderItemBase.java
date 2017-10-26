@@ -153,8 +153,8 @@ public class RenderItemBase implements IItemRenderer {
 		}
 		if (index >= 0) {
 			float mirror = flip?-1.0f:1.0f;
-			GlStateManager.translate((translateType[index][0]+Keybinds.X)*mirror, translateType[index][1]+Keybinds.Y, translateType[index][2]+Keybinds.Z);
-			//GlStateManager.translate((translateType[index][0])*mirror, translateType[index][1], translateType[index][2]);
+			//GlStateManager.translate((translateType[index][0]+Keybinds.X)*mirror, translateType[index][1]+Keybinds.Y, translateType[index][2]+Keybinds.Z);
+			GlStateManager.translate((translateType[index][0])*mirror, translateType[index][1], translateType[index][2]);
 		}
 	}
 	

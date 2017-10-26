@@ -16,6 +16,7 @@ import techguns.capabilities.TGShooterValues;
 import techguns.client.ClientProxy;
 import techguns.client.models.ModelMultipart;
 import techguns.client.render.fx.ScreenEffect;
+import techguns.debug.Keybinds;
 import techguns.items.guns.GenericGun;
 import techguns.items.guns.GenericGunCharge;
 
@@ -182,10 +183,13 @@ public class RenderGunBase extends RenderItemBase {
 		if (entityIn!=null){
 			sneaking = entityIn.isSneaking();
 			isOffhand = ((!leftHand) && entityIn.getPrimaryHand() == EnumHandSide.LEFT) || ((leftHand) && entityIn.getPrimaryHand() == EnumHandSide.RIGHT);
-		
-			if (entityIn.getPrimaryHand()== EnumHandSide.LEFT){
-				leftHand = !leftHand;
-			}
+			
+//			if (entityIn.getPrimaryHand()== EnumHandSide.LEFT){
+//				leftHand = !leftHand;
+//			}
+			
+//			if ((transform == TransformType.FIRST_PERSON_LEFT_HAND || transform == TransformType.FIRST_PERSON_RIGHT_HAND) &&ClientProxy.PARTIAL_TICK_TIME < 0.05f)
+//				System.out.println("Lefthand = "+leftHand+" isOffhand = "+isOffhand);
 		}
 
 		GlStateManager.pushMatrix();
@@ -318,7 +322,7 @@ public class RenderGunBase extends RenderItemBase {
 			if (this.scopeRecoilAnim != null && fireProgress > 0f) {
 				this.scopeRecoilAnim.play(fireProgress, TransformType.FIRST_PERSON_LEFT_HAND == transform, this.scopeRecoilParams);
 			}
-			this.renderScope(fireProgress);
+			this.renderScope(fireProgress, leftHand);
 		}
 
 	}
@@ -409,9 +413,10 @@ public class RenderGunBase extends RenderItemBase {
 		}
 	}
 	
-	protected void renderScope(float fireProgress) {
+	protected void renderScope(float fireProgress, boolean leftHand) {
 		if (this.scope!=null) {
-			this.scope.doRender(fireProgress, -0.56f, 0.52f, 0f, scopescale, false);
+			float x= leftHand?0.56f:-0.56f;
+			this.scope.doRender(fireProgress, x, 0.52f, 0f, scopescale, false);
 		}
 	}
 	

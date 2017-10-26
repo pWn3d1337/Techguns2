@@ -97,7 +97,9 @@ public class GenericGunCharge extends GenericGun {
 					}
 					
 					if (this.chargeFX != null) {
-						float x = this.chargeFXoffsetX;
+						float x;
+						if (player.getPrimaryHand() == EnumHandSide.RIGHT) x = this.chargeFXoffsetX;
+						else x = -this.chargeFXoffsetX;
 						TGPackets.network.sendToAllAround(new PacketSpawnParticleOnEntity(this.chargeFX, player, x, this.chargeFXoffsetY, this.chargeFXoffsetZ, true, EntityCondition.CHARGING_WEAPON), TGPackets.targetPointAroundEnt(player, 25.0f));						
 					}
 				}
@@ -202,7 +204,13 @@ public class GenericGunCharge extends GenericGun {
 				// If SERVER, create projectile
 	
 				
-				EnumBulletFirePos firePos = player.getPrimaryHand()==EnumHandSide.RIGHT?EnumBulletFirePos.RIGHT:EnumBulletFirePos.LEFT;
+				//EnumBulletFirePos firePos = player.getPrimaryHand()==EnumHandSide.RIGHT?EnumBulletFirePos.RIGHT:EnumBulletFirePos.LEFT;
+				EnumBulletFirePos firePos;
+	        	if (player.getPrimaryHand() == EnumHandSide.RIGHT) {
+	        		firePos = EnumBulletFirePos.RIGHT;
+	        	}else {
+	        		firePos = EnumBulletFirePos.LEFT;
+	        	}
 				
 				//Charged shot has to be from main hand!
 				spawnChargedProjectile(world, player, item, accuracy, f, ammoConsumed, firePos);

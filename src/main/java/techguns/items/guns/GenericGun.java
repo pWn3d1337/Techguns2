@@ -32,6 +32,7 @@ import net.minecraft.stats.StatList;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.EnumHandSide;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
@@ -529,7 +530,12 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 			        	
 			        	float accuracybonus = 1.0f-GenericArmor.getArmorBonusForPlayer(player, TGArmorBonus.GUN_ACCURACY,false);
 			        	
-			        	EnumBulletFirePos firePos = hand==EnumHand.MAIN_HAND?EnumBulletFirePos.RIGHT:EnumBulletFirePos.LEFT;
+			        	EnumBulletFirePos firePos;
+			        	if ((hand == EnumHand.MAIN_HAND && player.getPrimaryHand() == EnumHandSide.RIGHT) || (hand == EnumHand.OFF_HAND && player.getPrimaryHand() == EnumHandSide.LEFT)) {
+			        		firePos = EnumBulletFirePos.RIGHT;
+			        	}else {
+			        		firePos = EnumBulletFirePos.LEFT;
+			        	}
 			        	
 			        	if(zooming){
 			        		accuracybonus*=this.zoombonus;
@@ -701,7 +707,7 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 
 	protected void shootGun(World world, EntityLivingBase player,ItemStack itemstack,float accuracybonus,float damagebonus, int attackType, EnumHand hand, EnumBulletFirePos firePos){
 		
-		boolean leftGun = hand == EnumHand.OFF_HAND;
+		boolean leftGun = (hand == EnumHand.OFF_HAND) != (player.getPrimaryHand() == EnumHandSide.LEFT);
 		
 		//send pakets to clients
 		if (!world.isRemote){
