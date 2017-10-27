@@ -1,0 +1,36 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "model": "techguns:testdoor_2"
+    },
+    "variants": {
+		"state": {
+            "opened": {
+				"model": "techguns:techdoor3x3_opened"
+            },
+            "closed": {
+				"model": "techguns:techdoor3x3_full"
+            },
+			"opening": {
+				"model": "techguns:techdoor3x3_frame"
+            },
+			"closing": {
+				"model": "techguns:techdoor3x3_frame"
+            }
+        },
+		"master": {
+            "true": {
+            },
+            "false": {
+				"model": "techguns:testdoor_2"
+            }
+        },
+		"zplane": {
+            "true": {
+				"y" = 90
+            },
+            "false": {
+            }
+        }
+	}
+}

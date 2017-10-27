@@ -7,7 +7,11 @@ import mezz.jei.api.IModRegistry;
 import mezz.jei.api.JEIPlugin;
 import mezz.jei.api.ingredients.IIngredientRegistry;
 import mezz.jei.api.recipe.IRecipeCategoryRegistration;
+import mezz.jei.api.recipe.VanillaRecipeCategoryUid;
+import mezz.jei.plugins.vanilla.crafting.ShapedOreRecipeWrapper;
+import mezz.jei.plugins.vanilla.crafting.TippedArrowRecipeMaker;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.ShapedOreRecipe;
 import techguns.TGBlocks;
 import techguns.Techguns;
 import techguns.blocks.machines.EnumMachineType;
@@ -19,6 +23,8 @@ import techguns.gui.ChemLabGui;
 import techguns.gui.FabricatorGui;
 import techguns.gui.MetalPressGui;
 import techguns.gui.ReactionChamberGui;
+import techguns.recipes.AmmoSwitchRecipeFactory.AmmoSwitchRecipe;
+import techguns.recipes.MiningToolUpgradeHeadRecipeFactory.MiningToolUpgradeRecipe;
 
 
 @JEIPlugin
@@ -51,6 +57,9 @@ public class TGJeiPlugin implements IModPlugin {
 	public void register(IModRegistry registry) {
 		final IIngredientRegistry ingredientRegistry = registry.getIngredientRegistry();
 		final IJeiHelpers jeiHelpers = registry.getJeiHelpers();
+			
+		registry.handleRecipes(MiningToolUpgradeRecipe.class, recipe -> new MiningToolUpgradeRecipeWrapper(jeiHelpers, recipe), VanillaRecipeCategoryUid.CRAFTING);
+		registry.handleRecipes(AmmoSwitchRecipe.class, recipe -> new AmmoSwitchRecipeWrapper(jeiHelpers, recipe), VanillaRecipeCategoryUid.CRAFTING);
 		
 		registry.addRecipes(AmmoPressJeiRecipe.getRecipes(jeiHelpers), AMMO_PRESS);
 		registry.addRecipes(MetalPressJeiRecipe.getRecipes(jeiHelpers), METAL_PRESS);

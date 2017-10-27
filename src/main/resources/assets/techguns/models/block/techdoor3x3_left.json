@@ -1,5 +1,6 @@
 {
-    "textures": {
+    "ambientocclusion": false,
+	"textures": {
         "0": "techguns:blocks/techdoor3x3"
     },
     "elements": [

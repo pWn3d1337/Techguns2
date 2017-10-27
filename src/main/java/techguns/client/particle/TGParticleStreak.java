@@ -196,13 +196,7 @@ public class TGParticleStreak extends TGParticle{
         
 
     }
-	
-	
-	
-	
-	
-	
-	
+
 	public TGParticleStreak getPrev() {
 		return prev;
 	}

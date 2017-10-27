@@ -1,34 +1,56 @@
 {
-    "forge_marker": 1,
-    "defaults": {
-        "model": "techguns:testdoor_2"
-    },
+	"forge_marker": 1,
+		"defaults": {
+			"custom": { "flip-v": false }
+	},
     "variants": {
-		"state": {
-            "opened": {
-				"model": "techguns:techdoor3x3_frame"
-            },
-            "closed": {
-				"model": "techguns:techdoor3x3_full"
-            },
-			"opening": {
-            },
-			"closing": {
-            }
-        },
-		"master": {
-            "true": {
-            },
-            "false": {
-				"model": "techguns:testdoor_2"
-            }
-        },
-		"zplane": {
-            "true": {
-				"y" = 90
-            },
-            "false": {
-            }
-        }
-	}
+        "master=false,state=opening,type=metal,zplane=true": { "model": "techguns:testdoor_2" },
+		"master=false,state=closing,type=metal,zplane=true": { "model": "techguns:testdoor_2" },
+		"master=false,state=opened,type=metal,zplane=true": { "model": "techguns:testdoor_2" },
+		"master=false,state=closed,type=metal,zplane=true": { "model": "techguns:testdoor_2" },
+		"master=false,state=opening,type=metal,zplane=false": { "model": "techguns:testdoor_2" },
+		"master=false,state=closing,type=metal,zplane=false": { "model": "techguns:testdoor_2" },
+		"master=false,state=opened,type=metal,zplane=false": { "model": "techguns:testdoor_2" },
+		"master=false,state=closed,type=metal,zplane=false": { "model": "techguns:testdoor_2" },
+		"master=true,state=opening,type=metal,zplane=true": { "model": "techguns:techdoor3x3_frame", "y": 90 },
+		"master=true,state=closing,type=metal,zplane=true": { "model": "techguns:techdoor3x3_frame", "y": 90 },
+		"master=true,state=opened,type=metal,zplane=true": { "model": "techguns:techdoor3x3_opened", "y": 90 },
+		"master=true,state=closed,type=metal,zplane=true": { "model": "techguns:techdoor3x3_full", "y": 90 },
+		"master=true,state=opening,type=metal,zplane=false": { "model": "techguns:techdoor3x3_frame" },
+		"master=true,state=closing,type=metal,zplane=false": { "model": "techguns:techdoor3x3_frame" },
+		"master=true,state=opened,type=metal,zplane=false": { "model": "techguns:techdoor3x3_opened" },
+		"master=true,state=closed,type=metal,zplane=false": { "model": "techguns:techdoor3x3_full" },
+		"master=false,state=opening,type=hangar_up,zplane=true": { "model": "techguns:testdoor_2" },
+		"master=false,state=closing,type=hangar_up,zplane=true": { "model": "techguns:testdoor_2" },
+		"master=false,state=opened,type=hangar_up,zplane=true": { "model": "techguns:testdoor_2" },
+		"master=false,state=closed,type=hangar_up,zplane=true": { "model": "techguns:testdoor_2" },
+		"master=false,state=opening,type=hangar_up,zplane=false": { "model": "techguns:testdoor_2" },
+		"master=false,state=closing,type=hangar_up,zplane=false": { "model": "techguns:testdoor_2" },
+		"master=false,state=opened,type=hangar_up,zplane=false": { "model": "techguns:testdoor_2" },
+		"master=false,state=closed,type=hangar_up,zplane=false": { "model": "techguns:testdoor_2" },
+		"master=true,state=opening,type=hangar_up,zplane=true": { "model": "techguns:hangar_door_frame", "y": 90 },
+		"master=true,state=closing,type=hangar_up,zplane=true": { "model": "techguns:hangar_door_frame", "y": 90 },
+		"master=true,state=opened,type=hangar_up,zplane=true": { "model": "techguns:hangar_door_opened.obj", "y": 90 },
+		"master=true,state=closed,type=hangar_up,zplane=true": { "model": "techguns:hangar_door_closed", "y": 90 },
+		"master=true,state=opening,type=hangar_up,zplane=false": { "model": "techguns:hangar_door_frame" },
+		"master=true,state=closing,type=hangar_up,zplane=false": { "model": "techguns:hangar_door_frame" },
+		"master=true,state=opened,type=hangar_up,zplane=false": { "model": "techguns:hangar_door_opened.obj" },
+		"master=true,state=closed,type=hangar_up,zplane=false": { "model": "techguns:hangar_door_closed" },
+		"master=false,state=opening,type=hangar_down,zplane=true": { "model": "techguns:testdoor_2" },
+		"master=false,state=closing,type=hangar_down,zplane=true": { "model": "techguns:testdoor_2" },
+		"master=false,state=opened,type=hangar_down,zplane=true": { "model": "techguns:testdoor_2" },
+		"master=false,state=closed,type=hangar_down,zplane=true": { "model": "techguns:testdoor_2" },
+		"master=false,state=opening,type=hangar_down,zplane=false": { "model": "techguns:testdoor_2" },
+		"master=false,state=closing,type=hangar_down,zplane=false": { "model": "techguns:testdoor_2" },
+		"master=false,state=opened,type=hangar_down,zplane=false": { "model": "techguns:testdoor_2" },
+		"master=false,state=closed,type=hangar_down,zplane=false": { "model": "techguns:testdoor_2" },
+		"master=true,state=opening,type=hangar_down,zplane=true": { "model": "techguns:hangar_door_down_frame", "y": 90 },
+		"master=true,state=closing,type=hangar_down,zplane=true": { "model": "techguns:hangar_door_down_frame", "y": 90 },
+		"master=true,state=opened,type=hangar_down,zplane=true": { "model": "techguns:hangar_door_down_opened.obj", "y": 90 },
+		"master=true,state=closed,type=hangar_down,zplane=true": { "model": "techguns:hangar_door_down_closed", "y": 90 },
+		"master=true,state=opening,type=hangar_down,zplane=false": { "model": "techguns:hangar_door_down_frame" },
+		"master=true,state=closing,type=hangar_down,zplane=false": { "model": "techguns:hangar_door_down_frame" },
+		"master=true,state=opened,type=hangar_down,zplane=false": { "model": "techguns:hangar_door_down_opened.obj" },
+		"master=true,state=closed,type=hangar_down,zplane=false": { "model": "techguns:hangar_door_down_closed" }
+    }
 }

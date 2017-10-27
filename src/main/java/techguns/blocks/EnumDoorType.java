@@ -4,7 +4,8 @@ import net.minecraft.util.IStringSerializable;
 
 public enum EnumDoorType implements IStringSerializable {
 	METAL,
-	HANGAR_UP;
+	HANGAR_UP,
+	HANGAR_DOWN;
 
 	@Override
 	public String getName() {

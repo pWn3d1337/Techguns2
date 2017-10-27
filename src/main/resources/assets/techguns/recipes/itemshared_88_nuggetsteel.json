@@ -1,0 +1,12 @@
+{
+  "result": {
+    "item": "techguns:itemshared",
+    "data": 88,
+    "count": 9
+  },
+  "pattern": [
+    "ingotSteel"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {}
+}

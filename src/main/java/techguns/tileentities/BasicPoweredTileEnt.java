@@ -36,15 +36,15 @@ public abstract class BasicPoweredTileEnt extends BasicRedstoneTileEnt {
 	}
 	
 	@Override
-	public void writeNBTforDismantling(NBTTagCompound compound) {
-		super.writeNBTforDismantling(compound);
-		compound.setInteger("powerStored", this.energy.getEnergyStored());
+	public void readClientDataFromNBT(NBTTagCompound tags) {
+		super.readClientDataFromNBT(tags);
+		this.energy.setEnergyStored(tags.getInteger("powerStored"));
 	}
 
 	@Override
-	public void readNBTfromStackTag(NBTTagCompound compound) {
-		super.readNBTfromStackTag(compound);
-		this.energy.setEnergyStored(compound.getInteger("powerStored"));
+	public void writeClientDataToNBT(NBTTagCompound tags) {
+		super.writeClientDataToNBT(tags);
+		tags.setInteger("powerStored", this.energy.getEnergyStored());
 	}
 
 	@Override
