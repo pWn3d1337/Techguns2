@@ -65,10 +65,9 @@ public class AlienBlasterProjectile extends GenericProjectile implements ILightP
 	protected void hitBlock(RayTraceResult raytraceResultIn) {
 		super.hitBlock(raytraceResultIn); //Does impact effect
 		
-		//TODO burn block
-		/* if (this.blockdamage){
-			 burnblock(mop,mop.blockX,mop.blockY,mop.blockZ);
-		 }*/
+		 if (this.blockdamage){
+			 burnBlocks(world, raytraceResultIn, 0.35);
+		 }
 	}
 
 	@Override

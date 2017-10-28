@@ -20,9 +20,9 @@ import techguns.client.particle.list.ParticleList.ParticleListIterator;
 
 public class TGParticleManager {
 
-	protected LinkedList<TGParticleSystem> list_systems = new LinkedList<>();
+	protected ParticleList<TGParticleSystem> list_systems = new ParticleList<>();
 	protected ParticleList<ITGParticle> list = new ParticleList<>();
-	protected LinkedList<ITGParticle> list_nosort = new LinkedList<>();
+	protected ParticleList<ITGParticle> list_nosort = new ParticleList<>();
 	protected ComparatorParticleDepth compare = new ComparatorParticleDepth();
 	
 	public void addEffect(ITGParticle effect)

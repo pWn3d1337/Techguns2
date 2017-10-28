@@ -28,7 +28,12 @@ public class PowerHammer extends GenericGunMeleeCharge {
 			double motionZ) {
 		TGPackets.network.sendToAllAround(new PacketSpawnParticle("PowerhammerImpact",x,y,z), new TargetPoint(w.provider.getDimension(), x, y, z, 32.0f));
 	}
-
+	
+	@Override
+	public float getExtraDigSpeed(ItemStack stack) {
+		int headlevel = this.getMiningHeadLevel(stack);
+		return 3.0f*headlevel;
+	}
 
 	@Override
 	protected void playSweepSoundEffect(EntityPlayer player) {

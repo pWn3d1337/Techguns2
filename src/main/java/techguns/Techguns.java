@@ -18,7 +18,7 @@ import techguns.items.guns.ammo.AmmoTypes;
 import techguns.plugins.crafttweaker.TGCraftTweakerIntegration;
 import techguns.world.OreGenerator;
 
-@Mod(modid = Techguns.MODID, version = Techguns.VERSION, name=Techguns.NAME, acceptedMinecraftVersions=Techguns.MCVERSION, guiFactory=Techguns.GUI_FACTORY, updateJSON=Techguns.UPDATEURL)
+@Mod(modid = Techguns.MODID, version = Techguns.VERSION, name=Techguns.NAME, acceptedMinecraftVersions=Techguns.MCVERSION, guiFactory=Techguns.GUI_FACTORY, updateJSON=Techguns.UPDATEURL, dependencies=Techguns.DEPENDENCIES)
 public class Techguns
 {
     public static final String MODID = "techguns";
@@ -27,6 +27,8 @@ public class Techguns
     public static final String NAME = "Techguns";
     public static final String GUI_FACTORY = "techguns.gui.config.GuiFactoryTechguns";
     public static final String UPDATEURL = "https://raw.githubusercontent.com/pWn3d1337/Techguns2/master/update.json";
+    
+    public static final String DEPENDENCIES = "after:ftbl;after:chisel;";
     
     @Mod.Instance
     public static Techguns instance;
@@ -42,6 +44,9 @@ public class Techguns
     public static AmmoTypes ammoTypes = new AmmoTypes();
     public static TGArmors armors = new TGArmors();
     public static TGFluids fluids = new TGFluids();
+    
+    //Mod integration
+    public boolean FTBLIB_ENABLED=false;
     
     protected ITGInitializer[] initializers = {
     	items,
@@ -86,6 +91,10 @@ public class Techguns
     		init.init(event);
     	}
     	proxy.init(event);
+    	
+    	if(Loader.isModLoaded("ftbl")) {
+    		FTBLIB_ENABLED=true;
+    	}
     }
     
     @EventHandler

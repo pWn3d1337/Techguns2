@@ -3,6 +3,7 @@ package techguns.factions;
 import java.util.UUID;
 
 import net.minecraft.entity.player.EntityPlayer;
+import techguns.Techguns;
 import techguns.api.npc.factions.TGNpcFaction;
 
 public class TGNpcFactions {
@@ -40,8 +41,11 @@ public class TGNpcFactions {
 	
 	public static boolean isHostile(UUID ply1, UUID ply2){
 		//return !friendsAPI.areFriends(ply1, ply2);
-		//TODO Implement friend system
-		return true;
+		if(Techguns.instance.FTBLIB_ENABLED) {
+			return techguns.plugins.ftbl.TeamSystemIntegration.isAllied(ply1, ply2);
+		}
+		
+		return !ply1.equals(ply2);
 	}
 	
 	public static boolean isHostile(TGNpcFaction faction1, TGNpcFaction faction2){
