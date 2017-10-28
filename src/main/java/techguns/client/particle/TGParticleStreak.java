@@ -68,9 +68,9 @@ public class TGParticleStreak extends TGParticle{
 //        float f9 = f8 + 0.015609375F;
         float fscale = 0.1F * this.particleScale;
 
-        float fPosX = (float)(this.prevPosX + (this.posX - this.prevPosX) * (double)partialTickTime - interpPosX);
-        float fPosY = (float)(this.prevPosY + (this.posY - this.prevPosY) * (double)partialTickTime - interpPosY);
-        float fPosZ = (float)(this.prevPosZ + (this.posZ - this.prevPosZ) * (double)partialTickTime - interpPosZ);
+        float fPosX = (float)(this.prevPosX + (this.posX - this.prevPosX) * (double)partialTickTime - TGParticleManager.interpPosX);
+        float fPosY = (float)(this.prevPosY + (this.posY - this.prevPosY) * (double)partialTickTime - TGParticleManager.interpPosY);
+        float fPosZ = (float)(this.prevPosZ + (this.posZ - this.prevPosZ) * (double)partialTickTime - TGParticleManager.interpPosZ);
     
         float r = fscale;
         

@@ -19,6 +19,10 @@ import techguns.client.particle.list.ParticleList;
 import techguns.client.particle.list.ParticleList.ParticleListIterator;
 
 public class TGParticleManager {
+	
+    public static double interpPosX;
+    public static double interpPosY;
+    public static double interpPosZ;
 
 	protected ParticleList<TGParticleSystem> list_systems = new ParticleList<>();
 	protected ParticleList<ITGParticle> list = new ParticleList<>();
@@ -105,6 +109,10 @@ public class TGParticleManager {
 
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder bufferbuilder = tessellator.getBuffer();
+        
+        interpPosX = entityIn.lastTickPosX + (entityIn.posX - entityIn.lastTickPosX) * (double)partialTicks;
+        interpPosY = entityIn.lastTickPosY + (entityIn.posY - entityIn.lastTickPosY) * (double)partialTicks;
+        interpPosZ = entityIn.lastTickPosZ + (entityIn.posZ - entityIn.lastTickPosZ) * (double)partialTicks;
         
         /*Entity entity = Minecraft.getMinecraft().getRenderViewEntity();
         Frustum frust = new Frustum();

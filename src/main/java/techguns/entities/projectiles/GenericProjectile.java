@@ -88,19 +88,19 @@ public class GenericProjectile extends Entity implements IProjectile, IEntityAdd
 		this.setSize(0.25F, 0.25F);
 	}
 
-	private static EnumBulletFirePos getLeftHand(EntityLivingBase elb, EnumBulletFirePos firePos){
-		if (elb instanceof EntityPlayer){
-			EntityPlayer p = (EntityPlayer) elb;
-			if(p.getPrimaryHand() == EnumHandSide.LEFT){
-				if(firePos==EnumBulletFirePos.LEFT) {
-					return EnumBulletFirePos.RIGHT;
-				} else if (firePos==EnumBulletFirePos.RIGHT) {
-					return EnumBulletFirePos.LEFT;
-				}
-			}
-		}
-		return firePos;
-	}
+//	private static EnumBulletFirePos getLeftHand(EntityLivingBase elb, EnumBulletFirePos firePos){
+//		if (elb instanceof EntityPlayer){
+//			EntityPlayer p = (EntityPlayer) elb;
+//			if(p.getPrimaryHand() == EnumHandSide.LEFT){
+//				if(firePos==EnumBulletFirePos.LEFT) {
+//					return EnumBulletFirePos.RIGHT;
+//				} else if (firePos==EnumBulletFirePos.RIGHT) {
+//					return EnumBulletFirePos.LEFT;
+//				}
+//			}
+//		}
+//		return firePos;
+//	}
 	
 	public GenericProjectile(World par2World, EntityLivingBase p, float damage, float speed, int TTL, float spread,
 			float dmgDropStart, float dmgDropEnd, float dmgMin, float penetration, boolean blockdamage, EnumBulletFirePos firePos) {
@@ -109,7 +109,7 @@ public class GenericProjectile extends Entity implements IProjectile, IEntityAdd
 		this(par2World);
 		this.shooter = p;
 		this.initProjectile(par2World, p.posX, p.posY + p.getEyeHeight(), p.posZ, p.rotationYawHead, p.rotationPitch, damage, speed,
-				TTL, spread, dmgDropStart, dmgDropEnd, dmgMin, penetration, blockdamage, getLeftHand(p,firePos));
+				TTL, spread, dmgDropStart, dmgDropEnd, dmgMin, penetration, blockdamage, firePos);
 	}
 
 	public GenericProjectile(World worldIn, double posX, double posY, double posZ, float yaw, float pitch, float damage,

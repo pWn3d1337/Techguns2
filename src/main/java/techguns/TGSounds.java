@@ -124,6 +124,11 @@ public class TGSounds {
 	public static SoundEvent GAUSS_RIFLE_RELOAD = createSoundEvent("guns.gaussriflereload");
 	public static SoundEvent GAUSS_RIFLE_RECHAMBER = createSoundEvent("guns.gaussriflerechamber");
 	
+	public static SoundEvent DRILLER_LOOP = createSoundEvent("guns.drillerloop");
+	public static SoundEvent DRILLER_HIT = createSoundEvent("guns.drillerhit");
+	public static SoundEvent DRILLER_SWING = createSoundEvent("guns.drillerswing");
+	public static SoundEvent DRILLER_BREAK = createSoundEvent("guns.drillerbreak");	
+	
 	public static SoundEvent ANTI_GRAV_START = createSoundEvent("items.antiGravStart");
 	public static SoundEvent NIGHTVISION_ON = createSoundEvent("nightvision.on");
 	public static SoundEvent NIGHTVISION_OFF = createSoundEvent("nightvision.off");

@@ -10,8 +10,11 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.network.NetworkRegistry.TargetPoint;
 import techguns.TGItems;
+import techguns.TGPackets;
 import techguns.TGSounds;
+import techguns.packets.PacketSpawnParticle;
 import techguns.util.ItemUtil;
 import techguns.util.TextUtil;
 
@@ -51,12 +54,25 @@ public class MiningDrill extends GenericGunMeleeCharge {
 
 	@Override
 	protected SoundEvent getSwingSound() {
-		return TGSounds.CHAINSAW_LOOP;
+		return TGSounds.DRILLER_SWING; //TGSounds.CHAINSAW_LOOP;
 	}
 	
 	@Override
 	protected SoundEvent getBlockBreakSound() {
-		return TGSounds.CHAINSAW_HIT;
+		return TGSounds.DRILLER_BREAK; //TGSounds.CHAINSAW_HIT;
+	}
+	
+	@Override
+	protected void spawnSweepParticle(World w, double x, double y, double z, double motionX, double motionY,
+			double motionZ) {
+		TGPackets.network.sendToAllAround(new PacketSpawnParticle("PowerhammerImpact",x,y,z), new TargetPoint(w.provider.getDimension(), x, y, z, 32.0f));
+	}
+
+
+	@Override
+	protected void playSweepSoundEffect(EntityPlayer player) {
+		player.world.playSound((EntityPlayer) null, player.posX, player.posY, player.posZ, TGSounds.DRILLER_HIT,
+				player.getSoundCategory(), 1.0F, 1.0F);
 	}
 	
 }
