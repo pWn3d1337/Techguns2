@@ -2646,32 +2646,3 @@ FXLIST CyberdemonBlasterImpact {
 NetherBlasterImpactFlare
 MediumExplosionSmoke
 }
-
-PowerhammerImpact {
-Texture = techguns:textures/fx/impact.png
-RenderType = ADDITIVE
-Rows = 2
-Columns = 2
-Frames = 4
-RandomRotation = true
-Lifetime = 5 5
-SystemLifetime = 1 1
-Size = 2.5 7.5
-SizeRate = 1 1
-SizeRateDamping = 0.85 0.85
-Alpha = 128 0
-Alpha = 0 1.0
-Color = 255 215 155 0
-Color = 255 215 155 1
-ParticleCount = 1 1
-InitialDelay = 0 0
-SpawnDelay = 10 10
-VelocityType = OUTWARD
-Velocity1 = 0 0
-Velocity2 = 0 0
-VelocityDamping = 0.85 0.88
-Gravity = 0.0
-VolumeType = CYLINDER
-Volume1 = 0.0
-Volume2 = 0.0
-}

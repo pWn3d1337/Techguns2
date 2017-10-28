@@ -55,6 +55,8 @@ public class GenericGunMeleeCharge extends GenericGunCharge implements IGenericG
 	 */
 	protected int miningRadius=0;
 	
+	protected int swingSoundDelay = 5;
+	
 	protected ItemStack[] miningHeads = null;
 	
 	public GenericGunMeleeCharge(String name, ChargedProjectileSelector projectile_selector, boolean semiAuto,
@@ -71,6 +73,11 @@ public class GenericGunMeleeCharge extends GenericGunCharge implements IGenericG
 	
 	public GenericGunMeleeCharge setMiningRadius(int miningRadius) {
 		this.miningRadius = miningRadius;
+		return this;
+	}
+	
+	public GenericGunMeleeCharge setSwingSoundDelay(int swingSoundDelay) {
+		this.swingSoundDelay = swingSoundDelay;
 		return this;
 	}
 	
@@ -196,9 +203,10 @@ public class GenericGunMeleeCharge extends GenericGunCharge implements IGenericG
 					if(props.swingSoundDelay>0){
 						sendSound=false;
 					} else {
-						props.swingSoundDelay=5;
+						props.swingSoundDelay=this.swingSoundDelay;
 					}
 				}
+				
 				//server side:;
 				//SoundUtil.playSoundOnEntityGunPosition(entityLiving.worldObj, entityLiving, "techguns:guns.powerhammerSwing", SOUND_DISTANCE, 1.0F, false, false);	
 				if(!openingContainer && sendSound){

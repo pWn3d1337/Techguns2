@@ -1233,6 +1233,45 @@
         "techguns:effects/impact_water-04",
         "techguns:effects/impact_water-05"
     ]
+},
+
+"guns.drillerswing": {
+    "category": "player",
+    "sounds": [
+        "techguns:guns/driller_swing_a",
+        "techguns:guns/driller_swing_b",
+        "techguns:guns/driller_swing_c",
+        "techguns:guns/driller_swing_d"
+    ]
+},
+
+"guns.drillerhit": {
+    "category": "player",
+    "sounds": [
+        "techguns:guns/driller_hit_a",
+        "techguns:guns/driller_hit_b",
+        "techguns:guns/driller_hit_c",
+        "techguns:guns/driller_hit_d"
+    ]
+},
+
+"guns.drillerloop": {
+    "category": "player",
+    "sounds": [
+        "techguns:guns/driller_loop_a",
+        "techguns:guns/driller_loop_b",
+        "techguns:guns/driller_loop_c"
+    ]
+},
+
+"guns.drillerbreak": {
+    "category": "player",
+    "sounds": [
+        "techguns:guns/driller_break_a",
+        "techguns:guns/driller_break_b",
+        "techguns:guns/driller_break_c",
+        "techguns:guns/driller_break_d"
+    ]
 }
 
 

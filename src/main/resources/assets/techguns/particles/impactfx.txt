@@ -905,3 +905,35 @@ VolumeType = POINT
 IsHollow = false
 RemoveOnGround = true
 }
+
+FXLIST PowerhammerImpact {
+PowerhammerImpactSparks
+}
+
+PowerhammerImpactSparks {
+Texture = techguns:textures/fx/impactsparks.png
+RenderType = ADDITIVE
+Rows = 2
+Columns = 2
+Frames = 4
+Angle = 0 360
+AngleRate = -10 10
+AngleRateDamping = 0.95 0.97
+Lifetime = 5 5
+SystemLifetime = 1 1
+Size = 1.5 4.5
+SizeRate = 1 1
+SizeRateDamping = 0.85 0.85
+Alpha = 128 0
+Alpha = 0 1.0
+Color = 255 215 155 0
+Color = 255 215 155 1
+ParticleCount = 3 3
+InitialDelay = 0 0
+SpawnDelay = 1 1
+VelocityType = SPHERICAL
+Velocity1 = 0 1
+VelocityDamping = 0.85 0.88
+Gravity = 0.0
+VolumeType = POINT
+}

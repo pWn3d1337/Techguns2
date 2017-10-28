@@ -43,6 +43,8 @@ public class DungeonPath {
 	public boolean usePillars = true;
 	public boolean useFoundations = true;
 	public boolean useRoof = false; //currently uses pillar segment of top template
+	
+	public float spawnDensity = 0.05f; //Spawners per segment count
 	//---------
 
 	private int numSegments = 0;
@@ -666,8 +668,8 @@ public class DungeonPath {
 		}
 	}
 	
-//	public void generateSpawnPositions() {
-//		
-//	}
+	public void generateSpawnPositions() {
+		
+	}
 
 }
