@@ -124,6 +124,29 @@ public class InventoryUtil {
     	return item.getCount();
     }
     
+    public static boolean consumeAmmoPlayer(EntityPlayer ply, ItemStack[] ammo){
+    	if(ammo.length==1) {
+    		return consumeAmmoPlayer(ply,ammo[0]);
+    	} else {
+    	
+	    	boolean canconsume=true;
+	    	for(int i=0;i<ammo.length;i++) {
+	    		if(!canConsumeAmmoPlayer(ply, ammo[i])) {
+	    			canconsume=false;
+	    			break;
+	    		}
+	    	}
+	    	if(canconsume) {
+	    		for(int i=0;i<ammo.length;i++) {
+	    			consumeAmmoPlayer(ply, ammo[i]);
+	        	}
+	    		return true;
+	    	} else {
+	    		return false;
+	    	}
+    	}
+    }
+    
     public static boolean consumeAmmoPlayer(EntityPlayer ply, ItemStack ammo){
     	TGExtendedPlayer props = TGExtendedPlayer.get(ply);
 

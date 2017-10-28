@@ -1,6 +1,9 @@
 package techguns.items.guns;
 
+import java.util.Arrays;
+
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
@@ -111,9 +114,18 @@ public class GenericGunCharge extends GenericGun {
 				if (InventoryUtil.consumeAmmoPlayer(player, this.ammoType.getAmmo(this.getCurrentAmmoVariant(item)))) {
 
 					
-					if (!this.ammoType.getEmptyMag().isEmpty()) {
+					/*if (!this.ammoType.getEmptyMag().isEmpty()) {
 						player.inventory.addItemStackToInventory(TGItems.newStack(this.ammoType.getEmptyMag(), 1));
-					}
+					}*/
+					Arrays.stream(this.ammoType.getEmptyMag()).forEach( e -> {
+    					if (!e.isEmpty()){
+        					//player.inventory.addItemStackToInventory(new ItemStack(emptyMag.getItem(),1,emptyMag.getItemDamage()));
+        					int amount=InventoryUtil.addAmmoToPlayerInventory(player, TGItems.newStack(e, 1));
+        					if(amount >0 && !world.isRemote){
+        						player.world.spawnEntity(new EntityItem(player.world, player.posX, player.posY, player.posZ, TGItems.newStack(e, amount)));
+        					}
+        				}
+    				});
 
 					// stop toggle zooming when reloading
 					if (world.isRemote) {

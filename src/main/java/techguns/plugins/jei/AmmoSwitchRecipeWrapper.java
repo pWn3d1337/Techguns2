@@ -43,7 +43,7 @@ public class AmmoSwitchRecipeWrapper extends ShapelessRecipeWrapper<AmmoSwitchRe
 		NBTTagCompound tags = gun.getTagCompound().copy();
 		AmmoType type = g.getAmmoType();
 		
-		String variant = type.getAmmoVariantKeyfor(ammo);
+		String variant = type.getAmmoVariantKeyfor(ammo,0);
 		tags.setString("ammovariant", variant);
 		output.setTagCompound(tags);
 	}
