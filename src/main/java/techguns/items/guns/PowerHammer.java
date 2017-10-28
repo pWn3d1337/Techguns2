@@ -1,5 +1,6 @@
 package techguns.items.guns;
 
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.SoundEvent;
@@ -8,6 +9,8 @@ import net.minecraftforge.fml.common.network.NetworkRegistry.TargetPoint;
 import techguns.TGItems;
 import techguns.TGPackets;
 import techguns.TGSounds;
+import techguns.entities.projectiles.EnumBulletFirePos;
+import techguns.entities.projectiles.GenericProjectile;
 import techguns.items.guns.ammo.AmmoType;
 import techguns.packets.PacketSpawnParticle;
 import techguns.util.ItemUtil;
@@ -29,10 +32,19 @@ public class PowerHammer extends GenericGunMeleeCharge {
 		TGPackets.network.sendToAllAround(new PacketSpawnParticle("PowerhammerImpact",x,y,z), new TargetPoint(w.provider.getDimension(), x, y, z, 32.0f));
 	}
 	
+	public void spawnChargedProjectile(final World world, final EntityLivingBase player, ItemStack itemStack, float spread, float charge, int ammoConsumed, EnumBulletFirePos firePos) {
+		int level = this.getMiningHeadLevel(itemStack);
+		float extraDmg = 0.5f*level;
+		
+		IChargedProjectileFactory fact = this.chargedProjectile_selector.getFactoryForType(this.getCurrentAmmoVariantKey(itemStack));
+		GenericProjectile proj = fact.createChargedProjectile(world, player, damage+extraDmg, speed, this.ticksToLive, spread, this.damageDropStart, damageDropEnd, this.damageMin+extraDmg, penetration, getDoBlockDamage(player), firePos, radius, gravity, charge, ammoConsumed);
+		if (proj != null) world.spawnEntity(proj);
+	}
+	
 	@Override
 	public float getExtraDigSpeed(ItemStack stack) {
 		int headlevel = this.getMiningHeadLevel(stack);
-		return 3.0f*headlevel;
+		return 2.0f*headlevel;
 	}
 
 	@Override

@@ -4,6 +4,7 @@ import elucent.albedo.lighting.ILightProvider;
 import elucent.albedo.lighting.Light;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
@@ -68,6 +69,30 @@ public class FlamethrowerProjectile extends GenericProjectile implements ILightP
 
 	}
 	
+	
+	
+	@Override
+	protected float inWaterUpdateBehaviour(float f1) {
+		if (this.isInWater()) {
+			for (int i = 0; i < 4; ++i) {
+				float f3 = 0.25F;
+				this.world.spawnParticle(EnumParticleTypes.WATER_BUBBLE, this.posX - this.motionX * 0.25D,
+						this.posY - this.motionY * 0.25D, this.posZ - this.motionZ * 0.25D, this.motionX, this.motionY,
+						this.motionZ);
+			}
+
+			f1 = 0.85F;
+		}
+
+		//DIE IN WATER
+		if (this.isWet()) {
+			this.setDead();
+		}
+		return f1;
+	}
+
+
+
 	public static class Factory implements IProjectileFactory<FlamethrowerProjectile> {
 
 		@Override

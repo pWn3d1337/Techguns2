@@ -84,8 +84,8 @@ public class PowerHammerProjectile extends GenericProjectile {
 				int TTL, float spread, float dmgDropStart, float dmgDropEnd, float dmgMin, float penetration,
 				boolean blockdamage, EnumBulletFirePos firePos, float radius, double gravity, float charge,
 				int ammoConsumed) {
-			//TODO Charged Damage
-			return new PowerHammerProjectile(world,p,damage,speed,TTL,spread,dmgDropStart,dmgDropEnd,dmgMin,penetration,blockdamage,firePos);
+			//TODO check Charged Damage
+			return new PowerHammerProjectile(world,p,damage*ammoConsumed,speed,TTL,spread,dmgDropStart,dmgDropEnd,dmgMin*ammoConsumed,penetration,blockdamage,firePos);
 		}
 		
 	}

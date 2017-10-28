@@ -46,20 +46,6 @@ public class RocketProjectile extends GenericProjectile implements ILightProvide
 	public RocketProjectile(World worldIn) {
 		super(worldIn);
 		this.createTrailFX();
-		
-//		//TEST
-//		//TODO: Remove this!
-//		Entity e = Minecraft.getMinecraft().player;
-//		List<TGParticleSystem> systems = TGFX.createFXOnEntity(e, "TestFX");		
-//		Vec3d offset = new Vec3d(-0.15, -0.05, 0.50).add(new Vec3d(Keybinds.X, Keybinds.Y, Keybinds.Z));
-//		
-//		if (systems!=null) {
-//			for (TGParticleSystem sys : systems) {
-//				sys.attachToMuzzle = true;
-//				sys.muzzleOffset = offset;
-//				ClientProxy.get().particleManager.addEffect(sys);
-//			}
-//		}
 	}
 	
 	protected void createTrailFX() {

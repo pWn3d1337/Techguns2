@@ -984,10 +984,7 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 			if (this.canZoom) {
 				list.add(TextUtil.trans("techguns.gun.tooltip.zoom")+":"+(this.toggleZoom ? "("+TextUtil.trans("techguns.gun.tooltip.zoom.toogle")+")":"("+TextUtil.trans("techguns.gun.tooltip.zoom.hold")+")")+" "+TextUtil.trans("techguns.gun.tooltip.zoom.multiplier")+":"+this.zoomMult);
 			}
-			//TODO Mininglevels
-			/*if (this.mininglevels!=null){
-				ItemUtil.addToolClassesTooltip(mininglevels, list);
-			}*/
+			
 		} else {
 			list.add(TextUtil.trans("techguns.gun.tooltip.ammo")+": "+(this.ammoCount>1 ? this.ammoCount+"x " : "")+ChatFormatting.WHITE+TextUtil.trans(this.ammoType.getAmmo(this.getCurrentAmmoVariant(stack)).getUnlocalizedName()+".name"));
 			this.addMiningTooltip(stack, worldIn, list, flagIn, false);

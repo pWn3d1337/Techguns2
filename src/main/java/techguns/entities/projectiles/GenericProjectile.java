@@ -308,22 +308,9 @@ public class GenericProjectile extends Entity implements IProjectile, IEntityAdd
 		this.rotationPitch = this.prevRotationPitch + (this.rotationPitch - this.prevRotationPitch) * 0.2F;
 		this.rotationYaw = this.prevRotationYaw + (this.rotationYaw - this.prevRotationYaw) * 0.2F;
 		float f1 = 0.99F;
-		float f2 = 0.05F;
+		//float f2 = 0.05F;
 
-		if (this.isInWater()) {
-			for (int i = 0; i < 4; ++i) {
-				float f3 = 0.25F;
-				this.world.spawnParticle(EnumParticleTypes.WATER_BUBBLE, this.posX - this.motionX * 0.25D,
-						this.posY - this.motionY * 0.25D, this.posZ - this.motionZ * 0.25D, this.motionX, this.motionY,
-						this.motionZ);
-			}
-
-			f1 = 0.85F;
-		}
-
-		if (this.isWet()) {
-			this.extinguish();
-		}
+		f1 = this.inWaterUpdateBehaviour(f1);
 
 		this.motionX *= (double) f1;
 		this.motionY *= (double) f1;
@@ -344,6 +331,24 @@ public class GenericProjectile extends Entity implements IProjectile, IEntityAdd
 		}
 	}
 
+	protected float inWaterUpdateBehaviour(float f1) {
+		if (this.isInWater()) {
+			for (int i = 0; i < 4; ++i) {
+				float f3 = 0.25F;
+				this.world.spawnParticle(EnumParticleTypes.WATER_BUBBLE, this.posX - this.motionX * 0.25D,
+						this.posY - this.motionY * 0.25D, this.posZ - this.motionZ * 0.25D, this.motionX, this.motionY,
+						this.motionZ);
+			}
+
+			f1 = 0.85F;
+		}
+
+		if (this.isWet()) {
+			this.extinguish();
+		}
+		return f1;
+	}
+	
     protected void initStartPos(){
     	this.startX=this.posX;
     	this.startY=this.posY;

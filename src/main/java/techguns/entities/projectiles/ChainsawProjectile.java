@@ -64,6 +64,16 @@ public class ChainsawProjectile extends GenericProjectile {
 		}
 	}
 
+	
+	
+	@Override
+	protected float inWaterUpdateBehaviour(float f1) {
+		//IGNORE WATER
+		return f1;
+	}
+
+
+
 	public static class Factory implements IChargedProjectileFactory<ChainsawProjectile> {
 
 		@Override

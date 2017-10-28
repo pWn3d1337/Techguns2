@@ -36,7 +36,11 @@ public class MiningDrill extends GenericGunMeleeCharge {
 		return new ActionResult<ItemStack>(EnumActionResult.FAIL, stack);
 	}
 
-	
+	@Override
+	public float getExtraDigSpeed(ItemStack stack) {
+		int headlevel = this.getMiningHeadLevel(stack);
+		return 2.0f*headlevel;
+	}
 	
 	@Override
 	protected void addMiningTooltip(ItemStack stack, World world, List<String> list, ITooltipFlag flagIn,
@@ -49,7 +53,7 @@ public class MiningDrill extends GenericGunMeleeCharge {
 
 	@Override
 	public int getExtraMiningRadius(ItemStack stack) {
-		return this.getMiningHeadLevel(stack);
+		return 0;//this.getMiningHeadLevel(stack);
 	}
 
 	@Override

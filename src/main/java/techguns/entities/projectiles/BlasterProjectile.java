@@ -1,6 +1,7 @@
 package techguns.entities.projectiles;
 
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -57,6 +58,16 @@ public class BlasterProjectile extends GenericProjectile {
 			Vec3d hitVec = raytraceResultIn.hitVec;
 			TGPackets.network.sendToAllAround(new PacketSpawnParticle("LaserGunImpact", hitVec.x, hitVec.y, hitVec.z), TGPackets.targetPointAroundEnt(this, 35.0f));
 		}
+	}
+
+	@Override
+	protected float inWaterUpdateBehaviour(float f1) {
+		//no slowdown/bubbles in water
+
+		if (this.isWet()) {
+			this.extinguish();
+		}
+		return f1;
 	}
 
 	
