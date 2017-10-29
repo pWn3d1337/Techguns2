@@ -1,19 +1,26 @@
 package techguns.world.dungeon;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
+import techguns.TGBlocks;
+import techguns.tileentities.TGSpawnerTileEnt;
 import techguns.world.dungeon.TemplateSegment.SegmentType;
 import techguns.world.dungeon.presets.IDungeonPreset;
 
-public class DungeonPath {
+public class MazeDungeonPath implements IDungeonPath {
 
 	Random rand;
 	
 	PathSegment[][][] dungeonVolume;
-	//List<PathSegment> entrancePath;
+	List<PathSegment> dungeonList;
 	
 	private int nextRoomID = 1;
 	
@@ -44,32 +51,65 @@ public class DungeonPath {
 	public boolean useFoundations = true;
 	public boolean useRoof = false; //currently uses pillar segment of top template
 	
-	public float spawnDensity = 0.05f; //Spawners per segment count
+	//public float spawnDensity = 0.05f; //Spawners per segment count
 	//---------
 
 	private int numSegments = 0;
 	
 	//private static PathSegment ramp_blocker = DungeonPath.new PathSegment(-1, -1, -1);
 	
-	public DungeonPath(int sX, int sY, int sZ, Random rand) {
+	public MazeDungeonPath(int sX, int sY, int sZ, Random rand) {
 		this.sX =sX;
-		this.sY = sY; System.out.println("sY = "+sY);
+		this.sY = sY;// System.out.println("sY = "+sY);
 		this.sZ = sZ;
 		this.rand = rand;
 		dungeonVolume = new PathSegment[sX][sY][sZ];
+		dungeonList = new ArrayList<PathSegment>();
 		//entrancePath = new ArrayList<PathSegment>();
 	}
 
 	
+	/* (non-Javadoc)
+	 * @see techguns.world.dungeon.IDungeonPath#getNumSegments()
+	 */
+	@Override
 	public int getNumSegments() {
 		return numSegments;
 	}
 
+	/* (non-Javadoc)
+	 * @see techguns.world.dungeon.IDungeonPath#generatePath()
+	 */
+	@Override
 	public void generatePath() {
-		int startX = 0;
+		int startX;
+		int startZ;
+		EnumFacing startFacing;
 		int startY = (sY+startHeightLevel)%sY;
-		int startZ = sZ/2;
-		EnumFacing startFacing = EnumFacing.getFacingFromVector(1, 0, 0);
+		switch (this.rand.nextInt(4)) {
+			case 0:
+				startX = 0;
+				startZ = sZ/2;
+				startFacing = EnumFacing.getFacingFromVector(1, 0, 0);
+				break;
+			case 1:
+				startX = sX-1;
+				startZ = sZ/2;
+				startFacing = EnumFacing.getFacingFromVector(-1, 0, 0);
+				break;
+			case 2:
+				startX = sX/2;
+				startZ = 0;
+				startFacing = EnumFacing.getFacingFromVector(0, 0, 1);
+				break;
+			case 3:
+			default:
+				startX = sX/2;
+				startZ = sZ-1;
+				startFacing = EnumFacing.getFacingFromVector(0, 0, -1);
+				break;
+				
+		}
 		int startDir = startFacing.getHorizontalIndex();
 		
 //		Vec3i offset = startFacing.getOpposite().getDirectionVec();
@@ -81,6 +121,10 @@ public class DungeonPath {
 		
 	}
 	
+	/* (non-Javadoc)
+	 * @see techguns.world.dungeon.IDungeonPath#generateSegment(int, int, int, int, techguns.world.dungeon.DungeonPath.PathSegment)
+	 */
+	@Override
 	public void generateSegment(int x, int y, int z, int dir, PathSegment prev) {		
 		EnumFacing facing = EnumFacing.getHorizontal(dir);
 		PathSegment segment = new PathSegment(x,y,z);	
@@ -426,6 +470,7 @@ public class DungeonPath {
 			seg.y >= 0 && seg.y < sY &&
 			seg.z >= 0 && seg.z < sZ) {
 			dungeonVolume[seg.x][seg.y][seg.z] = seg;
+			dungeonList.add(seg);
 			this.numSegments ++;
 		}
 	}
@@ -457,7 +502,7 @@ public class DungeonPath {
 		return dungeonVolume[index.getX()][index.getY()][index.getZ()];
 	}
 
-	class PathSegment {
+	public class PathSegment {
 		public boolean isEntrance;
 		int x;
 		int y;
@@ -554,9 +599,17 @@ public class DungeonPath {
 			System.out.println(sb.toString());
 		}
 
+		public boolean allowSpawner() {
+			return !(this.isEntrance || this.isRamp);
+		}
+
 	}
 	
 
+	/* (non-Javadoc)
+	 * @see techguns.world.dungeon.IDungeonPath#generateDungeon(net.minecraft.world.World, int, int, int, techguns.world.dungeon.presets.IDungeonPreset)
+	 */
+	@Override
 	public void generateDungeon(World world, int posX, int posY, int posZ, IDungeonPreset preset) {
 		for (int i = 0; i < sX; i++) {
 			for (int j = 0; j < sY; j++) {
@@ -630,7 +683,7 @@ public class DungeonPath {
 									}
 									ok = true;
 									//Roof segment
-									if (useRoof && !above && segment.y+1 < this.sY) {
+									if (useRoof && !above && segment.y >= startHeightLevel && segment.y+1 < this.sY) {
 										py = posY+((j+1)*preset.getSizeY());
 										int seed = segment.roomID > 0 ? segment.roomID : world.rand.nextInt();		
 										preset.getSegment(tempSeg.type, -1, 0, this.sY, above, below, seed).placeSegment(world, px, py, pz, r);
@@ -668,8 +721,50 @@ public class DungeonPath {
 		}
 	}
 	
-	public void generateSpawnPositions() {
+	/* (non-Javadoc)
+	 * @see techguns.world.dungeon.IDungeonPath#generateNPCSpawners(net.minecraft.world.World, int, int, int, techguns.world.dungeon.presets.IDungeonPreset)
+	 */
+	@Override
+	public void generateNPCSpawners(World world, int posX, int posY, int posZ, IDungeonPreset preset) {
+		List<PathSegment> spawnPositions = this.getSpawnPositions(preset.getSpawnDensity());
+	
+		for (PathSegment seg : spawnPositions) {
+			int px = posX+(seg.x*preset.getSizeXZ()+(int)(preset.getSizeXZ()*0.5f));
+			int py = posY+(seg.y*preset.getSizeY())+preset.getSpawnYOffset(seg);
+			int pz = posZ+(seg.z*preset.getSizeXZ()+(int)(preset.getSizeXZ()*0.5f));
+			BlockPos pos = new BlockPos(px, py, pz);
+			IBlockState state = TGBlocks.MONSTER_SPAWNER.getDefaultState();
+			world.setBlockState(pos, state, 2);
+			
+			TileEntity te = world.getTileEntity(pos);
+			if (te != null && te instanceof TGSpawnerTileEnt) {
+				TGSpawnerTileEnt spawner = (TGSpawnerTileEnt)te;
+				preset.initSpawner(spawner);
+			}
+		}
+	}
+	
+	private List<PathSegment> getSpawnPositions(float spawnDensity) {
+		int maxTries = 5;
+		int tries = 0;
 		
+		int numSpawns = (int)((float)this.getNumSegments() * spawnDensity);
+		
+		List<PathSegment> spawners = new ArrayList<PathSegment>();
+		
+		while (numSpawns > 0 && tries < maxTries) {
+			int index = this.rand.nextInt(this.dungeonList.size());
+			PathSegment seg = this.dungeonList.get(index);
+			if (seg != null && !spawners.contains(seg) && seg.allowSpawner()) {
+				spawners.add(seg);
+				numSpawns--;
+				tries = 0;
+			}else {
+				tries++;
+			}
+		}
+		
+		return spawners;
 	}
 
 }

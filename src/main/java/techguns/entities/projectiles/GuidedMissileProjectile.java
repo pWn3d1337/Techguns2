@@ -129,8 +129,8 @@ public class GuidedMissileProjectile extends RocketProjectile{
 				if (epc.lockOnEntity != null && epc.lockOnTicks >= ((GenericGun)p.getActiveItemStack().getItem()).getLockOnTicks()) {
 					target = epc.lockOnEntity;
 				}
-				epc.lockOnEntity = null;
-				epc.lockOnTicks = 0;
+				//epc.lockOnEntity = null;
+				//epc.lockOnTicks = 0;
 			}
 
 			if (target != null) {

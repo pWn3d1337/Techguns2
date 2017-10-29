@@ -7,7 +7,8 @@ public enum EnumConcreteType implements IStringSerializable{
 	CONCRETE_BROWN,
 	CONCRETE_BROWN_LIGHT,
 	CONCRETE_GREY,
-	CONCRETE_GREY_DARK; 
+	CONCRETE_GREY_DARK,
+	CONCRETE_BROWN_PIPES;
 
 	@Override
 	public String getName() {

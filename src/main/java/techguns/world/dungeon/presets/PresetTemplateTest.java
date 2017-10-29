@@ -1,8 +1,9 @@
 package techguns.world.dungeon.presets;
 
-import techguns.world.dungeon.DungeonPath;
+import techguns.world.dungeon.MazeDungeonPath;
 import techguns.world.dungeon.DungeonSegment;
 import techguns.world.dungeon.DungeonTemplate;
+import techguns.world.dungeon.IDungeonPath;
 import techguns.world.dungeon.TemplateSegment.SegmentType;
 
 public class PresetTemplateTest implements IDungeonPreset{
@@ -31,7 +32,7 @@ public class PresetTemplateTest implements IDungeonPreset{
 	}
 
 	@Override
-	public void initDungeonPath(DungeonPath path) {
+	public void initDungeonPath(IDungeonPath path) {
 	}
 
 }

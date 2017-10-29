@@ -11,6 +11,9 @@
     },
     "type=concrete_brown": {
       "model": "techguns:concrete_brown"
+    },
+	"type=concrete_brown_pipes": {
+      "model": "techguns:concrete_brown_pipes"
     }
   }
 }

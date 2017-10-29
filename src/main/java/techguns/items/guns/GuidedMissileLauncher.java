@@ -63,6 +63,8 @@ public class GuidedMissileLauncher extends GenericGunCharge {
 		//if (((GenericGunCharge)item.getItem()).getAmmoLeft(item) <= 0) return;
 		
 		super.startCharge(item, world, player);
+		
+		//if (this.getAmmoLeft(item) <= 0) {
 		TGExtendedPlayer epc = TGExtendedPlayer.get(player);
 		epc.lockOnEntity = null;
 		epc.lockOnTicks = -1;

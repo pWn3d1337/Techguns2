@@ -1,7 +1,12 @@
 package techguns.world.dungeon.presets;
 
-import techguns.world.dungeon.DungeonPath;
+import java.util.Random;
+
+import techguns.tileentities.TGSpawnerTileEnt;
+import techguns.world.dungeon.MazeDungeonPath;
+import techguns.world.dungeon.MazeDungeonPath.PathSegment;
 import techguns.world.dungeon.DungeonSegment;
+import techguns.world.dungeon.IDungeonPath;
 import techguns.world.dungeon.TemplateSegment;
 import techguns.world.dungeon.TemplateSegment.SegmentType;
 
@@ -17,5 +22,27 @@ public interface IDungeonPreset {
 	public int getSizeXZ();
 	public int getSizeY();
 	
-	public void initDungeonPath(DungeonPath path);
+	//NPC stuff
+	
+	/**
+	 * NPC spawners per number of dungeon segments.
+	 */
+	public default float getSpawnDensity() {
+		return 0.1f;
+	}
+	
+	/**
+	 * The floor height of the dungeon segments
+	 */
+	public default int getSpawnYOffset(PathSegment seg) {
+		return 1;
+	}
+	
+	public default IDungeonPath getDungeonPath(int sX, int sY, int sZ, Random rand) {
+		return new MazeDungeonPath(sX, sY, sZ, rand);
+	}
+	
+	public void initDungeonPath(IDungeonPath path);
+
+	public default void initSpawner(TGSpawnerTileEnt spawner) {}; //TODO
 }

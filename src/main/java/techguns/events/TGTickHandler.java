@@ -438,6 +438,23 @@ public class TGTickHandler {
 				 props.gunMainHand=gunMH;
 				 props.gunOffHand=gunOH;
 			 }
+			 
+			 /*
+			  * Lock On
+			  */
+			 if (props.isChargingWeapon() && (event.player.getItemInUseCount() <= 0)) { //  || !(event.player.getHeldItemMainhand().getItem() instanceof GenericGunCharge)) {		
+				 if (event.player.getHeldItemMainhand().getItem() instanceof GenericGunCharge) {
+					 GenericGunCharge gun = (GenericGunCharge)event.player.getHeldItemMainhand().getItem();
+					 if (gun.canFireWhileCharging && gun.getAmmoLeft(event.player.getHeldItemMainhand()) > 0) {
+						 //System.out.println("Keep Lock!");
+					 }else {
+							props.lockOnEntity = null;
+							props.lockOnTicks = 0;
+					 }
+				 }
+				//if (((GenericGunCharge)event.player.getHeldItemMainhand().getItem()).getLockOnTicks() > 0) {
+				//}
+			 }
 			
 			 /*
 			  * Charging weapon
