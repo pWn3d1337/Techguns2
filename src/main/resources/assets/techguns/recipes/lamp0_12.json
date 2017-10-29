@@ -1,0 +1,24 @@
+{
+  "result": {
+    "item": "techguns:lamp0",
+    "data": 12,
+    "count": 16
+  },
+  "pattern": [
+    "iii",
+    "grg",
+    "iii"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "r": {
+      "item": "#DUSTREDSTONE"
+    },
+    "g": {
+      "item": "#PANEGLASS"
+    },
+    "i": {
+      "item": "#NUGGETIRON"
+    }
+  }
+}

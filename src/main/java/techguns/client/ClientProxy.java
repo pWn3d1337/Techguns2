@@ -175,6 +175,7 @@ import techguns.client.render.item.RenderGrenade;
 import techguns.client.render.item.RenderGunBase;
 import techguns.client.render.item.RenderGunBase90;
 import techguns.client.render.item.RenderGunBaseObj;
+import techguns.client.render.item.RenderGunChainsaw;
 import techguns.client.render.item.RenderGunFlamethrower;
 import techguns.client.render.item.RenderItemBase;
 import techguns.client.render.item.RenderItemBaseRocketItem;
@@ -795,7 +796,7 @@ public class ClientProxy extends CommonProxy {
 					{-0.18f,0f,-0.05f} //frame
 				}).setMuzzleFXPos3P(0.11f, -0.81f));
 		
-		ItemRenderHack.registerItemRenderer(TGuns.chainsaw,new RenderGunBase90(new ModelChainsaw(),1).setBaseTranslation(-0.4f, -0.2f, RenderItemBase.SCALE-0.09f)
+		ItemRenderHack.registerItemRenderer(TGuns.chainsaw,new RenderGunChainsaw(new ModelChainsaw(),2).setBaseTranslation(-0.4f, -0.2f, RenderItemBase.SCALE-0.09f)
 				.setBaseScale(0.95f).setGUIScale(0.45f).setTransformTranslations(new float[][]{
 					{0f,-0.08f,0.15f}, //First Person
 					{0f,-0.5f,0.04f}, //Third Person

@@ -7,6 +7,7 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
+import techguns.TGItems;
 import techguns.TGSounds;
 import techguns.items.guns.ammo.AmmoType;
 
@@ -17,7 +18,19 @@ public class Chainsaw extends GenericGunMeleeCharge {
 			float accuracy, float fullChargeTime, int ammoConsumedOnFullCharge) {
 		super(name, projectile_selector, semiAuto, minFiretime, clipsize, reloadtime, damage, firesound, reloadsound, TTL,
 				accuracy, fullChargeTime, ammoConsumedOnFullCharge);
+		
+		this.setMiningHeads(TGItems.CHAINSAWBLADES_OBSIDIAN, TGItems.CHAINSAWBLADES_CARBON);
 	}
+
+	
+	
+	@Override
+	public float getExtraDigSpeed(ItemStack stack) {
+		int headlevel = this.getMiningHeadLevel(stack);
+		return 3.0f*headlevel;
+	}
+
+
 
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer player, EnumHand handIn) {
@@ -42,4 +55,5 @@ public class Chainsaw extends GenericGunMeleeCharge {
 				player.getSoundCategory(), 1.0F, 1.0F);
 	}
 
+	
 }

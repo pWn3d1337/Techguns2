@@ -212,60 +212,60 @@ public class ModelChainsaw extends ModelMultipart {
     @Override
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale, int ammoLeft,
 			float reloadProgress, TransformType transformType, int part, float fireProgress) {
-
-        this.shape87_17.render(scale);
-        this.Shape26_1.render(scale);
-        this.Shape26_9.render(scale);
-        this.shape87_10.render(scale);
-        this.shape87_23.render(scale);
-        this.shape87_3.render(scale);
-        this.shape87_9.render(scale);
-        this.Shape26.render(scale);
-        this.shape87_2.render(scale);
-        this.shape87_33.render(scale);
-        this.shape87_25.render(scale);
-        this.Shape26_4.render(scale);
-        this.shape87_27.render(scale);
-        this.Shape26_7.render(scale);
-        this.shape87_26.render(scale);
-        this.shape87_20.render(scale);
-        this.Shape26_6.render(scale);
-        this.shape87.render(scale);
-        this.shape87_12.render(scale);
-        this.shape87_11.render(scale);
-        this.shape87_30.render(scale);
-        this.shape87_21.render(scale);
-        this.shape87_13.render(scale);
-        this.Shape26_3.render(scale);
-        this.shape87_1.render(scale);
-        this.shape87_4.render(scale);
-        this.shape87_15.render(scale);
-        this.shape87_29.render(scale);
-        this.Shape30.render(scale);
-        this.shape87_18.render(scale);
-        this.shape87_16.render(scale);
-        this.shape87_28.render(scale);
-        this.shape87_8.render(scale);
-        this.Shape26_5.render(scale);
-        this.shape87_5.render(scale);
-        this.shape87_6.render(scale);
-        this.shape87_22.render(scale);
-        this.Shape26_2.render(scale);
-        this.shape87_31.render(scale);
-        this.shape87_19.render(scale);
-        this.Shape26_8.render(scale);
-        this.shape87_7.render(scale);
-        this.shape87_14.render(scale);
-        this.shape87_24.render(scale);
-        this.shape87_34.render(scale);
-        
-        
-        //System.out.println("fireProgress: "+fireProgress);
-        int i = Math.round(fireProgress*40f)% 2;
-        if (i==0) {
-        	this.blade1.render(scale);
-        }else{
-        	this.blade2.render(scale);	
-        }
+    	if(part==0) {
+	        this.shape87_17.render(scale);
+	        this.Shape26_1.render(scale);
+	        this.Shape26_9.render(scale);
+	        this.shape87_10.render(scale);
+	        this.shape87_23.render(scale);
+	        this.shape87_3.render(scale);
+	        this.shape87_9.render(scale);
+	        this.Shape26.render(scale);
+	        this.shape87_2.render(scale);
+	        this.shape87_33.render(scale);
+	        this.shape87_25.render(scale);
+	        this.Shape26_4.render(scale);
+	        this.shape87_27.render(scale);
+	        this.Shape26_7.render(scale);
+	        this.shape87_26.render(scale);
+	        this.shape87_20.render(scale);
+	        this.Shape26_6.render(scale);
+	        this.shape87.render(scale);
+	        this.shape87_12.render(scale);
+	        this.shape87_11.render(scale);
+	        this.shape87_30.render(scale);
+	        this.shape87_21.render(scale);
+	        this.shape87_13.render(scale);
+	        this.Shape26_3.render(scale);
+	        this.shape87_1.render(scale);
+	        this.shape87_4.render(scale);
+	        this.shape87_15.render(scale);
+	        this.shape87_29.render(scale);
+	        this.Shape30.render(scale);
+	        this.shape87_18.render(scale);
+	        this.shape87_16.render(scale);
+	        this.shape87_28.render(scale);
+	        this.shape87_8.render(scale);
+	        this.Shape26_5.render(scale);
+	        this.shape87_5.render(scale);
+	        this.shape87_6.render(scale);
+	        this.shape87_22.render(scale);
+	        this.Shape26_2.render(scale);
+	        this.shape87_31.render(scale);
+	        this.shape87_19.render(scale);
+	        this.Shape26_8.render(scale);
+	        this.shape87_7.render(scale);
+	        this.shape87_14.render(scale);
+	        this.shape87_24.render(scale);
+	        this.shape87_34.render(scale);
+    	} else if(part==1) {
+	        //System.out.println("fireProgress: "+fireProgress);
+	        int i = Math.round(fireProgress*40f)% 2;
+	        if (i==0) {
+	        	this.blade1.render(scale);
+	        } else {
+	        	this.blade2.render(scale);	
+	        }
+    	}
     }
 }

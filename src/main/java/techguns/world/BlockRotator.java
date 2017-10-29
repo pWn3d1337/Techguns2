@@ -18,11 +18,6 @@ public class BlockRotator {
 
 	public static IBlockState getRotatedHorizontal(IBlockState state, int times) {
 		
-		//DEBUG
-		if (state.getBlock() == TGBlocks.DOOR3x3) {
-			System.out.println("door");
-		}
-		
 		if(state.getProperties().containsKey(BlockHorizontal.FACING)) {
 			return getRotatedWithProperty(state, times, BlockHorizontal.FACING);
 			

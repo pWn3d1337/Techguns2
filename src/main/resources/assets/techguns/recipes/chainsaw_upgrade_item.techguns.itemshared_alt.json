@@ -1,0 +1,18 @@
+{
+  "result": {
+    "item": "techguns:chainsaw"
+  },
+  "ingredients": [
+    {
+      "item": "techguns:chainsaw",
+      "type": "itemstackHasNBTInt",
+      "value": 1,
+      "key": "miningHead"
+    },
+    {
+      "item": "techguns:itemshared",
+      "data": 124
+    }
+  ],
+  "type": "techguns:miningtool_upgrade"
+}

@@ -4,9 +4,10 @@
     "data": 88,
     "count": 9
   },
-  "pattern": [
-    "ingotSteel"
+  "ingredients": [
+    {
+      "item": "#INGOTSTEEL"
+    }
   ],
-  "type": "minecraft:crafting_shaped",
-  "key": {}
+  "type": "forge:ore_shapeless"
 }

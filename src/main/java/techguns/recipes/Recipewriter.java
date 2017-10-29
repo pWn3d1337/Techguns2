@@ -290,6 +290,8 @@ public class Recipewriter {
 		RecipeJsonConverter.addShapelessMiningHeadUpgradeRecipe(TGuns.miningdrill, TGItems.MININGDRILLHEAD_CARBON, "miningHead",0);
 		RecipeJsonConverter.addShapelessMiningHeadUpgradeRecipe(TGuns.powerhammer, TGItems.POWERHAMMERHEAD_OBSIDIAN, "miningHead",0);
 		RecipeJsonConverter.addShapelessMiningHeadUpgradeRecipe(TGuns.powerhammer, TGItems.POWERHAMMERHEAD_CARBON, "miningHead",1);
+		RecipeJsonConverter.addShapelessMiningHeadUpgradeRecipe(TGuns.chainsaw, TGItems.CHAINSAWBLADES_OBSIDIAN, "miningHead",0);
+		RecipeJsonConverter.addShapelessMiningHeadUpgradeRecipe(TGuns.chainsaw, TGItems.CHAINSAWBLADES_CARBON, "miningHead",1);
 	}
 	
 	public static void addAmmoChangeRecipes() {

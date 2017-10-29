@@ -1,24 +1,13 @@
 {
   "result": {
     "item": "techguns:lamp0",
-    "data": 13,
-    "count": 16
+    "data": 13
   },
-  "pattern": [
-    "iii",
-    "grg",
-    "iii"
-  ],
-  "type": "forge:ore_shaped",
-  "key": {
-    "r": {
-      "item": "#DUSTREDSTONE"
-    },
-    "g": {
-      "item": "#PANEGLASS"
-    },
-    "i": {
-      "item": "#NUGGETIRON"
+  "ingredients": [
+    {
+      "item": "techguns:lamp0",
+      "data": 12
     }
-  }
+  ],
+  "type": "minecraft:crafting_shapeless"
 }

@@ -227,7 +227,7 @@ public class RecipeJsonConverter {
 				ingredients.add(serializeItem(o));
 			}*/
 			ingredients.add(serializeItem(new ItemStack(gun,1)));
-			ingredients.add(serializeItem(type.getAmmo(type.getIDforVariantKey(key))));
+			ingredients.add(serializeItem(type.getAmmo(type.getIDforVariantKey(key))[0]));
 			ItemStack result = new ItemStack(gun,1);
 			
 			json.put("ingredients", ingredients);

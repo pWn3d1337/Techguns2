@@ -231,12 +231,12 @@ public class TGTickHandler {
 						 speed=speed*2.0f;
 					 }
 					 
-					 if(!event.player.getActiveItemStack().isEmpty()){
+					 /*if(!event.player.getActiveItemStack().isEmpty()){
 						 ItemStack item = event.player.getHeldItemMainhand();
 						 if (item.getItem() instanceof GenericGun){
 							 speed+=5.0f;
 						 }
-					 }
+					 }*/
 					 
 		             attributeMovespeed.applyModifier(new AttributeModifier(UUID_SPEED, "TechgunsSpeedboost", speed, 2));
 				 }

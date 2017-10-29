@@ -4,9 +4,10 @@
     "data": 87,
     "count": 9
   },
-  "pattern": [
-    "ingotLead"
+  "ingredients": [
+    {
+      "item": "#INGOTLEAD"
+    }
   ],
-  "type": "minecraft:crafting_shaped",
-  "key": {}
+  "type": "forge:ore_shapeless"
 }
