@@ -1,0 +1,36 @@
+{
+  "result": {
+    "item": "techguns:itemshared",
+    "data": 82
+  },
+  "ingredients": [
+    {
+      "item": "#NUGGETLEAD"
+    },
+    {
+      "item": "#NUGGETLEAD"
+    },
+    {
+      "item": "#NUGGETLEAD"
+    },
+    {
+      "item": "#NUGGETLEAD"
+    },
+    {
+      "item": "#NUGGETLEAD"
+    },
+    {
+      "item": "#NUGGETLEAD"
+    },
+    {
+      "item": "#NUGGETLEAD"
+    },
+    {
+      "item": "#NUGGETLEAD"
+    },
+    {
+      "item": "#NUGGETLEAD"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

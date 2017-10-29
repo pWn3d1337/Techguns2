@@ -17,6 +17,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
@@ -37,6 +38,7 @@ import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.living.EnderTeleportEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
@@ -673,12 +675,12 @@ public class TGEventHandler {
 		
 	}
 	
-	@SubscribeEvent
+	/*@SubscribeEvent
 	public static void damageTest(LivingHurtEvent event) {
 		if (event.getEntityLiving() instanceof EntityPlayer) {
 			System.out.println("Attacking"+event.getEntityLiving()+" for "+event.getAmount() +" with "+event.getSource());
 		}
-	}
+	}*/
 	
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent

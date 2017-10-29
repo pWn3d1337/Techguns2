@@ -1,5 +1,8 @@
 package techguns.recipes;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.google.gson.JsonObject;
 
 import net.minecraft.inventory.InventoryCrafting;
@@ -23,12 +26,11 @@ import techguns.recipes.AmmoSwitchRecipeFactory.AmmoSwitchRecipe;
 public class MiningToolUpgradeHeadRecipeFactory implements IRecipeFactory {
 
 	public static final String MINING_TOOL_UPGRADE_RECIPE = "miningtool_upgrade";
-	
+		
 	@Override
 	public IRecipe parse(JsonContext context, JsonObject json) {
 		ShapelessOreRecipe recipe = ShapelessOreRecipe.factory(context, json);
-
-        return new MiningToolUpgradeRecipe(new ResourceLocation(Techguns.MODID, MINING_TOOL_UPGRADE_RECIPE), recipe.getIngredients(), recipe.getRecipeOutput());
+		return new MiningToolUpgradeRecipe(new ResourceLocation(Techguns.MODID, MINING_TOOL_UPGRADE_RECIPE), recipe.getIngredients(), recipe.getRecipeOutput());
 	}
 
 	public static class MiningToolUpgradeRecipe extends ShapelessOreRecipe {

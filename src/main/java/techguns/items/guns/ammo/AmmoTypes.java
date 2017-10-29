@@ -28,7 +28,8 @@ public class AmmoTypes implements ITGInitializer{
 	public static AmmoType COMPRESSED_AIR_TANK;
 	public static AmmoType GRENADES_40MM;
 	public static AmmoType NUCLEAR_POWER_CELL;
-
+	
+	public static AmmoType AMMO_GAUSS_RIFLE;
 	
 	public static String TYPE_INCENDIARY = "incendiary";
 	public static String TYPE_DEFAULT = "default";
@@ -75,6 +76,8 @@ public class AmmoTypes implements ITGInitializer{
 		NETHER_CHARGE = new AmmoType(TGItems.NETHER_CHARGE);
 		GRENADES_40MM = new AmmoType(TGItems.GRENADE_40MM);
 		NUCLEAR_POWER_CELL = new AmmoType(TGItems.NUCLEAR_POWERCELL, TGItems.NUCLEAR_POWERCELL_EMPTY, ItemStack.EMPTY,0);
+		
+		AMMO_GAUSS_RIFLE = new AmmoType(new ItemStack[] {TGItems.SNIPER_ROUNDS, TGItems.ENERGY_CELL}, new ItemStack[] {ItemStack.EMPTY, TGItems.ENERGY_CELL_EMPTY}, new ItemStack[] {TGItems.SNIPER_ROUNDS, ItemStack.EMPTY},  8);
 	}
 
 	@Override

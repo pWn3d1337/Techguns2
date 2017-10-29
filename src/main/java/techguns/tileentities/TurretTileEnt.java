@@ -215,30 +215,49 @@ public class TurretTileEnt extends BasicPoweredTileEnt implements ITickable{
 	
 	protected void doReload(ItemStack gunstack){
 		GenericGun gun = (GenericGun) gunstack.getItem();
-		ItemStack ammo = gun.getAmmoType().getAmmo(gun.getCurrentAmmoVariant(gunstack));
-		ItemStack emptyMag = gun.getAmmoType().getEmptyMag();
+		ItemStack ammo[] = gun.getAmmoType().getAmmo(gun.getCurrentAmmoVariant(gunstack));
+		ItemStack emptyMag[] = gun.getAmmoType().getEmptyMag();
 		
-		if (InventoryUtil.consumeAmmo(this.inventory, ammo,SLOT_INPUT1,SLOT_INPUT1+INPUTS_SIZE)){
-			if (!emptyMag.isEmpty()){
-				int tooMuch=InventoryUtil.addItemToInventory(this.inventory,TGItems.newStack(emptyMag,1),SLOT_OUTPUT1,SLOT_OUTPUT1+OUTPUTS_SIZE);
-				if (!this.world.isRemote){
-					this.world.spawnEntity(new EntityItem(this.world, this.pos.getX(), this.pos.getY()+1, this.pos.getZ(), TGItems.newStack(emptyMag, tooMuch)));
-				}
+		boolean canConsume=true;
+		for(int i=0;i<emptyMag.length;i++) {
+			if (InventoryUtil.canConsumeItem(this.inventory, ammo[i], SLOT_INPUT1,SLOT_INPUT1+INPUTS_SIZE)>0) {
+				canConsume=false;
+				break;
 			}
-	    			
-			if (gun.getAmmoCount() >1) {
-				int i =1;
-				while (i<gun.getAmmoCount() && InventoryUtil.consumeAmmo(this.inventory,ammo,SLOT_INPUT1,SLOT_INPUT1+INPUTS_SIZE)){
-					i++;
-				}
-				
-				gun.reloadAmmo(gunstack,i);    				
-			} else {
-				gun.reloadAmmo(gunstack);
-			}
+		}
+
+		if (canConsume) {
+			for (int i=0;i<emptyMag.length;i++) {
 			
-			if (!this.world.isRemote){
-				this.needUpdate();
+				if (InventoryUtil.consumeAmmo(this.inventory, ammo[i],SLOT_INPUT1,SLOT_INPUT1+INPUTS_SIZE)){
+					if (!emptyMag[i].isEmpty()){
+						int tooMuch=InventoryUtil.addItemToInventory(this.inventory,TGItems.newStack(emptyMag[i],1),SLOT_OUTPUT1,SLOT_OUTPUT1+OUTPUTS_SIZE);
+						if (!this.world.isRemote){
+							this.world.spawnEntity(new EntityItem(this.world, this.pos.getX(), this.pos.getY()+1, this.pos.getZ(), TGItems.newStack(emptyMag[i], tooMuch)));
+						}
+					}
+			    			
+					if (gun.getAmmoCount() >1) {
+						int j =1;
+						while (j<gun.getAmmoCount() && InventoryUtil.consumeAmmo(this.inventory,ammo[i],SLOT_INPUT1,SLOT_INPUT1+INPUTS_SIZE)){
+							j++;
+						}
+						
+						//TODO: unhardcode this
+						if(i==0) {
+							gun.reloadAmmo(gunstack,j);   
+						}
+					} else {
+						//TODO: unhardcode this
+						if(i==0) {
+							gun.reloadAmmo(gunstack);
+						}
+					}
+					
+					if (!this.world.isRemote){
+						this.needUpdate();
+					}
+				}
 			}
 		}
 	}

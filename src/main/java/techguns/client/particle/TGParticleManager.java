@@ -24,8 +24,9 @@ public class TGParticleManager {
     public static double interpPosY;
     public static double interpPosZ;
 
-	protected LinkedList<TGParticleSystem> list_systems = new LinkedList<>();
+	protected ParticleList<TGParticleSystem> list_systems = new ParticleList<>();
 	protected ParticleList<ITGParticle> list = new ParticleList<>();
+	protected ParticleList<ITGParticle> list_nosort = new ParticleList<>();
 	protected ComparatorParticleDepth compare = new ComparatorParticleDepth();
 	
 	public void addEffect(ITGParticle effect)
@@ -34,7 +35,11 @@ public class TGParticleManager {
         if(effect instanceof TGParticleSystem) {
         	list_systems.add((TGParticleSystem) effect);
         } else {
-        	list.add(effect);
+        	if (effect.doNotSort()) {
+        		list_nosort.add(effect);
+        	} else {
+        		list.add(effect);
+        	}
         }
     }
 	
@@ -64,6 +69,17 @@ public class TGParticleManager {
 				}
 			}
 		}
+		
+		Iterator<ITGParticle> it2 = list_nosort.iterator();
+		while(it2.hasNext()) {
+			ITGParticle p = it2.next();
+			
+			p.updateTick();
+			if(p.shouldRemove()) {
+				it2.remove();
+			}
+		}
+		//list.debugPrintList();
 		
 		if(TGConfig.cl_sortPassesPerTick>0) {
 			this.doSorting();
@@ -110,6 +126,11 @@ public class TGParticleManager {
         	//if(frust.isBoundingBoxInFrustum(p.getRenderBoundingBox(partialTicks, entity)))
         	p.doRender(bufferbuilder, entityIn, partialTicks, f1, f5, f2, f3, f4);
         });
+        
+        this.list_nosort.forEach(p -> {	
+        	//if(frust.isBoundingBoxInFrustum(p.getRenderBoundingBox(partialTicks, entity)))
+        	p.doRender(bufferbuilder, entityIn, partialTicks, f1, f5, f2, f3, f4);
+        });
         GlStateManager.enableCull();
 
     }
@@ -133,8 +154,8 @@ public class TGParticleManager {
 			if(p1.doNotSort() && p2.doNotSort()) {
 				return 0;
 			}
-			Entity view = Minecraft.getMinecraft().getRenderViewEntity();
-			if(view!=null) {
+			//Entity view = Minecraft.getMinecraft().getRenderViewEntity();
+			//if(view!=null) {
 				double dist1=p1.getDepth();
 				double dist2=p2.getDepth();
 				//double dist1 = p1.getPos().squareDistanceTo(view.posX, view.posY, view.posZ);
@@ -147,8 +168,8 @@ public class TGParticleManager {
 				} else {
 					return 0;
 				}
-			}
-			return 0;
+			//}
+			//return 0;
 		}
 		
 

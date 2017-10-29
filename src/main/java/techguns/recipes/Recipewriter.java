@@ -47,6 +47,8 @@ import techguns.TGBlocks;
 import techguns.TGItems;
 import techguns.TGuns;
 import techguns.Techguns;
+import techguns.blocks.BlockTGLadder;
+import techguns.blocks.EnumLadderType;
 import techguns.blocks.machines.EnumMachineType;
 import techguns.blocks.machines.EnumMultiBlockMachineType;
 import techguns.blocks.machines.EnumSimpleMachineType;
@@ -197,6 +199,15 @@ public class Recipewriter {
         
         RecipeJsonConverter.addShapedRecipe(TGItems.newStack(TGItems.RC_HEAT_RAY,1), "cwc","plp","plp", 'c', "circuitElite", 'w', "wireGold", 'p', "plateSteel", 'l', Blocks.REDSTONE_LAMP);
 	
+        //ingots/nugget
+        RecipeJsonConverter.addShapelessRecipe(TGItems.INGOT_COPPER, "nuggetCopper","nuggetCopper","nuggetCopper","nuggetCopper","nuggetCopper","nuggetCopper","nuggetCopper","nuggetCopper","nuggetCopper");
+        RecipeJsonConverter.addShapelessRecipe(TGItems.INGOT_LEAD, "nuggetLead","nuggetLead","nuggetLead","nuggetLead","nuggetLead","nuggetLead","nuggetLead","nuggetLead","nuggetLead");
+        RecipeJsonConverter.addShapelessRecipe(TGItems.INGOT_STEEL, "nuggetSteel","nuggetSteel","nuggetSteel","nuggetSteel","nuggetSteel","nuggetSteel","nuggetSteel","nuggetSteel","nuggetSteel");
+        
+        RecipeJsonConverter.addShapelessRecipe(TGItems.newStack(TGItems.NUGGET_COPPER, 9), "ingotCopper");
+        RecipeJsonConverter.addShapelessRecipe(TGItems.newStack(TGItems.NUGGET_LEAD, 9), "ingotLead");
+        RecipeJsonConverter.addShapelessRecipe(TGItems.newStack(TGItems.NUGGET_STEEL, 9), "ingotSteel");
+        
         ItemStack rc = new ItemStack(TGBlocks.MULTIBLOCK_MACHINE,1, EnumMultiBlockMachineType.REACTIONCHAMBER_HOUSING.getIndex());
         RecipeJsonConverter.addShapedRecipe(new ItemStack(TGBlocks.MULTIBLOCK_MACHINE,9,EnumMultiBlockMachineType.REACTIONCHAMBER_HOUSING.getIndex()), "sms","pcp","ses", 's', "plateSteel", 'm', MECHANICAL_PARTS_CARBON, 'p', TGItems.CYBERNETIC_PARTS, 'e', "circuitElite",'c', new ItemStack(TGBlocks.BASIC_MACHINE,1, EnumMachineType.CHEM_LAB.getIndex()));
         RecipeJsonConverter.addShapedRecipe(new ItemStack(TGBlocks.MULTIBLOCK_MACHINE,1,EnumMultiBlockMachineType.REACTIONCHAMBER_CONTROLLER.getIndex()), " g ","crc"," g ", 'g', hardenedGlassOrGlass, 'c', "circuitElite",  'r', rc);
@@ -232,15 +243,16 @@ public class Recipewriter {
         RecipeJsonConverter.addShapedRecipe(TGItems.newStack(TGItems.QUARTZ_ROD,1), "q  ", " q ", "  q", 'q', "gemQuartz");
         RecipeJsonConverter.addShapedRecipe(TGItems.newStack(TGItems.QUARTZ_ROD,1), "  q", " q ", "q  ", 'q', "gemQuartz");
         
-        RecipeJsonConverter.addShapedRecipe(new ItemStack(TGBlocks.LADDER_0,16),"iii"," i ","iii", 'i', "plateTin");
+        RecipeJsonConverter.addShapedRecipe(new ItemStack(TGBlocks.LADDER_0,16,TGBlocks.LADDER_0.getMetaFromState(TGBlocks.LADDER_0.getDefaultState())),"iii"," i ","iii", 'i', "plateTin");
+        RecipeJsonConverter.addShapedRecipe(new ItemStack(TGBlocks.LADDER_0,16,TGBlocks.LADDER_0.getMetaFromState(TGBlocks.LADDER_0.getDefaultState())),"iii"," i ","iii", 'i', "plateIron");   
         
         RecipeJsonConverter.addShapedRecipe(new ItemStack(TGBlocks.LAMP_0,16,0),"iii","grg","ggg",'i',"nuggetIron",'r', "dustRedstone",'g', "paneGlass");
         RecipeJsonConverter.addShapelessRecipe(new ItemStack(TGBlocks.LAMP_0,1,0), new ItemStack(TGBlocks.LAMP_0,1,6));
         RecipeJsonConverter.addShapelessRecipe(new ItemStack(TGBlocks.LAMP_0,1,6), new ItemStack(TGBlocks.LAMP_0,1,0));
         
-        RecipeJsonConverter.addShapedRecipe(new ItemStack(TGBlocks.LAMP_0,16,13),"iii","grg","iii",'i',"nuggetIron",'r', "dustRedstone",'g', "paneGlass");
-        RecipeJsonConverter.addShapelessRecipe(new ItemStack(TGBlocks.LAMP_0,1,14), new ItemStack(TGBlocks.LAMP_0,1,13));
-        RecipeJsonConverter.addShapelessRecipe(new ItemStack(TGBlocks.LAMP_0,1,13), new ItemStack(TGBlocks.LAMP_0,1,14));
+        RecipeJsonConverter.addShapedRecipe(new ItemStack(TGBlocks.LAMP_0,16,12),"iii","grg","iii",'i',"nuggetIron",'r', "dustRedstone",'g', "paneGlass");
+        RecipeJsonConverter.addShapelessRecipe(new ItemStack(TGBlocks.LAMP_0,1,13), new ItemStack(TGBlocks.LAMP_0,1,12));
+        RecipeJsonConverter.addShapelessRecipe(new ItemStack(TGBlocks.LAMP_0,1,12), new ItemStack(TGBlocks.LAMP_0,1,13));
         
         RecipeJsonConverter.addShapelessRecipe(new ItemStack(TGBlocks.SANDBAGS,8), "itemRubber", "sand", "sand", "sand", "sand", "sand", "sand", "sand", "sand");
         

@@ -8,6 +8,7 @@ import java.util.ListIterator;
 import java.util.NoSuchElementException;
 
 import techguns.client.ClientProxy;
+import techguns.client.particle.TGParticleStreak;
 
 public class ParticleList<E> implements Iterable<E>{
 	protected ParticleListElement<E> first;	
@@ -34,19 +35,21 @@ public class ParticleList<E> implements Iterable<E>{
 	}
 	
 	public void debugPrintList() {
+		int i=0;
 		ParticleListElement<E> elem = this.first;
 		if (elem==null) {
-			System.out.println("|EMPTY|");
+			//System.out.println("|EMPTY|");
 			return;
 		}
 		while(elem.next!=null) {
-			System.out.print("|"+elem.e+"|");
+			System.out.println("|"+i+":"+elem.e+"|");
 			elem=elem.next;
+			i++;
 		}
-		System.out.println("|"+elem.e);
+		System.out.println("|"+i+":"+elem.e);
 		System.out.println("<SIZE>:"+this.size);
-		System.out.println("<FIRST>:"+this.first.e.toString());
-		System.out.println("<LAST>:"+this.last.e.toString());
+		//System.out.println("<FIRST>:"+this.first.e.toString());
+		//System.out.println("<LAST>:"+this.last.e.toString());
 	}
 	
 	public void doBubbleSort(int times, Comparator<E> comp) {

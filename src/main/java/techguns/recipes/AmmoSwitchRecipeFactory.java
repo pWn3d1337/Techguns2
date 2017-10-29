@@ -67,7 +67,7 @@ public class AmmoSwitchRecipeFactory implements IRecipeFactory {
 				GenericGun g = (GenericGun) gun.getItem();
 				AmmoType type = g.getAmmoType();
 				
-				String variant = type.getAmmoVariantKeyfor(ammo);
+				String variant = type.getAmmoVariantKeyfor(ammo,0);
 				newTags.setString("ammovariant", variant);
 				
 				if(g.getAmmoCount()>1) {

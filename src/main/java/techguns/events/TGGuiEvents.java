@@ -173,16 +173,27 @@ public class TGGuiEvents extends Gui{
 
 	}
 	
-	private void drawGunAmmoCount(Minecraft mc,ScaledResolution sr, GenericGun gun, ItemStack item, EntityPlayer ply, TGExtendedPlayer props, int offsetY) {
-		ItemStack ammoitem  = gun.getReloadItem(item);
+	private int getAmmoCountOfStack(ItemStack ammoitem, GenericGun gun, EntityPlayer ply, TGExtendedPlayer props) {
 		int count = InventoryUtil.countItemInInv(ply.inventory.mainInventory, ammoitem, 0, ply.inventory.mainInventory.size());
 		count += InventoryUtil.countItemInInv(props.tg_inventory.inventory, ammoitem, TGPlayerInventory.SLOTS_AMMO_START, TGPlayerInventory.SLOTS_AMMO_END+1);
 		
 		if (gun.getAmmoCount()>1){
 			count = count / gun.getAmmoCount();
 		} 
+		return count;
+	}
 	
-		String text= gun.getAmmoLeftCountTooltip(item)+"/"+gun.getClipsizeTooltip() +ChatFormatting.YELLOW+"x" +count;
+	private void drawGunAmmoCount(Minecraft mc,ScaledResolution sr, GenericGun gun, ItemStack item, EntityPlayer ply, TGExtendedPlayer props, int offsetY) {
+		ItemStack[] ammoitem  = gun.getReloadItem(item);
+		int minCount = 0;
+		for(ItemStack stack: ammoitem) {
+			int c = getAmmoCountOfStack(stack, gun, ply, props); 
+			if (c<minCount) {
+				minCount = c;
+			}
+		}
+		
+		String text= gun.getAmmoLeftCountTooltip(item)+"/"+gun.getClipsizeTooltip() +ChatFormatting.YELLOW+"x" +minCount;
 		mc.fontRenderer.drawString(text, sr.getScaledWidth()+1-text.length()*6,sr.getScaledHeight()-mc.fontRenderer.FONT_HEIGHT-2+offsetY , 0xFFFFFFFF);
 	}
 	

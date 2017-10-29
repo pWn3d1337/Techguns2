@@ -115,10 +115,13 @@ public class TGKeybinds {
 			GenericGun gun = (GenericGun) stack.getItem();
 			if (props.getFireDelay(hand)<=0 && !gun.isFullyLoaded(stack)){
 				
-				ItemStack ammo = gun.getReloadItem(stack);
-				if(InventoryUtil.canConsumeAmmoPlayer(ply, gun.getReloadItem(stack))) {
-					return true;
+				ItemStack[] ammo = gun.getReloadItem(stack);
+				for (ItemStack s : ammo) {
+					if(!InventoryUtil.canConsumeAmmoPlayer(ply, s)) {
+						return false;
+					}
 				}
+				return true;
 			}
 		}
 		return false;

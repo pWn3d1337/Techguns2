@@ -8,7 +8,7 @@ import techguns.util.ItemUtil;
 
 public class AmmoType {
 
-	protected ItemStack emptyMag = ItemStack.EMPTY;
+	protected ItemStack[] emptyMag = {ItemStack.EMPTY};
 	protected ArrayList<AmmoVariant> variants = new ArrayList<>();
 	
 	protected HashMap<String,Integer> ammoVariantIDs = new HashMap<>();
@@ -16,12 +16,12 @@ public class AmmoType {
 	
 	int bulletsPerMag=0;
 	
-	public AmmoType(ItemStack ammo){
+	public AmmoType(ItemStack... ammo){
 		this.variants.add(new AmmoVariant(ammo,ammo));
 		ammoVariantIDs.put(AmmoTypes.TYPE_DEFAULT, 0);
 	}
 	
-	public AmmoType addVariant(String key, ItemStack ammo) {
+	public AmmoType addVariant(String key, ItemStack... ammo) {
 		return this.addVariant(key, ammo, ammo);
 	}
 	
@@ -33,34 +33,38 @@ public class AmmoType {
 		}
 	}
 	
-	public AmmoType addVariant(String key, ItemStack ammo, ItemStack bullet) {
+	public AmmoType addVariant(String key, ItemStack[] ammo, ItemStack[] bullet) {
 		this.variants.add(new AmmoVariant(key, ammo, bullet));
 		ammoVariantIDs.put(key, this.variants.size()-1);
 		return this;
 	}
 	
-	public ItemStack getAmmo(int variant) {
+	public ItemStack[] getAmmo(int variant) {
 		return this.variants.get(variant).ammo;
 	}
 
-	public ItemStack getEmptyMag() {
+	public ItemStack[] getEmptyMag() {
 		return emptyMag;
 	}
 
-	public ItemStack getBullet(int variant) {
+	public ItemStack[] getBullet(int variant) {
 		return this.variants.get(variant).bullet;
 	}
 
 	public AmmoType (ItemStack ammo, ItemStack emptyMag, ItemStack bullet, int bulletsPerMag) {
+		this(new ItemStack[]{ammo},new ItemStack[]{emptyMag},new ItemStack[]{bullet},bulletsPerMag);
+	}
+	
+	public AmmoType (ItemStack[] ammo, ItemStack[] emptyMag, ItemStack[] bullet, int bulletsPerMag) {
 		this.variants.add(new AmmoVariant(ammo,bullet));
 		this.emptyMag = emptyMag;
 
 		this.bulletsPerMag = bulletsPerMag;
 	}
 	
-	public String getAmmoVariantKeyfor(ItemStack stack) {
+	public String getAmmoVariantKeyfor(ItemStack stack, int index) {
 		for (int i=0;i<this.variants.size();i++) {
-			if(ItemUtil.isItemEqual(variants.get(i).ammo,stack)) {
+			if(ItemUtil.isItemEqual(variants.get(i).ammo[index],stack)) {
 				return variants.get(i).key;
 			}
 		}

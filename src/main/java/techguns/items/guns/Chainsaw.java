@@ -36,4 +36,10 @@ public class Chainsaw extends GenericGunMeleeCharge {
 		return TGSounds.CHAINSAW_HIT;
 	}
 	
+	@Override
+	protected void playSweepSoundEffect(EntityPlayer player) {
+		player.world.playSound((EntityPlayer) null, player.posX, player.posY, player.posZ, TGSounds.CHAINSAW_HIT,
+				player.getSoundCategory(), 1.0F, 1.0F);
+	}
+
 }

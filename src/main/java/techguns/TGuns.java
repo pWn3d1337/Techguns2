@@ -197,7 +197,7 @@ public class TGuns implements ITGInitializer {
 		ALIENBLASTER_PROJECTILES =  new ProjectileSelector<AlienBlasterProjectile>(AmmoTypes.ENERGY_CELL, new AlienBlasterProjectile.Factory());
 		DEATOMIZER_PROJECTILES = new ProjectileSelector<DeatomizerProjectile>(AmmoTypes.ENERGY_CELL, new DeatomizerProjectile.Factory());
 		NETHERBLASTER_PROJECTILES = new ProjectileSelector<CyberdemonBlasterProjectile>(AmmoTypes.NETHER_CHARGE, new CyberdemonBlasterProjectile.Factory());
-		GAUSS_PROJECTILES = new ProjectileSelector<GaussProjectile>(AmmoTypes.ENERGY_CELL, new GaussProjectile.Factory());
+		GAUSS_PROJECTILES = new ProjectileSelector<GaussProjectile>(AmmoTypes.AMMO_GAUSS_RIFLE, new GaussProjectile.Factory());
 		NDR_PROJECTILES = new ProjectileSelector<NDRProjectile>(AmmoTypes.NUCLEAR_POWER_CELL, new NDRProjectile.Factory());
 		GRENADE40MM_PROJECTILES = new ProjectileSelector<Grenade40mmProjectile>(AmmoTypes.GRENADES_40MM, new Grenade40mmProjectile.Factory());
 		ROCKET_PROJECTILES = new ProjectileSelector(AmmoTypes.ROCKETS, new RocketProjectile.Factory(), new RocketProjectileNuke.Factory());
@@ -258,7 +258,7 @@ public class TGuns implements ITGInitializer {
 		 
 	 	 blasterrifle = new GenericGun("blasterrifle", BLASTER_ENERGYCELL_PROJECTILES, false, 5, 50, 45, 10.0f, TGSounds.BLASTER_RIFLE_FIRE, TGSounds.LASERGUN_RELOAD, 50, 0.025f).setZoom(0.5f, true,0.75f,true).setAIStats(RANGE_MEDIUM, 30, 5, 3).setTexture("textures/guns/blasterrifle").setDamageDrop(25, 35, 8.0f).setPenetration(0.2f).setMuzzleLight(0.9f, 0.3f, 0.1f);
 	 	 
-		 powerhammer = new PowerHammer("powerhammer", POWERHAMMER_PROJECTILES, false, 4, 20, 45, 2.5f, TGSounds.POWERHAMMER_FIRE, TGSounds.POWERHAMMER_RELOAD,2,0.0f,20f,5).setMeleeDmg(6.0f, 2.0f).setTool("pickaxe", 2).setTool("shovel", 2).setDigSpeed(12.0f).setChargeSound(TGSounds.POWERHAMMER_CHARGE).setBulletSpeed(1.0f).setTexture("textures/guns/powerHammer").setRecoiltime(12).setShootWithLeftClick(false).setAIStats(RANGE_MELEE, 30, 0, 0).setDamageDrop(3, 3, 2.5f).setNoMuzzleLight();
+		 powerhammer = new PowerHammer("powerhammer", POWERHAMMER_PROJECTILES, false, 4, 300, 45, 3.5f, TGSounds.POWERHAMMER_FIRE, TGSounds.POWERHAMMER_RELOAD,3,0.0f,20f,5).setMeleeDmg(6.0f, 2.0f).setTool("pickaxe", 2).setTool("shovel", 2).setDigSpeed(12.0f).setChargeSound(TGSounds.POWERHAMMER_CHARGE).setBulletSpeed(1.0f).setTexture("textures/guns/powerHammer").setRecoiltime(12).setShootWithLeftClick(false).setAIStats(RANGE_MELEE, 30, 0, 0).setDamageDrop(3, 3, 2.5f).setNoMuzzleLight();
 		 
 		 grenadelauncher = new GenericGun("grenadelauncher", GRENADE40MM_PROJECTILES, true, 5, 6, 100, 30.0f, TGSounds.GRENADE_LAUNCHER_FIRE, TGSounds.GRENADE_LAUNCHER_RELOAD, 160, 0.015f).setTexture("textures/guns/grenadelauncher").setBulletSpeed(0.5f).setAIStats(RANGE_MEDIUM, 40, 3, 20).setAmmoCount(6).setDamageDrop(4.0f, 8.0f, 12f).setGravity(0.01d).setRangeTooltipType(RangeTooltipType.RADIUS);
 			

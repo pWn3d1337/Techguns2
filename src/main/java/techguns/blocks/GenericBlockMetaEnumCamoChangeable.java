@@ -6,11 +6,21 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IStringSerializable;
+import net.minecraftforge.fml.common.Optional;
 import techguns.Techguns;
 import techguns.items.armors.ICamoChangeable;
 
 public class GenericBlockMetaEnumCamoChangeable<T extends Enum<T> & IStringSerializable> extends GenericBlockMetaEnum<T> implements ICamoChangeable {
 
+	/**
+	 * Only used when chisel is loaded
+	 */
+	public Object[] variationData;
+	/**
+	 * Only used when chisel is loaded
+	 */
+	protected int chiselIndex;
+	
 	public GenericBlockMetaEnumCamoChangeable(String name, Material mat, Class<T> clazz) {
 		super(name, mat, clazz);
 	}

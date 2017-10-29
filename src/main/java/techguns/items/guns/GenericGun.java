@@ -1,6 +1,7 @@
 package techguns.items.guns;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -410,7 +411,7 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 		return new ActionResult<ItemStack>(EnumActionResult.PASS, playerIn.getHeldItem(handIn));
 	}
 
-	public ItemStack getReloadItem(ItemStack stack) {
+	public ItemStack[] getReloadItem(ItemStack stack) {
 		return this.ammoType.getAmmo(this.getCurrentAmmoVariant(stack));
 	}
 	
@@ -603,13 +604,17 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
     			//look for ammo
     			if (InventoryUtil.consumeAmmoPlayer(player,this.ammoType.getAmmo(this.getCurrentAmmoVariant(stack)))) {
     			
-    				if (!this.ammoType.getEmptyMag().isEmpty()){
-    					//player.inventory.addItemStackToInventory(new ItemStack(emptyMag.getItem(),1,emptyMag.getItemDamage()));
-    					int amount=InventoryUtil.addAmmoToPlayerInventory(player, TGItems.newStack(this.ammoType.getEmptyMag(), 1));
-    					if(amount >0 && !world.isRemote){
-    						player.world.spawnEntity(new EntityItem(player.world, player.posX, player.posY, player.posZ, TGItems.newStack(this.ammoType.getEmptyMag(), amount)));
-    					}
-    				}
+    				Arrays.stream(this.ammoType.getEmptyMag()).forEach( e -> {
+    					if (!e.isEmpty()){
+        					//player.inventory.addItemStackToInventory(new ItemStack(emptyMag.getItem(),1,emptyMag.getItemDamage()));
+        					int amount=InventoryUtil.addAmmoToPlayerInventory(player, TGItems.newStack(e, 1));
+        					if(amount >0 && !world.isRemote){
+        						player.world.spawnEntity(new EntityItem(player.world, player.posX, player.posY, player.posZ, TGItems.newStack(e, amount)));
+        					}
+        				}
+    				});
+    				
+    				
     				
     				//stop toggle zooming when reloading
     				if (world.isRemote) {
@@ -968,7 +973,11 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 		super.addInformation(stack, worldIn, list, flagIn);
 		if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)){
 			list.add(TextUtil.trans("techguns.gun.tooltip.handtype")+": "+this.getGunHandType().toString());
-			list.add(TextUtil.trans("techguns.gun.tooltip.ammo")+": "+(this.ammoCount>1 ? this.ammoCount+"x " : "")+ChatFormatting.WHITE+TextUtil.trans(this.ammoType.getAmmo(this.getCurrentAmmoVariant(stack)).getUnlocalizedName()+".name"));
+			
+			ItemStack[] ammo = this.ammoType.getAmmo(this.getCurrentAmmoVariant(stack));
+			for(int i=0;i< ammo.length;i++) {
+				list.add(TextUtil.trans("techguns.gun.tooltip.ammo")+": "+(this.ammoCount>1 ? this.ammoCount+"x " : "")+ChatFormatting.WHITE+TextUtil.trans(ammo[i].getUnlocalizedName()+".name"));
+			}
 			this.addMiningTooltip(stack, worldIn, list, flagIn, true);
 			list.add(TextUtil.trans("techguns.gun.tooltip.damageType")+": "+this.getDamageType(stack).toString());
 			list.add(TextUtil.trans("techguns.gun.tooltip.damage")+(this.shotgun ? ("(x"+ (this.bulletcount+1)+")") : "" )+": "+getTooltipTextDmg(stack,true));
@@ -984,12 +993,12 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 			if (this.canZoom) {
 				list.add(TextUtil.trans("techguns.gun.tooltip.zoom")+":"+(this.toggleZoom ? "("+TextUtil.trans("techguns.gun.tooltip.zoom.toogle")+")":"("+TextUtil.trans("techguns.gun.tooltip.zoom.hold")+")")+" "+TextUtil.trans("techguns.gun.tooltip.zoom.multiplier")+":"+this.zoomMult);
 			}
-			//TODO Mininglevels
-			/*if (this.mininglevels!=null){
-				ItemUtil.addToolClassesTooltip(mininglevels, list);
-			}*/
+			
 		} else {
-			list.add(TextUtil.trans("techguns.gun.tooltip.ammo")+": "+(this.ammoCount>1 ? this.ammoCount+"x " : "")+ChatFormatting.WHITE+TextUtil.trans(this.ammoType.getAmmo(this.getCurrentAmmoVariant(stack)).getUnlocalizedName()+".name"));
+			ItemStack[] ammo = this.ammoType.getAmmo(this.getCurrentAmmoVariant(stack));
+			for(int i=0;i< ammo.length;i++) {
+				list.add(TextUtil.trans("techguns.gun.tooltip.ammo")+": "+(this.ammoCount>1 ? this.ammoCount+"x " : "")+ChatFormatting.WHITE+TextUtil.trans(ammo[i].getUnlocalizedName()+".name"));
+			}
 			this.addMiningTooltip(stack, worldIn, list, flagIn, false);
 			list.add(TextUtil.trans("techguns.gun.tooltip.damage")+(this.shotgun ? ("(x"+ (this.bulletcount+1)+")") : "" )+": "+getTooltipTextDmg(stack,false));
 			list.add(TextUtil.trans("techguns.gun.tooltip.shift1")+" "+ChatFormatting.GREEN+TextUtil.trans("techguns.gun.tooltip.shift2")+" "+ChatFormatting.GRAY+TextUtil.trans("techguns.gun.tooltip.shift3"));
@@ -1359,18 +1368,27 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
     	int ammo = this.getCurrentAmmo(stack);
     	
     	if(this.ammoCount>1 && this.getAmmoLeft(stack)>0) {
-    		items.add(TGItems.newStack(this.getAmmoType().getBullet(this.getCurrentAmmoVariant(stack)),this.getAmmoLeft(stack)));
+    		for(ItemStack s : this.getAmmoType().getBullet(this.getCurrentAmmoVariant(stack))) {
+    			items.add(TGItems.newStack(s,this.getAmmoLeft(stack)));
+    		}
     	} else {
     		if (!this.isFullyLoaded(stack)) {
-		    	int bulletsBack = (int) Math.floor(ammo/this.ammoType.getShotsPerBullet(clipsize, ammo));
-				if (bulletsBack>0){
-					items.add(TGItems.newStack(this.getAmmoType().getBullet(this.getCurrentAmmoVariant(stack)),bulletsBack));
-				}
-		    	if(!this.ammoType.getEmptyMag().isEmpty()) {
-		    		items.add(TGItems.newStack(this.ammoType.getEmptyMag(), 1));
-		    	}
+    			int amount = this.ammoType.getEmptyMag().length;
+    			
+    			for(int i=0;i<amount;i++) {
+			    	int bulletsBack = (int) Math.floor(ammo/this.ammoType.getShotsPerBullet(clipsize, ammo));
+					if (bulletsBack>0){
+						items.add(TGItems.newStack(this.getAmmoType().getBullet(this.getCurrentAmmoVariant(stack))[i],bulletsBack));
+					}
+			    	if(!this.ammoType.getEmptyMag()[i].isEmpty()) {
+			    		items.add(TGItems.newStack(this.ammoType.getEmptyMag()[i], 1));
+			    	}
+    			}
     		} else {
-    			items.add(TGItems.newStack(this.ammoType.getAmmo(this.getCurrentAmmoVariant(stack)), 1));
+    			int amount = this.ammoType.getEmptyMag().length;	
+    			for(int i=0;i<amount;i++) {
+    				items.add(TGItems.newStack(this.ammoType.getAmmo(this.getCurrentAmmoVariant(stack))[i], 1));
+    			}
     		}
     	}
 
@@ -1395,21 +1413,24 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 					this.useAmmo(item, oldAmmo);
 				}
 				
-				if (!this.ammoType.getEmptyMag().isEmpty()){
-					
-					int amount=InventoryUtil.addAmmoToPlayerInventory(player, TGItems.newStack(this.ammoType.getEmptyMag(), 1));
-					if(amount >0 && !world.isRemote){
-						player.world.spawnEntity(new EntityItem(player.world, player.posX, player.posY, player.posZ, TGItems.newStack(this.ammoType.getEmptyMag(), amount)));
-					}
-					
-					int bulletsBack = (int) Math.floor(oldAmmo/this.ammoType.getShotsPerBullet(clipsize, oldAmmo));
-					if (bulletsBack>0){
-						int amount2=InventoryUtil.addAmmoToPlayerInventory(player, TGItems.newStack(this.ammoType.getBullet(this.getCurrentAmmoVariant(item)), bulletsBack));
-						if(amount2 >0 && !world.isRemote){
-							player.world.spawnEntity(new EntityItem(player.world, player.posX, player.posY, player.posZ, TGItems.newStack(this.ammoType.getBullet(this.getCurrentAmmoVariant(item)), amount2)));
+				int ammos = this.getAmmoType().getEmptyMag().length;
+				for (int i=0;i<ammos;i++) {
+					if (!this.ammoType.getEmptyMag()[i].isEmpty()){
+						
+						int amount=InventoryUtil.addAmmoToPlayerInventory(player, TGItems.newStack(this.ammoType.getEmptyMag()[i], 1));
+						if(amount >0 && !world.isRemote){
+							player.world.spawnEntity(new EntityItem(player.world, player.posX, player.posY, player.posZ, TGItems.newStack(this.ammoType.getEmptyMag()[i], amount)));
 						}
+						
+						int bulletsBack = (int) Math.floor(oldAmmo/this.ammoType.getShotsPerBullet(clipsize, oldAmmo));
+						if (bulletsBack>0){
+							int amount2=InventoryUtil.addAmmoToPlayerInventory(player, TGItems.newStack(this.ammoType.getBullet(this.getCurrentAmmoVariant(item))[i], bulletsBack));
+							if(amount2 >0 && !world.isRemote){
+								player.world.spawnEntity(new EntityItem(player.world, player.posX, player.posY, player.posZ, TGItems.newStack(this.ammoType.getBullet(this.getCurrentAmmoVariant(item))[i], amount2)));
+							}
+						}
+						
 					}
-					
 				}
 				
 				//stop toggle zooming when reloading

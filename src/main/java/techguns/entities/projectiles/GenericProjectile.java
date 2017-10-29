@@ -16,6 +16,7 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IProjectile;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EntitySelectors;
 import net.minecraft.util.EnumFacing;
@@ -307,22 +308,9 @@ public class GenericProjectile extends Entity implements IProjectile, IEntityAdd
 		this.rotationPitch = this.prevRotationPitch + (this.rotationPitch - this.prevRotationPitch) * 0.2F;
 		this.rotationYaw = this.prevRotationYaw + (this.rotationYaw - this.prevRotationYaw) * 0.2F;
 		float f1 = 0.99F;
-		float f2 = 0.05F;
+		//float f2 = 0.05F;
 
-		if (this.isInWater()) {
-			for (int i = 0; i < 4; ++i) {
-				float f3 = 0.25F;
-				this.world.spawnParticle(EnumParticleTypes.WATER_BUBBLE, this.posX - this.motionX * 0.25D,
-						this.posY - this.motionY * 0.25D, this.posZ - this.motionZ * 0.25D, this.motionX, this.motionY,
-						this.motionZ);
-			}
-
-			f1 = 0.85F;
-		}
-
-		if (this.isWet()) {
-			this.extinguish();
-		}
+		f1 = this.inWaterUpdateBehaviour(f1);
 
 		this.motionX *= (double) f1;
 		this.motionY *= (double) f1;
@@ -343,6 +331,24 @@ public class GenericProjectile extends Entity implements IProjectile, IEntityAdd
 		}
 	}
 
+	protected float inWaterUpdateBehaviour(float f1) {
+		if (this.isInWater()) {
+			for (int i = 0; i < 4; ++i) {
+				float f3 = 0.25F;
+				this.world.spawnParticle(EnumParticleTypes.WATER_BUBBLE, this.posX - this.motionX * 0.25D,
+						this.posY - this.motionY * 0.25D, this.posZ - this.motionZ * 0.25D, this.motionX, this.motionY,
+						this.motionZ);
+			}
+
+			f1 = 0.85F;
+		}
+
+		if (this.isWet()) {
+			this.extinguish();
+		}
+		return f1;
+	}
+	
     protected void initStartPos(){
     	this.startX=this.posX;
     	this.startY=this.posY;
@@ -672,6 +678,58 @@ public class GenericProjectile extends Entity implements IProjectile, IEntityAdd
 	public void readSpawnData(ByteBuf additionalData) {
 		this.speed=additionalData.readFloat();
 	}
+	
+	public static void burnBlocks(World world, RayTraceResult mop, double chanceToIgnite) {
+		if (Math.random() <= chanceToIgnite) {
+			BlockPos hit = mop.getBlockPos();
+
+			switch (mop.sideHit) {
+				case DOWN:
+					if (world.isAirBlock(hit.down())) world.setBlockState(hit.down(), Blocks.FIRE.getDefaultState());
+					break;
+				case UP:
+					if (world.isAirBlock(hit.up())) {
+						if (world.getBlockState(hit) == Blocks.FARMLAND) world.setBlockState(hit, Blocks.DIRT.getDefaultState());
+						world.setBlockState(hit.up(), Blocks.FIRE.getDefaultState());
+					}
+					break;
+				/*case NORTH:	
+					if (this.worldObj.isAirBlock(x, y, z-1)) this.worldObj.setBlock(x, y, z-1, Blocks.FIRE);
+					break;
+				case SOUTH:
+	    			if (this.worldObj.isAirBlock(x, y, z+1)) this.worldObj.setBlock(x, y, z+1, Blocks.FIRE);
+	    			break;
+				case WEST:
+					if (this.worldObj.isAirBlock(x-1, y, z)) this.worldObj.setBlock(x-1, y, z, Blocks.FIRE);
+					break;
+				case EAST:
+	    			if (this.worldObj.isAirBlock(x+1, y, z)) this.worldObj.setBlock(x+1, y, z, Blocks.FIRE);
+	    			break;*/
+				default:
+					BlockPos p = hit.offset(mop.sideHit);
+					if(world.isAirBlock(p)) {
+						world.setBlockState(p, Blocks.FIRE.getDefaultState());
+					}
+			}
+			//TODO: burn blocks ?
+    		//Burn special blocks
+    	/*	Block b = this.worldObj.getBlock(x, y, z);
+    		if (b ==TGBlocks.camoNetRoof || b == TGBlocks.camoNetPane) {
+    			// || b == Blocks.wheat || b == Blocks.pumpkin_stem || b == Blocks.melon_stem || b == Blocks.carrots || b == Blocks.potatoes) {
+    			this.worldObj.spawnParticle("lava", this.posX, this.posY, this.posZ, 0.0D, 0.0D, 0.0D);
+    			this.worldObj.setBlock(x, y, z, Blocks.FIRE);
+    		//}else if (b == Blocks.farmland) {
+    		//	this.worldObj.setBlock(x, y, z, Blocks.dirt);
+    		//	this.worldObj.setBlock(x, y+1, z, Blocks.fire);
+    		}else if (this.worldObj.getBlock(x, y-1, z) == Blocks.FARMLAND) {
+    			this.worldObj.setBlock(x, y-1, z, Blocks.DIRT);
+    			this.worldObj.setBlock(x, y, z, Blocks.FIRE);
+    		}
+        }*/
+		
+		}
+	}
+	
 	
 	public static class Factory implements IProjectileFactory<GenericProjectile> {
 

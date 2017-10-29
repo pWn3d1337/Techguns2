@@ -537,6 +537,7 @@ tile.techguns.bioblob.0.name=Bioblob
 item.techguns.miningdrill.name=Mining Drill
 techguns.default=Default
 techguns.tooltip.mininghead=Mining Head
+techguns.tooltip.breakspeed=Break Speed
 item.techguns.miningdrillhead_obsidian.name=Mining Drill (Obsidian)
 item.techguns.miningdrillhead_carbon.name=Mining Drill (Carbon)
 item.techguns.powerhammerhead_obsidian.name=Powerhammer Head (Obsidian)

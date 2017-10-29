@@ -25,6 +25,7 @@ import techguns.blocks.BlockTGLamp;
 import techguns.blocks.BlockTGOre;
 import techguns.blocks.BlockTGSpawner;
 import techguns.blocks.BlockTGStairs;
+import techguns.blocks.EnumCamoNetType;
 import techguns.blocks.EnumConcreteType;
 import techguns.blocks.EnumDoorType;
 import techguns.blocks.EnumLadderType;
@@ -41,6 +42,7 @@ import techguns.blocks.machines.EnumSimpleMachineType;
 import techguns.blocks.machines.MultiBlockMachine;
 import techguns.blocks.machines.SimpleMachine;
 import techguns.init.ITGInitializer;
+import techguns.plugins.chisel.ChiselIMCHelper;
 import techguns.tools.BlockJsonCreator;
 
 public class TGBlocks implements ITGInitializer{
@@ -130,6 +132,14 @@ public class TGBlocks implements ITGInitializer{
 		OreDictionary.registerOre("oreUranium", TGBlocks.TG_ORE.getStackFor(EnumOreType.ORE_URANIUM));
 		OreDictionary.registerOre("oreTitaniumIron", TGBlocks.TG_ORE.getStackFor(EnumOreType.ORE_TITANIUM));
 		OreDictionary.registerOre("oreIllmenite", TGBlocks.TG_ORE.getStackFor(EnumOreType.ORE_TITANIUM));
+		
+		ChiselIMCHelper.addChiselVariants("techguns:camonet", TGBlocks.CAMONET, EnumCamoNetType.class);
+		ChiselIMCHelper.addChiselVariants("techguns:camonettop", TGBlocks.CAMONET_TOP, EnumCamoNetType.class);
+		ChiselIMCHelper.addChiselVariants("techguns:metalpanel", TGBlocks.METAL_PANEL, TGMetalPanelType.class);
+		
+		for(EnumLadderType t: EnumLadderType.values()) {
+			ChiselIMCHelper.addChiselVariation("techguns:metalladder", TGBlocks.LADDER_0.getRegistryName(), TGBlocks.LADDER_0.getMetaFromState(TGBlocks.LADDER_0.getDefaultState().withProperty(TGBlocks.LADDER_0.TYPE, t)));
+		}
 	}
 
 	@Override

@@ -1,0 +1,79 @@
+{
+	"textures": {"1": "techguns:blocks/hangar_door"},
+	"elements": [
+		{
+			"name": "cube",
+			"from": [-16, 31, 6],
+			"to": [32, 32, 10],
+			"faces": {
+				"north": {
+					"uv": [0, 1.25, 12, 1.5],
+					"texture": "#1",
+					"cullface": "north"
+				},
+				"east": {
+					"uv": [0, 1.75, 1, 2],
+					"texture": "#1",
+					"cullface": "east"
+				},
+				"south": {
+					"uv": [0, 1.25, 12, 1.5],
+					"texture": "#1",
+					"cullface": "south"
+				},
+				"west": {
+					"uv": [0, 1.75, 1, 2],
+					"texture": "#1",
+					"cullface": "west"
+				},
+				"up": {
+					"uv": [0, 0, 12, 1],
+					"texture": "#1",
+					"cullface": "up"
+				},
+				"down": {
+					"uv": [0, 0, 12, 1],
+					"texture": "#1",
+					"cullface": "down"
+				}
+			}
+		},
+		{
+			"name": "cube2",
+			"from": [-16, -16, 7],
+			"to": [32, 31, 9],
+			"faces": {
+				"north": {
+					"uv": [0, 4.25, 12, 16],
+					"texture": "#1",
+					"cullface": "north"
+				},
+				"east": {
+					"uv": [12.25, 4.25, 12.75, 16],
+					"texture": "#1",
+					"cullface": "east"
+				},
+				"south": {
+					"uv": [0, 4.25, 12, 16],
+					"texture": "#1",
+					"cullface": "south"
+				},
+				"west": {
+					"uv": [12.25, 4.25, 12.75, 16],
+					"texture": "#1",
+					"cullface": "west"
+				},
+				"up": {
+					"uv": [0, 3.25, 12, 3.75],
+					"texture": "#1",
+					"cullface": "up"
+				},
+				"down": {
+					"uv": [0, 3.25, 12, 3.75],
+					"texture": "#1",
+					"cullface": "down"
+				}
+			}
+		}
+	]
+}

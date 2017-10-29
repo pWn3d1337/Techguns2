@@ -44,6 +44,8 @@ public class BlockTGDoor3x3<T extends Enum<T> & IStringSerializable> extends Gen
 	public static final PropertyBool ZPLANE = PropertyBool.create("zplane");
 	//public static final PropertyBool OPENED = PropertyBool.create("open");
 	public static final PropertyEnum<EnumDoorState> STATE = PropertyEnum.<EnumDoorState>create("state", EnumDoorState.class);
+	public static final PropertyEnum<EnumDoorType> TYPE = PropertyEnum.<EnumDoorType>create("type", EnumDoorType.class);
+	
 	
 	protected Class<T> clazz;
 	protected BlockStateContainer blockStateOverride;
@@ -76,8 +78,8 @@ public class BlockTGDoor3x3<T extends Enum<T> & IStringSerializable> extends Gen
 		super(name, Material.IRON);
 		this.setSoundType(SoundType.METAL);
 		this.clazz=clazz;
-		this.blockStateOverride = new BlockStateContainer.Builder(this).add(MASTER).add(ZPLANE).add(STATE).build();
-		this.setDefaultState(this.getBlockState().getBaseState().withProperty(MASTER, false).withProperty(ZPLANE, false).withProperty(STATE, EnumDoorState.CLOSED));
+		this.blockStateOverride = new BlockStateContainer.Builder(this).add(MASTER).add(ZPLANE).add(STATE).add(TYPE).build();
+		this.setDefaultState(this.getBlockState().getBaseState().withProperty(MASTER, false).withProperty(ZPLANE, false).withProperty(STATE, EnumDoorState.CLOSED).withProperty(TYPE, EnumDoorType.METAL));
 		this.placer=doorplacer;
 		this.placer.setBlock(this);
 		
@@ -179,6 +181,19 @@ public class BlockTGDoor3x3<T extends Enum<T> & IStringSerializable> extends Gen
 		return state.getValue(STATE) == EnumDoorState.OPENED || state.getValue(STATE) ==EnumDoorState.OPENING;
 	}
 	
+	
+	
+	@Override
+	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
+		TileEntity tile = worldIn.getTileEntity(pos);
+		if(tile!=null && tile instanceof Door3x3TileEntity) {
+			Door3x3TileEntity door = (Door3x3TileEntity) tile;
+			return state.withProperty(TYPE, EnumDoorType.values()[door.getDoorType()]);
+		}
+		
+		return state;
+	}
+
 	public static AxisAlignedBB NO_COLLIDE=new AxisAlignedBB(0, 0, 0, 0, 0, 0);
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {

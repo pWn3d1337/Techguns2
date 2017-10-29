@@ -59,6 +59,18 @@ public class GenericProjectileIncendiary extends GenericProjectile {
 		}
 	}
 	
+	
+	
+	@Override
+	protected void hitBlock(RayTraceResult raytraceResultIn) {
+		
+		if (this.blockdamage) {
+			burnBlocks(world, raytraceResultIn, damage/40f);
+		}
+		
+		super.hitBlock(raytraceResultIn);
+	}
+
 	@Override
 	protected void doImpactEffects(Material mat, RayTraceResult rayTraceResult, SoundType sound) {
 		//super.doImpactEffects(mat, rayTraceResult, sound);

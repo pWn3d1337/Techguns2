@@ -18,6 +18,8 @@ import net.minecraft.nbt.NBTTagLong;
 import net.minecraft.nbt.NBTTagLongArray;
 import net.minecraft.nbt.NBTTagShort;
 import net.minecraft.nbt.NBTTagString;
+import techguns.items.guns.GenericGun;
+import techguns.items.guns.GenericGunMeleeCharge;
 
 public class IngredientHasNBTTag extends Ingredient {
 
@@ -32,6 +34,28 @@ public class IngredientHasNBTTag extends Ingredient {
         this.value=value;
         this.id = getIdforClass(value);
     }
+
+    
+    
+	@Override
+	public ItemStack[] getMatchingStacks() {
+		int size = super.getMatchingStacks().length;
+		ItemStack[] matchingStacks = new ItemStack[size];
+		
+		for(int i=0;i<size;i++) {
+			matchingStacks[i]=super.getMatchingStacks()[i].copy();
+			if(matchingStacks[i].getItem() instanceof GenericGun) {
+				GenericGun g = (GenericGun) matchingStacks[i].getItem();
+				g.onCreated(matchingStacks[i], null, null);
+				NBTTagCompound tags = matchingStacks[i].getTagCompound();
+				setTagByType(id, tags, key, value);
+			}
+		}
+		
+		return matchingStacks;
+	}
+
+
 
 	@Override
 	public boolean apply(ItemStack stack) {
@@ -104,6 +128,51 @@ public class IngredientHasNBTTag extends Ingredient {
                 return new NBTTagLongArray();*/
             default:
                 return null;
+        }
+    }
+	
+	protected static void setTagByType(byte id, NBTTagCompound tags, String key, Object value)
+    {
+        switch (id)
+        {
+            /*case 0:
+                return new NBTTagEnd();*/
+            case 1:
+                tags.setByte(key, (byte) value);
+                break;
+            case 2:
+            	 tags.setShort(key, (short) value);
+                 break;
+            case 3:
+            	 tags.setInteger(key, (int) value);
+                 break;
+            case 4:
+            	tags.setLong(key, (long) value);
+                break;
+            case 5:
+            	tags.setFloat(key, (float) value);
+                break;
+            case 6:
+            	tags.setDouble(key, (double) value);
+                break;
+            case 7:
+            	tags.setByteArray(key, (byte[]) value);
+                break;
+            case 8:
+            	tags.setString(key, (String) value);
+                break;
+            /*case 9:
+                return new NBTTagList();*/
+            case 10:
+                tags.setTag(key, (NBTBase) value);
+                break;
+            case 11:
+                tags.setIntArray(key, (int[]) value);
+                break;
+            /*case 12:
+                return new NBTTagLongArray();*/
+            default:
+                break;
         }
     }
     

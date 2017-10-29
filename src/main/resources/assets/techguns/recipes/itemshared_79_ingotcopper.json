@@ -1,0 +1,36 @@
+{
+  "result": {
+    "item": "techguns:itemshared",
+    "data": 79
+  },
+  "ingredients": [
+    {
+      "item": "#NUGGETCOPPER"
+    },
+    {
+      "item": "#NUGGETCOPPER"
+    },
+    {
+      "item": "#NUGGETCOPPER"
+    },
+    {
+      "item": "#NUGGETCOPPER"
+    },
+    {
+      "item": "#NUGGETCOPPER"
+    },
+    {
+      "item": "#NUGGETCOPPER"
+    },
+    {
+      "item": "#NUGGETCOPPER"
+    },
+    {
+      "item": "#NUGGETCOPPER"
+    },
+    {
+      "item": "#NUGGETCOPPER"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}
