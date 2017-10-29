@@ -133,7 +133,7 @@ public class RenderDoor3x3Fast extends FastTESR<Door3x3TileEntity> {
 	    BlockPos pos = te.getPos();
         IBlockAccess world = MinecraftForgeClient.getRegionRenderCache(te.getWorld(), pos);
         IBlockState state = world.getBlockState(pos);
-        //if(state.getBlock() != TGBlocks.DOOR3x3) return;
+        if(state.getBlock() != TGBlocks.DOOR3x3) return;
 		
         if(state.getValue(BlockTGDoor3x3.STATE)==EnumDoorState.OPENED || state.getValue(BlockTGDoor3x3.STATE)==EnumDoorState.CLOSED){
         	return;

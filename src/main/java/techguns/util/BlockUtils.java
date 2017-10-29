@@ -83,6 +83,26 @@ public class BlockUtils {
 		return new BlockPos(axis.x+newOffsetX, pos.getY(), axis.z+newOffsetZ);
 	}
 	
+	public static MutableBlockPos rotateAroundY(MutableBlockPos pos, Vec3d axis, int steps) {
+		
+		Vec3d v_pos = new Vec3d(pos.getX()+0.5d, 0d, pos.getZ()+0.5d);
+		
+		double offsetX = v_pos.x-axis.x;
+		double offsetZ = v_pos.z-axis.z;
+		
+		double newOffsetX=offsetX;
+		double newOffsetZ=offsetZ;
+		
+		for(int i=steps; i>0; i--) {
+			double tmp = newOffsetX;
+			
+			newOffsetX=newOffsetZ;
+			newOffsetZ=-tmp;
+		}
+		pos.setPos(axis.x+newOffsetX, pos.getY(), axis.z+newOffsetZ);
+		return pos;
+	}
+	
 	protected static boolean checkMiningLevels(World world, EntityPlayer ply, BlockPos b, GenericGunMeleeCharge miningtool, ItemStack stack) {
 		IBlockState state = world.getBlockState(b);
 		String tool = state.getBlock().getHarvestTool(state);
