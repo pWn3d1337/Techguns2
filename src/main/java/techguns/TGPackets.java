@@ -22,6 +22,7 @@ import techguns.packets.PacketPlaySound;
 import techguns.packets.PacketRequestTGPlayerSync;
 import techguns.packets.PacketRequestTileEntitySync;
 import techguns.packets.PacketShootGun;
+import techguns.packets.PacketShootGunTarget;
 import techguns.packets.PacketShowKeybindConfirmMessage;
 import techguns.packets.PacketSpawnParticle;
 import techguns.packets.PacketSpawnParticleOnEntity;
@@ -64,6 +65,7 @@ public class TGPackets implements ITGInitializer {
 		int packetid=0;
 		
 		network.registerMessage(PacketShootGun.Handler.class, PacketShootGun.class, packetid++, Side.SERVER);
+		network.registerMessage(PacketShootGunTarget.Handler.class, PacketShootGunTarget.class, packetid++, Side.SERVER);
 		network.registerMessage(GunFiredMessage.Handler.class, GunFiredMessage.class, packetid++, Side.CLIENT);
 		network.registerMessage(ReloadStartedMessage.Handler.class, ReloadStartedMessage.class, packetid++, Side.CLIENT);
 		network.registerMessage(PacketPlaySound.Handler.class, PacketPlaySound.class, packetid++, Side.CLIENT);

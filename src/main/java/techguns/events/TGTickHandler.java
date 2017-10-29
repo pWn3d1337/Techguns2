@@ -49,6 +49,7 @@ import techguns.items.guns.GenericGun;
 import techguns.items.guns.GenericGunCharge;
 import techguns.packets.PacketPlaySound;
 import techguns.packets.PacketShootGun;
+import techguns.packets.PacketShootGunTarget;
 import techguns.packets.PacketSwapWeapon;
 import techguns.packets.PacketTGExtendedPlayerSync;
 import techguns.util.InventoryUtil;
@@ -89,9 +90,14 @@ public class TGTickHandler {
 							
 							IGenericGun gun = (IGenericGun) stack.getItem();
 							if (props.getFireDelay(EnumHand.MAIN_HAND) <= 0) {
-
-								TGPackets.network.sendToServer(new PacketShootGun(gun.isZooming(),EnumHand.MAIN_HAND));
-								gun.shootGunPrimary(stack, event.player.world, event.player, gun.isZooming(), EnumHand.MAIN_HAND);
+								if (gun instanceof GenericGunCharge && ((GenericGunCharge)gun).getLockOnTicks() > 0 && props.lockOnEntity != null && props.lockOnTicks > ((GenericGunCharge)gun).getLockOnTicks()) {
+									TGPackets.network.sendToServer(new PacketShootGunTarget(gun.isZooming(),EnumHand.MAIN_HAND, props.lockOnEntity));
+									gun.shootGunPrimary(stack, event.player.world, event.player, gun.isZooming(), EnumHand.MAIN_HAND, props.lockOnEntity);
+								}else {
+									TGPackets.network.sendToServer(new PacketShootGun(gun.isZooming(),EnumHand.MAIN_HAND));
+									gun.shootGunPrimary(stack, event.player.world, event.player, gun.isZooming(), EnumHand.MAIN_HAND, null);
+								}
+								
 							}
 							if (gun.isSemiAuto()) {
 								cp.keyFirePressedMainhand = false;
@@ -109,7 +115,7 @@ public class TGTickHandler {
 							if (props.getFireDelay(EnumHand.OFF_HAND) <= 0) {
 
 								TGPackets.network.sendToServer(new PacketShootGun(gun.isZooming(),EnumHand.OFF_HAND));
-								gun.shootGunPrimary(stackOff, event.player.world, event.player, gun.isZooming(), EnumHand.OFF_HAND);
+								gun.shootGunPrimary(stackOff, event.player.world, event.player, gun.isZooming(), EnumHand.OFF_HAND, null);
 							}
 							if (gun.isSemiAuto()) {
 								cp.keyFirePressedOffhand = false;
@@ -119,6 +125,17 @@ public class TGTickHandler {
 					} else {
 						cp.keyFirePressedOffhand = false;
 					}
+					
+					//Reset lock if out of ammo
+					if (!stack.isEmpty() && stack.getItem() instanceof GenericGunCharge && ((GenericGunCharge) stack.getItem()).getLockOnTicks() > 0) {
+						//System.out.println("RMB: "+cp.keyFirePressedOffhand);
+						if (((GenericGunCharge)stack.getItem()).getAmmoLeft(stack) <= 0 && props.lockOnEntity != null) {
+							props.lockOnEntity = null;
+							props.lockOnTicks = -1;
+							//System.out.println("reset lock.");
+						}
+					}
+					
 				} else {
 					cp.keyFirePressedMainhand = false;
 					cp.keyFirePressedOffhand = false;
@@ -439,22 +456,20 @@ public class TGTickHandler {
 				 props.gunOffHand=gunOH;
 			 }
 			 
-			 /*
-			  * Lock On
-			  */
-			 if (props.isChargingWeapon() && (event.player.getItemInUseCount() <= 0)) { //  || !(event.player.getHeldItemMainhand().getItem() instanceof GenericGunCharge)) {		
-				 if (event.player.getHeldItemMainhand().getItem() instanceof GenericGunCharge) {
-					 GenericGunCharge gun = (GenericGunCharge)event.player.getHeldItemMainhand().getItem();
-					 if (gun.canFireWhileCharging && gun.getAmmoLeft(event.player.getHeldItemMainhand()) > 0) {
-						 //System.out.println("Keep Lock!");
-					 }else {
-							props.lockOnEntity = null;
-							props.lockOnTicks = 0;
-					 }
-				 }
-				//if (((GenericGunCharge)event.player.getHeldItemMainhand().getItem()).getLockOnTicks() > 0) {
-				//}
-			 }
+//TODO: Remove this
+//			 if (props.isChargingWeapon() && (event.player.getItemInUseCount() <= 0)) { //  || !(event.player.getHeldItemMainhand().getItem() instanceof GenericGunCharge)) {		
+//				 if (event.player.getHeldItemMainhand().getItem() instanceof GenericGunCharge) {
+//					 GenericGunCharge gun = (GenericGunCharge)event.player.getHeldItemMainhand().getItem();
+//					 if (gun.canFireWhileCharging && gun.getAmmoLeft(event.player.getHeldItemMainhand()) > 0) {
+//						 //System.out.println("Keep Lock!");
+//					 }else {
+//							props.lockOnEntity = null;
+//							props.lockOnTicks = 0;
+//					 }
+//				 }
+//				//if (((GenericGunCharge)event.player.getHeldItemMainhand().getItem()).getLockOnTicks() > 0) {
+//				//}
+//			 }
 			
 			 /*
 			  * Charging weapon

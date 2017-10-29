@@ -33,7 +33,7 @@ public class SonicShotgun extends GenericGun {
 
 	@Override
 	protected void spawnProjectile(World world, EntityLivingBase player, ItemStack itemstack, float spread,
-			float offset, float damagebonus, EnumBulletFirePos firePos) {
+			float offset, float damagebonus, EnumBulletFirePos firePos, Entity target) {
 		
 		int count = 5; //Base projectile count per ring
 		int rings = 2; //number of rings

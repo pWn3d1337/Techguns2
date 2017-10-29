@@ -1,5 +1,6 @@
 package techguns.api.guns;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
@@ -17,7 +18,7 @@ public interface IGenericGun {
 	@SideOnly(Side.CLIENT)
 	public boolean isZooming();
 
-	public void shootGunPrimary(ItemStack stack, World world, EntityPlayer player, boolean zooming, EnumHand hand);
+	public void shootGunPrimary(ItemStack stack, World world, EntityPlayer player, boolean zooming, EnumHand hand, Entity target);
 
 	public int getAmmoLeft(ItemStack stack);
 	

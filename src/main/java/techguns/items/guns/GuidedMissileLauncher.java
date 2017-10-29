@@ -12,9 +12,12 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import techguns.TGSounds;
+import techguns.Techguns;
 import techguns.capabilities.TGExtendedPlayer;
 import techguns.client.audio.TGSoundCategory;
+import techguns.entities.projectiles.EnumBulletFirePos;
 import techguns.entities.projectiles.GenericProjectile;
+import techguns.entities.projectiles.GuidedMissileProjectile;
 import techguns.items.guns.ammo.AmmoType;
 import techguns.util.SoundUtil;
 
@@ -34,40 +37,31 @@ public class GuidedMissileLauncher extends GenericGunCharge {
 
 	@Override
 	public void onUsingTick(ItemStack stack, EntityLivingBase player, int count) {
-		TGExtendedPlayer epc = TGExtendedPlayer.get((EntityPlayer)player);
-//		if (epc.isReloading(false)) {
-//			this.onPlayerStoppedUsing(stack, player.world, player, 0);
-//			return;
-//		}
-//		
 		super.onUsingTick(stack, player, count);
-		//System.out.println("onUsingTick: "+count);
-		traceTarget(player);
 		
-		//Handle sounds
-		if (player instanceof EntityPlayer) {			
-			if (epc.lockOnTicks >= this.lockOnTicks) {
-				if (count % 4 == 0) SoundUtil.playSoundOnEntityGunPosition(player.world, player, TGSounds.LOCKED_BEEP, SOUND_DISTANCE, 1.0F, false, false, TGSoundCategory.PLAYER_EFFECT);
-			}else if (epc.lockOnTicks > 0) {
-				if (count % 4 == 0) SoundUtil.playSoundOnEntityGunPosition(player.world, player, TGSounds.LOCKON_BEEP, SOUND_DISTANCE, 1.0F, false, false, TGSoundCategory.PLAYER_EFFECT);
-			}else {
-				if (count % 12 == 0) SoundUtil.playSoundOnEntityGunPosition(player.world, player, TGSounds.LOCKON_BEEP, SOUND_DISTANCE, 0.5F, false, false, TGSoundCategory.PLAYER_EFFECT);
+		if (player.world.isRemote) {			
+			TGExtendedPlayer epc = TGExtendedPlayer.get((EntityPlayer)player);
+			traceTarget(player);			
+			//Handle sounds
+			if (player instanceof EntityPlayer) {			
+				if (epc.lockOnTicks >= this.lockOnTicks) {
+					if (count % 4 == 0) SoundUtil.playSoundOnEntityGunPosition(player.world, player, TGSounds.LOCKED_BEEP, SOUND_DISTANCE, 1.0F, false, false, TGSoundCategory.PLAYER_EFFECT);
+				}else if (epc.lockOnTicks > 0) {
+					if (count % 4 == 0) SoundUtil.playSoundOnEntityGunPosition(player.world, player, TGSounds.LOCKON_BEEP, SOUND_DISTANCE, 1.0F, false, false, TGSoundCategory.PLAYER_EFFECT);
+				}else {
+					if (count % 12 == 0) SoundUtil.playSoundOnEntityGunPosition(player.world, player, TGSounds.LOCKON_BEEP, SOUND_DISTANCE, 0.5F, false, false, TGSoundCategory.PLAYER_EFFECT);
+				}
 			}
 		}
 	}
 
 	@Override
 	protected void startCharge(ItemStack item, World world, EntityPlayer player) {
-		//TGExtendedPlayer txp = TGExtendedPlayer.get(player);
-		//if (txp.isReloading(false)) return;
-		//if (((GenericGunCharge)item.getItem()).getAmmoLeft(item) <= 0) return;
-		
 		super.startCharge(item, world, player);
 		
-		//if (this.getAmmoLeft(item) <= 0) {
-		TGExtendedPlayer epc = TGExtendedPlayer.get(player);
-		epc.lockOnEntity = null;
-		epc.lockOnTicks = -1;
+//		TGExtendedPlayer epc = TGExtendedPlayer.get(player);
+//		epc.lockOnEntity = null;
+//		epc.lockOnTicks = -1;
 	}
 	
 	protected void traceTarget(EntityLivingBase shooter) {
@@ -181,7 +175,34 @@ public class GuidedMissileLauncher extends GenericGunCharge {
 	}
 	
 	@Override
+	protected void spawnProjectile(World world, EntityLivingBase player, ItemStack itemstack, float spread,
+			float offset, float damagebonus, EnumBulletFirePos firePos, Entity target) {
+		IProjectileFactory<GenericProjectile> projectile = this.projectile_selector.getFactoryForType(this.getCurrentAmmoVariantKey(itemstack));
+		
+		GenericProjectile proj = projectile.createProjectile(this, world, player, damage * damagebonus, speed, this.getScaledTTL(), spread, this.damageDropStart,
+				this.damageDropEnd, this.damageMin * damagebonus, this.penetration, getDoBlockDamage(player), firePos, radius, gravity);
+
+		
+		float f=1.0f;
+		if(this.muzzelight) {
+			Techguns.proxy.createLightPulse(proj.posX+player.getLookVec().x*f, proj.posY+player.getLookVec().y*f, proj.posZ+player.getLookVec().z*f, this.light_lifetime, this.light_radius_start, this.light_radius_end, this.light_r, this.light_g, this.light_b);
+		}
+		if (silenced) {
+			proj.setSilenced();
+		}
+		if (offset > 0.0f) {
+			proj.shiftForward(offset/speed); // System.out.println("Shifted
+										// by"+offset);
+		}
+		
+		((GuidedMissileProjectile) proj).target = target;
+		
+		world.spawnEntity(proj);
+	}
+	
+	@Override
 	public int consumeAmmoCharge(ItemStack item, float f, boolean creative) {
 		return 0;
 	}
+	
 }
