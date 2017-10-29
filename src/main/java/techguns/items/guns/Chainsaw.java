@@ -35,7 +35,7 @@ public class Chainsaw extends GenericGunMeleeCharge {
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer player, EnumHand handIn) {
 		ItemStack stack = player.getHeldItem(handIn);
-		this.shootGunPrimary(stack, worldIn, player, false, handIn);
+		this.shootGunPrimary(stack, worldIn, player, false, handIn, null);
 		return new ActionResult<ItemStack>(EnumActionResult.FAIL, stack);
 	}
 

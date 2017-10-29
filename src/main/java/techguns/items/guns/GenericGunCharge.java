@@ -2,6 +2,7 @@ package techguns.items.guns;
 
 import java.util.Arrays;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -184,9 +185,9 @@ public class GenericGunCharge extends GenericGun {
 	protected void startCharge(ItemStack item, World world, EntityPlayer player) {}
 
 	@Override
-	public void shootGunPrimary(ItemStack stack, World world, EntityPlayer player, boolean zooming, EnumHand hand) {
+	public void shootGunPrimary(ItemStack stack, World world, EntityPlayer player, boolean zooming, EnumHand hand, Entity target) {
 		if (this.canFireWhileCharging || player.getActiveItemStack() != stack) {
-			super.shootGunPrimary(stack, world, player, zooming, hand);
+			super.shootGunPrimary(stack, world, player, zooming, hand, target);
 		}
 	}
 	

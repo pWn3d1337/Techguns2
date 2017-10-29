@@ -445,7 +445,7 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 		}
 	}
 
-	protected void spawnProjectile(final World world, final EntityLivingBase player, final ItemStack itemstack, float spread, float offset, float damagebonus, EnumBulletFirePos firePos) {
+	protected void spawnProjectile(final World world, final EntityLivingBase player, final ItemStack itemstack, float spread, float offset, float damagebonus, EnumBulletFirePos firePos, Entity target) {
 		/*GenericProjectile proj = new GenericProjectile(world, player, damage * damagebonus, speed, this.getScaledTTL(), spread, this.damageDropStart, this.damageDropEnd,
 				this.damageMin * damagebonus, this.penetration, getDoBlockDamage(player), leftGun);*/
 		
@@ -454,6 +454,7 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 		GenericProjectile proj = projectile.createProjectile(this, world, player, damage * damagebonus, speed, this.getScaledTTL(), spread, this.damageDropStart,
 				this.damageDropEnd, this.damageMin * damagebonus, this.penetration, getDoBlockDamage(player), firePos, radius, gravity);
 
+		
 		float f=1.0f;
 		if(this.muzzelight) {
 			Techguns.proxy.createLightPulse(proj.posX+player.getLookVec().x*f, proj.posY+player.getLookVec().y*f, proj.posZ+player.getLookVec().z*f, this.light_lifetime, this.light_radius_start, this.light_radius_end, this.light_r, this.light_g, this.light_b);
@@ -504,7 +505,7 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 	}
 
 	@Override
-	public void shootGunPrimary(ItemStack stack, World world, EntityPlayer player, boolean zooming, EnumHand hand) {
+	public void shootGunPrimary(ItemStack stack, World world, EntityPlayer player, boolean zooming, EnumHand hand, Entity target) {
 	
     		int ammo = this.getCurrentAmmo(stack);
     	
@@ -544,7 +545,7 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 			        			firePos=EnumBulletFirePos.CENTER;
 			        		}
 			        	}
-			        	this.shootGun(world, player,stack, accuracybonus,1.0f,ATTACK_TYPE, hand,firePos);
+			        	this.shootGun(world, player,stack, accuracybonus,1.0f,ATTACK_TYPE, hand,firePos, target);
 			        	        	
 			        } else {
 			        	/*
@@ -710,7 +711,7 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 		return this.textures.get(0);
 	}
 
-	protected void shootGun(World world, EntityLivingBase player,ItemStack itemstack,float accuracybonus,float damagebonus, int attackType, EnumHand hand, EnumBulletFirePos firePos){
+	protected void shootGun(World world, EntityLivingBase player,ItemStack itemstack,float accuracybonus,float damagebonus, int attackType, EnumHand hand, EnumBulletFirePos firePos, Entity target){
 		
 		boolean leftGun = (hand == EnumHand.OFF_HAND) != (player.getPrimaryHand() == EnumHandSide.LEFT);
 		
@@ -721,7 +722,7 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 	    	TGPackets.network.sendToAllAround(new GunFiredMessage(player,msg_recoiltime,msg_muzzleflashtime,attackType,checkRecoil,leftGun), TGPackets.targetPointAroundEnt(player, 100.0f));
 		}
     	//
-		spawnProjectile(world, player,itemstack, accuracy*accuracybonus, projectileForwardOffset,damagebonus, firePos);
+		spawnProjectile(world, player,itemstack, accuracy*accuracybonus, projectileForwardOffset,damagebonus, firePos, target);
 		
         if (shotgun){
         	float offset=0;
@@ -730,7 +731,7 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
         	}
         	
         	for (int i=0; i<bulletcount; i++) {
-        		spawnProjectile(world, player,itemstack, spread*accuracybonus,projectileForwardOffset+offset*(i+1.0f),damagebonus, firePos);
+        		spawnProjectile(world, player,itemstack, spread*accuracybonus,projectileForwardOffset+offset*(i+1.0f),damagebonus, firePos, target);
         	}
         }		
 	}
@@ -1352,7 +1353,7 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
     	//}
     	
     	if (!shooter.world.isRemote){
-    		this.shootGun(shooter.world, shooter, shooter.getHeldItemMainhand(), this.zoombonus*accscale,dmgscale,0, EnumHand.MAIN_HAND, firePos);
+    		this.shootGun(shooter.world, shooter, shooter.getHeldItemMainhand(), this.zoombonus*accscale,dmgscale,0, EnumHand.MAIN_HAND, firePos, null);
     	}
 
     }

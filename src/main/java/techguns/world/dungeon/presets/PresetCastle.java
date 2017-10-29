@@ -3,9 +3,10 @@ package techguns.world.dungeon.presets;
 import java.util.ArrayList;
 import java.util.Random;
 
-import techguns.world.dungeon.DungeonPath;
+import techguns.world.dungeon.MazeDungeonPath;
 import techguns.world.dungeon.DungeonSegment;
 import techguns.world.dungeon.DungeonTemplate;
+import techguns.world.dungeon.IDungeonPath;
 import techguns.world.dungeon.TemplateSegment.SegmentType;
 
 public class PresetCastle implements IDungeonPreset{
@@ -77,7 +78,8 @@ public class PresetCastle implements IDungeonPreset{
 	}
 
 	@Override
-	public void initDungeonPath(DungeonPath path) {
+	public void initDungeonPath(IDungeonPath d_path) {
+		MazeDungeonPath path = (MazeDungeonPath) d_path;
 		path.startHeightLevel = 1;
 		path.chanceStraight = 0.7f; //next segment will go forward; -> inverse chance to left/right
 		path.chanceRamp = 0.4f; //when straight, roll again for a ramp

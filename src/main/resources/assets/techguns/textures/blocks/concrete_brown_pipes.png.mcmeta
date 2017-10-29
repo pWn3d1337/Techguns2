@@ -1,0 +1,11 @@
+{
+  "ctm": {
+    "ctm_version": 1,
+    "type": "ctm",
+    "layer": "SOLID",
+    "textures": ["techguns:blocks/concrete_brown_pipes-ctm"],
+    "extra": {
+      "light": 0
+    }
+  }
+}

@@ -158,7 +158,17 @@ public class TGEventHandler {
 						}
 		
 					}
-
+					
+				//Lock On Weapon
+				}else if (event.getButton() == 1 && ply.getHeldItemMainhand().getItem() instanceof GenericGunCharge && ((GenericGunCharge)ply.getHeldItemMainhand().getItem()).getLockOnTicks() > 0) {
+					//System.out.println("Start/Stop LockOn: RMB = "+event.isButtonstate());
+					ClientProxy cp = ClientProxy.get();
+					cp.keyFirePressedOffhand = event.isButtonstate();
+					
+					TGExtendedPlayer props = TGExtendedPlayer.get(ply);
+					props.lockOnEntity = null;
+					props.lockOnTicks = -1;
+					System.out.println("reset lock.");
 				}
 				
 				//System.out.println("EVENT CANCELLED: "+event.isCanceled());
