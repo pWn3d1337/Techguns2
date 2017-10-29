@@ -7,6 +7,7 @@ import java.util.List;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockPos.MutableBlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import techguns.util.BlockUtils;
@@ -30,6 +31,10 @@ public class Structure implements Serializable{
 		this.sizeZ = sizeZ;
 	}
 
+	public static Structure scanBlocks(World world, BlockPos xyz, int sizeX, int sizeY, int sizeZ) {
+		return scanBlocks(world, xyz.getX(), xyz.getY(), xyz.getZ(), sizeX, sizeY, sizeZ);
+	}
+	
 	public static Structure scanBlocks(World world, int x, int y, int z, int sizeX, int sizeY, int sizeZ) {
 		Structure structure = new Structure(sizeX, sizeY, sizeZ);
 		
@@ -59,21 +64,23 @@ public class Structure implements Serializable{
 		//BlockPos axis = new BlockPos(x+sizeX*0.5, y, z+sizeZ*0.5); //TODO
 		Vec3d axis = new Vec3d(x+sizeX*0.5, y, z+sizeZ*0.5);
 		
+		MutableBlockPos mpos = new MutableBlockPos();
 		for (int i = BlockData.MIN_LAYER; i <= BlockData.MAX_LAYER; i++) {
 		
 			List<BlockEntry> blockList = blockEntries.get(i);
 			if (blockList != null) {
 				for (BlockEntry b : blockList) {
 					MBlock mb = blocks.get(b.blockIndex);
-					BlockPos pos = new BlockPos(x+b.x, y+b.y, z+b.z);
-					pos = BlockUtils.rotateAroundY(pos, axis, rotation);
+					//BlockPos pos = new BlockPos(x+b.x, y+b.y, z+b.z);
+					mpos.setPos(x+b.x, y+b.y, z+b.z);
+					BlockUtils.rotateAroundY(mpos, axis, rotation);
 					
 					IBlockState state = mb.block.getStateFromMeta(mb.meta);
 					
 					
 					state = BlockRotator.getRotatedHorizontal(state, rotation);
 					
-					world.setBlockState(pos, state, 2);
+					world.setBlockState(mpos, state, 2);
 
 					
 					//AxisAlignedBB aabb = new AxisAlignedBB(pos1, axis);
