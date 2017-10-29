@@ -23,6 +23,7 @@ import techguns.items.GenericItem;
 import techguns.items.GenericItemShared;
 import techguns.items.ItemTGDoor2x1;
 import techguns.items.ItemTGDoor3x3;
+import techguns.items.WorldGenTestTool;
 import techguns.items.additionalslots.ItemAntiGravPack;
 import techguns.items.additionalslots.ItemGasMask;
 import techguns.items.additionalslots.ItemGlider;
@@ -239,6 +240,8 @@ public class TGItems implements ITGInitializer{
 	public static Item COMBAT_KNIFE;
 	public static Item CROWBAR;
 	
+	public static Item WORLDGEN_TEST_TOOL;
+	
 	public static ItemTGDoor2x1 BUNKER_DOOR;
 	
 	//TOOL Materials
@@ -429,6 +432,7 @@ public class TGItems implements ITGInitializer{
 		
 		COMBAT_KNIFE = new TGSword(TG_STEEL, "combatknife");
 		CROWBAR = new TGCrowbar(TG_STEEL, "crowbar");
+		WORLDGEN_TEST_TOOL = new WorldGenTestTool("worldgentesttool");
 		
 		BUNKER_DOOR = new ItemTGDoor2x1("item_bunkerdoor");
 		
