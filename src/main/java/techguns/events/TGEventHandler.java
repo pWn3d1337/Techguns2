@@ -3,6 +3,7 @@ package techguns.events;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
+import java.util.Random;
 
 import elucent.albedo.event.GatherLightsEvent;
 import net.minecraft.block.Block;
@@ -28,6 +29,10 @@ import net.minecraft.util.EnumHandSide;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.RayTraceResult.Type;
+import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
+import net.minecraft.world.storage.loot.LootContext;
+import net.minecraft.world.storage.loot.LootTable;
 import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.client.event.DrawBlockHighlightEvent;
 import net.minecraftforge.client.event.FOVUpdateEvent;
@@ -58,6 +63,7 @@ import net.minecraftforge.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import techguns.TGBlocks;
 import techguns.TGConfig;
 import techguns.TGPackets;
 import techguns.Techguns;
@@ -235,7 +241,7 @@ public class TGEventHandler {
 	
 	
 	@SideOnly(Side.CLIENT)
-	@SubscribeEvent
+	@SubscribeEvent(priority=EventPriority.LOW) //set to low so other mods don't accidentally destroy it easily
 	public static void handleFovEvent(FOVUpdateEvent event){
 
 		float f = 1.0f;
@@ -683,6 +689,25 @@ public class TGEventHandler {
 			}
 		}
 		
+	}
+	
+	@SubscribeEvent(priority=EventPriority.HIGH) //run before regular drop events
+	public static void MilitaryCrateDrops(HarvestDropsEvent event) {
+		IBlockState state = event.getState();
+		if(state.getBlock()==TGBlocks.MILITARY_CRATE && !event.isSilkTouching() && !event.getHarvester().world.isRemote) {
+			BlockPos pos = event.getPos();
+			EntityPlayer ply = event.getHarvester();
+			int fortune = event.getFortuneLevel();
+					
+			LootTable loottable = ply.world.getLootTableManager().getLootTableFromLocation(TGBlocks.MILITARY_CRATE.getLootableForState(state));
+			LootContext lootcontext = new LootContext.Builder((WorldServer) ply.world).withLuck(fortune).withPlayer(ply).build();
+			
+			event.getDrops().clear();
+			for (ItemStack itemstack : loottable.generateLootForPools(ply.world.rand, lootcontext))
+            {
+				event.getDrops().add(itemstack);
+            }
+		}
 	}
 	
 	/*@SubscribeEvent

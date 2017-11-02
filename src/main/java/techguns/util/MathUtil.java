@@ -234,4 +234,15 @@ public class MathUtil {
 	public static boolean inRange(int val, int min, int max) {
 		return val>=min && val <=max;
 	}
+	
+    /**
+     * Absolute value of integer
+     * @param i
+     */
+    public static int abs(int i){
+    	if(i<0){
+    		return -i;
+    	}
+    	return i;
+    }
 }

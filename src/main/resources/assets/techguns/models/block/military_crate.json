@@ -1,0 +1,30 @@
+{
+	"parent": "block/block",
+	"elements": [
+		{
+			"name": "crate",
+			"from": [1, 0, 1],
+			"to": [15, 11, 15],
+			"faces": {
+				"north": {"uv": [1, 5, 15, 16], "texture": "#side"},
+				"east": {"uv": [1, 5, 15, 16], "texture": "#side"},
+				"south": {"uv": [1, 5, 15, 16], "texture": "#side"},
+				"west": {"uv": [1, 5, 15, 16], "texture": "#side"},
+				"down": {"uv": [1, 1, 15, 15], "texture": "#bottom"}
+			}
+		},
+		{
+			"name": "top",
+			"from": [0.5, 11, 0.5],
+			"to": [15.5, 16, 15.5],
+			"faces": {
+				"north": {"uv": [0, 0, 15, 5], "texture": "#top"},
+				"east": {"uv": [0, 0, 15, 5], "texture": "#top"},
+				"south": {"uv": [0, 0, 15, 5], "texture": "#top"},
+				"west": {"uv": [0, 0, 15, 5], "texture": "#top"},
+				"up": {"uv": [0, 0, 15, 15], "texture": "#top"},
+				"down": {"uv": [0, 0, 15, 15], "texture": "#top"}
+			}
+		}
+	]
+}

@@ -6,6 +6,7 @@ import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ITickable;
@@ -17,6 +18,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import techguns.Techguns;
+import techguns.entities.npcs.ArmySoldier;
+import techguns.entities.npcs.ZombieSoldier;
 import techguns.tileentities.TGSpawnerTileEnt;
 
 public class BlockTGSpawner extends GenericBlockMetaEnum<EnumMonsterSpawnerType> {
@@ -74,6 +77,27 @@ public class BlockTGSpawner extends GenericBlockMetaEnum<EnumMonsterSpawnerType>
 	@Override
 	public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state,
 			int fortune) {
+	}
+
+	@Override
+	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer,
+			ItemStack stack) {
+		TileEntity tile = worldIn.getTileEntity(pos);
+		if(tile!=null && tile instanceof TGSpawnerTileEnt) {
+			TGSpawnerTileEnt spawner = (TGSpawnerTileEnt) tile;
+			
+			switch(state.getValue(TYPE)) {
+			case HOLE:
+				spawner.addMobType(ZombieSoldier.class, 1);
+				break;
+			case SOLDIER_SPAWN:
+				spawner.addMobType(ArmySoldier.class, 1);
+				break;
+			default:
+				break;
+			
+			}
+		}
 	}
 
 	

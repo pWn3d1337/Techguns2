@@ -339,7 +339,7 @@ public class ReactionChamberTileEntMaster extends MultiBlockMachineTileEntMaster
 		}
 		
 		if(this.getCurrentReaction().getRecipe().liquidConsumtion>0){
-			this.inputTank.drain(this.getCurrentReaction().getRecipe().liquidConsumtion, true);
+			((ReactionChamberFluidTank)this.inputTank).removeInternal(this.getCurrentReaction().getRecipe().liquidConsumtion);
 		}
 		
 	}
@@ -634,6 +634,19 @@ public class ReactionChamberTileEntMaster extends MultiBlockMachineTileEntMaster
 		            FluidEvent.fireEvent(new FluidEvent.FluidFillingEvent(fluid, tile.getWorld(), tile.getPos(), this, filled));
 		        }
 		        return filled;
+		}
+		
+		/**
+		 * remove passed amount from the tank
+		 * @param amount
+		 */
+		void removeInternal(int amount) {
+			if(fluid!=null) {
+				fluid.amount-=amount;
+				if(fluid.amount<=0) {
+					fluid=null;
+				}
+			}
 		}
 		
 		@Override

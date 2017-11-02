@@ -1,0 +1,82 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"model": "techguns:military_crate"
+	},
+    "variants": {
+		"type": {
+			"ammo":{
+				"textures": {
+					"top": "techguns:blocks/crate_top_dark",
+					"side": "techguns:blocks/military_crate_side",
+					"bottom": "techguns:blocks/military_crate_bottom",
+					"particle": "techguns:blocks/military_crate_bottom"
+				}
+			},
+			"gun":{
+				"textures": {
+					"top": "techguns:blocks/crate_top_dark",
+					"side": "techguns:blocks/military_crate_gun",
+					"bottom": "techguns:blocks/military_crate_bottom",
+					"particle": "techguns:blocks/military_crate_bottom"
+				}
+			},
+			"armor": {
+				"textures": {
+					"top": "techguns:blocks/crate_top",
+					"side": "techguns:blocks/armor_crate_side",
+					"bottom": "minecraft:blocks/planks_oak",
+					"particle": "minecraft:blocks/planks_oak"
+				}
+			},
+			"medical": {
+				"textures": {
+					"top": "techguns:blocks/crate_top_red",
+					"side": "techguns:blocks/medical_crate_side",
+					"bottom": "minecraft:blocks/planks_birch",
+					"particle": "minecraft:blocks/planks_birch"
+				}
+			},
+			"explosive": {
+				"textures": {
+					"top": "techguns:blocks/crate_top_red",
+					"side": "techguns:blocks/explosive_crate",
+					"bottom": "minecraft:blocks/planks_spruce",
+					"particle": "minecraft:blocks/planks_spruce"
+				}
+			},
+			"generic_oak": {
+				"textures": {
+					"top": "techguns:blocks/crate_top",
+					"side": "minecraft:blocks/planks_oak",
+					"bottom": "minecraft:blocks/planks_oak",
+					"particle": "minecraft:blocks/planks_oak"
+				}
+			},
+			"generic_jungle": {
+				"textures": {
+					"top": "techguns:blocks/crate_top_dark",
+					"side": "minecraft:blocks/planks_jungle",
+					"bottom": "minecraft:blocks/planks_jungle",
+					"particle": "minecraft:blocks/planks_jungle"
+				}
+			},
+			"generic_birch": {
+				"textures": {
+					"top": "techguns:blocks/crate_top_blue",
+					"side": "minecraft:blocks/planks_birch",
+					"bottom": "minecraft:blocks/planks_birch",
+					"particle": "minecraft:blocks/planks_birch"
+				}
+			},
+			"generic_spruce": {
+				"textures": {
+					"top": "techguns:blocks/crate_top_red",
+					"side": "minecraft:blocks/planks_spruce",
+					"bottom": "minecraft:blocks/planks_spruce",
+					"particle": "minecraft:blocks/planks_spruce"
+				}
+			}
+		}
+	}
+}

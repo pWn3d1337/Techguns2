@@ -1,5 +1,7 @@
 package techguns.items;
 
+import java.util.Random;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -10,13 +12,24 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
+import techguns.util.BlockUtils;
+import techguns.world.structures.Barracks;
+import techguns.world.structures.Bunker;
+import techguns.world.structures.Helipad;
+import techguns.world.structures.MilitaryCamp;
+import techguns.world.structures.Tanks;
+import techguns.world.structures.WorldgenStructure.BiomeColorType;
 
 public class WorldGenTestTool extends GenericItem{
 
-	static String[] modes = new String[]{"Structure", "Dungeon", "Smooth", "Flatten", "Remove Junk",/* "Sphere", "Cylinder"*/};
+	static String[] modes = new String[]{"MilitaryBase", "Barracks", "Smooth", "Flatten", "Remove Junk",/* "Sphere", "Cylinder"*/};
 	
-	public WorldGenTestTool(String name, boolean b) {
-		super(name, true);
+	public WorldGenTestTool(String name) {
+		this(name,true);
+	}
+	
+	public WorldGenTestTool(String name, boolean addItemToList) {
+		super(name, addItemToList);
 	}
 
 	@Override
@@ -94,13 +107,29 @@ public class WorldGenTestTool extends GenericItem{
 	
 	private void doOperation(World world, int x, int y, int z, int sizeX, int sizeY, int sizeZ, int mode) {
 		
+		Random rnd = new Random();
 		switch (mode) {
 		case 0: //structure
-			
+			MilitaryCamp camp = new MilitaryCamp(3,rnd);
+		    camp.init(x, y, z, sizeX, sizeZ);
+		    camp.setBlocks(world, rnd);
 			break;
 		case 1: //dungeon
-			
+			Helipad b = new Helipad(7,7,7,10,-1,10);
+			//Tanks b = new Tanks(4,5,4,10,-1,10);
+			//Barracks b = new Barracks(7,7,7,-1,-1,-1);
+			//Bunker b = new Bunker(3,3,5,15,3,15, rnd.nextInt(4));
+			b.setBlocks(world, x, y, z, sizeX, 8, sizeZ, rnd.nextInt(4), BiomeColorType.WOODLAND, rnd);
 			break;
+		case 2: //Smooth
+			BlockUtils.apply2DHeightmapFilter(world, x, z, sizeX, sizeZ, BlockUtils.FILTER_GAUSSIAN_5x5);
+			break;
+		case 3: //Flatten
+			BlockUtils.flattenArea(world, x, z, sizeX, sizeZ, 2);
+			break;
+		case 4: //remove junk
+			BlockUtils.removeJunkInArea(world, x, z, sizeX, sizeZ);
+			break;	
 		}
 
 	}

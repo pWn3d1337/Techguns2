@@ -42,11 +42,11 @@ public class TGItems implements ITGInitializer{
 	/**
 	 * TODO DISABLE THIS BEFORE RELEASE
 	 */
-	public static boolean WRITE_ITEM_JSON = false;
+	public static boolean WRITE_ITEM_JSON = true;
 	/**
 	 * TODO DISABLE THIS BEFORE RELEASE
 	 */
-	public static boolean WRITE_RECIPES = false;
+	public static boolean WRITE_RECIPES = true;
 	
 	
 	public static final ArrayList<GenericItem> ITEMLIST = new ArrayList<>();

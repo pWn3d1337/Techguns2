@@ -1,0 +1,60 @@
+{
+    "pools": [
+        {
+			"name": "gun",
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "item",
+                    "weight": 1,
+                    "name": "techguns:revolver"
+                },
+				{
+                    "type": "item",
+                    "weight": 1,
+                    "name": "techguns:thompson"
+                },
+				{
+                    "type": "item",
+                    "weight": 1,
+                    "name": "techguns:ak47"
+                },
+				{
+                    "type": "item",
+                    "weight": 1,
+                    "name": "techguns:boltaction"
+                },
+				{
+                    "type": "item",
+                    "weight": 1,
+                    "name": "techguns:m4"
+                },
+				{
+                    "type": "item",
+                    "weight": 1,
+                    "name": "techguns:pistol"
+                },
+				{
+                    "type": "item",
+                    "weight": 1,
+                    "name": "techguns:combatshotgun"
+                },
+				{
+                    "type": "item",
+                    "weight": 1,
+                    "name": "techguns:mac10"
+                },
+				{
+                    "type": "item",
+                    "weight": 1,
+                    "name": "techguns:aug"
+                },
+				{
+                    "type": "item",
+                    "weight": 1,
+                    "name": "techguns:flamethrower"
+                }
+            ]
+        }
+    ]
+}

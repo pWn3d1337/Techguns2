@@ -1,5 +1,5 @@
 {
-	"credit": "Made with Blockbench, a free, modern block model editor by JannisX11",
+	"parent": "block/thin_block",
 	"textures": {
 		"0": "techguns:blocks/hole",
 		"particle": "techguns:blocks/hole"

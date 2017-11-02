@@ -47,6 +47,7 @@ public class Techguns
     
     //Mod integration
     public boolean FTBLIB_ENABLED=false;
+    public boolean CHISEL_ENABLED=false;
     
     protected ITGInitializer[] initializers = {
     	items,
@@ -94,6 +95,9 @@ public class Techguns
     	
     	if(Loader.isModLoaded("ftbl")) {
     		FTBLIB_ENABLED=true;
+    	}
+    	if(Loader.isModLoaded("chisel")) {
+    		CHISEL_ENABLED=true;
     	}
     }
     

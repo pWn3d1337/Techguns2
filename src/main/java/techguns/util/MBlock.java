@@ -15,17 +15,24 @@ public class MBlock implements Serializable {
 	
 	public transient Block block;
 	public int meta;
+	protected IBlockState state;
 
 	public MBlock(IBlockState state) {
 		this.block = state.getBlock();
 		this.meta = block.getMetaFromState(state);
+		this.state=state;
 	}
 
 	public MBlock(Block block, int meta) {
 		this.block = block;
 		this.meta = meta;
+		this.state = block.getStateFromMeta(meta);
 	}
 
+	public IBlockState getState() {
+		return state;
+	}
+	
 	@Override
 	public boolean equals(Object other) {
 		return (other instanceof MBlock) && ((MBlock) other).block == this.block && ((MBlock) other).meta == this.meta;

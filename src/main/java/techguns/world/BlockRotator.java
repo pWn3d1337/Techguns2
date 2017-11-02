@@ -42,6 +42,20 @@ public class BlockRotator {
 		return state;
 	}
 	
+	public static IBlockState getWithFacing(IBlockState state, EnumFacing target) {
+		if(state.getProperties().containsKey(BlockHorizontal.FACING)) {
+			return state.withProperty(BlockHorizontal.FACING, target);
+			
+		} else if (state.getProperties().containsKey(BlockDirectional.FACING)) {
+			return state.withProperty(BlockDirectional.FACING, target);
+			
+		} else if (state.getProperties().containsKey(BlockTorch.FACING)) {
+			return state.withProperty(BlockTorch.FACING, target);
+		} 
+		
+		return state;
+	}
+	
 	protected static IBlockState getRotatedWithProperty(IBlockState state, int times, PropertyDirection property) {
 		EnumFacing facing = state.getValue(property);
 		if (!(facing == EnumFacing.UP || facing == EnumFacing.DOWN)) {

@@ -15,6 +15,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
 import techguns.blocks.BlockBioblob;
+import techguns.blocks.BlockMilitaryCrate;
 import techguns.blocks.BlockSandbags;
 import techguns.blocks.BlockTGCamoNet;
 import techguns.blocks.BlockTGCamoNetTop;
@@ -30,6 +31,7 @@ import techguns.blocks.EnumConcreteType;
 import techguns.blocks.EnumDoorType;
 import techguns.blocks.EnumLadderType;
 import techguns.blocks.EnumLampType;
+import techguns.blocks.EnumLightblockType;
 import techguns.blocks.EnumOreType;
 import techguns.blocks.GenericBlockMetaEnum;
 import techguns.blocks.GenericBlockMetaEnumCamoChangeable;
@@ -79,6 +81,10 @@ public class TGBlocks implements ITGInitializer{
 	
 	public static BlockTGSpawner MONSTER_SPAWNER;
 	
+	public static GenericBlockMetaEnumCamoChangeable<EnumLightblockType> NEONLIGHT_BLOCK;
+	
+	public static BlockMilitaryCrate MILITARY_CRATE;
+	
 	public void registerBlocks(RegistryEvent.Register<Block> event) {
 		BLOCKLIST.forEach(b -> b.registerBlock(event));
 	}
@@ -112,6 +118,10 @@ public class TGBlocks implements ITGInitializer{
 		METAL_STAIRS = new BlockTGStairs("stairs_metal", Material.IRON);
 		
 		MONSTER_SPAWNER = new BlockTGSpawner("tg_spawner");
+		
+		NEONLIGHT_BLOCK = (GenericBlockMetaEnumCamoChangeable<EnumLightblockType>) new GenericBlockMetaEnumCamoChangeable<EnumLightblockType>("neonlights", Material.GLASS, EnumLightblockType.class).setLightLevel(2f).setHardness(3.0f);
+		
+		MILITARY_CRATE = (BlockMilitaryCrate) new BlockMilitaryCrate("military_crate", Material.WOOD).setHardness(4.0f);
 		
 		if(TGItems.WRITE_ITEM_JSON && event.getSide()==Side.CLIENT){
 			BLOCKLIST.stream().filter(new Predicate<IGenericBlock>() {

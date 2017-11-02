@@ -38,7 +38,7 @@ public class TGSpawnerTileEnt extends BasicTGTileEntity implements ITickable {
 	
 	public TGSpawnerTileEnt() {
 		super(false);
-		this.addMobType(ZombieSoldier.class, 100);
+		//this.addMobType(ZombieSoldier.class, 100);
 	}
 	
 	public void addMobType(Class<? extends GenericNPC> clazz, int weight) {
@@ -100,12 +100,16 @@ public class TGSpawnerTileEnt extends BasicTGTileEntity implements ITickable {
 		super.readClientDataFromNBT(tags);
 	}
 
+	protected boolean hasMobTypes() {
+		return this.mobtypes.size()>0;
+	}
+	
 	@Override
 	public void update() {
 		if (this.world.isRemote) return;
 		this.delay--;
 		
-		if(this.delay<=0 && activeMobs.size() < Math.min(maxActive, mobsLeft) ) { 
+		if(this.delay<=0 && activeMobs.size() < Math.min(maxActive, mobsLeft) && this.hasMobTypes()) { 
 			
 		
 			WeightedSpawnerEntity entdata = WeightedRandom.<WeightedSpawnerEntity>getRandomItem(this.world.rand, this.mobtypes);

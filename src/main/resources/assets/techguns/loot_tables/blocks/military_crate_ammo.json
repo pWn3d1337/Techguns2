@@ -1,0 +1,280 @@
+{
+    "pools": [
+        {
+			"name": "ammo",
+            "rolls": 1,
+            "bonus_rolls": {
+                "min": 0,
+                "max": 1
+            },
+            "entries": [
+                {
+                    "type": "item",
+                    "weight": 2,
+					"entryName": "pistol_rounds",
+                    "name": "techguns:itemshared",
+                    "functions": [
+                        {
+                            "function": "set_data",
+                            "data": 1
+                        },
+                        {
+                            "function": "set_count",
+                            "count": {
+                                "min": 1,
+                                "max": 4
+                            }
+                        }
+                    ]
+                },
+				{
+                    "type": "item",
+                    "weight": 2,
+					"entryName": "shotgun_rounds",
+                    "name": "techguns:itemshared",
+                    "functions": [
+                        {
+                            "function": "set_data",
+                            "data": 2
+                        },
+                        {
+                            "function": "set_count",
+                            "count": {
+                                "min": 4,
+                                "max": 8
+                            }
+                        }
+                    ]
+                },
+				{
+                    "type": "item",
+                    "weight": 2,
+					"entryName": "rifle_rounds",
+                    "name": "techguns:itemshared",
+                    "functions": [
+                        {
+                            "function": "set_data",
+                            "data": 3
+                        },
+                        {
+                            "function": "set_count",
+                            "count": {
+                                "min": 1,
+                                "max": 2
+                            }
+                        }
+                    ]
+                },
+				{
+                    "type": "item",
+                    "weight": 1,
+					"entryName": "sniper_rounds",
+                    "name": "techguns:itemshared",
+                    "functions": [
+                        {
+                            "function": "set_data",
+                            "data": 4
+                        },
+                        {
+                            "function": "set_count",
+                            "count": {
+                                "min": 1,
+                                "max": 2
+                            }
+                        }
+                    ]
+                },
+				{
+                    "type": "item",
+                    "weight": 2,
+					"entryName": "smg_magazine",
+                    "name": "techguns:itemshared",
+                    "functions": [
+                        {
+                            "function": "set_data",
+                            "data": 9
+                        },
+                        {
+                            "function": "set_count",
+                            "count": {
+                                "min": 1,
+                                "max": 2
+                            }
+                        }
+                    ]
+                },
+				{
+                    "type": "item",
+                    "weight": 1,
+					"entryName": "pistol_magazine",
+                    "name": "techguns:itemshared",
+                    "functions": [
+                        {
+                            "function": "set_data",
+                            "data": 11
+                        },
+                        {
+                            "function": "set_count",
+                            "count": {
+                                "min": 1,
+                                "max": 2
+                            }
+                        }
+                    ]
+                },
+				{
+                    "type": "item",
+                    "weight": 2,
+					"entryName": "ar_magazine",
+                    "name": "techguns:itemshared",
+                    "functions": [
+                        {
+                            "function": "set_data",
+                            "data": 13
+                        },
+                        {
+                            "function": "set_count",
+                            "count": {
+                                "min": 1,
+                                "max": 3
+                            }
+                        }
+                    ]
+                },
+				{
+                    "type": "item",
+                    "weight": 1,
+					"entryName": "pistol_rounds_inc",
+                    "name": "techguns:itemshared",
+                    "functions": [
+                        {
+                            "function": "set_data",
+                            "data": 109
+                        },
+                        {
+                            "function": "set_count",
+                            "count": {
+                                "min": 1,
+                                "max": 2
+                            }
+                        }
+                    ]
+                },
+				{
+                    "type": "item",
+                    "weight": 1,
+					"entryName": "shotgun_rounds_inc",
+                    "name": "techguns:itemshared",
+                    "functions": [
+                        {
+                            "function": "set_data",
+                            "data": 106
+                        },
+                        {
+                            "function": "set_count",
+                            "count": {
+                                "min": 3,
+                                "max": 6
+                            }
+                        }
+                    ]
+                },
+				{
+                    "type": "item",
+                    "weight": 1,
+					"entryName": "rifle_rounds_inc",
+                    "name": "techguns:itemshared",
+                    "functions": [
+                        {
+                            "function": "set_data",
+                            "data": 110
+                        },
+                        {
+                            "function": "set_count",
+                            "count": {
+                                "min": 1,
+                                "max": 2
+                            }
+                        }
+                    ]
+                },
+				{
+                    "type": "item",
+                    "weight": 1,
+					"entryName": "sniper_rounds_inc",
+                    "name": "techguns:itemshared",
+                    "functions": [
+                        {
+                            "function": "set_data",
+                            "data": 108
+                        },
+                        {
+                            "function": "set_count",
+                            "count": {
+                                "min": 1,
+                                "max": 1
+                            }
+                        }
+                    ]
+                },
+				{
+                    "type": "item",
+                    "weight": 1,
+					"entryName": "smg_magazine_inc",
+                    "name": "techguns:itemshared",
+                    "functions": [
+                        {
+                            "function": "set_data",
+                            "data": 112
+                        },
+                        {
+                            "function": "set_count",
+                            "count": {
+                                "min": 1,
+                                "max": 2
+                            }
+                        }
+                    ]
+                },
+				{
+                    "type": "item",
+                    "weight": 1,
+					"entryName": "pistol_magazine_inc",
+                    "name": "techguns:itemshared",
+                    "functions": [
+                        {
+                            "function": "set_data",
+                            "data": 113
+                        },
+                        {
+                            "function": "set_count",
+                            "count": {
+                                "min": 1,
+                                "max": 2
+                            }
+                        }
+                    ]
+                },
+				{
+                    "type": "item",
+                    "weight": 1,
+					"entryName": "ar_magazine_inc",
+                    "name": "techguns:itemshared",
+                    "functions": [
+                        {
+                            "function": "set_data",
+                            "data": 115
+                        },
+                        {
+                            "function": "set_count",
+                            "count": {
+                                "min": 1,
+                                "max": 2
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
