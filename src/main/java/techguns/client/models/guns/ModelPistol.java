@@ -82,7 +82,7 @@ public class ModelPistol extends ModelMultipart {
   
   @Override
   public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale, int ammoLeft, float reloadProgress,
-  		TransformType transformType, int part, float fireProgress) {
+  		TransformType transformType, int part, float fireProgress, float chargeProgress) {
 	    if(part==0){
 		    Top.render(scale);
 		    Grip3.render(scale);

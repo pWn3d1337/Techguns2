@@ -313,7 +313,7 @@ public class ModelM4 extends ModelMultipart {
 	@Override
 	public void render(Entity entity, float f, float f1, float f2, float f3,
 			float f4, float f5, int ammoLeft, float reloadProgress, TransformType transformType, int part,
-			float fireProgress) {
+			float fireProgress, float chargeProgress) {
     //super.render(entity, f, f1, f2, f3, f4, f5);
     setRotationAngles(f, f1, f2, f3, f4, f5, entity);
     Grip1.render(f5);

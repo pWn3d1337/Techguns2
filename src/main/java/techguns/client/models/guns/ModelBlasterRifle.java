@@ -119,7 +119,7 @@ public class ModelBlasterRifle extends ModelMultipart {
 
 	@Override
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale, int ammoLeft,
-			float reloadProgress, TransformType transformType, int part, float fireProgress) {
+			float reloadProgress, TransformType transformType, int part, float fireProgress, float chargeProgress) {
 
         this.Magazine.render(scale);
         this.Receiver01_1.render(scale);

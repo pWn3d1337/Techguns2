@@ -185,7 +185,7 @@ public class ModelGoldenRevolver extends ModelMultipart {
 
 @Override
 public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale, int ammoLeft, float reloadProgress,
-		TransformType transformType, int part, float fireProgress) {
+		TransformType transformType, int part, float fireProgress, float chargeProgress) {
 
 		 Shape1.render(scale);
 	    Shape2.render(scale);

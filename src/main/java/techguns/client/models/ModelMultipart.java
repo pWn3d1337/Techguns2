@@ -9,11 +9,11 @@ public abstract class ModelMultipart extends ModelBase {
 
 	@Override
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-		render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, 100, -1.0f, ItemCameraTransforms.TransformType.GROUND, 0, 0.0f);
+		render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, 100, -1.0f, ItemCameraTransforms.TransformType.GROUND, 0, 0.0f, 0f);
 	}
 
 	public abstract void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale, int ammoLeft,
-			float reloadProgress, ItemCameraTransforms.TransformType transformType, int part, float fireProgress);
+			float reloadProgress, ItemCameraTransforms.TransformType transformType, int part, float fireProgress, float chargeProgress);
 
 	/*
 	 * public void setRotationAngles(float f, float f1, float f2, float f3,

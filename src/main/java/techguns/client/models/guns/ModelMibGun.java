@@ -245,7 +245,7 @@ public class ModelMibGun extends ModelMultipart{
 
 		@Override
 		public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale, int ammoLeft,
-				float reloadProgress, TransformType transformType, int part, float fireProgress) {
+				float reloadProgress, TransformType transformType, int part, float fireProgress, float chargeProgress) {
 		   this.barrel9.render(scale);
 	        this.tip4.render(scale);
 	        this.bottomtilt.render(scale);

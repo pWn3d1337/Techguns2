@@ -300,7 +300,7 @@ public class RenderGunBase extends RenderItemBase {
 			for (int i = 0; i < parts; i++) {
 				this.bindTextureForPart(gun, i, stack);
 				this.setGLColorForPart(gun, i, stack);
-				model.render(entityIn, 0, 0, 0, 0, 0, SCALE, gun.getAmmoLeft(stack), reloadProgress, transform, i, fireProgress);
+				model.render(entityIn, 0, 0, 0, 0, 0, SCALE, gun.getAmmoLeft(stack), reloadProgress, transform, i, fireProgress, chargeProgress);
 				GlStateManager.color(1f, 1f, 1f, 1f);
 			}
 			

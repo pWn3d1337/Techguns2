@@ -62,14 +62,14 @@ public class RenderNPCTurret extends RenderLiving<NPCTurret>{
 	        GlStateManager.rotate(turret.rotationYawHead*mirrorYaw+yawOffset,0,1f,0);
 	        
 	        //this.rotatetoBase(turret);
-	        model.render(turret, 0, 0, 0, 0, 0, 0.0625F, 0, 0.0f, TransformType.FIXED, 0, 0.0f);
+	        model.render(turret, 0, 0, 0, 0, 0, 0.0625F, 0, 0.0f, TransformType.FIXED, 0, 0.0f, 0f);
 	        
 	        float rotoffset=0.9f;
 
 	        GlStateManager.translate(0, rotoffset, 0);
 	        GlStateManager.rotate(turret.rotationPitch*mirrorPitch, 1f, 0, 0);
 	        GlStateManager.translate(0, -rotoffset, 0);
-	        model.render(turret, 0, 0, 0, 0, 0, 0.0625F, 0, 0.0f, TransformType.FIXED, 1, 0.0f);
+	        model.render(turret, 0, 0, 0, 0, 0, 0.0625F, 0, 0.0f, TransformType.FIXED, 1, 0.0f, 0f);
 	        
 	        this.renderEquippedItems(turret);
 

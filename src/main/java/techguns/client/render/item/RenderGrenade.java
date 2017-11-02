@@ -73,7 +73,7 @@ public class RenderGrenade extends RenderItemBase {
 			this.applyBaseTranslation();
 			
 			for (int i = 0; i < parts; i++) {
-				model.render(elb, 0, 0, 0, 0, 0, SCALE, 0, 0, transform, i, chargeProgress);
+				model.render(elb, 0, 0, 0, 0, 0, SCALE, 0, 0, transform, i, chargeProgress, chargeProgress);
 			}
 
 			GlStateManager.popMatrix();

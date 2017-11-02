@@ -181,7 +181,7 @@ public class ModelMiningDrill extends ModelMultipart {
 	@Override
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw,
 			float headPitch, float scale, int ammoLeft, float reloadProgress, TransformType transformType, int part,
-			float fireProgress) {
+			float fireProgress, float chargeProgress) {
 		if (part==0) {
 			this.Shape93.render(scale);
 			this.Shape136.render(scale);

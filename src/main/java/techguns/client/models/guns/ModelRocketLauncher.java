@@ -178,7 +178,7 @@ public class ModelRocketLauncher extends ModelMultipart {
 	
 	@Override
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale, int ammoLeft,
-			float reloadProgress, TransformType transformType, int part, float fireProgress) {
+			float reloadProgress, TransformType transformType, int part, float fireProgress, float chargeProgress) {
 		
 		if(part==0) {
 			Shape1.render(scale);
@@ -205,7 +205,7 @@ public class ModelRocketLauncher extends ModelMultipart {
 			Shape20.render(scale);
 		} else if(part==1) {
 			if ((reloadProgress ==0 && ammoLeft > 0) || (reloadProgress > 0.5f)) {
-				this.rocket.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, ammoLeft, reloadProgress, transformType, part, fireProgress);
+				this.rocket.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, ammoLeft, reloadProgress, transformType, part, fireProgress, chargeProgress);
 			}
 		}
 	}
@@ -272,7 +272,7 @@ public class ModelRocketLauncher extends ModelMultipart {
 		@Override
 		public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw,
 				float headPitch, float scale, int ammoLeft, float reloadProgress, TransformType transformType, int part,
-				float fireProgress) {
+				float fireProgress, float chargeProgress) {
 			R1.render(scale);
 			R7.render(scale);
 			R4.render(scale);

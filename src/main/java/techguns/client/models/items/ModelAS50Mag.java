@@ -59,7 +59,7 @@ public class ModelAS50Mag extends ModelMultipart {
 
 	@Override
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale, int ammoLeft,
-			float reloadProgress, TransformType transformType, int part, float fireProgress) {
+			float reloadProgress, TransformType transformType, int part, float fireProgress, float chargeProgress) {
 
 		Magazine01.render(scale);
 		Magazine03.render(scale);

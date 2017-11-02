@@ -195,7 +195,7 @@ public class RenderItemBase implements IItemRenderer {
 			this.applyBaseTranslation();
 			
 			for (int i = 0; i < parts; i++) {
-				model.render(elb, 0, 0, 0, 0, 0, SCALE, 0, 0, transform, i, 0);
+				model.render(elb, 0, 0, 0, 0, 0, SCALE, 0, 0, transform, i, 0, 0f);
 			}
 
 			GlStateManager.popMatrix();

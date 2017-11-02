@@ -356,7 +356,7 @@ public class ModelLMG extends ModelMultipart {
 	@Override
 	public void render(Entity entity, float f, float f1, float f2, float f3,
 			float f4, float f5, int ammoLeft, float reloadProgress, TransformType transformType, int part,
-			float fireProgress) {
+			float fireProgress, float chargeProgress) {
 		
    Grip1.render(f5);
    Trigger01.render(f5);

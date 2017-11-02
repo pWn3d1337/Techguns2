@@ -433,7 +433,7 @@ public class ModelGrimReaper extends ModelMultipart
   
   @Override
   public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale, int ammoLeft, float reloadProgress,
-  		TransformType transformType, int part, float fireProgress) {
+  		TransformType transformType, int part, float fireProgress, float chargeProgress) {
 	  GlStateManager.pushMatrix();
 	 GlStateManager.rotate(180.0f, 0, 1, 0);
     Shape1.render(scale);

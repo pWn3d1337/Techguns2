@@ -306,7 +306,7 @@ public class ModelPDW extends ModelMultipart
   @Override
   public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw,
   		float headPitch, float f5, int ammoLeft, float reloadProgress, TransformType transformType, int part,
-  		float fireProgress) {
+  		float fireProgress, float chargeProgress) {
 	  
     Shape1.render(f5);
     Shape2.render(f5);
