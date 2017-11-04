@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "techguns:t3_combat_chestplate"
+  },
+  "pattern": [
+    "p p",
+    "ppp",
+    "fpf"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "p": {
+      "item": "#PLATECARBON"
+    },
+    "f": {
+      "item": "#FIBERCARBON"
+    }
+  }
+}

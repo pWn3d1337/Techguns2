@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "techguns:steam_leggings"
+  },
+  "pattern": [
+    "sss",
+    "s s",
+    "s s"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "s": {
+      "item": "techguns:itemshared",
+      "data": 45
+    }
+  }
+}

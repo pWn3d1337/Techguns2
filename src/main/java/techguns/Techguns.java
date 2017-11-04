@@ -15,8 +15,10 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import techguns.gui.config.GuiFactoryTechguns;
 import techguns.init.ITGInitializer;
 import techguns.items.guns.ammo.AmmoTypes;
+import techguns.plugins.chisel.TGChiselBlocks;
 import techguns.plugins.crafttweaker.TGCraftTweakerIntegration;
 import techguns.world.OreGenerator;
+import techguns.world.WorldGenTGStructureSpawn;
 
 @Mod(modid = Techguns.MODID, version = Techguns.VERSION, name=Techguns.NAME, acceptedMinecraftVersions=Techguns.MCVERSION, guiFactory=Techguns.GUI_FACTORY, updateJSON=Techguns.UPDATEURL, dependencies=Techguns.DEPENDENCIES)
 public class Techguns
@@ -117,6 +119,10 @@ public class Techguns
     	if(TGConfig.doOreGenTitanium||TGConfig.doOreGenUranium||TGConfig.doOreGenLead||TGConfig.doOreGenTin||TGConfig.doOreGenCopper) {
     		GameRegistry.registerWorldGenerator(new OreGenerator(), 1);
     	}
+    	
+    	 if(TGConfig.doWorldspawn){
+         	GameRegistry.registerWorldGenerator(new WorldGenTGStructureSpawn(), 4);
+         }
     }
     
     @EventHandler
@@ -127,6 +133,10 @@ public class Techguns
     	}
     	proxy.postInit(event);
     	TGMachineRecipes.addRecipes();
+    	
+    	if(this.CHISEL_ENABLED) {
+    		TGChiselBlocks.postInit();
+    	}
     }
     
     

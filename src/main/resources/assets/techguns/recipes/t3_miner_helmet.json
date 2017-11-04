@@ -1,0 +1,24 @@
+{
+  "result": {
+    "item": "techguns:t3_miner_helmet"
+  },
+  "pattern": [
+    "pcp",
+    "lgl"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "p": {
+      "item": "#PLATECARBON"
+    },
+    "c": {
+      "item": "#CIRCUITELITE"
+    },
+    "g": {
+      "item": "#PANEGLASS"
+    },
+    "l": {
+      "item": "#PLATETITANIUM"
+    }
+  }
+}

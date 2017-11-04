@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "techguns:t1_miner_helmet"
+  },
+  "pattern": [
+    "iyi",
+    "c c"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "c": {
+      "item": "techguns:itemshared",
+      "data": 60
+    },
+    "i": {
+      "item": "#INGOTIRON"
+    },
+    "y": {
+      "item": "#DYEYELLOW"
+    }
+  }
+}

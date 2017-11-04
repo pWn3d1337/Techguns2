@@ -71,9 +71,23 @@
   },
   {
     "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "dyeYellow"
+    },
+    "name": "DYEYELLOW"
+  },
+  {
+    "ingredient": {
       "type": "electrumOrGold"
     },
     "name": "ELECTRUMORGOLD"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "fiberCarbon"
+    },
+    "name": "FIBERCARBON"
   },
   {
     "ingredient": {
@@ -143,6 +157,13 @@
       "ore": "ingotSteel"
     },
     "name": "INGOTSTEEL"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "ingotTitanium"
+    },
+    "name": "INGOTTITANIUM"
   },
   {
     "ingredient": {

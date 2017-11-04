@@ -15,16 +15,16 @@ import techguns.world.BlockRotator;
 
 public class Barracks extends WorldgenStructure {
 	
-	MBlock b_pillar = new MBlock(Blocks.LOG,0);//TGChiselBlocks.wood_pillar;
-	MBlock b_wall = new MBlock(Blocks.PLANKS,1);//TGChiselBlocks.wood_wall;
-	MBlock b_floor = new MBlock(Blocks.PLANKS,0);//TGChiselBlocks.wood_floor;
-	MBlock b_scaffold = new MBlock(Blocks.PLANKS,5);//TGChiselBlocks.wood_scaffold;
-	MBlock b_roof = new MBlock(Blocks.PLANKS,3); //TGChiselBlocks.wood_roof;
-	MBlock b_roofSlab = new MBlock(Blocks.WOODEN_SLAB,3); //TGChiselBlocks.wood_roofSlab;
-	MBlock b_stairs = new MBlock (Blocks.OAK_STAIRS, 0);
-	MBlock b_torch = new MBlock (TGBlocks.LAMP_0, 0);
-	MBlock b_ground = new MBlock (Blocks.GRAVEL, 0);
-	MBlock b_window = new MBlock (Blocks.GLASS_PANE, 0);
+	MBlock b_pillar = MBlockRegister.BARRACKS_WOOD_PILLAR; //TGChiselBlocks.wood_pillar;
+	MBlock b_wall = MBlockRegister.BARRACKS_WOOD_WALL; //TGChiselBlocks.wood_wall;
+	MBlock b_floor = MBlockRegister.BARRACKS_WOOD_FLOOR; //TGChiselBlocks.wood_floor;
+	MBlock b_scaffold = MBlockRegister.BARRACKS_WOOD_SCAFFOLD; //TGChiselBlocks.wood_scaffold;
+	MBlock b_roof = MBlockRegister.BARRACKS_WOOD_ROOF; //TGChiselBlocks.wood_roof;
+	MBlock b_roofSlab = MBlockRegister.BARRACKS_WOOD_ROOFSLAB; //TGChiselBlocks.wood_roofSlab;
+	MBlock b_stairs = MBlockRegister.WOOD_STAIRS_OAK;
+	MBlock b_torch = MBlockRegister.TGLAMP;
+	MBlock b_ground = MBlockRegister.GRAVEL;
+	MBlock b_window = MBlockRegister.GLASS_PANE;
 	
 	
 	public Barracks(int minX, int minY, int minZ, int maxX, int maxY, int maxZ) {

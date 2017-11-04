@@ -1,0 +1,26 @@
+{
+  "result": {
+    "item": "techguns:t3_exo_boots"
+  },
+  "ingredients": [
+    {
+      "item": "techguns:t3_combat_boots",
+      "data": 32767
+    },
+    {
+      "item": "techguns:itemshared",
+      "data": 59
+    },
+    {
+      "item": "#CIRCUITELITE"
+    },
+    {
+      "item": "techguns:itemshared",
+      "data": 70
+    },
+    {
+      "item": "#INGOTTITANIUM"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

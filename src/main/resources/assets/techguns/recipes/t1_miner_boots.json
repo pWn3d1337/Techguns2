@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "techguns:t1_miner_boots"
+  },
+  "pattern": [
+    "c c",
+    "i i"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "c": {
+      "item": "techguns:itemshared",
+      "data": 60
+    },
+    "i": {
+      "item": "#NUGGETIRON"
+    }
+  }
+}

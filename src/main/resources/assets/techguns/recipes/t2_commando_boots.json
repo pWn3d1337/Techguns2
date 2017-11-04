@@ -1,0 +1,18 @@
+{
+  "result": {
+    "item": "techguns:t2_commando_boots"
+  },
+  "pattern": [
+    "i i",
+    "h h"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "h": {
+      "item": "#ITEMRUBBER"
+    },
+    "i": {
+      "item": "#INGOTOBSIDIANSTEEL"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "techguns:t2_combat_helmet"
+  },
+  "pattern": [
+    "iii",
+    "h h"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "h": {
+      "item": "techguns:itemshared",
+      "data": 60
+    },
+    "i": {
+      "item": "#INGOTOBSIDIANSTEEL"
+    }
+  }
+}

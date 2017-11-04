@@ -1,0 +1,21 @@
+{
+  "result": {
+    "item": "techguns:t2_commando_helmet"
+  },
+  "pattern": [
+    "ihi",
+    "hgh"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "g": {
+      "item": "#PANEGLASS"
+    },
+    "h": {
+      "item": "#ITEMRUBBER"
+    },
+    "i": {
+      "item": "#INGOTOBSIDIANSTEEL"
+    }
+  }
+}

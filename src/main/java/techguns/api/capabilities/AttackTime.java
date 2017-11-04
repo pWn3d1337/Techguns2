@@ -9,6 +9,7 @@ public class AttackTime {
 	private long recoilTime=0;
 	private int recoilTimeTotal=0;
 	private byte attackType=0;
+	private float recoilChargeProgress=0f;
 	
 	private long muzzleFlashTime=0;
 	private int muzzleFlashTimeTotal=0;
@@ -56,6 +57,14 @@ public class AttackTime {
 	public void setMuzzleFlashTimeTotal(int muzzleFlashTimeTotal) {
 		this.muzzleFlashTimeTotal = muzzleFlashTimeTotal;
 	}
+	
+	public float getRecoilChargeProgress() {
+		return recoilChargeProgress;
+	}
+	public void setRecoilChargeProgress(float recoilChargeProgress) {
+		this.recoilChargeProgress = recoilChargeProgress;
+	}
+	
 	public void reset(){
 		reloadTime=0;
 		reloadTimeTotal=0;
@@ -64,6 +73,7 @@ public class AttackTime {
 		attackType=0;
 		muzzleFlashTime=0;
 		muzzleFlashTimeTotal=0;
+		recoilChargeProgress=0;
 	}
 
 	public boolean isRecoiling(){

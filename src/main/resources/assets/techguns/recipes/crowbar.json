@@ -3,7 +3,7 @@
     "item": "techguns:crowbar"
   },
   "pattern": [
-    "  p",
+    " np",
     " p ",
     "p  "
   ],
@@ -11,6 +11,9 @@
   "key": {
     "p": {
       "item": "#PLATESTEEL"
+    },
+    "n": {
+      "item": "#NUGGETSTEEL"
     }
   }
 }

@@ -8,9 +8,14 @@ import net.minecraft.block.BlockColored;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumDyeColor;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockPos.MutableBlockPos;
 import net.minecraft.world.World;
 import techguns.TGBlocks;
+import techguns.blocks.EnumMonsterSpawnerType;
+import techguns.entities.npcs.ArmySoldier;
+import techguns.tileentities.TGSpawnerTileEnt;
 import techguns.util.BlockUtils;
 import techguns.util.MBlock;
 import techguns.util.MathUtil.Vec2;
@@ -23,12 +28,12 @@ public class MilitaryCamp {
 	static int outerFenceWidth = 1;
 	static int outerFenceHeight = 2;
 	static int outerFenceSpacing = 1;
-	static MBlock outerFenceBlock = new MBlock(Blocks.IRON_BARS,0);
+	//static MBlock outerFenceBlock = new MBlock(Blocks.IRON_BARS,0);
 	static int outerFenceGateHeight = 2;
 	static int roadMaxWidth = 5;
 	static int roadMinWidth = 1;
-	static MBlock roadBlock = new MBlock(Blocks.GRAVEL, 0);
-	static MBlock roadBlockSecondary = new MBlock(Blocks.CONCRETE.getDefaultState().withProperty(BlockColored.COLOR, EnumDyeColor.GRAY));//TGChiselBlocks.concrete; //TODO
+	//static MBlock roadBlock = new MBlock(Blocks.GRAVEL, 0);
+	//static MBlock roadBlockSecondary = new MBlock(Blocks.CONCRETE.getDefaultState().withProperty(BlockColored.COLOR, EnumDyeColor.GRAY));//TGChiselBlocks.concrete; //TODO
 	
 	static MBlock groundBlock = null; //new MBlock(Blocks.sand, 0); //Null to keep original world blocks;
 		
@@ -184,7 +189,7 @@ public class MilitaryCamp {
 		}	
 		
 		//Set fence
-		IBlockState outerfencestate = outerFenceBlock.getState();
+		IBlockState outerfencestate = MBlockRegister.MILBASE_FENCE.getState();
 		for (int k = 1; k < outerFenceHeight+1; k++) {
 			for (int i = 0; i < sizeX; i++) {
 				if (maxHeightDiff != 0) posY = getGroundY(world, posX+i, posZ);
@@ -226,6 +231,22 @@ public class MilitaryCamp {
 				posX-this.posX, posY-this.posY, posZ-this.posZ,
 				spawnPosAsArray(spawnPositions), militaryCampSpawns);*/
 		
+		MutableBlockPos p = new MutableBlockPos();
+		for (int i=0;i<this.spawnPositions.size();i+=3) {
+			int x =posX + this.spawnPositions.get(i) - (posX-this.posX);
+			int y =posY + this.spawnPositions.get(i+1) - (posY-this.posY);
+			int z =posZ + this.spawnPositions.get(i+2) - (posZ-this.posZ);;
+			
+			//System.out.println("SpawnPos!");
+			
+			world.setBlockState(p.setPos(x,y,z), TGBlocks.MONSTER_SPAWNER.getDefaultState().withProperty(TGBlocks.MONSTER_SPAWNER.TYPE,EnumMonsterSpawnerType.SOLDIER_SPAWN),3);
+			
+			TileEntity tile = world.getTileEntity(p);
+			if(tile!=null && tile instanceof TGSpawnerTileEnt) {
+				((TGSpawnerTileEnt)tile).addMobType(ArmySoldier.class, 1);
+			}
+		}
+		
 	}
 
 	public void setRoadBlocks(World world, int x, int y, int z, int roadWidth, int roadLength, boolean alignment) {
@@ -237,8 +258,8 @@ public class MilitaryCamp {
 		for (a=0; a<roadLength; a++) {
 			for(b=0; b < roadWidth; b++) {
 				MBlock block;
-				if (roadWidth >=4 && (b > 0 && b < roadWidth-1)) block = roadBlockSecondary;
-				else block = roadBlock;
+				if (roadWidth >=4 && (b > 0 && b < roadWidth-1)) block = MBlockRegister.MILBASE_ROADBLOCK_SECONDARY;
+				else block = MBlockRegister.MILBASE_ROADBLOCK;
 				if (alignment) { //Road: in x dir
 					if (maxHeightDiff != 0) y = getGroundY(world, x+a, z+b);
 					world.setBlockState(p.setPos(x+a,y,z+b), block.getState(), 2);
@@ -276,11 +297,11 @@ public class MilitaryCamp {
 				for (int c = 0; c < height+10; c++) { //+10 = cheap workaround
 					if (alignment) { //Road: in x dir
 						if (maxHeightDiff != 0) y = getGroundY(world, x+a, z+b);
-						if (world.getBlockState(p.setPos(x+a,y+c+1,z+b)) == this.outerFenceBlock.getState())
+						if (world.getBlockState(p.setPos(x+a,y+c+1,z+b)) == MBlockRegister.MILBASE_FENCE.getState())
 							world.setBlockToAir(p.setPos(x+a,y+c+1,z+b));
 					}else {
 						if (maxHeightDiff != 0) y = getGroundY(world, x+b, z+a);
-						if (world.getBlockState(p.setPos(x+b,y+c+1,z+a)) == this.outerFenceBlock.getState())
+						if (world.getBlockState(p.setPos(x+b,y+c+1,z+a)) == MBlockRegister.MILBASE_FENCE.getState())
 							world.setBlockToAir(p.setPos(x+b,y+c+1,z+a));
 					}
 				}

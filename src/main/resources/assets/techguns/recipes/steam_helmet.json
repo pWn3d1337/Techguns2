@@ -1,0 +1,16 @@
+{
+  "result": {
+    "item": "techguns:steam_helmet"
+  },
+  "pattern": [
+    "sss",
+    "s s"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "s": {
+      "item": "techguns:itemshared",
+      "data": 45
+    }
+  }
+}

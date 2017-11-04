@@ -1,0 +1,20 @@
+{
+  "result": {
+    "item": "techguns:t3_power_boots"
+  },
+  "pattern": [
+    "e e",
+    "p p"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "p": {
+      "item": "techguns:itemshared",
+      "data": 67
+    },
+    "e": {
+      "item": "techguns:itemshared",
+      "data": 70
+    }
+  }
+}

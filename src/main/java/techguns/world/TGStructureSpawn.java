@@ -5,9 +5,10 @@ import java.util.ArrayList;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
+import techguns.world.structures.WorldgenStructure;
 
 public class TGStructureSpawn {
-	Structure structure;
+	WorldgenStructure structure;
 	int spawnWeight;
 	/**
 	 * Restricted to these biomes, null = all biomes
@@ -20,7 +21,7 @@ public class TGStructureSpawn {
 
 	ArrayList<StructureLandType> allowedTypes;	
 	
-	public TGStructureSpawn(Structure structure, int spawnWeight, ArrayList<BiomeDictionary.Type> biomeWhitelist, ArrayList<Integer> dimensionIDs, ArrayList<StructureLandType> allowedTypes, StructureSize size) {
+	public TGStructureSpawn(WorldgenStructure structure, int spawnWeight, ArrayList<BiomeDictionary.Type> biomeWhitelist, ArrayList<Integer> dimensionIDs, ArrayList<StructureLandType> allowedTypes, StructureSize size) {
 		super();
 		this.structure = structure;
 		this.spawnWeight = spawnWeight;

@@ -115,9 +115,9 @@ public class WorldGenTestTool extends GenericItem{
 		    camp.setBlocks(world, rnd);
 			break;
 		case 1: //dungeon
-			Helipad b = new Helipad(7,7,7,10,-1,10);
+			//Helipad b = new Helipad(7,7,7,10,-1,10);
 			//Tanks b = new Tanks(4,5,4,10,-1,10);
-			//Barracks b = new Barracks(7,7,7,-1,-1,-1);
+			Barracks b = new Barracks(7,7,7,-1,-1,-1);
 			//Bunker b = new Bunker(3,3,5,15,3,15, rnd.nextInt(4));
 			b.setBlocks(world, x, y, z, sizeX, 8, sizeZ, rnd.nextInt(4), BiomeColorType.WOODLAND, rnd);
 			break;

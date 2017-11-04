@@ -60,13 +60,18 @@ public class ShooterValues {
 		
 	}
 	
-	public static void setRecoiltime(EntityLivingBase ent, boolean offHand, long time, int total,byte attacktype){
+	public static void setRecoiltime(EntityLivingBase ent, boolean offHand, long time, int total,byte attacktype) {
+		setRecoiltime(ent, offHand, time, total, attacktype, 0f);
+	}
+	
+	public static void setRecoiltime(EntityLivingBase ent, boolean offHand, long time, int total,byte attacktype, float chargeProgress){
 		AttackTime attack = getAttackTimes(ent,offHand);
 	
 		if (attack!=null){
 			attack.setRecoilTime(time);
 			attack.setRecoilTimeTotal(total);
 			attack.setAttackType(attacktype);
+			attack.setRecoilChargeProgress(chargeProgress);
 		}
 	}
 	

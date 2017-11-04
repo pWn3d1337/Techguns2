@@ -10,9 +10,9 @@ import techguns.util.MBlock;
 
 public class Tanks extends WorldgenStructure {
 	protected int tankWidth;
-	protected MBlock baseBlock = new MBlock(TGBlocks.METAL_PANEL,7);//TGChiselBlocks.technical_scaffold;
-	protected MBlock wallBlock = new MBlock(TGBlocks.METAL_PANEL,5);//TGChiselBlocks.factory_wall;
-	protected MBlock borderBlock = new MBlock(TGBlocks.METAL_PANEL,4);//TGChiselBlocks.factory_hazard;
+	protected MBlock baseBlock = MBlockRegister.TANKS_BASE; //new MBlock(TGBlocks.METAL_PANEL,7);//TGChiselBlocks.technical_scaffold;
+	protected MBlock wallBlock = MBlockRegister.TANKS_WALL;//new MBlock(TGBlocks.METAL_PANEL,0);//TGChiselBlocks.factory_wall;
+	protected MBlock borderBlock = MBlockRegister.TANKS_BORDER; //new MBlock(TGBlocks.METAL_PANEL,3);//TGChiselBlocks.factory_hazard;
 	protected MBlock fillBlock = new MBlock(Blocks.LAVA,0);//TGChiselBlocks.glowblock;
 	
 	public Tanks(int minX, int minY, int minZ, int maxX, int maxY, int maxZ) {

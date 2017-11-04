@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "techguns:t3_combat_leggings"
+  },
+  "pattern": [
+    "pfp",
+    "p p",
+    "f f"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "p": {
+      "item": "#PLATECARBON"
+    },
+    "f": {
+      "item": "#FIBERCARBON"
+    }
+  }
+}

@@ -240,6 +240,7 @@ public class RenderGunBase extends RenderItemBase {
 					attack.setRecoilTime(0);
 					attack.setRecoilTimeTotal(0);
 					attack.setAttackType((byte) 0);
+					attack.setRecoilChargeProgress(0f);
 				} else {
 					fireProgress = 1.0f - ((float) diff / (float) attack.getRecoilTimeTotal());
 				}

@@ -694,19 +694,22 @@ public class TGEventHandler {
 	@SubscribeEvent(priority=EventPriority.HIGH) //run before regular drop events
 	public static void MilitaryCrateDrops(HarvestDropsEvent event) {
 		IBlockState state = event.getState();
-		if(state.getBlock()==TGBlocks.MILITARY_CRATE && !event.isSilkTouching() && !event.getHarvester().world.isRemote) {
+
+		if(state.getBlock()==TGBlocks.MILITARY_CRATE && !event.isSilkTouching() && !event.getWorld().isRemote) {
 			BlockPos pos = event.getPos();
 			EntityPlayer ply = event.getHarvester();
-			int fortune = event.getFortuneLevel();
-					
-			LootTable loottable = ply.world.getLootTableManager().getLootTableFromLocation(TGBlocks.MILITARY_CRATE.getLootableForState(state));
-			LootContext lootcontext = new LootContext.Builder((WorldServer) ply.world).withLuck(fortune).withPlayer(ply).build();
-			
-			event.getDrops().clear();
-			for (ItemStack itemstack : loottable.generateLootForPools(ply.world.rand, lootcontext))
-            {
-				event.getDrops().add(itemstack);
-            }
+			if (ply!=null) {
+				int fortune = event.getFortuneLevel();
+						
+				LootTable loottable = ply.world.getLootTableManager().getLootTableFromLocation(TGBlocks.MILITARY_CRATE.getLootableForState(state));
+				LootContext lootcontext = new LootContext.Builder((WorldServer) ply.world).withLuck(fortune).withPlayer(ply).build();
+				
+				event.getDrops().clear();
+				for (ItemStack itemstack : loottable.generateLootForPools(ply.world.rand, lootcontext))
+	            {
+					event.getDrops().add(itemstack);
+	            }
+			}
 		}
 	}
 	

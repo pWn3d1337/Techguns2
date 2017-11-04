@@ -255,7 +255,7 @@ public class GenericGunCharge extends GenericGun {
 					//ClientProxy.setplayerRecoiltime(System.currentTimeMillis() + recoiltime_l);
 					//ClientProxy.setplayerRecoiltimeTotal(recoiltime_l);
 					
-					ShooterValues.setRecoiltime(player, player.getActiveHand()==EnumHand.OFF_HAND, System.currentTimeMillis() + recoiltime_l, recoiltime_l, (byte)1);
+					ShooterValues.setRecoiltime(player, player.getActiveHand()==EnumHand.OFF_HAND, System.currentTimeMillis() + recoiltime_l, recoiltime_l, (byte)1,f);
 					
 					//ClientProxy cp = ClientProxy.get();
 					//cp.setplayerRecoiltime(player,System.currentTimeMillis() + recoiltime_l, recoiltime_l, (byte)1);
