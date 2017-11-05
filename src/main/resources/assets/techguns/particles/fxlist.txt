@@ -685,6 +685,41 @@ HasVariations = true
 RemoveOnGround = true
 }
 
+FXLIST biogunCharge {
+biogunChargeFlare
+}
+
+biogunChargeFlare {
+Texture = techguns:textures/fx/lensflare1.png
+RenderType = ADDITIVE
+Rows = 1
+Columns = 1
+Frames = 1
+angle = 0 360
+angleRate = -10 10
+angleRateDamping = 0.87 0.89
+Lifetime = 3 3
+SpawnDelay = 0 0
+SystemLifetime = 0 0
+Size = 0.5 0.75
+SizeRate = 0.25 0.5
+SizeRateDamping = 0.9 0.9
+Alpha = 0 0
+Alpha = 0.15 0.5
+Alpha = 0 1
+Color = 128 255 64 0
+//Color = 0 0 0 1
+ParticleCount = 1 1
+Gravity = 0
+VolumeType = POINT
+VelocityType = NONE
+VelocityDamping = 0.93 0.95
+InitialDelay = 0 0
+SystemVelocityFactor = 0.0 0.0
+//offset = -0.13 -0.08 0.25
+particlesMoveWithSystem = true
+}
+
 FXLIST RocketExplosion {
 LargeExplosionBlastwave
 LargeExplosionBlastwaveGroundAligned

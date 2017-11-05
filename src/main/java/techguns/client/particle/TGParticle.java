@@ -131,12 +131,40 @@ public class TGParticle extends Particle implements ITGParticle {
 		lifetime--;
 		if (this.particleAge++ >= this.particleMaxAge) {
 			this.setExpired();
+			return;
 		}
 		
 		/*---
 		 * Move with System
 		 */
-		if (this.type.particlesMoveWithSystem) {		
+		if (this.type.particlesStickToSystem) {
+			
+			if (this.particleSystem.entity != null) {
+				
+				if (this.particleSystem.entity.isDead) {
+					this.setExpired();
+					return;
+				}
+				
+				this.prevPosX = this.particleSystem.entity.prevPosX;
+				this.prevPosY = this.particleSystem.entity.prevPosY;
+				this.prevPosZ = this.particleSystem.entity.prevPosZ;
+				this.posX = this.particleSystem.entity.posX;
+				this.posY = this.particleSystem.entity.posY;
+				this.posZ = this.particleSystem.entity.posZ;
+			}else {
+				
+				if (!this.particleSystem.isAlive()) {
+					this.setExpired();
+					return;
+				}
+				
+				this.posX = this.particleSystem.posX();
+				this.posY = this.particleSystem.posY();
+				this.posZ = this.particleSystem.posZ();
+			}	
+			
+		}else if (this.type.particlesMoveWithSystem) {		
 			double dP = (this.particleSystem.rotationPitch - this.particleSystem.prevRotationPitch)*MathUtil.D2R;
 			double dY = (this.particleSystem.rotationYaw - this.particleSystem.prevRotationYaw)*MathUtil.D2R;
 			
@@ -158,6 +186,7 @@ public class TGParticle extends Particle implements ITGParticle {
 			this.motionX = motion.x;
 			this.motionY = motion.y;
 			this.motionZ = motion.z;
+		
 		}
 		
 		
@@ -245,8 +274,7 @@ public class TGParticle extends Particle implements ITGParticle {
 		int row = (currentFrame / type.columns);
 		
 		float u = 1.f/type.columns;
-		float v = 1.f/type.columns;
-		
+		float v = 1.f/type.columns; 
 		float U1 = col*u;
 		float V1 = row*v;
 		float U2 = (col+1)*u;

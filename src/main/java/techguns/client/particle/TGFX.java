@@ -330,6 +330,9 @@ public class TGFX {
 							case "particlesmovewithsystem":
 								type.particlesMoveWithSystem = sc.nextBoolean();
 								break;
+							case "particlessticktosystem":
+								type.particlesStickToSystem = sc.nextBoolean();
+								break;
 							case "groundaligned":
 								type.groundAligned = sc.nextBoolean();
 								break;

@@ -1,0 +1,137 @@
+package techguns.entities.projectiles;
+
+import elucent.albedo.lighting.ILightProvider;
+import elucent.albedo.lighting.Light;
+import io.netty.buffer.ByteBuf;
+import net.minecraft.block.SoundType;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.MobEffects;
+import net.minecraft.potion.PotionEffect;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.RayTraceResult.Type;
+import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.util.BlockSnapshot;
+import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.fml.common.Optional;
+import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
+import techguns.TGBlocks;
+import techguns.TGPackets;
+import techguns.TGSounds;
+import techguns.Techguns;
+import techguns.api.damagesystem.DamageType;
+import techguns.client.ClientProxy;
+import techguns.damagesystem.TGDamageSource;
+import techguns.damagesystem.TGExplosion;
+import techguns.deatheffects.EntityDeathUtils.DeathType;
+import techguns.items.guns.GenericGun;
+import techguns.items.guns.IChargedProjectileFactory;
+import techguns.packets.PacketSpawnParticle;
+import techguns.tileentities.BioBlobTileEnt;
+import techguns.util.MathUtil;
+
+@Optional.Interface(iface="elucent.albedo.lighting.ILightProvider", modid="albedo")
+public class TFGProjectile extends GenericProjectile implements IEntityAdditionalSpawnData, ILightProvider{
+
+	public float size;
+
+
+	public TFGProjectile(World worldIn, double posX, double posY, double posZ, float yaw, float pitch, float damage, float speed, int TTL, float spread, float dmgDropStart,
+			float dmgDropEnd, float dmgMin, float penetration, boolean blockdamage, EnumBulletFirePos leftGun, double gravity, float size) {
+		super(worldIn, posX, posY, posZ, yaw, pitch, damage, speed, TTL, spread, dmgDropStart, dmgDropEnd, dmgMin, penetration, blockdamage, leftGun);
+		this.size=size;
+		this.gravity=gravity;
+	}
+
+	public TFGProjectile(World par2World, EntityLivingBase p, float damage, float speed, int TTL, float spread, float dmgDropStart, float dmgDropEnd, float dmgMin,
+			float penetration, boolean blockdamage, EnumBulletFirePos leftGun, double gravity, float size) {
+		super(par2World, p, damage, speed, TTL, spread, dmgDropStart, dmgDropEnd, dmgMin, penetration, blockdamage, leftGun);
+		this.size=size;
+		this.gravity=gravity;
+	}
+	
+	public TFGProjectile(World worldIn) {
+		super(worldIn);
+		ClientProxy.get().createFXOnEntity("TFGTrail", this);
+	}
+	
+	@Override
+	protected void onHitEffect(EntityLivingBase ent, RayTraceResult rayTraceResult) {
+		this.explode();
+	}
+
+	@Override
+	protected void hitBlock(RayTraceResult raytraceResultIn) {
+		this.explode();
+	}
+
+	protected void explode(){
+		if (!this.world.isRemote){
+			float exp_dmgMax = this.damage*0.66f * size;
+			float exp_dmgMin = this.damage*0.33f * size;
+			float exp_r1 = size*0.5f;
+			float exp_r2 = size;
+			
+			TGPackets.network.sendToAllAround(new PacketSpawnParticle("RocketExplosion", this.posX,this.posY,this.posZ), TGPackets.targetPointAroundEnt(this, 50.0f));
+			
+			TGExplosion explosion = new TGExplosion(world, this.shooter, this, posX, posY, posZ, exp_dmgMax, exp_dmgMin, exp_r1, exp_r2, this.blockdamage?0.5:0.0);
+			
+			explosion.doExplosion(true);
+		}else {
+			Techguns.proxy.createLightPulse(this.posX, this.posY, this.posZ, 5, 15, 5f+(size), 1f+(size*0.5f), 0.5f, 1.0f, 0.5f);
+		}
+		this.setDead();
+	}
+
+	@Override
+	public void writeSpawnData(ByteBuf buffer) {
+		buffer.writeFloat(this.size);
+	}
+
+	@Override
+	public void readSpawnData(ByteBuf additionalData) {
+		this.size=additionalData.readFloat();
+	}
+	
+	public static class Factory implements IChargedProjectileFactory<TFGProjectile> {
+
+		@Override
+		public TFGProjectile createProjectile(GenericGun gun, World world, EntityLivingBase p, float damage, float speed, int TTL, float spread, float dmgDropStart, float dmgDropEnd,
+				float dmgMin, float penetration, boolean blockdamage, EnumBulletFirePos firePos, float radius, double gravity) {
+			return this.createChargedProjectile(world, p, damage, speed, TTL, spread, dmgDropStart, dmgDropEnd, dmgMin, penetration, blockdamage, firePos, radius, gravity, 0f, 1);
+		}
+
+		@Override
+		public DamageType getDamageType() {
+			return DamageType.ENERGY;
+		}
+		
+		@Override
+		public TFGProjectile createChargedProjectile(World world, EntityLivingBase p, float damage, float speed, int TTL, float spread, float dmgDropStart, float dmgDropEnd,
+				float dmgMin, float penetration, boolean blockdamage, EnumBulletFirePos firePos, float radius, double gravity, float charge, int ammoConsumed) {
+			TFGProjectile proj = new TFGProjectile(world,p,damage,speed,TTL,spread,dmgDropStart,dmgDropEnd,dmgMin,penetration,blockdamage,firePos,gravity,ammoConsumed);
+			proj.size = 1.0f+(charge*10.0f);
+			return proj;
+		}
+		
+	}
+	
+	@Optional.Method(modid="albedo")
+	@Override
+	public Light provideLight() {
+		return Light.builder()
+				.pos(MathUtil.getInterpolatedEntityPos(this))
+				.color(0.5f,1.0f, 0.5f)
+				.radius(2f+(size*0.5f))
+				.build();
+	}
+}
