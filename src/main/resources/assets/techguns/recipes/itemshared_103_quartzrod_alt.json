@@ -4,9 +4,9 @@
     "data": 103
   },
   "pattern": [
-    "  q",
+    "q  ",
     " q ",
-    "q  "
+    "  q"
   ],
   "type": "forge:ore_shaped",
   "key": {

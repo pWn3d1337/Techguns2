@@ -1,0 +1,20 @@
+{
+  "result": {
+    "item": "techguns:glider"
+  },
+  "ingredients": [
+    {
+      "item": "techguns:itemshared",
+      "data": 90
+    },
+    {
+      "item": "techguns:itemshared",
+      "data": 91
+    },
+    {
+      "item": "techguns:itemshared",
+      "data": 91
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

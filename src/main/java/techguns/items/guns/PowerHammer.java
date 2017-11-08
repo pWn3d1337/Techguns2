@@ -9,6 +9,9 @@ import net.minecraftforge.fml.common.network.NetworkRegistry.TargetPoint;
 import techguns.TGItems;
 import techguns.TGPackets;
 import techguns.TGSounds;
+import techguns.api.damagesystem.DamageType;
+import techguns.damagesystem.TGDamageSource;
+import techguns.deatheffects.EntityDeathUtils.DeathType;
 import techguns.entities.projectiles.EnumBulletFirePos;
 import techguns.entities.projectiles.GenericProjectile;
 import techguns.items.guns.ammo.AmmoType;
@@ -26,6 +29,19 @@ public class PowerHammer extends GenericGunMeleeCharge {
 		this.setMiningHeads(TGItems.POWERHAMMERHEAD_OBSIDIAN, TGItems.POWERHAMMERHEAD_CARBON);
 	}
 
+	@Override
+	protected TGDamageSource getMeleeDamageSource(EntityPlayer player,ItemStack stack) {
+		TGDamageSource src = new TGDamageSource("player", player, player, DamageType.PHYSICAL, DeathType.GORE);
+		if(this.getCurrentAmmo(stack)>0){
+			src.goreChance=1.0f;
+			src.armorPenetration=this.penetration;
+			src.knockbackMultiplier=1.5f;
+		} else{
+			src.deathType = DeathType.DEFAULT;
+		}
+		return src;
+	}
+	
 	@Override
 	protected void spawnSweepParticle(World w, double x, double y, double z, double motionX, double motionY,
 			double motionZ) {

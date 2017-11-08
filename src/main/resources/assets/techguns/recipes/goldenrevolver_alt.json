@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "techguns:goldenrevolver"
+  },
+  "pattern": [
+    "ggg",
+    "grg",
+    "ggg"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "r": {
+      "item": "techguns:revolver"
+    },
+    "g": {
+      "item": "#INGOTGOLD"
+    }
+  }
+}

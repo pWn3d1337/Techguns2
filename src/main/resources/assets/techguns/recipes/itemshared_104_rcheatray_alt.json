@@ -1,0 +1,26 @@
+{
+  "result": {
+    "item": "techguns:itemshared",
+    "data": 104
+  },
+  "pattern": [
+    "cwc",
+    "plp",
+    "plp"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "p": {
+      "item": "#PLATESTEEL"
+    },
+    "c": {
+      "item": "#CIRCUITELITE"
+    },
+    "w": {
+      "item": "#WIREGOLD"
+    },
+    "l": {
+      "item": "minecraft:redstone_lamp"
+    }
+  }
+}

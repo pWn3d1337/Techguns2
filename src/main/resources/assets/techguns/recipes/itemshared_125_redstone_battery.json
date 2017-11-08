@@ -1,0 +1,24 @@
+{
+  "result": {
+    "item": "techguns:itemshared",
+    "data": 125,
+    "count": 2
+  },
+  "pattern": [
+    "nwn",
+    "nrn",
+    "nrn"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "r": {
+      "item": "#DUSTREDSTONE"
+    },
+    "w": {
+      "item": "#WIRECOPPER"
+    },
+    "n": {
+      "item": "#NUGGETCOPPER"
+    }
+  }
+}

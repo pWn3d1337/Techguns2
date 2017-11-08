@@ -14,6 +14,9 @@ import net.minecraftforge.fml.common.network.NetworkRegistry.TargetPoint;
 import techguns.TGItems;
 import techguns.TGPackets;
 import techguns.TGSounds;
+import techguns.api.damagesystem.DamageType;
+import techguns.damagesystem.TGDamageSource;
+import techguns.deatheffects.EntityDeathUtils.DeathType;
 import techguns.packets.PacketSpawnParticle;
 import techguns.util.ItemUtil;
 import techguns.util.TextUtil;
@@ -29,6 +32,19 @@ public class MiningDrill extends GenericGunMeleeCharge {
 		this.setMiningHeads(TGItems.MININGDRILLHEAD_CARBON);
 	}
 
+	@Override
+	protected TGDamageSource getMeleeDamageSource(EntityPlayer player,ItemStack stack) {
+		TGDamageSource src = new TGDamageSource("player", player, player, DamageType.PHYSICAL, DeathType.GORE);
+		if(this.getCurrentAmmo(stack)>0){
+			src.goreChance=0.5f;
+			src.armorPenetration=this.penetration;
+			src.knockbackMultiplier=1f;
+		} else{
+			src.deathType = DeathType.DEFAULT;
+		}
+		return src;
+	}
+	
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer player, EnumHand handIn) {
 		ItemStack stack = player.getHeldItem(handIn);

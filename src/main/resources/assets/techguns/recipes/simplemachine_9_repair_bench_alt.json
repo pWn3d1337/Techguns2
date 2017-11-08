@@ -1,0 +1,27 @@
+{
+  "result": {
+    "item": "techguns:simplemachine",
+    "data": 9
+  },
+  "pattern": [
+    "pmp",
+    "ici",
+    "iii"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "p": {
+      "item": "#PLATEIRON"
+    },
+    "c": {
+      "item": "#WORKBENCH"
+    },
+    "i": {
+      "item": "#NUGGETIRON"
+    },
+    "m": {
+      "item": "techguns:itemshared",
+      "data": 57
+    }
+  }
+}

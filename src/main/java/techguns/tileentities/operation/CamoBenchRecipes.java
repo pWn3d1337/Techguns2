@@ -95,7 +95,7 @@ public class CamoBenchRecipes {
 				}
 			} else {
 				ItemStack stack = new ItemStack(blockType,1,this.camoblock.getFirstItemCamoDamageValue());
-				for (int i =0; i < this.camoblock.getCamoCount(); i++) {
+				for (int i =0; i <= this.camoblock.getCamoCount(); i++) {
 					stacks.add(stack);
 					stack=stack.copy();
 					this.camoblock.switchCamo(stack);

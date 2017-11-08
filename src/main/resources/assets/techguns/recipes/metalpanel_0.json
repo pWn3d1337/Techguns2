@@ -1,0 +1,21 @@
+{
+  "result": {
+    "item": "techguns:metalpanel",
+    "data": 0,
+    "count": 32
+  },
+  "pattern": [
+    "sss",
+    "psp",
+    "sss"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "p": {
+      "item": "#PLATEIRON"
+    },
+    "s": {
+      "item": "#STONE"
+    }
+  }
+}

@@ -25,6 +25,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import techguns.TGPackets;
@@ -32,6 +33,7 @@ import techguns.TGSounds;
 import techguns.Techguns;
 import techguns.api.npc.INPCTechgunsShooter;
 import techguns.api.npc.INpcTGDamageSystem;
+import techguns.capabilities.TGSpawnerNPCData;
 import techguns.client.audio.TGSoundCategory;
 import techguns.damagesystem.TGDamageSource;
 import techguns.entities.projectiles.EnumBulletFirePos;
@@ -40,7 +42,7 @@ import techguns.entities.projectiles.RocketProjectile;
 import techguns.packets.PacketPlaySound;
 import techguns.util.MathUtil;
 
-public class AttackHelicopter extends EntityFlying implements IMob, INpcTGDamageSystem, INPCTechgunsShooter
+public class AttackHelicopter extends EntityFlying implements IMob, INpcTGDamageSystem, INPCTechgunsShooter, ITGSpawnerNPC
 {
     private static final DataParameter<Boolean> ATTACKING = EntityDataManager.<Boolean>createKey(EntityGhast.class, DataSerializers.BOOLEAN);
 
@@ -52,6 +54,7 @@ public class AttackHelicopter extends EntityFlying implements IMob, INpcTGDamage
     
     protected static final ResourceLocation LOOT = new ResourceLocation(Techguns.MODID, "entities/attackhelicopter");
 	
+    protected boolean tryLink=true;
     
     public AttackHelicopter(World worldIn)
     {
@@ -104,6 +107,8 @@ public class AttackHelicopter extends EntityFlying implements IMob, INpcTGDamage
         {
             this.setDead();
         }
+        
+        this.onUpdateSpawner(world);
     }
 
     protected void entityInit()
@@ -570,6 +575,31 @@ public class AttackHelicopter extends EntityFlying implements IMob, INpcTGDamage
 	public float getBulletOffsetSide() {
 		return 2.0f;
 	}
-    
+
+	@Override
+	public boolean getTryLink() {
+		return this.tryLink;
+	}
+
+	@Override
+	public void setTryLink(boolean value) {
+		this.tryLink=value;
+	}
+
+	@Override
+	public TGSpawnerNPCData getCapability(Capability<TGSpawnerNPCData> tgGenericnpcData) {
+		return this.getCapability(tgGenericnpcData, null);
+	}
 	
+	@Override
+	protected void despawnEntity() {
+		super.despawnEntity();
+		this.despawnEntitySpawner(world, dead);
+	}
+
+	@Override
+	public void onDeath(DamageSource cause) {
+		super.onDeath(cause);
+		this.onDeathSpawner(world, dead);
+	}
 }

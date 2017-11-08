@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "techguns:item_door3x3"
+  },
+  "pattern": [
+    "ppp",
+    "sps",
+    "ppp"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "p": {
+      "item": "#PLATETIN"
+    },
+    "s": {
+      "item": "minecraft:piston"
+    }
+  }
+}

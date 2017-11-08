@@ -51,6 +51,13 @@
   {
     "ingredient": {
       "type": "forge:ore_dict",
+      "ore": "dustGlowstone"
+    },
+    "name": "DUSTGLOWSTONE"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
       "ore": "dustRedstone"
     },
     "name": "DUSTREDSTONE"

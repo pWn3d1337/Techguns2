@@ -1,0 +1,35 @@
+{
+  "result": {
+    "item": "techguns:tacticalmask"
+  },
+  "pattern": [
+    "ogn",
+    "cpc",
+    "pep"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "p": {
+      "item": "#SHEETPLASTIC"
+    },
+    "c": {
+      "item": "#CIRCUITBASIC"
+    },
+    "e": {
+      "item": "techguns:itemshared",
+      "data": 29
+    },
+    "g": {
+      "item": "techguns:gasmask",
+      "data": 32767
+    },
+    "n": {
+      "item": "techguns:nightvisiongoggles",
+      "data": 32767
+    },
+    "o": {
+      "item": "techguns:itemshared",
+      "data": 93
+    }
+  }
+}

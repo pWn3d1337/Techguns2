@@ -1,7 +1,6 @@
 {
   "result": {
-    "item": "techguns:scar",
-    "data": 20
+    "item": "techguns:scar"
   },
   "pattern": [
     "gpd",
@@ -33,7 +32,7 @@
     },
     "m": {
       "item": "techguns:itemshared",
-      "data": 14
+      "data": 13
     }
   }
 }

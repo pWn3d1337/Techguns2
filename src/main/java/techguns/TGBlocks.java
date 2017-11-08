@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
+import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
 import net.minecraftforge.event.RegistryEvent;
@@ -65,7 +66,7 @@ public class TGBlocks implements ITGInitializer{
 	
 	public static BlockTGLamp<EnumLampType> LAMP_0;
 	
-	public static GenericBlockMetaEnum METAL_PANEL;
+	public static GenericBlockMetaEnum<TGMetalPanelType> METAL_PANEL;
 	public static BlockTGLadder<EnumLadderType> LADDER_0;
 	
 	public static GenericBlockMetaEnum<EnumConcreteType> CONCRETE;
@@ -105,21 +106,21 @@ public class TGBlocks implements ITGInitializer{
 		MULTIBLOCK_MACHINE = new MultiBlockMachine<EnumMultiBlockMachineType>("multiblockmachine", EnumMultiBlockMachineType.class);
 		TG_ORE = new BlockTGOre("basicore");
 		BIOBLOB= new BlockBioblob("bioblob");
-		SANDBAGS = new BlockSandbags("sandbags");
-		LAMP_0 = new BlockTGLamp<EnumLampType>("lamp0", EnumLampType.class);
-		METAL_PANEL = new GenericBlockMetaEnumCamoChangeable<TGMetalPanelType>("metalpanel", Material.IRON, Material.IRON.getMaterialMapColor(), SoundType.METAL, TGMetalPanelType.class);
-		CONCRETE = new GenericBlockMetaEnumCamoChangeable<EnumConcreteType>("concrete", Material.ROCK, EnumConcreteType.class);
-		LADDER_0 = new BlockTGLadder<EnumLadderType>("ladder0", EnumLadderType.class);
-		DOOR3x3 = new BlockTGDoor3x3<EnumDoorType>("door3x3", EnumDoorType.class, TGItems.DOOR3x3);
+		SANDBAGS = (BlockSandbags) new BlockSandbags("sandbags").setHardness(6.0f);
+		LAMP_0 = (BlockTGLamp<EnumLampType>) new BlockTGLamp<EnumLampType>("lamp0", EnumLampType.class).setHardness(4.0f);
+		METAL_PANEL = (GenericBlockMetaEnum) new GenericBlockMetaEnumCamoChangeable<TGMetalPanelType>("metalpanel", Material.IRON, Material.IRON.getMaterialMapColor(), SoundType.METAL, TGMetalPanelType.class).setHardness(8.0f);
+		CONCRETE = (GenericBlockMetaEnum<EnumConcreteType>) new GenericBlockMetaEnumCamoChangeable<EnumConcreteType>("concrete", Material.ROCK, EnumConcreteType.class).setHardness(8.0f);
+		LADDER_0 = (BlockTGLadder<EnumLadderType>) new BlockTGLadder<EnumLadderType>("ladder0", EnumLadderType.class).setHardness(6.0f);
+		DOOR3x3 = (BlockTGDoor3x3<EnumDoorType>) new BlockTGDoor3x3<EnumDoorType>("door3x3", EnumDoorType.class, TGItems.DOOR3x3).setHardness(6.0f);
 		CAMONET = new BlockTGCamoNet("camonet");
 		CAMONET_TOP = new BlockTGCamoNetTop("camonet_top");
-		BUNKER_DOOR = new BlockTGDoor2x1("bunkerdoor",TGItems.BUNKER_DOOR);
+		BUNKER_DOOR = (BlockTGDoor2x1) new BlockTGDoor2x1("bunkerdoor",TGItems.BUNKER_DOOR).setHardness(8.0f);
 		
-		METAL_STAIRS = new BlockTGStairs("stairs_metal", Material.IRON);
+		METAL_STAIRS = (BlockTGStairs) new BlockTGStairs("stairs_metal", Material.IRON, SoundType.METAL).setHardness(8.0f);
 		
 		MONSTER_SPAWNER = new BlockTGSpawner("tg_spawner");
 		
-		NEONLIGHT_BLOCK = (GenericBlockMetaEnumCamoChangeable<EnumLightblockType>) new GenericBlockMetaEnumCamoChangeable<EnumLightblockType>("neonlights", Material.GLASS, EnumLightblockType.class).setLightLevel(2f).setHardness(3.0f);
+		NEONLIGHT_BLOCK = (GenericBlockMetaEnumCamoChangeable<EnumLightblockType>) new GenericBlockMetaEnumCamoChangeable<EnumLightblockType>("neonlights", Material.GLASS, MapColor.YELLOW, SoundType.GLASS, EnumLightblockType.class).setLightLevel(1f).setHardness(4.0f);
 		
 		MILITARY_CRATE = (BlockMilitaryCrate) new BlockMilitaryCrate("military_crate", Material.WOOD).setHardness(4.0f);
 		
@@ -146,6 +147,8 @@ public class TGBlocks implements ITGInitializer{
 		ChiselIMCHelper.addChiselVariants("techguns:camonet", TGBlocks.CAMONET, EnumCamoNetType.class);
 		ChiselIMCHelper.addChiselVariants("techguns:camonettop", TGBlocks.CAMONET_TOP, EnumCamoNetType.class);
 		ChiselIMCHelper.addChiselVariants("techguns:metalpanel", TGBlocks.METAL_PANEL, TGMetalPanelType.class);
+		ChiselIMCHelper.addChiselVariants("techguns:neonlights", TGBlocks.NEONLIGHT_BLOCK, EnumLightblockType.class);
+		ChiselIMCHelper.addChiselVariants("reinforced_concrete", TGBlocks.CONCRETE, EnumConcreteType.class);
 		
 		for(EnumLadderType t: EnumLadderType.values()) {
 			ChiselIMCHelper.addChiselVariation("techguns:metalladder", TGBlocks.LADDER_0.getRegistryName(), TGBlocks.LADDER_0.getMetaFromState(TGBlocks.LADDER_0.getDefaultState().withProperty(TGBlocks.LADDER_0.TYPE, t)));

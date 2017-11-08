@@ -1,0 +1,18 @@
+{
+  "result": {
+    "item": "techguns:t3_miner_boots"
+  },
+  "pattern": [
+    "l l",
+    "p p"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "p": {
+      "item": "#PLATECARBON"
+    },
+    "l": {
+      "item": "#PLATETITANIUM"
+    }
+  }
+}

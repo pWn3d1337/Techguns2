@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "techguns:itemshared",
+    "data": 60,
+    "count": 3
+  },
+  "pattern": [
+    " w ",
+    "wlw",
+    " w "
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "w": {
+      "item": "minecraft:wool",
+      "data": 0
+    },
+    "l": {
+      "item": "minecraft:leather"
+    }
+  }
+}

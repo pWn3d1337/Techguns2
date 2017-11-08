@@ -33,6 +33,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import techguns.TGArmors;
@@ -42,7 +43,7 @@ import techguns.api.npc.INPCTechgunsShooter;
 import techguns.api.npc.INpcTGDamageSystem;
 import techguns.api.npc.factions.ITGNpcTeam;
 import techguns.api.npc.factions.TGNpcFaction;
-import techguns.capabilities.TGGenericNPCData;
+import techguns.capabilities.TGSpawnerNPCData;
 import techguns.damagesystem.DamageSystem;
 import techguns.damagesystem.TGDamageSource;
 import techguns.entities.ai.EntityAIHurtByTargetTGFactions;
@@ -51,7 +52,7 @@ import techguns.items.armors.GenericArmor;
 import techguns.items.guns.GenericGun;
 import techguns.tileentities.TGSpawnerTileEnt;
 
-public class GenericNPC extends EntityMob implements IRangedAttackMob, INPCTechgunsShooter, INpcTGDamageSystem, ITGNpcTeam{
+public class GenericNPC extends EntityMob implements IRangedAttackMob, INPCTechgunsShooter, INpcTGDamageSystem, ITGNpcTeam, ITGSpawnerNPC{
 	 
 		//private GenericGun gun = this.pickRandomGun();
 		
@@ -400,51 +401,34 @@ public class GenericNPC extends EntityMob implements IRangedAttackMob, INPCTechg
 		@Override
 		protected void despawnEntity() {
 			super.despawnEntity();
-			if(!this.world.isRemote && this.isDead) {
-				TGGenericNPCData dat = TGGenericNPCData.get(this);
-				if(dat!=null) {
-					BlockPos spawner = dat.getSpawnerPos();
-					if(spawner!=null) {
-						TileEntity tile = world.getTileEntity(spawner);
-						if (tile!=null && tile instanceof TGSpawnerTileEnt) {
-							((TGSpawnerTileEnt)tile).despawnedEntity(this);
-						}
-					}
-				}
-			}
+			this.despawnEntitySpawner(world, dead);
 		}
 
 		@Override
 		public void onDeath(DamageSource cause) {
 			super.onDeath(cause);
-			if(!this.world.isRemote && this.dead) {
-				TGGenericNPCData dat = TGGenericNPCData.get(this);
-				if(dat!=null) {
-					BlockPos spawner = dat.getSpawnerPos();
-					if(spawner!=null) {
-						TileEntity tile = world.getTileEntity(spawner);
-						if (tile!=null && tile instanceof TGSpawnerTileEnt) {
-							((TGSpawnerTileEnt)tile).killedEntity(this);
-						}
-					}
-				}
-			}
+			this.onDeathSpawner(world, dead);
 		}
 
 		@Override
 		public void onUpdate() {
 			super.onUpdate();
-			if(tryLink) {
-				tryLink=false;
-				if(!this.world.isRemote) {
-					TGGenericNPCData dat = TGGenericNPCData.get(this);
-					if(dat!=null) {
-						dat.tryRelink(this);
-					}
-				}
-			}
+			this.onUpdateSpawner(this.world);
 		}
-	    
+
+		@Override
+		public boolean getTryLink() {
+			return this.tryLink;
+		}
+
+		@Override
+		public void setTryLink(boolean value) {
+			this.tryLink=value;
+		}
+
+		@Override
+		public TGSpawnerNPCData getCapability(Capability<TGSpawnerNPCData> tgGenericnpcData) {
+			return this.getCapability(tgGenericnpcData,null);
+		}
 		
-	    
 }

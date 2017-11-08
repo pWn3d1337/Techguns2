@@ -1,0 +1,30 @@
+{
+  "result": {
+    "item": "techguns:minigun",
+    "data": 200
+  },
+  "pattern": [
+    "bbe",
+    "bbr",
+    "bbm"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "b": {
+      "item": "techguns:itemshared",
+      "data": 39
+    },
+    "r": {
+      "item": "techguns:itemshared",
+      "data": 35
+    },
+    "e": {
+      "item": "techguns:itemshared",
+      "data": 70
+    },
+    "m": {
+      "item": "techguns:itemshared",
+      "data": 18
+    }
+  }
+}

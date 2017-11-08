@@ -3,13 +3,19 @@ package techguns.damagesystem;
 import java.util.ArrayList;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSource;
 import net.minecraft.util.EntityDamageSourceIndirect;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.translation.I18n;
 import techguns.api.damagesystem.DamageType;
 import techguns.deatheffects.EntityDeathUtils.DeathType;
 
-public class TGDamageSource extends EntityDamageSourceIndirect {
+public class TGDamageSource extends EntityDamageSource {
 
 		protected boolean attackSuccessful=false;
 	
@@ -39,10 +45,6 @@ public class TGDamageSource extends EntityDamageSourceIndirect {
 			unresistableTypes.add("outOfWorld");
 		}
 
-		/*public static TGDamageSource causeDamage(DamageSource dmg){
-			return new TGDamageSource(dmg);
-		}*/
-		
 		public void setAttackSuccessful() {
 			this.attackSuccessful=true;
 		}
@@ -96,6 +98,12 @@ public class TGDamageSource extends EntityDamageSourceIndirect {
 			return src;
 		}
 		
+		public static TGDamageSource causeDarkDamage(Entity projectile, Entity shooter, DeathType deathType){
+			TGDamageSource src = new TGDamageSource("tg_dark",projectile, shooter, DamageType.DARK, deathType);
+			src.ignoreHurtresistTime=true;
+			return src;
+		}
+		
 		public static TGDamageSource getFromGenericDamageSource(DamageSource src){
 			if(src instanceof TGDamageSource){
 				return (TGDamageSource) src;
@@ -116,23 +124,25 @@ public class TGDamageSource extends EntityDamageSourceIndirect {
 			return this.knockbackMultiplier>0.0f;
 		}
 		
-	   /* @Override
-	    public IChatComponent func_151519_b(EntityLivingBase p_151519_1_)
+	    /**
+	     * Gets the death message that is displayed when the player dies
+	     */
+		@Override
+	    public ITextComponent getDeathMessage(EntityLivingBase entityLivingBaseIn)
 	    {
-	        IChatComponent ichatcomponent;
-	        if (this.attacker ==null && this.damageSourceEntity ==null){
-	        	ichatcomponent = new ChatComponentText(p_151519_1_.getCommandSenderName());
-	        } else {
-	        	ichatcomponent = this.attacker == null ? this.damageSourceEntity.func_145748_c_() : this.attacker.func_145748_c_();
-	        }
-	        ItemStack itemstack = this.attacker instanceof EntityLivingBase ? ((EntityLivingBase)this.attacker).getHeldItem() : null;
+			ITextComponent itextcomponent;
+			ItemStack itemstack = ItemStack.EMPTY;
+			if(this.attacker==null && this.damageSourceEntity==null) {	
+				itextcomponent = entityLivingBaseIn.getDisplayName();
+			} else {	
+				itextcomponent = this.attacker == null ? this.damageSourceEntity.getDisplayName() : this.attacker.getDisplayName();
+				itemstack = this.attacker instanceof EntityLivingBase ? ((EntityLivingBase)this.attacker).getHeldItemMainhand() : ItemStack.EMPTY;  
+			}
 	        String s = "death.attack." + this.getDamageType();
 	        String s1 = s + ".item";
-	        
-	        return itemstack != null && itemstack.hasDisplayName() && StatCollector.canTranslate(s1) ? new ChatComponentTranslation(s1, new Object[] {p_151519_1_.func_145748_c_(), ichatcomponent, itemstack.func_151000_E()}): new ChatComponentTranslation(s, new Object[] {p_151519_1_.func_145748_c_(), ichatcomponent});
-	    }*/
+	        return !itemstack.isEmpty() && itemstack.hasDisplayName() && I18n.canTranslate(s1) ? new TextComponentTranslation(s1, new Object[] {entityLivingBaseIn.getDisplayName(), itextcomponent, itemstack.getTextComponent()}) : new TextComponentTranslation(s, new Object[] {entityLivingBaseIn.getDisplayName(), itextcomponent});
+	    }
 		
-
 		public static TGDamageSource copyWithNewEnt(TGDamageSource other, Entity damagingEntity, Entity attacker) {
 			TGDamageSource newSrc = new TGDamageSource(other.getDamageType(), damagingEntity, attacker, other.damageType, other.deathType);
 			newSrc.knockbackMultiplier = other.knockbackMultiplier;
@@ -143,7 +153,7 @@ public class TGDamageSource extends EntityDamageSourceIndirect {
 		}
 		
 		public TGDamageSource(String name, Entity damagingEntity, Entity attacker, DamageType damageType, DeathType deathType) {
-			super(name, damagingEntity, attacker);
+			super(name, damagingEntity);
 			this.attacker = attacker;
 			this.damageType = damageType;
 			this.deathType = deathType;
@@ -192,8 +202,8 @@ public class TGDamageSource extends EntityDamageSourceIndirect {
 		}
 		
 		public TGDamageSource(EntityDamageSourceIndirect dmg){
-			super(dmg.damageType,dmg.getImmediateSource(),dmg.getTrueSource());
-			this.damageSourceEntity=dmg.getTrueSource();
+			super(dmg.damageType,dmg.getImmediateSource());
+			this.attacker=dmg.getTrueSource();
 			this.determineTGDamageType(dmg);
 			this.wasConverted=true;
 			
@@ -225,8 +235,8 @@ public class TGDamageSource extends EntityDamageSourceIndirect {
 		
 		
 		public TGDamageSource(EntityDamageSource dmg){
-			super(dmg.damageType,dmg.getTrueSource(),null);
-			this.damageSourceEntity=dmg.getTrueSource();
+			super(dmg.damageType,dmg.getImmediateSource());
+			this.attacker= dmg.getTrueSource();
 			this.determineTGDamageType(dmg);
 			this.wasConverted=true;
 			
@@ -257,8 +267,8 @@ public class TGDamageSource extends EntityDamageSourceIndirect {
 		}
 		
 		public TGDamageSource(DamageSource dmg){
-			super(dmg.damageType, dmg.getTrueSource(),null);
-			this.damageSourceEntity=dmg.getTrueSource();
+			super(dmg.damageType, dmg.getImmediateSource());
+			this.attacker=dmg.getTrueSource();
 			this.determineTGDamageType(dmg);
 			this.wasConverted=true;
 			
@@ -310,29 +320,14 @@ public class TGDamageSource extends EntityDamageSourceIndirect {
 			
 		}
 		
-		/**
-		 * For projectiles, gets the shooter
-		 * @return
-		 */
-		public Entity getAttacker(){
+		@Override
+		public Entity getTrueSource() {
 			return this.attacker;
 		}
 
-				
-		/*@Override
-	    public Entity getSourceOfDamage()
-	    {
-	        return this.damageSourceEntity;
-	    }
-
-	    @Override
-	    public Entity getEntity()
-	    {
-	    	if (this.attacker!=null){
-	    		return this.attacker;
-	    	}
-	        return this.damageSourceEntity;
-	    }
-		*/
+		@Override
+		public Entity getImmediateSource() {
+			return this.damageSourceEntity;
+		}
 
 }

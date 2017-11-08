@@ -38,7 +38,7 @@ public class ParticleList<E> implements Iterable<E>{
 		int i=0;
 		ParticleListElement<E> elem = this.first;
 		if (elem==null) {
-			//System.out.println("|EMPTY|");
+			System.out.println("|EMPTY|");
 			return;
 		}
 		while(elem.next!=null) {
@@ -93,7 +93,7 @@ public class ParticleList<E> implements Iterable<E>{
 			
 			listElem.prev.next=listElem.next;
 			listElem.next.prev=listElem.prev;
-			listElem.next=null;
+			//listElem.next=null;
 			listElem.prev=null;
 		}
 		size--;
@@ -244,13 +244,13 @@ public class ParticleList<E> implements Iterable<E>{
 		@Override
 		public void remove() {
 			if(current!=null) {
-				ParticleListElement<E> next=null;
+			/*	ParticleListElement<E> next=null;
 				if(hasNext()) {
 					next = current.next;
-				}
+				}*/
 
 				list.remove(current);
-				current=next;
+				//current=next;
 			} else {
 				throw new IllegalStateException("Current element is null!");
 			}

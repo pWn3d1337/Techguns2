@@ -192,6 +192,9 @@ public class TGItems implements ITGInitializer{
 	
 	public static ItemStack MACHINE_UPGRADE_STACK;
 	
+	public static ItemStack REDSTONE_BATTERY;
+	public static ItemStack REDSTONE_BATTERY_EMPTY;
+	
 	//Ammo Variants
 	public static ItemStack SHOTGUN_ROUNDS_INCENDIARY;
 	public static ItemStack AS50_MAGAZINE_INCENDIARY;
@@ -421,6 +424,9 @@ public class TGItems implements ITGInitializer{
 		
 		CHAINSAWBLADES_OBSIDIAN = SHARED_ITEM.addsharedVariant("chainsawblades_obsidian");
 		CHAINSAWBLADES_CARBON = SHARED_ITEM.addsharedVariant("chainsawblades_carbon");
+		
+		REDSTONE_BATTERY = SHARED_ITEM.addsharedVariant("redstone_battery", TGSlotType.AMMOSLOT);
+		REDSTONE_BATTERY_EMPTY = SHARED_ITEM.addsharedVariant("redstone_battery_empty", TGSlotType.AMMOSLOT);
 		
 		/**
 		 * Additional Slot items

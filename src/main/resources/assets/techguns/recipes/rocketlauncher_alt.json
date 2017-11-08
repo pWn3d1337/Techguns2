@@ -1,0 +1,24 @@
+{
+  "result": {
+    "item": "techguns:rocketlauncher"
+  },
+  "pattern": [
+    "rbb",
+    " f "
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "r": {
+      "item": "techguns:itemshared",
+      "data": 7
+    },
+    "b": {
+      "item": "techguns:itemshared",
+      "data": 39
+    },
+    "f": {
+      "item": "techguns:itemshared",
+      "data": 34
+    }
+  }
+}

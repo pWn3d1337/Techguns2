@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "techguns:multiblockmachine",
+    "data": 1,
+    "count": 4
+  },
+  "pattern": [
+    "fgf",
+    "g g",
+    "fgf"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "f": {
+      "item": "techguns:multiblockmachine",
+      "data": 0
+    },
+    "g": {
+      "item": "#HARDENEDGLASSORGLASS"
+    }
+  }
+}

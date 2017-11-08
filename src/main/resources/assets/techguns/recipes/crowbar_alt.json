@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "techguns:crowbar"
+  },
+  "pattern": [
+    " np",
+    " p ",
+    "p  "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "p": {
+      "item": "#PLATESTEEL"
+    },
+    "n": {
+      "item": "#NUGGETSTEEL"
+    }
+  }
+}

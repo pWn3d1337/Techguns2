@@ -1,0 +1,39 @@
+{
+  "result": {
+    "item": "techguns:blasterrifle",
+    "data": 50
+  },
+  "pattern": [
+    "pcg",
+    "bms",
+    " e "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "p": {
+      "item": "#PLATECARBON"
+    },
+    "b": {
+      "item": "techguns:itemshared",
+      "data": 41
+    },
+    "c": {
+      "item": "#CIRCUITELITE"
+    },
+    "s": {
+      "item": "techguns:itemshared",
+      "data": 44
+    },
+    "e": {
+      "item": "techguns:itemshared",
+      "data": 30
+    },
+    "g": {
+      "item": "#HARDENEDGLASSORGLASS"
+    },
+    "m": {
+      "item": "techguns:itemshared",
+      "data": 36
+    }
+  }
+}

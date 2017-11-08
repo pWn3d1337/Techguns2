@@ -1,0 +1,23 @@
+{
+  "result": {
+    "item": "techguns:itemshared",
+    "data": 72
+  },
+  "pattern": [
+    "nnn",
+    "gpg",
+    "nnn"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "p": {
+      "item": "minecraft:piston"
+    },
+    "g": {
+      "item": "#BLOCKGLASS"
+    },
+    "n": {
+      "item": "#NUGGETIRON"
+    }
+  }
+}

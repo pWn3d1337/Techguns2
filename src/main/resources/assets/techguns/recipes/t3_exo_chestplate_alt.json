@@ -1,0 +1,29 @@
+{
+  "result": {
+    "item": "techguns:t3_exo_chestplate"
+  },
+  "ingredients": [
+    {
+      "item": "techguns:t3_combat_chestplate",
+      "data": 32767
+    },
+    {
+      "item": "techguns:itemshared",
+      "data": 59
+    },
+    {
+      "item": "#CIRCUITELITE"
+    },
+    {
+      "item": "techguns:itemshared",
+      "data": 70
+    },
+    {
+      "item": "#INGOTTITANIUM"
+    },
+    {
+      "item": "#INGOTTITANIUM"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

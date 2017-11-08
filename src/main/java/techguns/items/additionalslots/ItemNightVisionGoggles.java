@@ -11,7 +11,7 @@ import techguns.items.armors.TGArmorBonus;
 public class ItemNightVisionGoggles extends ItemTGSpecialSlotAmmo {
 
 	public ItemNightVisionGoggles(String unlocalizedName, int camoCount,int dur) {
-		super(unlocalizedName, TGSlotType.FACESLOT, camoCount,dur, TGItems.ENERGY_CELL, TGItems.ENERGY_CELL_EMPTY);
+		super(unlocalizedName, TGSlotType.FACESLOT, camoCount,dur, TGItems.REDSTONE_BATTERY, TGItems.REDSTONE_BATTERY_EMPTY);
 	}
 
 	@Override

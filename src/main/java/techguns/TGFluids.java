@@ -17,6 +17,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import techguns.blocks.BlockFluidAcid;
 import techguns.init.ITGInitializer;
 
 public class TGFluids implements ITGInitializer {
@@ -64,7 +65,7 @@ public class TGFluids implements ITGInitializer {
 		ACID = FluidRegistry.getFluid("creeper_acid");
 		if(addedAcid) {
 			
-			BLOCK_FLUID_ACID = new BlockFluidClassic(ACID,Material.WATER).setRegistryName(new ResourceLocation(Techguns.MODID, "block_creeper_acid"))
+			BLOCK_FLUID_ACID = new BlockFluidAcid(ACID,Material.WATER).setRegistryName(new ResourceLocation(Techguns.MODID, "block_creeper_acid"))
 					.setUnlocalizedName(Techguns.MODID+".block_creeper_acid").setCreativeTab(Techguns.tabTechgun);
 		}
 	}

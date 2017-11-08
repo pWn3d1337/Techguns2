@@ -1,0 +1,24 @@
+{
+  "result": {
+    "item": "techguns:sawedoff",
+    "data": 2
+  },
+  "pattern": [
+    "bfw",
+    "bf "
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "b": {
+      "item": "techguns:itemshared",
+      "data": 38
+    },
+    "f": {
+      "item": "minecraft:flint_and_steel"
+    },
+    "w": {
+      "item": "techguns:itemshared",
+      "data": 42
+    }
+  }
+}

@@ -7,17 +7,17 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.Capability.IStorage;
 import techguns.api.capabilities.ITGShooterValues;
 
-public class TGGenericNPCDataStorage implements IStorage<TGGenericNPCData>{
+public class TGSpawnerNPCDataStorage implements IStorage<TGSpawnerNPCData>{
 
 	@Override
-	public NBTBase writeNBT(Capability<TGGenericNPCData> capability, TGGenericNPCData instance, EnumFacing side) {
+	public NBTBase writeNBT(Capability<TGSpawnerNPCData> capability, TGSpawnerNPCData instance, EnumFacing side) {
 		final NBTTagCompound tags = new NBTTagCompound();
 		instance.saveToNBT(tags);
 		return tags;
 	}
 
 	@Override
-	public void readNBT(Capability<TGGenericNPCData> capability, TGGenericNPCData instance, EnumFacing side,
+	public void readNBT(Capability<TGSpawnerNPCData> capability, TGSpawnerNPCData instance, EnumFacing side,
 			NBTBase nbt) {
 		final NBTTagCompound tags = (NBTTagCompound) nbt;
 		instance.loadFromNBT(tags);

@@ -37,9 +37,12 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import techguns.TGPackets;
 import techguns.TGSounds;
 import techguns.Techguns;
+import techguns.api.damagesystem.DamageType;
 import techguns.capabilities.TGExtendedPlayer;
 import techguns.client.ShooterValues;
 import techguns.client.audio.TGSoundCategory;
+import techguns.damagesystem.TGDamageSource;
+import techguns.deatheffects.EntityDeathUtils.DeathType;
 import techguns.items.guns.ammo.AmmoType;
 import techguns.packets.PacketPlaySound;
 import techguns.util.BlockUtils;
@@ -120,6 +123,18 @@ public class GenericGunMeleeCharge extends GenericGunCharge implements IGenericG
 		return this;
 	}
 
+	@Override
+	protected TGDamageSource getMeleeDamageSource(EntityPlayer player,ItemStack stack) {
+		TGDamageSource src = new TGDamageSource("player", player, player, DamageType.PHYSICAL, DeathType.GORE);
+		if(this.getCurrentAmmo(stack)>0){
+			src.goreChance=1.0f;
+			src.armorPenetration=this.penetration;
+			src.knockbackMultiplier=1f;
+		} else{
+			src.deathType = DeathType.DEFAULT;
+		}
+		return src;
+	}
 	
 	protected SoundEvent getSwingSound() {
 		return TGSounds.POWERHAMMER_SWING;

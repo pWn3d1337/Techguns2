@@ -1,7 +1,6 @@
 {
   "result": {
-    "item": "techguns:m4",
-    "data": 30
+    "item": "techguns:m4"
   },
   "pattern": [
     " gr",
@@ -33,7 +32,7 @@
     },
     "m": {
       "item": "techguns:itemshared",
-      "data": 14
+      "data": 13
     },
     "n": {
       "item": "#NUGGETIRON"

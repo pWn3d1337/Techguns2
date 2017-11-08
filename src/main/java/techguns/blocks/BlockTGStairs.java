@@ -12,6 +12,7 @@ import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.BlockStairs;
 import net.minecraft.block.BlockStairs.EnumHalf;
 import net.minecraft.block.BlockStairs.EnumShape;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -149,10 +150,10 @@ public class BlockTGStairs extends GenericBlock {
      */
     protected static final AxisAlignedBB AABB_OCT_BOT_SE = new AxisAlignedBB(0.5D, 0.0D, 0.5D, 1.0D, 0.5D, 1.0D);
 
-	public BlockTGStairs(String name, Material mat) {
+	public BlockTGStairs(String name, Material mat, SoundType sound) {
 		super(name, mat);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.EAST).withProperty(HALF, BlockStairs.EnumHalf.BOTTOM).withProperty(SHAPE, BlockStairs.EnumShape.STRAIGHT).withProperty(TYPE2, false));
-	        
+	    this.setSoundType(sound); 
 	}
 	
     @Override

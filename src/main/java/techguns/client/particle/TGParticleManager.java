@@ -44,6 +44,8 @@ public class TGParticleManager {
     }
 	
 	public void tickParticles() {
+		if(Minecraft.getMinecraft().isGamePaused()) return;
+		
 		Entity viewEnt = Minecraft.getMinecraft().getRenderViewEntity();
 		
 		Iterator<TGParticleSystem> sysit = list_systems.iterator();

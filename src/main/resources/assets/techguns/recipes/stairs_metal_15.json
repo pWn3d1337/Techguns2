@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "techguns:stairs_metal",
+    "data": 15,
+    "count": 6
+  },
+  "pattern": [
+    "b  ",
+    "bb ",
+    "bbb"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "b": {
+      "item": "techguns:metalpanel",
+      "data": 6
+    }
+  }
+}

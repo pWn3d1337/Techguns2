@@ -9,10 +9,10 @@ import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import techguns.Techguns;
 import techguns.api.capabilities.ITGShooterValues;
 
-public class TGGenericNPCDataCapProvider implements ICapabilitySerializable<NBTBase> {
+public class TGSpawnerNPCDataCapProvider implements ICapabilitySerializable<NBTBase> {
 
-	@CapabilityInject(TGGenericNPCData.class)
-	public static final Capability<TGGenericNPCData> TG_GENERICNPC_DATA = null;
+	@CapabilityInject(TGSpawnerNPCData.class)
+	public static final Capability<TGSpawnerNPCData> TG_GENERICNPC_DATA = null;
 	
 	/**
 	 * The ID of this capability.
@@ -21,9 +21,9 @@ public class TGGenericNPCDataCapProvider implements ICapabilitySerializable<NBTB
 	
 	public static final EnumFacing DEFAULT_FACING = null;
 	
-	private TGGenericNPCData instance; // = TG_SHOOTER_VALUES.getDefaultInstance();
+	private TGSpawnerNPCData instance; // = TG_SHOOTER_VALUES.getDefaultInstance();
 		
-	public TGGenericNPCDataCapProvider(TGGenericNPCData caps) {
+	public TGSpawnerNPCDataCapProvider(TGSpawnerNPCData caps) {
 		this.instance = caps;
 	}
 	

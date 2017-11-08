@@ -1,0 +1,23 @@
+{
+  "result": {
+    "item": "techguns:t2_riot_boots"
+  },
+  "pattern": [
+    "lhl",
+    "p p"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "p": {
+      "item": "#PLATELEAD"
+    },
+    "h": {
+      "item": "techguns:t2_combat_boots",
+      "data": 32767
+    },
+    "l": {
+      "item": "techguns:itemshared",
+      "data": 77
+    }
+  }
+}

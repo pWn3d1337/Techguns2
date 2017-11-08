@@ -12,6 +12,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import techguns.Techguns;
 import techguns.api.npc.INPCTechgunsShooter;
 import techguns.entities.npcs.GenericNPC;
+import techguns.entities.npcs.ITGSpawnerNPC;
 
 @Mod.EventBusSubscriber(modid = Techguns.MODID)
 public class CapabilityEventHandler {
@@ -34,9 +35,9 @@ public class CapabilityEventHandler {
 			event.addCapability(TGExtendedPlayerCapProvider.ID, new TGExtendedPlayerCapProvider(cap));
 			
 		} 
-		if ( event.getObject() instanceof GenericNPC) {
-			final TGGenericNPCData cap = new TGGenericNPCData();
-			event.addCapability(TGGenericNPCDataCapProvider.ID, new TGGenericNPCDataCapProvider(cap));
+		if ( event.getObject() instanceof ITGSpawnerNPC) {
+			final TGSpawnerNPCData cap = new TGSpawnerNPCData();
+			event.addCapability(TGSpawnerNPCDataCapProvider.ID, new TGSpawnerNPCDataCapProvider(cap));
 		}
 	}
 	

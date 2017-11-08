@@ -4,10 +4,11 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
-import techguns.entities.npcs.GenericNPC;
+import net.minecraft.world.World;
+import techguns.entities.npcs.ITGSpawnerNPC;
 import techguns.tileentities.TGSpawnerTileEnt;
 
-public class TGGenericNPCData {
+public class TGSpawnerNPCData {
 	
 	protected BlockPos spawnerPos;
 	
@@ -23,13 +24,13 @@ public class TGGenericNPCData {
 		this.spawnerPos = spawnerPos;
 	}
 
-	public static TGGenericNPCData get(GenericNPC npc){
-		return (TGGenericNPCData) npc.getCapability(TGGenericNPCDataCapProvider.TG_GENERICNPC_DATA, null);
+	public static TGSpawnerNPCData get(ITGSpawnerNPC npc){
+		return (TGSpawnerNPCData) npc.getCapability(TGSpawnerNPCDataCapProvider.TG_GENERICNPC_DATA);
 	}
 	
-	public void tryRelink(GenericNPC npc) {
+	public void tryRelink(World w, ITGSpawnerNPC npc) {
 		if(this.hasSpawner()) {
-			TileEntity tile = npc.world.getTileEntity(this.getSpawnerPos());
+			TileEntity tile = w.getTileEntity(this.getSpawnerPos());
 			if(tile!=null && tile instanceof TGSpawnerTileEnt) {
 				((TGSpawnerTileEnt)tile).relinkNPC(npc);
 			}

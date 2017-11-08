@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "techguns:t2_commando_leggings"
+  },
+  "pattern": [
+    "hih",
+    "i i",
+    "h h"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "h": {
+      "item": "#ITEMRUBBER"
+    },
+    "i": {
+      "item": "#INGOTOBSIDIANSTEEL"
+    }
+  }
+}

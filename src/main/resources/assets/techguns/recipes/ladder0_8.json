@@ -12,7 +12,7 @@
   "type": "forge:ore_shaped",
   "key": {
     "i": {
-      "item": "#PLATETIN"
+      "item": "#PLATEIRON"
     }
   }
 }

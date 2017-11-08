@@ -15,6 +15,7 @@ import net.minecraft.world.World;
 import techguns.TGBlocks;
 import techguns.blocks.EnumMonsterSpawnerType;
 import techguns.entities.npcs.ArmySoldier;
+import techguns.entities.npcs.AttackHelicopter;
 import techguns.tileentities.TGSpawnerTileEnt;
 import techguns.util.BlockUtils;
 import techguns.util.MBlock;
@@ -231,7 +232,21 @@ public class MilitaryCamp {
 				posX-this.posX, posY-this.posY, posZ-this.posZ,
 				spawnPosAsArray(spawnPositions), militaryCampSpawns);*/
 		
-		MutableBlockPos p = new MutableBlockPos();
+		
+		
+		MutableBlockPos p = new MutableBlockPos(posX,posY,posZ);
+		
+		world.setBlockState(p, TGBlocks.MONSTER_SPAWNER.getDefaultState().withProperty(TGBlocks.MONSTER_SPAWNER.TYPE,EnumMonsterSpawnerType.SOLDIER_SPAWN),3);
+		TileEntity tile = world.getTileEntity(p);
+		if(tile!=null && tile instanceof TGSpawnerTileEnt) {
+			TGSpawnerTileEnt spawner = (TGSpawnerTileEnt) tile;
+			spawner.addMobType(AttackHelicopter.class, 1);
+			spawner.setParams(1, 1, 200,0);
+			
+			int h = Math.min(posY+64,world.getActualHeight())-posY;
+			spawner.setSpawnHeightOffset(h);
+		}
+		
 		for (int i=0;i<this.spawnPositions.size();i+=3) {
 			int x =posX + this.spawnPositions.get(i) - (posX-this.posX);
 			int y =posY + this.spawnPositions.get(i+1) - (posY-this.posY);
@@ -241,9 +256,11 @@ public class MilitaryCamp {
 			
 			world.setBlockState(p.setPos(x,y,z), TGBlocks.MONSTER_SPAWNER.getDefaultState().withProperty(TGBlocks.MONSTER_SPAWNER.TYPE,EnumMonsterSpawnerType.SOLDIER_SPAWN),3);
 			
-			TileEntity tile = world.getTileEntity(p);
+			tile = world.getTileEntity(p);
 			if(tile!=null && tile instanceof TGSpawnerTileEnt) {
-				((TGSpawnerTileEnt)tile).addMobType(ArmySoldier.class, 1);
+				TGSpawnerTileEnt spawner = (TGSpawnerTileEnt) tile;
+				spawner.addMobType(ArmySoldier.class, 1);
+				spawner.setParams(3, 1, 200,0);
 			}
 		}
 		

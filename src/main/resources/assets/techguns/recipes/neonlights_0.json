@@ -1,0 +1,24 @@
+{
+  "result": {
+    "item": "techguns:neonlights",
+    "data": 0,
+    "count": 16
+  },
+  "pattern": [
+    "nnn",
+    "gsg",
+    "nnn"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "s": {
+      "item": "#DUSTGLOWSTONE"
+    },
+    "g": {
+      "item": "#PANEGLASS"
+    },
+    "n": {
+      "item": "#NUGGETIRON"
+    }
+  }
+}

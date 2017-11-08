@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "techguns:concrete",
+    "data": 0,
+    "count": 16
+  },
+  "pattern": [
+    "ccc",
+    "cbc",
+    "ccc"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "b": {
+      "item": "minecraft:iron_bars"
+    },
+    "c": {
+      "item": "minecraft:concrete",
+      "data": 32767
+    }
+  }
+}

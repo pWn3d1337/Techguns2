@@ -1,0 +1,18 @@
+{
+  "result": {
+    "item": "techguns:powerhammer"
+  },
+  "ingredients": [
+    {
+      "item": "techguns:powerhammer",
+      "type": "itemstackHasNBTInt",
+      "value": 1,
+      "key": "miningHead"
+    },
+    {
+      "item": "techguns:itemshared",
+      "data": 122
+    }
+  ],
+  "type": "techguns:miningtool_upgrade"
+}

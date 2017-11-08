@@ -1,0 +1,24 @@
+{
+  "result": {
+    "item": "techguns:itemshared",
+    "data": 41
+  },
+  "pattern": [
+    "fff",
+    "ggl",
+    "fff"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "f": {
+      "item": "#ELECTRUMORGOLD"
+    },
+    "g": {
+      "item": "#HARDENEDGLASSORGLASS"
+    },
+    "l": {
+      "item": "techguns:itemshared",
+      "data": 71
+    }
+  }
+}

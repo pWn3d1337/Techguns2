@@ -1,0 +1,20 @@
+{
+  "result": {
+    "item": "techguns:t1_combat_leggings"
+  },
+  "pattern": [
+    "iii",
+    "c c",
+    "c c"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "c": {
+      "item": "techguns:itemshared",
+      "data": 60
+    },
+    "i": {
+      "item": "#INGOTIRON"
+    }
+  }
+}

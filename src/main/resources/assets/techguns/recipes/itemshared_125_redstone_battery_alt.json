@@ -1,0 +1,16 @@
+{
+  "result": {
+    "item": "techguns:itemshared",
+    "data": 125
+  },
+  "ingredients": [
+    {
+      "item": "techguns:itemshared",
+      "data": 126
+    },
+    {
+      "item": "#DUSTREDSTONE"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

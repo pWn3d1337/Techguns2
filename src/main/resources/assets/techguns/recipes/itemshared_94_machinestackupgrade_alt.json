@@ -1,0 +1,26 @@
+{
+  "result": {
+    "item": "techguns:itemshared",
+    "data": 94
+  },
+  "pattern": [
+    "pgp",
+    "ncn",
+    "pnp"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "p": {
+      "item": "#PLATEIRON"
+    },
+    "c": {
+      "item": "minecraft:chest"
+    },
+    "g": {
+      "item": "#DYEGREEN"
+    },
+    "n": {
+      "item": "#INGOTGOLD"
+    }
+  }
+}

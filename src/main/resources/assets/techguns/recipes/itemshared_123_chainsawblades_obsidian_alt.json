@@ -1,0 +1,21 @@
+{
+  "result": {
+    "item": "techguns:itemshared",
+    "data": 123
+  },
+  "pattern": [
+    " pm",
+    "m  ",
+    " pm"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "p": {
+      "item": "#PLATESTEEL"
+    },
+    "m": {
+      "item": "techguns:itemshared",
+      "data": 58
+    }
+  }
+}
