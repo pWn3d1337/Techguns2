@@ -39,7 +39,7 @@ public class TGParticleSystem extends Particle implements ITGParticle {
 	int systemLifetime;
 	int spawnDelay = 0;
 	
-	public float scale; //global scale
+	public float scale =1.0f; //global scale
 	public float rotationYaw;
 	public float rotationPitch;
 	
@@ -91,7 +91,7 @@ public class TGParticleSystem extends Particle implements ITGParticle {
 	protected void init() {
 		this.systemLifetime = MathUtil.randomInt(this.rand, type.systemLifetimeMin, type.systemLifetimeMax);
 		this.initialDelay = MathUtil.randomInt(this.rand, type.initialDelayMin, type.initialDelayMax);
-		this.startSizeRate = MathUtil.randomFloat(this.rand, type.startSizeRateMin, type.startSizeRateMax);
+		this.startSizeRate = MathUtil.randomFloat(this.rand, type.startSizeRateMin, type.startSizeRateMax) * this.scale;
 		this.startSizeRateDamping = MathUtil.randomFloat(this.rand, type.startSizeRateDampingMin, type.startSizeRateDampingMax);
 		//Minecraft.getMinecraft().effectRenderer.addEffect(this);
 		//timediff = System.currentTimeMillis();
@@ -180,6 +180,10 @@ public class TGParticleSystem extends Particle implements ITGParticle {
 				//System.out.printf("Dir: %.3f,  %.3f,  %.3f\n", dir[0], dir[1], dir[2]);
 				//position = position.addVector(type.offset.x, type.offset.y, type.offset.z);
 				Vec3d motion = type.velocityType.getVelocity(this, dir.values);
+				
+				motion = motion.scale(this.scale);
+				position = position.scale(this.scale);
+				
 				//apply ParticleSystem's entity rotation
 				
 				//System.out.println("ParticleSystemRotation - Pitch: "+this.rotationPitch+" - Yaw: "+this.rotationYaw);
@@ -214,7 +218,10 @@ public class TGParticleSystem extends Particle implements ITGParticle {
 				if (this.type.attachedSystem != null && !this.type.attachedSystem.equals("")) {
 					List<TGParticleSystem> systems = TGFX.createFXOnParticle(this.world, particle, this.type.attachedSystem);
 					if (systems!=null) {
-						systems.forEach(s -> ClientProxy.get().particleManager.addEffect(s));
+						for (TGParticleSystem s : systems) {
+							s.scale = this.scale;
+							ClientProxy.get().particleManager.addEffect(s);
+						}
 					}
 				}
 			}			

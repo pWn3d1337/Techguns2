@@ -22,6 +22,8 @@ public class PacketSpawnParticleOnEntity implements IMessage {
 	float offsetY = 0.0f;
 	float offsetZ = 0.0f;
 	
+	//float scale = 1.0f;
+	
 	boolean attachToHead = false;
 	
 	EntityCondition condition;

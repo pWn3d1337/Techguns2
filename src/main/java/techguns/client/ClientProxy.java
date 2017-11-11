@@ -893,13 +893,13 @@ public class ClientProxy extends CommonProxy {
 				}).setRecoilAnim(GunAnimation.genericRecoil, 0.05f, 1.0f));
 		
 		ItemRenderHack.registerItemRenderer(TGuns.tfg,new RenderGunBase90(new ModelTFG(),1).setBaseTranslation(-0.46f, -0.38f, RenderItemBase.SCALE-0.125f)
-				.setBaseScale(1.20f).setGUIScale(0.30f).setMuzzleFx(ScreenEffect.muzzleGreenFlare, 0, 0.23f, -0.51f, 0.55f,0).setTransformTranslations(new float[][]{
+				.setBaseScale(1.20f).setGUIScale(0.30f).setMuzzleFx(ScreenEffect.muzzleFlashTFG, 0.0f, 0.18f, -0.87f, 0.9f,0).setTransformTranslations(new float[][]{
 					{0f,-0.03f,0.16f}, //First Person
 					{0f,-0.09f,-0.26f}, //Third Person
 					{0.04f,-0.04f,0f}, //GUI
 					{0f,0f,0f}, //Ground
 					{-0.07f,0f,-0.05f} //frame
-				}).setMuzzleFXPos3P(0.1f, -0.51f).setChargeTranslationAmount(0.05f).setFirstPersonScale(0.45f));
+				}).setMuzzleFXPos3P(0.09f, -1.14f).setChargeTranslationAmount(0.05f).setFirstPersonScale(0.45f));
 		
 		ItemRenderHack.registerItemRenderer(TGArmors.steam_Helmet,  new RenderArmorItem(new ModelSteamArmor(0), new ResourceLocation(Techguns.MODID,"textures/models/armor/steam_armor.png"), EntityEquipmentSlot.HEAD) );
 		ItemRenderHack.registerItemRenderer(TGArmors.steam_Chestplate,  new RenderArmorItem(new ModelSteamArmor(0), new ResourceLocation(Techguns.MODID,"textures/models/armor/steam_armor.png"), EntityEquipmentSlot.CHEST) );
@@ -1088,10 +1088,32 @@ public class ClientProxy extends CommonProxy {
 	}
 	
 	@Override
+	public void createFX(String name, World world, double posX, double posY, double posZ, double motionX, double motionY, double motionZ, float scale){	
+		List<TGParticleSystem> systems = TGFX.createFX(world, name, posX, posY, posZ, motionX, motionY, motionZ);
+		if (systems!=null) {
+			for (TGParticleSystem s : systems) {
+				s.scale = scale;
+				particleManager.addEffect(s);
+			}
+		}
+	}
+	
+	@Override
 	public void createFXOnEntity(String name, Entity ent) {
 		List<TGParticleSystem> systems = TGFX.createFXOnEntity(ent, name);
 		if (systems!=null) {
 			systems.forEach(s -> particleManager.addEffect(s)); //Minecraft.getMinecraft().effectRenderer.addEffect(s));
+		}
+	}
+	
+	@Override
+	public void createFXOnEntity(String name, Entity ent, float scale) {
+		List<TGParticleSystem> systems = TGFX.createFXOnEntity(ent, name);
+		if (systems!=null) {
+			for (TGParticleSystem s : systems) {
+				s.scale = scale;
+				particleManager.addEffect(s);
+			}
 		}
 	}
 	

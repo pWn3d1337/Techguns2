@@ -1272,6 +1272,22 @@
         "techguns:guns/driller_break_c",
         "techguns:guns/driller_break_d"
     ]
+},
+
+"guns.tfgfire_old": {
+    "category": "player",
+    "sounds": [
+        "techguns:guns/tfg_shot_a",
+        "techguns:guns/tfg_shot_b",
+        "techguns:guns/tfg_shot_c"
+    ]
+},
+
+"guns.tfgfire": {
+    "category": "player",
+    "sounds": [
+        "techguns:guns/tfg_shot_v2"
+    ]
 }
 
 

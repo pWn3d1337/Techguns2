@@ -13,6 +13,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -84,9 +85,9 @@ public class TGParticle extends Particle implements ITGParticle {
 		private void init() {
 			this.lifetime = MathUtil.randomInt(rand, type.lifetimeMin, type.lifetimeMax);
 			this.particleMaxAge = lifetime;
-			this.size = MathUtil.randomFloat(rand, type.sizeMin, type.sizeMax);
+			this.size = MathUtil.randomFloat(rand, type.sizeMin, type.sizeMax) * this.particleSystem.scale;
 			this.size+= (this.particleSystem.startSize);
-			this.sizeRate = MathUtil.randomFloat(rand, type.sizeRateMin, type.sizeRateMax);
+			this.sizeRate = MathUtil.randomFloat(rand, type.sizeRateMin, type.sizeRateMax)  * this.particleSystem.scale;
 			this.sizeRateDamping = MathUtil.randomFloat(rand, type.sizeRateDampingMin, type.sizeRateDampingMax);
 			this.animationSpeed = MathUtil.randomFloat(rand, type.animationSpeedMin, type.animationSpeedMax);
 			this.velocityDamping = MathUtil.randomFloat(rand, type.velocityDampingMin, type.velocityDampingMax);
@@ -146,12 +147,37 @@ public class TGParticle extends Particle implements ITGParticle {
 					return;
 				}
 				
-				this.prevPosX = this.particleSystem.entity.prevPosX;
-				this.prevPosY = this.particleSystem.entity.prevPosY;
-				this.prevPosZ = this.particleSystem.entity.prevPosZ;
-				this.posX = this.particleSystem.entity.posX;
-				this.posY = this.particleSystem.entity.posY;
-				this.posZ = this.particleSystem.entity.posZ;
+				if (this.type.particlesMoveWithSystem && this.particleSystem.attachToHead && this.particleSystem.entity instanceof EntityLivingBase) {
+					EntityLivingBase ent = (EntityLivingBase)this.particleSystem.entity;
+					
+					double p = ent.rotationPitch*MathUtil.D2R;
+					double y = ent.rotationYawHead*MathUtil.D2R;
+					
+					double prevP = ent.prevRotationPitch * MathUtil.D2R;
+					double prevY =ent.prevRotationYawHead * MathUtil.D2R;
+					
+					Vec3d offsetBase = this.particleSystem.entityOffset.add(this.particleSystem.type.offset);
+					Vec3d offset = offsetBase.rotatePitch((float)-p);
+					offset = offset.rotateYaw((float)-y);
+					
+					Vec3d offsetP = offsetBase.rotatePitch((float)-prevP);
+					offsetP = offsetP.rotateYaw((float)-prevY);
+					
+					this.prevPosX = this.particleSystem.entity.prevPosX + offsetP.x;
+					this.prevPosY = this.particleSystem.entity.prevPosY + ent.getEyeHeight() + offsetP.y;
+					this.prevPosZ = this.particleSystem.entity.prevPosZ + offsetP.z;
+					this.posX = this.particleSystem.entity.posX + offset.x;
+					this.posY = this.particleSystem.entity.posY + ent.getEyeHeight() + offset.y;
+					this.posZ = this.particleSystem.entity.posZ + offset.z;
+				}else {
+				
+					this.prevPosX = this.particleSystem.entity.prevPosX;
+					this.prevPosY = this.particleSystem.entity.prevPosY;
+					this.prevPosZ = this.particleSystem.entity.prevPosZ;
+					this.posX = this.particleSystem.entity.posX;
+					this.posY = this.particleSystem.entity.posY;
+					this.posZ = this.particleSystem.entity.posZ;
+				}
 			}else {
 				
 				if (!this.particleSystem.isAlive()) {

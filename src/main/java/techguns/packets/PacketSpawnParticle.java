@@ -22,6 +22,7 @@ public class PacketSpawnParticle implements IMessage {
 	double motionY=0.0D;
 	double motionZ=0.0D;
 	
+	float scale = 1.0f;
 	
 	public PacketSpawnParticle() {
 		super();
@@ -34,6 +35,11 @@ public class PacketSpawnParticle implements IMessage {
 		this.posY = posY;
 		this.posZ = posZ;
 	}
+	
+	public PacketSpawnParticle(String name, double posX, double posY, double posZ, float scale) {
+		this(name, posX, posY, posZ);
+		this.scale = scale;
+	}
 
 	public PacketSpawnParticle(String name, double posX, double posY, double posZ, double motionX, double motionY, double motionZ) {
 		super();
@@ -44,6 +50,11 @@ public class PacketSpawnParticle implements IMessage {
 		this.motionX = motionX;
 		this.motionY = motionY;
 		this.motionZ = motionZ;
+	}
+	
+	public PacketSpawnParticle(String name, double posX, double posY, double posZ, double motionX, double motionY, double motionZ, float scale) {
+		this(name, posX, posY, posZ, motionX, motionY, motionZ);
+		this.scale = scale;
 	}
 
 	@Override
@@ -58,6 +69,8 @@ public class PacketSpawnParticle implements IMessage {
 		this.motionX=buf.readDouble();
 		this.motionY=buf.readDouble();
 		this.motionZ=buf.readDouble();
+		
+		this.scale = buf.readFloat();
 	}
 
 	@Override
@@ -73,6 +86,8 @@ public class PacketSpawnParticle implements IMessage {
 		buf.writeDouble(motionX);
 		buf.writeDouble(motionY);
 		buf.writeDouble(motionZ);
+		
+		buf.writeFloat(scale);
 	}
 	
 	public static class Handler implements IMessageHandler<PacketSpawnParticle, IMessage> {
@@ -83,7 +98,7 @@ public class PacketSpawnParticle implements IMessage {
 		}
 
 		private void handle(PacketSpawnParticle m, MessageContext ctx) {
-			ClientProxy.get().createFX(m.name, TGPackets.getPlayerFromContext(ctx).world, m.posX, m.posY, m.posZ, m.motionX, m.motionY, m.motionZ);
+			ClientProxy.get().createFX(m.name, TGPackets.getPlayerFromContext(ctx).world, m.posX, m.posY, m.posZ, m.motionX, m.motionY, m.motionZ, m.scale);
 		}
 	}
 

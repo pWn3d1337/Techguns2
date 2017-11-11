@@ -42,7 +42,7 @@ import techguns.util.MathUtil;
 @Optional.Interface(iface="elucent.albedo.lighting.ILightProvider", modid="albedo")
 public class TFGProjectile extends GenericProjectile implements IEntityAdditionalSpawnData, ILightProvider{
 
-	public float size;
+	public float size = 1.0f;
 
 
 	public TFGProjectile(World worldIn, double posX, double posY, double posZ, float yaw, float pitch, float damage, float speed, int TTL, float spread, float dmgDropStart,
@@ -61,7 +61,6 @@ public class TFGProjectile extends GenericProjectile implements IEntityAdditiona
 	
 	public TFGProjectile(World worldIn) {
 		super(worldIn);
-		ClientProxy.get().createFXOnEntity("TFGTrail", this);
 	}
 	
 	@Override
@@ -78,10 +77,10 @@ public class TFGProjectile extends GenericProjectile implements IEntityAdditiona
 		if (!this.world.isRemote){
 			float exp_dmgMax = this.damage*0.66f * size;
 			float exp_dmgMin = this.damage*0.33f * size;
-			float exp_r1 = size*0.5f;
-			float exp_r2 = size;
+			float exp_r1 = size*1.25f;
+			float exp_r2 = size*2.5f;
 			
-			TGPackets.network.sendToAllAround(new PacketSpawnParticle("RocketExplosion", this.posX,this.posY,this.posZ), TGPackets.targetPointAroundEnt(this, 50.0f));
+			TGPackets.network.sendToAllAround(new PacketSpawnParticle("TFGExplosion", this.posX,this.posY,this.posZ, size*0.75f), TGPackets.targetPointAroundEnt(this, 100.0f));
 			
 			TGExplosion explosion = new TGExplosion(world, this.shooter, this, posX, posY, posZ, exp_dmgMax, exp_dmgMin, exp_r1, exp_r2, this.blockdamage?0.5:0.0);
 			
@@ -100,6 +99,7 @@ public class TFGProjectile extends GenericProjectile implements IEntityAdditiona
 	@Override
 	public void readSpawnData(ByteBuf additionalData) {
 		this.size=additionalData.readFloat();
+		Techguns.proxy.createFXOnEntity("TFGTrail", this, this.size*0.75f);
 	}
 	
 	public static class Factory implements IChargedProjectileFactory<TFGProjectile> {
@@ -119,7 +119,7 @@ public class TFGProjectile extends GenericProjectile implements IEntityAdditiona
 		public TFGProjectile createChargedProjectile(World world, EntityLivingBase p, float damage, float speed, int TTL, float spread, float dmgDropStart, float dmgDropEnd,
 				float dmgMin, float penetration, boolean blockdamage, EnumBulletFirePos firePos, float radius, double gravity, float charge, int ammoConsumed) {
 			TFGProjectile proj = new TFGProjectile(world,p,damage,speed,TTL,spread,dmgDropStart,dmgDropEnd,dmgMin,penetration,blockdamage,firePos,gravity,ammoConsumed);
-			proj.size = 1.0f+(charge*10.0f);
+			proj.size = 1.0f+(charge*5.0f);
 			return proj;
 		}
 		
