@@ -19,6 +19,7 @@ public class CyberDemon extends GenericNPC {
 	
 	public CyberDemon(World world) {
 		super(world);
+		setTGArmorStats(10.0f, 0f);
 	}
 
 	@Override
@@ -28,6 +29,7 @@ public class CyberDemon extends GenericNPC {
 		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(30);
 		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(7);
 		this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(50.0D);
+		this.getEntityAttribute(SharedMonsterAttributes.ARMOR_TOUGHNESS).setBaseValue(1D);
 		this.isImmuneToFire = true;
 		this.hasAimedBowAnim = false;
 	}

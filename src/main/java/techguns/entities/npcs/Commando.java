@@ -21,6 +21,7 @@ public class Commando extends GenericNPC {
 	
 	public Commando(World world) {
 		super(world);
+		setTGArmorStats(8.0f, 0f);
 	}
 
 	@Override

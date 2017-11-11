@@ -13,7 +13,7 @@ import techguns.TGuns;
 import techguns.Techguns;
 import techguns.items.armors.GenericArmorMultiCamo;
 
-public class Outcast extends GenericNPC {
+public class Outcast extends GenericNPCGearSpecificStats {
 
 	public static final ResourceLocation LOOT = new ResourceLocation(Techguns.MODID, "entities/outcast");
 	

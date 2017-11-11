@@ -64,6 +64,9 @@ public class GenericNPC extends EntityMob implements IRangedAttackMob, INPCTechg
 	  
 	    boolean tryLink=true;
 	    
+	    protected float armor=0f;
+	    protected float penetrationResistance=0f;
+	    
 	    public GenericNPC(World world)
 	    {
 	        super(world);
@@ -324,62 +327,19 @@ public class GenericNPC extends EntityMob implements IRangedAttackMob, INPCTechg
 			return 0;//;1.1f;
 		}
 
+		protected void setTGArmorStats(float armor, float penetrationResistance) {
+			this.armor=armor;
+			this.penetrationResistance=penetrationResistance;
+		}
+		
 		@Override
 		public float getTotalArmorAgainstType(TGDamageSource dmgsrc) {
-			Iterable<ItemStack> inv = this.getArmorInventoryList();
-			//ItemStack[] inv = new ItemStack[]{this.getEquipmentInSlot(1),this.getEquipmentInSlot(2),this.getEquipmentInSlot(3),this.getEquipmentInSlot(4)};
-			float totalArmor=0.0f;
-			for (ItemStack stack: inv){
-				if(!stack.isEmpty() && stack.getItem() instanceof ItemArmor){
-					
-					if(stack.getItem() instanceof GenericArmor){
-						GenericArmor genArmor = (GenericArmor) stack.getItem();
-						float armorvalue = genArmor.getArmorValue(stack, dmgsrc.damageType);
-						totalArmor+=armorvalue;
-					} else {
-						ItemArmor armor = (ItemArmor) stack.getItem();
-						float armorvalue = armor.getArmorMaterial().getDamageReductionAmount(armor.armorType);
-						armorvalue = DamageSystem.getArmorAgainstDamageTypeDefault(this, armorvalue, dmgsrc.damageType);
-						totalArmor+=armorvalue;
-					}
-				}
-			}
-			
-			return totalArmor;
+			return DamageSystem.getArmorAgainstDamageTypeDefault(this, this.armor, dmgsrc.damageType);
 		}
 
 		@Override
 		public float getPenetrationResistance(TGDamageSource dmgsrc) {
-			Iterable<ItemStack> inv = this.getArmorInventoryList();
-			float res=0.0f;
-			for (ItemStack stack: inv){
-				if(!stack.isEmpty() && stack.getItem() instanceof GenericArmor){	
-					GenericArmor genArmor = (GenericArmor) stack.getItem();
-					float antipen = genArmor.getPenetrationResistance();
-					res+=antipen;
-				}
-			}
-			return res;
-		}
-
-		
-		
-		@Override
-		public float getToughnessAfterPentration(EntityLivingBase elb, TGDamageSource src) {
-			Iterable<ItemStack> inv = this.getArmorInventoryList();
-			float t=0.0f;
-			for (ItemStack stack: inv){
-				if(!stack.isEmpty() && stack.getItem() instanceof GenericArmor){	
-					GenericArmor genArmor = (GenericArmor) stack.getItem();
-					float dt = genArmor.toughness-(Math.max(src.armorPenetration-genArmor.getPenetrationResistance(), 0f));
-					t+=Math.max(dt, 0f);
-				} else if (!stack.isEmpty() && stack.getItem() instanceof ItemArmor) {
-					ItemArmor a = (ItemArmor) stack.getItem();
-					float dt = a.toughness- src.armorPenetration;
-					t+=Math.max(dt, 0f);
-				}
-			}
-			return t;
+			return this.penetrationResistance;
 		}
 
 		@Override

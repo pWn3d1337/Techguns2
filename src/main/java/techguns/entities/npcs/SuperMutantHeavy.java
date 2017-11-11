@@ -8,6 +8,7 @@ public class SuperMutantHeavy extends SuperMutantBasic {
 
 	public SuperMutantHeavy(World world) {
 		super(world);
+		setTGArmorStats(10.0f, 0);
 	}
 	
 	public int gettype() {
@@ -69,8 +70,9 @@ public class SuperMutantHeavy extends SuperMutantBasic {
 		super.applyEntityAttributes();
 
 		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
-		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(40);
+		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(45);
 		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(9);
 		this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(50.0D);
+		this.getEntityAttribute(SharedMonsterAttributes.ARMOR_TOUGHNESS).setBaseValue(2D);
 	}
 }

@@ -23,6 +23,7 @@ public class SuperMutantBasic extends GenericNPC {
 	public SuperMutantBasic(World world) {
 		super(world);
 		this.setSize(getMutantWidth(), 2F*this.getModelScale());
+		setTGArmorStats(5.0f, 0f);
 	}
 	
 	public int gettype() {
@@ -88,9 +89,10 @@ public class SuperMutantBasic extends GenericNPC {
 		super.applyEntityAttributes();
 
 		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.30D);
-		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(30);
+		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(35);
 		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(7);
 		this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(50.0D);
+		this.getEntityAttribute(SharedMonsterAttributes.ARMOR_TOUGHNESS).setBaseValue(1D);
 	}
 
 	

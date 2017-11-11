@@ -244,6 +244,7 @@ import techguns.gui.ChemLabGui;
 import techguns.gui.Door3x3Gui;
 import techguns.gui.DungeonGeneratorGui;
 import techguns.gui.DungeonScannerGui;
+import techguns.gui.ExplosiveChargeGui;
 import techguns.gui.FabricatorGui;
 import techguns.gui.MetalPressGui;
 import techguns.gui.ReactionChamberGui;
@@ -256,6 +257,7 @@ import techguns.gui.containers.ChemLabContainer;
 import techguns.gui.containers.Door3x3Container;
 import techguns.gui.containers.DungeonGeneratorContainer;
 import techguns.gui.containers.DungeonScannerContainer;
+import techguns.gui.containers.ExplosiveChargeContainer;
 import techguns.gui.containers.FabricatorContainer;
 import techguns.gui.containers.MetalPressContainer;
 import techguns.gui.containers.ReactionChamberContainer;
@@ -270,6 +272,8 @@ import techguns.tileentities.ChemLabTileEnt;
 import techguns.tileentities.Door3x3TileEntity;
 import techguns.tileentities.DungeonGeneratorTileEnt;
 import techguns.tileentities.DungeonScannerTileEnt;
+import techguns.tileentities.ExplosiveChargeAdvTileEnt;
+import techguns.tileentities.ExplosiveChargeTileEnt;
 import techguns.tileentities.FabricatorTileEntMaster;
 import techguns.tileentities.MetalPressTileEnt;
 import techguns.tileentities.ReactionChamberTileEntMaster;
@@ -420,6 +424,8 @@ public class ClientProxy extends CommonProxy {
 		guihandler.<DungeonScannerTileEnt>addEntry(DungeonScannerTileEnt.class, DungeonScannerGui::new, DungeonScannerContainer::new);
 		guihandler.<DungeonGeneratorTileEnt>addEntry(DungeonGeneratorTileEnt.class, DungeonGeneratorGui::new, DungeonGeneratorContainer::new);
 		guihandler.<Door3x3TileEntity>addEntry(Door3x3TileEntity.class, Door3x3Gui::new, Door3x3Container::new);
+		guihandler.<ExplosiveChargeTileEnt>addEntry(ExplosiveChargeTileEnt.class, ExplosiveChargeGui::new, ExplosiveChargeContainer::new);
+		guihandler.<ExplosiveChargeAdvTileEnt>addEntry(ExplosiveChargeAdvTileEnt.class, ExplosiveChargeGui::new, ExplosiveChargeContainer::new);
 	}
 	
 	@Override

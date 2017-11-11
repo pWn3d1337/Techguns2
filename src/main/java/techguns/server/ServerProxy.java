@@ -7,6 +7,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import techguns.CommonProxy;
 import techguns.events.TechgunsGuiHandler.GuiHandlerRegister;
+import techguns.gui.ExplosiveChargeGui;
 import techguns.gui.containers.AmmoPressContainer;
 import techguns.gui.containers.CamoBenchContainer;
 import techguns.gui.containers.ChargingStationContainer;
@@ -14,6 +15,7 @@ import techguns.gui.containers.ChemLabContainer;
 import techguns.gui.containers.Door3x3Container;
 import techguns.gui.containers.DungeonGeneratorContainer;
 import techguns.gui.containers.DungeonScannerContainer;
+import techguns.gui.containers.ExplosiveChargeContainer;
 import techguns.gui.containers.FabricatorContainer;
 import techguns.gui.containers.MetalPressContainer;
 import techguns.gui.containers.ReactionChamberContainer;
@@ -26,6 +28,8 @@ import techguns.tileentities.ChemLabTileEnt;
 import techguns.tileentities.Door3x3TileEntity;
 import techguns.tileentities.DungeonGeneratorTileEnt;
 import techguns.tileentities.DungeonScannerTileEnt;
+import techguns.tileentities.ExplosiveChargeAdvTileEnt;
+import techguns.tileentities.ExplosiveChargeTileEnt;
 import techguns.tileentities.FabricatorTileEntMaster;
 import techguns.tileentities.MetalPressTileEnt;
 import techguns.tileentities.ReactionChamberTileEntMaster;
@@ -57,6 +61,8 @@ public class ServerProxy extends CommonProxy {
 		guihandler.<DungeonScannerTileEnt>addEntry(DungeonScannerTileEnt.class, DungeonScannerContainer::new);
 		guihandler.<DungeonGeneratorTileEnt>addEntry(DungeonGeneratorTileEnt.class, DungeonGeneratorContainer::new);
 		guihandler.<Door3x3TileEntity>addEntry(Door3x3TileEntity.class, Door3x3Container::new);
+		guihandler.<ExplosiveChargeTileEnt>addEntry(ExplosiveChargeTileEnt.class, ExplosiveChargeContainer<ExplosiveChargeTileEnt>::new);
+		guihandler.<ExplosiveChargeAdvTileEnt>addEntry(ExplosiveChargeAdvTileEnt.class, ExplosiveChargeContainer<ExplosiveChargeAdvTileEnt>::new);
 	}
 	
 	@Override

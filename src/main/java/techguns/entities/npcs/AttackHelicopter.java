@@ -242,14 +242,16 @@ public class AttackHelicopter extends EntityFlying implements IMob, INpcTGDamage
 
 	            this.playSound(TGSounds.HELICOPTER_EXPLODE, 6.0f, 1.0f);
 	            
-	            for (int i = 0; i < 10; ++i)
-	            {
-	                double d2 = this.rand.nextGaussian() * 0.02D;
-	                double d0 = this.rand.nextGaussian() * 0.02D;
-	                double d1 = this.rand.nextGaussian() * 0.02D;
+	            //for (int i = 0; i < 10; ++i)
+	            //{
+	             //   double d2 = this.rand.nextGaussian() * 0.02D;
+	             //   double d0 = this.rand.nextGaussian() * 0.02D;
+	             //   double d1 = this.rand.nextGaussian() * 0.02D;
 	                //Techguns.proxy.spawnParticle("ExplosionHuge", this.world, this.posX + (double)(this.rand.nextFloat() * this.width * 2.0F) - (double)this.width, this.posY + (double)(this.rand.nextFloat() * this.height*2.0f) -10.f, this.posZ + (double)(this.rand.nextFloat() * this.width * 2.0F) - (double)this.width, d2, d0, d1);
 	            	//Techguns.proxy.spawnParticle("LargeSmoke", this.world, this.posX + (double)(this.rand.nextFloat() * this.width * 2.0F) - (double)this.width, this.posY + (double)(this.rand.nextFloat() * this.height*2.0f) -10.f, this.posZ + (double)(this.rand.nextFloat() * this.width * 2.0F) - (double)this.width, d2, d0, d1);
-	            }
+	            //}
+	            
+	            Techguns.proxy.createFX("HelicopterDeathExplosion", this.world, this.posX, this.posY-8D, this.posZ, 0, 0, 0);
 	        }
 	}
 
@@ -531,8 +533,8 @@ public class AttackHelicopter extends EntityFlying implements IMob, INpcTGDamage
 			case RADIATION:
 				return 20.0f;
 			case UNRESISTABLE:
-		default:
-			return 0.0f;
+			default:
+				return 0.0f;
 		}
 	}
 
@@ -540,7 +542,7 @@ public class AttackHelicopter extends EntityFlying implements IMob, INpcTGDamage
 	public float getPenetrationResistance(TGDamageSource dmgsrc) {
 		switch(dmgsrc.damageType){
 		case PROJECTILE:
-			return 0.4f;
+			return 0.5f;
 		case EXPLOSION:
 		case LIGHTNING:
 		case ENERGY:
@@ -551,9 +553,9 @@ public class AttackHelicopter extends EntityFlying implements IMob, INpcTGDamage
 		case RADIATION:
 		case UNRESISTABLE:
 			return 0.0f;
-	default:
-		return 0.0f;
-	}
+		default:
+			return 0.0f;
+		}
 	}
 
 	@Override

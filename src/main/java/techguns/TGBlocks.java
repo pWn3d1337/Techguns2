@@ -39,6 +39,8 @@ import techguns.blocks.GenericBlockMetaEnumCamoChangeable;
 import techguns.blocks.IGenericBlock;
 import techguns.blocks.TGMetalPanelType;
 import techguns.blocks.machines.BasicMachine;
+import techguns.blocks.machines.BlockExplosiveCharge;
+import techguns.blocks.machines.EnumExplosiveChargeType;
 import techguns.blocks.machines.EnumMachineType;
 import techguns.blocks.machines.EnumMultiBlockMachineType;
 import techguns.blocks.machines.EnumSimpleMachineType;
@@ -86,6 +88,8 @@ public class TGBlocks implements ITGInitializer{
 	
 	public static BlockMilitaryCrate MILITARY_CRATE;
 	
+	public static BlockExplosiveCharge<EnumExplosiveChargeType> EXPLOSIVE_CHARGE;
+	
 	public void registerBlocks(RegistryEvent.Register<Block> event) {
 		BLOCKLIST.forEach(b -> b.registerBlock(event));
 	}
@@ -123,6 +127,8 @@ public class TGBlocks implements ITGInitializer{
 		NEONLIGHT_BLOCK = (GenericBlockMetaEnumCamoChangeable<EnumLightblockType>) new GenericBlockMetaEnumCamoChangeable<EnumLightblockType>("neonlights", Material.GLASS, MapColor.YELLOW, SoundType.GLASS, EnumLightblockType.class).setLightLevel(1f).setHardness(4.0f);
 		
 		MILITARY_CRATE = (BlockMilitaryCrate) new BlockMilitaryCrate("military_crate", Material.WOOD).setHardness(4.0f);
+		
+		EXPLOSIVE_CHARGE = new BlockExplosiveCharge<EnumExplosiveChargeType>("explosive_charge", EnumExplosiveChargeType.class);
 		
 		if(TGItems.WRITE_ITEM_JSON && event.getSide()==Side.CLIENT){
 			BLOCKLIST.stream().filter(new Predicate<IGenericBlock>() {

@@ -24,6 +24,8 @@ public class ZombiePigmanSoldier extends GenericNPC {
 	
 	public ZombiePigmanSoldier(World world) {
 		super(world);
+		setTGArmorStats(10.0f, 0f);
+		this.isImmuneToFire=true;
 	}
 
 	@Override

@@ -24,6 +24,7 @@ public class ZombieMiner extends GenericNPC {
 	
 	public ZombieMiner(World world) {
 		super(world);
+		setTGArmorStats(0f, 0f);
 	}
 	
 	@Override

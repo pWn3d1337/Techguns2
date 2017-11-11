@@ -1,0 +1,28 @@
+{
+	"variants": {
+		"armed=false,facing=down,machinetype=tnt": { "model": "techguns:tnt_charge", "x": 270 },
+		"armed=false,facing=up,machinetype=tnt": { "model": "techguns:tnt_charge", "x": 90 },
+		"armed=false,facing=north,machinetype=tnt": { "model": "techguns:tnt_charge", "y": 180 },
+		"armed=false,facing=south,machinetype=tnt": { "model": "techguns:tnt_charge", "y": 0 },
+		"armed=false,facing=east,machinetype=tnt": { "model": "techguns:tnt_charge", "y": 270 },
+		"armed=false,facing=west,machinetype=tnt": { "model": "techguns:tnt_charge", "y": 90 },
+		"armed=true,facing=down,machinetype=tnt": { "model": "techguns:tnt_charge_armed", "x": 270 },
+		"armed=true,facing=up,machinetype=tnt": { "model": "techguns:tnt_charge_armed", "x": 90 },
+		"armed=true,facing=north,machinetype=tnt": { "model": "techguns:tnt_charge_armed", "y": 180 },
+		"armed=true,facing=south,machinetype=tnt": { "model": "techguns:tnt_charge_armed", "y": 0 },
+		"armed=true,facing=east,machinetype=tnt": { "model": "techguns:tnt_charge_armed", "y": 270 },
+		"armed=true,facing=west,machinetype=tnt": { "model": "techguns:tnt_charge_armed", "y": 90 },
+		"armed=false,facing=down,machinetype=advanced": { "model": "techguns:c4_charge", "x": 270 },
+		"armed=false,facing=up,machinetype=advanced": { "model": "techguns:c4_charge", "x": 90 },
+		"armed=false,facing=north,machinetype=advanced": { "model": "techguns:c4_charge", "y": 180 },
+		"armed=false,facing=south,machinetype=advanced": { "model": "techguns:c4_charge", "y": 0 },
+		"armed=false,facing=east,machinetype=advanced": { "model": "techguns:c4_charge", "y": 270 },
+		"armed=false,facing=west,machinetype=advanced": { "model": "techguns:c4_charge", "y": 90 },
+		"armed=true,facing=down,machinetype=advanced": { "model": "techguns:c4_charge_armed", "x": 270 },
+		"armed=true,facing=up,machinetype=advanced": { "model": "techguns:c4_charge_armed", "x": 90 },
+		"armed=true,facing=north,machinetype=advanced": { "model": "techguns:c4_charge_armed", "y": 180 },
+		"armed=true,facing=south,machinetype=advanced": { "model": "techguns:c4_charge_armed", "y": 0 },
+		"armed=true,facing=east,machinetype=advanced": { "model": "techguns:c4_charge_armed", "y": 270 },
+		"armed=true,facing=west,machinetype=advanced": { "model": "techguns:c4_charge_armed", "y": 90 }
+	}
+}

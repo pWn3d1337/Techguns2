@@ -24,6 +24,7 @@ public class ZombieSoldier extends GenericNPC {
 	
 	public ZombieSoldier(World world) {
 		super(world);
+		setTGArmorStats(5.0f, 0f);
 	}
 
 	@Override

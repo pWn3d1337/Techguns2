@@ -52,9 +52,9 @@ public class TGFluids implements ITGInitializer {
 	public static ArrayList<IFluidBlock> FLUIDBLOCKS = new ArrayList<>();
 	
 	public static Block BLOCK_FLUID_ACID;
+	public static Block BLOCK_FLUID_MILK;
 	
 	public static boolean addedAcid=false;
-	
 	
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
@@ -68,12 +68,24 @@ public class TGFluids implements ITGInitializer {
 			BLOCK_FLUID_ACID = new BlockFluidAcid(ACID,Material.WATER).setRegistryName(new ResourceLocation(Techguns.MODID, "block_creeper_acid"))
 					.setUnlocalizedName(Techguns.MODID+".block_creeper_acid").setCreativeTab(Techguns.tabTechgun);
 		}
+		
+		addedMilk = FluidRegistry.registerFluid(new Fluid("milk", new ResourceLocation(Techguns.MODID, "blocks/milk_still"), new ResourceLocation(Techguns.MODID, "blocks/milk_flow")).setUnlocalizedName("milk"));
+		MILK = FluidRegistry.getFluid("milk");
+		if(addedMilk) {			
+			BLOCK_FLUID_MILK = new BlockFluidAcid(MILK,Material.WATER).setRegistryName(new ResourceLocation(Techguns.MODID, "block_milk"))
+					.setUnlocalizedName(Techguns.MODID+".block_milk").setCreativeTab(Techguns.tabTechgun);
+		}
 	}
 
 	public void registerItems(RegistryEvent.Register<Item> event) {
 		if(BLOCK_FLUID_ACID!=null) {
 			ItemBlock ib = new ItemBlock(BLOCK_FLUID_ACID);
 			ib.setRegistryName(BLOCK_FLUID_ACID.getRegistryName());
+			event.getRegistry().register(ib);
+		}
+		if(BLOCK_FLUID_MILK!=null) {
+			ItemBlock ib = new ItemBlock(BLOCK_FLUID_MILK);
+			ib.setRegistryName(BLOCK_FLUID_MILK.getRegistryName());
 			event.getRegistry().register(ib);
 		}
 	}
@@ -83,13 +95,19 @@ public class TGFluids implements ITGInitializer {
 			event.getRegistry().register(BLOCK_FLUID_ACID);
 			FluidRegistry.addBucketForFluid(ACID);
 		}
-		
+		if(BLOCK_FLUID_MILK!=null) {
+			event.getRegistry().register(BLOCK_FLUID_MILK);
+			FluidRegistry.addBucketForFluid(MILK);
+		}
 	}
 	
 	@SideOnly(Side.CLIENT)
 	public static void initModels() {
 		if(BLOCK_FLUID_ACID!=null) {
 			Techguns.proxy.registerFluidModelsForFluidBlock(BLOCK_FLUID_ACID);
+		}
+		if(BLOCK_FLUID_MILK!=null) {
+			Techguns.proxy.registerFluidModelsForFluidBlock(BLOCK_FLUID_MILK);
 		}
 	}
 
@@ -100,7 +118,7 @@ public class TGFluids implements ITGInitializer {
 
 	@Override
 	public void postInit(FMLPostInitializationEvent event) {
-		MILK = FluidRegistry.getFluid("milk");
+		//MILK = FluidRegistry.getFluid("milk");
 		
 		/*	if (MILK==null){
 				MILK = new Fluid("milk").setGaseous(false).setDensity(1050).setViscosity(1050).setUnlocalizedName("milk");

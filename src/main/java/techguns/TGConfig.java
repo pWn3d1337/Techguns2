@@ -78,6 +78,9 @@ public class TGConfig {
 	//structure spawning
 	public static boolean doWorldspawn;
 	
+	public static float explosiveChargeMaxBlockHardness;
+	public static float explosiveChargeAdvancedMaxBlockHardness;
+	
 	/**
 	 * CATEGORIES
 	 */
@@ -170,6 +173,9 @@ public class TGConfig {
 		spawnWeightTGStructureSmall = config.getInt("StructureSpawnWeightSmall", WORLDGEN, 16, 4, 100000, "Every X chunks it's tried to spawnn a Small building. This is in both dimensions, ChunkX, and ChunkY modulo <this Value> must be 0");
 		spawnWeightTGStructureMedium = config.getInt("StructureSpawnWeightMedium", WORLDGEN, 32, 8, 100000, "Every X chunks it's tried to spawnn a Medium building. This is in both dimensions, ChunkX, and ChunkY modulo <this Value> must be 0");
 		
+		explosiveChargeMaxBlockHardness = config.getFloat("ExplosiveChargeMaxHardness", config.CATEGORY_GENERAL, 30.0f, 0.0f, Float.MAX_VALUE, "Highest blockHardness normal explosive charges can break, obsidian is 50.0)");
+		
+		explosiveChargeAdvancedMaxBlockHardness = config.getFloat("ExplosiveChargeAdvancedMaxHardness", config.CATEGORY_GENERAL, 100.0f, 0.0f, Float.MAX_VALUE, "Highest blockHardness advanced explosive charges can break, obsidian is 50.0)");
 		
 		
 		cl_enableDeathFX = config.getBoolean("EnableDeathEffects", CLIENTSIDE, true, "Enable Death Effects, pure clientside check.");

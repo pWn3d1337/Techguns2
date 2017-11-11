@@ -25,6 +25,7 @@ public class SkeletonSoldier extends GenericNPC {
 	public SkeletonSoldier(World world) {
 		super(world);
 		this.height=1.95f;
+		setTGArmorStats(0f, 0f);
 	}
 
 	@Override

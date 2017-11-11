@@ -21,6 +21,7 @@ public class DictatorDave extends GenericNPC {
 	
 	public DictatorDave(World world) {
 		super(world);
+		setTGArmorStats(15.0f, 0f);
 	}
 
 	@Override
@@ -30,6 +31,7 @@ public class DictatorDave extends GenericNPC {
 		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(100);
 		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(7);
 		this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(60.0D);
+		this.getEntityAttribute(SharedMonsterAttributes.ARMOR_TOUGHNESS).setBaseValue(2D);
 		this.experienceValue = 35;
 	}
 

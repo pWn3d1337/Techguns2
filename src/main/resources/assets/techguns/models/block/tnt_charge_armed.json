@@ -1,0 +1,101 @@
+{
+	"ambientocclusion": false,
+	"textures": {
+		"0": "techguns:blocks/tnt_charge_armed",
+		"particle": "techguns:blocks/tnt_charge_armed"
+	},
+	"elements": [
+		{
+			"name": "cylinder2",
+			"from": [2, 2, 11],
+			"to": [6, 14, 15],
+			"faces": {
+				"north": {
+					"uv": [0, 2.25, 2, 7.75],
+					"texture": "#0"
+				},
+				"east": {"uv": [6, 2, 8, 8], "texture": "#0"},
+				"south": {
+					"uv": [4, 2.25, 6, 7.75],
+					"texture": "#0"
+				},
+				"west": {"uv": [2, 2, 4, 8], "texture": "#0"},
+				"up": {"uv": [2, 0, 4, 2], "texture": "#0"},
+				"down": {"uv": [4, 0, 6, 2], "texture": "#0"}
+			},
+			"rotation": {
+				"origin": [4, 10, 13],
+				"axis": "y",
+				"angle": 45
+			},
+			"type": "cube"
+		},
+		{
+			"name": "cylinder3",
+			"from": [6, 2.0999999999999996, 11],
+			"to": [10, 14.1, 15],
+			"faces": {
+				"north": {
+					"uv": [0, 2.25, 2, 7.75],
+					"texture": "#0"
+				},
+				"east": {"uv": [6, 2, 8, 8], "texture": "#0"},
+				"south": {
+					"uv": [4, 2.25, 6, 7.75],
+					"texture": "#0"
+				},
+				"west": {"uv": [2, 2, 4, 8], "texture": "#0"},
+				"up": {"uv": [2, 0, 4, 2], "texture": "#0"},
+				"down": {"uv": [4, 0, 6, 2], "texture": "#0"}
+			},
+			"rotation": {
+				"origin": [8, 10.1, 13],
+				"axis": "y",
+				"angle": 45
+			},
+			"type": "cube"
+		},
+		{
+			"name": "cylinder1",
+			"from": [10, 2, 11],
+			"to": [14, 14, 15],
+			"faces": {
+				"north": {
+					"uv": [0, 2.25, 2, 7.75],
+					"texture": "#0"
+				},
+				"east": {"uv": [6, 2, 8, 8], "texture": "#0"},
+				"south": {
+					"uv": [4, 2.25, 6, 7.75],
+					"texture": "#0"
+				},
+				"west": {"uv": [2, 2, 4, 8], "texture": "#0"},
+				"up": {"uv": [2, 0, 4, 2], "texture": "#0"},
+				"down": {"uv": [4, 0, 6, 2], "texture": "#0"}
+			},
+			"rotation": {
+				"origin": [12, 10, 13],
+				"axis": "y",
+				"angle": 45
+			},
+			"type": "cube"
+		},
+		{
+			"name": "timer",
+			"from": [4, 6, 10],
+			"to": [12, 10, 12],
+			"faces": {
+				"north": {
+					"uv": [6, 9.5, 10, 11.5],
+					"texture": "#0"
+				},
+				"east": {"uv": [0, 9.5, 1, 11.5], "texture": "#0"},
+				"south": {"uv": [1, 9.5, 5, 11.5], "texture": "#0"},
+				"west": {"uv": [0, 9.5, 1, 11.5], "texture": "#0"},
+				"up": {"uv": [5, 8.5, 9, 9.5], "texture": "#0"},
+				"down": {"uv": [1, 8.5, 5, 9.5], "texture": "#0"}
+			},
+			"type": "cube"
+		}
+	]
+}

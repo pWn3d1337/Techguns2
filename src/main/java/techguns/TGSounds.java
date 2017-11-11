@@ -196,6 +196,14 @@ public class TGSounds {
 	
 	public static SoundEvent NUKE_EXPLOSION = createSoundEvent("effects.nukeexplosion");
 	
+	public static SoundEvent TNT_INIT = createSoundEvent("tntcharge.init");
+	public static SoundEvent TNT_TICK = createSoundEvent("tntcharge.tick");
+	public static SoundEvent TNT_PLANT = createSoundEvent("tntcharge.plant");
+	
+	public static SoundEvent C4_INIT = createSoundEvent("c4charge.init");
+	public static SoundEvent C4_TICK = createSoundEvent("c4charge.tick");
+	public static SoundEvent C4_PLANT = createSoundEvent("c4charge.plant");
+	
 	public static void registerSounds(RegistryEvent.Register<SoundEvent> event){
 		IForgeRegistry<SoundEvent> reg = event.getRegistry();
 		

@@ -18,7 +18,7 @@ import techguns.TGuns;
 import techguns.Techguns;
 import techguns.items.armors.GenericArmorMultiCamo;
 
-public class StormTrooper extends GenericNPC {
+public class StormTrooper extends GenericNPCGearSpecificStats {
 
 	public static final ResourceLocation LOOT = new ResourceLocation(Techguns.MODID, "entities/stormtrooper");
 	

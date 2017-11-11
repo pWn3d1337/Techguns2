@@ -18,6 +18,7 @@ public class Bandit extends GenericNPC {
 	
 	public Bandit(World world) {
 		super(world);
+		setTGArmorStats(5.0f, 0f);
 	}
 
 	@Override

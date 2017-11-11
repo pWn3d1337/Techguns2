@@ -10,6 +10,13 @@
 					"fluid": "creeper_acid"
 				}
 			}
+		],
+		"milk": [
+			{
+				"custom": {
+					"fluid": "milk"
+				}
+			}
 		]
 	}
 }

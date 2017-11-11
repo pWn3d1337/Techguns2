@@ -21,6 +21,7 @@ public class PsychoSteve extends GenericNPC {
 	
 	public PsychoSteve(World world) {
 		super(world);
+		setTGArmorStats(5.0f, 0f);
 	}
 
 	@Override
@@ -30,6 +31,7 @@ public class PsychoSteve extends GenericNPC {
 		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(75);
 		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(7);
 		this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(60.0D);
+		this.getEntityAttribute(SharedMonsterAttributes.ARMOR_TOUGHNESS).setBaseValue(1D);
 		this.experienceValue = 25;
 	}
 

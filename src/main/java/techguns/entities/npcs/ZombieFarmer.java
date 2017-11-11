@@ -25,6 +25,7 @@ public class ZombieFarmer extends GenericNPC {
 	
 	public ZombieFarmer(World world) {
 		super(world);
+		setTGArmorStats(0f, 0f);
 	}
 
 	@Override
