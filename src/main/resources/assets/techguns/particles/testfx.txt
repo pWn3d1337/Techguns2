@@ -1,16 +1,10 @@
-FXLIST TFGChargeStart {
-TFGChargeMainFlare
-TFGChargeMainFlare_Full
-TFGChargeMainFlare_FullBurst
-TFGChargeFlyin
-TFGChargeWavesInverted
-//TFGChargeWavesInverted_Huge
-TFGChargeFlare
-TFGChargeFlare_Full
+FXLIST TFGFire {
+TFGFireMainFlare
+TFGFireFlare
 }
 
 
-TFGChargeMainFlare {
+TFGFireMainFlare {
 AnimationSpeed = 1 1
 Texture = techguns:textures/fx/tfg_flare.png
 RenderType = ADDITIVE
@@ -20,78 +14,11 @@ Frames = 16
 Angle = 0 360
 AngleRate = -5 5
 AngleRateDamping = 0.95 0.97
-Lifetime = 7 8
-SystemLifetime = 60 60 //MAX CHARGE TIME = 60
-AnimationSpeed = 1 1
-Size = 0.2 0.2
-SizeRate = 0.1 0.1
-SizeRateDamping = 0.90 0.91
-StartSizeRate = 0.025 0.025
-Alpha = 0 0
-Alpha = 0.5 0.35
-Alpha = 0 1
-Color = 255 255 255 0
-ParticleCount = 1 1
-InitialDelay = 0 0
-SpawnDelay = 2 2
-VelocityType = NONE
-Gravity = 0.0
-VolumeType = POINT
-IsHollow =false
-RemoveOnGround = false
-ParticlesStickToSystem = true
-particlesMoveWithSystem = true
-//Offset= -0.14 -0.10 0.42
-}
-
-TFGChargeMainFlare_Full {
-AnimationSpeed = 1 1
-Texture = techguns:textures/fx/tfg_flare.png
-RenderType = ADDITIVE
-Rows = 4
-Columns = 4
-Frames = 16
-Angle = 0 360
-AngleRate = -5 5
-AngleRateDamping = 0.95 0.97
-Lifetime = 7 8
-SystemLifetime = 0 0 //MAX CHARGE TIME = 60
-AnimationSpeed = 1 1
-Size = 1.65 1.65
-SizeRate = 0.1 0.1
-SizeRateDamping = 0.90 0.91
-//StartSizeRate = 0.025 0.025
-Alpha = 0 0
-Alpha = 0.5 0.35
-Alpha = 0 1
-Color = 255 255 255 0
-ParticleCount = 1 1
-InitialDelay = 59 59
-SpawnDelay = 2 2
-VelocityType = NONE
-Gravity = 0.0
-VolumeType = POINT
-IsHollow =false
-RemoveOnGround = false
-ParticlesStickToSystem = true
-particlesMoveWithSystem = true
-}
-
-TFGChargeMainFlare_FullBurst {
-AnimationSpeed = 1 1
-Texture = techguns:textures/fx/tfg_flare.png
-RenderType = ADDITIVE
-Rows = 4
-Columns = 4
-Frames = 16
-Angle = 0 360
-AngleRate = -5 5
-AngleRateDamping = 0.95 0.97
-Lifetime = 10 10
+Lifetime = 4 4
 SystemLifetime = 1 1 //MAX CHARGE TIME = 60
-AnimationSpeed = 1 1
-Size = 0.5 0.5
-SizeRate = 0.55 0.55
+AnimationSpeed = 0.6 0.6
+Size = 1.0 1.0
+SizeRate = 0.25 0.25
 SizeRateDamping = 0.90 0.91
 //StartSizeRate = 0.025 0.025
 Alpha = 0 0
@@ -99,7 +26,7 @@ Alpha = 0.75 0.35
 Alpha = 0 1
 Color = 255 255 255 0
 ParticleCount = 1 1
-InitialDelay = 58 58
+InitialDelay = 0 0
 SpawnDelay = 2 2
 VelocityType = NONE
 Gravity = 0.0
@@ -110,128 +37,8 @@ ParticlesStickToSystem = true
 particlesMoveWithSystem = true
 }
 
-TFGChargeFlyin {
-Texture = techguns:textures/fx/lensflare1.png
-RenderType = ADDITIVE
-Rows = 1
-Columns = 1
-Frames = 1
-angle = 0 360
-angleRate = -10 10
-angleRateDamping = 0.87 0.89
-Lifetime = 11 12
-SpawnDelay = 2 3
-SystemLifetime = 0 0
-Size = 0.2 0.3
-SizeRate = 0.1 0.15
-SizeRateDamping = 0.86 0.88
-Alpha = 0 0
-Alpha = 1 0.25
-Alpha = 0 1
-Color = 128 255 128 0
-//Color = 0 0 0 1
-ParticleCount = 1 1
-//Gravity = 0.1
-VolumeType = SPHERE
-Volume1 = 3.5
-IsHollow = true
-VelocityType = OUTWARD
-Velocity1 = -4 -5
-VelocityDamping = 0.93 0.96
-InitialDelay = 0 0
-SystemVelocityFactor = 0.0 0.0
-AttachedSystem = TFGChargeFlyinTrail
-//particlesMoveWithSystem = true
-}
 
-TFGChargeFlyinTrail {
-Texture = techguns:textures/fx/missiletrail01.png
-RenderType = ADDITIVE
-Streak = true
-Lifetime = 8 8
-SpawnDelay = 0 0
-SystemLifetime = 4 5
-Size = 0.15 0.2
-SizeRate = -0.025 -0.0175
-SizeRateDamping = 0.98 0.99
-//StartSizeRate = 0.25 0.25
-Alpha = 0 0
-Alpha = 0.25 0.25
-Alpha = 0 1
-Color = 64 255 64 0
-//Color = 0 0 0 1
-ParticleCount = 1 1
-Gravity = 0.0
-VolumeType = POINT
-VelocityType = SPHERICAL
-Velocity1 = 0 0.1
-VelocityDamping = 0.92 0.93
-InitialDelay = 0 0
-offset = 0 0 0
-}
-
-
-TFGChargeWavesInverted {
-AnimationSpeed = 1 1
-Texture = techguns:textures/fx/shockwave.png
-RenderType = ADDITIVE
-Angle = 0 360
-AngleRate = -5 5
-AngleRateDamping = 0.95 0.97
-Lifetime = 16 16
-SystemLifetime = 0 0 //MAX CHARGE TIME = 60
-AnimationSpeed = 1 1
-Size = 5.5 5.5
-SizeRate = -0.65 -0.65
-SizeRateDamping = 0.90 0.91
-//StartSizeRate = 0.025 0.025
-Alpha = 0 0
-Alpha = 0.25 0.5
-Alpha = 0 1
-Color = 128 255 128 0
-ParticleCount = 1 1
-InitialDelay = 12 15
-SpawnDelay = 15 24
-VelocityType = NONE
-Gravity = 0.0
-VolumeType = POINT
-IsHollow =false
-RemoveOnGround = false
-ParticlesStickToSystem = true
-particlesMoveWithSystem = true
-}
-
-TFGChargeWavesInverted_Huge {
-AnimationSpeed = 1 1
-Texture = techguns:textures/fx/shockwave.png
-RenderType = ADDITIVE
-Angle = 0 360
-AngleRate = -5 5
-AngleRateDamping = 0.95 0.97
-Lifetime = 8 8
-SystemLifetime = 0 0 //MAX CHARGE TIME = 60
-AnimationSpeed = 1 1
-Size = 65 55
-SizeRate = -6 -5
-SizeRateDamping = 0.94 0.96
-//StartSizeRate = 0.025 0.025
-Alpha = 0 0
-Alpha = 0.25 0.5
-Alpha = 0 1
-Color = 128 255 128 0
-ParticleCount = 1 1
-InitialDelay = 18 23
-SpawnDelay = 15 24
-VelocityType = NONE
-Gravity = 0.0
-VolumeType = POINT
-IsHollow =false
-RemoveOnGround = false
-ParticlesStickToSystem = true
-particlesMoveWithSystem = true
-}
-
-TFGChargeFlare {
+TFGFireFlare {
 AnimationSpeed = 1 1
 Texture = techguns:textures/fx/lensflare3.png
 RenderType = ADDITIVE
@@ -239,17 +46,17 @@ Angle = 0 360
 AngleRate = -5 5
 AngleRateDamping = 0.94 0.95
 Lifetime = 5 6
-SystemLifetime = 60 60 //MAX CHARGE TIME = 60
+SystemLifetime = 1 1 //MAX CHARGE TIME = 60
 AnimationSpeed = 1 1
-Size = 0.2 0.4
-SizeRate = 0.1 0.2
+Size = 0.1 0.2
+SizeRate = 0.6 0.7
 SizeRateDamping = 0.90 0.93
 StartSizeRate = 0.025 0.025
 Alpha = 0 0
-Alpha = 0.5 0.35
+Alpha = 0.25 0.35
 Alpha = 0 1
 Color = 128 255 128 0
-ParticleCount = 1 1
+ParticleCount = 2 2
 InitialDelay = 0 0
 SpawnDelay = 2 2
 VelocityType = NONE
@@ -261,39 +68,6 @@ ParticlesStickToSystem = true
 particlesMoveWithSystem = true
 //Offset= -0.14 -0.10 0.42
 }
-
-TFGChargeFlare_Full {
-AnimationSpeed = 1 1
-Texture = techguns:textures/fx/lensflare3.png
-RenderType = ADDITIVE
-Angle = 0 360
-AngleRate = -5 5
-AngleRateDamping = 0.94 0.95
-Lifetime = 5 6
-SystemLifetime = 0 0 //MAX CHARGE TIME = 60
-AnimationSpeed = 1 1
-Size = 1.5 1.8
-SizeRate = 0.2 0.4
-SizeRateDamping = 0.90 0.93
-//StartSizeRate = 0.025 0.025
-Alpha = 0 0
-Alpha = 0.5 0.35
-Alpha = 0 1
-Color = 128 255 128 0
-ParticleCount = 1 1
-InitialDelay = 59 59
-SpawnDelay = 2 2
-VelocityType = NONE
-Gravity = 0.0
-VolumeType = POINT
-IsHollow =false
-RemoveOnGround = false
-ParticlesStickToSystem = true
-particlesMoveWithSystem = true
-//Offset= -0.14 -0.10 0.42
-}
-
-
 //----------------
 
 //UNUSED

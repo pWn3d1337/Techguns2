@@ -36,6 +36,7 @@ import techguns.deatheffects.EntityDeathUtils.DeathType;
 import techguns.items.guns.GenericGun;
 import techguns.items.guns.IChargedProjectileFactory;
 import techguns.packets.PacketSpawnParticle;
+import techguns.packets.PacketSpawnParticleOnEntity;
 import techguns.tileentities.BioBlobTileEnt;
 import techguns.util.MathUtil;
 
@@ -120,7 +121,16 @@ public class TFGProjectile extends GenericProjectile implements IEntityAdditiona
 				float dmgMin, float penetration, boolean blockdamage, EnumBulletFirePos firePos, float radius, double gravity, float charge, int ammoConsumed) {
 			TFGProjectile proj = new TFGProjectile(world,p,damage,speed,TTL,spread,dmgDropStart,dmgDropEnd,dmgMin,penetration,blockdamage,firePos,gravity,ammoConsumed);
 			proj.size = 1.0f+(charge*5.0f);
+			//-0.14f, -0.10f, 0.42f
+			float offsetX = 0.0f;
+			if (firePos == EnumBulletFirePos.RIGHT) offsetX = -0.14f;
+			else if (firePos == EnumBulletFirePos.LEFT) offsetX = 0.14f;			
+			float offsetY = -0.1f;
+			float offsetZ = 0.42f;
+			
+			TGPackets.network.sendToAllAround(new PacketSpawnParticleOnEntity("TFGFire", p, offsetX, offsetY, offsetZ, true), TGPackets.targetPointAroundEnt(p, 50.0f));			
 			return proj;
+		
 		}
 		
 	}
