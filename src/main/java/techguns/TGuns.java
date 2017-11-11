@@ -31,6 +31,7 @@ import techguns.entities.projectiles.RocketProjectile;
 import techguns.entities.projectiles.RocketProjectileNuke;
 import techguns.entities.projectiles.SonicShotgunProjectile;
 import techguns.entities.projectiles.StoneBulletProjectile;
+import techguns.entities.projectiles.TFGProjectile;
 import techguns.entities.projectiles.TeslaProjectile;
 import techguns.init.ITGInitializer;
 import techguns.items.guns.Chainsaw;
@@ -101,6 +102,8 @@ public class TGuns implements ITGInitializer {
 	public static GenericGun guidedmissilelauncher;
 	public static GenericGun miningdrill;
 	
+	public static GenericGun tfg;
+	
 	public static ProjectileSelector<GenericProjectile> SHOTGUN_PROJECTILES;
 	public static ProjectileSelector<GenericProjectile> PISTOL_PROJECTILES;
 	public static ProjectileSelector<GenericProjectile> ASSAULTRIFLE_MAG_PROJECTILES;
@@ -128,6 +131,7 @@ public class TGuns implements ITGInitializer {
 	public static ChargedProjectileSelector<BioGunProjectile> BIOGUN_PROJECTILES;
 	public static ChargedProjectileSelector<ChainsawProjectile> CHAINSAW_PROJECTILES;
 	public static ChargedProjectileSelector<GuidedMissileProjectile> GUIDED_MISSILE_PROJECTILES;
+	public static ChargedProjectileSelector<TFGProjectile> TFG_PROJECTILES;
 	
 	public static void registerItems(RegistryEvent.Register<Item> event){
 		IForgeRegistry<Item> reg = event.getRegistry();
@@ -171,6 +175,7 @@ public class TGuns implements ITGInitializer {
 		reg.register(gaussrifle);
 		reg.register(guidedmissilelauncher);
 		reg.register(miningdrill);
+		reg.register(tfg);
 		reg.register(stielgranate);
 		reg.register(fraggrenade);
 	}
@@ -211,7 +216,7 @@ public class TGuns implements ITGInitializer {
 		BIOGUN_PROJECTILES = new ChargedProjectileSelector<BioGunProjectile>(AmmoTypes.BIO_TANK, new BioGunProjectile.Factory());
 		CHAINSAW_PROJECTILES = new ChargedProjectileSelector<ChainsawProjectile>(AmmoTypes.FUEL_TANK, new ChainsawProjectile.Factory());
 		GUIDED_MISSILE_PROJECTILES = new ChargedProjectileSelector<GuidedMissileProjectile>(AmmoTypes.ROCKETS, new GuidedMissileProjectile.Factory(), new GuidedMissileProjectile.Factory());
-		
+		TFG_PROJECTILES = new ChargedProjectileSelector<TFGProjectile>(AmmoTypes.BIO_TANK, new TFGProjectile.Factory());
 		
 		handcannon = new GenericGun("handcannon", new ProjectileSelector<StoneBulletProjectile>(AmmoTypes.STONE_BULLETS, new StoneBulletProjectile.Factory()), true, 12,1,30, 8.0f, TGSounds.HANDGUN_FIRE, TGSounds.HANDGUN_RELOAD,25,0.035f).setBulletSpeed(0.9f).setGravity(0.015d).setDamageDrop(10, 25, 5.0f).setAIStats(RANGE_CLOSE, 60, 0, 0).setTexture("textures/guns/handgun").setRecoiltime(12);//.setMuzzleParticle(2,0.2f);
 		
@@ -282,7 +287,8 @@ public class TGuns implements ITGInitializer {
 	     
 		 miningdrill = new MiningDrill("miningdrill", CHAINSAW_PROJECTILES, false, 3, 300, 45, 10.0f, TGSounds.DRILLER_LOOP, TGSounds.POWERHAMMER_RELOAD, 2, 0.0f,1f,1).setMeleeDmg(12.0f, 2.0f).setTool("pickaxe", 3).setTool("shovel", 3).setDigSpeed(14.0f).setMiningRadius(1).setSwingSoundDelay(10).setTexture("textures/guns/miningdrill_obsidian").setRecoiltime(5).setShootWithLeftClick(false).setFiresoundStart(TGSounds.DRILLER_SWING).setMaxLoopDelay(10).setPenetration(PENETRATION_MED).setAIStats(RANGE_MELEE, 10, 0, 0).setTurretPosOffset(0, -0.47f, -0.08f).setNoMuzzleLight(); //.setTurretPosOffset(0, 0.50f, 0);
 			
-		 
+		 tfg = new GenericGunCharge("tfg", TFG_PROJECTILES, false, 5, 10,45,50.0f, TGSounds.TFG_FIRE, TGSounds.BIOGUN_RELOAD, 100, 0.015f, 60.0f ,3).setChargeSound(TGSounds.BIOGUN_CHARGE).setChargeFX("TFGChargeStart",-0.14f, -0.10f, 0.42f).setBulletSpeed(2.0f).setPenetration(0.15f).setTexture("textures/guns/tfg").setAIStats(RANGE_SHORT, 30, 0, 0).setDamageDrop(8, 15, 15.0f).setMuzzleLight(0.2f, 1.0f, 0.2f).setMuzzleFlashTime(8).setRecoiltime(10).setForwardOffset(0.40f);
+			
 		 stielgranate = new GenericGrenade("stielgranate", 16, 72000, new GrenadeProjectile.Factory()).setDamageAndRadius(10, 3.0f, 5, 5.0f);
 		 
 		 fraggrenade = new GenericGrenade("fraggrenade", 16, 72000, new FragGrenadeProjectile.Factory()).setStartSound(TGSounds.GRENADE_PIN).setDamageAndRadius(12, 3.5f, 6, 7.0f);

@@ -58,6 +58,7 @@ import techguns.entities.projectiles.RocketProjectile;
 import techguns.entities.projectiles.RocketProjectileNuke;
 import techguns.entities.projectiles.SonicShotgunProjectile;
 import techguns.entities.projectiles.StoneBulletProjectile;
+import techguns.entities.projectiles.TFGProjectile;
 import techguns.entities.projectiles.TeslaProjectile;
 import techguns.entities.spawn.TGNpcSpawn;
 import techguns.entities.spawn.TGSpawnManager;
@@ -96,6 +97,7 @@ public class TGEntities implements ITGInitializer {
 		EntityRegistry.registerModEntity(new ResourceLocation(Techguns.MODID,"ChainsawProjectile"),ChainsawProjectile.class, "ChainsawProjectile", ++Techguns.modEntityID, Techguns.MODID, bulletTrackRange, 1, true);
 		EntityRegistry.registerModEntity(new ResourceLocation(Techguns.MODID,"FragGrenadeProjectile"),FragGrenadeProjectile.class, "FragGrenadeProjectile", ++Techguns.modEntityID, Techguns.MODID, bulletTrackRange, 1, true);
 		EntityRegistry.registerModEntity(new ResourceLocation(Techguns.MODID,"RocketProjectileNuke"),RocketProjectileNuke.class, "RocketProjectileNuke", ++Techguns.modEntityID, Techguns.MODID, bulletTrackRange, 1, true);
+		EntityRegistry.registerModEntity(new ResourceLocation(Techguns.MODID,"TFGProjectile"),TFGProjectile.class, "TFGProjectile", ++Techguns.modEntityID, Techguns.MODID, bulletTrackRange, 1, true);
 		
 		
 		/**

@@ -89,6 +89,7 @@ public class TGParticleSystemType extends TGFXType{
 	boolean groundAligned = false;
 	
 	String attachedSystem = null;
+	boolean particlesStickToSystem = false;
 	
 	public static class ColorEntry {
 		float time;

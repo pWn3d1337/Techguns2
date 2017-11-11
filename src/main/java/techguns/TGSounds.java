@@ -155,6 +155,8 @@ public class TGSounds {
 	
 	public static SoundEvent GUIDEDMISSILE_FIRE = createSoundEvent("guns.guidedmissilelauncherfire");
 	
+	public static SoundEvent TFG_FIRE = createSoundEvent("guns.tfgfire");
+	
 	public static SoundEvent FABRICATOR_WORK =createSoundEvent("machines.fabricatorwork");
 	
 	public static SoundEvent CHARGING_STATION_WORK = createSoundEvent("machines.chargingstationwork");

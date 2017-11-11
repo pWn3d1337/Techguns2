@@ -89,6 +89,7 @@ public class TGFX {
 		try {
 		while (sc.hasNextLine() && error.equals("")) {
 			if (sc.hasNext()) next = sc.next();
+			else break;
 			//FXList
 			if (next.toLowerCase().equals("fxlist") && sc.hasNext()) {
 				String name = sc.next();
@@ -330,6 +331,9 @@ public class TGFX {
 							case "particlesmovewithsystem":
 								type.particlesMoveWithSystem = sc.nextBoolean();
 								break;
+							case "particlessticktosystem":
+								type.particlesStickToSystem = sc.nextBoolean();
+								break;
 							case "groundaligned":
 								type.groundAligned = sc.nextBoolean();
 								break;
@@ -350,6 +354,7 @@ public class TGFX {
 				if (error.equals("")) {
 					count++;
 					FXList.put(name.toLowerCase(), type);
+					//System.out.println("Parsed ParticleSystem" +name+" in file '"+filename+"'.");
 				}else{
 					System.err.println("Error(s) while parsing particle "+name+" in file '"+filename+"'.");
 					System.err.println("error");

@@ -116,8 +116,16 @@ public abstract class CommonProxy implements ITGInitializer {
 	public void createFX(String name, World world, double posX, double posY, double posZ, double motionX, double motionY, double motionZ, float pitch, float yaw) {
 		
 	}
+	
+	public void createFX(String name, World world, double posX, double posY, double posZ, double motionX, double motionY, double motionZ, float scale) {
+		
+	}
 
 	public void createFXOnEntity(String name, Entity ent) {
+
+	}
+	
+	public void createFXOnEntity(String name, Entity ent, float scale) {
 
 	}
 	

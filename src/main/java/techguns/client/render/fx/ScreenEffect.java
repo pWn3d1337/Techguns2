@@ -29,6 +29,7 @@ public class ScreenEffect {
 	public static ScreenEffect muzzleFlashSonic = new ScreenEffect("textures/fx/sonicwave4x4.png", 4, 4, 16, RenderType.ADDITIVE);
 	public static ScreenEffect muzzleFlashNukeBeam = new ScreenEffect("textures/fx/nukebeamflare.png", 4, 4, 16, RenderType.ADDITIVE);
 	public static ScreenEffect muzzleFlashMibGun = new ScreenEffect("textures/fx/alienflare.png", 4, 4, 14, RenderType.ADDITIVE).setColor(0.15686f, 1.0f, 0.549f, 1f);
+	public static ScreenEffect muzzleFlashTFG = new ScreenEffect("textures/fx/tfg_flare.png", 4, 4, 16, RenderType.ADDITIVE).setFade(FadeType.FAST);
 	
 	//public static ScreenEffect muzzleFlashNew2 = new ScreenEffect("textures/fx/muzzleflashnew.png", 4, 4, 16, RenderType.ALPHA);
 	
@@ -164,9 +165,13 @@ public class ScreenEffect {
 			
 			switch (fadeType) {
 	
+			case FAST:
+				double d = (1.0-Math.cos(Math.sqrt(progress)*2.0*Math.PI))*0.5;
+				alpha = (float) d*this.alpha;
+				break;
 			case SMOOTH:
-				double d = Math.sin(Math.PI*progress);
-				alpha = (float) (d*d)*this.alpha;
+				double d2 = Math.sin(Math.PI*progress);
+				alpha = (float) (d2*d2)*this.alpha;
 				break;
 			case NONE:
 			default:
@@ -217,6 +222,6 @@ public class ScreenEffect {
 	}
 	
 	enum FadeType {
-		SMOOTH, NONE;
+		SMOOTH, FAST, NONE;
 	}
 }
