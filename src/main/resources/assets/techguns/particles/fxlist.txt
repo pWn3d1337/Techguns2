@@ -2850,7 +2850,6 @@ HeliExplosion
 HeliExplosionRing
 HeliExplosionParts
 }
-}
 
 FXLIST TFGTrail {
 TFGTrailMainFlare
@@ -2888,8 +2887,6 @@ IsHollow =false
 RemoveOnGround = false
 ParticlesStickToSystem = true
 }
-
-
 
 TFGTrailFlares {
 Texture = techguns:textures/fx/spaceflare.png

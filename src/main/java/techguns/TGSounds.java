@@ -156,6 +156,7 @@ public class TGSounds {
 	public static SoundEvent GUIDEDMISSILE_FIRE = createSoundEvent("guns.guidedmissilelauncherfire");
 	
 	public static SoundEvent TFG_FIRE = createSoundEvent("guns.tfgfire");
+	public static SoundEvent TFG_CHARGE = createSoundEvent("guns.tfgcharge");
 	
 	public static SoundEvent FABRICATOR_WORK =createSoundEvent("machines.fabricatorwork");
 	
@@ -197,6 +198,10 @@ public class TGSounds {
 	public static SoundEvent BUNKER_DOOR_OPEN = createSoundEvent("blocks.metaldooropen");
 	
 	public static SoundEvent NUKE_EXPLOSION = createSoundEvent("effects.nukeexplosion");
+	
+	public static SoundEvent TFG_EXPLOSION = createSoundEvent("effects.tfgexplosion");
+	public static SoundEvent TFG_EXPLOSION_ECHO = createSoundEvent("effects.tfgexplosionecho");
+	
 	
 	public static SoundEvent TNT_INIT = createSoundEvent("tntcharge.init");
 	public static SoundEvent TNT_TICK = createSoundEvent("tntcharge.tick");
