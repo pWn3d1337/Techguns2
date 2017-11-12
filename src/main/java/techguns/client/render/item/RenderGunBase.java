@@ -233,7 +233,7 @@ public class RenderGunBase extends RenderItemBase {
 					reloadProgress = 1.0f - ((float) diff / (float) attack.getReloadTimeTotal());
 				}
 			} else if (attack.isRecoiling()) {
-
+				
 				long diff = attack.getRecoilTime() - System.currentTimeMillis();
 
 				if (diff <= 0) {
@@ -243,6 +243,11 @@ public class RenderGunBase extends RenderItemBase {
 					attack.setRecoilChargeProgress(0f);
 				} else {
 					fireProgress = 1.0f - ((float) diff / (float) attack.getRecoilTimeTotal());
+					
+					if (gun.canCharge()) {
+						chargeProgress = (1.0f- fireProgress) * attack.getRecoilChargeProgress();						
+					}
+
 				}
 			}
 			
@@ -343,7 +348,8 @@ public class RenderGunBase extends RenderItemBase {
 		
 			GlStateManager.translate(0, 0, this.chargeTranslation*chargeProgress);
 			
-		} else if (fireProgress >0){
+		}
+		if (fireProgress >0){
 
 			this.recoilAnim.play(fireProgress, left, this.recoilParams);
 			

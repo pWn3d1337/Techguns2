@@ -9,6 +9,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -30,15 +31,18 @@ import techguns.TGSounds;
 import techguns.Techguns;
 import techguns.api.damagesystem.DamageType;
 import techguns.client.ClientProxy;
+import techguns.client.audio.TGSoundCategory;
 import techguns.damagesystem.TGDamageSource;
 import techguns.damagesystem.TGExplosion;
 import techguns.deatheffects.EntityDeathUtils.DeathType;
 import techguns.items.guns.GenericGun;
 import techguns.items.guns.IChargedProjectileFactory;
+import techguns.packets.PacketPlaySound;
 import techguns.packets.PacketSpawnParticle;
 import techguns.packets.PacketSpawnParticleOnEntity;
 import techguns.tileentities.BioBlobTileEnt;
 import techguns.util.MathUtil;
+import techguns.util.SoundUtil;
 
 @Optional.Interface(iface="elucent.albedo.lighting.ILightProvider", modid="albedo")
 public class TFGProjectile extends GenericProjectile implements IEntityAdditionalSpawnData, ILightProvider{
@@ -85,7 +89,14 @@ public class TFGProjectile extends GenericProjectile implements IEntityAdditiona
 			
 			TGExplosion explosion = new TGExplosion(world, this.shooter, this, posX, posY, posZ, exp_dmgMax, exp_dmgMin, exp_r1, exp_r2, this.blockdamage?0.5:0.0);
 			
-			explosion.doExplosion(true);
+			explosion.doExplosion(false);
+			//TGPackets.network.sendToAllAround(new PacketPlaySound(TGSounds.TFG_EXPLOSION, posX, posY, posZ, 1.0f, 1.0f, false, TGSoundCategory.EXPLOISON), TGPackets.targetPointAroundEnt(this, 100.0f));
+			SoundUtil.playSoundAtEntityPos(world, this, TGSounds.TFG_EXPLOSION, 1.0f, 1.0f, false, TGSoundCategory.EXPLOISON);
+			
+			if (this.size > 3.0f) {
+				SoundUtil.playSoundAtEntityPos(world, this, TGSounds.TFG_EXPLOSION_ECHO, 1.0f, 1.0f, false, TGSoundCategory.EXPLOISON);
+			}
+			
 		}else {
 			Techguns.proxy.createLightPulse(this.posX, this.posY, this.posZ, 5, 15, 5f+(size), 1f+(size*0.5f), 0.5f, 1.0f, 0.5f);
 		}

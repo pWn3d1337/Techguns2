@@ -1288,6 +1288,30 @@
     "sounds": [
         "techguns:guns/tfg_shot_v2"
     ]
+},
+
+"guns.tfgcharge": {
+    "category": "player",
+    "sounds": [
+        "techguns:guns/tfg_charge"
+    ]
+},
+
+"effects.tfgexplosion": {
+    "category": "ambient",
+    "sounds": [
+        "techguns:effects/tfg_explosion_a",
+        "techguns:effects/tfg_explosion_b",
+        "techguns:effects/tfg_explosion_c",
+        "techguns:effects/tfg_explosion_d"
+    ]
+},
+
+"effects.tfgexplosionecho": {
+    "category": "ambient",
+    "sounds": [
+        "techguns:effects/tfg_explosion_echo"
+    ]
 }
 
 

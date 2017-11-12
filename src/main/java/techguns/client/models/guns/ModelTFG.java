@@ -539,8 +539,14 @@ public class ModelTFG extends ModelMultipart {
         this.Front08.render(scale);
         this.Mid10.render(scale);    
         
+//        if (fireProgress > 0 && chargeProgress > 0.0) {
+//        	chargeProgress = 1f-Math.min((1f-chargeProgress)*5.0f, 1.0f);
+//        }
+        
         float f1 = 1f-Math.min(0.1f, chargeProgress) * 10.0f;
         float f2 = 1f-Math.max(0.1f, Math.min(1.0f, (chargeProgress-0.1f) * 10.0f));
+        
+      
         
         f1*=scale;
         f2*=scale;

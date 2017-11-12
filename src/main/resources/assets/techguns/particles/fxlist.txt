@@ -2888,8 +2888,6 @@ RemoveOnGround = false
 ParticlesStickToSystem = true
 }
 
-
-
 TFGTrailFlares {
 Texture = techguns:textures/fx/spaceflare.png
 RenderType = ADDITIVE
