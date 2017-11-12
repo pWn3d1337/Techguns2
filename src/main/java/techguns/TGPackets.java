@@ -3,6 +3,7 @@ package techguns;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -45,6 +46,10 @@ public class TGPackets implements ITGInitializer {
 		return thePlayer;
 	}
 
+	public static TargetPoint targetPointAroundBlockPos(int dimension, BlockPos pos, double distance){
+		return new TargetPoint(dimension, pos.getX()+0.5d, pos.getY()+0.5d, pos.getZ()+0.5d, distance);
+	}
+	
 	public static TargetPoint targetPointAroundEnt(Entity ent, double distance){
 		return new TargetPoint(ent.dimension, ent.posX, ent.posY, ent.posZ, distance);
 	}

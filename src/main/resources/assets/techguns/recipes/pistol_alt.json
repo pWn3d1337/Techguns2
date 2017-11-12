@@ -1,6 +1,7 @@
 {
   "result": {
-    "item": "techguns:pistol"
+    "item": "techguns:pistol",
+    "data": 18
   },
   "pattern": [
     "bsp",
@@ -26,7 +27,7 @@
     },
     "m": {
       "item": "techguns:itemshared",
-      "data": 11
+      "data": 12
     }
   }
 }

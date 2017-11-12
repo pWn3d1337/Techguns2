@@ -55,6 +55,7 @@ import techguns.Techguns;
 import techguns.blocks.BlockTGLadder;
 import techguns.blocks.EnumLadderType;
 import techguns.blocks.TGMetalPanelType;
+import techguns.blocks.machines.EnumExplosiveChargeType;
 import techguns.blocks.machines.EnumMachineType;
 import techguns.blocks.machines.EnumMultiBlockMachineType;
 import techguns.blocks.machines.EnumSimpleMachineType;
@@ -302,6 +303,9 @@ public class Recipewriter {
         RecipeJsonConverter.addShapedRecipe(new ItemStack(TGBlocks.METAL_STAIRS,6,15), "b  ", "bb ", "bbb", 'b', new ItemStack(TGBlocks.METAL_PANEL,1,TGMetalPanelType.STEELFRAME_DARK.ordinal()));
         RecipeJsonConverter.addShapelessRecipe(new ItemStack(TGBlocks.METAL_PANEL,1,TGMetalPanelType.STEELFRAME_DARK.ordinal()), new ItemStack(TGBlocks.METAL_STAIRS,1,15));
         
+        RecipeJsonConverter.addShapedRecipe(new ItemStack(TGBlocks.EXPLOSIVE_CHARGE,8,TGBlocks.EXPLOSIVE_CHARGE.getMetaFromState(TGBlocks.EXPLOSIVE_CHARGE.getDefaultState())), "rtr","tct","rtr", 'r', "itemRubber", 't', Blocks.TNT, 'c', "circuitBasic");
+        RecipeJsonConverter.addShapedRecipe(new ItemStack(TGBlocks.EXPLOSIVE_CHARGE,4,TGBlocks.EXPLOSIVE_CHARGE.getMetaFromState(TGBlocks.EXPLOSIVE_CHARGE.getDefaultState().withProperty(TGBlocks.EXPLOSIVE_CHARGE.MACHINE_TYPE, EnumExplosiveChargeType.ADVANCED))), "rtr","tct","rtr", 'r', "sheetPlastic", 't', TGItems.TGX, 'c', "circuitBasic");
+	
        
         String[] plateTypes = {"plateIron", "plateTin"};
         Arrays.stream(plateTypes).forEach(p -> {
@@ -531,9 +535,7 @@ public class Recipewriter {
         RecipeJsonConverter.addShapedRecipe(newStack(oreDrillLargeObsidianSteel,1),"d d"," d ", 'd', TGItems.oreDrillMediumObsidianSteel));
         RecipeJsonConverter.addShapedRecipe(newStack(oreDrillLargeCarbon,1),"d d"," d ", 'd', TGItems.oreDrillMediumCarbon));
         	
-        RecipeJsonConverter.addShapedRecipe(new ItemStack(TGBlocks.basicMachine,8,6), "rtr","tct","rtr", 'r', "itemRubber", 't', Blocks.tnt, 'c', "circuitBasic"));
-        RecipeJsonConverter.addShapedRecipe(new ItemStack(TGBlocks.basicMachine,4,8), "rtr","tct","rtr", 'r', "sheetPlastic", 't', TGItems.tgx, 'c', "circuitBasic"));
-	
+       
       
         RecipeJsonConverter.addShapedRecipe(new ItemStack(TGItems.oreClusterScanner,1), "g g", "pcp","pep", 'g', "wireGold", 'p', "plateSteel", 'c', "circuitElite", 'e', TGItems.energyCell));
 	

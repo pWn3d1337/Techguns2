@@ -596,3 +596,5 @@ tile.techguns.stairs_metal.7.name=Steel Panel Stairs
 tile.techguns.stairs_metal.15.name=Carbon Panel Stairs
 tile.techguns.block_milk.name=Milk
 fluid.milk=Milk
+tile.techguns.explosive_charge.0.name=Mining Charge
+tile.techguns.explosive_charge.1.name=Advanced Mining Charge

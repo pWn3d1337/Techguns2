@@ -235,13 +235,7 @@ public class GenericGunCharge extends GenericGun {
 				
 				if (this.hasChargedFireAnim) {
 	
-					//world.playSoundAtEntity(player, firesound, 1.0F, 1.0F);
-					SoundUtil.playSoundOnEntityGunPosition(world, player, firesound, SOUND_DISTANCE, 1.0f, false, false,true, TGSoundCategory.GUN_FIRE);
-		
-					if (!(rechamberSound==null)) {
-						//world.playSoundAtEntity(player, rechamberSound, 1.0F, 1.0F);
-						SoundUtil.playSoundOnEntityGunPosition(world, player, rechamberSound, 1.0f, 1.0f, false, false,true, TGSoundCategory.GUN_FIRE);
-					}
+					this.playChargedFiresound(item, world, player, f);
 	
 				}
 				
@@ -270,6 +264,15 @@ public class GenericGunCharge extends GenericGun {
 		}
 	}
 
+	protected void playChargedFiresound(ItemStack item, World world, EntityPlayer player, float chargeProgress) {
+		
+		SoundUtil.playSoundOnEntityGunPosition(world, player, firesound, SOUND_DISTANCE, 1.0f, false, false,true, TGSoundCategory.GUN_FIRE);
+
+		if (!(rechamberSound==null)) {
+			SoundUtil.playSoundOnEntityGunPosition(world, player, rechamberSound, 1.0f, 1.0f, false, false,true, TGSoundCategory.GUN_FIRE);
+		}
+	}
+	
 	@Override
 	public int getMaxItemUseDuration(ItemStack stack) {
 		return 288000;

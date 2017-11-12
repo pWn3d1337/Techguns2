@@ -1,6 +1,7 @@
 {
   "result": {
-    "item": "techguns:pulserifle"
+    "item": "techguns:pulserifle",
+    "data": 12
   },
   "pattern": [
     "dpc",
@@ -32,7 +33,7 @@
     },
     "m": {
       "item": "techguns:itemshared",
-      "data": 21
+      "data": 22
     }
   }
 }

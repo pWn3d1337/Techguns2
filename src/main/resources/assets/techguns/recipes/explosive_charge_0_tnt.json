@@ -1,0 +1,24 @@
+{
+  "result": {
+    "item": "techguns:explosive_charge",
+    "data": 0,
+    "count": 8
+  },
+  "pattern": [
+    "rtr",
+    "tct",
+    "rtr"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "r": {
+      "item": "#ITEMRUBBER"
+    },
+    "c": {
+      "item": "#CIRCUITBASIC"
+    },
+    "t": {
+      "item": "minecraft:tnt"
+    }
+  }
+}

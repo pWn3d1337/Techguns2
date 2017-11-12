@@ -19,9 +19,11 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.world.BlockEvent;
 import techguns.TGConfig;
+import techguns.TGPackets;
 import techguns.TGSounds;
 import techguns.Techguns;
 import techguns.blocks.machines.BlockExplosiveCharge;
+import techguns.packets.PacketSpawnParticle;
 
 public class ExplosiveChargeTileEnt extends BasicOwnedTileEnt implements ITickable {
 
@@ -150,17 +152,14 @@ public class ExplosiveChargeTileEnt extends BasicOwnedTileEnt implements ITickab
 				MinecraftForge.EVENT_BUS.post(breakEvent);
 					
 				if (!breakEvent.isCanceled()){
-					if (!this.world.isRemote){
-						block.dropBlockAsItem(world,coords, bs,0);
-						world.setBlockToAir(coords);
-					} else {
-						//Techguns.proxy.spawnParticle("Explosion", this.worldObj, coords.x+0.5D, coords.y+0.5D, coords.z+0.5D, 0, 0.025f, 0);
-						if (world.rand.nextFloat()>0.5f){
-							//TODO: Particles
-							//Techguns.proxy.spawnParticle("LargeSmoke", this.world, coords.getX()+0.25D+world.rand.nextDouble()*0.5D, coords.getY()+0.25D+world.rand.nextDouble()*0.5D, coords.getZ()+0.25D+world.rand.nextDouble()*0.5D, 0, 0.045f, 0);
-							//Techguns.proxy.spawnParticle("Explosion", this.world, coords.getX()+0.25D+world.rand.nextDouble()*0.5D, coords.getY()+0.25D+world.rand.nextDouble()*0.5D, coords.getZ()+0.25D+world.rand.nextDouble()*0.5D, 0, 0.045f, 0);
-						}
+					
+					block.dropBlockAsItem(world,coords, bs,0);
+					world.setBlockToAir(coords);
+		
+					if (world.rand.nextFloat()>0.5f){
+						TGPackets.network.sendToAllAround(new PacketSpawnParticle("MiningChargeBlockExplosion", coords.getX()+0.5d, coords.getY()+0.5d, coords.getZ()+0.5d), TGPackets.targetPointAroundBlockPos(this.world.provider.getDimension(),coords,50));
 					}
+					
 					return false;
 				} 
 			}

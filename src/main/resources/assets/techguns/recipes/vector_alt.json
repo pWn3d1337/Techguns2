@@ -1,6 +1,7 @@
 {
   "result": {
-    "item": "techguns:vector"
+    "item": "techguns:vector",
+    "data": 25
   },
   "pattern": [
     " gd",
@@ -29,7 +30,7 @@
     },
     "m": {
       "item": "techguns:itemshared",
-      "data": 9
+      "data": 10
     }
   }
 }

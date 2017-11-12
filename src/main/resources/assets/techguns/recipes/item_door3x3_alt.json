@@ -1,6 +1,7 @@
 {
   "result": {
-    "item": "techguns:item_door3x3"
+    "item": "techguns:item_door3x3",
+    "count": 2
   },
   "pattern": [
     "ppp",

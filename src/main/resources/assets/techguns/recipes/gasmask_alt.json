@@ -2,22 +2,15 @@
   "result": {
     "item": "techguns:gasmask"
   },
-  "pattern": [
-    "grg",
-    "rrr",
-    "rfr"
-  ],
-  "type": "forge:ore_shaped",
-  "key": {
-    "r": {
-      "item": "#ITEMRUBBER"
+  "ingredients": [
+    {
+      "item": "techguns:gasmask",
+      "data": 32767
     },
-    "f": {
+    {
       "item": "techguns:itemshared",
       "data": 89
-    },
-    "g": {
-      "item": "#PANEGLASS"
     }
-  }
+  ],
+  "type": "minecraft:crafting_shapeless"
 }

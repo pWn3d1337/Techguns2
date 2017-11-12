@@ -1,0 +1,25 @@
+{
+  "result": {
+    "item": "techguns:explosive_charge",
+    "data": 1,
+    "count": 4
+  },
+  "pattern": [
+    "rtr",
+    "tct",
+    "rtr"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "r": {
+      "item": "#SHEETPLASTIC"
+    },
+    "c": {
+      "item": "#CIRCUITBASIC"
+    },
+    "t": {
+      "item": "techguns:itemshared",
+      "data": 75
+    }
+  }
+}

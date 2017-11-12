@@ -61,6 +61,9 @@ public class BlockTGDoor3x3<T extends Enum<T> & IStringSerializable> extends Gen
 	protected static final AxisAlignedBB BB_X_openTop = new AxisAlignedBB(0,1-size2,size,1,1,1-size);
 	protected static final AxisAlignedBB BB_Z_openTop = new AxisAlignedBB(size,1-size2,0,1-size,1,1);
 	
+	protected static final AxisAlignedBB BB_X_openBottom = new AxisAlignedBB(0,0,size,1,size2,1-size);
+	protected static final AxisAlignedBB BB_Z_openBottom = new AxisAlignedBB(size,0,0,1-size,size2,1);
+	
 	protected static final AxisAlignedBB BB_Z_openLeft = new AxisAlignedBB(size, 0, 0, 1-size, 1, size2);
 	protected static final AxisAlignedBB BB_Z_openRight = new AxisAlignedBB(size, 0, 1-size2, 1-size, 1, 1);
 	
@@ -197,36 +200,77 @@ public class BlockTGDoor3x3<T extends Enum<T> & IStringSerializable> extends Gen
 	public static AxisAlignedBB NO_COLLIDE=new AxisAlignedBB(0, 0, 0, 0, 0, 0);
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+			
 		if(!isStateOpen(state)) {
 			return getBBforPlane(state);
 		} else {
 			BlockPos master = findMaster(source, pos, state);
-			if(state.getValue(MASTER) || master.getY()>= pos.getY()) {
-				
-				if(!state.getValue(ZPLANE)) {
-					if(pos.getX()<master.getX()) {
-						return BB_X_openLeft;
-					} else if ( pos.getX()>master.getX()) {
-						return BB_X_openRight;
-					}
-				} else {
-					if(pos.getZ()<master.getZ()) {
-						return BB_Z_openLeft;
-					} else if ( pos.getZ()>master.getZ()) {
-						return BB_Z_openRight;
-					}
-				}
-				return NO_COLLIDE;
+			IBlockState masterstate=getActualState(source.getBlockState(master), source, master);
+			EnumDoorType type = masterstate.getValue(TYPE);
+			
+			if(type==EnumDoorType.HANGAR_UP) {
+				return getOpenBBforTypeHangarUp(state, pos, master);
+			} else if (type==EnumDoorType.HANGAR_DOWN) {
+				return getOpenBBforTypeHangarDown(state, pos, master);
 			} else {
-				if(!state.getValue(ZPLANE)) {
-					return BB_X_openTop;
-				} else {
-					return BB_Z_openTop;
-				}
-				//return getBBforPlane(state);
+				return getOpenBBforTypeMetal(state, pos, master);
 			}
 		}
 	}
+	
+	protected AxisAlignedBB getOpenBBforTypeMetal(IBlockState state, BlockPos pos, BlockPos master) {
+		if(state.getValue(MASTER) || master.getY()>= pos.getY()) {
+			
+			if(!state.getValue(ZPLANE)) {
+				if(pos.getX()<master.getX()) {
+					return BB_X_openLeft;
+				} else if ( pos.getX()>master.getX()) {
+					return BB_X_openRight;
+				}
+			} else {
+				if(pos.getZ()<master.getZ()) {
+					return BB_Z_openLeft;
+				} else if ( pos.getZ()>master.getZ()) {
+					return BB_Z_openRight;
+				}
+			}
+			return NO_COLLIDE;
+		} else {
+			if(!state.getValue(ZPLANE)) {
+				return BB_X_openTop;
+			} else {
+				return BB_Z_openTop;
+			}
+			//return getBBforPlane(state);
+		}
+	}
+	
+	protected AxisAlignedBB getOpenBBforTypeHangarUp(IBlockState state, BlockPos pos, BlockPos master) {
+		if(state.getValue(MASTER) || master.getY()>= pos.getY()) {
+			return NO_COLLIDE;
+		} else {
+			if(!state.getValue(ZPLANE)) {
+				return BB_X_openTop;
+			} else {
+				return BB_Z_openTop;
+			}
+			//return getBBforPlane(state);
+		}
+	}
+	
+	protected AxisAlignedBB getOpenBBforTypeHangarDown(IBlockState state, BlockPos pos, BlockPos master) {
+		if(state.getValue(MASTER) || master.getY()<= pos.getY()) {
+			return NO_COLLIDE;
+		} else {
+			if(!state.getValue(ZPLANE)) {
+				return BB_X_openBottom;
+			} else {
+				return BB_Z_openBottom;
+			}
+			//return getBBforPlane(state);
+		}
+	}
+	
 	
 	protected AxisAlignedBB getBBforPlane(IBlockState state) {
 		if(state.getValue(ZPLANE)) {

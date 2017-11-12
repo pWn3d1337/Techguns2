@@ -12,7 +12,7 @@
   "type": "forge:ore_shaped",
   "key": {
     "p": {
-      "item": "#PLATEIRON"
+      "item": "#PLATETIN"
     },
     "l": {
       "item": "minecraft:lever"

@@ -3,20 +3,19 @@
     "item": "techguns:itemshared",
     "data": 15
   },
-  "pattern": [
-    "bbb",
-    "bmb",
-    "bbb"
-  ],
-  "type": "minecraft:crafting_shaped",
-  "key": {
-    "b": {
-      "item": "techguns:itemshared",
-      "data": 3
-    },
-    "m": {
+  "ingredients": [
+    {
       "item": "techguns:itemshared",
       "data": 16
+    },
+    {
+      "item": "techguns:itemshared",
+      "data": 8
+    },
+    {
+      "item": "techguns:itemshared",
+      "data": 8
     }
-  }
+  ],
+  "type": "minecraft:crafting_shapeless"
 }

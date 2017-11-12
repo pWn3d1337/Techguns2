@@ -14,6 +14,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -33,9 +34,27 @@ public class BlockExplosiveCharge<T extends Enum<T> & IStringSerializable & IMac
 	public BlockExplosiveCharge(String name, Class<T> clazz) {
 		super(name, clazz);
 		this.blockStateOverride = new BlockStateContainer.Builder(this).add(FACING).add(MACHINE_TYPE).add(ARMED).build();
-		this.setDefaultState(this.getBlockState().getBaseState());
+		this.setDefaultState(this.getBlockState().getBaseState().withProperty(ARMED, false));
 	}
 	
+	protected static final AxisAlignedBB[] boundingBoxes = {
+		//D,U,N,S,W,E
+		new AxisAlignedBB(2/16d, 0, 2/16d, 14/16d, 5/16d, 14/16d),
+		new AxisAlignedBB(2/16d, 11/16d, 2/16d, 14/16d, 1, 14/16d),
+		
+		new AxisAlignedBB(2/16d, 2/16d, 0, 14/16d, 14/16d, 5/16d),
+		new AxisAlignedBB(2/16d, 2/16d, 11/16d, 14/16d, 14/16d, 1),
+		
+		new AxisAlignedBB(0, 2/16d, 2/16d, 5/16d, 14/16d, 14/16d),
+		new AxisAlignedBB(11/16d, 2/16d, 2/16d, 1, 14/16d, 14/16d)
+	};
+
+	@Override
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+		EnumFacing facing = state.getValue(FACING);
+		return boundingBoxes[facing.getIndex()];
+	}
+
 	@Override
 	public int getMetaFromState(IBlockState state) {
 		return state.getValue(FACING).getIndex() << 1 | state.getValue(MACHINE_TYPE).getIndex();
@@ -68,7 +87,7 @@ public class BlockExplosiveCharge<T extends Enum<T> & IStringSerializable & IMac
 		return false;
 	}
 	
-	  /**
+	/**
      * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
      * IBlockstate
      */
@@ -84,6 +103,16 @@ public class BlockExplosiveCharge<T extends Enum<T> & IStringSerializable & IMac
 		for(int i = 0; i< clazz.getEnumConstants().length;i++) {
 			IBlockState state = getDefaultState().withProperty(MACHINE_TYPE, clazz.getEnumConstants()[i]);
 			ModelLoader.setCustomModelResourceLocation(this.itemblock, this.getMetaFromState(state), new ModelResourceLocation(getRegistryName(),BlockUtils.getBlockStateVariantString(state)));
+		}
+	}
+
+	@Override
+	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
+		super.neighborChanged(state, worldIn, pos, blockIn, fromPos);
+		
+		if (worldIn.isAirBlock(pos.offset(state.getValue(FACING)))){
+			this.dropBlockAsItem(worldIn, pos, state, 0);
+			worldIn.setBlockToAir(pos);
 		}
 	}
 

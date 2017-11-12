@@ -97,7 +97,7 @@ public class FabricatorTileEntMaster extends MultiBlockMachineTileEntMaster {
 			EnumFacing left = multiblockDirection.rotateY();
 			
 			BlockPos other = p.offset(multiblockDirection, 2).offset(left, 2).offset(EnumFacing.UP,2);
-			BlockPos first = p.offset(multiblockDirection.getOpposite(),1).offset(left.getOpposite(),1).offset(EnumFacing.DOWN,1);
+			BlockPos first = p.offset(multiblockDirection.getOpposite(),2).offset(left.getOpposite(),1).offset(EnumFacing.DOWN,1);
 			return new AxisAlignedBB(first,other);
 		} else {
 			return super.getRenderBoundingBox();
