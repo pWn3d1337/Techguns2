@@ -3,10 +3,7 @@ package techguns.world.structures;
 import java.util.Random;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockDirectional;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.EnumDyeColor;
-import net.minecraft.item.ItemDoor;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos.MutableBlockPos;
 import net.minecraft.world.World;

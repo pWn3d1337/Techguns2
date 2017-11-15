@@ -1,7 +1,5 @@
 package techguns.world.dungeon;
 
-import java.util.Random;
-
 import net.minecraft.world.World;
 import techguns.world.dungeon.MazeDungeonPath.PathSegment;
 import techguns.world.dungeon.presets.IDungeonPreset;

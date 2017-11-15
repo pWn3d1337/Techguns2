@@ -18,7 +18,6 @@ import techguns.client.audio.TGSoundCategory;
 import techguns.entities.projectiles.EnumBulletFirePos;
 import techguns.entities.projectiles.GenericProjectile;
 import techguns.entities.projectiles.GuidedMissileProjectile;
-import techguns.items.guns.ammo.AmmoType;
 import techguns.util.SoundUtil;
 
 public class GuidedMissileLauncher extends GenericGunCharge {

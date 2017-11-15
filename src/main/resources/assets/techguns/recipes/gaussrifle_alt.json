@@ -1,0 +1,39 @@
+{
+  "result": {
+    "item": "techguns:gaussrifle",
+    "data": 8
+  },
+  "pattern": [
+    "dpc",
+    "brs",
+    "  e"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "p": {
+      "item": "#PLATETITANIUM"
+    },
+    "b": {
+      "item": "techguns:itemshared",
+      "data": 128
+    },
+    "r": {
+      "item": "techguns:itemshared",
+      "data": 36
+    },
+    "s": {
+      "item": "techguns:itemshared",
+      "data": 44
+    },
+    "c": {
+      "item": "#CIRCUITELITE"
+    },
+    "d": {
+      "item": "#GEMDIAMOND"
+    },
+    "e": {
+      "item": "techguns:itemshared",
+      "data": 30
+    }
+  }
+}

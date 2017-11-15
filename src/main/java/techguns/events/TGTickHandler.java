@@ -7,7 +7,6 @@ import java.util.UUID;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.particle.ParticleManager;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
@@ -403,7 +402,7 @@ public class TGTickHandler {
 							 
 							 if (!event.player.world.isRemote){
 								 //event.player.world.playSoundAtEntity(event.player, SoundEvents.ENTITY_PLAYER_BURP, 1.0f, 1.0f);
-								 event.player.world.playSound(event.player, event.player.posX, event.player.posY, event.player.posZ, SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.PLAYERS, 1f, 1f);
+								 event.player.world.playSound(null, event.player.posX, event.player.posY, event.player.posZ, SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.PLAYERS, 1f, 1f);
 							 }
 							 
 							 short left = (short) (food.getHealAmount(stack)-needed);

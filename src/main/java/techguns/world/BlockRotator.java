@@ -10,8 +10,6 @@ import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumFacing.Axis;
-import techguns.TGBlocks;
 import techguns.blocks.BlockTGDoor3x3;
 
 public class BlockRotator {

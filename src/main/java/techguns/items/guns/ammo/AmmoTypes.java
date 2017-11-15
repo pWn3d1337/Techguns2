@@ -77,7 +77,7 @@ public class AmmoTypes implements ITGInitializer{
 		GRENADES_40MM = new AmmoType(TGItems.GRENADE_40MM);
 		NUCLEAR_POWER_CELL = new AmmoType(TGItems.NUCLEAR_POWERCELL, TGItems.NUCLEAR_POWERCELL_EMPTY, ItemStack.EMPTY,0);
 		
-		AMMO_GAUSS_RIFLE = new AmmoType(new ItemStack[] {TGItems.SNIPER_ROUNDS, TGItems.ENERGY_CELL}, new ItemStack[] {ItemStack.EMPTY, TGItems.ENERGY_CELL_EMPTY}, new ItemStack[] {TGItems.SNIPER_ROUNDS, ItemStack.EMPTY},  8);
+		AMMO_GAUSS_RIFLE = new AmmoType(new ItemStack[] {TGItems.GAUSSRIFLE_SLUGS, TGItems.ENERGY_CELL}, new ItemStack[] {ItemStack.EMPTY, TGItems.ENERGY_CELL_EMPTY}, new ItemStack[] {TGItems.GAUSSRIFLE_SLUGS, ItemStack.EMPTY},  1);
 	}
 
 	@Override

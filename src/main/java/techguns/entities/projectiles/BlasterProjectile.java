@@ -1,7 +1,6 @@
 package techguns.entities.projectiles;
 
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;

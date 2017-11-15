@@ -22,7 +22,6 @@ import net.minecraftforge.common.util.BlockSnapshot;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 import techguns.TGBlocks;
-import techguns.TGPackets;
 import techguns.TGSounds;
 import techguns.Techguns;
 import techguns.api.damagesystem.DamageType;
@@ -31,7 +30,6 @@ import techguns.damagesystem.TGDamageSource;
 import techguns.deatheffects.EntityDeathUtils.DeathType;
 import techguns.items.guns.GenericGun;
 import techguns.items.guns.IChargedProjectileFactory;
-import techguns.packets.PacketSpawnParticle;
 import techguns.tileentities.BioBlobTileEnt;
 
 public class BioGunProjectile extends GenericProjectile implements IEntityAdditionalSpawnData{

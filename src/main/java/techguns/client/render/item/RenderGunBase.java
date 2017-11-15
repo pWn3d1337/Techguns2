@@ -16,7 +16,6 @@ import techguns.capabilities.TGShooterValues;
 import techguns.client.ClientProxy;
 import techguns.client.models.ModelMultipart;
 import techguns.client.render.fx.ScreenEffect;
-import techguns.debug.Keybinds;
 import techguns.items.guns.GenericGun;
 import techguns.items.guns.GenericGunCharge;
 

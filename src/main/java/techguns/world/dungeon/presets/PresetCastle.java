@@ -3,10 +3,10 @@ package techguns.world.dungeon.presets;
 import java.util.ArrayList;
 import java.util.Random;
 
-import techguns.world.dungeon.MazeDungeonPath;
 import techguns.world.dungeon.DungeonSegment;
 import techguns.world.dungeon.DungeonTemplate;
 import techguns.world.dungeon.IDungeonPath;
+import techguns.world.dungeon.MazeDungeonPath;
 import techguns.world.dungeon.TemplateSegment.SegmentType;
 
 public class PresetCastle implements IDungeonPreset{

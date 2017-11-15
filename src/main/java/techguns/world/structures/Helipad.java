@@ -2,12 +2,8 @@ package techguns.world.structures;
 
 import java.util.Random;
 
-import net.minecraft.init.Blocks;
-import net.minecraft.item.EnumDyeColor;
 import net.minecraft.util.math.BlockPos.MutableBlockPos;
 import net.minecraft.world.World;
-import techguns.TGBlocks;
-import techguns.util.MBlock;
 
 public class Helipad extends WorldgenStructure{
 

@@ -2,7 +2,6 @@ package techguns.entities.projectiles;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
 import techguns.TGPackets;

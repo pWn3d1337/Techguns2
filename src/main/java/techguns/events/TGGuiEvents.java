@@ -188,7 +188,7 @@ public class TGGuiEvents extends Gui{
 		int minCount = 0;
 		for(ItemStack stack: ammoitem) {
 			int c = getAmmoCountOfStack(stack, gun, ply, props); 
-			if (c<minCount) {
+			if (c>minCount) {
 				minCount = c;
 			}
 		}

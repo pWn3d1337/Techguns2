@@ -3,7 +3,6 @@ package techguns.client.models.machines;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.GlStateManager.DestFactor;
-import net.minecraft.client.renderer.GlStateManager.Profile;
 import net.minecraft.client.renderer.GlStateManager.SourceFactor;
 import net.minecraft.entity.Entity;
 

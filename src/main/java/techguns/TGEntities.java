@@ -2,8 +2,6 @@ package techguns;
 
 import java.util.ArrayList;
 
-import com.google.common.collect.Iterables;
-
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;

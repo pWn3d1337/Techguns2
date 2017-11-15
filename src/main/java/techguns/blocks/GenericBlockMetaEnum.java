@@ -15,8 +15,6 @@ import net.minecraft.util.NonNullList;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import techguns.Techguns;
-import techguns.items.armors.ICamoChangeable;
 import techguns.util.BlockUtils;
 
 public class GenericBlockMetaEnum<T extends Enum<T> & IStringSerializable> extends GenericBlock {

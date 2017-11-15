@@ -7,7 +7,6 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import techguns.CommonProxy;
 import techguns.events.TechgunsGuiHandler.GuiHandlerRegister;
-import techguns.gui.ExplosiveChargeGui;
 import techguns.gui.containers.AmmoPressContainer;
 import techguns.gui.containers.CamoBenchContainer;
 import techguns.gui.containers.ChargingStationContainer;

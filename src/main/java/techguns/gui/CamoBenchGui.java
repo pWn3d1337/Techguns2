@@ -136,7 +136,7 @@ public class CamoBenchGui extends OwnedTileEntGui {
 	private int getArmorCamo(int slot){
 		EntityPlayer ply = Minecraft.getMinecraft().player;
 		
-		ItemStack armor = ply.inventory.armorItemInSlot(slot);
+		ItemStack armor = ply.inventory.armorInventory.get(slot);
 		if(!armor.isEmpty() && armor.getItem() instanceof ICamoChangeable){
 			ICamoChangeable camoArmor = (ICamoChangeable) armor.getItem();
 			return camoArmor.getCurrentCamoIndex(armor)+1;

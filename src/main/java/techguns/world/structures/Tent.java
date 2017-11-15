@@ -8,7 +8,6 @@ import net.minecraft.util.math.BlockPos.MutableBlockPos;
 import net.minecraft.world.World;
 import techguns.TGBlocks;
 import techguns.util.MBlock;
-import techguns.world.Structure;
 
 public class Tent extends WorldgenStructure {
 	

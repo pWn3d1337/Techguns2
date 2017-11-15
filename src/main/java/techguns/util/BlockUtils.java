@@ -3,7 +3,6 @@ package techguns.util;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
@@ -23,15 +22,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockPos.MutableBlockPos;
-import techguns.items.guns.GenericGunMeleeCharge;
-import techguns.items.guns.MiningDrill;
-import techguns.world.structures.WorldgenStructure.BiomeColorType;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
+import techguns.items.guns.GenericGunMeleeCharge;
+import techguns.world.structures.WorldgenStructure.BiomeColorType;
 
 public class BlockUtils {
 	

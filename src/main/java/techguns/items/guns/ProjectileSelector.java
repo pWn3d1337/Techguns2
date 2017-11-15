@@ -3,7 +3,6 @@ package techguns.items.guns;
 import java.util.HashMap;
 
 import techguns.entities.projectiles.GenericProjectile;
-import techguns.entities.projectiles.GenericProjectileIncendiary.Factory;
 import techguns.items.guns.ammo.AmmoType;
 import techguns.items.guns.ammo.AmmoVariant;
 

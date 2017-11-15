@@ -12,7 +12,6 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import techguns.gui.config.GuiFactoryTechguns;
 import techguns.init.ITGInitializer;
 import techguns.items.guns.ammo.AmmoTypes;
 import techguns.plugins.chisel.TGChiselBlocks;

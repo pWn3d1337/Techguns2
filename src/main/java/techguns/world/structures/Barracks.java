@@ -2,14 +2,11 @@ package techguns.world.structures;
 
 import java.util.Random;
 
-import net.minecraft.block.BlockDirectional;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemDoor;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos.MutableBlockPos;
 import net.minecraft.world.World;
-import techguns.TGBlocks;
-import techguns.util.BlockUtils;
 import techguns.util.MBlock;
 import techguns.world.BlockRotator;
 

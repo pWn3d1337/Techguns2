@@ -1,14 +1,8 @@
 package techguns.client.particle.list;
 
-import java.util.Collection;
 import java.util.Comparator;
 import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
 import java.util.NoSuchElementException;
-
-import techguns.client.ClientProxy;
-import techguns.client.particle.TGParticleStreak;
 
 public class ParticleList<E> implements Iterable<E>{
 	protected ParticleListElement<E> first;	

@@ -51,8 +51,23 @@ import techguns.client.models.npcs.ModelCyberDemon;
 import techguns.client.models.npcs.ModelSuperMutant;
 import techguns.client.render.entities.projectiles.DeathEffectEntityRenderer;
 import techguns.deatheffects.EntityDeathUtils.DeathType;
+import techguns.entities.npcs.AlienBug;
+import techguns.entities.npcs.ArmySoldier;
+import techguns.entities.npcs.Bandit;
+import techguns.entities.npcs.Commando;
+import techguns.entities.npcs.CyberDemon;
+import techguns.entities.npcs.DictatorDave;
+import techguns.entities.npcs.PsychoSteve;
+import techguns.entities.npcs.SkeletonSoldier;
+import techguns.entities.npcs.StormTrooper;
+import techguns.entities.npcs.SuperMutantBasic;
+import techguns.entities.npcs.SuperMutantElite;
+import techguns.entities.npcs.SuperMutantHeavy;
+import techguns.entities.npcs.ZombieFarmer;
+import techguns.entities.npcs.ZombieMiner;
+import techguns.entities.npcs.ZombiePigmanSoldier;
+import techguns.entities.npcs.ZombieSoldier;
 import techguns.entities.projectiles.FlyingGibs;
-import techguns.entities.npcs.*;
 
 public class DeathEffect {
 	

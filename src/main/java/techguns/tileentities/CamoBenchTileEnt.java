@@ -68,7 +68,7 @@ public class CamoBenchTileEnt extends BasicOwnedTileEnt {
 				
 				int slotid = 3-(((int) (Math.ceil((id-2)*0.5)))-1);
 				
-				ItemStack item = ply.inventory.armorItemInSlot(slotid);//this.content[slotid];
+				ItemStack item = ply.inventory.armorInventory.get(slotid);//this.content[slotid];
 				if(!item.isEmpty() && item.getItem() instanceof ICamoChangeable){
 					boolean back = id%2 == 0;
 					

@@ -1,8 +1,5 @@
 package techguns.recipes;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.google.gson.JsonObject;
 
 import net.minecraft.inventory.InventoryCrafting;
@@ -16,12 +13,8 @@ import net.minecraftforge.common.crafting.IRecipeFactory;
 import net.minecraftforge.common.crafting.JsonContext;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import techguns.Techguns;
-import techguns.api.tginventory.ITGSpecialSlot;
-import techguns.api.tginventory.TGSlotType;
-import techguns.items.guns.GenericGun;
 import techguns.items.guns.GenericGunMeleeCharge;
 import techguns.items.guns.ammo.AmmoType;
-import techguns.recipes.AmmoSwitchRecipeFactory.AmmoSwitchRecipe;
 
 public class MiningToolUpgradeHeadRecipeFactory implements IRecipeFactory {
 

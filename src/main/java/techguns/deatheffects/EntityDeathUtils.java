@@ -8,10 +8,8 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityCaveSpider;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.monster.EntityEnderman;
-import net.minecraft.entity.monster.EntityGhast;
 import net.minecraft.entity.monster.EntityPigZombie;
 import net.minecraft.entity.monster.EntitySkeleton;
-import net.minecraft.entity.monster.EntitySlime;
 import net.minecraft.entity.monster.EntitySpider;
 import net.minecraft.entity.monster.EntityWitch;
 import net.minecraft.entity.monster.EntityZombie;
@@ -25,7 +23,23 @@ import net.minecraft.entity.passive.EntitySquid;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.entity.player.EntityPlayer;
-import techguns.entities.npcs.*;
+import techguns.entities.npcs.AlienBug;
+import techguns.entities.npcs.ArmySoldier;
+import techguns.entities.npcs.Bandit;
+import techguns.entities.npcs.Commando;
+import techguns.entities.npcs.CyberDemon;
+import techguns.entities.npcs.DictatorDave;
+import techguns.entities.npcs.Outcast;
+import techguns.entities.npcs.PsychoSteve;
+import techguns.entities.npcs.SkeletonSoldier;
+import techguns.entities.npcs.StormTrooper;
+import techguns.entities.npcs.SuperMutantBasic;
+import techguns.entities.npcs.SuperMutantElite;
+import techguns.entities.npcs.SuperMutantHeavy;
+import techguns.entities.npcs.ZombieFarmer;
+import techguns.entities.npcs.ZombieMiner;
+import techguns.entities.npcs.ZombiePigmanSoldier;
+import techguns.entities.npcs.ZombieSoldier;
 
 
 public class EntityDeathUtils {

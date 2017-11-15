@@ -11,7 +11,6 @@ import net.minecraft.world.World;
 import techguns.TGPackets;
 import techguns.entities.projectiles.EnumBulletFirePos;
 import techguns.entities.projectiles.SonicShotgunProjectile;
-import techguns.items.guns.ammo.AmmoType;
 import techguns.packets.PacketSpawnParticleOnEntity;
 import techguns.util.MathUtil;
 

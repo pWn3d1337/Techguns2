@@ -20,16 +20,13 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
@@ -48,9 +45,7 @@ import techguns.damagesystem.DamageSystem;
 import techguns.damagesystem.TGDamageSource;
 import techguns.entities.ai.EntityAIHurtByTargetTGFactions;
 import techguns.entities.ai.EntityAIRangedAttack;
-import techguns.items.armors.GenericArmor;
 import techguns.items.guns.GenericGun;
-import techguns.tileentities.TGSpawnerTileEnt;
 
 public class GenericNPC extends EntityMob implements IRangedAttackMob, INPCTechgunsShooter, INpcTGDamageSystem, ITGNpcTeam, ITGSpawnerNPC{
 	 

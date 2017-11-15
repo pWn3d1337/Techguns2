@@ -1,12 +1,10 @@
 package techguns.client.render.entities.npcs;
 
-import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.layers.LayerBipedArmor;
 import net.minecraft.util.ResourceLocation;
 import techguns.Techguns;
 import techguns.client.models.npcs.ModelGenericNPC;
-import techguns.entities.npcs.ZombieFarmer;
 import techguns.entities.npcs.ZombieMiner;
 
 public class RenderZombieMiner extends RenderGenericNPC<ZombieMiner> {

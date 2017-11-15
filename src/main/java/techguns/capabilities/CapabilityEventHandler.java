@@ -11,7 +11,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import techguns.Techguns;
 import techguns.api.npc.INPCTechgunsShooter;
-import techguns.entities.npcs.GenericNPC;
 import techguns.entities.npcs.ITGSpawnerNPC;
 
 @Mod.EventBusSubscriber(modid = Techguns.MODID)

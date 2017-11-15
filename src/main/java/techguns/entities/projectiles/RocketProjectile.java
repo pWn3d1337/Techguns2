@@ -1,26 +1,18 @@
 package techguns.entities.projectiles;
 
-import java.util.List;
-
 import elucent.albedo.lighting.ILightProvider;
 import elucent.albedo.lighting.Light;
-import net.minecraft.client.Minecraft;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Optional;
 import techguns.TGPackets;
 import techguns.Techguns;
 import techguns.api.damagesystem.DamageType;
 import techguns.client.ClientProxy;
-import techguns.client.particle.TGFX;
-import techguns.client.particle.TGParticleSystem;
 import techguns.damagesystem.TGDamageSource;
 import techguns.damagesystem.TGExplosion;
 import techguns.deatheffects.EntityDeathUtils.DeathType;
-import techguns.debug.Keybinds;
 import techguns.items.guns.GenericGun;
 import techguns.items.guns.IProjectileFactory;
 import techguns.packets.PacketSpawnParticle;

@@ -1,7 +1,5 @@
 package techguns.tileentities;
 
-import java.util.ArrayList;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirectional;
 import net.minecraft.block.state.IBlockState;

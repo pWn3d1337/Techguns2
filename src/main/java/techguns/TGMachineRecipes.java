@@ -63,6 +63,7 @@ public class TGMachineRecipes {
 		MetalPressRecipes.addRecipe("ingotGold", "ingotGold", TGItems.newStack(TGItems.WIRE_GOLD, 2), true);
 		MetalPressRecipes.addRecipe("plateIron", new ItemStack(Blocks.TNT,1), TGItems.newStack(TGItems.GRENADE_40MM, 16), true);
 		MetalPressRecipes.addRecipe("ingotTitanium","ingotTitanium",TGItems.newStack(TGItems.PLATE_TITANIUM,2), true);
+		MetalPressRecipes.addRecipe("plateObsidianSteel","plateTitanium",TGItems.newStack(TGItems.GAUSSRIFLE_SLUGS,4), true);
 		
 		//CHEM LAB
 

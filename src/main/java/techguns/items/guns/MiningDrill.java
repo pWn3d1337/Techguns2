@@ -18,7 +18,6 @@ import techguns.api.damagesystem.DamageType;
 import techguns.damagesystem.TGDamageSource;
 import techguns.deatheffects.EntityDeathUtils.DeathType;
 import techguns.packets.PacketSpawnParticle;
-import techguns.util.ItemUtil;
 import techguns.util.TextUtil;
 
 public class MiningDrill extends GenericGunMeleeCharge {

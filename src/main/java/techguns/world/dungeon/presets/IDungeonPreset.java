@@ -3,11 +3,10 @@ package techguns.world.dungeon.presets;
 import java.util.Random;
 
 import techguns.tileentities.TGSpawnerTileEnt;
-import techguns.world.dungeon.MazeDungeonPath;
-import techguns.world.dungeon.MazeDungeonPath.PathSegment;
 import techguns.world.dungeon.DungeonSegment;
 import techguns.world.dungeon.IDungeonPath;
-import techguns.world.dungeon.TemplateSegment;
+import techguns.world.dungeon.MazeDungeonPath;
+import techguns.world.dungeon.MazeDungeonPath.PathSegment;
 import techguns.world.dungeon.TemplateSegment.SegmentType;
 
 public interface IDungeonPreset {

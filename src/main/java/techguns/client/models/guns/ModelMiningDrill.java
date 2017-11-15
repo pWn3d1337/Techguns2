@@ -5,7 +5,6 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType;
 import net.minecraft.entity.Entity;
 import techguns.client.models.ModelMultipart;
-import techguns.debug.Keybinds;
 
 public class ModelMiningDrill extends ModelMultipart {
 

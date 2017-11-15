@@ -9,7 +9,6 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
 import techguns.TGItems;
 import techguns.TGSounds;
-import techguns.items.guns.ammo.AmmoType;
 
 public class Chainsaw extends GenericGunMeleeCharge {
 

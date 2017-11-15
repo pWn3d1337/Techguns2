@@ -195,6 +195,9 @@ public class TGItems implements ITGInitializer{
 	public static ItemStack REDSTONE_BATTERY;
 	public static ItemStack REDSTONE_BATTERY_EMPTY;
 	
+	public static ItemStack GAUSSRIFLE_SLUGS;
+	public static ItemStack BARREL_GAUSS;
+	
 	//Ammo Variants
 	public static ItemStack SHOTGUN_ROUNDS_INCENDIARY;
 	public static ItemStack AS50_MAGAZINE_INCENDIARY;
@@ -427,6 +430,10 @@ public class TGItems implements ITGInitializer{
 		
 		REDSTONE_BATTERY = SHARED_ITEM.addsharedVariant("redstone_battery", TGSlotType.AMMOSLOT);
 		REDSTONE_BATTERY_EMPTY = SHARED_ITEM.addsharedVariant("redstone_battery_empty", TGSlotType.AMMOSLOT);
+		
+		GAUSSRIFLE_SLUGS = SHARED_ITEM.addsharedVariant("gaussrifleslugs", TGSlotType.AMMOSLOT);
+		
+		BARREL_GAUSS = SHARED_ITEM.addsharedVariant("gaussbarrel");
 		
 		/**
 		 * Additional Slot items

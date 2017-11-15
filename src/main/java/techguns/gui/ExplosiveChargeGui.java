@@ -3,15 +3,12 @@ package techguns.gui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
 import techguns.TGPackets;
 import techguns.Techguns;
 import techguns.gui.containers.ExplosiveChargeContainer;
 import techguns.packets.PacketGuiButtonClick;
-import techguns.tileentities.BasicOwnedTileEnt;
-import techguns.tileentities.CamoBenchTileEnt;
 import techguns.tileentities.ExplosiveChargeAdvTileEnt;
 import techguns.tileentities.ExplosiveChargeTileEnt;
 

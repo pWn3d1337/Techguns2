@@ -1,0 +1,27 @@
+{
+  "result": {
+    "item": "techguns:itemshared",
+    "data": 128
+  },
+  "pattern": [
+    "pww",
+    "bbc",
+    "pww"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "p": {
+      "item": "#PLATETITANIUM"
+    },
+    "b": {
+      "item": "techguns:itemshared",
+      "data": 40
+    },
+    "c": {
+      "item": "#CIRCUITELITE"
+    },
+    "w": {
+      "item": "#WIREGOLD"
+    }
+  }
+}

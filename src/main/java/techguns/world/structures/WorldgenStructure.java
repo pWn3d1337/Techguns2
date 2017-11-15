@@ -2,12 +2,7 @@ package techguns.world.structures;
 
 import java.util.Random;
 
-import org.apache.commons.lang3.mutable.MutableBoolean;
-
-import io.netty.channel.DefaultAddressedEnvelope;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.BlockPos.MutableBlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;

@@ -6,7 +6,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IStringSerializable;
-import net.minecraftforge.fml.common.Optional;
 import techguns.Techguns;
 import techguns.items.armors.ICamoChangeable;
 

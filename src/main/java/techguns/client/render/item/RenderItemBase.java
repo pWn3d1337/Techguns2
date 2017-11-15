@@ -9,7 +9,6 @@ import net.minecraft.util.ResourceLocation;
 import techguns.api.npc.INPCTechgunsShooter;
 import techguns.api.render.IItemRenderer;
 import techguns.client.models.ModelMultipart;
-import techguns.debug.Keybinds;
 
 public class RenderItemBase implements IItemRenderer {
 

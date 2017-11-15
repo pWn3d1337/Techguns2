@@ -1,6 +1,5 @@
 package techguns.world.structures;
 
-import net.minecraft.block.BlockColored;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumDyeColor;
 import techguns.TGBlocks;

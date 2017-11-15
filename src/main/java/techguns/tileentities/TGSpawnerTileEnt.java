@@ -3,7 +3,6 @@ package techguns.tileentities;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Random;
 
 import net.minecraft.entity.Entity;
@@ -19,11 +18,8 @@ import net.minecraft.util.WeightedSpawnerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.chunk.storage.AnvilChunkLoader;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
-import techguns.blocks.machines.BasicMachine;
 import techguns.capabilities.TGSpawnerNPCData;
-import techguns.entities.npcs.GenericNPC;
 import techguns.entities.npcs.ITGSpawnerNPC;
-import techguns.entities.npcs.ZombieSoldier;
 
 public class TGSpawnerTileEnt extends BasicTGTileEntity implements ITickable {
 

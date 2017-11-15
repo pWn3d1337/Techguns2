@@ -268,7 +268,7 @@ public class PoweredArmor extends GenericArmorMultiCamo {
 	
 	protected static void powerSlots(EntityPlayer player, ArmorPowerType power, ItemStack chest, boolean consumeTick){
 		for (int i = 0; i < 4; i++) {
-			ItemStack armor = player.inventory.armorItemInSlot(i);
+			ItemStack armor = player.inventory.armorInventory.get(i);
 			// System.out.println("Slot"+i+":"+armor.getDisplayName());
 			if (armor != null && armor.getItem() instanceof PoweredArmor) {
 				if (i != 2) {
@@ -335,7 +335,7 @@ public class PoweredArmor extends GenericArmorMultiCamo {
 
 		ArmorPowerType power = null;
 
-		ItemStack chest = player.inventory.armorItemInSlot(2);
+		ItemStack chest = player.inventory.armorInventory.get(2);
 		if (chest != null && chest.getItem() instanceof PoweredArmor) {
 			power = ((PoweredArmor) chest.getItem()).powerType;
 		}

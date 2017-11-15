@@ -81,13 +81,13 @@ public class PacketTGKeybindPress implements IMessage {
 					if(ply.getActivePotionEffect(MobEffects.NIGHT_VISION)!=null){
 						ply.removePotionEffect(MobEffects.NIGHT_VISION);
 						//ply.world.playSoundAtEntity(ply, TGSounds.NIGHTVISION_OFF, 1.0f, 1.0f);
-						ply.world.playSound(ply.posX, ply.posY+ply.getEyeHeight(), ply.posZ, TGSounds.NIGHTVISION_OFF, SoundCategory.PLAYERS, 1f, 1f, false);
+						ply.world.playSound(null, ply.posX, ply.posY+ply.getEyeHeight(), ply.posZ, TGSounds.NIGHTVISION_OFF, SoundCategory.PLAYERS, 1f, 1f);
 						//Techguns.proxy.playSoundOnEntity(ply, TGSounds.NIGHTVISION_OFF, 1f, 1f, false, true, false, TGSoundCategory.PLAYER_EFFECT);
 						
 					}
 				} else if (GenericArmor.getArmorBonusForPlayer(ply, TGArmorBonus.NIGHTVISION, false)>0.0f){
 					//ply.world.playSoundAtEntity(ply, TGSounds.NIGHTVISION_ON, 1.0f, 1.0f);
-					ply.world.playSound(ply.posX, ply.posY+ply.getEyeHeight(), ply.posZ, TGSounds.NIGHTVISION_ON, SoundCategory.PLAYERS, 1f, 1f, false);
+					ply.world.playSound(null, ply.posX, ply.posY+ply.getEyeHeight(), ply.posZ, TGSounds.NIGHTVISION_ON, SoundCategory.PLAYERS, 1f, 1f);
 					
 				}
 				if(message.showMsg) {

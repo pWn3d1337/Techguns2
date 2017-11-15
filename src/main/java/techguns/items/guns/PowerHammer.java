@@ -14,9 +14,7 @@ import techguns.damagesystem.TGDamageSource;
 import techguns.deatheffects.EntityDeathUtils.DeathType;
 import techguns.entities.projectiles.EnumBulletFirePos;
 import techguns.entities.projectiles.GenericProjectile;
-import techguns.items.guns.ammo.AmmoType;
 import techguns.packets.PacketSpawnParticle;
-import techguns.util.ItemUtil;
 
 public class PowerHammer extends GenericGunMeleeCharge {
 	

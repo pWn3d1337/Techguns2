@@ -14,10 +14,7 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import techguns.util.BlockUtils;
 import techguns.world.structures.Barracks;
-import techguns.world.structures.Bunker;
-import techguns.world.structures.Helipad;
 import techguns.world.structures.MilitaryCamp;
-import techguns.world.structures.Tanks;
 import techguns.world.structures.WorldgenStructure.BiomeColorType;
 
 public class WorldGenTestTool extends GenericItem{

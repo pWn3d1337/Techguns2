@@ -3,8 +3,6 @@ package techguns.items.guns;
 import java.util.HashMap;
 import java.util.List;
 
-import org.omg.PortableServer.POAManagerPackage.State;
-
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import com.mojang.realmsclient.gui.ChatFormatting;
@@ -43,7 +41,6 @@ import techguns.client.ShooterValues;
 import techguns.client.audio.TGSoundCategory;
 import techguns.damagesystem.TGDamageSource;
 import techguns.deatheffects.EntityDeathUtils.DeathType;
-import techguns.items.guns.ammo.AmmoType;
 import techguns.packets.PacketPlaySound;
 import techguns.util.BlockUtils;
 import techguns.util.ItemUtil;

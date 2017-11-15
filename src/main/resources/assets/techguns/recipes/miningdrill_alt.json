@@ -1,0 +1,34 @@
+{
+  "result": {
+    "item": "techguns:miningdrill",
+    "data": 300
+  },
+  "pattern": [
+    " m ",
+    "drs",
+    " f "
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "r": {
+      "item": "techguns:itemshared",
+      "data": 35
+    },
+    "s": {
+      "item": "techguns:itemshared",
+      "data": 43
+    },
+    "d": {
+      "item": "techguns:itemshared",
+      "data": 119
+    },
+    "f": {
+      "item": "techguns:itemshared",
+      "data": 28
+    },
+    "m": {
+      "item": "techguns:itemshared",
+      "data": 59
+    }
+  }
+}

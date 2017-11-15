@@ -1,6 +1,5 @@
 package techguns.tileentities;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
@@ -8,12 +7,8 @@ import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.server.management.PlayerChunkMapEntry;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
-import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
-import techguns.TGBlocks;
-import techguns.blocks.machines.BasicMachine;
 
 public class BasicTGTileEntity extends TileEntity {
 

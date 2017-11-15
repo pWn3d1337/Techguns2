@@ -1,6 +1,5 @@
 package techguns.world.dungeon.presets;
 
-import techguns.world.dungeon.MazeDungeonPath;
 import techguns.world.dungeon.DungeonSegment;
 import techguns.world.dungeon.DungeonTemplate;
 import techguns.world.dungeon.IDungeonPath;

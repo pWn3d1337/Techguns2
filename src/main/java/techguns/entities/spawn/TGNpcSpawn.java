@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
-import net.minecraftforge.common.BiomeDictionary;
 import techguns.entities.npcs.GenericNPC;
 
 public class TGNpcSpawn {

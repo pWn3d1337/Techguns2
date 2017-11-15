@@ -1,6 +1,5 @@
 package techguns.items.guns;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.world.World;
 import techguns.api.damagesystem.DamageType;

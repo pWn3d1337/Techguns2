@@ -1,6 +1,120 @@
 package techguns.recipes;
 
-import static techguns.TGItems.*;
+import static techguns.TGArmors.steam_Boots;
+import static techguns.TGArmors.steam_Chestplate;
+import static techguns.TGArmors.steam_Helmet;
+import static techguns.TGArmors.steam_Leggings;
+import static techguns.TGArmors.t1_combat_Boots;
+import static techguns.TGArmors.t1_combat_Chestplate;
+import static techguns.TGArmors.t1_combat_Helmet;
+import static techguns.TGArmors.t1_combat_Leggings;
+import static techguns.TGArmors.t1_miner_Boots;
+import static techguns.TGArmors.t1_miner_Chestplate;
+import static techguns.TGArmors.t1_miner_Helmet;
+import static techguns.TGArmors.t1_miner_Leggings;
+import static techguns.TGArmors.t1_scout_Boots;
+import static techguns.TGArmors.t1_scout_Chestplate;
+import static techguns.TGArmors.t1_scout_Helmet;
+import static techguns.TGArmors.t1_scout_Leggings;
+import static techguns.TGArmors.t2_beret;
+import static techguns.TGArmors.t2_combat_Boots;
+import static techguns.TGArmors.t2_combat_Chestplate;
+import static techguns.TGArmors.t2_combat_Helmet;
+import static techguns.TGArmors.t2_combat_Leggings;
+import static techguns.TGArmors.t2_commando_Boots;
+import static techguns.TGArmors.t2_commando_Chestplate;
+import static techguns.TGArmors.t2_commando_Helmet;
+import static techguns.TGArmors.t2_commando_Leggings;
+import static techguns.TGArmors.t2_riot_Boots;
+import static techguns.TGArmors.t2_riot_Chestplate;
+import static techguns.TGArmors.t2_riot_Helmet;
+import static techguns.TGArmors.t2_riot_Leggings;
+import static techguns.TGArmors.t3_combat_Boots;
+import static techguns.TGArmors.t3_combat_Chestplate;
+import static techguns.TGArmors.t3_combat_Helmet;
+import static techguns.TGArmors.t3_combat_Leggings;
+import static techguns.TGArmors.t3_exo_Boots;
+import static techguns.TGArmors.t3_exo_Chestplate;
+import static techguns.TGArmors.t3_exo_Helmet;
+import static techguns.TGArmors.t3_exo_Leggings;
+import static techguns.TGArmors.t3_miner_Boots;
+import static techguns.TGArmors.t3_miner_Chestplate;
+import static techguns.TGArmors.t3_miner_Helmet;
+import static techguns.TGArmors.t3_miner_Leggings;
+import static techguns.TGArmors.t3_power_Boots;
+import static techguns.TGArmors.t3_power_Chestplate;
+import static techguns.TGArmors.t3_power_Helmet;
+import static techguns.TGArmors.t3_power_Leggings;
+import static techguns.TGItems.ADVANCED_MAGAZINE;
+import static techguns.TGItems.ADVANCED_MAGAZINE_EMPTY;
+import static techguns.TGItems.ADVANCED_ROUNDS;
+import static techguns.TGItems.AS50_MAGAZINE;
+import static techguns.TGItems.AS50_MAGAZINE_EMPTY;
+import static techguns.TGItems.AS50_MAGAZINE_INCENDIARY;
+import static techguns.TGItems.ASSAULTRIFLE_MAGAZINE;
+import static techguns.TGItems.ASSAULTRIFLE_MAGAZINE_EMPTY;
+import static techguns.TGItems.ASSAULTRIFLE_MAGAZINE_INCENDIARY;
+import static techguns.TGItems.BARREL_CARBON;
+import static techguns.TGItems.BARREL_IRON;
+import static techguns.TGItems.BARREL_LASER;
+import static techguns.TGItems.BARREL_OBSIDIAN_STEEL;
+import static techguns.TGItems.BARREL_STONE;
+import static techguns.TGItems.BIOMASS;
+import static techguns.TGItems.BIO_TANK_EMPTY;
+import static techguns.TGItems.CIRCUIT_BOARD_ELITE;
+import static techguns.TGItems.COIL;
+import static techguns.TGItems.COMPRESSED_AIR_TANK_EMPTY;
+import static techguns.TGItems.ELECTRIC_ENGINE;
+import static techguns.TGItems.FUEL_TANK_EMPTY;
+import static techguns.TGItems.GLIDER;
+import static techguns.TGItems.GLIDER_BACKBACK;
+import static techguns.TGItems.GLIDER_WING;
+import static techguns.TGItems.HEAVY_CLOTH;
+import static techguns.TGItems.INGOT_OBSIDIAN_STEEL;
+import static techguns.TGItems.LASER_FOCUS;
+import static techguns.TGItems.LMG_MAGAZINE;
+import static techguns.TGItems.LMG_MAGAZINE_EMPTY;
+import static techguns.TGItems.LMG_MAGAZINE_INCENDIARY;
+import static techguns.TGItems.MACHINE_UPGRADE_STACK;
+import static techguns.TGItems.MECHANICAL_PARTS_CARBON;
+import static techguns.TGItems.MECHANICAL_PARTS_IRON;
+import static techguns.TGItems.MECHANICAL_PARTS_OBSIDIAN_STEEL;
+import static techguns.TGItems.MINIGUN_DRUM;
+import static techguns.TGItems.MINIGUN_DRUM_EMPTY;
+import static techguns.TGItems.MINIGUN_DRUM_INCENDIARY;
+import static techguns.TGItems.NIGHTVISION_GOGGLES;
+import static techguns.TGItems.OXYGEN_MASK;
+import static techguns.TGItems.PISTOL_MAGAZINE;
+import static techguns.TGItems.PISTOL_MAGAZINE_EMPTY;
+import static techguns.TGItems.PISTOL_MAGAZINE_INCENDIARY;
+import static techguns.TGItems.PISTOL_ROUNDS;
+import static techguns.TGItems.PISTOL_ROUNDS_INCENDIARY;
+import static techguns.TGItems.PUMP_MECHANISM;
+import static techguns.TGItems.RECEIVER_CARBON;
+import static techguns.TGItems.RECEIVER_IRON;
+import static techguns.TGItems.RECEIVER_OBSIDIAN_STEEL;
+import static techguns.TGItems.RECEIVER_STEEL;
+import static techguns.TGItems.RIFLE_ROUNDS;
+import static techguns.TGItems.RIFLE_ROUNDS_INCENDIARY;
+import static techguns.TGItems.RIFLE_ROUNDS_STACK;
+import static techguns.TGItems.RIFLE_ROUNDS_STACK_INCENDIARY;
+import static techguns.TGItems.ROCKET;
+import static techguns.TGItems.SHOTGUN_ROUNDS;
+import static techguns.TGItems.SMG_MAGAZINE;
+import static techguns.TGItems.SMG_MAGAZINE_EMPTY;
+import static techguns.TGItems.SMG_MAGAZINE_INCENDIARY;
+import static techguns.TGItems.SNIPER_ROUNDS;
+import static techguns.TGItems.SNIPER_ROUNDS_INCENDIARY;
+import static techguns.TGItems.STOCK_CARBON;
+import static techguns.TGItems.STOCK_PLASTIC;
+import static techguns.TGItems.STOCK_WOOD;
+import static techguns.TGItems.STONE_BULLETS;
+import static techguns.TGItems.TURRET_ARMOR_CARBON;
+import static techguns.TGItems.TURRET_ARMOR_IRON;
+import static techguns.TGItems.TURRET_ARMOR_OBSIDIAN_STEEL;
+import static techguns.TGItems.TURRET_ARMOR_STEEL;
+import static techguns.TGItems.WIRE_COPPER;
+import static techguns.TGItems.newStack;
 import static techguns.TGuns.ak47;
 import static techguns.TGuns.as50;
 import static techguns.TGuns.aug;
@@ -11,6 +125,7 @@ import static techguns.TGuns.chainsaw;
 import static techguns.TGuns.combatshotgun;
 import static techguns.TGuns.flamethrower;
 import static techguns.TGuns.fraggrenade;
+import static techguns.TGuns.gaussrifle;
 import static techguns.TGuns.goldenrevolver;
 import static techguns.TGuns.grenadelauncher;
 import static techguns.TGuns.grimreaper;
@@ -23,6 +138,7 @@ import static techguns.TGuns.m4_infiltrator;
 import static techguns.TGuns.mac10;
 import static techguns.TGuns.mibgun;
 import static techguns.TGuns.minigun;
+import static techguns.TGuns.miningdrill;
 import static techguns.TGuns.netherblaster;
 import static techguns.TGuns.nucleardeathray;
 import static techguns.TGuns.pdw;
@@ -41,19 +157,13 @@ import static techguns.TGuns.vector;
 
 import java.util.Arrays;
 
-import static techguns.TGArmors.*;
-
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 import techguns.TGBlocks;
 import techguns.TGItems;
 import techguns.TGuns;
-import techguns.Techguns;
-import techguns.blocks.BlockTGLadder;
-import techguns.blocks.EnumLadderType;
 import techguns.blocks.TGMetalPanelType;
 import techguns.blocks.machines.EnumExplosiveChargeType;
 import techguns.blocks.machines.EnumMachineType;
@@ -61,7 +171,6 @@ import techguns.blocks.machines.EnumMultiBlockMachineType;
 import techguns.blocks.machines.EnumSimpleMachineType;
 import techguns.items.guns.GenericGun;
 import techguns.items.guns.ammo.AmmoType;
-import techguns.items.guns.ammo.AmmoTypes;
 
 public class Recipewriter {
 
@@ -306,6 +415,7 @@ public class Recipewriter {
         RecipeJsonConverter.addShapedRecipe(new ItemStack(TGBlocks.EXPLOSIVE_CHARGE,8,TGBlocks.EXPLOSIVE_CHARGE.getMetaFromState(TGBlocks.EXPLOSIVE_CHARGE.getDefaultState())), "rtr","tct","rtr", 'r', "itemRubber", 't', Blocks.TNT, 'c', "circuitBasic");
         RecipeJsonConverter.addShapedRecipe(new ItemStack(TGBlocks.EXPLOSIVE_CHARGE,4,TGBlocks.EXPLOSIVE_CHARGE.getMetaFromState(TGBlocks.EXPLOSIVE_CHARGE.getDefaultState().withProperty(TGBlocks.EXPLOSIVE_CHARGE.MACHINE_TYPE, EnumExplosiveChargeType.ADVANCED))), "rtr","tct","rtr", 'r', "sheetPlastic", 't', TGItems.TGX, 'c', "circuitBasic");
 	
+        RecipeJsonConverter.addShapedRecipe(newStack(TGItems.BARREL_GAUSS,1), "pww","bbc", "pww", 'p', "plateTitanium", 'w', "wireGold", 'b', TGItems.BARREL_CARBON, 'c', "circuitElite");
        
         String[] plateTypes = {"plateIron", "plateTin"};
         Arrays.stream(plateTypes).forEach(p -> {
@@ -447,6 +557,12 @@ public class Recipewriter {
 	       
 	        RecipeJsonConverter.addShapedRecipe(new ItemStack(fraggrenade,16), " if","iti"," i ",'i', "ingotSteel",'f', Items.FLINT_AND_STEEL, 't', Blocks.TNT);
 	 
+	        RecipeJsonConverter.addShapedRecipe(new ItemStack(miningdrill,1), " m ","drs"," f ", 'm', TGItems.MECHANICAL_PARTS_CARBON, 'f', TGItems.FUEL_TANK, 'd', TGItems.MININGDRILLHEAD_OBSIDIAN, 's', TGItems.STOCK_PLASTIC, 'r', TGItems.RECEIVER_OBSIDIAN_STEEL);
+	        RecipeJsonConverter.addShapedRecipe(new ItemStack(miningdrill,1,miningdrill.getMaxDamage()), " m ","drs"," f ", 'm', TGItems.MECHANICAL_PARTS_CARBON, 'f', TGItems.FUEL_TANK_EMPTY, 'd', TGItems.MININGDRILLHEAD_OBSIDIAN, 's', TGItems.STOCK_PLASTIC, 'r', TGItems.RECEIVER_OBSIDIAN_STEEL);
+		    
+	        RecipeJsonConverter.addShapedRecipe(new ItemStack(gaussrifle,1),"dpc","brs"," ae", 'b', TGItems.BARREL_GAUSS, 'r', TGItems.RECEIVER_CARBON, 's', TGItems.STOCK_CARBON, 'e', TGItems.ENERGY_CELL, 'a', TGItems.GAUSSRIFLE_SLUGS, 'd', "gemDiamond", 'p', "plateTitanium", 'c', "circuitElite");
+	        RecipeJsonConverter.addShapedRecipe(new ItemStack(gaussrifle,1, gaussrifle.getMaxDamage()),"dpc","brs","  e", 'b', TGItems.BARREL_GAUSS, 'r', TGItems.RECEIVER_CARBON, 's', TGItems.STOCK_CARBON, 'e', TGItems.ENERGY_CELL_EMPTY, 'd', "gemDiamond", 'p', "plateTitanium", 'c', "circuitElite");
+		      
 	}
 	
 	public static void addArmorRecipes() {

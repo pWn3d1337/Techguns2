@@ -20,6 +20,10 @@ public class AmmoType {
 		this.variants.add(new AmmoVariant(ammo,ammo));
 		ammoVariantIDs.put(AmmoTypes.TYPE_DEFAULT, 0);
 	}
+
+	public AmmoType addVariant(String key, ItemStack ammo, ItemStack bullet) {
+		return this.addVariant(key, new ItemStack[] {ammo}, new ItemStack[] {bullet});
+	}
 	
 	public AmmoType addVariant(String key, ItemStack... ammo) {
 		return this.addVariant(key, ammo, ammo);

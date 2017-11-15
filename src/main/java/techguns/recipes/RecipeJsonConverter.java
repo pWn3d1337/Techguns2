@@ -23,11 +23,9 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import techguns.TGConfig;
 import techguns.TGItems;
-import techguns.Techguns;
 import techguns.blocks.machines.BasicMachine;
 import techguns.items.GenericItemShared;
 import techguns.items.guns.GenericGun;
-import techguns.items.guns.GenericGunMeleeCharge;
 import techguns.items.guns.ammo.AmmoType;
 
 

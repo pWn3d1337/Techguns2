@@ -5,10 +5,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.MobEffects;
@@ -16,13 +14,11 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.CombatRules;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.GameRules;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import techguns.TGConfig;
@@ -412,15 +408,15 @@ public class DamageSystem {
             INpcTGDamageSystem tg = (INpcTGDamageSystem) elb;
             
             float toughness = tg.getToughnessAfterPentration(elb, dmgsrc);
-            System.out.println("DamageBefore:"+damage);
+         /*   System.out.println("DamageBefore:"+damage);
             System.out.println("Armor:"+tg.getTotalArmorAgainstType(dmgsrc));
             System.out.println("Pen:"+dmgsrc.armorPenetration);
-            System.out.println("ToughnessAfterPen:"+toughness);
+            System.out.println("ToughnessAfterPen:"+toughness);*/
             
             damage = CombatRules.getDamageAfterAbsorb(damage, tg.getTotalArmorAgainstType(dmgsrc), toughness);
         }
 
-        System.out.println("DamageAfter:"+damage);
+        //System.out.println("DamageAfter:"+damage);
         return damage;
     }
 }

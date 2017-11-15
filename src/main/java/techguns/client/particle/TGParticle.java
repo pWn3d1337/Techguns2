@@ -2,10 +2,7 @@ package techguns.client.particle;
 
 import java.awt.Color;
 
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
@@ -19,7 +16,6 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import techguns.client.models.projectiles.ModelRocket;
 import techguns.client.particle.TGParticleSystemType.AlphaEntry;
 import techguns.client.particle.TGParticleSystemType.ColorEntry;
 import techguns.client.render.TGRenderHelper;

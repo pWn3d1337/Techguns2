@@ -1,6 +1,5 @@
 package techguns.entities.npcs;
 
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
