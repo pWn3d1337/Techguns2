@@ -66,6 +66,10 @@ public class MilitaryBaseStructure extends WorldgenStructure {
 		return 32+rnd.nextInt(48);
 	}
 	
+	@Override
+	public int getSizeY(Random rnd) {
+		return 8;
+	}
 	
 }
 

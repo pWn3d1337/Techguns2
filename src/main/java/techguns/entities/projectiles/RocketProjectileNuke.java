@@ -41,7 +41,8 @@ public class RocketProjectileNuke extends RocketProjectile {
 	protected void explodeRocket() {
 		if (!this.world.isRemote){
 			TGPackets.network.sendToAllAround(new PacketSpawnParticle("NukeExplosion", this.posX,this.posY,this.posZ), TGPackets.targetPointAroundEnt(this, 150.0f));		
-			TGExplosion explosion = new TGExplosion(world, this.shooter, this, posX, posY, posZ, this.damage, this.damageMin, this.damageDropStart, this.damageDropEnd, this.blockdamage?1.0:0.0);
+			TGExplosion explosion = new TGExplosion(world, this.shooter, this, posX, posY, posZ, this.damage, this.damageMin, this.damageDropStart, this.damageDropEnd, this.blockdamage?0.5:0.0);
+			explosion.blockDropChance = 0.05f;
 			explosion.setDmgSrc(getProjectileDamageSource());
 			
 			explosion.doExplosion(false);

@@ -29,6 +29,8 @@ public class PresetCastle implements IDungeonPreset{
 	ArrayList<DungeonTemplate> roofTemplates = new ArrayList<>();
 	
 	public PresetCastle() {
+		//"ncdung1", "nclower1", "ncmid1", "ncupper1", "nctop1", "ncroof1" 
+		
 		undergroundTemplates.add(DungeonTemplate.dungeonTemplates.get("ncdung1"));
 		
 		lowerTemplates.add(DungeonTemplate.dungeonTemplates.get("nclower1"));

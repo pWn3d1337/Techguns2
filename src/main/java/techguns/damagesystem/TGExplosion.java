@@ -1,6 +1,8 @@
 package techguns.damagesystem;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
@@ -40,7 +42,8 @@ public class TGExplosion {
     Entity exploder;
     Entity projectile;
     /** A list of ChunkPositions of blocks affected by this explosion */
-    List<BlockPos> affectedBlockPositions;
+    //List<BlockPos> affectedBlockPositions;
+    HashMap<BlockPos, Double> affectedBlockPositions;
     
     float[][][] dmgVolume;
     
@@ -53,7 +56,7 @@ public class TGExplosion {
     double secondaryRadius;
     double secondaryDamage;
     double blockDamageFactor;
-    float blockDropChance = 0.5f;
+    public float blockDropChance = 0.25f;
     
     Explosion explosionDummy;
     TGDamageSource dmgSrc=null;
@@ -74,7 +77,7 @@ public class TGExplosion {
     public TGExplosion(World world, Entity exploder, Entity projectile, double x, double y, double z, double primaryDamage, double secondaryDamage, double primaryRadius, double secondaryRadius, double blockDamageFactor)
     {
         this.random = new Random();
-        this.affectedBlockPositions = Lists.<BlockPos>newArrayList();
+        this.affectedBlockPositions = new HashMap<>();// Lists.<BlockPos>newArrayList();
         //this.playerKnockbackMap = Maps.<EntityPlayer, Vec3d>newHashMap();
         this.world = world;
         this.exploder = exploder;
@@ -110,7 +113,10 @@ public class TGExplosion {
     	//TODO: Move Sound to different
     	if (playSound) this.world.playSound((EntityPlayer)null, this.x, this.y, this.z, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.BLOCKS, 4.0F, (1.0F + (this.world.rand.nextFloat() - this.world.rand.nextFloat()) * 0.2F) * 0.7F);
     	
-        Set<BlockPos> set = Sets.<BlockPos>newHashSet();
+       // Set<BlockPos> set = Sets.<BlockPos>newHashSet();
+        
+        HashMap<BlockPos, Double> set = new HashMap<BlockPos, Double>();
+        
         double totalRadius = Math.max(primaryRadius, secondaryRadius);
         int radius = (int) Math.ceil(totalRadius);
         
@@ -119,6 +125,9 @@ public class TGExplosion {
 
         //System.out.println(String.format("Radius = %d, VolumeSize = %d", radius, s));
         
+        long t_start = System.currentTimeMillis();
+		//--
+
         for (int j = -radius; j < radius; ++j)
         {
             for (int k = -radius; k < radius; ++k)
@@ -168,7 +177,7 @@ public class TGExplosion {
                             	
                             	if (explosionPower-explosionDamping > 0.0f && resistance < (explosionPower-explosionDamping)*blockDamageFactor && (this.exploder == null || this.exploder.canExplosionDestroyBlock(explosionDummy, this.world, blockpos, iblockstate, (float)explosionPower)))
                                 {
-                                    set.add(blockpos);
+                                    set.put(blockpos, distance);
                                     if (prevPos == null || !(prevPos.getX() == blockpos.getX() && prevPos.getY() == blockpos.getY() && prevPos.getZ() == blockpos.getZ())) {
                                     	explosionDamping += resistance;
                                     }   
@@ -188,11 +197,14 @@ public class TGExplosion {
             }
         }
         
+
+		long t_exp1 = System.currentTimeMillis();
+        
         //<debug>
         //System.out.println(String.format("min = (%d, %d, %d);  max = (%d, %d, %d)",min[0], min[1], min[2], max[0], max[1], max[2]));        
         //</debug>
 
-        this.affectedBlockPositions.addAll(set);
+        this.affectedBlockPositions.putAll(set); //addAll(set.keySet());
         float f3 = (float) (totalRadius);
         int k1 = MathHelper.floor(this.x - (double)f3 - 1.0D);
         int l1 = MathHelper.floor(this.x + (double)f3 + 1.0D);
@@ -206,6 +218,8 @@ public class TGExplosion {
         
         breakBlocks();
 
+        long t_exp2 = System.currentTimeMillis();
+        
         TGDamageSource tgs;
     	if(this.dmgSrc==null) {
     		tgs = TGDamageSource.causeExplosionDamage(projectile,exploder, DeathType.GORE);
@@ -257,24 +271,36 @@ public class TGExplosion {
 
             }
         }
+        
+        long t_exp3 = System.currentTimeMillis();
+        
+		System.out.println(String.format("BlockPositions: %d ms, BlockBreak: %d ms, Entities: %d ms", t_exp1-t_start, t_exp2-t_exp1, t_exp3-t_exp2));
+        
+
     }
     
     private void breakBlocks() {
     	if (this.damagesTerrain)
         {
-            for (BlockPos blockpos : this.affectedBlockPositions)
+    		double r = (this.secondaryRadius-this.primaryRadius);
+    		
+    		for (Map.Entry<BlockPos, Double> entry : this.affectedBlockPositions.entrySet())          
             {
-                IBlockState iblockstate = this.world.getBlockState(blockpos);
-                Block block = iblockstate.getBlock();
-
-
+    			BlockPos blockpos = entry.getKey();
+                //world.setBlockToAir(blockpos);
+            	
+               IBlockState iblockstate = this.world.getBlockState(blockpos);
+               Block block = iblockstate.getBlock();
+               
                 if (iblockstate.getMaterial() != Material.AIR)
                 {
-                    if (block.canDropFromExplosion(explosionDummy))
-                    {
-                        block.dropBlockAsItemWithChance(this.world, blockpos, this.world.getBlockState(blockpos), blockDropChance, 0);
-                    }
-
+                	//System.out.println(String.format("Dist: %.3f,  primRad: %.3f", entry.getValue(), this.primaryRadius));
+                	if (entry.getValue() > this.primaryRadius && Math.random()<(blockDropChance * (entry.getValue()-this.primaryRadius) / r))  {
+	                    if (block.canDropFromExplosion(explosionDummy))
+	                    {
+	                        block.dropBlockAsItemWithChance(this.world, blockpos, this.world.getBlockState(blockpos), 1.0f, 0);
+	                    }
+                	}
                     block.onBlockExploded(this.world, blockpos, this.explosionDummy);
                 }
             }

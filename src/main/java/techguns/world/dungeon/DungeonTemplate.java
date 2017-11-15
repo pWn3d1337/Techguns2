@@ -3,6 +3,7 @@ package techguns.world.dungeon;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.util.HashMap;
@@ -14,7 +15,11 @@ public class DungeonTemplate implements Serializable{
 
 	private static final long serialVersionUID = 1L+1;
 
+	//local only for testing
 	public static final String SCAN_DIR = "./templates/";
+	
+	private static final String DUNGEON_TEMPLATE_DIR="/assets/techguns/dungeons/";
+	private static final String[] TEMPLATE_LIST = new String[] { "ncdung1", "nclower1", "ncmid1", "ncupper1", "nctop1", "ncroof1" }; //Castle
 	
 	public static HashMap<String, DungeonTemplate> dungeonTemplates = new HashMap<>();
 	
@@ -28,6 +33,7 @@ public class DungeonTemplate implements Serializable{
 	
 	static {
 		loadTemplates();
+		//loadTemplates_debug();
 	}
 	
 	public DungeonTemplate(int sizeXZ, int sizeY) {
@@ -59,6 +65,26 @@ public class DungeonTemplate implements Serializable{
 	}
 	
 	public static void loadTemplates() {
+		
+		for (String filename : TEMPLATE_LIST) {
+			String path = DUNGEON_TEMPLATE_DIR+filename+".ser";
+		    try {
+		    	InputStream is = DungeonTemplate.class.getResourceAsStream(path);
+				ObjectInputStream ois = new ObjectInputStream(is);
+				DungeonTemplate template = (DungeonTemplate)ois.readObject();
+				template.name = filename;
+			    dungeonTemplates.put(filename, template);
+			    
+			    ois.close();
+			    is.close();
+			    
+			} catch (IOException | ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public static void loadTemplates_debug() {
 		File folder = new File(SCAN_DIR);
 		if (folder != null) {
 			File[] files =folder.listFiles();
