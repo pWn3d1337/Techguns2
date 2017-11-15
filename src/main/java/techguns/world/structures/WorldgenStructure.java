@@ -22,6 +22,7 @@ public abstract class WorldgenStructure {
 	//public int prefZ;
 	
 	public int sizeX;
+	public int sizeY;
 	public int sizeZ;
 	//unrotated center
 	public int centX;
@@ -63,12 +64,25 @@ public abstract class WorldgenStructure {
 		return this;
 	}
 	
+	public WorldgenStructure setXYZSize(int x, int y, int z){
+		this.sizeX=x;
+		this.sizeY=y;
+		this.sizeZ=z;
+		this.centX = (int) (sizeX/2.0f);
+		this.centZ = (int) (sizeZ/2.0f);
+		return this;
+	}
+	
 	public int getSizeX(Random rnd) {
 		return sizeX;
 	}
 	
 	public int getSizeZ(Random rnd) {
 		return sizeZ;
+	}
+	
+	public int getSizeY(Random rnd) {
+		return sizeY;
 	}
 	
 	public WorldgenStructure setSwapXZ(boolean b) {

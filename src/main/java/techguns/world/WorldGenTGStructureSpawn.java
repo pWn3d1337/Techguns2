@@ -42,11 +42,12 @@ public class WorldGenTGStructureSpawn implements IWorldGenerator {
 		StructureSize size = null;
 		int sizeX = 0;
 		int sizeZ = 0;
+		int sizeY = 0;
 		
 		if((cx % SPAWNWEIGHT_BIG == 0) && (cz % SPAWNWEIGHT_BIG ==0)){
 			size=StructureSize.BIG;
-			//sizeX = 32+random.nextInt(48);
-		    //sizeZ = 32+random.nextInt(48);
+//			sizeX = 32+random.nextInt(48);
+//		    sizeZ = 32+random.nextInt(48);
 		} else if ((cx % SPAWNWEIGHT_MEDIUM == 0) && (cz % SPAWNWEIGHT_MEDIUM ==0)){
 			
 			size = StructureSize.MEDIUM;
@@ -74,8 +75,10 @@ public class WorldGenTGStructureSpawn implements IWorldGenerator {
 				
 				sizeX=s.getSizeX(random);
 				sizeZ=s.getSizeZ(random);
+				
+				sizeY = s.getSizeY(random);
 
-				s.spawnStructureWorldgen(world, cx, cz, sizeX, 8, sizeZ, random, biome);
+				s.spawnStructureWorldgen(world, cx, cz, sizeX, sizeY, sizeZ, random, biome);
 	
 				
 				

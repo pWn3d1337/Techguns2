@@ -55,6 +55,7 @@ public class Dungeon {
 		path.generateNPCSpawners(world, posX, posY, posZ, preset);
 		long t_npcs = System.currentTimeMillis();
 		
+		System.out.println(String.format("Generating Dungeon... SizeX = %d, SizeY = %d, SizeZ = %d", sX, sY, sZ));
 		System.out.println(String.format("Path: %d ms, Blocks: %d ms, NPCs: %d ms", t_path-t_start, t_gen-t_path, t_npcs-t_gen));
 		
 	}
