@@ -32,9 +32,14 @@ public class TGFluids implements ITGInitializer {
 	
 	public static Fluid MILK;
 	
-	public static Fluid OIL;
+	protected static String[] oilnames = {"oil", "tree_oil", "crude_oil"};
+	public static ArrayList<Fluid> oils = new ArrayList<Fluid>();
 	
-	public static Fluid FUEL;
+	//public static Fluid OIL;
+	
+	//public static Fluid FUEL;
+	protected static String[] fuelnames = {"fuel", "refined_fuel", "biofuel", "biodiesel"};
+	public static ArrayList<Fluid> fuels = new ArrayList<Fluid>();
 	
 	public static Fluid LIQUID_REDSTONE;
 	
@@ -126,8 +131,21 @@ public class TGFluids implements ITGInitializer {
 				FluidContainerRegistry.registerFluidContainer(FluidRegistry.getFluidStack("milk", FluidContainerRegistry.BUCKET_VOLUME), new ItemStack(Items.milk_bucket), new ItemStack(Items.bucket));
 			}	*/
 			
-			OIL = FluidRegistry.getFluid("oil");
-			FUEL = FluidRegistry.getFluid("fuel");
+			//OIL = FluidRegistry.getFluid("oil");
+			
+			for (int i=0;i<fuelnames.length;i++) {
+				Fluid f = FluidRegistry.getFluid(fuelnames[i]);
+				if(f!=null) {
+					fuels.add(f);
+				}
+			}
+			
+			for (int i=0;i<oilnames.length;i++) {
+				Fluid f = FluidRegistry.getFluid(oilnames[i]);
+				if(f!=null) {
+					oils.add(f);
+				}
+			}
 
 			LIQUID_REDSTONE = FluidRegistry.getFluid("redstone");
 			if (LIQUID_REDSTONE==null){
@@ -138,13 +156,9 @@ public class TGFluids implements ITGInitializer {
 			LIQUID_COAL = FluidRegistry.getFluid("coal");
 			if (LIQUID_COAL==null){
 		//		System.out.println("No Liquid coal, fallback to oil/water");
+
+				LIQUID_COAL = WATER;
 				
-				if ( OIL!=null){
-					LIQUID_COAL = OIL;
-				} else {
-				
-					LIQUID_COAL = WATER;
-				}
 			}
 			
 			LIQUID_ENDER = FluidRegistry.getFluid("ender");

@@ -73,9 +73,12 @@ public class TGMachineRecipes {
 			ChemLabRecipes.addRecipe("dustRedstone",1, new ItemStack(Items.COAL),1, null,0, new FluidStack(FluidRegistry.WATER,250), null, new ItemStack(Items.GUNPOWDER,1), true,5);
 		}
 		//ChemLabRecipes.addRecipe(new ItemStack(Blocks.SAND),1, new ItemStack(Blocks.GRAVEL),1, null,0, new FluidStack(FluidRegistry.WATER,250), null, new ItemStack(TGBlocks.concrete,2), true,5);
-		if(TGFluids.OIL!=null){
-			ChemLabRecipes.addRecipe("slimeball", 1, new ItemStack(Items.COAL), 1, null, 0, new FluidStack(FluidRegistry.WATER,1000), new FluidStack(TGFluids.OIL,250), null, true, 20);
-			ChemLabRecipes.addRecipe("itemRawRubber", 1, (ItemStack)null, 0, null, 0, new FluidStack(TGFluids.OIL,500), null, TGItems.newStack(TGItems.RAW_PLASTIC, 1), false, 25);
+		if(!TGFluids.oils.isEmpty()){
+			//ChemLabRecipes.addRecipe("slimeball", 1, new ItemStack(Items.COAL), 1, null, 0, new FluidStack(FluidRegistry.WATER,1000), new FluidStack(TGFluids.OIL,250), null, true, 20);
+			
+			TGFluids.oils.forEach(f -> {
+				ChemLabRecipes.addRecipe("itemRawRubber", 1, (ItemStack)null, 0, null, 0, new FluidStack(f,500), null, TGItems.newStack(TGItems.RAW_PLASTIC, 1), false, 25);
+			});
 		} else {
 			ChemLabRecipes.addRecipe("itemRawRubber", 1, new ItemStack(Items.COAL,1), 1, null, 0, new FluidStack(TGFluids.WATER,1000), null, TGItems.newStack(TGItems.RAW_PLASTIC, 1), true, 25);
 		}
@@ -91,13 +94,15 @@ public class TGMachineRecipes {
 		
 		ItemStack fuelTank = TGItems.newStack(TGItems.FUEL_TANK, 1);
 		ItemStack fuelTankEmpty = TGItems.newStack(TGItems.FUEL_TANK_EMPTY, 1);
-		if(TGFluids.FUEL!=null){
-			ChemLabRecipes.addRecipe("gunpowder", 1, "gemLapis", 1, null, 0, new FluidStack(TGFluids.FUEL,250), null, TGItems.newStack(TGItems.TGX, 1), true, 20);
-			ChemLabRecipes.addRecipe(fuelTankEmpty, 1, (ItemStack)null, 0, null, 0, new FluidStack(TGFluids.FUEL,250), null, fuelTank, false, 1);
-			ChemLabRecipes.addRecipe(fuelTank, 1, (ItemStack)null, 0, null, 0, null, new FluidStack(TGFluids.FUEL,250), fuelTankEmpty, false, 1);
-		} else {
+		if(!TGFluids.fuels.isEmpty()){
+			TGFluids.fuels.forEach(f -> {
+				ChemLabRecipes.addRecipe("gunpowder", 1, "gemLapis", 1, null, 0, new FluidStack(f,250), null, TGItems.newStack(TGItems.TGX, 1), true, 20);
+				ChemLabRecipes.addRecipe(fuelTankEmpty, 1, (ItemStack)null, 0, null, 0, new FluidStack(f,250), null, fuelTank, false, 1);
+				//ChemLabRecipes.addRecipe(fuelTank, 1, (ItemStack)null, 0, null, 0, null, new FluidStack(f,250), fuelTankEmpty, false, 1);
+			});
+		} else if (TGFluids.fuels.isEmpty() || TGConfig.keepLavaRecipesWhenFuelIsPresent){
 			ChemLabRecipes.addRecipe("gunpowder", 1, "gemLapis", 1, null, 0, new FluidStack(FluidRegistry.LAVA,500), null, TGItems.newStack(TGItems.TGX, 1), true, 20);
-			ChemLabRecipes.addRecipe(fuelTankEmpty, 1, (ItemStack)null, 0, null, 0, new FluidStack(TGFluids.LAVA,500), null, fuelTank, false, 1);
+			//ChemLabRecipes.addRecipe(fuelTankEmpty, 1, (ItemStack)null, 0, null, 0, new FluidStack(TGFluids.LAVA,500), null, fuelTank, false, 1);
 			ChemLabRecipes.addRecipe(fuelTank, 1, (ItemStack)null, 0, null, 0, null,new FluidStack(TGFluids.LAVA,500), fuelTankEmpty, false, 1);
 			
 		}
