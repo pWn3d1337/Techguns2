@@ -1,5 +1,7 @@
 package techguns.world.dungeon.presets;
 
+import techguns.entities.npcs.ZombieSoldier;
+import techguns.tileentities.TGSpawnerTileEnt;
 import techguns.world.dungeon.DungeonSegment;
 import techguns.world.dungeon.DungeonTemplate;
 import techguns.world.dungeon.IDungeonPath;
@@ -32,6 +34,12 @@ public class PresetTemplateTest implements IDungeonPreset{
 
 	@Override
 	public void initDungeonPath(IDungeonPath path) {
+	}
+
+	@Override
+	public void initSpawner(TGSpawnerTileEnt spawner) {
+		spawner.setParams(2, 1, 200, 2);
+		spawner.addMobType(ZombieSoldier.class, 1);
 	}
 
 }

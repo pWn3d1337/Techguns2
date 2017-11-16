@@ -54,6 +54,7 @@ public class TGStructureSpawnRegister {
 		ArrayList<TGStructureSpawn> spawns;
 		if (size==StructureSize.BIG){
 			spawns=spawns_big;
+			System.out.println("Trying to Spawn BIG STRUCTURE");
 		} else if (size==StructureSize.MEDIUM) {
 			spawns=spawns_medium;
 		} else {
@@ -68,13 +69,14 @@ public class TGStructureSpawnRegister {
 		if (totalweight>0){
 		
 			int roll = rnd.nextInt(totalweight)+1;
-			//System.out.println("Totalweight:"+totalweight+" , rolled:"+roll);
+			System.out.println("Totalweight:"+totalweight+" , rolled:"+roll);
 			
 			int weight=0;
 			for(int i=0; i<spawns.size();i++){
 				weight += spawns.get(i).getWeightForBiome(biome,size,type);
 				if (roll<=weight) {
 				//	System.out.println("Chosen:"+weight);
+					System.out.println("Chosen:"+spawns.get(i).structure.getClass());
 					return spawns.get(i).structure;
 				} else {	
 					

@@ -43,5 +43,5 @@ public interface IDungeonPreset {
 	
 	public void initDungeonPath(IDungeonPath path);
 
-	public default void initSpawner(TGSpawnerTileEnt spawner) {}; //TODO
+	public void initSpawner(TGSpawnerTileEnt spawner);
 }

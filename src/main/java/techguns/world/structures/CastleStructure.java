@@ -11,7 +11,7 @@ import techguns.world.dungeon.presets.PresetTemplateTest;
 public class CastleStructure extends WorldgenStructure{
 
 	public CastleStructure() {
-		// TODO Auto-generated constructor stub
+		this.heightdiffLimit=10;
 	}
 
 	@Override

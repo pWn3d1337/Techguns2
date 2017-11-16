@@ -38,6 +38,8 @@ public abstract class WorldgenStructure {
 	
 	protected int lootTier=0;
 	
+	protected int heightdiffLimit=3;
+	
 	public WorldgenStructure(){
 		this(0,0,0,0,0,0);
 	}
@@ -150,7 +152,9 @@ public abstract class WorldgenStructure {
 		int offsetX=this.getRotationShiftX(direction);
 		int offsetZ=this.getRotationShiftZ(direction);
 		
-		int y =BlockUtils.getValidSpawnYArea(world, x+offsetX, z+offsetZ, sizeXr, sizeZr,3,getStep());
+		int y =BlockUtils.getValidSpawnYArea(world, x+offsetX, z+offsetZ, sizeXr, sizeZr,this.heightdiffLimit,getStep());
+		
+		System.out.println("Chosen SpawnHeight:"+y);
 		
 		if (y<0){
 			return;

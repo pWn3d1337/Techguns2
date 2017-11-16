@@ -53,6 +53,7 @@ public class RecipeJsonConverter {
 		static {
 			recipe_types.put(AMMO_CHANGE_COPY_NBT_RECIPE, AmmoSwitchRecipeFactory.class.getName());
 			recipe_types.put(MiningToolUpgradeHeadRecipeFactory.MINING_TOOL_UPGRADE_RECIPE, MiningToolUpgradeHeadRecipeFactory.class.getName());
+			recipe_types.put(ShapedOreRecipeCopyNBTFactory.COPY_NBT_RECIPE, ShapedOreRecipeCopyNBTFactory.class.getName());
 		}
 	
 		private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
@@ -284,6 +285,78 @@ public class RecipeJsonConverter {
 			
 			String name = result.getItem().getRegistryName().getResourcePath();
 
+			
+			File f = new File(RECIPE_DIR, name + suffix + ".json");
+
+			while (f.exists()) {
+				suffix += "_alt";
+				f = new File(RECIPE_DIR, name + suffix + ".json");
+			}
+
+			try (FileWriter w = new FileWriter(f)) {
+				GSON.toJson(json, w);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		public static void addShapedCopyNBTRecipe(ItemStack result, Object... components) {
+			setupDir();
+
+			// GameRegistry.addShapedRecipe(result, components);
+
+			Map<String, Object> json = new HashMap<>();
+
+			List<String> pattern = new ArrayList<>();
+			int i = 0;
+			while (i < components.length && components[i] instanceof String) {
+				pattern.add((String) components[i]);
+				i++;
+			}
+			json.put("pattern", pattern);
+
+			boolean isOreDict = true;
+			Map<String, Map<String, Object>> key = new HashMap<>();
+			Character curKey = null;
+			for (; i < components.length; i++) {
+				Object o = components[i];
+				if (o instanceof Character) {
+					if (curKey != null)
+						throw new IllegalArgumentException("Provided two char keys in a row");
+					curKey = (Character) o;
+				} else {
+					if (curKey == null)
+						throw new IllegalArgumentException("Providing object without a char key");
+					if (o instanceof String)
+						isOreDict = true;
+					key.put(Character.toString(curKey), serializeItem(o));
+					curKey = null;
+				}
+			}
+			json.put("key", key);
+			//json.put("type", isOreDict ? "forge:ore_shaped" : "minecraft:crafting_shaped");
+			json.put("type", "techguns:"+ShapedOreRecipeCopyNBTFactory.COPY_NBT_RECIPE);
+			json.put("result", serializeItem(result));
+
+			// names the json the same name as the output's registry name
+			// repeatedly adds _alt if a file already exists
+			// janky I know but it works
+			String suffix = result.getItem().getHasSubtypes() ? "_" + result.getItemDamage() : "";
+			
+			String name = result.getItem().getRegistryName().getResourcePath();
+			if(result.getItem()  instanceof GenericItemShared) {
+				suffix = suffix +"_"+ TGItems.SHARED_ITEM.get(result.getItemDamage()).getName();
+			}
+			if(result.getItem() instanceof ItemBlock) {
+				ItemBlock ib = (ItemBlock) result.getItem();
+				
+				Block b = ib.getBlock();
+				
+				if (b instanceof BasicMachine) {
+					BasicMachine bm = (BasicMachine) b;
+					suffix += "_"+ bm.getNameSuffix(result.getMetadata());
+				}
+			}
 			
 			File f = new File(RECIPE_DIR, name + suffix + ".json");
 

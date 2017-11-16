@@ -7,7 +7,7 @@
     "grg",
     "ggg"
   ],
-  "type": "forge:ore_shaped",
+  "type": "techguns:copy_nbt",
   "key": {
     "r": {
       "item": "techguns:revolver"

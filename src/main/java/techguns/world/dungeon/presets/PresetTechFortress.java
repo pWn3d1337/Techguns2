@@ -3,6 +3,8 @@ package techguns.world.dungeon.presets;
 import java.util.ArrayList;
 import java.util.Random;
 
+import techguns.entities.npcs.StormTrooper;
+import techguns.tileentities.TGSpawnerTileEnt;
 import techguns.world.dungeon.DungeonSegment;
 import techguns.world.dungeon.DungeonTemplate;
 import techguns.world.dungeon.IDungeonPath;
@@ -50,4 +52,11 @@ public class PresetTechFortress implements IDungeonPreset{
 		//MazeDungeonPath path = (MazeDungeonPath) d_path;
 	}
 
+	@Override
+	public void initSpawner(TGSpawnerTileEnt spawner) {
+		spawner.setParams(2, 2, 200, 2);
+		spawner.addMobType(StormTrooper.class, 1);
+	}
+
+	
 }

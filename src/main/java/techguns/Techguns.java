@@ -18,6 +18,7 @@ import techguns.plugins.chisel.TGChiselBlocks;
 import techguns.plugins.crafttweaker.TGCraftTweakerIntegration;
 import techguns.world.OreGenerator;
 import techguns.world.WorldGenTGStructureSpawn;
+import techguns.world.dungeon.DungeonTemplate;
 
 @Mod(modid = Techguns.MODID, version = Techguns.VERSION, name=Techguns.NAME, acceptedMinecraftVersions=Techguns.MCVERSION, guiFactory=Techguns.GUI_FACTORY, updateJSON=Techguns.UPDATEURL, dependencies=Techguns.DEPENDENCIES)
 public class Techguns
@@ -136,6 +137,7 @@ public class Techguns
     	if(this.CHISEL_ENABLED) {
     		TGChiselBlocks.postInit();
     	}
+    	DungeonTemplate.init();
     }
     
     

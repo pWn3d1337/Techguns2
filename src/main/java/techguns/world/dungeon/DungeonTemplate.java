@@ -10,6 +10,7 @@ import java.util.HashMap;
 
 import net.minecraft.world.World;
 import techguns.world.dungeon.TemplateSegment.SegmentType;
+import techguns.world.dungeon.presets.specialblocks.SpecialBlockHandler;
 
 public class DungeonTemplate implements Serializable{
 
@@ -31,9 +32,19 @@ public class DungeonTemplate implements Serializable{
 	public String name;
 	
 	
-	static {
-		loadTemplates();
+	//static {
+		//loadTemplates();
 		//loadTemplates_debug();
+	//}
+	
+	public static void init() {
+		loadTemplates();
+	}
+	
+	public void applySpecialMBlocks() {
+		this.segments.entrySet().forEach(e -> {
+			e.getValue().structure.applySpecialMBlocks();
+		});
 	}
 	
 	public DungeonTemplate(int sizeXZ, int sizeY) {
@@ -73,6 +84,8 @@ public class DungeonTemplate implements Serializable{
 				ObjectInputStream ois = new ObjectInputStream(is);
 				DungeonTemplate template = (DungeonTemplate)ois.readObject();
 				template.name = filename;
+				template.applySpecialMBlocks();
+				
 			    dungeonTemplates.put(filename, template);
 			    
 			    ois.close();
@@ -98,6 +111,8 @@ public class DungeonTemplate implements Serializable{
 						    DungeonTemplate template = (DungeonTemplate)ois.readObject();
 						    String name = file.getName().substring(0, file.getName().length()-4);
 						    template.name = name;
+						    template.applySpecialMBlocks();
+						    
 						    dungeonTemplates.put(name, template);
 						    
 						    ois.close();

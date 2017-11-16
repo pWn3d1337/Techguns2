@@ -257,9 +257,7 @@ public class BlockUtils {
  		int min=255;
  		int max=0;
  		int sum=0;
- 		
- 		
- 		
+ 				
  		int ix=0;
  		while(ix<=sizeX){
  		
@@ -295,6 +293,8 @@ public class BlockUtils {
 				ix=sizeX;
 			}
  		}
+ 		
+ 		System.out.println("HeightDiff:"+(max-min) +" Limit:"+heightDiffLimit);
  		
  		if((max-min)>heightDiffLimit){
  			return -1;

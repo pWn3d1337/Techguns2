@@ -17,6 +17,7 @@ import techguns.client.audio.TGSoundCategory;
 import techguns.damagesystem.TGExplosion;
 import techguns.items.guns.GenericGun;
 import techguns.items.guns.IChargedProjectileFactory;
+import techguns.packets.PacketPlaySound;
 import techguns.packets.PacketSpawnParticle;
 import techguns.packets.PacketSpawnParticleOnEntity;
 import techguns.util.MathUtil;

@@ -12,6 +12,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import techguns.util.BlockUtils;
 import techguns.util.MBlock;
+import techguns.world.dungeon.presets.specialblocks.SpecialBlockHandler;
 
 public class Structure implements Serializable{
 	
@@ -23,7 +24,9 @@ public class Structure implements Serializable{
 	List<MBlock> blocks = new ArrayList<MBlock>();
 	HashMap<Integer, List<BlockEntry>> blockEntries = new HashMap<>();
 	
-
+	public void applySpecialMBlocks() {
+		SpecialBlockHandler.applySpecialMBlocks(blocks);
+	}
 	
 	public Structure(int sizeX, int sizeY, int sizeZ) {
 		this.sizeX = sizeX;
@@ -75,14 +78,16 @@ public class Structure implements Serializable{
 					mpos.setPos(x+b.x, y+b.y, z+b.z);
 					BlockUtils.rotateAroundY(mpos, axis, rotation);
 					
-					IBlockState state = mb.block.getStateFromMeta(mb.meta);
+					IBlockState state = mb.getState(); //mb.block.getStateFromMeta(mb.meta);
 					
 					
 					state = BlockRotator.getRotatedHorizontal(state, rotation);
 					
 					world.setBlockState(mpos, state, 2);
 
-					
+					if(mb.hasTileEntity()) {
+						mb.tileEntityPostPlacementAction(world, state, mpos, rotation);
+					}
 					//AxisAlignedBB aabb = new AxisAlignedBB(pos1, axis);
 					
 				}
