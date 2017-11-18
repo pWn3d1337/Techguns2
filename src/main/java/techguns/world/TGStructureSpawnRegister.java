@@ -6,6 +6,7 @@ import java.util.Random;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
 import techguns.world.structures.CastleStructure;
+import techguns.world.structures.FactoryHouseSmall;
 import techguns.world.structures.MilitaryBaseStructure;
 import techguns.world.structures.WorldgenStructure;
 
@@ -28,7 +29,7 @@ public class TGStructureSpawnRegister {
 		DESERTS_ONLY.add(BiomeDictionary.Type.SANDY);
 		DESERTS_ONLY.add(BiomeDictionary.Type.WASTELAND);
 		
-		//spawns_small.add(new TGStructureSpawn(new FactoryHouseSmall(8,0,7,9,5,10).setXZSize(11, 10),1,null,OVERWORLD,LAND,StructureSize.SMALL));
+		spawns_small.add(new TGStructureSpawn(new FactoryHouseSmall(8,0,7,9,5,10).setXZSize(11, 10),1,null,OVERWORLD,LAND,StructureSize.SMALL));
 		//spawns_small.add(new TGStructureSpawn(new SmallTrainstation(0, 0, 0, 0, 0, 0).setXZSize(11, 12),1,null,OVERWORLD,LAND,StructureSize.SMALL));
 
 		//spawns_medium.add(new TGStructureSpawn(new HouseMedium(16, 12, 16, 16, 12, 16).setXZSize(16, 16),1,null,OVERWORLD,LAND,StructureSize.MEDIUM));	

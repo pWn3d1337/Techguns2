@@ -414,4 +414,56 @@ public class PoweredArmor extends GenericArmorMultiCamo {
 		//tags.setInteger("maxpower", this.maxpower);
 	}
 	
+	public boolean setArmorStat(EnumArmorStat stat, float powered, float unpowered) {
+		super.setArmorStat(stat, powered);
+		switch(stat) {
+		case COOLING_SYSTEM:
+			this.coolingsystemUnpowered=unpowered;
+			return true;
+		case EXTRA_HEARTS:
+			this.extraHeartsUnpowered=unpowered;
+			return true;
+		case FALL_DAMAGE:
+			this.FallDMGUnpowered=unpowered;
+			return true;
+		case FALL_HEIGHT:
+			this.FallFreeHeightUnpowered=unpowered;
+			return true;
+		case GUN_ACCURACY:
+			this.GunAccuracyUnpowered=unpowered;
+			return true;
+		case JUMP:
+			this.JumpBonusUnpowered=unpowered;
+			return true;
+		case KNOCKBACK_RESITANCE:
+			this.knockbackresistanceUnpowered=unpowered;
+			return true;
+		case MINING_SPEED:
+			this.MiningSpeedBonusUnpowered=unpowered;
+			return true;
+		case NIGHTVISION:
+			this.nightvisionUnpowered=unpowered;
+			return true;
+		case OXYGEN_GEAR:
+			this.oxygen_gearUnpowered=unpowered;
+			return true;
+		case SPEED:
+			this.SpeedBonusUnpowered=unpowered;
+			return true;
+		case STEP_ASSIST:
+			this.stepassistUnpowerd=unpowered;
+			return true;
+		case WATER_ELECTROLYZER:
+			this.water_electrolyzerUnpowered=unpowered;
+			return true;
+		case WATER_MINING_SPEED:
+			this.WaterMiningBonusUnpowered=unpowered;
+			return true;
+		case WATER_SPEED:
+			this.waterspeedbonusUnpowered=unpowered;
+			return true;
+		default:
+			return false;		
+		}
+	}
 }

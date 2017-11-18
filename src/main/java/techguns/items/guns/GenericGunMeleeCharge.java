@@ -42,6 +42,7 @@ import techguns.client.audio.TGSoundCategory;
 import techguns.damagesystem.TGDamageSource;
 import techguns.deatheffects.EntityDeathUtils.DeathType;
 import techguns.packets.PacketPlaySound;
+import techguns.plugins.crafttweaker.EnumGunStat;
 import techguns.util.BlockUtils;
 import techguns.util.ItemUtil;
 import techguns.util.TextUtil;
@@ -359,7 +360,22 @@ public class GenericGunMeleeCharge extends GenericGunCharge implements IGenericG
 		}
 		return false;
 	}
+
+	@Override
+	public boolean setGunStat(EnumGunStat stat, float value) {
+		if (super.setGunStat(stat, value)) {
+			return true;
+		}
+		switch(stat) {
+		case MINING_SPEED:
+			this.digSpeed=value;
+			return true;
+			default:
+				return false;
+		}
+	}
 	
 
+	
 	
 }

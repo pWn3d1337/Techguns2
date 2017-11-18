@@ -585,5 +585,56 @@ public class GenericArmor extends ItemArmor implements ISpecialArmor , IItemTGRe
 		return this.use3dRenderHack;
 	}
 	
+	public boolean setArmorStat(EnumArmorStat stat, float value) {
+		switch(stat) {
+		case COOLING_SYSTEM:
+			this.coolingsystem=value;
+			return true;
+		case EXTRA_HEARTS:
+			this.extraHearts=value;
+			return true;
+		case FALL_DAMAGE:
+			this.FallDMG=value;
+			return true;
+		case FALL_HEIGHT:
+			this.FallFreeHeight=value;
+			return true;
+		case GUN_ACCURACY:
+			this.GunAccuracy=value;
+			return true;
+		case JUMP:
+			this.JumpBonus=value;
+			return true;
+		case KNOCKBACK_RESITANCE:
+			this.knockbackresistance=value;
+			return true;
+		case MINING_SPEED:
+			this.MiningSpeedBonus=value;
+			return true;
+		case NIGHTVISION:
+			this.nightvision=value;
+			return true;
+		case OXYGEN_GEAR:
+			this.oxygen_gear=value;
+			return true;
+		case SPEED:
+			this.SpeedBonus=value;
+			return true;
+		case STEP_ASSIST:
+			this.stepassist=value;
+			return true;
+		case WATER_ELECTROLYZER:
+			this.water_electrolyzer=value;
+			return true;
+		case WATER_MINING_SPEED:
+			this.WaterMiningBonus=value;
+			return true;
+		case WATER_SPEED:
+			this.waterspeedbonus=value;
+			return true;
+		default:
+			return false;		
+		}
+	}
 }
 

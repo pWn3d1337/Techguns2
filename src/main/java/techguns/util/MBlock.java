@@ -9,8 +9,12 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockPos.MutableBlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import techguns.world.BlockData;
+import techguns.world.BlockRotator;
+import techguns.world.EnumLootType;
 
 public class MBlock implements Serializable {
 	
@@ -21,13 +25,16 @@ public class MBlock implements Serializable {
 	
 	protected transient IBlockState state;
 
-	protected boolean hasTileEntity=false;
+	protected transient boolean hasTileEntity=false;
+	
+	protected transient int layer=0;
 	
 	public MBlock(MBlock other) {
 		this.block=other.block;
 		this.meta=other.meta;
 		this.state=other.state;
 		this.hasTileEntity=other.hasTileEntity;
+		this.layer=other.layer;
 	}
 	
 	public MBlock(IBlockState state) {
@@ -39,6 +46,7 @@ public class MBlock implements Serializable {
 		this.meta = block.getMetaFromState(state);
 		this.state=state;
 		this.hasTileEntity=hasTileEnt;
+		this.layer=BlockData.getBlockLayer(this);
 	}
 
 	public MBlock(Block block, int meta) {
@@ -50,10 +58,15 @@ public class MBlock implements Serializable {
 		this.meta = meta;
 		this.state = block.getStateFromMeta(meta);
 		this.hasTileEntity=hasTileEnt;
+		this.layer=BlockData.getBlockLayer(this);
 	}
 
 	public IBlockState getState() {
 		return state;
+	}
+	
+	public int getPass() {
+		return MathUtil.clamp(layer-1, 0, 1);
 	}
 	
 	@Override
@@ -104,5 +117,18 @@ public class MBlock implements Serializable {
 		return hasTileEntity;
 	}
 	
+	public void setBlock(World w, MutableBlockPos pos, int rotation, EnumLootType loottype) {
+		IBlockState targetState = BlockRotator.getRotatedHorizontal(state, rotation);
+		w.setBlockState(pos, targetState);
+		if(this.hasTileEntity) {
+			this.tileEntityPostPlacementAction(w, targetState, pos, rotation);
+		}
+	}
 	
+	public void setBlockReplaceableOnly(World w, MutableBlockPos pos, int rotation, EnumLootType loottype) {
+		IBlockState bs = w.getBlockState(pos);
+		if (bs.getBlock().isReplaceable(w, pos)) {
+			setBlock(w, pos, rotation, loottype);
+		}
+	}
 }

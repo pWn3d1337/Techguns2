@@ -5,6 +5,7 @@ import java.util.HashMap;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
+import techguns.TGBlocks;
 import techguns.util.MBlock;
 
 public class BlockData {
@@ -46,8 +47,22 @@ public class BlockData {
 		blockLayers.put(Blocks.STANDING_BANNER, 2);
 		blockLayers.put(Blocks.ANVIL, 2);
 		//blockLayers.put(, 2);
-
+		blockLayers.put(TGBlocks.LAMP_0,2);
 		
+	}
+	
+	public static int getBlockLayer(MBlock mb) {
+		Integer layer = blockLayers_meta.get(mb);
+		if (layer != null) {
+			return layer;
+		}else {
+			layer = blockLayers.get(mb.block);
+			if (layer != null) {
+				return layer;
+			}else {
+				return DEFAULT_LAYER;
+			}
+		}
 	}
 	
 	public static int getBlockLayer(IBlockState state) {

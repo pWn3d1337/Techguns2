@@ -19,6 +19,7 @@ import net.minecraftforge.registries.IForgeRegistry;
 import techguns.api.tginventory.TGSlotType;
 import techguns.blocks.EnumDoorType;
 import techguns.init.ITGInitializer;
+import techguns.items.BuildingScanTool;
 import techguns.items.GenericItem;
 import techguns.items.GenericItemShared;
 import techguns.items.ItemTGDoor2x1;
@@ -42,11 +43,11 @@ public class TGItems implements ITGInitializer{
 	/**
 	 * TODO DISABLE THIS BEFORE RELEASE
 	 */
-	public static boolean WRITE_ITEM_JSON = false;
+	public static boolean WRITE_ITEM_JSON = true;
 	/**
 	 * TODO DISABLE THIS BEFORE RELEASE
 	 */
-	public static boolean WRITE_RECIPES = false;
+	public static boolean WRITE_RECIPES = true;
 	
 	
 	public static final ArrayList<GenericItem> ITEMLIST = new ArrayList<>();
@@ -250,6 +251,7 @@ public class TGItems implements ITGInitializer{
 	public static Item CROWBAR;
 	
 	public static Item WORLDGEN_TEST_TOOL;
+	public static Item BUIDLING_SCAN_TOOL;
 	
 	public static ItemTGDoor2x1 BUNKER_DOOR;
 	
@@ -451,7 +453,11 @@ public class TGItems implements ITGInitializer{
 		
 		COMBAT_KNIFE = new TGSword(TG_STEEL, "combatknife");
 		CROWBAR = new TGCrowbar(TG_STEEL, "crowbar");
-		WORLDGEN_TEST_TOOL = new WorldGenTestTool("worldgentesttool");
+		
+		if(TGConfig.debug) {
+			WORLDGEN_TEST_TOOL = new WorldGenTestTool("worldgentesttool");
+			BUIDLING_SCAN_TOOL = new BuildingScanTool("buildingscantool");
+		}
 		
 		BUNKER_DOOR = new ItemTGDoor2x1("item_bunkerdoor");
 		

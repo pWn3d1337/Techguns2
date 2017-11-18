@@ -11,6 +11,7 @@ import techguns.TGBlocks;
 import techguns.items.ItemTGDoor2x1;
 import techguns.util.MBlock;
 import techguns.world.BlockRotator;
+import techguns.world.EnumLootType;
 
 public class Bunker extends WorldgenStructure {
 
@@ -30,7 +31,7 @@ public class Bunker extends WorldgenStructure {
 	public Bunker(int minX, int minY, int minZ, int maxX, int maxY, int maxZ, int type) {
 		super(minX, minY, minZ, maxX, maxY, maxZ);
 		this.type = type;
-		this.lootTier=2;
+		this.lootTier=EnumLootType.TIER1;
 	}
 
 	@Override

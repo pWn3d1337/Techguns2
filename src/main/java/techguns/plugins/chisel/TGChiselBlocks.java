@@ -27,16 +27,26 @@ public class TGChiselBlocks {
 		}
 		
 		if(CHISEL_TECHNICAL!=null) {
-			MBlockRegister.TANKS_BASE = new MBlock(CHISEL_TECHNICAL, 0);
+			MBlock scaffold = new MBlock(CHISEL_TECHNICAL,0);
+			
+			MBlockRegister.TANKS_BASE = scaffold;
+			
+			MBlockRegister.TECHNICAL_CONCRETE = new MBlock(CHISEL_TECHNICAL,12);
+			MBlockRegister.TECHNICAL_BLOCK_SCAFFOLD = scaffold;
 		}
 		if(CHISEL_FACTORY!=null) {
 			MBlock chiselHazard = new MBlock(CHISEL_FACTORY, 6);
+			MBlock factorywall = new MBlock(CHISEL_FACTORY, 1);
 			
-			MBlockRegister.TANKS_WALL = new MBlock(CHISEL_FACTORY, 1);
+			MBlockRegister.TANKS_WALL = factorywall;
 			MBlockRegister.TANKS_BORDER = chiselHazard;
 			
 			MBlockRegister.HELIPAD_WIREFRAME = new MBlock(CHISEL_FACTORY, 4);
 			MBlockRegister.HELIPAD_HAZARDBLOCK = chiselHazard;
+			
+			MBlockRegister.FACTORY_PLATE = factorywall;
+			MBlockRegister.FACTORY_PLATE_DOTTED = new MBlock(CHISEL_FACTORY, 0);
+			MBlockRegister.FACTORY_CRATE = new MBlock(CHISEL_FACTORY, 9);
 		}
 	}
 }

@@ -12,6 +12,7 @@ import techguns.blocks.EnumCamoNetType;
 import techguns.blocks.EnumLampType;
 import techguns.util.BlockUtils;
 import techguns.util.MBlock;
+import techguns.world.EnumLootType;
 
 public class CampProps extends WorldgenStructure {
 	
@@ -29,13 +30,13 @@ public class CampProps extends WorldgenStructure {
 
 	public CampProps(int minX, int minY, int minZ, int maxX, int maxY, int maxZ) {
 		super(minX, minY, minZ, maxX, maxY, maxZ);
-		this.lootTier=2;
+		this.lootTier=EnumLootType.TIER1;
 	}
 	
 	public CampProps(int minX, int minY, int minZ, int maxX, int maxY, int maxZ, int variant) {
 		this(minX, minY, minZ, maxX, maxY, maxZ);
 		this.variant = variant;
-		this.lootTier=2;
+		this.lootTier=EnumLootType.TIER1;
 	}
 
 	@Override

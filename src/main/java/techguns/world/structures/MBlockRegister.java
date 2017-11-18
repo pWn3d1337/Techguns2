@@ -3,6 +3,7 @@ package techguns.world.structures;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumDyeColor;
 import techguns.TGBlocks;
+import techguns.blocks.TGMetalPanelType;
 import techguns.util.MBlock;
 
 public class MBlockRegister {
@@ -31,6 +32,13 @@ public class MBlockRegister {
 	public static MBlock BARRACKS_WOOD_ROOF = new MBlock(Blocks.PLANKS,1); //TGChiselBlocks.wood_roof;
 	public static MBlock BARRACKS_WOOD_ROOFSLAB = new MBlock(Blocks.WOODEN_SLAB,1); //TGChiselBlocks.wood_roofSlab;
 	
+	//chisel blocks with fallbacks
+	public static MBlock FACTORY_PLATE_DOTTED = new MBlock(Blocks.HARDENED_CLAY,EnumDyeColor.GRAY.ordinal());
+	public static MBlock FACTORY_PLATE = new MBlock(Blocks.BRICK_BLOCK,0);
+	public static MBlock FACTORY_CRATE = new MBlock(TGBlocks.METAL_PANEL.getDefaultState().withProperty(TGBlocks.METAL_PANEL.TYPE, TGMetalPanelType.CONTAINER_RED));
+	
+	public static MBlock TECHNICAL_CONCRETE = new MBlock(TGBlocks.CONCRETE,1); //new MBlock(Blocks.CONCRETE,EnumDyeColor.GRAY.ordinal());
+	public static MBlock TECHNICAL_BLOCK_SCAFFOLD = new MBlock(TGBlocks.METAL_PANEL.getDefaultState().withProperty(TGBlocks.METAL_PANEL.TYPE, TGMetalPanelType.STEELFRAME_SCAFFOLD));
 	
 	//Military Base
 	public static MBlock MILBASE_FENCE = new MBlock(Blocks.IRON_BARS,0);

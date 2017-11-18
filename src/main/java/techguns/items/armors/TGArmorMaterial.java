@@ -1,5 +1,7 @@
 package techguns.items.armors;
 
+import java.util.ArrayList;
+
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
@@ -9,6 +11,9 @@ import techguns.Techguns;
 import techguns.api.damagesystem.DamageType;
 
 public class TGArmorMaterial {
+	
+	public static ArrayList<TGArmorMaterial> MATERIALS = new ArrayList<>();
+	
 	public String name;
 	
 	/**
@@ -131,6 +136,8 @@ public class TGArmorMaterial {
 		this.toughness=toughness;
 		this.equipSound=equipSound;
 		this.texture=name.toLowerCase();
+		
+		MATERIALS.add(this);
 	}
 	
 	
@@ -280,5 +287,45 @@ public class TGArmorMaterial {
 
 	public float getPenetrationResistance() {
 		return penetrationResistance;
+	}
+	
+	public void setArmorValueForType(DamageType type, float value) {
+		switch (type) {
+		case DARK:
+			this.armorDark=value;
+			break;
+		case ENERGY:
+			this.armorEnergy=value;
+			break;
+		case EXPLOSION:
+			this.armorExplosion=value;
+			break;
+		case FIRE:
+			this.armorFire=value;
+			break;
+		case ICE:
+			this.armorIce=value;
+			break;
+		case LIGHTNING:
+			this.armorLightning=value;
+			break;
+		case PHYSICAL:
+			this.armorPhys=value;
+			break;
+		case POISON:
+			this.armorPoison=value;
+			break;
+		case PROJECTILE:
+			this.armorProjectile=value;
+			break;
+		case RADIATION:
+			this.armorRadiation=value;
+			break;
+		case UNRESISTABLE:
+			break;
+		default:
+			break;
+		
+		}
 	}
 }	

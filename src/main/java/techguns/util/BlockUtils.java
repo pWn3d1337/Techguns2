@@ -1,5 +1,8 @@
 package techguns.util;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -29,9 +32,13 @@ import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 import techguns.items.guns.GenericGunMeleeCharge;
+import techguns.world.EnumLootType;
+import techguns.world.structures.WorldgenStructure;
 import techguns.world.structures.WorldgenStructure.BiomeColorType;
 
 public class BlockUtils {
+	
+	private static final String FILEPATH="/assets/techguns/structures/";
 	
 	public static final float[][] FILTER_GAUSSIAN_3x3 = new float[][] {
 		{1/16f, 1/8f, 1/16f}, 
@@ -84,6 +91,23 @@ public class BlockUtils {
 			newOffsetZ=-tmp;
 		}
 		return new BlockPos(axis.getX()+newOffsetX, pos.getY(), axis.getZ()+newOffsetZ);
+	}
+	
+	public static BlockPos rotateAroundY(MutableBlockPos pos, BlockPos axis, int steps) {
+		int offsetX = pos.getX()-axis.getX();
+		int offsetZ = pos.getZ()-axis.getZ();
+		
+		int newOffsetX=offsetX;
+		int newOffsetZ=offsetZ;
+		
+		for(int i=steps; i>0; i--) {
+			int tmp = newOffsetX;
+			
+			newOffsetX=newOffsetZ;
+			newOffsetZ=-tmp;
+		}
+		pos.setPos(axis.getX()+newOffsetX, pos.getY(), axis.getZ()+newOffsetZ);
+		return pos;
 	}
 	
 	public static BlockPos rotateAroundY(BlockPos pos, Vec3d axis, int steps) {
@@ -593,4 +617,115 @@ public class BlockUtils {
 			}
 		}
 	}
+	
+	public static short[][] loadStructureFromFile(String filename) {
+		try {
+			String path = FILEPATH+filename;
+			BufferedReader br = new BufferedReader(new InputStreamReader(WorldgenStructure.class.getResourceAsStream(path)));
+			int count = Integer.parseInt(br.readLine());
+			short[][] blocks = new short[count][4];
+			String line;
+			int i = 0;
+			while ((line = br.readLine()) != null) {
+				String[] s = line.split(",");
+				for (int j = 0; j < s.length; j++) {
+					blocks[i][j] = Short.parseShort(s[j]);
+				}
+				i++;
+			}
+			
+			return blocks;
+			
+		}catch (IOException e) {
+			e.printStackTrace();
+			return new short[0][0];
+		}
+	}
+	
+	public static void cleanUpwards(World world, short[][]blocks, ArrayList<MBlock> blockList, int posX, int posY, int posZ, int centerX, int centerZ, int rotation, int pass, int range) {
+		//System.out.println("Blocks.length = "+blocks.length + "Blocks[0].length = "+blocks[0].length);
+		
+		MutableBlockPos p = new MutableBlockPos();
+		BlockPos axis = new BlockPos(posX+centerX, 1, posZ+centerZ);
+		for (int i = 0; i < blocks.length; i++) {
+			int x = blocks[i][0];
+			int y = blocks[i][1];
+			int z = blocks[i][2];
+			//System.out.println("blocklist:"+blockList.size());
+			if (y==0){
+				MBlock block = new MBlock(Blocks.AIR.getDefaultState());
+					
+				for (int o=1; o<=range; o++){
+
+					//BlockUtils.setBlockRotated(world, block, posX, posY+o, posZ, x, z, centerX, centerZ, rotation,0);
+					BlockUtils.setMBlockRotated(world, block, p.setPos(posX+x, posY+y+o, posZ+z), axis, rotation, null);
+					
+					//setBlockRotatedReplaceAirOnly(world, block, posX, posY-o, posZ, x, z, centerX, centerZ, rotation);
+					//world.setBlock(posX+x, posY-o, posZ+z, Blocks.diamond_block);
+				}
+			}
+		}
+	}
+	
+	public static void placeScannedStructure(World world, short[][]blocks, ArrayList<MBlock> blockList, int posX, int posY, int posZ, int centerX, int centerZ, int rotation, int pass, EnumLootType loottype) {
+		//System.out.println("Blocks.length = "+blocks.length + "Blocks[0].length = "+blocks[0].length);
+		MutableBlockPos p = new MutableBlockPos();
+		BlockPos axis = new BlockPos(posX+centerX, 1, posZ+centerZ);
+		for (int i = 0; i < blocks.length; i++) {
+			int x = blocks[i][0];
+			int y = blocks[i][1];
+			int z = blocks[i][2];
+			//System.out.println("blocklist:"+blockList.size());
+			
+			/*if(i==0){
+				System.out.println("place with Center:"+centerX+","+centerZ);
+			}*/
+			
+			MBlock block = blockList.get(blocks[i][3]);
+						
+			if (block.getPass() == pass) {
+				BlockUtils.setMBlockRotated(world, block, p.setPos(posX+x, posY+y, posZ+z), axis, rotation, loottype);
+				//BlockUtils.setBlockRotated(world, block, posX, posY+y, posZ, x, z, centerX, centerZ, rotation, lootTier);
+			}
+		}
+	}
+	
+	public static void placeFoundation(World world, short[][]blocks, ArrayList<MBlock> blockList, int posX, int posY, int posZ, int centerX, int centerZ, int rotation, int pass, int range) {
+		//System.out.println("Blocks.length = "+blocks.length + "Blocks[0].length = "+blocks[0].length);
+		MutableBlockPos p = new MutableBlockPos();
+		BlockPos axis = new BlockPos(posX+centerX, 1, posZ+centerZ);
+		for (int i = 0; i < blocks.length; i++) {
+			int x = blocks[i][0];
+			int y = blocks[i][1];
+			int z = blocks[i][2];
+			//System.out.println("blocklist:"+blockList.size());
+			if (y==0){
+				MBlock block = blockList.get(blocks[i][3]);
+				if (block.getPass() == pass) {
+					
+					for (int o=1; o<=range; o++){
+						
+						/*if(world.isAirBlock(posX+x, posY-o, posZ+z)) {
+							BlockUtils.setBlockRotated(world, block, posX, posY-o, posZ, x, z, centerX, centerZ, rotation);
+						}*/
+						//setBlockRotatedReplaceAirOnly(world, block, posX, posY-o, posZ, x, z, centerX, centerZ, rotation);
+						
+						setMBlockRotatedReplaceableOnly(world, block, p.setPos(posX+x, posY+y-o, posZ+z), axis, rotation, null);
+						//world.setBlock(posX+x, posY-o, posZ+z, Blocks.diamond_block);
+					}
+				}
+			}
+		}
+	}
+	
+	public static void setMBlockRotated(World w, MBlock mblock, MutableBlockPos pos, BlockPos axis, int rotation, EnumLootType loottype) {
+		BlockUtils.rotateAroundY(pos, axis, rotation);
+		mblock.setBlock(w, pos, rotation, loottype);
+	}
+	
+	public static void setMBlockRotatedReplaceableOnly(World w, MBlock mblock, MutableBlockPos pos, BlockPos axis, int rotation, EnumLootType loottype) {
+		BlockUtils.rotateAroundY(pos, axis, rotation);
+		mblock.setBlockReplaceableOnly(w, pos, rotation, loottype);
+	}
+
 }

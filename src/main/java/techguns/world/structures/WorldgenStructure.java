@@ -7,6 +7,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
 import techguns.util.BlockUtils;
+import techguns.world.EnumLootType;
 
 public abstract class WorldgenStructure {
 	public int minX; //Minimum size
@@ -36,7 +37,7 @@ public abstract class WorldgenStructure {
 	public static BiomeDictionary.Type[] sandTypes = {BiomeDictionary.Type.SANDY, BiomeDictionary.Type.SAVANNA.BEACH, BiomeDictionary.Type.MESA};
 	public static BiomeDictionary.Type[] netherTypes = {BiomeDictionary.Type.NETHER};
 	
-	protected int lootTier=0;
+	public EnumLootType lootTier=EnumLootType.TIER0;
 	
 	protected int heightdiffLimit=3;
 	

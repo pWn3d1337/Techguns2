@@ -70,6 +70,7 @@ import techguns.items.guns.ammo.AmmoTypes;
 import techguns.items.guns.ammo.DamageModifier;
 import techguns.packets.GunFiredMessage;
 import techguns.packets.ReloadStartedMessage;
+import techguns.plugins.crafttweaker.EnumGunStat;
 import techguns.util.InventoryUtil;
 import techguns.util.SoundUtil;
 import techguns.util.TextUtil;
@@ -1506,5 +1507,33 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 	     }
 	    
 	     return true;
+	}
+	
+	public boolean setGunStat(EnumGunStat stat, float value) {
+		switch(stat) {
+		case DAMAGE:
+			this.damage=value;
+			return true;
+		case DAMAGE_MIN:
+			this.damageMin=value;
+			return true;
+		case DAMAGE_DROP_START:
+			this.damageDropStart=value;
+			return true;
+		case DAMAGE_DROP_END:
+			this.damageDropEnd=value;
+			return true;
+		case BULLET_SPEED:
+			this.speed=value;
+			return true;
+		case BULLET_DISTANCE:
+			this.ticksToLive= (int)value;
+			return true;
+		case GRAVITY:
+			this.gravity=value;
+			return true;
+		default:
+			return false;
+		}
 	}
 }

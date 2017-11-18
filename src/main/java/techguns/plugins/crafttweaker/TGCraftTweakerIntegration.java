@@ -13,6 +13,8 @@ public class TGCraftTweakerIntegration {
 		CraftTweakerAPI.registerClass(ChemLabTweaker.class);
 		CraftTweakerAPI.registerClass(FabricatorTweaker.class);
 		CraftTweakerAPI.registerClass(ReactionChamberTweaker.class);
+		CraftTweakerAPI.registerClass(GunStatTweaker.class);
+		CraftTweakerAPI.registerClass(ArmorStatTweaker.class);
 	}
 
 }
