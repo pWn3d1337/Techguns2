@@ -9,14 +9,11 @@
     "type=concrete_grey_dark": {
       "model": "techguns:concrete_grey_dark"
     },
-    "type=concrete_brown_pipes": {
-      "model": "techguns:concrete_brown_pipes"
-    },
-    "type=concrete_brown_light_scaff": {
-      "model": "techguns:concrete_brown_light_scaff"
-    },
     "type=concrete_brown": {
       "model": "techguns:concrete_brown"
+    },
+	"type=concrete_brown_pipes": {
+      "model": "techguns:concrete_brown_pipes"
     }
   }
 }

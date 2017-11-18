@@ -14,7 +14,9 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -24,6 +26,7 @@ import techguns.client.particle.TGParticleSystemType.AlphaEntry;
 import techguns.client.particle.TGParticleSystemType.ColorEntry;
 import techguns.client.render.TGRenderHelper;
 import techguns.client.render.TGRenderHelper.RenderType;
+import techguns.debug.Keybinds;
 import techguns.util.MathUtil;
 
 
@@ -157,12 +160,22 @@ public class TGParticle extends Particle implements ITGParticle {
 					double prevY =ent.prevRotationYawHead * MathUtil.D2R;
 					
 					Vec3d offsetBase = this.particleSystem.entityOffset.add(this.particleSystem.type.offset);
+					
+					//ViewBobbing
+					/*if (this.particleSystem.entity == Minecraft.getMinecraft().player
+							&& Minecraft.getMinecraft().gameSettings.thirdPersonView == 0
+							&& Minecraft.getMinecraft().gameSettings.viewBobbing) {
+						Vec3d vec = setupViewBobbing(1.0f).scale(2.0);
+						offsetBase = offsetBase.add(vec);
+					}
+					*/
+					
 					Vec3d offset = offsetBase.rotatePitch((float)-p);
 					offset = offset.rotateYaw((float)-y);
 					
 					Vec3d offsetP = offsetBase.rotatePitch((float)-prevP);
 					offsetP = offsetP.rotateYaw((float)-prevY);
-					
+										
 					this.prevPosX = this.particleSystem.entity.prevPosX + offsetP.x;
 					this.prevPosY = this.particleSystem.entity.prevPosY + ent.getEyeHeight() + offsetP.y;
 					this.prevPosZ = this.particleSystem.entity.prevPosZ + offsetP.z;
@@ -263,7 +276,7 @@ public class TGParticle extends Particle implements ITGParticle {
     {
     	float progress = ((float)this.particleAge+partialTickTime) / (float)this.particleMaxAge;
     	
-    	preRenderStep(progress);
+    	preRenderStep(progress);   	
     	
 		/*-------------------
 		 * ANIMATION
@@ -294,6 +307,25 @@ public class TGParticle extends Particle implements ITGParticle {
         float fPosY = (float)(this.prevPosY + (this.posY - this.prevPosY) * (double)partialTickTime - TGParticleManager.interpPosY);
         float fPosZ = (float)(this.prevPosZ + (this.posZ - this.prevPosZ) * (double)partialTickTime - TGParticleManager.interpPosZ);
     
+        /*
+		if (this.particleSystem.type.particlesMoveWithSystem && this.particleSystem.attachToHead
+				&& this.particleSystem.entity == Minecraft.getMinecraft().player
+				&& Minecraft.getMinecraft().gameSettings.thirdPersonView == 0
+				&& Minecraft.getMinecraft().gameSettings.viewBobbing) {
+			Vec3d vec = setupViewBobbing(partialTickTime);
+			
+			EntityPlayer entityplayer = (EntityPlayer)Minecraft.getMinecraft().getRenderViewEntity();
+			float pitch_ = entityplayer.prevCameraYaw + (entityplayer.cameraYaw - entityplayer.prevCameraYaw) * partialTickTime;
+            float yaw_ = entityplayer.prevCameraPitch + (entityplayer.cameraPitch - entityplayer.prevCameraPitch) * partialTickTime;
+			
+            vec = vec.rotatePitch(-pitch_ * (float)MathUtil.D2R);
+            vec = vec.rotateYaw(-yaw_ * (float)MathUtil.D2R);          
+            
+			fPosX += (float)vec.x;
+			fPosY += (float)vec.y;
+			fPosZ += (float)vec.z;
+		}*/
+        
         float r = fscale;
         
 		int col = currentFrame % type.columns;
@@ -604,4 +636,32 @@ public class TGParticle extends Particle implements ITGParticle {
 	public void setDepth(double depth) {
 		this.depth=depth;
 	}
+	
+	private Vec3d setupViewBobbing(float ptt)
+    {
+        if (Minecraft.getMinecraft().getRenderViewEntity() instanceof EntityPlayer)
+        {
+            EntityPlayer entityplayer = (EntityPlayer)Minecraft.getMinecraft().getRenderViewEntity();
+            float f1 = entityplayer.distanceWalkedModified - entityplayer.prevDistanceWalkedModified;
+            float f2 = -(entityplayer.distanceWalkedModified + f1 * ptt);
+            float f3 = entityplayer.prevCameraYaw + (entityplayer.cameraYaw - entityplayer.prevCameraYaw) * ptt;
+            float f4 = entityplayer.prevCameraPitch + (entityplayer.cameraPitch - entityplayer.prevCameraPitch) * ptt;
+
+            float F1 = 1.0f; // (float) Keybinds.X;
+            float F2 = 1.0f; //(float) Keybinds.Y;
+            
+//            GlStateManager.translate(MathHelper.sin(f2 * (float)Math.PI) * f3 * 0.5F * F1, -Math.abs(MathHelper.cos(f2 * (float)Math.PI) * f3) * F2, 0.0F);
+//            GlStateManager.rotate(MathHelper.sin(f2 * (float)Math.PI) * f3 * 3.0F, 0.0F, 0.0F, 1.0F);
+//            GlStateManager.rotate(Math.abs(MathHelper.cos(f2 * (float)Math.PI - 0.2F) * f3) * 5.0F, 1.0F, 0.0F, 0.0F);
+//            GlStateManager.rotate(f4, 1.0F, 0.0F, 0.0F);
+
+            Vec3d vec = new Vec3d(MathHelper.sin(f2 * (float)Math.PI) * f3 * 0.5F * F1,  -Math.abs(MathHelper.cos(f2 * (float)Math.PI) * f3) * F2, 0.0F);
+            vec = MathUtil.rotateVec3dAroundZ(vec, MathHelper.sin(f2 * (float)Math.PI) * f3 * 3.0F * (float)MathUtil.D2R);
+            return vec.rotatePitch(Math.abs(MathHelper.cos(f2 * (float)Math.PI - 0.2F) * f3) * 5.0F * (float)MathUtil.D2R).rotatePitch(f4 * (float)MathUtil.D2R);
+            		
+            		
+        }else {
+        	return new Vec3d(0,0,0);
+        }
+    }
 }

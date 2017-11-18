@@ -422,6 +422,7 @@ tile.techguns.basicmachine.5.name=Dungeon Generator
 item.techguns.crowbar.name=Crowbar
 item.techguns.combatknife.name=Combat Knife
 item.techguns.gaussrifle.name=Gauss Rifle
+item.techguns.tfg.name=TFG 10K
 techguns.container.metalpress=Metal Press
 techguns.container.chemlab=Chemical Laboratory
 techguns.gui.empty=Empty

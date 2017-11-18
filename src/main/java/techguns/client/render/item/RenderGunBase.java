@@ -15,16 +15,16 @@ import techguns.capabilities.TGExtendedPlayer;
 import techguns.capabilities.TGShooterValues;
 import techguns.client.ClientProxy;
 import techguns.client.models.ModelMultipart;
-import techguns.client.render.fx.ScreenEffect;
+import techguns.client.render.fx.IScreenEffect;
 import techguns.debug.Keybinds;
 import techguns.items.guns.GenericGun;
 import techguns.items.guns.GenericGunCharge;
 
 public class RenderGunBase extends RenderItemBase {
 
-	protected ScreenEffect muzzleFX= null; //ScreenEffect.muzzleFlash2;
+	protected IScreenEffect muzzleFX= null; //ScreenEffect.muzzleFlash2;
 	
-	protected ScreenEffect scope=null;
+	protected IScreenEffect scope=null;
 	
 	protected float muzzleFX_x_l=0f;
 	protected float muzzleFX_x_r=0f;
@@ -133,7 +133,7 @@ public class RenderGunBase extends RenderItemBase {
 		return (RenderGunBase) super.setTransformTranslations(translations);
 	}
 
-	public RenderGunBase setMuzzleFx(ScreenEffect muzzleFX, float x, float y, float z, float scale, float x_l){
+	public RenderGunBase setMuzzleFx(IScreenEffect muzzleFX, float x, float y, float z, float scale, float x_l){
 		this.muzzleFX=muzzleFX;
 		this.muzzleFX_x_r=x;
 		this.muzzleFX_x_l=x_l;
@@ -148,12 +148,12 @@ public class RenderGunBase extends RenderItemBase {
 		return this;
 	}
 	
-	public RenderGunBase setScope(ScreenEffect scope) {
+	public RenderGunBase setScope(IScreenEffect scope) {
 		this.scope=scope;
 		return this;
 	}
 	
-	public RenderGunBase setScope(ScreenEffect scope, float scale) {
+	public RenderGunBase setScope(IScreenEffect scope, float scale) {
 		this.scope=scope;
 		this.scopescale=scale;
 		return this;
