@@ -81,6 +81,7 @@ public class TGBlocks implements ITGInitializer{
 	public static BlockTGDoor2x1 BUNKER_DOOR;
 	
 	public static BlockTGStairs METAL_STAIRS;
+	public static BlockTGStairs CONCRETE_STAIRS;
 	
 	public static BlockTGSpawner MONSTER_SPAWNER;
 	
@@ -121,6 +122,7 @@ public class TGBlocks implements ITGInitializer{
 		BUNKER_DOOR = (BlockTGDoor2x1) new BlockTGDoor2x1("bunkerdoor",TGItems.BUNKER_DOOR).setHardness(8.0f);
 		
 		METAL_STAIRS = (BlockTGStairs) new BlockTGStairs("stairs_metal", Material.IRON, SoundType.METAL).setHardness(8.0f);
+		CONCRETE_STAIRS = (BlockTGStairs) new BlockTGStairs("stairs_concrete", Material.ROCK, SoundType.STONE).setHardness(6.0f);
 		
 		MONSTER_SPAWNER = new BlockTGSpawner("tg_spawner");
 		

@@ -125,7 +125,7 @@ public class TGExplosion {
 
         //System.out.println(String.format("Radius = %d, VolumeSize = %d", radius, s));
         
-        long t_start = System.currentTimeMillis();
+        //long t_start = System.currentTimeMillis();
 		//--
 
         for (int j = -radius; j < radius; ++j)
@@ -198,7 +198,7 @@ public class TGExplosion {
         }
         
 
-		long t_exp1 = System.currentTimeMillis();
+		//long t_exp1 = System.currentTimeMillis();
         
         //<debug>
         //System.out.println(String.format("min = (%d, %d, %d);  max = (%d, %d, %d)",min[0], min[1], min[2], max[0], max[1], max[2]));        
@@ -218,7 +218,7 @@ public class TGExplosion {
         
         breakBlocks();
 
-        long t_exp2 = System.currentTimeMillis();
+       // long t_exp2 = System.currentTimeMillis();
         
         TGDamageSource tgs;
     	if(this.dmgSrc==null) {
@@ -272,9 +272,9 @@ public class TGExplosion {
             }
         }
         
-        long t_exp3 = System.currentTimeMillis();
+        //long t_exp3 = System.currentTimeMillis();
         
-		System.out.println(String.format("BlockPositions: %d ms, BlockBreak: %d ms, Entities: %d ms", t_exp1-t_start, t_exp2-t_exp1, t_exp3-t_exp2));
+		//System.out.println(String.format("BlockPositions: %d ms, BlockBreak: %d ms, Entities: %d ms", t_exp1-t_start, t_exp2-t_exp1, t_exp3-t_exp2));
         
 
     }

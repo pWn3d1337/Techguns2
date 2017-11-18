@@ -113,6 +113,7 @@ public class ModelTFG extends ModelMultipart {
     public ModelRenderer RL05;
     public ModelRenderer R01;
     public ModelRenderer R02;
+    public ModelRenderer Glow_Barrel;
 
     public ModelTFG() {
         this.textureWidth = 256;
@@ -453,6 +454,9 @@ public class ModelTFG extends ModelMultipart {
         this.Mid10 = new ModelRenderer(this, 53, 47);
         this.Mid10.setRotationPoint(13.0F, 2.0F, -7.0F);
         this.Mid10.addBox(0.0F, 0.0F, 0.0F, 1, 1, 16, 0.0F);
+        this.Glow_Barrel = new ModelRenderer(this, 221, 25);
+        this.Glow_Barrel.setRotationPoint(39.1F, -4.0F, -1.5F);
+        this.Glow_Barrel.addBox(0.0F, 0.0F, 0.0F, 0, 10, 5, 0.0F);
     }
 
     @Override
@@ -609,6 +613,7 @@ public class ModelTFG extends ModelMultipart {
         this.Glow02.render(scale);
         this.Glow01.render(scale);
         this.Glow03.render(scale);
+        this.Glow_Barrel.render(scale);
         TGRenderHelper.disableFXLighting();
 
   }
