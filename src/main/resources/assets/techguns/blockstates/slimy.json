@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "type=bugnest_eggs": {
+      "model": "techguns:bugnest_eggs"
+    }
+  }
+}

@@ -31,6 +31,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
+import techguns.TGBlocks;
 import techguns.items.guns.GenericGunMeleeCharge;
 import techguns.world.EnumLootType;
 import techguns.world.structures.WorldgenStructure;
@@ -152,6 +153,7 @@ public class BlockUtils {
 	protected static boolean checkMiningLevels(World world, EntityPlayer ply, BlockPos b, GenericGunMeleeCharge miningtool, ItemStack stack) {
 		IBlockState state = world.getBlockState(b);
 		String tool = state.getBlock().getHarvestTool(state);
+		
 		if (state.getBlock().canCollideCheck(state, false) && state.getBlock().canHarvestBlock(world, b, ply)) {
 			if(tool==null) {
 				return true;
@@ -728,4 +730,197 @@ public class BlockUtils {
 		mblock.setBlockReplaceableOnly(w, pos, rotation, loottype);
 	}
 
+	/**
+	  * Fills a 'hollow' sphere, where block1 is the inner block and block2 is the hull
+	  */
+	 public static void fillSphere2(World world, int posX, int posY, int posZ, float radius, MBlock block1, MBlock block2) {
+		 fillSphere2(world,posX,posY,posZ,radius, 1.0f, block1, block2);
+	 }
+	 
+	 public static void fillSphere2(World world, int posX, int posY, int posZ, float radius, float thickness, MBlock block1, MBlock block2) {
+		Vec3d center = new Vec3d(posX, posY, posZ);
+		
+		float rsquared = (float) Math.pow(radius, 2.0f);
+		float rsquared2 = (float) Math.pow(radius-thickness, 2.0f);
+		
+		MutableBlockPos p = new MutableBlockPos();
+		
+		int r = ((int)(radius));
+		for(int i = -r; i <= r; i++) {
+			for(int j = -r; j <= r; j++) {
+				for(int k = -r; k <= r; k++) {
+					int x = posX + i;
+					int y = posY + j;
+					int z = posZ + k;
+					Vec3d v = new Vec3d(x, y, z);
+					float dsquared = (float) center.squareDistanceTo(v);
+					if (dsquared < rsquared2) {
+						block1.setBlock(world, p.setPos(x, y, z), 0);
+					}else if (dsquared < rsquared) {
+						block2.setBlock(world, p.setPos(x, y, z), 0);
+					}
+				}
+			}
+		}	
+	}
+	 
+	 public static void fillCylinder(World world, int x1, int y1, int z1, int x2, int y2, int z2, float radius, MBlock block1, MBlock block2) {
+		Vec3d v1 = new Vec3d(x1, y1, z1);
+		Vec3d v2 = new Vec3d(x2, y2, z2);
+		Vec3d v2v1 = v2.subtract(v1);
+		double l = v2v1.lengthVector();
+		//Vec3 dir = v2v1.normalize();
+		int tmp = 0;
+		if (x1 > x2) { tmp = x2; x2 = x1; x1 = tmp;}
+		if (y1 > y2) {tmp = y2; y2 = y1; y1 = tmp;}
+		if (z1 > z2) {tmp = z2; z2 = z1; z1 = tmp;}
+		
+		int r = (int)radius;
+		
+		MutableBlockPos p = new MutableBlockPos();
+		
+		for (int x = x1-r; x < x2+r; x++) {
+			for (int y = y1-r; y < y2+r; y++) {
+				for (int z = z1-r; z < z2+r; z++) {
+					Vec3d v0 = new Vec3d(x, y, z);
+					Vec3d v1v0 = v0.subtract(v1);
+					Vec3d v_ = v2v1.crossProduct(v1v0);
+					double distance = v_.lengthVector()/l;
+					
+					if (distance < radius-1.0f) {
+						block1.setBlock(world, p.setPos(x, y, z), 0);
+					}else if (distance < radius) {
+						block2.setBlock(world, p.setPos(x, y, z), 0);
+					}
+				}
+			}
+		}
+		
+	}
+ 
+	 public static void drawLine(World world, int x1, int y1, int z1, int x2, int y2, int z2, MBlock block) {
+
+		 MutableBlockPos p = new MutableBlockPos();
+		 
+        int dx = x2 - x1;
+        int dy = y2 - y1;
+        int dz = z2 - z1;
+
+        int ax = Math.abs(dx) << 1;
+        int ay = Math.abs(dy) << 1;
+        int az = Math.abs(dz) << 1;
+
+        int signx = (int) Math.signum(dx);
+        int signy = (int) Math.signum(dy);
+        int signz = (int) Math.signum(dz);
+
+        int x = x1;
+        int y = y1;
+        int z = z1;
+
+        int deltax, deltay, deltaz;
+        if (ax >= Math.max(ay, az)) /* x dominant */ {
+            deltay = ay - (ax >> 1);
+            deltaz = az - (ax >> 1);
+            while (true) {
+                block.setBlock(world, p.setPos(x, y, z), 0);
+                if (x == x2) {
+                    return;
+                }
+
+
+                if (deltay >= 0) {
+                    y += signy;
+                    deltay -= ax;
+                }
+
+                if (deltaz >= 0) {
+                    z += signz;
+                    deltaz -= ax;
+                }
+
+                x += signx;
+                deltay += ay;
+                deltaz += az;
+            }
+        } else if (ay >= Math.max(ax, az)) /* y dominant */ {
+            deltax = ax - (ay >> 1);
+            deltaz = az - (ay >> 1);
+            while (true) {
+            	block.setBlock(world, p.setPos(x, y, z), 0);
+                if (y == y2) {
+                    return;
+                }
+                
+//	                //Keep 4-way neighborhood when going up/down
+//	                if (deltax >= 0 && deltaz >= 0) {
+//	                	block.setBlock(world, x+signx, y, z+signz, 0);
+//	                }
+
+                if (deltax >= 0) {
+                	block.setBlock(world, p.setPos(x+signx, y, z), 0);
+                    x += signx;
+                    deltax -= ay;
+                }
+
+                if (deltaz >= 0) {
+                	block.setBlock(world, p.setPos(x, y, z+signz), 0);
+                    z += signz;
+                    deltaz -= ay;
+                }
+
+                y += signy;
+                deltax += ax;
+                deltaz += az;
+            }
+        } else if (az >= Math.max(ax, ay)) /* z dominant */ {
+            deltax = ax - (az >> 1);
+            deltay = ay - (az >> 1);
+            while (true) {
+            	block.setBlock(world, p.setPos(x, y, z), 0);
+                if (z == z2) {
+                    return;
+                }
+
+                if (deltax >= 0) {
+                    x += signx;
+                    deltax -= az;
+                }
+
+                if (deltay >= 0) {
+                    y += signy;
+                    deltay -= az;
+                }
+
+                z += signz;
+                deltax += ax;
+                deltay += ay;
+            }
+        }
+	}
+	 
+	 public static void fillSphere(World world, int posX, int posY, int posZ, float radius, MBlock block) {
+		Vec3d center = new Vec3d(posX, posY, posZ);
+		
+		float rsquared = (float) Math.pow(radius, 2.0f);
+		
+		MutableBlockPos p=new MutableBlockPos();
+		
+		int r = ((int)(radius));
+		for(int i = -r; i <= r; i++) {
+			for(int j = -r; j <= r; j++) {
+				for(int k = -r; k <= r; k++) {
+					int x = posX + i;
+					int y = posY + j;
+					int z = posZ + k;
+					Vec3d v = new Vec3d(x, y, z);
+					float dsquared = (float) center.squareDistanceTo(v);
+					if (dsquared < rsquared) {
+						block.setBlock(world, p.setPos(x, y, z), 0);
+					}
+				}
+			}
+		}	
+	}
+	
 }

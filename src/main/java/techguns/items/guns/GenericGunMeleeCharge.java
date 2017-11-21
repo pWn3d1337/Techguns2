@@ -374,8 +374,10 @@ public class GenericGunMeleeCharge extends GenericGunCharge implements IGenericG
 				return false;
 		}
 	}
-	
 
-	
+	@Override
+	public boolean canHarvestBlock(IBlockState state, ItemStack stack) {
+		return this.isEffectiveToolForState(stack, state);
+	}	
 	
 }

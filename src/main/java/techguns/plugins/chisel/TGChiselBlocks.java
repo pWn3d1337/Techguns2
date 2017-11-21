@@ -16,6 +16,8 @@ public class TGChiselBlocks {
 	@ObjectHolder("chisel:factory")
 	public static final Block CHISEL_FACTORY = null;
 	
+	@ObjectHolder("chisel:cobblestone")
+	public static final Block CHISEL_COBBLESTONE = null;
 	
 	public static void postInit() {
 		if(CHISEL_OAK_PLANKS!=null) {
@@ -47,6 +49,9 @@ public class TGChiselBlocks {
 			MBlockRegister.FACTORY_PLATE = factorywall;
 			MBlockRegister.FACTORY_PLATE_DOTTED = new MBlock(CHISEL_FACTORY, 0);
 			MBlockRegister.FACTORY_CRATE = new MBlock(CHISEL_FACTORY, 9);
+		}
+		if(CHISEL_COBBLESTONE!=null) {
+			MBlockRegister.COBBLESTONE_FLOOR = new MBlock(CHISEL_COBBLESTONE,7);
 		}
 	}
 }

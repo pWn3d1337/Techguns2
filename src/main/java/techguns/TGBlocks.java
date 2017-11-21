@@ -25,6 +25,8 @@ import techguns.blocks.BlockTGDoor3x3;
 import techguns.blocks.BlockTGLadder;
 import techguns.blocks.BlockTGLamp;
 import techguns.blocks.BlockTGOre;
+import techguns.blocks.BlockTGSandHard;
+import techguns.blocks.BlockTGSlimy;
 import techguns.blocks.BlockTGSpawner;
 import techguns.blocks.BlockTGStairs;
 import techguns.blocks.EnumCamoNetType;
@@ -34,6 +36,8 @@ import techguns.blocks.EnumLadderType;
 import techguns.blocks.EnumLampType;
 import techguns.blocks.EnumLightblockType;
 import techguns.blocks.EnumOreType;
+import techguns.blocks.EnumTGSandHardTypes;
+import techguns.blocks.EnumTGSlimyType;
 import techguns.blocks.GenericBlockMetaEnum;
 import techguns.blocks.GenericBlockMetaEnumCamoChangeable;
 import techguns.blocks.IGenericBlock;
@@ -91,6 +95,10 @@ public class TGBlocks implements ITGInitializer{
 	
 	public static BlockExplosiveCharge<EnumExplosiveChargeType> EXPLOSIVE_CHARGE;
 	
+	public static BlockTGSandHard SAND_HARD;
+	
+	public static BlockTGSlimy SLIMY_BLOCK;
+	
 	public void registerBlocks(RegistryEvent.Register<Block> event) {
 		BLOCKLIST.forEach(b -> b.registerBlock(event));
 	}
@@ -131,6 +139,10 @@ public class TGBlocks implements ITGInitializer{
 		MILITARY_CRATE = (BlockMilitaryCrate) new BlockMilitaryCrate("military_crate", Material.WOOD).setHardness(4.0f);
 		
 		EXPLOSIVE_CHARGE = new BlockExplosiveCharge<EnumExplosiveChargeType>("explosive_charge", EnumExplosiveChargeType.class);
+		
+		SAND_HARD = new BlockTGSandHard("sand_hard", EnumTGSandHardTypes.class);
+		
+		SLIMY_BLOCK = new BlockTGSlimy("slimy", EnumTGSlimyType.class);
 		
 		if(TGItems.WRITE_ITEM_JSON && event.getSide()==Side.CLIENT){
 			BLOCKLIST.stream().filter(new Predicate<IGenericBlock>() {

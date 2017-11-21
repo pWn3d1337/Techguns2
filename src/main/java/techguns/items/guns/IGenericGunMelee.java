@@ -41,7 +41,7 @@ public interface IGenericGunMelee<T extends GenericGun> {
 	public default boolean isEffectiveToolForState(ItemStack stack, IBlockState state) {
 		GenericGun g = (GenericGun) this;
 		if (g.getCurrentAmmo(stack)>=g.getMiningAmmoConsumption()) {
-			String toolclass = state.getBlock().getHarvestTool(state);			
+			String toolclass = state.getBlock().getHarvestTool(state);	
 			if (toolclass!=null){
 				if(this.getMiningLevels().containsKey(toolclass)){
 					return true;

@@ -111,6 +111,12 @@ public class MathUtil {
         return prevYawOffset + partialTicks * f;
     }
     
+    public static Vec2 polarOffsetXZ(double x, double z, double radius, double angle) {
+    	x = x + (radius*Math.cos(angle));
+    	z = z + (radius*Math.sin(angle));
+    	
+    	return new Vec2(x, z);
+    }
     
     public static class Vec2{
     	public double x;

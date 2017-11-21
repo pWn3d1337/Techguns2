@@ -3,6 +3,7 @@ package techguns.items;
 import java.util.Random;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Biomes;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ActionResult;
@@ -13,9 +14,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import techguns.util.BlockUtils;
+import techguns.world.structures.AlienBugNestStructure;
 import techguns.world.structures.Barracks;
 import techguns.world.structures.FactoryHouseSmall;
 import techguns.world.structures.MilitaryCamp;
+import techguns.world.structures.SmallTrainstation;
 import techguns.world.structures.WorldgenStructure.BiomeColorType;
 
 public class WorldGenTestTool extends GenericItem{
@@ -117,9 +120,14 @@ public class WorldGenTestTool extends GenericItem{
 			//Tanks b = new Tanks(4,5,4,10,-1,10);
 			//Barracks b = new Barracks(7,7,7,-1,-1,-1);
 			//Bunker b = new Bunker(3,3,5,15,3,15, rnd.nextInt(4));
-			FactoryHouseSmall b = new FactoryHouseSmall(8, 8, 8, 8, 8, 8);
+			//FactoryHouseSmall b = new FactoryHouseSmall(8, 8, 8, 8, 8, 8);
+			//SmallTrainstation b = new SmallTrainstation(8, 8, 8, 8, 8, 8);
+			AlienBugNestStructure b = new AlienBugNestStructure();
 			
-			b.setBlocks(world, x, y, z, sizeX, 8, sizeZ, rnd.nextInt(4), BiomeColorType.WOODLAND, rnd);
+			//b.setBlocks(world, x, y, z, sizeX, 8, sizeZ,rnd.nextInt(4), BiomeColorType.WOODLAND, rnd);
+			
+			//bugnest
+			b.spawnStructureWorldgen(world, x>>4, z>>4, 4, 0, 4, rnd, Biomes.PLAINS);
 			
 			break;
 		case 2: //Smooth
