@@ -216,7 +216,7 @@ public class TGuns implements ITGInitializer {
 		BIOGUN_PROJECTILES = new ChargedProjectileSelector<BioGunProjectile>(AmmoTypes.BIO_TANK, new BioGunProjectile.Factory());
 		CHAINSAW_PROJECTILES = new ChargedProjectileSelector<ChainsawProjectile>(AmmoTypes.FUEL_TANK, new ChainsawProjectile.Factory());
 		GUIDED_MISSILE_PROJECTILES = new ChargedProjectileSelector<GuidedMissileProjectile>(AmmoTypes.ROCKETS, new GuidedMissileProjectile.Factory(), new GuidedMissileProjectile.Factory());
-		TFG_PROJECTILES = new ChargedProjectileSelector<TFGProjectile>(AmmoTypes.BIO_TANK, new TFGProjectile.Factory());
+		TFG_PROJECTILES = new ChargedProjectileSelector<TFGProjectile>(AmmoTypes.NUCLEAR_POWER_CELL, new TFGProjectile.Factory());
 		
 		handcannon = new GenericGun("handcannon", new ProjectileSelector<StoneBulletProjectile>(AmmoTypes.STONE_BULLETS, new StoneBulletProjectile.Factory()), true, 12,1,30, 8.0f, TGSounds.HANDGUN_FIRE, TGSounds.HANDGUN_RELOAD,25,0.035f).setBulletSpeed(0.9f).setGravity(0.015d).setDamageDrop(10, 25, 5.0f).setAIStats(RANGE_CLOSE, 60, 0, 0).setTexture("textures/guns/handgun").setRecoiltime(12);//.setMuzzleParticle(2,0.2f);
 		

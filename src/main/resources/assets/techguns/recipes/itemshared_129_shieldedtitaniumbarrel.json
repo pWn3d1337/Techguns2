@@ -1,0 +1,27 @@
+{
+  "result": {
+    "item": "techguns:itemshared",
+    "data": 129
+  },
+  "pattern": [
+    "tct",
+    "lbl",
+    "tct"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "b": {
+      "item": "techguns:itemshared",
+      "data": 40
+    },
+    "c": {
+      "item": "#CIRCUITELITE"
+    },
+    "t": {
+      "item": "#PLATETITANIUM"
+    },
+    "l": {
+      "item": "#PLATELEAD"
+    }
+  }
+}

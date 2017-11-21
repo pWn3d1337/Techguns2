@@ -43,11 +43,11 @@ public class TGItems implements ITGInitializer{
 	/**
 	 * TODO DISABLE THIS BEFORE RELEASE
 	 */
-	public static boolean WRITE_ITEM_JSON = false;
+	public static boolean WRITE_ITEM_JSON = true;
 	/**
 	 * TODO DISABLE THIS BEFORE RELEASE
 	 */
-	public static boolean WRITE_RECIPES = false;
+	public static boolean WRITE_RECIPES = true;
 	
 	
 	public static final ArrayList<GenericItem> ITEMLIST = new ArrayList<>();
@@ -214,6 +214,10 @@ public class TGItems implements ITGInitializer{
 	
 	public static ItemStack ROCKET_NUKE;
 	public static ItemStack TACTICAL_NUKE_WARHEAD;
+	
+	public static ItemStack BARREL_TITANIUM;
+	public static ItemStack RECEIVER_TITANIUM;
+	public static ItemStack PLASMA_GENERATOR;
 	
 	/**
 	 * ADDITONAL SLOT ITEMS
@@ -436,6 +440,10 @@ public class TGItems implements ITGInitializer{
 		GAUSSRIFLE_SLUGS = SHARED_ITEM.addsharedVariant("gaussrifleslugs", TGSlotType.AMMOSLOT);
 		
 		BARREL_GAUSS = SHARED_ITEM.addsharedVariant("gaussbarrel");
+		
+		BARREL_TITANIUM =  SHARED_ITEM.addsharedVariant("shieldedtitaniumbarrel");
+		RECEIVER_TITANIUM =  SHARED_ITEM.addsharedVariant("titaniumreceiver");
+		PLASMA_GENERATOR =  SHARED_ITEM.addsharedVariant("plasmagenerator");
 		
 		/**
 		 * Additional Slot items

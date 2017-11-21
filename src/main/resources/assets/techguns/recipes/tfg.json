@@ -1,0 +1,32 @@
+{
+  "result": {
+    "item": "techguns:tfg"
+  },
+  "pattern": [
+    "t  ",
+    "bpr",
+    "tn "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "p": {
+      "item": "techguns:itemshared",
+      "data": 131
+    },
+    "b": {
+      "item": "techguns:itemshared",
+      "data": 129
+    },
+    "r": {
+      "item": "techguns:itemshared",
+      "data": 130
+    },
+    "t": {
+      "item": "#PLATETITANIUM"
+    },
+    "n": {
+      "item": "techguns:itemshared",
+      "data": 31
+    }
+  }
+}

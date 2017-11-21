@@ -154,6 +154,7 @@ import static techguns.TGuns.stielgranate;
 import static techguns.TGuns.teslagun;
 import static techguns.TGuns.thompson;
 import static techguns.TGuns.vector;
+import static techguns.TGuns.*;
 
 import java.util.Arrays;
 
@@ -417,6 +418,13 @@ public class Recipewriter {
 	
         RecipeJsonConverter.addShapedRecipe(newStack(TGItems.BARREL_GAUSS,1), "pww","bbc", "pww", 'p', "plateTitanium", 'w', "wireGold", 'b', TGItems.BARREL_CARBON, 'c', "circuitElite");
        
+        RecipeJsonConverter.addShapedRecipe(newStack(TGItems.BARREL_TITANIUM,1), "tct","lbl", "tct", 't', "plateTitanium", 'l', "plateLead", 'b', TGItems.BARREL_CARBON, 'c', "circuitElite");
+        
+        RecipeJsonConverter.addShapedRecipe(newStack(TGItems.RECEIVER_TITANIUM,1), "ttt"," rc","  t", 't', "plateTitanium", 'r', TGItems.RECEIVER_CARBON, 'c', "circuitElite");
+       
+        RecipeJsonConverter.addShapedRecipe(newStack(TGItems.PLASMA_GENERATOR,1), "lcl","eae","lcl", 'l', "plateLead", 'a', TGItems.ANTI_GRAV_CORE, 'c', TGItems.COIL, 'e', TGItems.ENRICHED_URANIUM);
+        
+        
         String[] plateTypes = {"plateIron", "plateTin"};
         Arrays.stream(plateTypes).forEach(p -> {
 	        RecipeJsonConverter.addShapedRecipe(new ItemStack(TGItems.DOOR3x3,2,0), "ppp", "sps","ppp", 's', Blocks.PISTON, 'p', p);
@@ -562,7 +570,10 @@ public class Recipewriter {
 		    
 	        RecipeJsonConverter.addShapedRecipe(new ItemStack(gaussrifle,1),"dpc","brs"," ae", 'b', TGItems.BARREL_GAUSS, 'r', TGItems.RECEIVER_CARBON, 's', TGItems.STOCK_CARBON, 'e', TGItems.ENERGY_CELL, 'a', TGItems.GAUSSRIFLE_SLUGS, 'd', "gemDiamond", 'p', "plateTitanium", 'c', "circuitElite");
 	        RecipeJsonConverter.addShapedRecipe(new ItemStack(gaussrifle,1, gaussrifle.getMaxDamage()),"dpc","brs","  e", 'b', TGItems.BARREL_GAUSS, 'r', TGItems.RECEIVER_CARBON, 's', TGItems.STOCK_CARBON, 'e', TGItems.ENERGY_CELL_EMPTY, 'd', "gemDiamond", 'p', "plateTitanium", 'c', "circuitElite");
-		      
+		    
+	        RecipeJsonConverter.addShapedRecipe(new ItemStack(tfg,1),"t  ","bpr","tn ", 'b', TGItems.BARREL_TITANIUM, 'r', TGItems.RECEIVER_TITANIUM, 't', "plateTitanium", 'n', TGItems.NUCLEAR_POWERCELL, 'p', TGItems.PLASMA_GENERATOR);
+	        RecipeJsonConverter.addShapedRecipe(new ItemStack(tfg,1,tfg.getMaxDamage()),"t  ","bpr","tn ", 'b', TGItems.BARREL_TITANIUM, 'r', TGItems.RECEIVER_TITANIUM, 't', "plateTitanium", 'n', TGItems.NUCLEAR_POWERCELL_EMPTY, 'p', TGItems.PLASMA_GENERATOR);
+	        
 	}
 	
 	public static void addArmorRecipes() {

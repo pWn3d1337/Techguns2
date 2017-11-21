@@ -1,0 +1,29 @@
+{
+  "result": {
+    "item": "techguns:itemshared",
+    "data": 131
+  },
+  "pattern": [
+    "lcl",
+    "eae",
+    "lcl"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "a": {
+      "item": "techguns:itemshared",
+      "data": 92
+    },
+    "c": {
+      "item": "techguns:itemshared",
+      "data": 68
+    },
+    "e": {
+      "item": "techguns:itemshared",
+      "data": 98
+    },
+    "l": {
+      "item": "#PLATELEAD"
+    }
+  }
+}
