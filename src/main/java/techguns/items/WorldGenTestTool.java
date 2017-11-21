@@ -14,6 +14,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import techguns.util.BlockUtils;
+import techguns.world.structures.AlienBugNest;
 import techguns.world.structures.AlienBugNestStructure;
 import techguns.world.structures.Barracks;
 import techguns.world.structures.FactoryHouseSmall;
@@ -122,12 +123,16 @@ public class WorldGenTestTool extends GenericItem{
 			//Bunker b = new Bunker(3,3,5,15,3,15, rnd.nextInt(4));
 			//FactoryHouseSmall b = new FactoryHouseSmall(8, 8, 8, 8, 8, 8);
 			//SmallTrainstation b = new SmallTrainstation(8, 8, 8, 8, 8, 8);
-			AlienBugNestStructure b = new AlienBugNestStructure();
+			
+			
+			
+			new AlienBugNest(x ,y+32, z,sizeX, 0, sizeZ, rnd).setBlocks(world);
 			
 			//b.setBlocks(world, x, y, z, sizeX, 8, sizeZ,rnd.nextInt(4), BiomeColorType.WOODLAND, rnd);
 			
 			//bugnest
-			b.spawnStructureWorldgen(world, x>>4, z>>4, 4, 0, 4, rnd, Biomes.PLAINS);
+			//AlienBugNestStructure b = new AlienBugNestStructure();
+			//b.spawnStructureWorldgen(world, x>>4, z>>4, 4, 0, 4, rnd, Biomes.PLAINS);
 			
 			break;
 		case 2: //Smooth
