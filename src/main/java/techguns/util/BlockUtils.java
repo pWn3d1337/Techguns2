@@ -767,7 +767,7 @@ public class BlockUtils {
 	 public static void fillCylinder(World world, int x1, int y1, int z1, int x2, int y2, int z2, float radius, MBlock block1, MBlock block2) {
 		Vec3d v1 = new Vec3d(x1, y1, z1);
 		Vec3d v2 = new Vec3d(x2, y2, z2);
-		Vec3d v2v1 = v2.subtract(v1);
+		Vec3d v2v1 = v1.subtract(v2);
 		double l = v2v1.lengthVector();
 		//Vec3 dir = v2v1.normalize();
 		int tmp = 0;
@@ -783,7 +783,7 @@ public class BlockUtils {
 			for (int y = y1-r; y < y2+r; y++) {
 				for (int z = z1-r; z < z2+r; z++) {
 					Vec3d v0 = new Vec3d(x, y, z);
-					Vec3d v1v0 = v0.subtract(v1);
+					Vec3d v1v0 = v1.subtract(v0);
 					Vec3d v_ = v2v1.crossProduct(v1v0);
 					double distance = v_.lengthVector()/l;
 					

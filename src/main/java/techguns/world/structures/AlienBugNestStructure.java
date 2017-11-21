@@ -24,7 +24,7 @@ public class AlienBugNestStructure extends WorldgenStructure {
 		int y = BlockUtils.getValidSpawnY(world, x, z, sizeX, sizeZ,256);
 		
 		if(y>0) {
-			//System.out.println("Do Spawn!");
+			System.out.println("Do Spawn!");
 			new AlienBugNest(x,y-12,z,16+rnd.nextInt(16), sizeY, 16+rnd.nextInt(16), rnd).setBlocks(world);
 		}
 		

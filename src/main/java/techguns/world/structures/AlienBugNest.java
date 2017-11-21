@@ -135,7 +135,7 @@ public class AlienBugNest {
 			//Get proper distance
 			Vec3d pos1 = new Vec3d(segment.posX, segment.posY, segment.posZ);
 			Vec3d pos2 = new Vec3d(seg.posX, seg.posY, seg.posZ);
-			Vec3d v2v1 = pos1.subtract(pos2);
+			Vec3d v2v1 = pos2.subtract(pos1);
 			double distance = v2v1.lengthVector();
 			Vec3d dir = v2v1.normalize();
 
@@ -191,7 +191,7 @@ public class AlienBugNest {
 						int zo = (int) xz.y;
 						Vec3d pos1 = new Vec3d(segment.posX, segment.posY, segment.posZ);
 						Vec3d pos2 = new Vec3d(seg.posX, seg.posY, seg.posZ);
-						Vec3d v2v1 = pos1.subtract(pos2);
+						Vec3d v2v1 = pos2.subtract(pos1);
 						double distance = v2v1.lengthVector();
 						Vec3d dir = v2v1.normalize();
 	
@@ -274,7 +274,7 @@ public class AlienBugNest {
 	public static void createSlimeLadder(World world, int x1, int y1, int z1, int x2, int y2, int z2, float radius) {
 		Vec3d v1 = new Vec3d(x1, y1, z1);
 		Vec3d v2 = new Vec3d(x2, y2, z2);
-		Vec3d v2v1 = v2.subtract(v1);
+		Vec3d v2v1 = v1.subtract(v2);
 		double l = v2v1.lengthVector();
 		//Vec3 dir = v2v1.normalize();
 		int tmp = 0;
@@ -289,7 +289,7 @@ public class AlienBugNest {
 			for (int y = y1-r; y < y2+r; y++) {
 				for (int z = z1-r; z < z2+r; z++) {
 					Vec3d v0 = new Vec3d(x, y, z);
-					Vec3d v1v0 = v0.subtract(v1);
+					Vec3d v1v0 = v1.subtract(v2);
 					Vec3d v_ = v2v1.crossProduct(v1v0);
 					double distance = v_.lengthVector()/l;
 					p.setPos(x,y,z);
