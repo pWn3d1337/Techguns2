@@ -45,6 +45,7 @@ import techguns.items.guns.MiningDrill;
 import techguns.items.guns.PowerHammer;
 import techguns.items.guns.ProjectileSelector;
 import techguns.items.guns.RangeTooltipType;
+import techguns.items.guns.Shishkebap;
 import techguns.items.guns.SonicShotgun;
 import techguns.items.guns.ammo.AmmoTypes;
 import techguns.tools.ItemJsonCreator;
@@ -101,8 +102,8 @@ public class TGuns implements ITGInitializer {
 	public static GenericGun gaussrifle;
 	public static GenericGun guidedmissilelauncher;
 	public static GenericGun miningdrill;
-	
 	public static GenericGun tfg;
+	public static GenericGun shishkebap;
 	
 	public static ProjectileSelector<GenericProjectile> SHOTGUN_PROJECTILES;
 	public static ProjectileSelector<GenericProjectile> PISTOL_PROJECTILES;
@@ -176,6 +177,7 @@ public class TGuns implements ITGInitializer {
 		reg.register(guidedmissilelauncher);
 		reg.register(miningdrill);
 		reg.register(tfg);
+		reg.register(shishkebap);
 		reg.register(stielgranate);
 		reg.register(fraggrenade);
 	}
@@ -289,6 +291,8 @@ public class TGuns implements ITGInitializer {
 			
 		 tfg = new GenericGunCharge("tfg", TFG_PROJECTILES, false, 5, 20,45,50.0f, TGSounds.TFG_FIRE, TGSounds.BIOGUN_RELOAD, 100, 0.015f, 60.0f ,10).setChargeSound(TGSounds.TFG_CHARGE).setChargeFX("TFGChargeStart",-0.14f, -0.10f, 0.42f).setBulletSpeed(2.0f).setPenetration(0.15f).setTexture("textures/guns/tfg").setAIStats(RANGE_SHORT, 30, 0, 0).setDamageDrop(8, 15, 15.0f).setMuzzleLight(0.2f, 1.0f, 0.2f).setMuzzleFlashTime(10).setRecoiltime(10).setForwardOffset(0.40f);
 			
+		 shishkebap = new Shishkebap("shishkebap", CHAINSAW_PROJECTILES, false, 3, 100, 45, 10.0f, TGSounds.CHAINSAW_LOOP, TGSounds.POWERHAMMER_RELOAD, 2, 0.0f,1f,1).setMeleeDmg(14.0f, 2.0f).setTool("sword", 3).setDigSpeed(4.0f).setTextures("textures/guns/shishkebab_texture",3).setRecoiltime(5).setShootWithLeftClick(false).setFiresoundStart(TGSounds.CHAINSAW_LOOP_START).setMaxLoopDelay(10).setPenetration(PENETRATION_MED).setAIStats(RANGE_MELEE, 10, 0, 0).setTurretPosOffset(0, -0.47f, -0.08f).setNoMuzzleLight().setHandType(GunHandType.ONE_HANDED).setHasAmbient(); //.setTurretPosOffset(0, 0.50f, 0);
+		 
 		 stielgranate = new GenericGrenade("stielgranate", 16, 72000, new GrenadeProjectile.Factory()).setDamageAndRadius(10, 3.0f, 5, 5.0f);
 		 
 		 fraggrenade = new GenericGrenade("fraggrenade", 16, 72000, new FragGrenadeProjectile.Factory()).setStartSound(TGSounds.GRENADE_PIN).setDamageAndRadius(12, 3.5f, 6, 7.0f);

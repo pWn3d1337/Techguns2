@@ -160,4 +160,8 @@ public abstract class CommonProxy implements ITGInitializer {
     public void registerFluidModelsForFluidBlock(Block b) {};
     
     public abstract GuiHandlerRegister getGuihandlers();
+    
+    public void tickWeaponParticleSystems(EntityLivingBase ent, TGShooterValues values) {
+    	
+    }
 }

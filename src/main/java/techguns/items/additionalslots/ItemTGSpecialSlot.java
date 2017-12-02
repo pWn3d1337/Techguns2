@@ -13,6 +13,7 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import techguns.Techguns;
 import techguns.api.tginventory.ITGSpecialSlot;
 import techguns.api.tginventory.TGSlotType;
 import techguns.capabilities.TGExtendedPlayer;
@@ -63,7 +64,7 @@ public abstract class ItemTGSpecialSlot extends GenericItem implements ITGSpecia
 	@Override
 	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 		super.addInformation(stack, worldIn, tooltip, flagIn);
-		tooltip.add(ChatFormatting.GRAY+"Slot: "+this.getSlot(stack));
+		tooltip.add(ChatFormatting.GRAY+TextUtil.trans(Techguns.MODID+".tooltip.slot")+": "+this.getSlot(stack));
 	}
 	
 	@Override

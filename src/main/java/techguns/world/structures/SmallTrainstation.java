@@ -7,9 +7,12 @@ import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import techguns.TGBlocks;
+import techguns.blocks.EnumMonsterSpawnerType;
+import techguns.entities.npcs.ZombieMiner;
 import techguns.util.BlockUtils;
 import techguns.util.MBlock;
 import techguns.util.MultiMBlock;
+import techguns.world.dungeon.presets.specialblocks.MBlockTGSpawner;
 
 public class SmallTrainstation extends WorldgenStructure {
 	static ArrayList<MBlock> blockList = new ArrayList<MBlock>();
@@ -54,6 +57,8 @@ public class SmallTrainstation extends WorldgenStructure {
 		
 		//blockList.add(new MBlock(Block.getBlockFromName("tile.chisel.limestone_stairs.0"), 9));
 		blockList.add(MBlockRegister.STONEBRICK_STAIRS_WEST_CRACKED_RND); //new MultiMBlock(new Block[]{ChiselBlocks.limestoneStairs[0], ChiselBlocks.limestoneStairs[3], Blocks.AIR},new int[]{9,1,0}, new int[]{2,2,1}, new BlockType[]{BlockType.STAIRS2_CHISEL,BlockType.STAIRS, BlockType.TG}, new boolean[]{true,true,false}));
+		
+		blockList.add(new MBlockTGSpawner(EnumMonsterSpawnerType.HOLE,3,2,200,1).addMobType(ZombieMiner.class, 1));
 		
 		blocks = BlockUtils.loadStructureFromFile("smallTrainstation");
 	}

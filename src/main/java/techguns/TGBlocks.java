@@ -7,7 +7,10 @@ import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.Item;
+import net.minecraft.util.BlockRenderLayer;
+import net.minecraft.util.EnumBlockRenderType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -16,6 +19,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
 import techguns.blocks.BlockBioblob;
+import techguns.blocks.BlockDebugMarker;
 import techguns.blocks.BlockMilitaryCrate;
 import techguns.blocks.BlockSandbags;
 import techguns.blocks.BlockTGCamoNet;
@@ -31,6 +35,7 @@ import techguns.blocks.BlockTGSpawner;
 import techguns.blocks.BlockTGStairs;
 import techguns.blocks.EnumCamoNetType;
 import techguns.blocks.EnumConcreteType;
+import techguns.blocks.EnumDebugBlockType;
 import techguns.blocks.EnumDoorType;
 import techguns.blocks.EnumLadderType;
 import techguns.blocks.EnumLampType;
@@ -99,6 +104,8 @@ public class TGBlocks implements ITGInitializer{
 	
 	public static BlockTGSlimy SLIMY_BLOCK;
 	
+	public static GenericBlockMetaEnum<EnumDebugBlockType> DEBUG_BLOCK;
+	
 	public void registerBlocks(RegistryEvent.Register<Block> event) {
 		BLOCKLIST.forEach(b -> b.registerBlock(event));
 	}
@@ -143,6 +150,10 @@ public class TGBlocks implements ITGInitializer{
 		SAND_HARD = new BlockTGSandHard("sand_hard", EnumTGSandHardTypes.class);
 		
 		SLIMY_BLOCK = new BlockTGSlimy("slimy", EnumTGSlimyType.class);
+		
+		if (TGConfig.debug) {
+			DEBUG_BLOCK = new BlockDebugMarker("debugblock", Material.GROUND);
+		}
 		
 		if(TGItems.WRITE_ITEM_JSON && event.getSide()==Side.CLIENT){
 			BLOCKLIST.stream().filter(new Predicate<IGenericBlock>() {

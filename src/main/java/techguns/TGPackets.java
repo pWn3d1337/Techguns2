@@ -18,6 +18,7 @@ import techguns.packets.PacketDoorStateChange;
 import techguns.packets.PacketEntityDeathType;
 import techguns.packets.PacketGuiButtonClick;
 import techguns.packets.PacketMultiBlockFormInvalidBlockMessage;
+import techguns.packets.PacketNotifyAmbientEffectChange;
 import techguns.packets.PacketOpenPlayerGUI;
 import techguns.packets.PacketPlaySound;
 import techguns.packets.PacketRequestTGPlayerSync;
@@ -89,6 +90,8 @@ public class TGPackets implements ITGInitializer {
 		network.registerMessage(PacketMultiBlockFormInvalidBlockMessage.Handler.class, PacketMultiBlockFormInvalidBlockMessage.class, packetid++, Side.CLIENT);
 		network.registerMessage(PacketShowKeybindConfirmMessage.Handler.class, PacketShowKeybindConfirmMessage.class, packetid++, Side.CLIENT);
 		network.registerMessage(PacketDoorStateChange.Handler.class, PacketDoorStateChange.class, packetid++, Side.CLIENT);
+		network.registerMessage(PacketNotifyAmbientEffectChange.Handler.class, PacketNotifyAmbientEffectChange.class, packetid++, Side.CLIENT);
+		
 		
 		/*
 		network.registerMessage(PacketRequestTurretSync.Handler.class, PacketRequestTurretSync.class, packetid++, Side.SERVER);

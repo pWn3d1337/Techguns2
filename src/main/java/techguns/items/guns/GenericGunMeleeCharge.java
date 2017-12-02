@@ -60,6 +60,8 @@ public class GenericGunMeleeCharge extends GenericGunCharge implements IGenericG
 	
 	protected ItemStack[] miningHeads = null;
 	
+	protected boolean hasCustomAnim = true;
+	
 	public GenericGunMeleeCharge(String name, ChargedProjectileSelector projectile_selector, boolean semiAuto,
 			int minFiretime, int clipsize, int reloadtime, float damage, SoundEvent firesound, SoundEvent reloadsound,
 			int TTL, float accuracy, float fullChargeTime, int ammoConsumedOnFullCharge) {
@@ -79,6 +81,11 @@ public class GenericGunMeleeCharge extends GenericGunCharge implements IGenericG
 	
 	public GenericGunMeleeCharge setSwingSoundDelay(int swingSoundDelay) {
 		this.swingSoundDelay = swingSoundDelay;
+		return this;
+	}
+	
+	public GenericGunMeleeCharge setHasCustomAnim(boolean customAnim) {
+		this.hasCustomAnim=customAnim;
 		return this;
 	}
 	
@@ -207,7 +214,7 @@ public class GenericGunMeleeCharge extends GenericGunCharge implements IGenericG
 				if (ShooterValues.getRecoiltime(entityLiving, false) < System.currentTimeMillis()) {
 					ShooterValues.setRecoiltime(entityLiving, false, System.currentTimeMillis() + 250, 250, (byte) 0);
 				}
-				return true;
+				return this.hasCustomAnim;
 			} else {
 				
 				boolean sendSound=true;
@@ -226,7 +233,7 @@ public class GenericGunMeleeCharge extends GenericGunCharge implements IGenericG
 					TGPackets.network.sendToAllAround(new PacketPlaySound(getSwingSound(), entityLiving, 1.0f, 1.0f, false, false, true, true,TGSoundCategory.GUN_FIRE), TGPackets.targetPointAroundEnt(entityLiving, 32.0f));
 				}
 				
-				return true;
+				return this.hasCustomAnim;
 			}
 		}
 		return false;

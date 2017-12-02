@@ -15,6 +15,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
 import techguns.TGItems;
 import techguns.TGPackets;
+import techguns.api.guns.GunHandType;
 import techguns.capabilities.TGExtendedPlayer;
 import techguns.client.ClientProxy;
 import techguns.client.ShooterValues;
@@ -323,7 +324,11 @@ public class GenericGunCharge extends GenericGun {
 		return this;
 	}
 	
-	
+	@Override
+	public boolean hasRightClickAction() {
+		return this.getGunHandType()==GunHandType.TWO_HANDED;
+	}
+
 	public GenericGunCharge setChargeSound(SoundEvent startChargeSound) {
 		this.startChargeSound = startChargeSound;
 		return this;

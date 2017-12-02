@@ -19,6 +19,7 @@ import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
@@ -42,6 +43,7 @@ import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
@@ -93,6 +95,7 @@ import techguns.items.guns.GenericGunCharge;
 import techguns.items.guns.GenericGunMeleeCharge;
 import techguns.items.guns.MiningDrill;
 import techguns.packets.PacketEntityDeathType;
+import techguns.packets.PacketNotifyAmbientEffectChange;
 import techguns.packets.PacketRequestTGPlayerSync;
 import techguns.packets.PacketTGExtendedPlayerSync;
 import techguns.util.BlockUtils;
@@ -259,7 +262,7 @@ public class TGEventHandler {
 			EntityPlayer ply = (EntityPlayer) event.getEntity();
 			
 		 	ItemStack stack =ply.getHeldItemMainhand();
-		 	if(!stack.isEmpty() && stack.getItem() instanceof GenericGun){
+		 	if(!stack.isEmpty() && stack.getItem() instanceof GenericGun && ((GenericGun) stack.getItem()).hasBowAnim()){
 		 		ModelPlayer model = (ModelPlayer) event.getRenderer().getMainModel();
 		 		if (ply.getPrimaryHand()==EnumHandSide.RIGHT) {
 		 			model.rightArmPose = ArmPose.BOW_AND_ARROW;
@@ -269,7 +272,7 @@ public class TGEventHandler {
 		 	} else {
 		 	
 			 	ItemStack stack2 =ply.getHeldItemOffhand();
-			 	if(!stack2.isEmpty() && stack2.getItem() instanceof GenericGun){
+			 	if(!stack2.isEmpty() && stack2.getItem() instanceof GenericGun && ((GenericGun) stack2.getItem()).hasBowAnim()){
 			 		ModelPlayer model =  (ModelPlayer) event.getRenderer().getMainModel();
 			 		
 			 		if (ShooterValues.getIsCurrentlyUsingGun(ply,true)){
@@ -529,7 +532,7 @@ public class TGEventHandler {
 		EntityPlayer ply = ClientProxy.get().getPlayerClient();
 		ItemStack stack = ply.getActiveItemStack();
 		
-		if(!stack.isEmpty() && (stack.getItem() instanceof GenericGunCharge || stack.getItem() instanceof GenericGrenade)) {
+		if(!stack.isEmpty() && ((stack.getItem() instanceof GenericGunCharge && ((GenericGunCharge)stack.getItem()).hasRightClickAction()) || stack.getItem() instanceof GenericGrenade)) {
 			EnumHand hand = ply.getActiveHand();
 
 			ItemRenderer itemrenderer = Minecraft.getMinecraft().getItemRenderer();
@@ -737,6 +740,21 @@ public class TGEventHandler {
 		}
 	}
 	
+	@SubscribeEvent
+	public static void onItemSwitch(LivingEquipmentChangeEvent event) {
+		if (event.getSlot()==EntityEquipmentSlot.MAINHAND || event.getSlot()==EntityEquipmentSlot.MAINHAND) {
+			if(!event.getTo().isEmpty() && event.getTo().getItem() instanceof GenericGun) {
+				if(((GenericGun)event.getTo().getItem()).hasAmbientEffect()){
+					EnumHand hand = EnumHand.MAIN_HAND;
+					if (event.getSlot()==EntityEquipmentSlot.OFFHAND) {
+						hand=EnumHand.OFF_HAND;
+					}
+					TGPackets.network.sendToDimension(new PacketNotifyAmbientEffectChange(event.getEntityLiving(), hand), event.getEntityLiving().world.provider.getDimension());
+				}
+			}
+		}
+	}
+	
 	@Optional.Method(modid="albedo")
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent
@@ -747,4 +765,6 @@ public class TGEventHandler {
 		}
 		//ClientProxy.get().activeLightPulses.forEach(l -> event.getLightList().add(l.provideLight()));
 	}
+	
+	
 }

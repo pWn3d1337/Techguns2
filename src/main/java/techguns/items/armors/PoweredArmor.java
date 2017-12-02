@@ -298,7 +298,7 @@ public class PoweredArmor extends GenericArmorMultiCamo {
 				if (!player.world.isRemote)
 		        {
     				//player.world.playSoundAtEntity(player, "techguns:effects.steamarmorJump", 0.66F, 1.0F );
-					player.world.playSound(player.posX, player.posY, player.posZ, TGSounds.STEAM_JUMP, SoundCategory.PLAYERS, 1f, 1f, false);
+					player.world.playSound(null, player.posX, player.posY, player.posZ, TGSounds.STEAM_JUMP, SoundCategory.PLAYERS, 1f, 1f);
 		        }
 				return 5;				
 			}

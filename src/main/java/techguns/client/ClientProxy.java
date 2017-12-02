@@ -60,8 +60,11 @@ import techguns.TGFluids;
 import techguns.TGItems;
 import techguns.TGuns;
 import techguns.Techguns;
+import techguns.api.render.IItemRenderer;
+import techguns.api.render.IItemTGRenderer;
 import techguns.capabilities.TGDeathTypeCap;
 import techguns.capabilities.TGDeathTypeCapStorage;
+import techguns.capabilities.TGShooterValues;
 import techguns.client.audio.TGSound;
 import techguns.client.audio.TGSoundCategory;
 import techguns.client.models.armor.ModelAntiGravPack;
@@ -71,6 +74,7 @@ import techguns.client.models.armor.ModelExoSuit;
 import techguns.client.models.armor.ModelFaceMask;
 import techguns.client.models.armor.ModelGasMask;
 import techguns.client.models.armor.ModelGlider;
+import techguns.client.models.armor.ModelGloves;
 import techguns.client.models.armor.ModelJetPack;
 import techguns.client.models.armor.ModelNightVisionGoggles;
 import techguns.client.models.armor.ModelOxygenTanks;
@@ -112,6 +116,7 @@ import techguns.client.models.guns.ModelRevolver;
 import techguns.client.models.guns.ModelRocketLauncher;
 import techguns.client.models.guns.ModelSawedOff;
 import techguns.client.models.guns.ModelScar;
+import techguns.client.models.guns.ModelShishkebap;
 import techguns.client.models.guns.ModelSonicShotgun;
 import techguns.client.models.guns.ModelStielgranate;
 import techguns.client.models.guns.ModelTFG;
@@ -907,6 +912,15 @@ public class ClientProxy extends CommonProxy {
 					{-0.07f,0f,-0.05f} //frame
 				}).setMuzzleFXPos3P(0.09f, -1.14f).setChargeTranslationAmount(0.05f).setFirstPersonScale(0.45f));
 		
+		ItemRenderHack.registerItemRenderer(TGuns.shishkebap, new RenderGunBase(new ModelShishkebap(),1).setBaseTranslation(0, 0,0).setBaseScale(1.0f)
+				.setGUIScale(0.3f).setTransformTranslations(new float[][]{
+					{0f,0.0f,0.0f}, //First Person
+					{0f,0.0f,0.0f}, //Third Person
+					{0.0f,-0.25f,0f}, //GUI
+					{0f,0f,0f}, //Ground
+					{0f,0.0f,0.0f} //frame
+				}).setRecoilAnim(GunAnimation.swordSweepRecoil, -120.0f));
+		
 		ItemRenderHack.registerItemRenderer(TGArmors.steam_Helmet,  new RenderArmorItem(new ModelSteamArmor(0), new ResourceLocation(Techguns.MODID,"textures/models/armor/steam_armor.png"), EntityEquipmentSlot.HEAD) );
 		ItemRenderHack.registerItemRenderer(TGArmors.steam_Chestplate,  new RenderArmorItem(new ModelSteamArmor(0), new ResourceLocation(Techguns.MODID,"textures/models/armor/steam_armor.png"), EntityEquipmentSlot.CHEST) );
 		ItemRenderHack.registerItemRenderer(TGArmors.steam_Leggings,  new RenderArmorItem(new ModelSteamArmor(1), new ResourceLocation(Techguns.MODID,"textures/models/armor/steam_armor.png"), EntityEquipmentSlot.LEGS) );
@@ -943,9 +957,9 @@ public class ClientProxy extends CommonProxy {
 		AdditionalSlotRenderRegistry.register(TGItems.ANTI_GRAV_PACK, new RenderAdditionalSlotItem(new ModelAntiGravPack(), Techguns.MODID, "textures/armors/antigravpack",5));
 		AdditionalSlotRenderRegistry.register(TGItems.TACTICAL_MASK, new RenderAdditionalSlotItem(new ModelFaceMask(true), Techguns.MODID, "textures/armors/tacticalmask",4));
 		
-		
 		RenderAdditionalSlotSharedItem sharedItemRenderer = new RenderAdditionalSlotSharedItem();
 		sharedItemRenderer.addRenderForSharedItem(TGItems.OXYGEN_MASK.getItemDamage(),new RenderAdditionalSlotItem(new ModelFaceMask(true), new ResourceLocation(Techguns.MODID,"textures/armors/oxygenmask.png")));
+		sharedItemRenderer.addRenderForSharedItem(TGItems.WORKING_GLOVES.getItemDamage(),new RenderAdditionalSlotItem(new ModelGloves(0.45f,false), new ModelGloves(0.45f, true), new ResourceLocation(Techguns.MODID,"textures/models/armor/working_gloves.png"), new ResourceLocation(Techguns.MODID,"textures/models/armor/working_gloves_slim.png")));
 		
 		AdditionalSlotRenderRegistry.register(TGItems.SHARED_ITEM, sharedItemRenderer);
 		
@@ -1278,6 +1292,26 @@ public class ClientProxy extends CommonProxy {
 			}
 		});
 	}
+
+	@Override
+	public void tickWeaponParticleSystems(EntityLivingBase ent, TGShooterValues values) {
+		ItemStack mh = ent.getHeldItemMainhand();
+		if(!mh.isEmpty() && mh.getItem() instanceof GenericGun) {
+			GenericGun item = (GenericGun) mh.getItem();
+			
+			if (item.shouldUseRenderHack(mh)){
+			
+				IItemRenderer renderer = ItemRenderHack.getRendererForItem(item);
+				if(renderer instanceof RenderItemBase) {
+					RenderItemBase itemRenderer = (RenderItemBase) renderer;
+					
+					//values.particleSysMH
+					
+				}
+			}
+		}
+	}
+	
 	
 	
 }

@@ -83,6 +83,7 @@ public class GenericArmor extends ItemArmor implements ISpecialArmor , IItemTGRe
 	
 	protected boolean hideFaceslot=false;
 	protected boolean hideBackslot=false;
+	protected boolean hideGloveslot=false;
 	
 	protected TGArmorMaterial material;
 	
@@ -495,8 +496,17 @@ public class GenericArmor extends ItemArmor implements ISpecialArmor , IItemTGRe
 		this.hideBackslot = hideBackslot;
 		return this;
 	}
-	
-	
+		
+	public boolean isHideGloveslot() {
+		return hideGloveslot;
+	}
+
+	public GenericArmor setHideGloveslot(boolean hideGloveslot) {
+		this.hideGloveslot = hideGloveslot;
+		return this;
+	}
+
+
 	public GenericArmor setRepairMats(ItemStack metal, ItemStack cloth, float metalpercent, int totalmats){
 		if(metal!=null && !metal.isEmpty()){
 			this.repairItem = TGItems.newStack(metal, 1);

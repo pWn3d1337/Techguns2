@@ -1,13 +1,18 @@
 package techguns.items;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import com.mojang.realmsclient.gui.ChatFormatting;
 
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import techguns.TGItems;
 import techguns.Techguns;
@@ -15,6 +20,7 @@ import techguns.api.render.IItemTGRenderer;
 import techguns.api.tginventory.ITGSpecialSlot;
 import techguns.api.tginventory.TGSlotType;
 import techguns.items.armors.TGArmorBonus;
+import techguns.util.TextUtil;
 
 public class GenericItemShared extends GenericItem implements IItemTGRenderer, ITGSpecialSlot{
 	protected ArrayList<SharedItemEntry> sharedItems = new ArrayList<>();
@@ -156,10 +162,54 @@ public class GenericItemShared extends GenericItem implements IItemTGRenderer, I
 			if(type == TGArmorBonus.OXYGEN_GEAR){
 				return 1.0f;
 			}
+		} else if (stack.getItemDamage() ==TGItems.WORKING_GLOVES.getItemDamage()) {
+			if(type==TGArmorBonus.BREAKSPEED) {
+				return 0.10f;
+			}
 		}
 		return 0f;
 	}
+
+	private float getBonus(TGArmorBonus type, ItemStack stack) {
+		return getBonus(type, stack, false, null);
+	}
 	
+	@Override
+	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+		super.addInformation(stack, worldIn, tooltip, flagIn);
+		if(this.getSlot(stack)!=TGSlotType.NORMAL) {
+			tooltip.add(ChatFormatting.GRAY+TextUtil.trans(Techguns.MODID+".tooltip.slot")+": "+this.getSlot(stack));
+		}
+		if(this.getBonus(TGArmorBonus.EXTRA_HEART, stack)>0.0f){
+			tooltip.add(trans("armorTooltip.healthbonus")+": +"+(int)this.getBonus(TGArmorBonus.EXTRA_HEART, stack)+" "+trans("armorTooltip.hearts"));
+		} else if (this.getBonus(TGArmorBonus.SPEED, stack)>0.0f){
+			tooltip.add(trans("armorTooltip.movespeed")+": +"+this.getBonus(TGArmorBonus.SPEED, stack)*100.0f+"%");
+		} else if(this.getBonus(TGArmorBonus.JUMP, stack)>0.0f){
+			tooltip.add(trans("armorTooltip.jumpheight")+": +"+this.getBonus(TGArmorBonus.JUMP, stack));
+		} if(this.getBonus(TGArmorBonus.FALLDMG, stack)>0.0f){
+			tooltip.add(trans("armorTooltip.falldamage")+": -"+this.getBonus(TGArmorBonus.FALLDMG, stack)*100.0f+"%");
+		} if(this.getBonus(TGArmorBonus.FREEHEIGHT, stack)>0.0f){
+			tooltip.add(trans("armorTooltip.fallheight")+": -"+this.getBonus(TGArmorBonus.FREEHEIGHT, stack));
+		} if(this.getBonus(TGArmorBonus.BREAKSPEED, stack)>0.0f){
+			tooltip.add(trans("armorTooltip.miningspeed")+": +"+this.getBonus(TGArmorBonus.BREAKSPEED, stack)*100.0f+"%");
+		} if(this.getBonus(TGArmorBonus.BREAKSPEED_WATER, stack)>0.0f){
+			tooltip.add(trans("armorTooltip.underwatermining")+": +"+this.getBonus(TGArmorBonus.BREAKSPEED_WATER, stack)*100.0f+"%");
+		} if(this.getBonus(TGArmorBonus.KNOCKBACK_RESISTANCE, stack)>0.0f){
+			tooltip.add(trans("armorTooltip.knockbackresistance")+": +"+this.getBonus(TGArmorBonus.KNOCKBACK_RESISTANCE, stack)*100.0f+"%");
+		} if(this.getBonus(TGArmorBonus.NIGHTVISION, stack)>0.0f){
+			tooltip.add(trans("armorTooltip.nightvision"));
+		} if(this.getBonus(TGArmorBonus.STEPASSIST, stack)>0.0f){
+			tooltip.add(trans("armorTooltip.stepassist"));
+		} if(this.getBonus(TGArmorBonus.OXYGEN_GEAR, stack)>0.0f){
+			tooltip.add(trans("armorTooltip.oxygengear"));
+		} if(this.getBonus(TGArmorBonus.COOLING_SYSTEM, stack)>0.0f){
+			tooltip.add(trans("armorTooltip.coolingsystem"));
+		}	
+	}
+	
+	private String trans(String text){
+		return TextUtil.trans(Techguns.MODID+"."+text);
+	}
 	
 	
 }

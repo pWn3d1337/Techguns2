@@ -1,6 +1,8 @@
 package techguns.capabilities;
 
 import java.util.BitSet;
+import java.util.LinkedList;
+import java.util.List;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -15,6 +17,8 @@ import net.minecraftforge.server.permission.PermissionAPI;
 import techguns.TGPermissions;
 import techguns.api.capabilities.AttackTime;
 import techguns.api.capabilities.ITGExtendedPlayer;
+import techguns.client.particle.ITGParticle;
+import techguns.client.particle.TGParticleSystemItemAttached;
 import techguns.gui.player.TGPlayerInventory;
 import techguns.util.DataUtil;
 
@@ -316,4 +320,5 @@ public class TGExtendedPlayer implements ITGExtendedPlayer {
 	public void setChargingWeapon(boolean charging) {
 		this.entity.getDataManager().set(DATA_FLAG_CHARGING_WEAPON, charging);
 	}
+	
 }

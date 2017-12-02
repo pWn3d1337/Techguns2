@@ -9,10 +9,12 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.util.EnumFacing;
 import techguns.TGBlocks;
+import techguns.blocks.EnumConcreteType;
 import techguns.blocks.TGMetalPanelType;
 import techguns.util.MBlock;
 import techguns.util.MultiMBlock;
 import techguns.world.BlockRotator;
+import techguns.world.dungeon.presets.specialblocks.RandomStateMBlock;
 
 public class MBlockRegister {
 	public static MBlock[] crates = {
@@ -26,6 +28,12 @@ public class MBlockRegister {
 			new MBlock(TGBlocks.MILITARY_CRATE,7),
 			new MBlock(TGBlocks.MILITARY_CRATE,8)	
 	};
+	
+	public static MultiMBlock SUPPLY_CRATES = new MultiMBlock(new Block[] {TGBlocks.MILITARY_CRATE,TGBlocks.MILITARY_CRATE,TGBlocks.MILITARY_CRATE,TGBlocks.MILITARY_CRATE,TGBlocks.MILITARY_CRATE,TGBlocks.MILITARY_CRATE,TGBlocks.MILITARY_CRATE,TGBlocks.MILITARY_CRATE,TGBlocks.MILITARY_CRATE},
+															  new int[] {0,1,2,3,4,5,6,7,8}, new int[] {1,1,1,1,1,1,1,1,1});
+	
+	public static MultiMBlock SUPPLY_CRATES_CHANCE = new MultiMBlock(new Block[] {TGBlocks.MILITARY_CRATE,TGBlocks.MILITARY_CRATE,TGBlocks.MILITARY_CRATE,TGBlocks.MILITARY_CRATE,TGBlocks.MILITARY_CRATE,TGBlocks.MILITARY_CRATE,TGBlocks.MILITARY_CRATE,TGBlocks.MILITARY_CRATE,TGBlocks.MILITARY_CRATE, Blocks.AIR},
+			  new int[] {0,1,2,3,4,5,6,7,8,0}, new int[] {1,1,1,1,1,1,1,1,1,9});
 	
 	public static MBlock AIR = new MBlock(Blocks.AIR.getDefaultState());
 	
@@ -46,9 +54,24 @@ public class MBlockRegister {
 	public static MBlock FACTORY_PLATE_DOTTED = new MBlock(Blocks.HARDENED_CLAY,EnumDyeColor.GRAY.ordinal());
 	public static MBlock FACTORY_PLATE = new MBlock(Blocks.BRICK_BLOCK,0);
 	public static MBlock FACTORY_CRATE = new MBlock(TGBlocks.METAL_PANEL.getDefaultState().withProperty(TGBlocks.METAL_PANEL.TYPE, TGMetalPanelType.CONTAINER_RED));
+	public static MBlock FACTORY_PLATE_DOTTED_GREY = new MBlock(Blocks.CONCRETE,EnumDyeColor.SILVER.ordinal());
+	public static MBlock FACTORY_PLATE_VERY_RUSTY = new MBlock(Blocks.CONCRETE,EnumDyeColor.GRAY.ordinal());
+	public static MBlock FACTORY_PLATE_WORN_COLUMN = new MBlock(Blocks.HARDENED_CLAY,EnumDyeColor.SILVER.ordinal());
+	public static MBlock FACTORY_WIREFRAME = new MBlock(TGBlocks.CONCRETE,3);
+	public static MBlock FACTORY_SHINY_METAL = new MBlock(TGBlocks.METAL_PANEL,TGMetalPanelType.PANEL_LARGE_BORDER.ordinal());
 	
 	public static MBlock TECHNICAL_CONCRETE = new MBlock(TGBlocks.CONCRETE,1); //new MBlock(Blocks.CONCRETE,EnumDyeColor.GRAY.ordinal());
 	public static MBlock TECHNICAL_BLOCK_SCAFFOLD = new MBlock(TGBlocks.METAL_PANEL.getDefaultState().withProperty(TGBlocks.METAL_PANEL.TYPE, TGMetalPanelType.STEELFRAME_SCAFFOLD));
+	public static MBlock TECHNICAL_PIPES = new MBlock(TGBlocks.CONCRETE,EnumConcreteType.CONCRETE_BROWN_PIPES.ordinal());
+	public static MBlock TECHNICAL_GRATE = new MBlock(TGBlocks.METAL_PANEL,TGMetalPanelType.STEELFRAME_DARK.ordinal());
+	
+	public static MBlock TECHNICAL2_SCAFFOLD_TRANSPARENT = new MBlock(TGBlocks.METAL_PANEL,TGMetalPanelType.STEELFRAME_SCAFFOLD.ordinal());
+	public static MBlock TECHNICAL2_FAN = new MBlock(TGBlocks.METAL_PANEL,TGMetalPanelType.STEELFRAME_DARK.ordinal());
+	
+	public static MBlock IRON_BLOCK_VENTS = new MBlock(Blocks.IRON_BLOCK,0);
+	
+	public static MBlock ALUMINIUM_STAIRS_WEST = new MBlock(TGBlocks.METAL_STAIRS.getDefaultState().withProperty(TGBlocks.METAL_STAIRS.FACING, EnumFacing.WEST).withProperty(TGBlocks.METAL_STAIRS.HALF, EnumHalf.BOTTOM));
+	public static MBlock ALUMINIUM_STAIRS_EAST = new MBlock(TGBlocks.METAL_STAIRS.getDefaultState().withProperty(TGBlocks.METAL_STAIRS.FACING, EnumFacing.EAST).withProperty(TGBlocks.METAL_STAIRS.HALF, EnumHalf.BOTTOM));
 	
 	//Military Base
 	public static MBlock MILBASE_FENCE = new MBlock(Blocks.IRON_BARS,0);
@@ -85,4 +108,5 @@ public class MBlockRegister {
 	
 	//bricks
 	public static MBlock BRICKS_CRACKED_RND = new MBlock(Blocks.BRICK_BLOCK,0); //new MultiMBlock(new Block[]{ChiselBlocks.brickCustom,ChiselBlocks.brickCustom},new int[]{3,5}, new int[]{2,2})
+
 }

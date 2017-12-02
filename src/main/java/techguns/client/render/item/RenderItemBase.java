@@ -9,6 +9,7 @@ import net.minecraft.util.ResourceLocation;
 import techguns.api.npc.INPCTechgunsShooter;
 import techguns.api.render.IItemRenderer;
 import techguns.client.models.ModelMultipart;
+import techguns.client.particle.TGParticleSystemItemAttached;
 
 public class RenderItemBase implements IItemRenderer {
 
@@ -36,7 +37,7 @@ public class RenderItemBase implements IItemRenderer {
 	};
 
 	protected int parts = 1;
-
+	
 	public RenderItemBase(ModelMultipart model, ResourceLocation texture) {
 		super();
 		this.model = model;
@@ -196,7 +197,8 @@ public class RenderItemBase implements IItemRenderer {
 			for (int i = 0; i < parts; i++) {
 				model.render(elb, 0, 0, 0, 0, 0, SCALE, 0, 0, transform, i, 0, 0f);
 			}
-
+			this.renderItemParticles(transform);
+			
 			GlStateManager.popMatrix();
 
 	}
@@ -217,4 +219,7 @@ public class RenderItemBase implements IItemRenderer {
 		GlStateManager.rotate(180.0f, 0f, 1.0f, 0);
 	}
 
+	protected void renderItemParticles(TransformType transform) {
+		
+	}
 }

@@ -1,0 +1,25 @@
+{
+  "variants": {
+    "type=antiairmarker": {
+      "model": "techguns:antiairmarker"
+    },
+    "type=interiormarker_north": {
+      "model": "techguns:interiormarker"
+    },
+    "type=interiormarker_south": {
+      "model": "techguns:interiormarker",
+	  "y": 180
+    },
+    "type=interiormarker_west": {
+      "model": "techguns:interiormarker",
+	  "y": 270
+    },
+    "type=airmarker": {
+      "model": "techguns:airmarker"
+    },
+    "type=interiormarker_east": {
+      "model": "techguns:interiormarker",
+	  "y": 90
+    }
+  }
+}

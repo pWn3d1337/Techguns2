@@ -173,6 +173,9 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 	public float light_b = 0.2f;
 	protected boolean muzzelight=true;
 	
+	boolean hasAimedBowAnim=true;
+	
+	boolean hasAmbientEffect=false;
 	/**
 	 * Should bind the texture on rendering?
 	 */
@@ -216,9 +219,27 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 		return this;
 	}
 	
+	public GenericGun setHasAmbient() {
+		this.hasAmbientEffect=true;
+		return this;
+	}
+	
+	public boolean hasAmbientEffect() {
+		return this.hasAmbientEffect;
+	}
+	
 	public GenericGun setNoCustomTexture() {
 		this.hasCustomTexture=false;
 		return this;
+	}
+	
+	public GenericGun setNoBowAnim() {
+		this.hasAimedBowAnim=false;
+		return this;
+	}
+	
+	public boolean hasBowAnim() {
+		return this.hasAimedBowAnim;
 	}
 	
 	public GenericGun(boolean addToGunList,String name, ProjectileSelector projectile_selector, boolean semiAuto, int minFiretime, int clipsize, int reloadtime, float damage, SoundEvent firesound, SoundEvent reloadsound, int TTL, float accuracy){
@@ -1312,6 +1333,11 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 	public boolean isFullyLoaded(ItemStack stack){
 		return this.clipsize == this.getCurrentAmmo(stack);
 	}
+	
+	public boolean hasRightClickAction() {
+		return this.getGunHandType()==GunHandType.TWO_HANDED && this.canZoom;
+	}
+	
 	/**
      * Weapon is used by NPC
      */

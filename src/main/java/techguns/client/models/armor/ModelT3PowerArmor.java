@@ -57,6 +57,16 @@ public class ModelT3PowerArmor extends ModelBiped {
   
   public ModelT3PowerArmor(int type)
   {
+	  super();
+	  /*
+        this.bipedRightArm = new ModelRenderer(this, 40, 16);
+        this.bipedRightArm.addBox(-3.0F, -2.0F, -2.0F, 4, 12, 4, modelSize);
+        this.bipedRightArm.setRotationPoint(-5.0F, 2.0F + p_i1149_2_, 0.0F);
+        this.bipedLeftArm = new ModelRenderer(this, 40, 16);
+        this.bipedLeftArm.mirror = true;
+        this.bipedLeftArm.addBox(-1.0F, -2.0F, -2.0F, 4, 12, 4, modelSize);
+        this.bipedLeftArm.setRotationPoint(5.0F, 2.0F + p_i1149_2_, 0.0F);
+	   */
 	  
       //this.bipedCloak = new ModelRenderer(this, 0, 0);
       //this.bipedEars = new ModelRenderer(this, 24, 0);
@@ -133,7 +143,7 @@ public class ModelT3PowerArmor extends ModelBiped {
    
    LA01 = new ModelRenderer(this, 90, 38);
    LA01.addBox(0F, 0F, 0F, 5, 13, 5);
-   LA01.setRotationPoint(4F-ArmOffsetX, -0.5F+ArmOffsetY, -2.5F);
+   LA01.setRotationPoint(3.5F-ArmOffsetX, -0.5F+ArmOffsetY, -2.5F);
    LA01.setTextureSize(128, 64);
    LA01.mirror = true;
    setRotation(LA01, 0F, 0F, 0F);

@@ -26,7 +26,7 @@ public class ItemRenderHack {
 	}
 	
 	
-	protected static IItemRenderer getRendererForItem(Item item){
+	public static IItemRenderer getRendererForItem(Item item){
 		return renderRegistry.get(item);
 	}
 	

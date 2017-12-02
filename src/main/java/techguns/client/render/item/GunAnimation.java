@@ -56,6 +56,8 @@ public class GunAnimation {
 	
 	public static GunAnimation pulseRifleRecoil = new GunAnimation().addTranslate(0, 0, 1.0f).addRotate(1.0f, 1.0f, 0, 0).addSegment(0, 0.1f, C_FAST, 0f, 0.4f).addSegment(0.1f, 0.2f, C_SMOOTH, 0.4f, 0.3f).addSegment(0.2f, 0.40f, C_FAST, 0.3f, 1f).addSegment(0.40f, 1f, C_SMOOTH, 1f, 0f);
 	
+	public static GunAnimation swordSweepRecoil = new GunAnimation().addRotate(1.0f, 0, 0, 1.0f).addSegment(0, 0.25f, C_FAST, 0f, 1f).addSegment(0.25f, 1f, C_SMOOTH, 1f, 0f);
+	
 	
 	private List<AnimationSegment> segments;
 	private List<Transformation> transformations;

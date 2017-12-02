@@ -424,6 +424,7 @@ public class Recipewriter {
        
         RecipeJsonConverter.addShapedRecipe(newStack(TGItems.PLASMA_GENERATOR,1), "lcl","eae","lcl", 'l', "plateLead", 'a', TGItems.ANTI_GRAV_CORE, 'c', TGItems.COIL, 'e', TGItems.ENRICHED_URANIUM);
         
+        RecipeJsonConverter.addShapedRecipe(newStack(TGItems.WORKING_GLOVES,1), " h","hh", 'h', TGItems.HEAVY_CLOTH);
         
         String[] plateTypes = {"plateIron", "plateTin"};
         Arrays.stream(plateTypes).forEach(p -> {

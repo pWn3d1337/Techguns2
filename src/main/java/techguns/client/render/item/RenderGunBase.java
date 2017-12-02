@@ -308,7 +308,7 @@ public class RenderGunBase extends RenderItemBase {
 				model.render(entityIn, 0, 0, 0, 0, 0, SCALE, gun.getAmmoLeft(stack), reloadProgress, transform, i, fireProgress, chargeProgress);
 				GlStateManager.color(1f, 1f, 1f, 1f);
 			}
-			
+			this.renderItemParticles(transform);
 			GlStateManager.popMatrix();
 			//Draw muzzle FX
 			if (muzzleFlashProgress>0){

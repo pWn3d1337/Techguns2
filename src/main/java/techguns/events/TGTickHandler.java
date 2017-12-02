@@ -3,10 +3,14 @@ package techguns.events;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Iterator;
+import java.util.List;
 import java.util.UUID;
+
+import com.google.common.base.Predicate;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
@@ -35,11 +39,14 @@ import techguns.TGPackets;
 import techguns.TGSounds;
 import techguns.Techguns;
 import techguns.api.guns.IGenericGun;
+import techguns.api.npc.INPCTechgunsShooter;
 import techguns.api.tginventory.ITGSpecialSlot;
 import techguns.capabilities.TGExtendedPlayer;
+import techguns.capabilities.TGShooterValues;
 import techguns.client.ClientProxy;
 import techguns.client.audio.TGSoundCategory;
 import techguns.client.particle.LightPulse;
+import techguns.entities.npcs.GenericNPC;
 import techguns.gui.player.TGPlayerInventory;
 import techguns.items.armors.GenericArmor;
 import techguns.items.armors.PoweredArmor;
@@ -510,6 +517,21 @@ public class TGTickHandler {
 		if(event.phase==Phase.END) {
 			ClientProxy.get().particleManager.tickParticles();
 			//System.out.println("TGParticleCount:"+ClientProxy.get().particleManager.getList().getSizeDebug()+ " :: "+ClientProxy.get().particleManager.getList().getSize());
+		} else {
+			World w = Minecraft.getMinecraft().world;
+			if(w!=null) {
+				w.<EntityLivingBase>getEntities(EntityLivingBase.class, new Predicate<EntityLivingBase>() {
+					@Override
+					public boolean apply(EntityLivingBase input) {
+						return input instanceof INPCTechgunsShooter;
+					}
+				}).forEach(e -> {
+					TGShooterValues shooter_values = TGShooterValues.get(e);
+					Techguns.proxy.tickWeaponParticleSystems(e, shooter_values);
+					shooter_values.tickParticles();
+					//System.out.println("Tick for :"+e);
+				});
+			}
 		}
 	}
 	

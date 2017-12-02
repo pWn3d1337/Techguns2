@@ -232,6 +232,8 @@ public class TGItems implements ITGInitializer{
 	public static ItemTacticalMask TACTICAL_MASK;
 	public static ItemAntiGravPack ANTI_GRAV_PACK;
 	
+	public static ItemStack WORKING_GLOVES;
+	
 	public static ItemStack TURRET_ARMOR_IRON;
 	public static ItemStack TURRET_ARMOR_STEEL;
 	public static ItemStack TURRET_ARMOR_OBSIDIAN_STEEL;
@@ -444,6 +446,8 @@ public class TGItems implements ITGInitializer{
 		BARREL_TITANIUM =  SHARED_ITEM.addsharedVariant("shieldedtitaniumbarrel");
 		RECEIVER_TITANIUM =  SHARED_ITEM.addsharedVariant("titaniumreceiver");
 		PLASMA_GENERATOR =  SHARED_ITEM.addsharedVariant("plasmagenerator");
+		
+		WORKING_GLOVES = SHARED_ITEM.addsharedVariant("workinggloves", false, TGSlotType.HANDSLOT, 1, true);
 		
 		/**
 		 * Additional Slot items
