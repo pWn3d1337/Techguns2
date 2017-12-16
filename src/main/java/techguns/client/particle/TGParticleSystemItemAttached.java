@@ -12,6 +12,7 @@ import net.minecraft.world.World;
 import techguns.api.npc.INPCTechgunsShooter;
 import techguns.capabilities.TGExtendedPlayerClient;
 import techguns.capabilities.TGShooterValues;
+import techguns.debug.Keybinds;
 
 public class TGParticleSystemItemAttached extends TGParticleSystem {
 
@@ -31,10 +32,11 @@ public class TGParticleSystemItemAttached extends TGParticleSystem {
 			this.ply=null;
 		}
 		this.itemAttached=true;
-		this.posX=0;
-		this.posY=0;
-		this.posZ=0;
-		this.scale=50.0f;
+		float s = 1.0f; // + (Keybinds.X*10f);
+		this.posX= type.offset.x; //* s + Keybinds.X;
+		this.posY= type.offset.y; //* s + Keybinds.Y;
+		this.posZ= type.offset.z; // * s + Keybinds.Z;
+		this.scale=s;
 	}
 
 	@Override

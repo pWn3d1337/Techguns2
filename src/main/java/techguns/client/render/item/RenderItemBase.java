@@ -7,6 +7,7 @@ import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -243,11 +244,10 @@ public class RenderItemBase implements IItemRenderer {
 			GlStateManager.disableCull();
 			Tessellator tessellator = Tessellator.getInstance();
 			BufferBuilder buffer = tessellator.getBuffer();
-
 			particles.forEach(p -> {
-				System.out.println("Render Particle!");
-				System.out.println("Pos:"+p.getPos());
-				p.doRender(buffer, ent, ptt, 0, 0, 0, 0, 0);
+				//System.out.println("Render Particle!");
+				//System.out.println("Pos:"+p.getPos());
+				p.doRender(buffer, ent, ptt, 1.0f, 1.0f, 0, 0, 0);
 			});
 			GlStateManager.enableCull();
 		}

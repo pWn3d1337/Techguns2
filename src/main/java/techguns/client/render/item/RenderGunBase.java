@@ -308,8 +308,9 @@ public class RenderGunBase extends RenderItemBase {
 				model.render(entityIn, 0, 0, 0, 0, 0, SCALE, gun.getAmmoLeft(stack), reloadProgress, transform, i, fireProgress, chargeProgress);
 				GlStateManager.color(1f, 1f, 1f, 1f);
 			}
-			this.renderItemParticles(entityIn, transform, ClientProxy.get().PARTIAL_TICK_TIME);
 			GlStateManager.popMatrix();
+			this.renderItemParticles(entityIn, transform, ClientProxy.get().PARTIAL_TICK_TIME);
+
 			//Draw muzzle FX
 			if (muzzleFlashProgress>0){
 				if (TransformType.FIRST_PERSON_LEFT_HAND== transform || TransformType.FIRST_PERSON_RIGHT_HAND == transform ) {

@@ -64,7 +64,7 @@ public class PacketNotifyAmbientEffectChange implements IMessage {
 					if(renderer!=null && renderer instanceof RenderItemBase) {
 						RenderItemBase itemRenderer = (RenderItemBase) renderer;
 						
-						List<TGParticleSystem> systems = TGFX.createFXOnEntityItemAttached(elb, message.hand, "RocketLauncherTrailFlare");
+						List<TGParticleSystem> systems = TGFX.createFXOnEntityItemAttached(elb, message.hand, "ScreenTestFX");
 						
 						if(elb instanceof EntityPlayer) {
 							TGExtendedPlayerClient props = TGExtendedPlayerClient.get((EntityPlayer) elb);

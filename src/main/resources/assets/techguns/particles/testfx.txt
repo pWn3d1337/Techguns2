@@ -1,3 +1,79 @@
+FXLIST ScreenTestFX {
+//ScreenTestFXFlare
+ScreenTestFXFlames
+}
+
+ScreenTestFXFlames {
+AnimationSpeed = 1 1
+Texture = techguns:textures/fx/flamethrower.png
+RenderType = ADDITIVE
+Rows = 4
+Columns = 4
+Frames = 16
+HasVariations = false
+RandomRotation = true
+Lifetime = 5 5
+SystemLifetime = 0 0
+AnimationSpeed = 1 1
+Size = 5 5
+SizeRate = 5 10
+SizeRateDamping = 0.94 0.97
+Alpha = 0.0 0
+Alpha = 1.0 0.25
+Alpha = 0 1.0
+Color = 255 255 255 0
+Color = 255 255 255 1
+ParticleCount = 25 25
+InitialDelay = 0 0
+SpawnDelay = 0 0
+VelocityType = ORTHO
+Velocity1 = -1 1
+Velocity2 = -1 1
+Velocity3 =  -150 -150
+VelocityDamping = 0.94 0.95
+Gravity = 0.0
+VolumeType = SPHERE
+Volume1 = 15
+IsHollow = false
+RemoveOnGround = false
+SystemVelocityFactor = 0 0
+Offset = 0 0 0
+}
+
+
+ScreenTestFXFlare {
+AnimationSpeed = 1 1
+Texture = techguns:textures/fx/tfg_flare.png
+RenderType = ADDITIVE
+Rows = 4
+Columns = 4
+Frames = 16
+//Angle = 0 360
+//AngleRate = -5 5
+//AngleRateDamping = 0.95 0.97
+Lifetime = 15 15
+SystemLifetime = 0 0
+AnimationSpeed = 0.6 0.6
+Size = 100.0 100.0
+SizeRate = 0.25 0.25
+SizeRateDamping = 0.90 0.91
+//StartSizeRate = 0.025 0.025
+Alpha = 0 0
+Alpha = 0.75 0.35
+Alpha = 0 1
+Color = 255 255 255 0
+ParticleCount = 1 1
+InitialDelay = 0 0
+SpawnDelay = 5 5
+VelocityType = NONE
+Gravity = 0.0
+VolumeType = POINT
+IsHollow =false
+RemoveOnGround = false
+Offset = 150 -15 -15
+}
+
+
 //UNUSED
 FXLIST TFGFire {
 TFGFireMainFlare

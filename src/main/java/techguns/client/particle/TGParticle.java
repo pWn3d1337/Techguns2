@@ -402,6 +402,9 @@ public class TGParticle extends Particle implements ITGParticle {
 		p3 = new Vec3d(p3.x + fPosX, p3.y + fPosY, p3.z + fPosZ);
 		p4 = new Vec3d(p4.x + fPosX, p4.y + fPosY, p4.z + fPosZ);*/
         
+		//System.out.println(String.format("p1 = %.2f, %.2f, %.2f, p2 = %.2f, %.2f, %.2f,  p3 = %.2f, %.2f, %.2f,  p4 = %.2f, %.2f, %.2f", p1.x, p1.y, p1.z, p2.x, p2.y, p2.z, p3.x, p3.y, p3.z, p4.x, p4.y, p4.z));
+		//System.out.println(String.format("fpos = %.2f, %.2f, %.2f", fPosX, fPosY, fPosZ));
+
 		buffer.pos(p1.x + fPosX, p1.y + fPosY, p1.z + fPosZ).tex((double)ua, (double)va).color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).lightmap(0, 240).normal(0.0f, 1.0f, 0.0f).endVertex();
 		buffer.pos(p2.x + fPosX, p2.y + fPosY, p2.z + fPosZ).tex((double)ub, (double)vb).color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).lightmap(0, 240).normal(0.0f, 1.0f, 0.0f).endVertex();
 		buffer.pos(p3.x + fPosX, p3.y + fPosY, p3.z + fPosZ).tex((double)uc, (double)vc).color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).lightmap(0, 240).normal(0.0f, 1.0f, 0.0f).endVertex();
