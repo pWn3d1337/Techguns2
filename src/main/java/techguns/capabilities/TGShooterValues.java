@@ -12,15 +12,16 @@ import techguns.api.capabilities.ITGShooterValues;
 import techguns.client.particle.ITGParticle;
 import techguns.client.particle.ITGParticleAttachments;
 import techguns.client.particle.TGParticleSystem;
-import techguns.client.particle.TGParticleSystemItemAttached;
 
 public class TGShooterValues implements ITGShooterValues, ITGParticleAttachments {
 
 	protected AttackTime attackTime = new AttackTime();
 	
 	protected List<ITGParticle> entityParticles = null;
-	protected List<TGParticleSystemItemAttached> particleSysMH=null;
-	protected List<TGParticleSystemItemAttached> particleSysOH=null;
+	protected List<ITGParticle> entityParticlesMH = null;
+	protected List<ITGParticle> entityParticlesOH = null;
+	protected List<TGParticleSystem> particleSysMH=null;
+	protected List<TGParticleSystem> particleSysOH=null;
 	
 	@Override
 	public AttackTime getAttackTime(boolean offHand) {
@@ -65,13 +66,13 @@ public class TGShooterValues implements ITGShooterValues, ITGParticleAttachments
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public List<TGParticleSystemItemAttached> getParticleSysMainhand() {
+	public List<TGParticleSystem> getParticleSysMainhand() {
 		return this.particleSysMH;
 	}
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public List<TGParticleSystemItemAttached> getParticleSysOffhand() {
+	public List<TGParticleSystem> getParticleSysOffhand() {
 		return this.particleSysOH;
 	}
 
@@ -84,15 +85,39 @@ public class TGShooterValues implements ITGShooterValues, ITGParticleAttachments
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public List<TGParticleSystemItemAttached> getOrInitParticleSysMainhand() {
-		if(this.particleSysMH==null) this.particleSysMH = new LinkedList<TGParticleSystemItemAttached>();
+	public List<TGParticleSystem> getOrInitParticleSysMainhand() {
+		if(this.particleSysMH==null) this.particleSysMH = new LinkedList<TGParticleSystem>();
 		return this.particleSysMH;
 	}
-
+	
 	@SideOnly(Side.CLIENT)
 	@Override
-	public List<TGParticleSystemItemAttached> getOrInitParticleSysOffhand() {
-		if(this.particleSysOH==null) this.particleSysOH = new LinkedList<TGParticleSystemItemAttached>();
+	public List<TGParticleSystem> getOrInitParticleSysOffhand() {
+		if(this.particleSysOH==null) this.particleSysOH = new LinkedList<TGParticleSystem>();
 		return this.particleSysOH;
 	}
+
+	@Override
+	public List<ITGParticle> getEntityParticlesMH() {
+		return this.entityParticlesMH;
+	}
+
+	@Override
+	public List<ITGParticle> getEntityParticlesOH() {
+		return this.entityParticlesOH;
+	}
+
+	@Override
+	public List<ITGParticle> getOrInitEntityParticlesOH() {
+		if(this.entityParticlesOH==null) this.entityParticlesOH = new LinkedList<ITGParticle>();
+		return this.entityParticlesOH;
+	}
+
+	@Override
+	public List<ITGParticle> getOrInitEntityParticlesMH() {
+		if(this.entityParticlesMH==null) this.entityParticlesMH = new LinkedList<ITGParticle>();
+		return this.entityParticlesMH;
+	}
+	
+	
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 
 public class TGParticleListType extends TGFXType {
@@ -50,6 +51,18 @@ public class TGParticleListType extends TGFXType {
 			if (TGFX.FXList.containsKey(system.particleSystem)) {
 				TGFXType fxtype = TGFX.FXList.get(system.particleSystem);
 				list.addAll(fxtype.createParticleSystemsOnEntity(ent));
+			}
+		}
+		return list;
+	}
+	
+	@Override
+	public List<TGParticleSystem> createParticleSystemsOnEntityItemAttached(Entity ent, EnumHand hand) {
+		ArrayList<TGParticleSystem> list = new ArrayList<TGParticleSystem>();
+		for (ParticleSystemEntry system : particleSystems) {		
+			if (TGFX.FXList.containsKey(system.particleSystem)) {
+				TGFXType fxtype = TGFX.FXList.get(system.particleSystem);
+				list.addAll(fxtype.createParticleSystemsOnEntityItemAttached(ent, hand));
 			}
 		}
 		return list;

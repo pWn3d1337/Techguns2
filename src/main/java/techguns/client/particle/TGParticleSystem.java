@@ -60,6 +60,8 @@ public class TGParticleSystem extends Particle implements ITGParticle {
 	public Vec3d entityOffset = null;
 	TGParticle parent; //parent particle (if attached to a particle)
 	
+	protected boolean itemAttached=false;
+	
 	public TGParticleSystem(World worldIn, TGParticleSystemType type, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn) {
 		//super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0.0D, 0.0D, 0.0D);
 		super(worldIn, xCoordIn + type.offset.x, yCoordIn+type.offset.y, zCoordIn+type.offset.z);
@@ -111,7 +113,7 @@ public class TGParticleSystem extends Particle implements ITGParticle {
 			return;
 		}
 
-		if (this.entity!=null){		
+		if (this.entity!=null && !this.itemAttached){		
 	    	if (!condition.evaluate(entity)) {
 	    		this.setExpired();
 	    		return;
@@ -206,19 +208,19 @@ public class TGParticleSystem extends Particle implements ITGParticle {
 						particleStreak.setPrev(prevParticle);
 						prevParticle.setNext(particleStreak);
 					}
-					ClientProxy.get().particleManager.addEffect(particleStreak);
+					addEffect(particleStreak);
 					prevParticle = particleStreak;
 					particle = particleStreak;
 				}else {
 					particle = new TGParticle(this.world, this.posX+position.x, this.posY+position.y, this.posZ+position.z, motion.x*mf, motion.y*mf, motion.z*mf, this);
-					ClientProxy.get().particleManager.addEffect(particle);
+					addEffect(particle);
 				}
 				if (this.type.attachedSystem != null && !this.type.attachedSystem.equals("")) {
 					List<TGParticleSystem> systems = TGFX.createFXOnParticle(this.world, particle, this.type.attachedSystem);
 					if (systems!=null) {
 						for (TGParticleSystem s : systems) {
 							s.scale = this.scale;
-							ClientProxy.get().particleManager.addEffect(s);
+							addEffect(s);
 						}
 					}
 				}
@@ -247,6 +249,10 @@ public class TGParticleSystem extends Particle implements ITGParticle {
 
 	}
 
+	protected void addEffect(ITGParticle s) {
+		ClientProxy.get().particleManager.addEffect(s);
+	}
+	
 	/**
 	 * Retrieve what effect layer (what texture) the particle should be rendered
 	 * with. 0 for the particle sprite sheet, 1 for the main Texture atlas, and 3

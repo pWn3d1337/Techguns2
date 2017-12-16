@@ -1,14 +1,24 @@
 package techguns.client.render.item;
 
+import java.util.List;
+
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import techguns.api.npc.INPCTechgunsShooter;
 import techguns.api.render.IItemRenderer;
+import techguns.capabilities.TGExtendedPlayerClient;
+import techguns.capabilities.TGShooterValues;
+import techguns.client.ClientProxy;
 import techguns.client.models.ModelMultipart;
+import techguns.client.particle.ITGParticle;
 import techguns.client.particle.TGParticleSystemItemAttached;
 
 public class RenderItemBase implements IItemRenderer {
@@ -197,7 +207,7 @@ public class RenderItemBase implements IItemRenderer {
 			for (int i = 0; i < parts; i++) {
 				model.render(elb, 0, 0, 0, 0, 0, SCALE, 0, 0, transform, i, 0, 0f);
 			}
-			this.renderItemParticles(transform);
+			this.renderItemParticles(elb, transform, ClientProxy.get().PARTIAL_TICK_TIME);
 			
 			GlStateManager.popMatrix();
 
@@ -219,7 +229,28 @@ public class RenderItemBase implements IItemRenderer {
 		GlStateManager.rotate(180.0f, 0f, 1.0f, 0);
 	}
 
-	protected void renderItemParticles(TransformType transform) {
+	protected void renderItemParticles(EntityLivingBase ent, TransformType transform, float ptt) {
+		EnumHand hand = EnumHand.MAIN_HAND;
+		
+		List<ITGParticle> particles = null;
+		if(ent instanceof EntityPlayer) {
+			particles = TGExtendedPlayerClient.get((EntityPlayer) ent).getEntityParticlesMH();
+		} else if (ent instanceof INPCTechgunsShooter){
+			particles = TGShooterValues.get(ent).getEntityParticlesMH();
+		} 
+			
+		if (particles != null && !particles.isEmpty()) {
+			GlStateManager.disableCull();
+			Tessellator tessellator = Tessellator.getInstance();
+			BufferBuilder buffer = tessellator.getBuffer();
+
+			particles.forEach(p -> {
+				System.out.println("Render Particle!");
+				System.out.println("Pos:"+p.getPos());
+				p.doRender(buffer, ent, ptt, 0, 0, 0, 0, 0);
+			});
+			GlStateManager.enableCull();
+		}
 		
 	}
 }

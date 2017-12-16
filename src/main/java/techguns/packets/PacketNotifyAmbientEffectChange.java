@@ -1,14 +1,22 @@
 package techguns.packets;
 
+import java.util.List;
+
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import techguns.TGPackets;
+import techguns.api.npc.INPCTechgunsShooter;
 import techguns.api.render.IItemRenderer;
+import techguns.capabilities.TGExtendedPlayerClient;
+import techguns.capabilities.TGShooterValues;
+import techguns.client.particle.TGFX;
+import techguns.client.particle.TGParticleSystem;
 import techguns.client.render.ItemRenderHack;
 import techguns.client.render.item.RenderItemBase;
 import techguns.items.guns.GenericGun;
@@ -56,6 +64,15 @@ public class PacketNotifyAmbientEffectChange implements IMessage {
 					if(renderer!=null && renderer instanceof RenderItemBase) {
 						RenderItemBase itemRenderer = (RenderItemBase) renderer;
 						
+						List<TGParticleSystem> systems = TGFX.createFXOnEntityItemAttached(elb, message.hand, "RocketLauncherTrailFlare");
+						
+						if(elb instanceof EntityPlayer) {
+							TGExtendedPlayerClient props = TGExtendedPlayerClient.get((EntityPlayer) elb);
+							props.addSystemsHand(message.hand, systems);
+						} else if (elb instanceof INPCTechgunsShooter) {
+							TGShooterValues props = TGShooterValues.get((EntityLivingBase) ent);
+							props.addSystemsHand(message.hand, systems);
+						}
 						
 						
 					}

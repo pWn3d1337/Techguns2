@@ -7,6 +7,7 @@ import net.minecraft.client.particle.Particle;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.entity.Entity;
@@ -18,6 +19,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import techguns.client.models.projectiles.ModelRocket;
 import techguns.client.particle.TGParticleSystemType.AlphaEntry;
 import techguns.client.particle.TGParticleSystemType.ColorEntry;
 import techguns.client.render.TGRenderHelper;
@@ -407,6 +409,7 @@ public class TGParticle extends Particle implements ITGParticle {
 
         Tessellator.getInstance().draw();
 
+        //new ModelRocket().render(null, 0, 0, 0, 0, 0, 0.625f, 0, 0f, TransformType.GROUND, 0, 0f, 0f);
         //System.out.println("DoRender");
         
         disableBlendMode();

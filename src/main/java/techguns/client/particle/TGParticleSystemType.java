@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -456,8 +457,15 @@ public class TGParticleSystemType extends TGFXType{
 		return list;
 	}
 	
-	
-	 /**
+	@Override
+	public List<TGParticleSystem> createParticleSystemsOnEntityItemAttached(Entity ent, EnumHand hand) {
+		ArrayList<TGParticleSystem> list = new ArrayList<>();
+		list.add(new TGParticleSystemItemAttached(ent, hand, this));
+		return list;
+	}
+
+
+	/**
 	 * z' = z*cos( angle) - x*sin (angle)
 	 * x' = z*sin( angle) + x*cos (angle)
 	 */

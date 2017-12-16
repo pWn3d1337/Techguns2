@@ -8,6 +8,7 @@ import java.util.Locale;
 import java.util.Scanner;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -61,6 +62,18 @@ public class TGFX {
 		if (FXList.containsKey(fx.toLowerCase())) {
 			TGFXType fxtype = FXList.get(fx.toLowerCase());
 			List<TGParticleSystem> list = fxtype.createParticleSystemsOnParticle(worldIn, ent);
+			return list;
+		}else {
+			TGLogger.logger_client.warning("FX '"+fx+"' not found!");
+			return null;
+		}
+	}
+	
+	public static List<TGParticleSystem> createFXOnEntityItemAttached(Entity ent, EnumHand hand, String fx) {
+
+		if (FXList.containsKey(fx.toLowerCase())) {
+			TGFXType fxtype = FXList.get(fx.toLowerCase());
+			List<TGParticleSystem> list = fxtype.createParticleSystemsOnEntityItemAttached(ent, hand);
 			return list;
 		}else {
 			TGLogger.logger_client.warning("FX '"+fx+"' not found!");

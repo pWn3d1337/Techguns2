@@ -329,7 +329,7 @@ public class ClientProxy extends CommonProxy {
 	protected long player_muzzleFlashtime_left=0;
 	protected long player_muzzleFlashtime_total_left=0;
 	
-	public static float PARTIAL_TICK_TIME;
+	public float PARTIAL_TICK_TIME;
 	//local muzzle flash jitter offsets
 	public float muzzleFlashJitterX = 0; //-1.0 to 1.0
 	public float muzzleFlashJitterY = 0; //-1.0 to 1.0
@@ -1306,7 +1306,7 @@ public class ClientProxy extends CommonProxy {
 					RenderItemBase itemRenderer = (RenderItemBase) renderer;
 					
 					//values.particleSysMH
-					
+					//FIXME REMOVE
 				}
 			}
 		}

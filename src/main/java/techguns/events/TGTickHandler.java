@@ -42,6 +42,7 @@ import techguns.api.guns.IGenericGun;
 import techguns.api.npc.INPCTechgunsShooter;
 import techguns.api.tginventory.ITGSpecialSlot;
 import techguns.capabilities.TGExtendedPlayer;
+import techguns.capabilities.TGExtendedPlayerClient;
 import techguns.capabilities.TGShooterValues;
 import techguns.client.ClientProxy;
 import techguns.client.audio.TGSoundCategory;
@@ -530,6 +531,16 @@ public class TGTickHandler {
 					Techguns.proxy.tickWeaponParticleSystems(e, shooter_values);
 					shooter_values.tickParticles();
 					//System.out.println("Tick for :"+e);
+				});
+				
+				w.getPlayers(EntityPlayer.class, new Predicate<EntityPlayer>() {
+					@Override
+					public boolean apply(EntityPlayer input) {
+						return true;
+					}
+				}).forEach(p -> {
+					TGExtendedPlayerClient props = TGExtendedPlayerClient.get(p);
+					props.tickParticles();
 				});
 			}
 		}
