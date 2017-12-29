@@ -31,6 +31,7 @@ import techguns.blocks.BlockTGLamp;
 import techguns.blocks.BlockTGOre;
 import techguns.blocks.BlockTGSandHard;
 import techguns.blocks.BlockTGSlimy;
+import techguns.blocks.BlockTGSlimyLadder;
 import techguns.blocks.BlockTGSpawner;
 import techguns.blocks.BlockTGStairs;
 import techguns.blocks.EnumCamoNetType;
@@ -106,6 +107,8 @@ public class TGBlocks implements ITGInitializer{
 	
 	public static GenericBlockMetaEnum<EnumDebugBlockType> DEBUG_BLOCK;
 	
+	public static BlockTGSlimyLadder SLIMY_LADDER;
+	
 	public void registerBlocks(RegistryEvent.Register<Block> event) {
 		BLOCKLIST.forEach(b -> b.registerBlock(event));
 	}
@@ -150,6 +153,7 @@ public class TGBlocks implements ITGInitializer{
 		SAND_HARD = new BlockTGSandHard("sand_hard", EnumTGSandHardTypes.class);
 		
 		SLIMY_BLOCK = new BlockTGSlimy("slimy", EnumTGSlimyType.class);
+		SLIMY_LADDER = new BlockTGSlimyLadder("slimyladder");
 		
 		if (TGConfig.debug) {
 			DEBUG_BLOCK = new BlockDebugMarker("debugblock", Material.GROUND);

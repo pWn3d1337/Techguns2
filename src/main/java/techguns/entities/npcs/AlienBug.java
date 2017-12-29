@@ -22,6 +22,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import techguns.TGPackets;
@@ -29,16 +30,18 @@ import techguns.TGSounds;
 import techguns.api.npc.INpcTGDamageSystem;
 import techguns.api.npc.factions.ITGNpcTeam;
 import techguns.api.npc.factions.TGNpcFaction;
+import techguns.capabilities.TGSpawnerNPCData;
 import techguns.client.audio.TGSoundCategory;
 import techguns.damagesystem.TGDamageSource;
 import techguns.packets.PacketPlaySound;
 
-public class AlienBug extends EntitySpider implements ITGNpcTeam, INpcTGDamageSystem {
+public class AlienBug extends EntitySpider implements ITGNpcTeam, INpcTGDamageSystem, ITGSpawnerNPC {
 
 	 protected int attackTimer;
 	
 	 protected static final ResourceLocation LOOT = null; //TODO //new ResourceLocation(Techguns.MODID, "entities/alienbug");
 	 
+	 protected boolean tryLink=true;
 	
 	@Override
     @Nullable
@@ -213,5 +216,32 @@ public class AlienBug extends EntitySpider implements ITGNpcTeam, INpcTGDamageSy
 	@Override
 	public float getPenetrationResistance(TGDamageSource dmgsrc) {
 		return 0.0f;
+	}
+
+	@Override
+	public boolean getTryLink() {
+		return this.tryLink;
+	}
+
+	@Override
+	public void setTryLink(boolean value) {
+		this.tryLink=value;
+	}
+
+	@Override
+	public TGSpawnerNPCData getCapability(Capability<TGSpawnerNPCData> tgGenericnpcData) {
+		return this.getCapability(tgGenericnpcData, null);
+	}
+	
+	@Override
+	protected void despawnEntity() {
+		super.despawnEntity();
+		this.despawnEntitySpawner(world, dead);
+	}
+
+	@Override
+	public void onDeath(DamageSource cause) {
+		super.onDeath(cause);
+		this.onDeathSpawner(world, dead);
 	}
 }

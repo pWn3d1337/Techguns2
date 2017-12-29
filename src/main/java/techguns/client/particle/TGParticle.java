@@ -69,6 +69,8 @@ public class TGParticle extends Particle implements ITGParticle {
 	
 	protected double depth;
 	
+	protected boolean itemAttached=false;
+	
 	//int angle;
 
 	public TGParticle(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn,
@@ -301,9 +303,9 @@ public class TGParticle extends Particle implements ITGParticle {
 //        float f9 = f8 + 0.015609375F;
         float fscale = 0.1F * this.particleScale;
 
-        float fPosX = (float)(this.prevPosX + (this.posX - this.prevPosX) * (double)partialTickTime - TGParticleManager.interpPosX);
-        float fPosY = (float)(this.prevPosY + (this.posY - this.prevPosY) * (double)partialTickTime - TGParticleManager.interpPosY);
-        float fPosZ = (float)(this.prevPosZ + (this.posZ - this.prevPosZ) * (double)partialTickTime - TGParticleManager.interpPosZ);
+        float fPosX = (float)(this.prevPosX + (this.posX - this.prevPosX) * (double)partialTickTime - (!this.itemAttached ? TGParticleManager.interpPosX :0));
+        float fPosY = (float)(this.prevPosY + (this.posY - this.prevPosY) * (double)partialTickTime - (!this.itemAttached ? TGParticleManager.interpPosY :0));
+        float fPosZ = (float)(this.prevPosZ + (this.posZ - this.prevPosZ) * (double)partialTickTime - (!this.itemAttached ? TGParticleManager.interpPosZ :0));
     
         /*
 		if (this.particleSystem.type.particlesMoveWithSystem && this.particleSystem.attachToHead
@@ -666,4 +668,10 @@ public class TGParticle extends Particle implements ITGParticle {
         	return new Vec3d(0,0,0);
         }
     }
+
+	@Override
+	public void setItemAttached() {
+		this.itemAttached=true;
+	}
+	
 }

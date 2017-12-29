@@ -919,7 +919,7 @@ public class ClientProxy extends CommonProxy {
 					{0.0f,-0.25f,0f}, //GUI
 					{0f,0f,0f}, //Ground
 					{0f,0.0f,0.0f} //frame
-				}).setRecoilAnim(GunAnimation.swordSweepRecoil, -120.0f));
+				}));
 		
 		ItemRenderHack.registerItemRenderer(TGArmors.steam_Helmet,  new RenderArmorItem(new ModelSteamArmor(0), new ResourceLocation(Techguns.MODID,"textures/models/armor/steam_armor.png"), EntityEquipmentSlot.HEAD) );
 		ItemRenderHack.registerItemRenderer(TGArmors.steam_Chestplate,  new RenderArmorItem(new ModelSteamArmor(0), new ResourceLocation(Techguns.MODID,"textures/models/armor/steam_armor.png"), EntityEquipmentSlot.CHEST) );

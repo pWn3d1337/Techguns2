@@ -323,6 +323,10 @@ public class TGParticleSystem extends Particle implements ITGParticle {
 	public void setDepth(double depth) {
 	}
 
+	@Override
+	public void setItemAttached() {
+	}
+	
 	
 //ACTUALLY WE DON'T NEED THIS	
 //	@SideOnly(Side.CLIENT)

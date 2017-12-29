@@ -42,6 +42,7 @@ public class TGParticleSystemItemAttached extends TGParticleSystem {
 	@Override
 	protected void addEffect(ITGParticle s) {
 		List<ITGParticle> list = new ArrayList<>();
+		s.setItemAttached();
 		list.add(s);
 		if(this.ply!=null) {
 			TGExtendedPlayerClient props = TGExtendedPlayerClient.get(this.ply);

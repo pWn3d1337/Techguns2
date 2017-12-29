@@ -12,6 +12,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.EnumHandSide;
 import net.minecraft.util.ResourceLocation;
 import techguns.api.npc.INPCTechgunsShooter;
 import techguns.api.render.IItemRenderer;
@@ -231,13 +232,34 @@ public class RenderItemBase implements IItemRenderer {
 	}
 
 	protected void renderItemParticles(EntityLivingBase ent, TransformType transform, float ptt) {
+		
 		EnumHand hand = EnumHand.MAIN_HAND;
+		if (transform == TransformType.FIRST_PERSON_LEFT_HAND || transform == TransformType.THIRD_PERSON_LEFT_HAND) {
+			if(ent.getPrimaryHand() == EnumHandSide.RIGHT) {
+				hand = EnumHand.OFF_HAND;
+			}
+		} else if (transform == TransformType.FIRST_PERSON_RIGHT_HAND || transform == TransformType.THIRD_PERSON_RIGHT_HAND) {
+			if(ent.getPrimaryHand() == EnumHandSide.LEFT) {
+				hand = EnumHand.OFF_HAND;
+			}
+		} else {
+			return;
+		}
+		
 		
 		List<ITGParticle> particles = null;
 		if(ent instanceof EntityPlayer) {
-			particles = TGExtendedPlayerClient.get((EntityPlayer) ent).getEntityParticlesMH();
+			if(hand==EnumHand.MAIN_HAND) {
+				particles = TGExtendedPlayerClient.get((EntityPlayer) ent).getEntityParticlesMH();
+			} else {
+				particles = TGExtendedPlayerClient.get((EntityPlayer) ent).getEntityParticlesOH();
+			}
 		} else if (ent instanceof INPCTechgunsShooter){
-			particles = TGShooterValues.get(ent).getEntityParticlesMH();
+			if (hand==EnumHand.MAIN_HAND) {
+				particles = TGShooterValues.get(ent).getEntityParticlesMH();
+			} else {
+				particles = TGShooterValues.get(ent).getEntityParticlesOH();
+			}
 		} 
 			
 		if (particles != null && !particles.isEmpty()) {

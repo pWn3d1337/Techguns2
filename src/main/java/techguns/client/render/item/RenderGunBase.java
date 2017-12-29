@@ -310,7 +310,7 @@ public class RenderGunBase extends RenderItemBase {
 			}
 			GlStateManager.popMatrix();
 			this.renderItemParticles(entityIn, transform, ClientProxy.get().PARTIAL_TICK_TIME);
-
+			
 			//Draw muzzle FX
 			if (muzzleFlashProgress>0){
 				if (TransformType.FIRST_PERSON_LEFT_HAND== transform || TransformType.FIRST_PERSON_RIGHT_HAND == transform ) {

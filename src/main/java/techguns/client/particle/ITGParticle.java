@@ -23,4 +23,5 @@ public interface ITGParticle {
 	public double getDepth();
 	
 	public void setDepth(double depth);
+	public void setItemAttached();
 }

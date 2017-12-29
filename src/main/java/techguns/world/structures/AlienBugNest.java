@@ -41,9 +41,9 @@ public class AlienBugNest {
 		wallBlock = new MultiMBlock(new Block[]{TGBlocks.SAND_HARD, TGBlocks.SLIMY_BLOCK, Blocks.SANDSTONE}, new int[]{EnumTGSandHardTypes.BUGNEST_SAND.ordinal(),EnumTGSlimyType.BUGNEST_EGGS.ordinal(),0}, new int[]{16,1,2});
 		wallBlock2 = new MultiMBlock(new Block[]{TGBlocks.SAND_HARD, Blocks.SANDSTONE}, new int[]{EnumTGSandHardTypes.BUGNEST_SAND.ordinal(),0}, new int[]{12,1});
 		innerBlock = new MBlock(Blocks.AIR,0);
-		slimeLadder = new MBlock(Blocks.LADDER,0);//new MBlock(TGBlocks.bugnestslimy, 0);
+		slimeLadder = new MBlock(TGBlocks.SLIMY_LADDER,0);//new MBlock(TGBlocks.bugnestslimy, 0);
 	    slimyBlock = new MBlockSlime(TGBlocks.SAND_HARD, EnumTGSandHardTypes.BUGNEST_SAND.ordinal());
-	    spawner = new MBlockTGSpawner(EnumMonsterSpawnerType.HOLE, 5, 2, 150, 2).addMobType(AlienBug.class,	1);
+	    spawner = new MBlockTGSpawner(EnumMonsterSpawnerType.HOLE, 7, 3, 150, 1).addMobType(AlienBug.class,	1);
 	    eggsBlock = new MBlock(TGBlocks.SLIMY_BLOCK, EnumTGSlimyType.BUGNEST_EGGS.ordinal());
 		
 	}
