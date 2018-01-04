@@ -4,13 +4,19 @@ import java.util.Random;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemDoor;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos.MutableBlockPos;
 import net.minecraft.world.World;
+import techguns.Techguns;
 import techguns.util.MBlock;
 import techguns.world.BlockRotator;
 
 public class Barracks extends WorldgenStructure {
+	
+	private static final ResourceLocation CHEST_LOOT = new ResourceLocation(Techguns.MODID,"chests/militarybase_barracks");
 	
 	MBlock b_pillar = MBlockRegister.BARRACKS_WOOD_PILLAR; //TGChiselBlocks.wood_pillar;
 	MBlock b_wall = MBlockRegister.BARRACKS_WOOD_WALL; //TGChiselBlocks.wood_wall;
@@ -187,14 +193,10 @@ public class Barracks extends WorldgenStructure {
 							}
 							world.setBlockState(p.setPos(posX+x, posY+y, posZ+z), BlockRotator.getWithFacing(Blocks.CHEST.getDefaultState(),chestrot), 2);
 							
-							//TODO: chest loot
-							
-							/*TileEntityChest tileentitychest = (TileEntityChest)world.getTileEntity(posX+x, posY+y, posZ+z);
-
-			                if (tileentitychest != null)
-			                {
-			                    WeightedRandomChestContent.generateChestContents(world.rand, ChestGenHooks.getItems(TGItems.CHESTGEN_MILBASEBARRACKS, world.rand), tileentitychest, ChestGenHooks.getCount(TGItems.CHESTGEN_MILBASEBARRACKS,world.rand));
-			                }*/
+							TileEntity tile = world.getTileEntity(p);
+							if(tile !=null && tile instanceof TileEntityChest) {
+								((TileEntityChest)tile).setLootTable(CHEST_LOOT, world.rand.nextLong());
+							}
 							
 						}
 					}else{

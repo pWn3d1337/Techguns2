@@ -4,10 +4,14 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos.MutableBlockPos;
 import net.minecraft.world.World;
 import techguns.TGBlocks;
+import techguns.Techguns;
 import techguns.items.ItemTGDoor2x1;
 import techguns.util.MBlock;
 import techguns.world.BlockRotator;
@@ -15,6 +19,8 @@ import techguns.world.EnumLootType;
 
 public class Bunker extends WorldgenStructure {
 
+	private static final ResourceLocation CHEST_LOOT = new ResourceLocation(Techguns.MODID,"chests/militarybase_bunker");
+	
 	 MBlock groundBlock = new MBlock(TGBlocks.CONCRETE,1);//new MBlock(TGBlocks.CONCRETE, 5);
 	 MBlock stairsblock = new MBlock(Blocks.STONE_STAIRS, 0);
 	 MBlock wallBlock = new MBlock(TGBlocks.CONCRETE, 0);//new MBlock(TGBlocks.CONCRETE, 6);
@@ -284,10 +290,14 @@ public class Bunker extends WorldgenStructure {
 					}
 				} else {
 					
-					//TODO CHEST LOOT
 					int meta = r.nextInt(4);
 					//MBlock TGChest = new MBlock(chest,meta);
 					world.setBlockState(p.setPos(posX+x, posY, posZ+z), BlockRotator.getRotatedHorizontal(chest.getDefaultState(),meta));
+					
+					TileEntity tile = world.getTileEntity(p);
+					if(tile !=null && tile instanceof TileEntityChest) {
+						((TileEntityChest)tile).setLootTable(CHEST_LOOT, world.rand.nextLong());
+					}
 					//TGChest.setBlock(world, posX+x, posY, posZ+z, 0, this.lootTier);
 					
 				}

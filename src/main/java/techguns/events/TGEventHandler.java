@@ -438,9 +438,11 @@ public class TGEventHandler {
 			if (event.getSource() instanceof TGDamageSource) {
 				TGDamageSource tgs = (TGDamageSource)event.getSource();
 				if (tgs.deathType != DeathType.DEFAULT) {
-					if (EntityDeathUtils.hasSpecialDeathAnim(entity, tgs.deathType)) {
-						//System.out.println("Send packet!");
-						TGPackets.network.sendToAllAround(new PacketEntityDeathType(entity, tgs.deathType), TGPackets.targetPointAroundEnt(entity, 100.0f));
+					if(Math.random()<tgs.goreChance) {
+						if (EntityDeathUtils.hasSpecialDeathAnim(entity, tgs.deathType)) {
+							//System.out.println("Send packet!");
+							TGPackets.network.sendToAllAround(new PacketEntityDeathType(entity, tgs.deathType), TGPackets.targetPointAroundEnt(entity, 100.0f));
+						}
 					}
 				}
 			}
@@ -743,23 +745,28 @@ public class TGEventHandler {
 	@SubscribeEvent
 	public static void onItemSwitch(LivingEquipmentChangeEvent event) {
 		if (event.getSlot()==EntityEquipmentSlot.MAINHAND || event.getSlot()==EntityEquipmentSlot.OFFHAND) {
-			if(!event.getTo().isEmpty() && event.getTo().getItem() instanceof GenericGun) {
+			
+			boolean fromEffect=false;
+			boolean toEffect =false;
+			if (!event.getTo().isEmpty() && event.getTo().getItem() instanceof GenericGun) {
 				if(((GenericGun)event.getTo().getItem()).hasAmbientEffect()){
-					EnumHand hand = EnumHand.MAIN_HAND;
-					if (event.getSlot()==EntityEquipmentSlot.OFFHAND) {
-						hand=EnumHand.OFF_HAND;
-					}
-					TGPackets.network.sendToDimension(new PacketNotifyAmbientEffectChange(event.getEntityLiving(), hand), event.getEntityLiving().world.provider.getDimension());
-				}
-			} else if (!event.getFrom().isEmpty() && event.getFrom().getItem() instanceof GenericGun) {
-				if(((GenericGun)event.getFrom().getItem()).hasAmbientEffect()){
-					EnumHand hand = EnumHand.MAIN_HAND;
-					if (event.getSlot()==EntityEquipmentSlot.OFFHAND) {
-						hand=EnumHand.OFF_HAND;
-					}
-					TGPackets.network.sendToDimension(new PacketNotifyAmbientEffectChange(event.getEntityLiving(), hand), event.getEntityLiving().world.provider.getDimension());
+					toEffect=true;
 				}
 			}
+			if (!event.getFrom().isEmpty() && event.getFrom().getItem() instanceof GenericGun) {
+				if(((GenericGun)event.getFrom().getItem()).hasAmbientEffect()){
+					fromEffect=true;
+				}
+			}
+			
+			if(fromEffect||toEffect){
+				EnumHand hand = EnumHand.MAIN_HAND;
+				if (event.getSlot()==EntityEquipmentSlot.OFFHAND) {
+					hand=EnumHand.OFF_HAND;
+				}
+				TGPackets.network.sendToDimension(new PacketNotifyAmbientEffectChange(event.getEntityLiving(), hand), event.getEntityLiving().world.provider.getDimension());
+			}
+			 
 		}
 	}
 	

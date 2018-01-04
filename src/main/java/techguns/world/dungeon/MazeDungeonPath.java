@@ -733,13 +733,15 @@ public class MazeDungeonPath implements IDungeonPath {
 			int py = posY+(seg.y*preset.getSizeY())+preset.getSpawnYOffset(seg);
 			int pz = posZ+(seg.z*preset.getSizeXZ()+(int)(preset.getSizeXZ()*0.5f));
 			BlockPos pos = new BlockPos(px, py, pz);
-			IBlockState state = TGBlocks.MONSTER_SPAWNER.getDefaultState();
-			world.setBlockState(pos, state, 2);
-			
-			TileEntity te = world.getTileEntity(pos);
-			if (te != null && te instanceof TGSpawnerTileEnt) {
-				TGSpawnerTileEnt spawner = (TGSpawnerTileEnt)te;
-				preset.initSpawner(spawner);
+			if(pos.getY()>=1) {
+				IBlockState state = TGBlocks.MONSTER_SPAWNER.getDefaultState();
+				world.setBlockState(pos, state, 2);
+				
+				TileEntity te = world.getTileEntity(pos);
+				if (te != null && te instanceof TGSpawnerTileEnt) {
+					TGSpawnerTileEnt spawner = (TGSpawnerTileEnt)te;
+					preset.initSpawner(spawner);
+				}
 			}
 		}
 	}

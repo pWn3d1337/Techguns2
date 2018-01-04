@@ -5,9 +5,11 @@ import java.util.Random;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import techguns.TGBlocks;
+import techguns.Techguns;
 import techguns.blocks.EnumMonsterSpawnerType;
 import techguns.entities.npcs.ArmySoldier;
 import techguns.entities.npcs.AttackHelicopter;
@@ -16,10 +18,13 @@ import techguns.entities.npcs.ZombieMiner;
 import techguns.util.BlockUtils;
 import techguns.util.MBlock;
 import techguns.world.EnumLootType;
+import techguns.world.dungeon.presets.specialblocks.MBlockChestLoottable;
 import techguns.world.dungeon.presets.specialblocks.MBlockTGSpawner;
 
 public class AircraftCarrier extends WorldgenStructure {
 
+	private final static ResourceLocation LOOT_TABLE = new ResourceLocation(Techguns.MODID, "chests/aircraftcarrier");
+	
 	static ArrayList<MBlock> blockList = new ArrayList<MBlock>();
 	static short[][] blocks;
 	static {
@@ -29,10 +34,10 @@ public class AircraftCarrier extends WorldgenStructure {
 		blockList.add(MBlockRegister.FACTORY_PLATE_WORN_COLUMN);//new MBlock(ChiselBlocks.factoryblock, 15));
 		blockList.add(MBlockRegister.FACTORY_WIREFRAME);//new MBlock(ChiselBlocks.factoryblock, 4));
 		blockList.add(new MBlock(Blocks.CRAFTING_TABLE,0));
-		blockList.add(new MBlock(Blocks.CHEST,5)); //TGBlocks.tgchest, 5, true, BlockType.CHEST));
+		blockList.add(new MBlockChestLoottable(Blocks.CHEST,5,LOOT_TABLE)); //TGBlocks.tgchest, 5, true, BlockType.CHEST));
 		blockList.add(new MBlock(TGBlocks.LAMP_0, EnumFacing.NORTH.ordinal()));
 		blockList.add(new MBlock(TGBlocks.LAMP_0, EnumFacing.WEST.ordinal()));
-		blockList.add(new MBlock(Blocks.CHEST, 5));
+		blockList.add(new MBlockChestLoottable(Blocks.CHEST,5,LOOT_TABLE));
 		blockList.add(new MBlock(Blocks.AIR,0));
 		blockList.add(MBlockRegister.SUPPLY_CRATES);//Blocks.CHEST,3));//TGBlocks.tgchest_weapon, 3, true, BlockType.CHEST));
 		blockList.add(MBlockRegister.SUPPLY_CRATES);//Blocks.CHEST,2)); //TGBlocks.tgchest_weapon, 2, true, BlockType.CHEST));
@@ -51,16 +56,16 @@ public class AircraftCarrier extends WorldgenStructure {
 		blockList.add(new MBlock(TGBlocks.BUNKER_DOOR, 0));
 		blockList.add(new MBlock(TGBlocks.BUNKER_DOOR, 1));
 		blockList.add(new MBlock(TGBlocks.BUNKER_DOOR, 3));
-		blockList.add(new MBlock(Blocks.CHEST, 3));
-		blockList.add(new MBlock(Blocks.CHEST, 2));
+		blockList.add(new MBlockChestLoottable(Blocks.CHEST,3,LOOT_TABLE));
+		blockList.add(new MBlockChestLoottable(Blocks.CHEST,2,LOOT_TABLE));
 		blockList.add(MBlockRegister.ALUMINIUM_STAIRS_WEST);//new MBlock(ChiselBlocks.aluminumStairs[1], 1, true, BlockType.STAIRS));
 		blockList.add(MBlockRegister.ALUMINIUM_STAIRS_EAST);//new MBlock(ChiselBlocks.aluminumStairs[1], 0, true, BlockType.STAIRS));
 		blockList.add(new MBlock(TGBlocks.LADDER_0, 0));
 		blockList.add(MBlockRegister.IRON_BLOCK_VENTS); //new MBlock(ChiselBlocks.iron_block, 14));
 		blockList.add(MBlockRegister.TECHNICAL_GRATE);//new MBlock(ChiselBlocks.technical, 13));
-		blockList.add(new MBlock(Blocks.CHEST,3));//TGBlocks.tgchest, 3, true, BlockType.CHEST));
+		blockList.add(new MBlockChestLoottable(Blocks.CHEST,3,LOOT_TABLE));//TGBlocks.tgchest, 3, true, BlockType.CHEST));
 		blockList.add(MBlockRegister.TECHNICAL2_FAN);//new MBlock(ChiselBlocks.technical2, 1));
-		blockList.add(new MBlock(Blocks.CHEST,4));//TGBlocks.tgchest, 4, true, BlockType.CHEST));
+		blockList.add(new MBlockChestLoottable(Blocks.CHEST,4,LOOT_TABLE));//TGBlocks.tgchest, 4, true, BlockType.CHEST));
 		blockList.add(new MBlockTGSpawner(EnumMonsterSpawnerType.HOLE,6,2,150,2).addMobType(ArmySoldier.class, 1).addMobType(Commando.class, 1));
 		blockList.add(new MBlockTGSpawner(EnumMonsterSpawnerType.SOLDIER_SPAWN,1,1,200,0).addMobType(AttackHelicopter.class, 1));
 		blockList.add(MBlockRegister.SUPPLY_CRATES_CHANCE);

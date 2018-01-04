@@ -206,7 +206,7 @@ public class RenderGunBase extends RenderItemBase {
 		
 		if (values != null && (TransformType.FIRST_PERSON_LEFT_HAND == transform || TransformType.FIRST_PERSON_RIGHT_HAND == transform
 				|| TransformType.THIRD_PERSON_LEFT_HAND == transform || TransformType.THIRD_PERSON_RIGHT_HAND == transform)) {
-			AttackTime attack = values.getAttackTime(leftHand);
+			AttackTime attack = values.getAttackTime(isOffhand);
 			attackType = attack.getAttackType();
 			
 			if (gun.canCharge() && !isOffhand && !entityIn.getActiveItemStack().isEmpty()) {
@@ -232,6 +232,8 @@ public class RenderGunBase extends RenderItemBase {
 					reloadProgress = 1.0f - ((float) diff / (float) attack.getReloadTimeTotal());
 				}
 			} else if (attack.isRecoiling()) {
+				
+				//System.out.println(stack+": LeftHand:"+leftHand+ "  Offand:"+isOffhand);
 				
 				long diff = attack.getRecoilTime() - System.currentTimeMillis();
 
@@ -309,7 +311,10 @@ public class RenderGunBase extends RenderItemBase {
 				GlStateManager.color(1f, 1f, 1f, 1f);
 			}
 			GlStateManager.popMatrix();
+			
+			this.applyAnimForParticles(entityIn, reloadProgress, transform, sneaking, isOffhand);
 			this.renderItemParticles(entityIn, transform, ClientProxy.get().PARTIAL_TICK_TIME);
+			GlStateManager.popMatrix();
 			
 			//Draw muzzle FX
 			if (muzzleFlashProgress>0){
@@ -343,6 +348,17 @@ public class RenderGunBase extends RenderItemBase {
 		
 	};
 	
+	public void applyAnimForParticles(EntityLivingBase entity, float reloadProgress, TransformType transform, boolean sneaking, boolean isOffhand) {
+		GlStateManager.pushMatrix();
+		if(reloadProgress==0) return;
+		if (transform==TransformType.FIRST_PERSON_LEFT_HAND || transform==TransformType.FIRST_PERSON_RIGHT_HAND) {
+			this.transformFirstPerson(0f, reloadProgress, 0f, TransformType.FIRST_PERSON_LEFT_HAND == transform, sneaking&&isOffhand);
+		} else if (transform==TransformType.THIRD_PERSON_LEFT_HAND || transform==TransformType.THIRD_PERSON_RIGHT_HAND) {
+			this.transformThirdPerson(entity, 0f, reloadProgress, TransformType.THIRD_PERSON_LEFT_HAND == transform);
+		}
+		
+	}
+	
 	protected void transformFirstPerson(float fireProgress, float reloadProgress, float chargeProgress, boolean left, boolean shoudLowerWeapon) {
 		if (chargeProgress>0) {
 		
@@ -350,7 +366,7 @@ public class RenderGunBase extends RenderItemBase {
 			
 		}
 		if (fireProgress >0){
-
+		
 			this.recoilAnim.play(fireProgress, left, this.recoilParams);
 			
 		} else if (reloadProgress>0){
@@ -460,4 +476,10 @@ public class RenderGunBase extends RenderItemBase {
 			}
 		}
 	}
+	
+	public RenderGunBase setAmbientParticleFX(String ambientParticleFX) {
+		this.ambientParticleFX = ambientParticleFX;
+		return this;
+	}
+	
 }

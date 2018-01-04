@@ -17,7 +17,7 @@ public class GunFiredMessage implements IMessage{
 	protected int time;
 	protected byte attackType;
 	protected boolean checkRecoil;
-	protected boolean leftGun;
+	protected boolean offhand;
 	protected int muzzleflashtime;
 
 	
@@ -26,14 +26,14 @@ public class GunFiredMessage implements IMessage{
      // need this constructor
     }
     
-    public GunFiredMessage(EntityLivingBase shooter, int firetime, int muzzleflashtime, int attackType, boolean checkRecoil, boolean leftGun) 
+    public GunFiredMessage(EntityLivingBase shooter, int firetime, int muzzleflashtime, int attackType, boolean checkRecoil, boolean offhand) 
     { 
     	this.entityID = shooter.getEntityId();
     	this.time = firetime;
     	this.muzzleflashtime=muzzleflashtime;
     	this.attackType=(byte)attackType;
     	this.checkRecoil=checkRecoil;
-    	this.leftGun=leftGun;
+    	this.offhand=offhand;
     }
 	
 	@Override
@@ -43,7 +43,7 @@ public class GunFiredMessage implements IMessage{
 		muzzleflashtime=buf.readInt();
 		attackType=buf.readByte();
 		checkRecoil=buf.readBoolean();
-		leftGun=buf.readBoolean();
+		offhand=buf.readBoolean();
 	}
 
 	@Override
@@ -53,7 +53,7 @@ public class GunFiredMessage implements IMessage{
 		buf.writeInt(muzzleflashtime);
 		buf.writeByte(attackType);
 		buf.writeBoolean(checkRecoil);
-		buf.writeBoolean(leftGun);
+		buf.writeBoolean(offhand);
 	}
 	
 	public static class Handler implements IMessageHandler<GunFiredMessage, IMessage> {
@@ -68,14 +68,15 @@ public class GunFiredMessage implements IMessage{
 			EntityPlayer ply = TGPackets.getPlayerFromContext(ctx);
 			EntityLivingBase shooter = (EntityLivingBase) ply.world.getEntityByID(message.entityID);
 			
-			boolean offHand = message.leftGun;
+			boolean offHand = message.offhand;
 			
 			if (shooter !=null){
 				ClientProxy cp = ClientProxy.get();
 				
-					if (!message.checkRecoil || !ShooterValues.isStillRecoiling(shooter, message.leftGun,message.attackType)){
-						ShooterValues.setRecoiltime(shooter, message.leftGun, System.currentTimeMillis()+message.time, message.time,message.attackType);
-						ShooterValues.setMuzzleFlashTime(shooter, message.leftGun, System.currentTimeMillis()+message.muzzleflashtime, message.muzzleflashtime);	
+					if (!message.checkRecoil || !ShooterValues.isStillRecoiling(shooter, message.offhand,message.attackType)){
+						
+						ShooterValues.setRecoiltime(shooter, message.offhand, System.currentTimeMillis()+message.time, message.time,message.attackType);
+						ShooterValues.setMuzzleFlashTime(shooter, message.offhand, System.currentTimeMillis()+message.muzzleflashtime, message.muzzleflashtime);	
 						//System.out.println("Set recoilTime for "+shooter);
 						//cp.spawnMuzzleFXForEntity(shooter,message.leftGun);
 					}

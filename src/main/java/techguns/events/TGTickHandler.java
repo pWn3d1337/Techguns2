@@ -528,7 +528,7 @@ public class TGTickHandler {
 					}
 				}).forEach(e -> {
 					TGShooterValues shooter_values = TGShooterValues.get(e);
-					Techguns.proxy.tickWeaponParticleSystems(e, shooter_values);
+					//Techguns.proxy.tickWeaponParticleSystems(e, shooter_values);
 					shooter_values.tickParticles();
 					//System.out.println("Tick for :"+e);
 				});

@@ -32,7 +32,7 @@ public class AlienBugNest {
 	static MBlock wallBlock;
 	static MBlock wallBlock2;
 	static MBlock innerBlock;
-	static MBlock slimeLadder;
+	//static MBlock slimeLadder;
 	static MBlock slimyBlock;
 	static MBlock spawner;
 	static MBlock eggsBlock;
@@ -41,7 +41,7 @@ public class AlienBugNest {
 		wallBlock = new MultiMBlock(new Block[]{TGBlocks.SAND_HARD, TGBlocks.SLIMY_BLOCK, Blocks.SANDSTONE}, new int[]{EnumTGSandHardTypes.BUGNEST_SAND.ordinal(),EnumTGSlimyType.BUGNEST_EGGS.ordinal(),0}, new int[]{16,1,2});
 		wallBlock2 = new MultiMBlock(new Block[]{TGBlocks.SAND_HARD, Blocks.SANDSTONE}, new int[]{EnumTGSandHardTypes.BUGNEST_SAND.ordinal(),0}, new int[]{12,1});
 		innerBlock = new MBlock(Blocks.AIR,0);
-		slimeLadder = new MBlock(TGBlocks.SLIMY_LADDER,0);//new MBlock(TGBlocks.bugnestslimy, 0);
+		//slimeLadder = new MBlock(TGBlocks.SLIMY_LADDER,0);//new MBlock(TGBlocks.bugnestslimy, 0);
 	    slimyBlock = new MBlockSlime(TGBlocks.SAND_HARD, EnumTGSandHardTypes.BUGNEST_SAND.ordinal());
 	    spawner = new MBlockTGSpawner(EnumMonsterSpawnerType.HOLE, 7, 3, 150, 1).addMobType(AlienBug.class,	1);
 	    eggsBlock = new MBlock(TGBlocks.SLIMY_BLOCK, EnumTGSlimyType.BUGNEST_EGGS.ordinal());
@@ -293,9 +293,9 @@ public class AlienBugNest {
 					Vec3d v_ = v2v1.crossProduct(v1v0);
 					double distance = v_.lengthVector()/l;
 					p.setPos(x,y,z);
-					if (distance < radius  && Blocks.LADDER.canPlaceBlockAt(world, p)) { //FIXME slimy trail block //TGBlocks.bugnestslimy.canPlaceBlockAt(world, x, y, z)) {						
-						slimeLadder.setBlock(world, p, 0, null);
-						//FIXME Ladder placing code
+					if (distance < radius  && TGBlocks.SLIMY_LADDER.canPlaceBlockAt(world, p)) {
+						world.setBlockState(p, TGBlocks.SLIMY_LADDER.getStateForPlacement(world, p, EnumFacing.NORTH, 0, 0, 0, 0, null), 2);
+						//slimeLadder.setBlock(world, p, 0, null);
 						//world.setBlockMetadataWithNotify(x,y,z,((BlockBugSlime)TGBlocks.bugnestslimy).getDirectionMeta(world, x, y, z), 2);
 					}
 				}
@@ -345,9 +345,9 @@ public class AlienBugNest {
 
 
 		private void placeSlimeAt(World world, MutableBlockPos pos) {
-			if (world.isAirBlock(pos) && Blocks.LADDER.canPlaceBlockAt(world, pos)) { //FIXME slimy trail block //TGBlocks.bugnestslimy.canPlaceBlockAt(world, x, y, z)) {						
-				slimeLadder.setBlock(world, pos, 0, null);
-				//FIXME Ladder placing code
+			if (world.isAirBlock(pos) && TGBlocks.SLIMY_LADDER.canPlaceBlockAt(world, pos)) { //TGBlocks.bugnestslimy.canPlaceBlockAt(world, x, y, z)) {						
+				//slimeLadder.setBlock(world, pos, 0, null);
+				world.setBlockState(pos, TGBlocks.SLIMY_LADDER.getStateForPlacement(world, pos, EnumFacing.NORTH, 0, 0, 0, 0, null), 2);
 				//world.setBlockMetadataWithNotify(x,y,z,((BlockBugSlime)TGBlocks.bugnestslimy).getDirectionMeta(world, x, y, z), 2);
 			}
 		}

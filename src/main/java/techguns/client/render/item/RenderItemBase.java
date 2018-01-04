@@ -49,6 +49,8 @@ public class RenderItemBase implements IItemRenderer {
 	};
 
 	protected int parts = 1;
+
+	protected String ambientParticleFX=null;
 	
 	public RenderItemBase(ModelMultipart model, ResourceLocation texture) {
 		super();
@@ -274,5 +276,14 @@ public class RenderItemBase implements IItemRenderer {
 			GlStateManager.enableCull();
 		}
 		
+	}
+
+	public String getAmbientParticleFX() {
+		return ambientParticleFX;
+	}
+
+	public RenderItemBase setAmbientParticleFX(String ambientParticleFX) {
+		this.ambientParticleFX = ambientParticleFX;
+		return this;
 	}
 }

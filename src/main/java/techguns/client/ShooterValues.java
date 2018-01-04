@@ -66,7 +66,7 @@ public class ShooterValues {
 	
 	public static void setRecoiltime(EntityLivingBase ent, boolean offHand, long time, int total,byte attacktype, float chargeProgress){
 		AttackTime attack = getAttackTimes(ent,offHand);
-	
+			
 		if (attack!=null){
 			attack.setRecoilTime(time);
 			attack.setRecoilTimeTotal(total);

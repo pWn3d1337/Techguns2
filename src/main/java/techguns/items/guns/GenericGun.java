@@ -529,6 +529,8 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 	
     		int ammo = this.getCurrentAmmo(stack);
     	
+    		//System.out.println("Shoot gun:"+stack+" Hand:"+hand);
+    		
     		byte ATTACK_TYPE = 0;
     		TGExtendedPlayer extendedPlayer = TGExtendedPlayer.get(player);
     		if (ammo>0) {
@@ -733,13 +735,13 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 
 	protected void shootGun(World world, EntityLivingBase player,ItemStack itemstack,float accuracybonus,float damagebonus, int attackType, EnumHand hand, EnumBulletFirePos firePos, Entity target){
 		
-		boolean leftGun = (hand == EnumHand.OFF_HAND) != (player.getPrimaryHand() == EnumHandSide.LEFT);
+		//boolean leftGun = (hand == EnumHand.OFF_HAND) != (player.getPrimaryHand() == EnumHandSide.LEFT);
 		
 		//send pakets to clients
 		if (!world.isRemote){
 	    	int msg_recoiltime = ((int)(((float)recoiltime/20.0f)*1000.0f));
 	    	int msg_muzzleflashtime = ((int)(((float)muzzleFlashtime/20.0f)*1000.0f));
-	    	TGPackets.network.sendToAllAround(new GunFiredMessage(player,msg_recoiltime,msg_muzzleflashtime,attackType,checkRecoil,leftGun), TGPackets.targetPointAroundEnt(player, 100.0f));
+	    	TGPackets.network.sendToAllAround(new GunFiredMessage(player,msg_recoiltime,msg_muzzleflashtime,attackType,checkRecoil,hand==EnumHand.OFF_HAND), TGPackets.targetPointAroundEnt(player, 100.0f));
 		}
     	//
 		spawnProjectile(world, player,itemstack, accuracy*accuracybonus, projectileForwardOffset,damagebonus, firePos, target);
@@ -1082,7 +1084,7 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 			/**
 			 * COPY FROM ENTITYPLAYER
 			 */
-			if (targetEntity.canBeAttackedWithItem()) {
+			if (targetEntity.canBeAttackedWithItem() && GenericProjectile.BULLET_TARGETS.apply(targetEntity)) {
 				if (!targetEntity.hitByEntity(player)) {
 					float f = (float) player.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue();
 					float f1;
@@ -1154,6 +1156,8 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 						boolean flag5 = src.wasSuccessful();
 
 						if (flag5) {
+							this.consumeAmmoOnMeleeHit(player, stack);
+							
 							if (i > 0) {
 								if (targetEntity instanceof EntityLivingBase) {
 									((EntityLivingBase) targetEntity).knockBack(player, (float) i * 0.5F, (double) MathHelper.sin(player.rotationYaw * 0.017453292F),
@@ -1177,7 +1181,11 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 											&& player.getDistanceSq(entitylivingbase) < 9.0D) {
 										entitylivingbase.knockBack(player, 0.4F, (double) MathHelper.sin(player.rotationYaw * 0.017453292F),
 												(double) (-MathHelper.cos(player.rotationYaw * 0.017453292F)));
-										entitylivingbase.attackEntityFrom(getMeleeDamageSource(player,stack), f3);
+										TGDamageSource dmgsrc = getMeleeDamageSource(player,stack);
+										entitylivingbase.attackEntityFrom(dmgsrc, f3);
+										if(dmgsrc.wasSuccessful()) {
+											this.onMeleeHitTarget(stack, entitylivingbase);
+										}
 									}
 								}
 
@@ -1187,6 +1195,11 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 								this.doSweepAttackEffect(player);
 							}
 
+							/**
+							 * Extra hit effect 
+							 */
+							this.onMeleeHitTarget(stack, targetEntity);
+							
 							if (targetEntity instanceof EntityPlayerMP && targetEntity.velocityChanged) {
 								((EntityPlayerMP) targetEntity).connection.sendPacket(new SPacketEntityVelocity(targetEntity));
 								targetEntity.velocityChanged = false;
@@ -1273,6 +1286,17 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 
 			return true;
 		}
+	}
+	
+	protected void onMeleeHitTarget(ItemStack stack, Entity target) {
+	}
+	
+	protected void consumeAmmoOnMeleeHit(EntityLivingBase elb, ItemStack stack) {
+		if(elb instanceof EntityPlayer) {
+			EntityPlayer ply = (EntityPlayer) elb;
+			if(ply.capabilities.isCreativeMode) return;
+		}
+		this.useAmmo(stack, 1);
 	}
 	
 	protected void doSweepAttackEffect(EntityPlayer player) {

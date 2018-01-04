@@ -76,20 +76,23 @@ public class Structure implements Serializable{
 					MBlock mb = blocks.get(b.blockIndex);
 					//BlockPos pos = new BlockPos(x+b.x, y+b.y, z+b.z);
 					mpos.setPos(x+b.x, y+b.y, z+b.z);
-					BlockUtils.rotateAroundY(mpos, axis, rotation);
 					
-					IBlockState state = mb.getState(); //mb.block.getStateFromMeta(mb.meta);
+					if(mpos.getY()>=1) {
 					
-					
-					state = BlockRotator.getRotatedHorizontal(state, rotation);
-					
-					world.setBlockState(mpos, state, 2);
-
-					if(mb.hasTileEntity()) {
-						mb.tileEntityPostPlacementAction(world, state, mpos, rotation);
-					}
+						BlockUtils.rotateAroundY(mpos, axis, rotation);
+						
+						IBlockState state = mb.getState(); //mb.block.getStateFromMeta(mb.meta);
+						
+						
+						state = BlockRotator.getRotatedHorizontal(state, rotation);
+						
+						world.setBlockState(mpos, state, 2);
+	
+						if(mb.hasTileEntity()) {
+							mb.tileEntityPostPlacementAction(world, state, mpos, rotation);
+						}
 					//AxisAlignedBB aabb = new AxisAlignedBB(pos1, axis);
-					
+					}
 				}
 			}
 		}

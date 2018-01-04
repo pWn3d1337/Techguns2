@@ -16,6 +16,7 @@ import net.minecraft.util.ITickable;
 import net.minecraft.util.WeightedRandom;
 import net.minecraft.util.WeightedSpawnerEntity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.chunk.storage.AnvilChunkLoader;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 import techguns.capabilities.TGSpawnerNPCData;
@@ -158,47 +159,50 @@ public class TGSpawnerTileEnt extends BasicTGTileEntity implements ITickable {
 		
 		if(this.delay<=0 && activeMobs.size() < Math.min(maxActive, mobsLeft) && this.hasMobTypes()) { 
 			
-		
-			WeightedSpawnerEntity entdata = WeightedRandom.<WeightedSpawnerEntity>getRandomItem(this.rand, this.mobtypes);
-			
-			BlockPos blockpos = this.getPos();
-			
-            double d0 = (double)blockpos.getX() + (rand.nextDouble() - rand.nextDouble()) * this.spawnrange + 0.5D;
-            double d1 = (double)(blockpos.getY() + 1+ this.spawnHeightOffset);
-            double d2 = (double)blockpos.getZ() + (rand.nextDouble() - rand.nextDouble()) * this.spawnrange + 0.5D;
-            Entity entity = AnvilChunkLoader.readWorldEntityPos(entdata.getNbt(), world, d0, d1, d2, false);
-            
-            if (entity !=null && entity instanceof ITGSpawnerNPC && entity instanceof EntityLiving) {
-            	ITGSpawnerNPC npc = (ITGSpawnerNPC) entity;
-            	EntityLiving elb = (EntityLiving) entity;
-
-	          //  if (net.minecraftforge.event.ForgeEventFactory.canEntitySpawnSpawner(npc, this.world, (float)entity.posX, (float)entity.posY, (float)entity.posZ))
-	          //  {
-	            	if (!net.minecraftforge.event.ForgeEventFactory.doSpecialSpawn(elb, this.world, (float)entity.posX, (float)entity.posY, (float)entity.posZ)) {
-	                    elb.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(entity)), (IEntityLivingData)null);
+			if (this.world.getDifficulty() != EnumDifficulty.PEACEFUL) {
+				
+				WeightedSpawnerEntity entdata = WeightedRandom.<WeightedSpawnerEntity>getRandomItem(this.rand, this.mobtypes);
+				
+				BlockPos blockpos = this.getPos();
+				
+	            double d0 = (double)blockpos.getX() + (rand.nextDouble() - rand.nextDouble()) * this.spawnrange + 0.5D;
+	            double d1 = (double)(blockpos.getY() + 1+ this.spawnHeightOffset);
+	            double d2 = (double)blockpos.getZ() + (rand.nextDouble() - rand.nextDouble()) * this.spawnrange + 0.5D;
+	            Entity entity = AnvilChunkLoader.readWorldEntityPos(entdata.getNbt(), world, d0, d1, d2, false);
 	            
-	                    if(elb instanceof EntityCreature) {
-	                    	((EntityCreature)elb).setHomePosAndDistance(blockpos, 10);
-	                    }
-	                    
-		                AnvilChunkLoader.spawnEntity(entity, world);
-		                world.playEvent(2004, blockpos, 0);
-		
-		                elb.spawnExplosionParticle();
-		                
-		                this.activeMobs.add(npc);
-		            	this.delay= this.spawndelay;
-		            	TGSpawnerNPCData dat = TGSpawnerNPCData.get(npc);
-		            	dat.setSpawnerPos(blockpos);
-	            	}
-	            //}
-            	
-            } else {
-            	
-        		this.delay= this.spawndelay;
-            
-            }
-            
+	            if (entity !=null && entity instanceof ITGSpawnerNPC && entity instanceof EntityLiving) {
+	            	ITGSpawnerNPC npc = (ITGSpawnerNPC) entity;
+	            	EntityLiving elb = (EntityLiving) entity;
+	
+		          //  if (net.minecraftforge.event.ForgeEventFactory.canEntitySpawnSpawner(npc, this.world, (float)entity.posX, (float)entity.posY, (float)entity.posZ))
+		          //  {
+		            	if (!net.minecraftforge.event.ForgeEventFactory.doSpecialSpawn(elb, this.world, (float)entity.posX, (float)entity.posY, (float)entity.posZ)) {
+		                    elb.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(entity)), (IEntityLivingData)null);
+		            
+		                    if(elb instanceof EntityCreature) {
+		                    	((EntityCreature)elb).setHomePosAndDistance(blockpos, 10);
+		                    }
+		                    
+			                AnvilChunkLoader.spawnEntity(entity, world);
+			                world.playEvent(2004, blockpos, 0);
+			
+			                elb.spawnExplosionParticle();
+			                
+			                this.activeMobs.add(npc);
+			            	this.delay= this.spawndelay;
+			            	TGSpawnerNPCData dat = TGSpawnerNPCData.get(npc);
+			            	dat.setSpawnerPos(blockpos);
+		            	}
+		            //}
+	            	
+	            } else {
+	            	
+	        		this.delay= this.spawndelay;
+	            
+	            }
+			} else {
+				this.delay=this.spawndelay;
+			}
 		} else {
 			if(this.delay<=0) {
 				this.delay= this.spawndelay;

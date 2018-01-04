@@ -121,7 +121,7 @@ public class Techguns
     	}
     	
     	 if(TGConfig.doWorldspawn){
-         	GameRegistry.registerWorldGenerator(new WorldGenTGStructureSpawn(), 4);
+         	GameRegistry.registerWorldGenerator(new WorldGenTGStructureSpawn(), 6);
          }
     }
     

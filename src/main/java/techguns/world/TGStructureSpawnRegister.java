@@ -5,6 +5,8 @@ import java.util.Random;
 
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
+import techguns.world.structures.AircraftCarrier;
+import techguns.world.structures.AlienBugNestStructure;
 import techguns.world.structures.CastleStructure;
 import techguns.world.structures.FactoryHouseSmall;
 import techguns.world.structures.MilitaryBaseStructure;
@@ -34,14 +36,14 @@ public class TGStructureSpawnRegister {
 	    spawns_small.add(new TGStructureSpawn(new SmallTrainstation(0, 0, 0, 0, 0, 0).setXZSize(11, 12),1,null,OVERWORLD,LAND,StructureSize.SMALL));
 
 		//spawns_medium.add(new TGStructureSpawn(new HouseMedium(16, 12, 16, 16, 12, 16).setXZSize(16, 16),1,null,OVERWORLD,LAND,StructureSize.MEDIUM));	
-		//spawns_medium.add(new TGStructureSpawn(new AlienBugNestStructure().setXZSize(4, 4),1,DESERTS_ONLY,OVERWORLD,LAND,StructureSize.MEDIUM));
+		spawns_medium.add(new TGStructureSpawn(new AlienBugNestStructure().setXZSize(4, 4),1,null/*DESERTS_ONLY*/,OVERWORLD,LAND,StructureSize.MEDIUM));
 		//spawns_medium.add(new TGStructureSpawn(new BigBunker(32,14,17,32,14,17).setXZSize(32, 17), 1, null, OVERWORLD, LAND, StructureSize.MEDIUM));
 				
 		spawns_big.add(new TGStructureSpawn(new MilitaryBaseStructure(0, 0, 0, 0, 0, 0),1,null,OVERWORLD,LAND,StructureSize.BIG));
 		
 		spawns_big.add(new TGStructureSpawn(new CastleStructure(), 1, null, OVERWORLD, LAND, StructureSize.BIG));
 		
-		//spawns_big.add(new TGStructureSpawn(new AircraftCarrierNew(54,24,21,54,24,21).setXZSize(54, 21),1,null, OVERWORLD, WATER, StructureSize.BIG));
+		spawns_big.add(new TGStructureSpawn(new AircraftCarrier(54,24,21,54,24,21).setXZSize(54, 21),1,null, OVERWORLD, WATER, StructureSize.BIG));
 		//spawns_big.add(new TGStructureSpawn(new Submarine().setXZSize(33, 7),1,null, OVERWORLD, WATER, StructureSize.BIG));
 		
 		//spawns_big.add(new TGStructureSpawn(new CityStructure(),1,null,OVERWORLD,LAND,StructureSize.BIG));

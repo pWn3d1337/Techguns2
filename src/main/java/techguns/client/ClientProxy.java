@@ -60,10 +60,12 @@ import techguns.TGFluids;
 import techguns.TGItems;
 import techguns.TGuns;
 import techguns.Techguns;
+import techguns.api.npc.INPCTechgunsShooter;
 import techguns.api.render.IItemRenderer;
 import techguns.api.render.IItemTGRenderer;
 import techguns.capabilities.TGDeathTypeCap;
 import techguns.capabilities.TGDeathTypeCapStorage;
+import techguns.capabilities.TGExtendedPlayerClient;
 import techguns.capabilities.TGShooterValues;
 import techguns.client.audio.TGSound;
 import techguns.client.audio.TGSoundCategory;
@@ -919,7 +921,7 @@ public class ClientProxy extends CommonProxy {
 					{0.0f,-0.25f,0f}, //GUI
 					{0f,0f,0f}, //Ground
 					{0f,0.0f,0.0f} //frame
-				}));
+				}).setAmbientParticleFX("ScreenTestFX").setReloadAnim(GunAnimation.breechReload, -0.15f, 55.0f).setReloadAnim3p(GunAnimation.breechReload, 0f, 55.0f));
 		
 		ItemRenderHack.registerItemRenderer(TGArmors.steam_Helmet,  new RenderArmorItem(new ModelSteamArmor(0), new ResourceLocation(Techguns.MODID,"textures/models/armor/steam_armor.png"), EntityEquipmentSlot.HEAD) );
 		ItemRenderHack.registerItemRenderer(TGArmors.steam_Chestplate,  new RenderArmorItem(new ModelSteamArmor(0), new ResourceLocation(Techguns.MODID,"textures/models/armor/steam_armor.png"), EntityEquipmentSlot.CHEST) );
@@ -1294,24 +1296,15 @@ public class ClientProxy extends CommonProxy {
 	}
 
 	@Override
-	public void tickWeaponParticleSystems(EntityLivingBase ent, TGShooterValues values) {
-		ItemStack mh = ent.getHeldItemMainhand();
-		if(!mh.isEmpty() && mh.getItem() instanceof GenericGun) {
-			GenericGun item = (GenericGun) mh.getItem();
-			
-			if (item.shouldUseRenderHack(mh)){
-			
-				IItemRenderer renderer = ItemRenderHack.getRendererForItem(item);
-				if(renderer instanceof RenderItemBase) {
-					RenderItemBase itemRenderer = (RenderItemBase) renderer;
-					
-					//values.particleSysMH
-					//FIXME REMOVE
-				}
-			}
+	public void clearItemParticleSystemsHand(EntityLivingBase elb, EnumHand hand) {
+		if(elb instanceof EntityPlayer) {
+			TGExtendedPlayerClient props = TGExtendedPlayerClient.get((EntityPlayer) elb);
+			props.clearAttachedSystemsHand(hand);
+		} else if (elb instanceof INPCTechgunsShooter) {
+			TGShooterValues props = TGShooterValues.get(elb);
+			props.clearAttachedSystemsHand(hand);
 		}
 	}
-	
 	
 	
 }

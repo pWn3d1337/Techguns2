@@ -5,6 +5,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.CapabilityManager;
@@ -161,7 +162,6 @@ public abstract class CommonProxy implements ITGInitializer {
     
     public abstract GuiHandlerRegister getGuihandlers();
     
-    public void tickWeaponParticleSystems(EntityLivingBase ent, TGShooterValues values) {
-    	
-    }
+    public void clearItemParticleSystemsHand(EntityLivingBase entity, EnumHand hand) {
+	}
 }

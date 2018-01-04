@@ -125,12 +125,11 @@ public class WorldGenTestTool extends GenericItem{
 			//FactoryHouseSmall b = new FactoryHouseSmall(8, 8, 8, 8, 8, 8);
 			//SmallTrainstation b = new SmallTrainstation(8, 8, 8, 8, 8, 8);
 			
-			//AircraftCarrier b = new AircraftCarrier(54,24,21,54,24,21);
+			AircraftCarrier b = new AircraftCarrier(54,24,21,54,24,21);
+						
+			//new AlienBugNest(x ,y+32, z,sizeX, 0, sizeZ, rnd).setBlocks(world);
 			
-			
-			new AlienBugNest(x ,y+32, z,sizeX, 0, sizeZ, rnd).setBlocks(world);
-			
-			//b.setBlocks(world, x, y, z, sizeX, 8, sizeZ,0/*rnd.nextInt(4)*/, BiomeColorType.WOODLAND, rnd);
+			b.setBlocks(world, x, y, z, sizeX, 8, sizeZ,0/*rnd.nextInt(4)*/, BiomeColorType.WOODLAND, rnd);
 			
 			//bugnest
 			//AlienBugNestStructure b = new AlienBugNestStructure();

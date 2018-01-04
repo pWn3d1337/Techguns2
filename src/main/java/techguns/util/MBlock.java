@@ -122,10 +122,12 @@ public class MBlock implements Serializable {
 	}
 	
 	public void setBlock(World w, MutableBlockPos pos, int rotation, EnumLootType loottype) {
-		IBlockState targetState = BlockRotator.getRotatedHorizontal(state, rotation);
-		w.setBlockState(pos, targetState,2);
-		if(this.hasTileEntity) {
-			this.tileEntityPostPlacementAction(w, targetState, pos, rotation);
+		if(pos.getY()>=1) {
+			IBlockState targetState = BlockRotator.getRotatedHorizontal(state, rotation);
+			w.setBlockState(pos, targetState,2);
+			if(this.hasTileEntity) {
+				this.tileEntityPostPlacementAction(w, targetState, pos, rotation);
+			}
 		}
 	}
 	

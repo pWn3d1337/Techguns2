@@ -11,6 +11,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import techguns.TGPackets;
+import techguns.Techguns;
 import techguns.api.npc.INPCTechgunsShooter;
 import techguns.api.render.IItemRenderer;
 import techguns.capabilities.TGExtendedPlayerClient;
@@ -59,27 +60,43 @@ public class PacketNotifyAmbientEffectChange implements IMessage {
 				EntityLivingBase elb = (EntityLivingBase) ent;
 				ItemStack stack = elb.getHeldItem(message.hand);
 				
-				if(!stack.isEmpty() && stack.getItem() instanceof GenericGun) {
-					IItemRenderer renderer = ItemRenderHack.getRendererForItem(stack.getItem());
-					if(renderer!=null && renderer instanceof RenderItemBase) {
-						RenderItemBase itemRenderer = (RenderItemBase) renderer;
-						
-						List<TGParticleSystem> systems = TGFX.createFXOnEntityItemAttached(elb, message.hand, "ScreenTestFX");
-						
-						if(elb instanceof EntityPlayer) {
-							TGExtendedPlayerClient props = TGExtendedPlayerClient.get((EntityPlayer) elb);
-							props.addSystemsHand(message.hand, systems);
-						} else if (elb instanceof INPCTechgunsShooter) {
-							TGShooterValues props = TGShooterValues.get((EntityLivingBase) ent);
-							props.addSystemsHand(message.hand, systems);
+				//System.out.println("Switch:"+stack+" :"+message.hand);
+				
+				if(!stack.isEmpty() && stack.getItem() instanceof GenericGun ) {
+					
+					if ( ((GenericGun)stack.getItem()).getAmmoLeft(stack)>0) {
+						IItemRenderer renderer = ItemRenderHack.getRendererForItem(stack.getItem());
+						if(renderer!=null && renderer instanceof RenderItemBase) {
+							RenderItemBase itemRenderer = (RenderItemBase) renderer;
+							
+							String fxlist = itemRenderer.getAmbientParticleFX();
+							if(fxlist!=null) {
+								List<TGParticleSystem> systems = TGFX.createFXOnEntityItemAttached(elb, message.hand, fxlist);
+								
+								if(elb instanceof EntityPlayer) {
+									TGExtendedPlayerClient props = TGExtendedPlayerClient.get((EntityPlayer) elb);
+									props.addSystemsHand(message.hand, systems);
+								} else if (elb instanceof INPCTechgunsShooter) {
+									TGShooterValues props = TGShooterValues.get((EntityLivingBase) ent);
+									props.addSystemsHand(message.hand, systems);
+								}
+							} else {
+								Techguns.proxy.clearItemParticleSystemsHand(elb,message.hand);
+							}
+						} else {
+							Techguns.proxy.clearItemParticleSystemsHand(elb,message.hand);
 						}
-						
-						
+					} else {
+						Techguns.proxy.clearItemParticleSystemsHand(elb, message.hand);
 					}
+				} else {
+					Techguns.proxy.clearItemParticleSystemsHand(elb,message.hand);
 				}
 				
 			}
 		}
+		
+		
 		
 	}
 }
