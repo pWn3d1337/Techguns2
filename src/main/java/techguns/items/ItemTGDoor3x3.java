@@ -15,6 +15,7 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import techguns.TGConfig;
 import techguns.blocks.BlockTGDoor3x3;
 import techguns.tileentities.Door3x3TileEntity;
 
@@ -35,9 +36,14 @@ public class ItemTGDoor3x3<T extends Enum<T> & IStringSerializable> extends Gene
 	@Override
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
 		if(this.isInCreativeTab(tab)) {
-			for(int i=0; i<this.clazz.getEnumConstants().length;i++) {
-				items.add(new ItemStack(this,1,i));
-			}	
+			if(TGConfig.debug) { //FIXME remove debug
+				for(int i=0; i<this.clazz.getEnumConstants().length;i++) {
+					items.add(new ItemStack(this,1,i));
+				}
+			} else {
+				items.add(new ItemStack(this,1,0));
+			}
+			
 		}
 	}
 

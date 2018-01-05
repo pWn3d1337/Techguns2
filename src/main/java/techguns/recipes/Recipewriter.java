@@ -502,6 +502,9 @@ public class Recipewriter {
 	        
 	        RecipeJsonConverter.addShapedRecipe(new ItemStack(rocketlauncher,1),"rbb"," f ", 'r', TGItems.ROCKET, 'b', TGItems.BARREL_OBSIDIAN_STEEL, 'f', TGItems.RECEIVER_STEEL);
 
+	        RecipeJsonConverter.addShapedRecipe(new ItemStack(guidedmissilelauncher,1)," gc","rbb"," f ", 'r', TGItems.ROCKET, 'b', TGItems.BARREL_OBSIDIAN_STEEL, 'f', TGItems.RECEIVER_OBSIDIAN_STEEL, 'g', hardenedGlassOrGlass, 'c', "circuitElite");
+
+	        
 	        RecipeJsonConverter.addShapedRecipe(new ItemStack(lmg,1), " gr","bfs"," m ", 'g', "paneGlass", 'r', "dustRedstone", 'b', TGItems.BARREL_OBSIDIAN_STEEL, 'f', TGItems.RECEIVER_OBSIDIAN_STEEL, 's', TGItems.STOCK_PLASTIC,'m', TGItems.LMG_MAGAZINE);
 	        RecipeJsonConverter.addShapedRecipe(new ItemStack(lmg,1,lmg.getMaxDamage()), " gr","bfs"," m ", 'g', "paneGlass", 'r', "dustRedstone", 'b', TGItems.BARREL_OBSIDIAN_STEEL, 'f', TGItems.RECEIVER_OBSIDIAN_STEEL, 's', TGItems.STOCK_PLASTIC,'m', TGItems.LMG_MAGAZINE_EMPTY);
 	        

@@ -20,6 +20,7 @@ public class AmmoTypes implements ITGInitializer{
 	public static AmmoType BIO_TANK;
 	public static AmmoType FUEL_TANK;
 	public static AmmoType ROCKETS;
+	public static AmmoType ROCKETS_NO_NUKES;
 	public static AmmoType MINIGUN_AMMO_DRUM;
 	public static AmmoType ADVANCED_MAGAZINE;
 	public static AmmoType AS50_MAGAZINE;
@@ -72,6 +73,8 @@ public class AmmoTypes implements ITGInitializer{
 		
 		ROCKETS = new AmmoType(TGItems.ROCKET);
 		ROCKETS.addVariant(TYPE_NUKE, TGItems.ROCKET_NUKE);
+		
+		ROCKETS_NO_NUKES = new AmmoType(TGItems.ROCKET);
 		
 		NETHER_CHARGE = new AmmoType(TGItems.NETHER_CHARGE);
 		GRENADES_40MM = new AmmoType(TGItems.GRENADE_40MM);

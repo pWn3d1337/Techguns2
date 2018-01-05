@@ -41,13 +41,13 @@ import techguns.tools.ItemJsonCreator;
 public class TGItems implements ITGInitializer{
 
 	/**
-	 * TODO DISABLE THIS BEFORE RELEASE
+	 * FIXME DISABLE THIS BEFORE RELEASE
 	 */
-	public static boolean WRITE_ITEM_JSON = true;
+	public static boolean WRITE_ITEM_JSON = false;
 	/**
-	 * TODO DISABLE THIS BEFORE RELEASE
+	 * FIXME DISABLE THIS BEFORE RELEASE
 	 */
-	public static boolean WRITE_RECIPES = true;
+	public static boolean WRITE_RECIPES = false;
 	
 	
 	public static final ArrayList<GenericItem> ITEMLIST = new ArrayList<>();

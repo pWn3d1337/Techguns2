@@ -217,7 +217,7 @@ public class TGuns implements ITGInitializer {
 		POWERHAMMER_PROJECTILES = new ChargedProjectileSelector<PowerHammerProjectile>(AmmoTypes.COMPRESSED_AIR_TANK, new PowerHammerProjectile.Factory());
 		BIOGUN_PROJECTILES = new ChargedProjectileSelector<BioGunProjectile>(AmmoTypes.BIO_TANK, new BioGunProjectile.Factory());
 		CHAINSAW_PROJECTILES = new ChargedProjectileSelector<ChainsawProjectile>(AmmoTypes.FUEL_TANK, new ChainsawProjectile.Factory());
-		GUIDED_MISSILE_PROJECTILES = new ChargedProjectileSelector<GuidedMissileProjectile>(AmmoTypes.ROCKETS, new GuidedMissileProjectile.Factory(), new GuidedMissileProjectile.Factory());
+		GUIDED_MISSILE_PROJECTILES = new ChargedProjectileSelector<GuidedMissileProjectile>(AmmoTypes.ROCKETS_NO_NUKES, new GuidedMissileProjectile.Factory(), new GuidedMissileProjectile.Factory());
 		TFG_PROJECTILES = new ChargedProjectileSelector<TFGProjectile>(AmmoTypes.NUCLEAR_POWER_CELL, new TFGProjectile.Factory());
 		
 		handcannon = new GenericGun("handcannon", new ProjectileSelector<StoneBulletProjectile>(AmmoTypes.STONE_BULLETS, new StoneBulletProjectile.Factory()), true, 12,1,30, 8.0f, TGSounds.HANDGUN_FIRE, TGSounds.HANDGUN_RELOAD,25,0.035f).setBulletSpeed(0.9f).setGravity(0.015d).setDamageDrop(10, 25, 5.0f).setAIStats(RANGE_CLOSE, 60, 0, 0).setTexture("textures/guns/handgun").setRecoiltime(12);//.setMuzzleParticle(2,0.2f);
@@ -283,7 +283,7 @@ public class TGuns implements ITGInitializer {
 		 scar = new GenericGun("scar", ASSAULTRIFLE_MAG_PROJECTILES, false, 4, 20,45,12.0f, TGSounds.SCAR_FIRE, TGSounds.SCAR_RELOAD, 50, 0.015f).setZoom(0.65f, true,0.5f,true).setDamageDrop(30, 40, 10.0f).setAIStats(RANGE_MEDIUM, 30, 5, 2).setTextures("textures/guns/scar_texture", 2).setPenetration(PENETRATION_MED).setBulletSpeed(2.25f).setMuzzleFlashTime(5).setTurretPosOffset(0, 0.02f, 0.09f);
 		 vector = new GenericGun("vector",SMG_MAG_PROJECTILES, false, 2, 25,40,6.0f, TGSounds.VECTOR_FIRE, TGSounds.VECTOR_RELOAD,30,0.05f).setZoom(0.75f, true,0.35f,false).setDamageDrop(17, 25, 4.0f).setBulletSpeed(1.5f).setAIStats(RANGE_SHORT, 35, 3, 2).setTextures("textures/guns/vector_texture",2).setRecoiltime(2).setMuzzleFlashTime(3).setPenetration(PENETRATION_LOW).setTurretPosOffset(0, -0.1f, 0.15f);
 		
-		 gaussrifle = new GenericGun("gaussrifle", GAUSS_PROJECTILES, true, 30, 8, 60, 40.0f, TGSounds.GAUSS_RIFLE_FIRE, TGSounds.GAUSS_RIFLE_RELOAD, 100, 0.025f).setZoom(0.35f, true,0.0f,true).setBulletSpeed(5.0f).setAIStats(RANGE_FAR, 30, 0, 0).setRechamberSound(TGSounds.GAUSS_RIFLE_RECHAMBER).setRecoiltime(8).setTextures("textures/guns/gaussrifle",2).setTurretPosOffset(0, -0.02f, 0.12f).setMuzzleLight(0f, 0.8f, 1.0f).setForwardOffset(0.45f);//
+		 gaussrifle = new GenericGun("gaussrifle", GAUSS_PROJECTILES, true, 30, 8, 60, 40.0f, TGSounds.GAUSS_RIFLE_FIRE, TGSounds.GAUSS_RIFLE_RELOAD, 100, 0.025f).setZoom(0.35f, true,0.0f,true).setBulletSpeed(5.0f).setAIStats(RANGE_FAR, 30, 0, 0).setRechamberSound(TGSounds.GAUSS_RIFLE_RECHAMBER).setRecoiltime(8).setTexture("textures/guns/gaussrifle").setTurretPosOffset(0, -0.02f, 0.12f).setMuzzleLight(0f, 0.8f, 1.0f).setForwardOffset(0.45f);//
 		 
 		 guidedmissilelauncher = new GuidedMissileLauncher("guidedmissilelauncher", GUIDED_MISSILE_PROJECTILES, true, 10, 1 , 40, 50.0f, TGSounds.GUIDEDMISSILE_FIRE, TGSounds.ROCKET_RELOAD, 100, 0.05f, 100, 1).setFireWhileCharging(true).setChargeFireAnims(false).setBulletSpeed(1.0f).setRecoiltime(10).setAIStats(RANGE_MEDIUM,80,0,0).setTexture("textures/guns/guidedmissilelauncher").setLockOn(20, 80).setTurretPosOffset(0, 0.01f, -0.12f).setDamageDrop(2f, 4f, 20f).setRangeTooltipType(RangeTooltipType.RADIUS); //.setHandType(GunHandType.ONE_HANDED);/*.setTurretPosOffset(0f, -0.7f, -0.2f);*/
 	     
@@ -291,7 +291,10 @@ public class TGuns implements ITGInitializer {
 			
 		 tfg = new GenericGunCharge("tfg", TFG_PROJECTILES, false, 5, 20,45,50.0f, TGSounds.TFG_FIRE, TGSounds.BIOGUN_RELOAD, 100, 0.015f, 60.0f ,10).setChargeSound(TGSounds.TFG_CHARGE).setChargeFX("TFGChargeStart",-0.14f, -0.10f, 0.42f).setBulletSpeed(2.0f).setPenetration(0.15f).setTexture("textures/guns/tfg").setAIStats(RANGE_SHORT, 30, 0, 0).setDamageDrop(8, 15, 15.0f).setMuzzleLight(0.2f, 1.0f, 0.2f).setMuzzleFlashTime(10).setRecoiltime(10).setForwardOffset(0.40f);
 			
-		 shishkebap = new Shishkebap("shishkebap", CHAINSAW_PROJECTILES, false, 3, 10, 45, 10.0f, TGSounds.CHAINSAW_LOOP, TGSounds.POWERHAMMER_RELOAD, 2, 0.0f,1f,1).setMeleeDmg(14.0f, 2.0f).setTool("sword", 3).setDigSpeed(4.0f).setTextures("textures/guns/shishkebab_texture",3).setRecoiltime(5).setShootWithLeftClick(false).setFiresoundStart(TGSounds.CHAINSAW_LOOP_START).setMaxLoopDelay(10).setPenetration(PENETRATION_MED).setAIStats(RANGE_MELEE, 10, 0, 0).setTurretPosOffset(0, -0.47f, -0.08f).setNoMuzzleLight().setHandType(GunHandType.ONE_HANDED).setHasAmbient(); //.setTurretPosOffset(0, 0.50f, 0);
+		 if(TGConfig.debug) {
+			 //FIXME: Remove debug
+			 shishkebap = new Shishkebap("shishkebap", CHAINSAW_PROJECTILES, false, 3, 10, 45, 10.0f, TGSounds.CHAINSAW_LOOP, TGSounds.POWERHAMMER_RELOAD, 2, 0.0f,1f,1).setMeleeDmg(14.0f, 2.0f).setTool("sword", 3).setDigSpeed(4.0f).setTextures("textures/guns/shishkebab_texture",3).setRecoiltime(5).setShootWithLeftClick(false).setFiresoundStart(TGSounds.CHAINSAW_LOOP_START).setMaxLoopDelay(10).setPenetration(PENETRATION_MED).setAIStats(RANGE_MELEE, 10, 0, 0).setTurretPosOffset(0, -0.47f, -0.08f).setNoMuzzleLight().setHandType(GunHandType.ONE_HANDED).setHasAmbient(); //.setTurretPosOffset(0, 0.50f, 0);
+		 }
 		 
 		 stielgranate = new GenericGrenade("stielgranate", 16, 72000, new GrenadeProjectile.Factory()).setDamageAndRadius(10, 3.0f, 5, 5.0f);
 		 
