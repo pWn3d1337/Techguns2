@@ -210,6 +210,13 @@ public class GenericGunCharge extends GenericGun {
 			//int ammoConsumed = 0;
 			//if (!player.capabilities.isCreativeMode) {
 			int	ammoConsumed = this.consumeAmmoCharge(item, f,player.capabilities.isCreativeMode);
+			
+			//reduce charge value if ammo is low
+			if (ammoConsumed < (int) Math.ceil(f * this.ammoConsumedOnFullCharge)) {
+				f =   (float)ammoConsumed / (float)this.ammoConsumedOnFullCharge;
+			}
+			
+			
 			//}
 			if (!world.isRemote) {
 	
@@ -293,7 +300,7 @@ public class GenericGunCharge extends GenericGun {
 	 */
 	public int consumeAmmoCharge(ItemStack item, float f, boolean creative) {
 		
-		int amount = (int) Math.floor(f * this.ammoConsumedOnFullCharge);
+		int amount = (int) Math.ceil(f * this.ammoConsumedOnFullCharge);
 		
 		if(!creative){
 			amount = this.useAmmo(item, amount);

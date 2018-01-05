@@ -61,8 +61,8 @@ public class TFGProjectile extends GenericProjectile implements IEntityAdditiona
 		if (!this.world.isRemote){
 			float exp_dmgMax = this.damage*0.66f * size;
 			float exp_dmgMin = this.damage*0.33f * size;
-			float exp_r1 = size*1.25f;
-			float exp_r2 = size*2.5f;
+			float exp_r1 = size*1.0f;
+			float exp_r2 = size*2.0f;
 			
 			TGPackets.network.sendToAllAround(new PacketSpawnParticle("TFGExplosion", this.posX,this.posY,this.posZ, size*0.75f), TGPackets.targetPointAroundEnt(this, 100.0f));
 			
@@ -114,7 +114,8 @@ public class TFGProjectile extends GenericProjectile implements IEntityAdditiona
 		public TFGProjectile createChargedProjectile(World world, EntityLivingBase p, float damage, float speed, int TTL, float spread, float dmgDropStart, float dmgDropEnd,
 				float dmgMin, float penetration, boolean blockdamage, EnumBulletFirePos firePos, float radius, double gravity, float charge, int ammoConsumed) {
 			TFGProjectile proj = new TFGProjectile(world,p,damage,speed,TTL,spread,dmgDropStart,dmgDropEnd,dmgMin,penetration,blockdamage,firePos,gravity,ammoConsumed);
-			proj.size = 1.0f+(charge*5.0f);
+			proj.size = 1.0f+(charge*3.0f);
+			if (charge >= 1.0f) proj.size += 1.0f;
 			//-0.14f, -0.10f, 0.42f
 //			float offsetX = 0.0f;
 //			if (firePos == EnumBulletFirePos.RIGHT) offsetX = -0.14f;
