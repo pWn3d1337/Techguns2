@@ -320,7 +320,7 @@ public class BlockUtils {
 			}
  		}
  		
- 		System.out.println("HeightDiff:"+(max-min) +" Limit:"+heightDiffLimit);
+ 		//System.out.println("HeightDiff:"+(max-min) +" Limit:"+heightDiffLimit);
  		
  		if((max-min)>heightDiffLimit){
  			return -1;

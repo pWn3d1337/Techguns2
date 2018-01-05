@@ -36,7 +36,7 @@ public class TGStructureSpawnRegister {
 	    spawns_small.add(new TGStructureSpawn(new SmallTrainstation(0, 0, 0, 0, 0, 0).setXZSize(11, 12),1,null,OVERWORLD,LAND,StructureSize.SMALL));
 
 		//spawns_medium.add(new TGStructureSpawn(new HouseMedium(16, 12, 16, 16, 12, 16).setXZSize(16, 16),1,null,OVERWORLD,LAND,StructureSize.MEDIUM));	
-		spawns_medium.add(new TGStructureSpawn(new AlienBugNestStructure().setXZSize(4, 4),1,null/*DESERTS_ONLY*/,OVERWORLD,LAND,StructureSize.MEDIUM));
+		spawns_medium.add(new TGStructureSpawn(new AlienBugNestStructure().setXZSize(4, 4),1,DESERTS_ONLY,OVERWORLD,LAND,StructureSize.MEDIUM));
 		//spawns_medium.add(new TGStructureSpawn(new BigBunker(32,14,17,32,14,17).setXZSize(32, 17), 1, null, OVERWORLD, LAND, StructureSize.MEDIUM));
 				
 		spawns_big.add(new TGStructureSpawn(new MilitaryBaseStructure(0, 0, 0, 0, 0, 0),1,null,OVERWORLD,LAND,StructureSize.BIG));
@@ -58,7 +58,7 @@ public class TGStructureSpawnRegister {
 		ArrayList<TGStructureSpawn> spawns;
 		if (size==StructureSize.BIG){
 			spawns=spawns_big;
-			System.out.println("Trying to Spawn BIG STRUCTURE");
+			//System.out.println("Trying to Spawn BIG STRUCTURE");
 		} else if (size==StructureSize.MEDIUM) {
 			spawns=spawns_medium;
 		} else {
@@ -73,14 +73,14 @@ public class TGStructureSpawnRegister {
 		if (totalweight>0){
 		
 			int roll = rnd.nextInt(totalweight)+1;
-			System.out.println("Totalweight:"+totalweight+" , rolled:"+roll);
+			//System.out.println("Totalweight:"+totalweight+" , rolled:"+roll);
 			
 			int weight=0;
 			for(int i=0; i<spawns.size();i++){
 				weight += spawns.get(i).getWeightForBiome(biome,size,type);
 				if (roll<=weight) {
 				//	System.out.println("Chosen:"+weight);
-					System.out.println("Chosen:"+spawns.get(i).structure.getClass());
+					//System.out.println("Chosen:"+spawns.get(i).structure.getClass());
 					return spawns.get(i).structure;
 				} else {	
 					

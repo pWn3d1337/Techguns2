@@ -155,7 +155,7 @@ public abstract class WorldgenStructure {
 		
 		int y =BlockUtils.getValidSpawnYArea(world, x+offsetX, z+offsetZ, sizeXr, sizeZr,this.heightdiffLimit,getStep());
 		
-		System.out.println("Chosen SpawnHeight:"+y);
+		//System.out.println("Chosen SpawnHeight:"+y);
 		
 		if (y<0){
 			return;

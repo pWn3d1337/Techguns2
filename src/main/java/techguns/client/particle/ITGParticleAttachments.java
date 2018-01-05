@@ -12,10 +12,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  * Implemented by capabilities that store entityAttachedParticle systems
  *
  */
-@SideOnly(Side.CLIENT)
 public interface ITGParticleAttachments {
 	
-	@SideOnly(Side.CLIENT)
 	public default void tickParticles() {
 		if(this.getEntityParticles()!=null) {
 			Iterator<ITGParticle> it = getEntityParticles().iterator();
@@ -77,7 +75,6 @@ public interface ITGParticleAttachments {
 		}
 	}
 	
-	@SideOnly(Side.CLIENT)
 	public default void clearAttachedSystemsHand(EnumHand hand) {
 		if(hand==EnumHand.MAIN_HAND) {
 			if (this.getParticleSysMainhand()!=null) {
@@ -90,7 +87,6 @@ public interface ITGParticleAttachments {
 		}
 	}
 	
-	@SideOnly(Side.CLIENT)
 	public default void addSystemsHand(EnumHand hand, List<TGParticleSystem> systems) {
 		
 		if(hand==EnumHand.MAIN_HAND) {
@@ -102,7 +98,6 @@ public interface ITGParticleAttachments {
 		}
 	}
 	
-	@SideOnly(Side.CLIENT)
 	public default void addEffectHand(EnumHand hand, List<ITGParticle> effects) {
 		
 		if(hand==EnumHand.MAIN_HAND) {
@@ -112,34 +107,24 @@ public interface ITGParticleAttachments {
 		}
 	}
 	
-	@SideOnly(Side.CLIENT)
 	public List<ITGParticle> getEntityParticles();
 	
-	@SideOnly(Side.CLIENT)
 	public List<ITGParticle> getEntityParticlesMH();
 	
-	@SideOnly(Side.CLIENT)
 	public List<ITGParticle> getEntityParticlesOH();
 	
-	@SideOnly(Side.CLIENT)
 	public List<TGParticleSystem> getParticleSysMainhand();
 	
-	@SideOnly(Side.CLIENT)
 	public List<TGParticleSystem> getParticleSysOffhand();
 	
-	@SideOnly(Side.CLIENT)
 	public List<ITGParticle> getOrInitEntityParticles();
-	
-	@SideOnly(Side.CLIENT)
+
 	public List<ITGParticle> getOrInitEntityParticlesOH();
-	
-	@SideOnly(Side.CLIENT)
+
 	public List<ITGParticle> getOrInitEntityParticlesMH();
 	
-	@SideOnly(Side.CLIENT)
 	public List<TGParticleSystem> getOrInitParticleSysMainhand();
 	
-	@SideOnly(Side.CLIENT)
 	public List<TGParticleSystem> getOrInitParticleSysOffhand();
 
 }

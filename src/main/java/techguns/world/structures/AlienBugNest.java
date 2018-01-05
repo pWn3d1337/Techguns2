@@ -121,7 +121,7 @@ public class AlienBugNest {
 			
 			for (BugNestSegment seg : segment.neighbors) {
 				placeSegment(world,seg);
-				System.out.println("Placing Segment:"+seg.toString());
+				//System.out.println("Placing Segment:"+seg.toString());
 			}
 		}
 	}
