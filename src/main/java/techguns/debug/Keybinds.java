@@ -9,6 +9,7 @@ import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
+import techguns.TGConfig;
 import techguns.Techguns;
 import techguns.client.particle.TGFX;
 
@@ -67,7 +68,8 @@ public class Keybinds {
     
     @SubscribeEvent
     public static void onKeyInput(InputEvent.KeyInputEvent event) {
-
+    	if(!TGConfig.debug) return;
+    	
         if(Keybinds.plusX.isPressed()){
         	Keybinds.X+=D;
 			Minecraft.getMinecraft().player.sendMessage(new TextComponentString("X:"+Keybinds.X));

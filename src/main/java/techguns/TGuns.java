@@ -177,7 +177,9 @@ public class TGuns implements ITGInitializer {
 		reg.register(guidedmissilelauncher);
 		reg.register(miningdrill);
 		reg.register(tfg);
-		reg.register(shishkebap);
+		if(TGConfig.debug) { //FIXME remove debug
+			reg.register(shishkebap);
+		}
 		reg.register(stielgranate);
 		reg.register(fraggrenade);
 	}

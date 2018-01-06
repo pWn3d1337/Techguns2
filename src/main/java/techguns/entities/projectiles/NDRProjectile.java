@@ -12,6 +12,7 @@ import net.minecraft.world.World;
 import techguns.TGPackets;
 import techguns.Techguns;
 import techguns.api.damagesystem.DamageType;
+import techguns.client.ClientProxy;
 import techguns.damagesystem.TGDamageSource;
 import techguns.deatheffects.EntityDeathUtils.DeathType;
 import techguns.items.guns.GenericGun;
@@ -141,8 +142,9 @@ public class NDRProjectile extends AbstractBeamProjectile {
 	@Override
 	protected void doImpactEffects(Material mat, RayTraceResult rayTraceResult, SoundType sound) {
 		Vec3d hitVec = rayTraceResult.hitVec;
-		TGPackets.network.sendToAllAround(new PacketSpawnParticle("BeamGunImpactFX", hitVec.x, hitVec.y, hitVec.z), TGPackets.targetPointAroundEnt(this, 35.0f));
-		
+		//TGPackets.network.sendToAllAround(new PacketSpawnParticle("BeamGunImpactFX", hitVec.x, hitVec.y, hitVec.z), TGPackets.targetPointAroundEnt(this, 35.0f));
+		Techguns.proxy.createFX("BeamGunImpactFX", this.world, hitVec.x, hitVec.y, hitVec.z, 0f, 0f, 0f, 1f);
+
 	}
 	
 //	@Override

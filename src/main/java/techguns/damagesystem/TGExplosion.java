@@ -253,7 +253,7 @@ public class TGExplosion {
 	            	Vec3d start = this.position;
 	            	Vec3d end = new Vec3d(entity.posX, entity.posY+entity.getEyeHeight()*0.5, entity.posZ);
 	            
-	            	RayTraceResult rtr = world.rayTraceBlocks(start, end);
+	            	RayTraceResult rtr = world.rayTraceBlocks(start, end,false,true,false);
 	            	if (rtr != null && rtr.typeOfHit == Type.BLOCK) damage = 0.0;
 	            }
 	
