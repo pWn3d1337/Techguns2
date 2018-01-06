@@ -8,6 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.util.HashMap;
 
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import techguns.world.dungeon.TemplateSegment.SegmentType;
 import techguns.world.dungeon.presets.specialblocks.SpecialBlockHandler;
@@ -21,6 +22,8 @@ public class DungeonTemplate implements Serializable{
 	
 	private static final String DUNGEON_TEMPLATE_DIR="/assets/techguns/dungeons/";
 	private static final String[] TEMPLATE_LIST = new String[] { "ncdung1", "nclower1", "ncmid1", "ncupper1", "nctop1", "ncroof1" }; //Castle
+	
+	protected ResourceLocation LOOTTABLE = null;
 	
 	public static HashMap<String, DungeonTemplate> dungeonTemplates = new HashMap<>();
 	
@@ -43,10 +46,16 @@ public class DungeonTemplate implements Serializable{
 	
 	public void applySpecialMBlocks() {
 		this.segments.entrySet().forEach(e -> {
-			e.getValue().structure.applySpecialMBlocks();
+			e.getValue().structure.applySpecialMBlocks(LOOTTABLE);
 		});
 	}
 	
+	public DungeonTemplate setLoottable(ResourceLocation loottable) {
+		LOOTTABLE = loottable;
+		this.applySpecialMBlocks();
+		return this;
+	}
+
 	public DungeonTemplate(int sizeXZ, int sizeY) {
 		super();
 		this.sizeXZ = sizeXZ;

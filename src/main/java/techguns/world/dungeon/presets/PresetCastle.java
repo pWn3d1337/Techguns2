@@ -3,6 +3,8 @@ package techguns.world.dungeon.presets;
 import java.util.ArrayList;
 import java.util.Random;
 
+import net.minecraft.util.ResourceLocation;
+import techguns.Techguns;
 import techguns.entities.npcs.SkeletonSoldier;
 import techguns.entities.npcs.ZombieSoldier;
 import techguns.tileentities.TGSpawnerTileEnt;
@@ -17,7 +19,7 @@ public class PresetCastle implements IDungeonPreset{
 	int sizeXZ = 0;
 	int sizeY = 0;
 	
-	
+	private static final ResourceLocation LOOTTABLE = new ResourceLocation(Techguns.MODID, "chests/castle");
 	
 	ArrayList<DungeonTemplate> undergroundTemplates = new ArrayList<>();
 	
@@ -34,17 +36,17 @@ public class PresetCastle implements IDungeonPreset{
 	public PresetCastle() {
 		//"ncdung1", "nclower1", "ncmid1", "ncupper1", "nctop1", "ncroof1" 
 		
-		undergroundTemplates.add(DungeonTemplate.dungeonTemplates.get("ncdung1"));
+		undergroundTemplates.add(DungeonTemplate.dungeonTemplates.get("ncdung1").setLoottable(LOOTTABLE));
 		
-		lowerTemplates.add(DungeonTemplate.dungeonTemplates.get("nclower1"));
+		lowerTemplates.add(DungeonTemplate.dungeonTemplates.get("nclower1").setLoottable(LOOTTABLE));
 		
-		midTemplates.add(DungeonTemplate.dungeonTemplates.get("ncmid1"));
+		midTemplates.add(DungeonTemplate.dungeonTemplates.get("ncmid1").setLoottable(LOOTTABLE));
 		
-		upperTemplates.add(DungeonTemplate.dungeonTemplates.get("ncupper1"));
+		upperTemplates.add(DungeonTemplate.dungeonTemplates.get("ncupper1").setLoottable(LOOTTABLE));
 		
-		topTemplates.add(DungeonTemplate.dungeonTemplates.get("nctop1"));
+		topTemplates.add(DungeonTemplate.dungeonTemplates.get("nctop1").setLoottable(LOOTTABLE));
 		
-		roofTemplates.add(DungeonTemplate.dungeonTemplates.get("ncroof1"));
+		roofTemplates.add(DungeonTemplate.dungeonTemplates.get("ncroof1").setLoottable(LOOTTABLE));
 	}
 
 	@Override

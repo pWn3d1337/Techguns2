@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockPos.MutableBlockPos;
 import net.minecraft.util.math.Vec3d;
@@ -24,8 +25,8 @@ public class Structure implements Serializable{
 	List<MBlock> blocks = new ArrayList<MBlock>();
 	HashMap<Integer, List<BlockEntry>> blockEntries = new HashMap<>();
 	
-	public void applySpecialMBlocks() {
-		SpecialBlockHandler.applySpecialMBlocks(blocks);
+	public void applySpecialMBlocks(ResourceLocation loottable) {
+		SpecialBlockHandler.applySpecialMBlocks(blocks, loottable);
 	}
 	
 	public Structure(int sizeX, int sizeY, int sizeZ) {

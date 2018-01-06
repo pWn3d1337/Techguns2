@@ -41,7 +41,7 @@ public class TGStructureSpawnRegister {
 				
 		spawns_big.add(new TGStructureSpawn(new MilitaryBaseStructure(0, 0, 0, 0, 0, 0),1,null,OVERWORLD,LAND,StructureSize.BIG));
 		
-		//spawns_big.add(new TGStructureSpawn(new CastleStructure(), 1, null, OVERWORLD, LAND, StructureSize.BIG));
+		spawns_big.add(new TGStructureSpawn(new CastleStructure(), 1, null, OVERWORLD, LAND, StructureSize.BIG));
 		
 		spawns_big.add(new TGStructureSpawn(new AircraftCarrier(54,24,21,54,24,21).setXZSize(54, 21),1,null, OVERWORLD, WATER, StructureSize.BIG));
 		//spawns_big.add(new TGStructureSpawn(new Submarine().setXZSize(33, 7),1,null, OVERWORLD, WATER, StructureSize.BIG));

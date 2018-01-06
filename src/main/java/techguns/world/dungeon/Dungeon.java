@@ -35,7 +35,7 @@ public class Dungeon {
 		
 		//-- create path --
 		
-		long t_start = System.currentTimeMillis();
+	//	long t_start = System.currentTimeMillis();
 		
 		IDungeonPath path = null;
 		for (int i = 0; i < GENERATE_ATTEMPTS; i++) {			
@@ -46,17 +46,17 @@ public class Dungeon {
 				path = p;
 			}
 		}
-		long t_path = System.currentTimeMillis();
+	//	long t_path = System.currentTimeMillis();
 		//--
 		
 		path.generateDungeon(world, posX, posY, posZ, preset);
-		long t_gen = System.currentTimeMillis();
+	//	long t_gen = System.currentTimeMillis();
 		
 		path.generateNPCSpawners(world, posX, posY, posZ, preset);
-		long t_npcs = System.currentTimeMillis();
+	//	long t_npcs = System.currentTimeMillis();
 		
-		System.out.println(String.format("Generating Dungeon... SizeX = %d, SizeY = %d, SizeZ = %d", sX, sY, sZ));
-		System.out.println(String.format("Path: %d ms, Blocks: %d ms, NPCs: %d ms", t_path-t_start, t_gen-t_path, t_npcs-t_gen));
+	//	System.out.println(String.format("Generating Dungeon... SizeX = %d, SizeY = %d, SizeZ = %d", sX, sY, sZ));
+	//	System.out.println(String.format("Path: %d ms, Blocks: %d ms, NPCs: %d ms", t_path-t_start, t_gen-t_path, t_npcs-t_gen));
 		
 	}
 
