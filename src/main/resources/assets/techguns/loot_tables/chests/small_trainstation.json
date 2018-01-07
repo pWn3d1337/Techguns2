@@ -1,0 +1,207 @@
+{
+    "pools": [
+        {
+			"name": "resources",
+            "rolls": {
+				"min":1,
+				"max":4
+			},
+            "entries": [
+                {
+                    "type": "item",
+                    "weight": 15,
+                    "name": "minecraft:iron_ingot",
+					"functions": [
+                        {
+                            "function": "set_count",
+                            "count": {
+                                "min": 4,
+                                "max": 12
+                            }
+                        }
+                    ]
+                },
+				{
+                    "type": "item",
+                    "weight": 15,
+                    "name": "minecraft:redstone",
+					"functions": [
+                        {
+                            "function": "set_count",
+                            "count": {
+                                "min": 4,
+                                "max": 12
+                            }
+                        }
+                    ]
+                },
+				{
+                    "type": "item",
+                    "weight": 10,
+                    "name": "minecraft:coal",
+					"functions": [
+                        {
+                            "function": "set_count",
+                            "count": {
+                                "min": 4,
+                                "max": 8
+                            }
+                        }
+                    ]
+                },
+				{
+                    "type": "item",
+                    "weight": 10,
+                    "name": "minecraft:gunpowder",
+					"functions": [
+                        {
+                            "function": "set_count",
+                            "count": {
+                                "min": 4,
+                                "max": 8
+                            }
+                        }
+                    ]
+                },
+				{
+                    "type": "item",
+                    "weight": 5,
+                    "name": "minecraft:gold_ingot",
+					"functions": [
+                        {
+                            "function": "set_count",
+                            "count": {
+                                "min": 2,
+                                "max": 4
+                            }
+                        }
+                    ]
+                },
+				{
+                    "type": "item",
+                    "weight": 1,
+                    "name": "minecraft:diamond"
+                },
+				{
+                    "type": "item",
+                    "weight": 1,
+                    "name": "minecraft:ender_pearl"
+                },
+				{
+                    "type": "item",
+                    "weight": 10,
+					"entryName": "heavy_cloth",
+                    "name": "techguns:itemshared",
+					"functions": [
+						{
+							"function": "set_data",
+							"data": 60
+						},
+						{
+							"function": "set_count",
+							"count": {
+								"min": 4,
+								"max": 8
+							}
+						}
+                    ]
+                },
+				{
+                    "type": "item",
+                    "weight": 10,
+					"entryName": "mech_parts_iron",
+                    "name": "techguns:itemshared",
+					"functions": [
+						{
+							"function": "set_data",
+							"data": 57
+						},
+						{
+							"function": "set_count",
+							"count": {
+								"min": 2,
+								"max": 4
+							}
+						}
+                    ]
+                },
+				{
+                    "type": "item",
+                    "weight": 5,
+					"entryName": "mech_parts_obsidian",
+                    "name": "techguns:itemshared",
+					"functions": [
+						{
+							"function": "set_data",
+							"data": 58
+						},
+						{
+							"function": "set_count",
+							"count": {
+								"min": 1,
+								"max": 2
+							}
+						}
+                    ]
+                },
+				{
+                    "type": "item",
+                    "weight": 5,
+					"entryName": "plastic_sheet",
+                    "name": "techguns:itemshared",
+					"functions": [
+						{
+							"function": "set_data",
+							"data": 55
+						},
+						{
+							"function": "set_count",
+							"count": {
+								"min": 3,
+								"max": 8
+							}
+						}
+                    ]
+                },
+				{
+                    "type": "item",
+                    "weight": 5,
+					"entryName": "rubber_bar",
+                    "name": "techguns:itemshared",
+					"functions": [
+						{
+							"function": "set_data",
+							"data": 56
+						},
+						{
+							"function": "set_count",
+							"count": {
+								"min": 2,
+								"max": 5
+							}
+						}
+                    ]
+                },
+				{
+                    "type": "item",
+                    "weight": 5,
+					"entryName": "ingot_obsidian",
+                    "name": "techguns:itemshared",
+					"functions": [
+						{
+							"function": "set_data",
+							"data": 84
+						},
+						{
+							"function": "set_count",
+							"count": {
+								"min": 1,
+								"max": 2
+							}
+						}
+                    ]
+                }
+			]
+		}
+	]
+}

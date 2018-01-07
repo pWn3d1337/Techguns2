@@ -10,6 +10,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Optional;
 import techguns.TGPackets;
 import techguns.TGuns;
+import techguns.Techguns;
 import techguns.api.damagesystem.DamageType;
 import techguns.client.ClientProxy;
 import techguns.damagesystem.TGDamageSource;
@@ -46,15 +47,14 @@ public class AlienBlasterProjectile extends GenericProjectile implements ILightP
 
 	@Override
 	protected void doImpactEffects(Material mat, RayTraceResult rayTraceResult, SoundType sound) {
-		if (!this.world.isRemote){
+		/*if (!this.world.isRemote){
 			double x = rayTraceResult.hitVec.x;
 			double y = rayTraceResult.hitVec.y;
 			double z = rayTraceResult.hitVec.z;
 			TGPackets.network.sendToAllAround(new PacketSpawnParticle("AlienExplosion", x,y,z), TGPackets.targetPointAroundEnt(this, 32.0f));
-		}
+		}*/
+		Techguns.proxy.createFX("AlienExplosion", world, rayTraceResult.hitVec.x, rayTraceResult.hitVec.y, rayTraceResult.hitVec.z, 0,0,0);
 	}
-
-	
 	
 	@Override
 	protected void onHitEffect(EntityLivingBase ent, RayTraceResult rayTraceResultIn) {

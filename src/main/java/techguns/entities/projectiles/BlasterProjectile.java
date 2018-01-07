@@ -5,6 +5,7 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import techguns.TGPackets;
+import techguns.Techguns;
 import techguns.api.damagesystem.DamageType;
 import techguns.damagesystem.TGDamageSource;
 import techguns.deatheffects.EntityDeathUtils.DeathType;
@@ -52,11 +53,12 @@ public class BlasterProjectile extends GenericProjectile {
 	}
 
 	@Override
-	protected void hitBlock(RayTraceResult raytraceResultIn) {
-		if (!this.world.isRemote){
+	protected void hitBlock(RayTraceResult rayTraceResult) {
+		/*if (!this.world.isRemote){
 			Vec3d hitVec = raytraceResultIn.hitVec;
 			TGPackets.network.sendToAllAround(new PacketSpawnParticle("LaserGunImpact", hitVec.x, hitVec.y, hitVec.z), TGPackets.targetPointAroundEnt(this, 35.0f));
-		}
+		}*/
+		Techguns.proxy.createFX("LaserGunImpact", world, rayTraceResult.hitVec.x, rayTraceResult.hitVec.y, rayTraceResult.hitVec.z, 0,0,0);
 	}
 
 	@Override

@@ -93,11 +93,12 @@ public class GaussProjectile extends AdvancedBulletProjectile implements ILightP
 		double x = rayTraceResult.hitVec.x;
 		double y = rayTraceResult.hitVec.y;
 		double z = rayTraceResult.hitVec.z;
-		if (!this.world.isRemote) {
+		/*if (!this.world.isRemote) {
 			TGPackets.network.sendToAllAround(new PacketSpawnParticle("GaussRifleImpact_Block", x,y,z), TGPackets.targetPointAroundEnt(this, 50.0f));
-		}else {
+		}else {*/
+			Techguns.proxy.createFX("GaussRifleImpact_Block", world,x,y,z,0,0,0);
 			Techguns.proxy.createLightPulse(x,y,z, 5, 10, 3.0f, 1.0f, 0.5f, 0.75f, 1f);
-		}
+		//}
 		
 	}
 

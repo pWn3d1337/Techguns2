@@ -7,15 +7,20 @@ import net.minecraft.block.BlockDoor.EnumDoorHalf;
 import net.minecraft.block.BlockDoor.EnumHingePosition;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import techguns.TGBlocks;
+import techguns.Techguns;
 import techguns.blocks.EnumMonsterSpawnerType;
 import techguns.entities.npcs.ZombieMiner;
 import techguns.util.BlockUtils;
 import techguns.util.MBlock;
+import techguns.world.dungeon.presets.specialblocks.MBlockChestLoottable;
 import techguns.world.dungeon.presets.specialblocks.MBlockTGSpawner;
 
 public class FactoryHouseSmall extends WorldgenStructure{
+	private static final ResourceLocation CHEST_LOOT = new ResourceLocation(Techguns.MODID,"chests/factory_building");
+	
 	static ArrayList<MBlock> blockList = new ArrayList<MBlock>();
 	static short[][] blocks;
 	static {
@@ -25,7 +30,7 @@ public class FactoryHouseSmall extends WorldgenStructure{
 		blockList.add(new MBlock(Blocks.GLASS_PANE, 0));
 		blockList.add(MBlockRegister.TECHNICAL_CONCRETE);
 		blockList.add(MBlockRegister.FACTORY_CRATE);
-		blockList.add(new MBlock(Blocks.CHEST, 5));
+		blockList.add(new MBlockChestLoottable(Blocks.CHEST, 5, CHEST_LOOT));
 		blockList.add(new MBlock(Blocks.AIR, 0));
 		blockList.add(new MBlock(TGBlocks.LAMP_0, EnumFacing.NORTH.ordinal()));
 		blockList.add(new MBlock(TGBlocks.LAMP_0, EnumFacing.WEST.ordinal()));

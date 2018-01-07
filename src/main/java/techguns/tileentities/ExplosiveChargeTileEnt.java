@@ -108,13 +108,14 @@ public class ExplosiveChargeTileEnt extends BasicOwnedTileEnt implements ITickab
 				side2 = EnumFacing.EAST;
 			}
 			
+			//remove self
+			world.setBlockToAir(pos);
+			
 			int rad = this.getBlastRadiusForCuboid();
 			this.getPos().getAllInBoxMutable(pos.offset(side1,rad).offset(side2, rad), pos.offset(side1.getOpposite(),rad).offset(side2.getOpposite(), rad)).forEach(p -> {
 				explodeLine(p,facing);
 			});
-			
-			//remove self
-			world.setBlockToAir(pos);
+
 		}
 		
 	}

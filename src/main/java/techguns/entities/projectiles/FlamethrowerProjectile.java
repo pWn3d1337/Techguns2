@@ -5,9 +5,11 @@ import elucent.albedo.lighting.Light;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Optional;
 import techguns.TGPackets;
+import techguns.Techguns;
 import techguns.api.damagesystem.DamageType;
 import techguns.client.ClientProxy;
 import techguns.damagesystem.TGDamageSource;
@@ -63,8 +65,10 @@ public class FlamethrowerProjectile extends GenericProjectile implements ILightP
 			burnBlocks(world, mop, chanceToIgnite);
 		}
 		
-		TGPackets.network.sendToAllAround(new PacketSpawnParticle("FlamethrowerImpact", this.posX,this.posY,this.posZ), TGPackets.targetPointAroundEnt(this, 50.0f));
+		//TGPackets.network.sendToAllAround(new PacketSpawnParticle("FlamethrowerImpact", this.posX,this.posY,this.posZ), TGPackets.targetPointAroundEnt(this, 50.0f));
 
+		Vec3d hitVec = mop.hitVec;
+		Techguns.proxy.createFX("FlamethrowerImpact", this.world, hitVec.x, hitVec.y, hitVec.z, 0f, 0f, 0f);
 	}
 	
 	

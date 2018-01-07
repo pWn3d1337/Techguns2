@@ -5,16 +5,22 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import techguns.TGBlocks;
+import techguns.Techguns;
 import techguns.blocks.EnumMonsterSpawnerType;
 import techguns.entities.npcs.ZombieMiner;
 import techguns.util.BlockUtils;
 import techguns.util.MBlock;
 import techguns.util.MultiMBlock;
+import techguns.world.dungeon.presets.specialblocks.MBlockChestLoottable;
 import techguns.world.dungeon.presets.specialblocks.MBlockTGSpawner;
 
 public class SmallTrainstation extends WorldgenStructure {
+	
+	private static final ResourceLocation CHEST_LOOT = new ResourceLocation(Techguns.MODID,"chests/small_trainstation");
+	
 	static ArrayList<MBlock> blockList = new ArrayList<MBlock>();
 	static short[][] blocks;
 	static {
@@ -41,7 +47,7 @@ public class SmallTrainstation extends WorldgenStructure {
 		blockList.add(new MBlock(Blocks.WOODEN_PRESSURE_PLATE, 0));
 		blockList.add(new MBlock(Blocks.WOODEN_SLAB, 8));
 		blockList.add(new MBlock(Blocks.LADDER, 3));
-		blockList.add(new MBlock(Blocks.CHEST, 2));
+		blockList.add(new MBlockChestLoottable(Blocks.CHEST, 2, CHEST_LOOT));
 		//blockList.add(new MBlock(Block.getBlockFromName("tile.chisel.limestone_stairs.0"), 14));
 		blockList.add(MBlockRegister.STONEBRICK_STAIRS_SOUTH_INV); //new MultiMBlock(new Block[]{ChiselBlocks.limestoneStairs[0], ChiselBlocks.limestoneStairs[3], Blocks.air},new int[]{14,6,0}, new int[]{2,2,1}, new BlockType[]{BlockType.STAIRS2_CHISEL,BlockType.STAIRS, BlockType.TG}, new boolean[]{true,true,false}));
 		

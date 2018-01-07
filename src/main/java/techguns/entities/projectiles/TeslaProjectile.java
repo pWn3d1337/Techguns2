@@ -62,7 +62,7 @@ public class TeslaProjectile extends AbstractBeamProjectile{
 		this.laserPitch = (float) (Math.asin(-dir.y) * MathUtil.R2D);
 		this.laserYaw = (float) (Math.atan2(dir.x, dir.z) * MathUtil.R2D);
 		
-		System.out.printf("pitch : %.3f,  yaw : %.3f,  distance : %.3f\n", laserPitch, laserYaw, distance);
+		//System.out.printf("pitch : %.3f,  yaw : %.3f,  distance : %.3f\n", laserPitch, laserYaw, distance);
 		
 		this.rotationPitch = laserPitch;
 		this.rotationYaw = laserYaw;

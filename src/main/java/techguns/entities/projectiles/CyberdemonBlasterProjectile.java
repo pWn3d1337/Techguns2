@@ -6,6 +6,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import techguns.TGPackets;
+import techguns.Techguns;
 import techguns.api.damagesystem.DamageType;
 import techguns.client.ClientProxy;
 import techguns.damagesystem.TGDamageSource;
@@ -38,13 +39,14 @@ public class CyberdemonBlasterProjectile extends GenericProjectile {
 
 	@Override
 	protected void doImpactEffects(Material mat, RayTraceResult rayTraceResult, SoundType sound) {
-       if (!this.world.isRemote){
+       /*if (!this.world.isRemote){
     	   double x= rayTraceResult.hitVec.x;
     	   double y= rayTraceResult.hitVec.y;
     	   double z= rayTraceResult.hitVec.z;
     	   
 			TGPackets.network.sendToAllAround(new PacketSpawnParticle("CyberdemonBlasterImpact", x,y,z), TGPackets.targetPointAroundEnt(this, 32.0f));
-		}
+		}*/
+		Techguns.proxy.createFX("CyberdemonBlasterImpact", world, rayTraceResult.hitVec.x, rayTraceResult.hitVec.y, rayTraceResult.hitVec.z, 0,0,0);
 	}
 
 	@Override

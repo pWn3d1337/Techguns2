@@ -143,7 +143,7 @@ public class NDRProjectile extends AbstractBeamProjectile {
 	protected void doImpactEffects(Material mat, RayTraceResult rayTraceResult, SoundType sound) {
 		Vec3d hitVec = rayTraceResult.hitVec;
 		//TGPackets.network.sendToAllAround(new PacketSpawnParticle("BeamGunImpactFX", hitVec.x, hitVec.y, hitVec.z), TGPackets.targetPointAroundEnt(this, 35.0f));
-		Techguns.proxy.createFX("BeamGunImpactFX", this.world, hitVec.x, hitVec.y, hitVec.z, 0f, 0f, 0f, 1f);
+		Techguns.proxy.createFX("BeamGunImpactFX", this.world, hitVec.x, hitVec.y, hitVec.z, 0f, 0f, 0f);
 
 	}
 	

@@ -678,6 +678,8 @@ public class GenericProjectile extends Entity implements IProjectile, IEntityAdd
 	}
 	
 	public static void burnBlocks(World world, RayTraceResult mop, double chanceToIgnite) {
+		if(world.isRemote) return;
+		
 		if (Math.random() <= chanceToIgnite) {
 			BlockPos hit = mop.getBlockPos();
 
