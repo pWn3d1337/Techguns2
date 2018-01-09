@@ -13,12 +13,12 @@ import techguns.tileentities.MetalPressTileEnt;
 import techguns.tileentities.TurretTileEnt;
 
 public enum EnumMachineType implements IStringSerializable, IMachineType<EnumMachineType> {
-	AMMO_PRESS(0,AmmoPressTileEnt.class,false,EnumBlockRenderType.ENTITYBLOCK_ANIMATED),
-	METAL_PRESS(1,MetalPressTileEnt.class,false,EnumBlockRenderType.ENTITYBLOCK_ANIMATED),
-	CHEM_LAB(2,ChemLabTileEnt.class,false,EnumBlockRenderType.ENTITYBLOCK_ANIMATED),
-	TURRET(3,TurretTileEnt.class,false,EnumBlockRenderType.ENTITYBLOCK_ANIMATED),
-	DUNGEON_SCANNER(4,DungeonScannerTileEnt.class,true,EnumBlockRenderType.MODEL),
-	DUNGEON_GENERATOR(5,DungeonGeneratorTileEnt.class,true,EnumBlockRenderType.MODEL);
+	AMMO_PRESS(0,AmmoPressTileEnt.class,false,false,EnumBlockRenderType.ENTITYBLOCK_ANIMATED),
+	METAL_PRESS(1,MetalPressTileEnt.class,false,false,EnumBlockRenderType.ENTITYBLOCK_ANIMATED),
+	CHEM_LAB(2,ChemLabTileEnt.class,false,false,EnumBlockRenderType.ENTITYBLOCK_ANIMATED),
+	TURRET(3,TurretTileEnt.class,false,false,EnumBlockRenderType.ENTITYBLOCK_ANIMATED),
+	DUNGEON_SCANNER(4,DungeonScannerTileEnt.class,true,true,EnumBlockRenderType.MODEL),
+	DUNGEON_GENERATOR(5,DungeonGeneratorTileEnt.class,true,true,EnumBlockRenderType.MODEL);
 
 	/*
 	EXPLOSIVE_CHARGE(6,"explosivecharge"),
@@ -32,17 +32,19 @@ public enum EnumMachineType implements IStringSerializable, IMachineType<EnumMac
 	private boolean isFullCube;
 	private EnumBlockRenderType renderType;
 	private BlockRenderLayer renderLayer;
+	private boolean debugonly;
 	
-	EnumMachineType(int id, Class<? extends TileEntity> tile, boolean isFullCube, EnumBlockRenderType renderType) {
-		this(id,tile,isFullCube,renderType,BlockRenderLayer.SOLID);
+	EnumMachineType(int id, Class<? extends TileEntity> tile, boolean isFullCube, boolean debugonly, EnumBlockRenderType renderType) {
+		this(id,tile,isFullCube,debugonly,renderType,BlockRenderLayer.SOLID);
 	}
-	EnumMachineType(int id, Class<? extends TileEntity> tile, boolean isFullCube, EnumBlockRenderType renderType, BlockRenderLayer layer) {
+	EnumMachineType(int id, Class<? extends TileEntity> tile, boolean isFullCube, boolean debugonly, EnumBlockRenderType renderType, BlockRenderLayer layer) {
 		this.id=id;
 		this.name=this.name().toLowerCase();
 		this.tile = tile;
 		this.isFullCube=isFullCube;
 		this.renderType=renderType;
 		this.renderLayer=layer;
+		this.debugonly=debugonly;
 	}
 	
 	@Override
@@ -89,5 +91,10 @@ public enum EnumMachineType implements IStringSerializable, IMachineType<EnumMac
 	@Override
 	public BlockRenderLayer getBlockRenderLayer() {
 		return this.renderLayer;
+	}
+	
+	@Override
+	public boolean debugOnly() {
+		return this.debugonly;
 	}
 }

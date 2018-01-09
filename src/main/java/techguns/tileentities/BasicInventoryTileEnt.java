@@ -8,6 +8,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import techguns.TGBlocks;
@@ -145,4 +146,8 @@ public class BasicInventoryTileEnt extends BasicTGTileEntity {
 		return contentsChanged;
 	}
 	
+	//TODO: implement
+	/*public void onFluidContainerInteract(IFluidHandlerItem fluidhandleritem, ItemStack stack) {
+		
+	}*/
 }

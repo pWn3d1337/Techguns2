@@ -30,10 +30,14 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.event.RegistryEvent.Register;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import techguns.TGConfig;
 import techguns.Techguns;
 import techguns.api.machines.IMachineType;
 import techguns.blocks.GenericBlock;
@@ -92,7 +96,9 @@ public class BasicMachine<T extends Enum<T> & IStringSerializable & IMachineType
 	@Override
 	public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> items) {
 		for (T t : clazz.getEnumConstants()) {
-			items.add(new ItemStack(this,1,this.getMetaFromState(getDefaultState().withProperty(MACHINE_TYPE, t))));
+			if(!t.debugOnly() || TGConfig.debug) {
+				items.add(new ItemStack(this,1,this.getMetaFromState(getDefaultState().withProperty(MACHINE_TYPE, t))));
+			}
 		}
 	}
 	
@@ -173,7 +179,15 @@ public class BasicMachine<T extends Enum<T> & IStringSerializable & IMachineType
 								}
 							}
 							
-						} else {
+						} /*else if (!helditem.isEmpty() && hasBucketInteraction(state) && helditem.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null) ) { 
+							
+							IFluidHandlerItem fluidhandler = helditem.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
+							
+							tileent.onFluidContainerInteract(fluidhandler, helditem);
+							
+							//TODO implement bucket interaction
+							
+						}*/ else {
 							if(!world.isRemote) {
 								TechgunsGuiHandler.openGuiForPlayer(player, tile);
 							}
@@ -203,6 +217,10 @@ public class BasicMachine<T extends Enum<T> & IStringSerializable & IMachineType
   	
 		//return super.onBlockActivated(world, pos, state, player, hand, facing, hitX, hitY, hitZ);
 	}	
+	
+	protected boolean hasBucketInteraction(IBlockState state) {
+		return state.getValue(MACHINE_TYPE) == EnumMachineType.CHEM_LAB;
+	}
 	
 	@Override
 	public TileEntity createTileEntity(World world, IBlockState state) {

@@ -80,5 +80,10 @@ public enum EnumSimpleMachineType implements IStringSerializable, IMachineType<E
 	public BlockRenderLayer getBlockRenderLayer() {
 		return this.renderLayer;
 	}
+
+	@Override
+	public boolean debugOnly() {
+		return false;
+	}
 	
 }

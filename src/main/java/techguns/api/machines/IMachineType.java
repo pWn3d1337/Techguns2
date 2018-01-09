@@ -13,6 +13,7 @@ public interface IMachineType<E extends Enum<E>> {
 	public EnumBlockRenderType getRenderType();
 	public boolean isFullCube();
 	public BlockRenderLayer getBlockRenderLayer();
+	public boolean debugOnly();
 	public default SoundType getSoundType() {
 		return SoundType.METAL;
 	}

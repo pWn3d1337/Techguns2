@@ -123,7 +123,7 @@ public class ChargingStationTileEnt extends BasicMachineTileEnt {
 					
 					this.currentOperation=op;	
 					this.totaltime = (int) ((double)rec.chargeAmount/((double)this.getChargeRate()));
-					System.out.println("TotalTime:"+this.totaltime);
+					//System.out.println("TotalTime:"+this.totaltime);
 					this.progress=0;
 					if(!this.world.isRemote) {
 						this.needUpdate();

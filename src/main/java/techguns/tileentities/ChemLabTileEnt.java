@@ -17,6 +17,7 @@ import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.FluidTankPropertiesWrapper;
 import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fluids.capability.IFluidTankProperties;
 import net.minecraftforge.oredict.OreDictionary;
 import techguns.TGItems;
@@ -412,4 +413,12 @@ public class ChemLabTileEnt extends BasicMachineTileEnt implements ITileEntityFl
 			}
 		}
 	}
+
+	/*@Override
+	public void onFluidContainerInteract(IFluidHandlerItem fluidhandleritem, ItemStack stack) {
+	
+		FluidStack f = fluidhandleritem.drain(1000, false);
+		System.out.println("Fluid:"+f.getFluid()+":"+f.amount);
+	}*/
+	
 }

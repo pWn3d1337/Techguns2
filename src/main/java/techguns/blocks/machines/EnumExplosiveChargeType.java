@@ -60,4 +60,9 @@ public enum EnumExplosiveChargeType implements IStringSerializable, IMachineType
 		return BlockRenderLayer.SOLID;
 	}
 
+	@Override
+	public boolean debugOnly() {
+		return false;
+	}
+
 }

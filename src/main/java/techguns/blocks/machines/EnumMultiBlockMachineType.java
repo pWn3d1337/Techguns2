@@ -93,4 +93,9 @@ public enum EnumMultiBlockMachineType implements IStringSerializable, IMachineTy
 		public BlockRenderLayer getBlockRenderLayer() {
 			return this.renderLayer;
 		}
+
+		@Override
+		public boolean debugOnly() {
+			return false;
+		}
 }
