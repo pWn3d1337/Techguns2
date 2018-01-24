@@ -9,6 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.oredict.OreDictionary;
 import techguns.blocks.EnumOreType;
 import techguns.items.armors.ICamoChangeable;
 import techguns.tileentities.operation.AmmoPressBuildPlans;
@@ -72,7 +73,7 @@ public class TGMachineRecipes {
 		} else {
 			ChemLabRecipes.addRecipe("dustRedstone",1, new ItemStack(Items.COAL),1, null,0, new FluidStack(FluidRegistry.WATER,250), null, new ItemStack(Items.GUNPOWDER,1), true,5);
 		}
-		//ChemLabRecipes.addRecipe(new ItemStack(Blocks.SAND),1, new ItemStack(Blocks.GRAVEL),1, null,0, new FluidStack(FluidRegistry.WATER,250), null, new ItemStack(TGBlocks.concrete,2), true,5);
+		
 		if(!TGFluids.oils.isEmpty()){
 			//ChemLabRecipes.addRecipe("slimeball", 1, new ItemStack(Items.COAL), 1, null, 0, new FluidStack(FluidRegistry.WATER,1000), new FluidStack(TGFluids.OIL,250), null, true, 20);
 			
@@ -130,6 +131,11 @@ public class TGMachineRecipes {
 		}
 		
 		ChemLabRecipes.addRecipe(new ItemStack(Items.LEATHER,2), 2, "slimeball", 1, null, 0, new FluidStack(TGFluids.ACID,500), null, TGItems.newStack(TGItems.TREATED_LEATHER,2), false, 20);
+
+		ChemLabRecipes.addRecipe(new ItemStack(Items.ROTTEN_FLESH), 1, (ItemStack)null, 0, null, 0, new FluidStack(TGFluids.WATER,500), null, new ItemStack(Items.LEATHER,1), false, 15);
+		
+		ChemLabRecipes.addRecipe(new ItemStack(Blocks.GRAVEL), 1, new ItemStack(Blocks.SAND), 1, null, 0, new FluidStack(TGFluids.WATER,250), null, new ItemStack(Blocks.CONCRETE,2,8), false, 5);
+		ChemLabRecipes.addRecipe(new ItemStack(Blocks.GRAVEL), 1, new ItemStack(Blocks.DIRT), 1, null, 0, new FluidStack(TGFluids.WATER,250), null, new ItemStack(Blocks.CLAY,2), false, 5);
 
 		
 		ChemLabRecipes.addRecipe(TGItems.RIFLE_ROUNDS, 1, new ItemStack(Items.BLAZE_POWDER), 1, null, 0, new FluidStack(TGFluids.LAVA,250), null, TGItems.newStack(TGItems.RIFLE_ROUNDS_INCENDIARY,1), false, 25);

@@ -291,10 +291,10 @@ public class NPCTurret extends EntityCreature implements IAnimals, IRangedAttack
 					}
 					
 					if(NPCTurret.this.mountedTileEnt!=null){
-						byte security = NPCTurret.this.mountedTileEnt.getSecurity();
+						byte pvp = NPCTurret.this.mountedTileEnt.getPvpSetting();
 						UUID owner =NPCTurret.this.mountedTileEnt.getOwner();
 						
-						if (security!= 0 && owner!=null){
+						if (pvp!= 0 && owner!=null){
 							
 						//	System.out.println("Checking for Target:"+entity);
 							
@@ -302,7 +302,7 @@ public class NPCTurret extends EntityCreature implements IAnimals, IRangedAttack
 								NPCTurret otherTurret = (NPCTurret) entity;
 								if (otherTurret.mountedTileEnt!=null){
 									UUID otherOwner = otherTurret.mountedTileEnt.getOwner();
-									return TGNpcFactions.isHostile(owner, otherOwner);						
+									return TGNpcFactions.shouldAttack(owner, otherOwner, NPCTurret.this.mountedTileEnt.getPvpSetting());						
 								}
 								
 								
@@ -314,8 +314,8 @@ public class NPCTurret extends EntityCreature implements IAnimals, IRangedAttack
 										return false;
 									}
 									
-									return TGNpcFactions.isHostile(owner, ply);
-									
+									//return TGNpcFactions.isHostile(owner, ply);
+									return TGNpcFactions.shouldAttack(owner, ply, NPCTurret.this.mountedTileEnt.getPvpSetting());	
 								}
 							} 								
 											

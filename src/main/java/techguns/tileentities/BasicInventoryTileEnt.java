@@ -5,6 +5,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
@@ -146,8 +147,14 @@ public class BasicInventoryTileEnt extends BasicTGTileEntity {
 		return contentsChanged;
 	}
 	
-	//TODO: implement
-	/*public void onFluidContainerInteract(IFluidHandlerItem fluidhandleritem, ItemStack stack) {
-		
-	}*/
+	/**
+	 * return true if a fluid interaction happened
+	 * 
+	 * @param fluidhandleritem
+	 * @param stack
+	 * @return
+	 */
+	public boolean onFluidContainerInteract(EntityPlayer player, EnumHand hand, IFluidHandlerItem fluidhandleritem, ItemStack stack) {
+		return false;
+	}
 }

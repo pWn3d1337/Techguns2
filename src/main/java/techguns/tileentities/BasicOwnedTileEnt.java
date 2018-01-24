@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
+import techguns.Techguns;
 import techguns.api.machines.ITGTileEntSecurity;
 import techguns.factions.TGNpcFactions;
 
@@ -18,8 +19,9 @@ public class BasicOwnedTileEnt extends BasicInventoryTileEnt implements ITGTileE
 	/**
 	 * Accessible by:
 	 *  0 - anyone
-	 *  1 - friends FTBUtilities is installed, else anyone
-	 *  2 - restricted to owner
+	 *  1 - allies of team with FTBU, else anyone
+	 *  2 - team with FTBU, else anyone
+	 *  3 - restricted to owner
 	 */
 	protected byte security = 0;
 
@@ -100,8 +102,17 @@ public class BasicOwnedTileEnt extends BasicInventoryTileEnt implements ITGTileE
 	@Override
 	public void buttonClicked(int id, EntityPlayer ply, String data) {
 		if (id==BUTTON_ID_SECURITY &&(this.isOwnedByPlayer(ply))){
-			this.security++;
-			this.security = (byte) (this.security%3);
+			
+			if(Techguns.instance.FTBLIB_ENABLED) {
+				this.security++;
+				this.security = (byte) (this.security%4);
+			} else {
+				if (this.security==0) {
+					this.security=3;
+				} else {
+					this.security=0;
+				}
+			}
 			if(!this.world.isRemote){
 				this.needUpdate();
 			}
@@ -117,8 +128,11 @@ public class BasicOwnedTileEnt extends BasicInventoryTileEnt implements ITGTileE
 				return true;
 			} else if (this.isOwnedByPlayer(player)) {
 				return true;
-			} else if (this.security==1){
+			} /*else if (this.security==1){
 				return !TGNpcFactions.isHostile(this.owner, player.getGameProfile().getId());
+			}*/
+			else {
+				return TGNpcFactions.canAccess(this.owner, player.getGameProfile().getId(), this.security);
 			}
 						
 		}

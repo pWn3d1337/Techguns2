@@ -12,6 +12,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -23,6 +24,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextComponentString;
@@ -179,15 +181,23 @@ public class BasicMachine<T extends Enum<T> & IStringSerializable & IMachineType
 								}
 							}
 							
-						} /*else if (!helditem.isEmpty() && hasBucketInteraction(state) && helditem.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null) ) { 
+						} else if (!helditem.isEmpty() && hasBucketInteraction(state) && helditem.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null) ) { 
 							
 							IFluidHandlerItem fluidhandler = helditem.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
 							
-							tileent.onFluidContainerInteract(fluidhandler, helditem);
+							boolean interacted = tileent.onFluidContainerInteract(player, hand, fluidhandler, helditem);
 							
-							//TODO implement bucket interaction
+							if(interacted) {
+								if(!world.isRemote) {
+									world.playSound(null, pos.getX()+0.5d,pos.getY()+0.5d,pos.getZ()+0.5d, SoundEvents.ITEM_BUCKET_FILL, SoundCategory.BLOCKS, 1f, 1f);
+								}
+								
+								return true;
+							} else if (!world.isRemote) {
+								TechgunsGuiHandler.openGuiForPlayer(player, tile);
+							}
 							
-						}*/ else {
+						} else {
 							if(!world.isRemote) {
 								TechgunsGuiHandler.openGuiForPlayer(player, tile);
 							}

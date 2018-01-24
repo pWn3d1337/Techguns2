@@ -53,6 +53,9 @@ public abstract class OwnedTileEntGui extends TGBaseGui {
 	        		color +=ChatFormatting.YELLOW;
 	        		break;
 	        	case 2:
+	        		color +=ChatFormatting.GOLD;
+	        		break;
+	        	case 3:
 	        		color +=ChatFormatting.RED;
 	        		break;
         	}
