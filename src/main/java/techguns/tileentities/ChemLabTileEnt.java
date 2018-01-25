@@ -6,19 +6,24 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidActionResult;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
+import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.FluidTankPropertiesWrapper;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fluids.capability.IFluidTankProperties;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.oredict.OreDictionary;
 import techguns.TGItems;
 import techguns.TGSounds;
@@ -414,11 +419,36 @@ public class ChemLabTileEnt extends BasicMachineTileEnt implements ITileEntityFl
 		}
 	}
 
-	/*@Override
-	public void onFluidContainerInteract(IFluidHandlerItem fluidhandleritem, ItemStack stack) {
-	
-		FluidStack f = fluidhandleritem.drain(1000, false);
-		System.out.println("Fluid:"+f.getFluid()+":"+f.amount);
-	}*/
+	@Override
+	public boolean onFluidContainerInteract(EntityPlayer player, EnumHand hand, IFluidHandlerItem fluidhandleritem, ItemStack stack) {
+		if(!this.isUseableByPlayer(player)) return false;
+		
+		boolean interacted = false;
+		
+		if(this.drainInput) {
+			interacted = FluidUtil.interactWithFluidHandler(player, hand, this.inputTank);
+		} else {
+			
+			IItemHandler playerInventory = player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
+            if (playerInventory != null)
+            {
+                FluidActionResult fluidActionResult = FluidUtil.tryFillContainerAndStow(stack, this.outputTank, playerInventory, Integer.MAX_VALUE, player);
+                if (!fluidActionResult.isSuccess())
+                {
+                    fluidActionResult = FluidUtil.tryEmptyContainerAndStow(stack, this.inputTank, playerInventory, Integer.MAX_VALUE, player);
+                }
+
+                if (fluidActionResult.isSuccess())
+                {
+                    player.setHeldItem(hand, fluidActionResult.getResult());
+                    interacted=true;
+                }
+            }	
+			
+		}
+		
+		return interacted;
+
+	}
 	
 }

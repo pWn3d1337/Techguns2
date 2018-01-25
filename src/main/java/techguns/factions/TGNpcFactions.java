@@ -35,6 +35,73 @@ public class TGNpcFactions {
 	}
 	
 	
+	public static boolean canAccess(UUID owner, UUID target, int security) {
+		if(owner.equals(target)) return true;
+		
+		switch(security) {
+		case 1:
+			return isAlliedOrTeamMember(owner, target);
+		case 2:
+			return isTeamMember(owner, target);
+		case 3:
+			return owner.equals(target);
+		case 0:
+		default:
+			return false;
+				
+		}
+
+	}
+	
+	public static boolean shouldAttack(UUID owner, UUID target, int pvpsetting) {
+		if(owner.equals(target)) return false;
+		
+		switch(pvpsetting) {
+		case 1:
+			return isEnemy(owner, target);
+		case 2:
+			return !isAlliedOrTeamMember(owner, target);
+		case 3:
+			return !isTeamMember(owner, target);
+		case 4:
+			return !owner.equals(target);
+		case 0:
+		default:
+			return false;
+				
+		}
+
+	}
+	
+	
+	public static boolean isEnemy(UUID owner, UUID target) {
+		if(Techguns.instance.FTBLIB_ENABLED && !owner.equals(target)) {
+			return techguns.plugins.ftbl.TeamSystemIntegration.isEnemy(owner, target);
+		}
+		return false;
+	}
+	
+	public static boolean isAlliedOrTeamMember(UUID owner, UUID target) {
+		if(Techguns.instance.FTBLIB_ENABLED && !owner.equals(target)) {
+			return techguns.plugins.ftbl.TeamSystemIntegration.isAllied(owner, target);
+		}
+		return true;
+	}
+	
+	public static boolean isAlliedNoTeamMember(UUID owner, UUID target) {
+		if(Techguns.instance.FTBLIB_ENABLED && !owner.equals(target)) {
+			return techguns.plugins.ftbl.TeamSystemIntegration.isAlliedNoMember(owner, target);
+		}
+		return true;
+	}
+	
+	public static boolean isTeamMember(UUID owner, UUID target) {
+		if(Techguns.instance.FTBLIB_ENABLED && !owner.equals(target)) {
+			return techguns.plugins.ftbl.TeamSystemIntegration.isTeamMember(owner, target);
+		}
+		return true;		
+	}
+	
 	public static boolean isHostile(EntityPlayer ply1, EntityPlayer ply2) {
 		return isHostile(EntityPlayer.getUUID(ply1.getGameProfile()), EntityPlayer.getUUID(ply2.getGameProfile()));
 	}
@@ -42,7 +109,7 @@ public class TGNpcFactions {
 	public static boolean isHostile(UUID ply1, UUID ply2){
 		//return !friendsAPI.areFriends(ply1, ply2);
 		if(Techguns.instance.FTBLIB_ENABLED) {
-			return techguns.plugins.ftbl.TeamSystemIntegration.isAllied(ply1, ply2);
+			return !techguns.plugins.ftbl.TeamSystemIntegration.isAllied(ply1, ply2);
 		}
 		
 		return !ply1.equals(ply2);

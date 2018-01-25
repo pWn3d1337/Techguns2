@@ -38,7 +38,7 @@ public class TGFluids implements ITGInitializer {
 	//public static Fluid OIL;
 	
 	//public static Fluid FUEL;
-	protected static String[] fuelnames = {"fuel", "refined_fuel", "biofuel", "biodiesel"};
+	protected static String[] fuelnames = {"fuel", "refined_fuel", "biofuel", "biodiesel", "diesel", "gasoline"};
 	public static ArrayList<Fluid> fuels = new ArrayList<Fluid>();
 	
 	public static Fluid LIQUID_REDSTONE;

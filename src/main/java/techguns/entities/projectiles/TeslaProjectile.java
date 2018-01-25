@@ -9,6 +9,8 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import techguns.api.damagesystem.DamageType;
+import techguns.damagesystem.TGDamageSource;
+import techguns.deatheffects.EntityDeathUtils.DeathType;
 import techguns.items.guns.GenericGun;
 import techguns.items.guns.IProjectileFactory;
 import techguns.util.MathUtil;
@@ -134,6 +136,17 @@ public class TeslaProjectile extends AbstractBeamProjectile{
 		return null;
 	}
 	
+	
+	
+	@Override
+	protected TGDamageSource getProjectileDamageSource() {
+		TGDamageSource src = TGDamageSource.causeLightningDamage(this, this.shooter, DeathType.LASER);
+		src.armorPenetration = this.penetration;
+		src.setNoKnockback();
+		src.goreChance=0.5f;
+		return src;
+	}
+
 	@Override
 	public boolean shouldRenderInPass(int pass) {
 		return pass==1;
@@ -149,7 +162,7 @@ public class TeslaProjectile extends AbstractBeamProjectile{
 
 		@Override
 		public DamageType getDamageType() {
-			return DamageType.ENERGY;
+			return DamageType.LIGHTNING;
 		}
 	}
 

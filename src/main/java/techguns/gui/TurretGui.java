@@ -1,5 +1,8 @@
 package techguns.gui;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mojang.realmsclient.gui.ChatFormatting;
 
 import net.minecraft.client.Minecraft;
@@ -7,6 +10,7 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
 import techguns.Techguns;
 import techguns.gui.containers.TurretContainer;
+import techguns.gui.widgets.GuiButtonPvPSetting;
 import techguns.gui.widgets.GuiButtonTargetAnimals;
 import techguns.tileentities.TurretTileEnt;
 import techguns.util.TextUtil;
@@ -32,6 +36,9 @@ public class TurretGui extends PoweredTileEntGui {
 		
       //draw animal targeting button background:
         this.drawTexturedModalRect(k-22-5, l+70-5, 195, 0, 22+5, 30);
+        
+        //draw pvp targeting button background:
+        this.drawTexturedModalRect(k-22-5, l+100-5, 195, 0, 22+5, 30);
         
         if (this.tile.turretDeath){
         	int i1= this.tile.getRepairTimeScaled(52);
@@ -60,6 +67,11 @@ public class TurretGui extends PoweredTileEntGui {
         
         if (this.isInRect(mx, my, -22,70,20,20)){
     		this.drawHoveringText(TextUtil.trans("techguns.turret.targetAnimals")+": "+(this.tile.attackAnimals?ChatFormatting.RED+TextUtil.trans("techguns.yes"):ChatFormatting.GREEN+TextUtil.trans("techguns.no")), mx, my);
+    	}else if (this.isInRect(mx, my, -22, 100, 20, 20)) {
+    		List<String> tooltip = new ArrayList<String>(2);
+    		tooltip.add(TextUtil.trans("techguns.turret.pvpsetting")+": "+TextUtil.trans("techguns.turret.pvpsetting."+tile.getPvpSetting()));
+    		tooltip.add(TextUtil.trans("techguns.container.security.tooltip.descr2"));
+    		this.drawHoveringText(tooltip, mx, my);
     	}
 	}
 
@@ -67,6 +79,7 @@ public class TurretGui extends PoweredTileEntGui {
 	public void initGui() {
 		super.initGui();
 		this.buttonList.add(new GuiButtonTargetAnimals(TurretTileEnt.BUTTON_ID_TARGET_ANIMALS, this.guiLeft-22, this.guiTop+70,20,20, this.tile));
+		this.buttonList.add(new GuiButtonPvPSetting(TurretTileEnt.BUTTON_ID_PVP_SETTING, this.guiLeft-22, this.guiTop+100,20,20, this.tile));
 	}
 	
 	

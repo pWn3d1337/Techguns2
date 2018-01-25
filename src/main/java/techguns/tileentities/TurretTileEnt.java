@@ -1,5 +1,7 @@
 package techguns.tileentities;
 
+import static techguns.gui.ButtonConstants.BUTTON_ID_SECURITY;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -38,6 +40,7 @@ public class TurretTileEnt extends BasicPoweredTileEnt implements ITickable{
 	public static final int SLOT_ARMOR=SLOT_WEAPON+1;
 	
 	public static final int BUTTON_ID_TARGET_ANIMALS = ButtonConstants.BUTTON_ID_REDSTONE+1;
+	public static final int BUTTON_ID_PVP_SETTING = ButtonConstants.BUTTON_ID_REDSTONE+2;
 	
 	public NPCTurret mountedTurret =null;	
 	private long lastRequest=0;
@@ -49,6 +52,15 @@ public class TurretTileEnt extends BasicPoweredTileEnt implements ITickable{
 	public boolean attackAnimals=false;
 	
 	protected EnumFacing facing=EnumFacing.UP;
+	
+	/**
+	 * 0: no PvP
+	 * 1: attack enemies
+	 * 2: attack neutrals
+	 * 4: attack allies
+	 * 3: attack teammembers (all but owner)
+	 **/
+	protected byte pvpsetting=0;
 	
 	public TurretTileEnt() {
 		super(SLOT_ARMOR+1, false, 5000);
@@ -119,6 +131,7 @@ public class TurretTileEnt extends BasicPoweredTileEnt implements ITickable{
 		this.repairTime=tags.getInteger("repairTime");
 		this.turretHealTime=tags.getInteger("turretHealTime");
 		this.attackAnimals=tags.getBoolean("attackAnimals");
+		this.pvpsetting=tags.getByte("pvpsetting");
 		
 		NBTTagCompound tagsWeapon = tags.getCompoundTag("weapon");
 		if(tagsWeapon!=null && !tagsWeapon.hasNoTags()) {
@@ -166,7 +179,8 @@ public class TurretTileEnt extends BasicPoweredTileEnt implements ITickable{
 		tags.setInteger("repairTime", this.repairTime);
 		tags.setInteger("turretHealTime",this.turretHealTime);
 		tags.setBoolean("attackAnimals", this.attackAnimals);
-
+		tags.setByte("pvpsetting", this.pvpsetting);
+		
 		NBTTagCompound tagsWeapon = new NBTTagCompound();
 		this.inventory.getStackInSlot(SLOT_WEAPON).writeToNBT(tagsWeapon);
 		
@@ -333,7 +347,23 @@ public class TurretTileEnt extends BasicPoweredTileEnt implements ITickable{
 			if(!this.world.isRemote){
 				this.needUpdate();
 			}
-		} 
+		} else if (id==BUTTON_ID_PVP_SETTING &&(this.isOwnedByPlayer(ply))){
+			
+			if(Techguns.instance.FTBLIB_ENABLED) {
+				this.pvpsetting++;
+				this.pvpsetting = (byte) (this.pvpsetting%5);
+			}  else {
+				if(this.pvpsetting==0) {
+					this.pvpsetting=4;
+				} else {
+					this.pvpsetting=0;
+				}
+			}
+			
+			if(!this.world.isRemote){
+				this.needUpdate();
+			}
+		}
 	}
 	
 	public void updateWeapon() {
@@ -516,4 +546,9 @@ public class TurretTileEnt extends BasicPoweredTileEnt implements ITickable{
 			this.mountedTurret.setDead();
 		}
 	}
+
+	public byte getPvpSetting() {
+		return pvpsetting;
+	}
+	
 }

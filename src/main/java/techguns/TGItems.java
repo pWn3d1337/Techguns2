@@ -371,7 +371,7 @@ public class TGItems implements ITGInitializer{
 		SONIC_EMITTER = SHARED_ITEM.addsharedVariant("sonicemitter");
 		
 		TGX = SHARED_ITEM.addsharedVariant("tgx");
-		NETHER_CHARGE = SHARED_ITEM.addsharedVariant("nethercharge");
+		NETHER_CHARGE = SHARED_ITEM.addsharedVariant("nethercharge", TGSlotType.AMMOSLOT);
 		TREATED_LEATHER = SHARED_ITEM.addsharedVariant("treatedleather");
 		ORE_TITANIUM = SHARED_ITEM.addsharedVariant("oretitanium");
 		
