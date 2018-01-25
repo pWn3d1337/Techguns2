@@ -13,6 +13,7 @@ import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.EnumHandSide;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -24,6 +25,7 @@ import techguns.client.particle.TGParticleSystemType.AlphaEntry;
 import techguns.client.particle.TGParticleSystemType.ColorEntry;
 import techguns.client.render.TGRenderHelper;
 import techguns.client.render.TGRenderHelper.RenderType;
+import techguns.client.render.item.RenderItemBase;
 import techguns.debug.Keybinds;
 import techguns.util.MathUtil;
 
@@ -383,6 +385,32 @@ public class TGParticle extends Particle implements ITGParticle {
 	        p3 = new Vec3d((double)( rotX * fscale + rotXY * fscale), (double)( + rotZ * fscale), (double)( + rotYZ * fscale + rotXZ * fscale));
 	        p4 = new Vec3d((double)( rotX * fscale - rotXY * fscale), (double)( - rotZ * fscale), (double)( + rotYZ * fscale - rotXZ * fscale));        
 		
+			//<TEST>
+//			Vec3d angles = RenderItemBase.getTransformAngles((EntityLivingBase)entityIn, EnumHandSide.RIGHT, partialTickTime);
+//			angles = angles.scale(-1.0);
+//			
+//			p1 = MathUtil.rotateVec3dAroundZ(p1, (float)angles.z);
+//			p1 = p1.rotateYaw((float)angles.y);
+//			p1 = p1.rotatePitch((float)angles.x);
+//		
+//			p2 = MathUtil.rotateVec3dAroundZ(p2, (float)angles.z);
+//			p2 = p2.rotateYaw((float)angles.y);
+//			p2 = p2.rotatePitch((float)angles.x);
+//			
+//			
+//			p3 = MathUtil.rotateVec3dAroundZ(p3, (float)angles.z);
+//			p3 = p3.rotateYaw((float)angles.y);
+//			p3 = p3.rotatePitch((float)angles.x);
+//
+//			
+//			p4 = MathUtil.rotateVec3dAroundZ(p4, (float)angles.z);
+//			p4 = p4.rotateYaw((float)angles.y);
+//			p4 = p4.rotatePitch((float)angles.x);
+//
+//			
+			//</TEST>
+			
+	        
 	        //AngleZ Rotation
 	        
 	        //double a = angle * MathUtil.D2R;

@@ -3,25 +3,33 @@ package techguns.client.render.item;
 import java.util.List;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.ModelPlayer;
+import net.minecraft.client.model.ModelBiped.ArmPose;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumHandSide;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import techguns.api.npc.INPCTechgunsShooter;
 import techguns.api.render.IItemRenderer;
 import techguns.capabilities.TGExtendedPlayerClient;
 import techguns.capabilities.TGShooterValues;
 import techguns.client.ClientProxy;
+import techguns.client.ShooterValues;
 import techguns.client.models.ModelMultipart;
 import techguns.client.particle.ITGParticle;
 import techguns.client.particle.TGParticleSystemItemAttached;
+import techguns.items.guns.GenericGun;
+import techguns.util.MathUtil;
 
 public class RenderItemBase implements IItemRenderer {
 
@@ -236,14 +244,17 @@ public class RenderItemBase implements IItemRenderer {
 	protected void renderItemParticles(EntityLivingBase ent, TransformType transform, float ptt) {
 		
 		EnumHand hand = EnumHand.MAIN_HAND;
+		EnumHandSide handSide;
 		if (transform == TransformType.FIRST_PERSON_LEFT_HAND || transform == TransformType.THIRD_PERSON_LEFT_HAND) {
 			if(ent.getPrimaryHand() == EnumHandSide.RIGHT) {
 				hand = EnumHand.OFF_HAND;
 			}
+			handSide = EnumHandSide.LEFT;
 		} else if (transform == TransformType.FIRST_PERSON_RIGHT_HAND || transform == TransformType.THIRD_PERSON_RIGHT_HAND) {
 			if(ent.getPrimaryHand() == EnumHandSide.LEFT) {
 				hand = EnumHand.OFF_HAND;
 			}
+			handSide = EnumHandSide.RIGHT;
 		} else {
 			return;
 		}
@@ -268,10 +279,27 @@ public class RenderItemBase implements IItemRenderer {
 			GlStateManager.disableCull();
 			Tessellator tessellator = Tessellator.getInstance();
 			BufferBuilder buffer = tessellator.getBuffer();
+			
+			//Vec3d angles = getTransformAngles(ent, handSide, ptt);
+			//System.out.println(String.format("angles: %.3f, %.3f, %.3f", angles.x, angles.y, angles.z));
+			
+			//Entity entityIn = Minecraft.getMinecraft().getRenderViewEntity();
+			
+//			float f1 = MathHelper.cos(entityIn.rotationYaw * 0.017453292F - (float)angles.y);
+//	        float f2 = MathHelper.sin(entityIn.rotationYaw * 0.017453292F - (float)angles.y);
+//	        float f3 = -f2 * MathHelper.sin(entityIn.rotationPitch * 0.017453292F - (float)angles.x);
+//	        float f4 = f1 * MathHelper.sin(entityIn.rotationPitch * 0.017453292F - (float)angles.x);
+//	        float f5 = MathHelper.cos(entityIn.rotationPitch * 0.017453292F - (float) angles.x);
+			
 			particles.forEach(p -> {
 				//System.out.println("Render Particle!");
 				//System.out.println("Pos:"+p.getPos());
-				p.doRender(buffer, ent, ptt, 1.0f, 1.0f, 0, 0, 0);
+					
+				//Align to Weapon
+			   p.doRender(buffer, ent, ptt, 1.0f, 1.0f, 0, 0, 0);				
+
+		       // p.doRender(buffer, entityIn, ptt, f1, f5, f2, f3, f4);
+			   //p.doRender(buffer, ent, ptt, 1.0f - (float)angles.x, 1.0f - (float)angles.z, 0, 0, 0);
 			});
 			GlStateManager.enableCull();
 		}
@@ -285,5 +313,154 @@ public class RenderItemBase implements IItemRenderer {
 	public RenderItemBase setAmbientParticleFX(String ambientParticleFX) {
 		this.ambientParticleFX = ambientParticleFX;
 		return this;
+	}
+	
+	public static Vec3d getTransformAngles(EntityLivingBase entity, EnumHandSide hand, float ptt) {
+		float limbSwing = entity.limbSwing - entity.limbSwingAmount * (1.0F - ptt);
+		float limbSwingAmount = entity.prevLimbSwingAmount + (entity.limbSwingAmount - entity.prevLimbSwingAmount) * ptt;
+
+        if (entity.isChild())
+        {
+            limbSwing *= 3.0F;
+        }
+        
+        if (limbSwingAmount > 1.0F)
+        {
+            limbSwingAmount = 1.0F;
+        }
+        
+        //TODO: Elytra Flying
+        float f = 1.0f;
+        float rAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 2.0F * limbSwingAmount * 0.5F / f;
+        float lAngleX = MathHelper.cos(limbSwing * 0.6662F) * 2.0F * limbSwingAmount * 0.5F / f;
+        float rAngleY = 0.0F;
+        float lAngleY = 0.0F;
+        float rAngleZ = 0.0F;
+        float lAngleZ = 0.0F;
+        
+        if (entity.isRiding())
+        {
+            rAngleX += -((float)Math.PI / 5F);
+            lAngleX += -((float)Math.PI / 5F);
+        }
+        
+        ArmPose leftArmPose = ArmPose.EMPTY;
+        ArmPose rightArmPose = ArmPose.ITEM;
+        
+        ItemStack stack = entity.getHeldItemMainhand();
+	 	if(!stack.isEmpty() && stack.getItem() instanceof GenericGun && ((GenericGun) stack.getItem()).hasBowAnim()){
+	 		if (entity.getPrimaryHand()==EnumHandSide.RIGHT) {
+	 			rightArmPose = ArmPose.BOW_AND_ARROW;
+	 		} else {
+	 			leftArmPose = ArmPose.BOW_AND_ARROW;
+	 		}
+	 	} else { 	
+		 	ItemStack stack2 =entity.getHeldItemOffhand();
+		 	if(!stack2.isEmpty() && stack2.getItem() instanceof GenericGun && ((GenericGun) stack2.getItem()).hasBowAnim()){
+		 		if (ShooterValues.getIsCurrentlyUsingGun(entity,true)){			 		
+			 		if (entity.getPrimaryHand()==EnumHandSide.RIGHT) {
+			 			leftArmPose = ArmPose.BOW_AND_ARROW;
+			 		} else {
+			 			rightArmPose = ArmPose.BOW_AND_ARROW;
+			 		}
+		 		}
+		 	}
+	 	}
+
+        switch(leftArmPose) {
+	        case EMPTY:
+	          lAngleY = 0.0F;
+	        break;
+			case BLOCK:
+	         	lAngleX =lAngleX * 0.5F - 0.9424779F;
+	        	lAngleY = 0.5235988F;
+	        break;
+	    	case ITEM:
+	        	lAngleX = lAngleX * 0.5F - ((float)Math.PI / 10F);
+	        	lAngleY = 0.0F;
+	        break;
+        }
+        
+    	switch(rightArmPose) {
+	        case EMPTY:
+	          rAngleY = 0.0F;
+	        break;
+			case BLOCK:
+	         	rAngleX = rAngleX * 0.5F - 0.9424779F;
+	        	rAngleY = -0.5235988F;
+	        break;
+	    	case ITEM:
+	        	rAngleX = rAngleX * 0.5F - ((float)Math.PI / 10F);
+	        	rAngleY = 0.0F;
+	        break;
+    	}
+    	
+        float headPitch = entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * ptt;	        
+        float bhrx = headPitch * 0.017453292F; //this.bipedHead.rotateAngleX
+        	
+        if (entity.swingProgress > 0.0f) {
+        	float bbry = MathHelper.sin(MathHelper.sqrt(entity.swingProgress) * ((float)Math.PI * 2F)) * 0.2F; //= bipedBody.rotateAngleY
+        	lAngleY += bbry;
+        	lAngleX += bbry;
+        	rAngleY += bbry;
+        	float f1 = 1.0F - entity.swingProgress;
+	        f1 = f1 * f1;
+	        f1 = f1 * f1;
+	        f1 = 1.0F - f1;
+	        float f2 = MathHelper.sin(f1 * (float)Math.PI);
+	        
+	        float f3 = MathHelper.sin(entity.swingProgress * (float)Math.PI) * -(bhrx - 0.7F) * 0.75F;
+	        
+	        if (hand == EnumHandSide.LEFT) {
+	        	lAngleX = (float) (lAngleX - ((double)f2 * 1.2D + (double)f3));
+	        	lAngleY += bbry * 2.0F;
+	        	lAngleZ += MathHelper.sin(entity.swingProgress * (float)Math.PI) * -0.4F;
+	        }else {
+	        	rAngleX = (float) (rAngleX - ((double)f2 * 1.2D + (double)f3));
+	        	rAngleY += bbry * 2.0F;
+	        	rAngleZ += MathHelper.sin(entity.swingProgress * (float)Math.PI) * -0.4F;
+	        }
+	    }
+        
+        if (entity.isSneaking()) {
+        	rAngleX += 0.4F;
+        	lAngleX += 0.4F;
+        }
+        
+        float ageInTicks = (float)entity.ticksExisted + ptt;
+        
+        rAngleZ += MathHelper.cos(ageInTicks * 0.09F) * 0.05F + 0.05F;
+        lAngleZ -= MathHelper.cos(ageInTicks * 0.09F) * 0.05F + 0.05F;
+        rAngleX += MathHelper.sin(ageInTicks * 0.067F) * 0.05F;
+        lAngleX -= MathHelper.sin(ageInTicks * 0.067F) * 0.05F;
+        
+        float f_ = MathUtil.interpolateRotation(entity.prevRenderYawOffset, entity.renderYawOffset, ptt);
+        float f1_ = MathUtil.interpolateRotation(entity.prevRotationYawHead, entity.rotationYawHead, ptt);
+
+        float netHeadYaw = f1_ - f_;
+        float bhry = netHeadYaw * 0.017453292F;
+        
+        if (rightArmPose == ArmPose.BOW_AND_ARROW) {
+        	rAngleY = -0.1F + bhry;
+        	lAngleY = 0.1F + bhry + 0.4F;
+        	rAngleX =  -((float)Math.PI / 2F) + bhrx;
+        	lAngleX = -((float)Math.PI / 2F) + bhrx;
+        }else if (leftArmPose == ArmPose.BOW_AND_ARROW) {
+        	rAngleY = -0.1F + bhry - 0.4F;
+            lAngleY = 0.1F + bhry;
+            rAngleX = -((float)Math.PI / 2F) + bhrx;
+            lAngleX = -((float)Math.PI / 2F) + bhrx;
+        }
+        
+        //Entity Rotation
+        float entityYaw = (float)MathUtil.D2R * (entity.prevRotationYaw + (entity.rotationYaw - entity.prevRotationYaw) * ptt);
+        lAngleY += entityYaw;
+        rAngleY += entityYaw;
+//        
+        if (hand == EnumHandSide.LEFT) {
+        	return new Vec3d(lAngleX, lAngleY, lAngleZ);
+        }else {
+        	return new Vec3d(rAngleX, rAngleY, rAngleZ);
+        }
 	}
 }

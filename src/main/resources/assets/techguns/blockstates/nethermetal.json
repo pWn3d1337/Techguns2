@@ -1,0 +1,22 @@
+{
+  "variants": {
+    "type=grey": {
+      "model": "techguns:nethermetal_grey"
+    },
+    "type=panel": {
+      "model": "techguns:nethermetal_panel"
+    },
+    "type=grey_dark": {
+      "model": "techguns:nethermetal_grey_dark"
+    },
+    "type=grate2": {
+      "model": "techguns:nethermetal_grate2"
+    },
+    "type=grate1": {
+      "model": "techguns:nethermetal_grate1"
+    },
+    "type=grey_tiles": {
+      "model": "techguns:nethermetal_grey_tiles"
+    }
+  }
+}

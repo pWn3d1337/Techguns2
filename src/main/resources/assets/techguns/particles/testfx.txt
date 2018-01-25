@@ -1,7 +1,40 @@
 FXLIST ScreenTestFX {
 //ScreenTestFXFlare
-ScreenTestFXFlames
+//ScreenTestFXFlames
+TestFlare
 }
+
+TestFlare {
+AnimationSpeed = 1 1
+Texture = techguns:textures/fx/bio.png
+RenderType = ADDITIVE
+Lifetime = 10 10
+SystemLifetime = 0 0
+AnimationSpeed = 1 1
+Size = 5 5
+SizeRate = 0 0
+SizeRateDamping = 1 1
+Alpha = 0.0 0
+Alpha = 1.0 0.5
+Alpha = 0 1.0
+Color = 255 255 255 0
+Color = 255 255 255 1
+ParticleCount = 1 1
+InitialDelay = 0 0
+SpawnDelay = 0 0
+VelocityType = ORTHO
+Velocity1 = 0 0
+Velocity2 = 0 0
+Velocity3 =  0 0
+VelocityDamping = 1 1
+Gravity = 0.0
+VolumeType = POINT
+IsHollow = false
+RemoveOnGround = false
+SystemVelocityFactor = 0 0
+Offset = 0 0 0
+}
+
 
 ScreenTestFXFlames {
 AnimationSpeed = 1 1

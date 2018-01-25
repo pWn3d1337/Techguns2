@@ -43,7 +43,7 @@ public class TGItems implements ITGInitializer{
 	/**
 	 * FIXME DISABLE THIS BEFORE RELEASE
 	 */
-	public static boolean WRITE_ITEM_JSON = false;
+	public static boolean WRITE_ITEM_JSON = true;
 	/**
 	 * FIXME DISABLE THIS BEFORE RELEASE
 	 */
