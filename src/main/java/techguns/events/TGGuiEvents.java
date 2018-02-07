@@ -197,26 +197,6 @@ public class TGGuiEvents extends Gui{
 		mc.fontRenderer.drawString(text, sr.getScaledWidth()+1-text.length()*6,sr.getScaledHeight()-mc.fontRenderer.FONT_HEIGHT-2+offsetY , 0xFFFFFFFF);
 	}
 	
-	
-	@SideOnly(Side.CLIENT)
-	@SubscribeEvent(priority=EventPriority.NORMAL, receiveCanceled=false)
-	public void onGuiPostInit(GuiScreenEvent.InitGuiEvent.Post event){
-		//System.out.println("Init GUI:"+event.getGui());
-		if (event.getGui() instanceof GuiInventory){
-		    int xSize = 176;
-		    int ySize = 166;
-			
-		    int k = (event.getGui().width - xSize) / 2;
-	        int l = (event.getGui().height - ySize) / 2;
-			
-	        //TODO: get this from config file
-	        int index = 2;
-	        event.getButtonList().add(new TGGuiTabButton(index, k+5, l-26, false,new ItemStack(Blocks.CRAFTING_TABLE,1),0));
-	        event.getButtonList().add(new TGGuiTabButton(index, k+5+28, l-26, true,TGItems.newStack(TGItems.PISTOL_ROUNDS,1),0));
-			
-		}
-	}
-	
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent(priority=EventPriority.NORMAL, receiveCanceled=false)
 	public void onRenderCrosshairs(RenderGameOverlayEvent event){

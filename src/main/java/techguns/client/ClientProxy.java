@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import micdoodle8.mods.galacticraft.api.client.tabs.InventoryTabVanilla;
+import micdoodle8.mods.galacticraft.api.client.tabs.TabRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -272,6 +274,7 @@ import techguns.gui.containers.MetalPressContainer;
 import techguns.gui.containers.ReactionChamberContainer;
 import techguns.gui.containers.RepairBenchContainer;
 import techguns.gui.containers.TurretContainer;
+import techguns.gui.player.InventoryTabTechGuns;
 import techguns.items.guns.GenericGun;
 import techguns.keybind.TGKeybinds;
 import techguns.tileentities.AmmoPressTileEnt;
@@ -418,7 +421,16 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(Door3x3TileEntity.class, new RenderDoor3x3Fast());
 		
 		this.initGuiHandler();
+		
+		if (TabRegistry.getTabList().size() == 0)
+		{
+			TabRegistry.registerTab(new InventoryTabVanilla());
+		}
+		
+		TabRegistry.registerTab(new InventoryTabTechGuns());
 	}
+	
+	
 	
 	protected void initGuiHandler() {
 		guihandler.<CamoBenchTileEnt>addEntry(CamoBenchTileEnt.class, CamoBenchGui::new, CamoBenchContainer::new);
