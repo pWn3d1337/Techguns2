@@ -5,16 +5,15 @@ import java.util.List;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
 
+
+import micdoodle8.mods.galacticraft.api.client.tabs.TabRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.inventory.Container;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import techguns.TGItems;
 import techguns.Techguns;
 import techguns.api.damagesystem.DamageType;
 import techguns.capabilities.TGExtendedPlayer;
@@ -24,13 +23,12 @@ import techguns.items.armors.GenericArmor;
 
 public class TGPlayerInventoryGui extends TGBaseGui {
 
-
 		public static ResourceLocation texture = new ResourceLocation(Techguns.MODID,"textures/gui/tgplayerinventory.png");
 		private final TGPlayerInventory inventory;
 		private float sizex;
 		private float sizey;
 		private TGExtendedPlayer props;
-		
+	
 		private static final int togglebuttons_xpos= -8;
 		/*public GuiTGPlayerInventory(EntityPlayer player, InventoryPlayer inv, TGPlayerInventory tgplayerinv) {
 			super(new TGPlayerContainer(player, inv, tgplayerinv));
@@ -177,24 +175,19 @@ public class TGPlayerInventoryGui extends TGBaseGui {
 		@Override
 		public void initGui() {
 			super.initGui();
-			int index=0;
 			
-			/*if (!Techguns.isTConstructLoaded){
-				this.buttonList.add(new TGGuiTabButton(index, this.guiLeft-26, this.guiTop+5, true, new ItemStack(Blocks.crafting_table,1),0));
-			    this.buttonList.add(new TGGuiTabButton(index, this.guiLeft-26, this.guiTop+5+26, false,TGItems.newStack(TGItems.bullets9mm,1),TGConfig.GUI_ID_tgplayerInventory));
-			} else {
-				((TechgunsTConstructIntegrationClient)Techguns.pluginTConstructIntegration).addTabs(this.guiLeft, this.guiTop, this.buttonList);
-
-			}*/
-			this.buttonList.add(new TGGuiTabButton(index, this.guiLeft+5, this.guiTop-26, true, new ItemStack(Blocks.CRAFTING_TABLE,1),-1));
-		    this.buttonList.add(new TGGuiTabButton(index, this.guiLeft+5+28, this.guiTop-26, false,TGItems.newStack(TGItems.PISTOL_ROUNDS,1),0));			
+			int index = 0;
 			
+			this.guiLeft = (this.width - this.xSize) / 2;
+			
+			int cornerX = this.guiLeft;
+			int cornerY = this.guiTop;
+			
+			TabRegistry.updateTabValues(cornerX, cornerY, InventoryTabTechGuns.class);
+			TabRegistry.addTabsToList(this.buttonList);
 			
 		    for(int x =0; x<5;x++){
 		    	this.buttonList.add(new TGGuiToggleButton(++index, this.guiLeft+togglebuttons_xpos/*+173*/, this.guiTop+7+(x*11), x));
 		    }
 		}
-
-		
-		
 }
