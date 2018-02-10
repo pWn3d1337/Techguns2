@@ -313,13 +313,13 @@ public class Recipewriter {
         RecipeJsonConverter.addShapedRecipe(TGItems.newStack(TGItems.RC_HEAT_RAY,1), "cwc","plp","plp", 'c', "circuitElite", 'w', "wireGold", 'p', "plateSteel", 'l', Blocks.REDSTONE_LAMP);
 	
         //ingots/nugget
-        RecipeJsonConverter.addShapelessRecipe(TGItems.INGOT_COPPER, "nuggetCopper","nuggetCopper","nuggetCopper","nuggetCopper","nuggetCopper","nuggetCopper","nuggetCopper","nuggetCopper","nuggetCopper");
-        RecipeJsonConverter.addShapelessRecipe(TGItems.INGOT_LEAD, "nuggetLead","nuggetLead","nuggetLead","nuggetLead","nuggetLead","nuggetLead","nuggetLead","nuggetLead","nuggetLead");
-        RecipeJsonConverter.addShapelessRecipe(TGItems.INGOT_STEEL, "nuggetSteel","nuggetSteel","nuggetSteel","nuggetSteel","nuggetSteel","nuggetSteel","nuggetSteel","nuggetSteel","nuggetSteel");
+        RecipeJsonConverter.addConditionedShapelessRecipe(TGItems.INGOT_COPPER, ConfigConditionFactory.INGOT_COPPER,"nuggetCopper","nuggetCopper","nuggetCopper","nuggetCopper","nuggetCopper","nuggetCopper","nuggetCopper","nuggetCopper","nuggetCopper");
+        RecipeJsonConverter.addConditionedShapelessRecipe(TGItems.INGOT_LEAD, ConfigConditionFactory.INGOT_LEAD,"nuggetLead","nuggetLead","nuggetLead","nuggetLead","nuggetLead","nuggetLead","nuggetLead","nuggetLead","nuggetLead");
+        RecipeJsonConverter.addConditionedShapelessRecipe(TGItems.INGOT_STEEL, ConfigConditionFactory.INGOT_STEEL,"nuggetSteel","nuggetSteel","nuggetSteel","nuggetSteel","nuggetSteel","nuggetSteel","nuggetSteel","nuggetSteel","nuggetSteel");
         
-        RecipeJsonConverter.addShapelessRecipe(TGItems.newStack(TGItems.NUGGET_COPPER, 9), "ingotCopper");
-        RecipeJsonConverter.addShapelessRecipe(TGItems.newStack(TGItems.NUGGET_LEAD, 9), "ingotLead");
-        RecipeJsonConverter.addShapelessRecipe(TGItems.newStack(TGItems.NUGGET_STEEL, 9), "ingotSteel");
+        RecipeJsonConverter.addConditionedShapelessRecipe(TGItems.newStack(TGItems.NUGGET_COPPER, 9),ConfigConditionFactory.NUGGET_COPPER, "ingotCopper");
+        RecipeJsonConverter.addConditionedShapelessRecipe(TGItems.newStack(TGItems.NUGGET_LEAD, 9), ConfigConditionFactory.NUGGET_LEAD, "ingotLead");
+        RecipeJsonConverter.addConditionedShapelessRecipe(TGItems.newStack(TGItems.NUGGET_STEEL, 9), ConfigConditionFactory.NUGGET_STEEL, "ingotSteel");
         
         ItemStack rc = new ItemStack(TGBlocks.MULTIBLOCK_MACHINE,1, EnumMultiBlockMachineType.REACTIONCHAMBER_HOUSING.getIndex());
         RecipeJsonConverter.addShapedRecipe(new ItemStack(TGBlocks.MULTIBLOCK_MACHINE,9,EnumMultiBlockMachineType.REACTIONCHAMBER_HOUSING.getIndex()), "sms","pcp","ses", 's', "plateSteel", 'm', MECHANICAL_PARTS_CARBON, 'p', TGItems.CYBERNETIC_PARTS, 'e', "circuitElite",'c', new ItemStack(TGBlocks.BASIC_MACHINE,1, EnumMachineType.CHEM_LAB.getIndex()));

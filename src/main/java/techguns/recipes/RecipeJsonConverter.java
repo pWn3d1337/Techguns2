@@ -4,14 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.FilenameFilter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
@@ -23,6 +16,7 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import techguns.TGConfig;
 import techguns.TGItems;
+import techguns.Techguns;
 import techguns.blocks.machines.BasicMachine;
 import techguns.items.GenericItemShared;
 import techguns.items.guns.GenericGun;
@@ -54,6 +48,18 @@ public class RecipeJsonConverter {
 			recipe_types.put(AMMO_CHANGE_COPY_NBT_RECIPE, AmmoSwitchRecipeFactory.class.getName());
 			recipe_types.put(MiningToolUpgradeHeadRecipeFactory.MINING_TOOL_UPGRADE_RECIPE, MiningToolUpgradeHeadRecipeFactory.class.getName());
 			recipe_types.put(ShapedOreRecipeCopyNBTFactory.COPY_NBT_RECIPE, ShapedOreRecipeCopyNBTFactory.class.getName());
+		}
+		
+		private static HashMap<String, String> conditions = new HashMap<>();
+		static {
+			conditions.put(ConfigConditionFactory.INGOT_COPPER, ConfigConditionFactory.class.getName());
+			conditions.put(ConfigConditionFactory.NUGGET_COPPER, ConfigConditionFactory.class.getName());
+			conditions.put(ConfigConditionFactory.INGOT_TIN, ConfigConditionFactory.class.getName());
+			conditions.put(ConfigConditionFactory.INGOT_BRONZE, ConfigConditionFactory.class.getName());
+			conditions.put(ConfigConditionFactory.INGOT_LEAD, ConfigConditionFactory.class.getName());
+			conditions.put(ConfigConditionFactory.NUGGET_LEAD, ConfigConditionFactory.class.getName());
+			conditions.put(ConfigConditionFactory.INGOT_STEEL, ConfigConditionFactory.class.getName());
+			conditions.put(ConfigConditionFactory.NUGGET_STEEL, ConfigConditionFactory.class.getName());
 		}
 	
 		private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
@@ -148,6 +154,69 @@ public class RecipeJsonConverter {
 				f = new File(RECIPE_DIR, name + suffix + ".json");
 			}
 
+			try (FileWriter w = new FileWriter(f)) {
+				GSON.toJson(json, w);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		public static void addConditionedShapelessRecipe(ItemStack result, String conditionIn, Object... components)
+		{
+			setupDir();
+			
+			// addShapelessRecipe(result, components);
+			
+			Map<String, Object> json = new HashMap<>();
+			
+			boolean isOreDict = false;
+			List<Map<String, Object>> ingredients = new ArrayList<>();
+			for (Object o : components) {
+				if (o instanceof String)
+					isOreDict = true;
+				ingredients.add(serializeItem(o));
+			}
+			
+			Set<Map<String,Object>> conditions = new HashSet<>();
+			Map<String, Object> condition_entry = new HashMap<>();
+			condition_entry.put("type", Techguns.MODID+":"+conditionIn);
+			condition_entry.put("value", true);
+			conditions.add(condition_entry);
+			
+			json.put("conditions", conditions);
+			json.put("ingredients", ingredients);
+			json.put("type", isOreDict ? "forge:ore_shapeless" : "minecraft:crafting_shapeless");
+			json.put("result", serializeItem(result));
+			
+			// names the json the same name as the output's registry name
+			// repeatedly adds _alt if a file already exists
+			// janky I know but it works
+			String suffix = result.getItem().getHasSubtypes() ? "_" + result.getItemDamage() : "";
+			
+			String name = result.getItem().getRegistryName().getResourcePath();
+			if(result.getItem()  instanceof GenericItemShared) {
+				suffix = suffix +"_"+ TGItems.SHARED_ITEM.get(result.getItemDamage()).getName();
+			}
+			
+			if(result.getItem() instanceof ItemBlock) {
+				ItemBlock ib = (ItemBlock) result.getItem();
+				
+				Block b = ib.getBlock();
+				
+				if (b instanceof BasicMachine) {
+					BasicMachine bm = (BasicMachine) b;
+					suffix += "_"+ bm.getNameSuffix(result.getMetadata());
+				}
+			}
+			
+			
+			File f = new File(RECIPE_DIR, name + suffix + ".json");
+			
+			while (f.exists()) {
+				suffix += "_alt";
+				f = new File(RECIPE_DIR, name + suffix + ".json");
+			}
+			
 			try (FileWriter w = new FileWriter(f)) {
 				GSON.toJson(json, w);
 			} catch (IOException e) {
@@ -451,6 +520,7 @@ public class RecipeJsonConverter {
 			Map<String, Object> entry = new HashMap<>();
 			entry.put("ingredients", factories);
 			entry.put("recipes", recipe_types);
+			entry.put("conditions", conditions);
 			
 			
 			try (FileWriter w = new FileWriter(new File(RECIPE_DIR, "_factories.json"))) {
