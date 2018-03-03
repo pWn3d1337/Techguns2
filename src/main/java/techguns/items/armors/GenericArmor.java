@@ -466,7 +466,7 @@ public class GenericArmor extends ItemArmor implements ISpecialArmor , IItemTGRe
             	}
             	            	
             	
-                if (stack.attemptDamageItem(damage, entity.getRNG(), (EntityPlayerMP) entity))
+                if (stack.attemptDamageItem(damage, entity.getRNG(), (entity instanceof EntityPlayerMP ? (EntityPlayerMP) entity : null)))
                 {
                 	entity.renderBrokenItemStack(stack);
 
