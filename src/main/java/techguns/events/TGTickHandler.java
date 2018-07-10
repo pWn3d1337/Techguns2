@@ -295,14 +295,14 @@ public class TGTickHandler {
 					 
 					 if(props.enableStepAssist && (stepassist>0)){
 						 
-						 if(event.player.stepHeight<1.0f){
-							 event.player.stepHeight=1.0f;
+						 if(event.player.stepHeight<1.1f){
+							 event.player.stepHeight=1.1f;
 						 } 
 						 
 					 } else {
 						 
-						 if(event.player.stepHeight>0.5f){
-							 event.player.stepHeight=0.5f;
+						 if(event.player.stepHeight>0.6f){
+							 event.player.stepHeight=0.6f;
 						 }
 						 
 					 }
@@ -434,9 +434,13 @@ public class TGTickHandler {
 			 /**
 			  * Tick addition slots
 			  */
+			 props.isGliding=false;
+			 
 			 tickSlot(props.tg_inventory.inventory.get(TGPlayerInventory.SLOT_FACE), event);
 			 tickSlot(props.tg_inventory.inventory.get(TGPlayerInventory.SLOT_BACK), event);
 			 tickSlot(props.tg_inventory.inventory.get(TGPlayerInventory.SLOT_HAND), event);
+			 
+			 Techguns.proxy.handlePlayerGliding(event.player);
 			 
 			 /**
 			  * detect weapon swaps

@@ -58,6 +58,7 @@ import techguns.TGConfig;
 import techguns.TGEntities;
 import techguns.TGFluids;
 import techguns.TGItems;
+import techguns.TGSounds;
 import techguns.TGuns;
 import techguns.Techguns;
 import techguns.api.npc.INPCTechgunsShooter;
@@ -65,6 +66,7 @@ import techguns.api.render.IItemRenderer;
 import techguns.api.render.IItemTGRenderer;
 import techguns.capabilities.TGDeathTypeCap;
 import techguns.capabilities.TGDeathTypeCapStorage;
+import techguns.capabilities.TGExtendedPlayer;
 import techguns.capabilities.TGExtendedPlayerClient;
 import techguns.capabilities.TGShooterValues;
 import techguns.client.audio.TGSound;
@@ -1306,5 +1308,21 @@ public class ClientProxy extends CommonProxy {
 		}
 	}
 	
-	
+	@Override
+	public void handlePlayerGliding(EntityPlayer player) {
+		if (player.world.isRemote){
+			TGExtendedPlayerClient props = TGExtendedPlayerClient.get(player);
+			if(props.isGliding){
+				 if(props.gliderLoop==null){
+					 props.gliderLoop=new TGSound(TGSounds.GLIDER_LOOP, player, 0.75f, 1.0f, true, true, false,TGSoundCategory.PLAYER_EFFECT);
+					 Minecraft.getMinecraft().getSoundHandler().playSound(props.gliderLoop);
+				 }
+			 } else {
+				 if(props.gliderLoop!=null){
+					 props.gliderLoop.setDonePlaying();
+					 props.gliderLoop=null;
+				 }
+			 }
+		}
+	}
 }

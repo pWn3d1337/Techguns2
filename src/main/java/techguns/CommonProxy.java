@@ -5,6 +5,9 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
+import net.minecraft.potion.PotionType;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
@@ -65,6 +68,23 @@ public abstract class CommonProxy implements ITGInitializer {
 		Techguns.armors.registerItems(event);
 		Techguns.guns.registerItems(event);
 	}
+	
+	@SubscribeEvent
+	public static void registerPotions(RegistryEvent.Register<Potion> event) {
+		Techguns.rad.registerPotions(event);
+	}
+	
+	//TODO REMOVE THIS
+	@SubscribeEvent
+    public static void registerPotionTypes(RegistryEvent.Register<PotionType> event)
+    {
+        event.getRegistry().register(new PotionType(new PotionEffect(TGRadiationSystem.radiation_effect, 300))
+                .setRegistryName(Techguns.MODID, "radpotion"));
+        
+        event.getRegistry().register(new PotionType(new PotionEffect(TGRadiationSystem.radresistance_effect, 900))
+                .setRegistryName(Techguns.MODID, "radresistancepotion"));
+    }
+	
 	
 	@SubscribeEvent
 	public static void registerSounds(RegistryEvent.Register<SoundEvent> event) {
@@ -163,5 +183,9 @@ public abstract class CommonProxy implements ITGInitializer {
     public abstract GuiHandlerRegister getGuihandlers();
     
     public void clearItemParticleSystemsHand(EntityLivingBase entity, EnumHand hand) {
+	}
+
+	public void handlePlayerGliding(EntityPlayer player) {
+		//do nothing on server
 	}
 }

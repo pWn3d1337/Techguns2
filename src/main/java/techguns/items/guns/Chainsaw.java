@@ -51,7 +51,7 @@ public class Chainsaw extends GenericGunMeleeCharge {
 	@Override
 	protected void playSweepSoundEffect(EntityPlayer player) {
 		player.world.playSound((EntityPlayer) null, player.posX, player.posY, player.posZ, TGSounds.CHAINSAW_HIT,
-				player.getSoundCategory(), 1.0F, 1.0F);
+				player.getSoundCategory(), melee_sound_volume, 1.0F);
 	}
 
 	

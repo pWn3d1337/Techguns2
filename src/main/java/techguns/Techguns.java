@@ -47,6 +47,8 @@ public class Techguns
     public static TGArmors armors = new TGArmors();
     public static TGFluids fluids = new TGFluids();
     
+    public static TGRadiationSystem rad = new TGRadiationSystem();
+    
     //Mod integration
     public boolean FTBLIB_ENABLED=false;
     public boolean CHISEL_ENABLED=false;
@@ -59,7 +61,8 @@ public class Techguns
     	fluids,
     	blocks,
     	entities,
-    	packets
+    	packets,
+    	rad
     };
     
     

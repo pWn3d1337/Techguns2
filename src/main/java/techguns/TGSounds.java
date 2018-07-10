@@ -211,6 +211,8 @@ public class TGSounds {
 	public static SoundEvent C4_TICK = createSoundEvent("c4charge.tick");
 	public static SoundEvent C4_PLANT = createSoundEvent("c4charge.plant");
 	
+	public static SoundEvent GLIDER_LOOP = createSoundEvent("glider.loop");
+	
 	public static void registerSounds(RegistryEvent.Register<SoundEvent> event){
 		IForgeRegistry<SoundEvent> reg = event.getRegistry();
 		

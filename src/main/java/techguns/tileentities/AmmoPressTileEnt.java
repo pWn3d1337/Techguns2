@@ -16,6 +16,8 @@ import techguns.tileentities.operation.MachineSlotItem;
 
 public class AmmoPressTileEnt extends BasicMachineTileEnt {
 
+	protected static final float SOUND_VOLUME=0.5f;
+	
 	public static final int SLOT_METAL1=0;
 	public static final int SLOT_METAL2=1;
 	public static final int SLOT_POWDER=2;
@@ -191,9 +193,9 @@ public class AmmoPressTileEnt extends BasicMachineTileEnt {
 		z=this.pos.getZ()+0.5d;
 
 		if (this.progress == soundTick1 || this.progress == soundTick1+halfTime) {
-			world.playSound(x, y, z, TGSounds.AMMO_PRESS_WORK1,SoundCategory.BLOCKS, 1.0F, 1.0F, true );
+			world.playSound(x, y, z, TGSounds.AMMO_PRESS_WORK1,SoundCategory.BLOCKS, SOUND_VOLUME, 1.0F, true );
 		}else if (this.progress == soundTick2 || this.progress == soundTick2+halfTime) {
-			world.playSound(x, y,z, TGSounds.AMMO_PRESS_WORK2,SoundCategory.BLOCKS, 1.0F, 1.0F, true );
+			world.playSound(x, y,z, TGSounds.AMMO_PRESS_WORK2,SoundCategory.BLOCKS, SOUND_VOLUME, 1.0F, true );
 		}
 	}
 	

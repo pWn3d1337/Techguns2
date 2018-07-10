@@ -228,7 +228,7 @@ public class RenderReactionChamber extends TileEntitySpecialRenderer<ReactionCha
 		
         int interpV=16;
   
-        System.out.println("Height:"+height+" MH:"+maxHeight);
+        //System.out.println("Height:"+height+" MH:"+maxHeight);
         
         if(height < maxHeight*0.5d) {
         

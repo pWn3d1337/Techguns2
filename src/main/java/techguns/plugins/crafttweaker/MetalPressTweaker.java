@@ -127,7 +127,7 @@ public class MetalPressTweaker {
 		
 		@Override
 		public String describe() {
-			if (!this.input1.isEmpty()){
+			if (this.input1!=null && !this.input1.isEmpty()){
 				return "Removed Recipe "+input1+"+"+input2+"-->"+this.output+" from MetalPress";
 			}
 			return "Removed Recipe(s) for "+this.output+" from MetalPress";

@@ -13,9 +13,14 @@ public class TeamSystemIntegration {
 		IForgePlayer p1 = FTBLibAPI.API.getUniverse().getPlayer(ply1);
 		IForgePlayer p2 = FTBLibAPI.API.getUniverse().getPlayer(ply2);
 		
-		IForgeTeam t1 = p1.getTeam();
-		if(t1!=null) {
-			return t1.isMember(p2) || t1.isAlly(p2);
+		if(p1!=null) {
+			IForgeTeam t1 = p1.getTeam();
+			if(t1!=null) {
+				return t1.isMember(p2) || t1.isAlly(p2);
+			} else {
+				return ply1.equals(ply2);
+			}
+			
 		} else {
 			return ply1.equals(ply2);
 		}
@@ -25,9 +30,13 @@ public class TeamSystemIntegration {
 		IForgePlayer p1 = FTBLibAPI.API.getUniverse().getPlayer(ply1);
 		IForgePlayer p2 = FTBLibAPI.API.getUniverse().getPlayer(ply2);
 		
-		IForgeTeam t1 = p1.getTeam();
-		if(t1!=null) {
-			return t1.isAlly(p2) && !t1.isMember(p2);
+		if(p1!=null) {
+			IForgeTeam t1 = p1.getTeam();
+			if(t1!=null) {
+				return t1.isAlly(p2) && !t1.isMember(p2);
+			} else {
+				return ply1.equals(ply2);
+			}
 		} else {
 			return ply1.equals(ply2);
 		}
@@ -37,9 +46,13 @@ public class TeamSystemIntegration {
 		IForgePlayer p1 = FTBLibAPI.API.getUniverse().getPlayer(ply1);
 		IForgePlayer p2 = FTBLibAPI.API.getUniverse().getPlayer(ply2);
 		
-		IForgeTeam t1 = p1.getTeam();
-		if(t1!=null) {
-			return t1.isMember(p2);
+		if(p1!=null) {
+			IForgeTeam t1 = p1.getTeam();
+			if(t1!=null) {
+				return t1.isMember(p2);
+			} else {
+				return ply1.equals(ply2);
+			}
 		} else {
 			return ply1.equals(ply2);
 		}
@@ -49,9 +62,13 @@ public class TeamSystemIntegration {
 		IForgePlayer p1 = FTBLibAPI.API.getUniverse().getPlayer(ply1);
 		IForgePlayer p2 = FTBLibAPI.API.getUniverse().getPlayer(ply2);
 		
-		IForgeTeam t1 = p1.getTeam();
-		if(t1!=null) {
-			return t1.isEnemy(p2);
+		if(p1!=null) {
+			IForgeTeam t1 = p1.getTeam();
+			if(t1!=null) {
+				return t1.isEnemy(p2);
+			} else {
+				return false;
+			}
 		} else {
 			return false;
 		}

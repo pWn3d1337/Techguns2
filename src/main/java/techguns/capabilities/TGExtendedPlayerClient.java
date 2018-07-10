@@ -55,8 +55,8 @@ public class TGExtendedPlayerClient extends TGExtendedPlayer implements ITGParti
 		
 		if(this.entity.world.isRemote){
 			if(isJumpkeyPressed==true && jetPackLoop==null){
-				jetPackLoop = new TGSound(TGSounds.JETPACK_LOOP, this.entity, 1.0f, 1.0f, true, true, false, TGSoundCategory.PLAYER_EFFECT);
-				SoundUtil.playSoundAtEntityPos(this.entity.world, this.entity, TGSounds.JETPACK_START, 1.0f, 1.0f, false, TGSoundCategory.PLAYER_EFFECT);
+				jetPackLoop = new TGSound(TGSounds.JETPACK_LOOP, this.entity, 0.75f, 1.0f, true, true, false, TGSoundCategory.PLAYER_EFFECT);
+				SoundUtil.playSoundAtEntityPos(this.entity.world, this.entity, TGSounds.JETPACK_START, 0.75f, 1.0f, false, TGSoundCategory.PLAYER_EFFECT);
 				Minecraft.getMinecraft().getSoundHandler().playSound(jetPackLoop);
 			}
 			
@@ -66,7 +66,7 @@ public class TGExtendedPlayerClient extends TGExtendedPlayer implements ITGParti
 				if(jetPackLoop!=null){
 					jetPackLoop.setDonePlaying();
 					jetPackLoop=null;
-					SoundUtil.playSoundAtEntityPos(this.entity.world, this.entity, TGSounds.JETPACK_END, 1.0f, 1.0f, false, TGSoundCategory.PLAYER_EFFECT);
+					SoundUtil.playSoundAtEntityPos(this.entity.world, this.entity, TGSounds.JETPACK_END, 0.75f, 1.0f, false, TGSoundCategory.PLAYER_EFFECT);
 				}
 			}
 			

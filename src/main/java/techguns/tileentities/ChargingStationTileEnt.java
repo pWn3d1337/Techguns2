@@ -20,6 +20,8 @@ import techguns.tileentities.operation.MachineSlotItem;
 
 public class ChargingStationTileEnt extends BasicMachineTileEnt {
 
+	protected static final float SOUND_VOLUME=0.35f;
+	
 	public static final int SLOT_INPUT=0;
 	public static final int SLOT_OUTPUT=1;
 	public static final int SLOT_UPGRADE=2;
@@ -199,7 +201,7 @@ public class ChargingStationTileEnt extends BasicMachineTileEnt {
 			}
 			if (this.lastsound<=0){
 				this.lastsound=20;
-				world.playSound(this.getPos().getX(), this.getPos().getY(), this.getPos().getZ(), TGSounds.CHARGING_STATION_WORK, SoundCategory.BLOCKS, 1.0F, 1.0F, false );
+				world.playSound(this.getPos().getX(), this.getPos().getY(), this.getPos().getZ(), TGSounds.CHARGING_STATION_WORK, SoundCategory.BLOCKS, SOUND_VOLUME, 1.0F, false );
 			}
 			
 		}

@@ -40,6 +40,7 @@ import net.minecraftforge.client.event.RenderHandEvent;
 import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
+import net.minecraftforge.event.entity.EntityEvent.EntityConstructing;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
@@ -64,11 +65,13 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import techguns.TGBlocks;
 import techguns.TGConfig;
 import techguns.TGPackets;
+import techguns.TGRadiationSystem;
 import techguns.Techguns;
 import techguns.api.guns.GunHandType;
 import techguns.api.guns.GunManager;
 import techguns.api.guns.IGenericGun;
 import techguns.api.npc.INpcTGDamageSystem;
+import techguns.api.radiation.TGRadiation;
 import techguns.api.tginventory.ITGSpecialSlot;
 import techguns.api.tginventory.TGSlotType;
 import techguns.capabilities.TGExtendedPlayer;
@@ -781,5 +784,11 @@ public class TGEventHandler {
 		//ClientProxy.get().activeLightPulses.forEach(l -> event.getLightList().add(l.provideLight()));
 	}
 	
-	
+	@SubscribeEvent
+	public static void onEntityConstruction(EntityConstructing event) {
+		if(event.getEntity() instanceof EntityLivingBase) {
+			EntityLivingBase elb = (EntityLivingBase) event.getEntity();
+			elb.getAttributeMap().registerAttribute(TGRadiation.RADIATION_RESISTANCE).setBaseValue(0);
+		}
+	}
 }
