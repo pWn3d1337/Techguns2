@@ -5,6 +5,7 @@ import javax.annotation.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
@@ -64,6 +65,15 @@ public class AlienBug extends EntitySpider implements ITGNpcTeam, INpcTGDamageSy
 		this.setSize(1.1F, 1.2F);
 	}
 	
+	
+	 /**
+     * Get this Entity's EnumCreatureAttribute
+     */
+	@Override
+    public EnumCreatureAttribute getCreatureAttribute()
+    {
+        return EnumCreatureAttribute.ARTHROPOD;
+    }
 	
 	 @Override
 	protected SoundEvent getAmbientSound() {

@@ -385,6 +385,7 @@ public class DamageSystem {
         float f = damageAmount;
         damageAmount = Math.max(damageAmount - elb.getAbsorptionAmount(), 0.0F);
         elb.setAbsorptionAmount(elb.getAbsorptionAmount() - (f - damageAmount));
+        damageAmount = net.minecraftforge.common.ForgeHooks.onLivingDamage(elb, damageSrc, damageAmount);
 
         if (damageAmount != 0.0F)
         {

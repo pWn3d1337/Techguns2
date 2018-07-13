@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -308,6 +309,32 @@ public class TGExtendedPlayer implements ITGExtendedPlayer {
 	                }
 	            }
 	            player.captureDrops=false;
+	         
+	        }
+		}
+	}
+	
+	public void addDropsToList(EntityPlayer player, List<EntityItem> list ){
+		if(!player.world.isRemote){
+			if (!player.world.getGameRules().getBoolean("keepInventory"))
+	        {
+	            //this.inventory.dropAllItems();
+	            int i;
+	        
+	            //player.captureDrops=true;
+	            for (i = 0; i < this.tg_inventory.inventory.size(); ++i)
+	            {
+	                if (!this.tg_inventory.inventory.get(i).isEmpty())
+	                {
+	                	//System.out.println("Dropping "+TG_inventory.inventory[i].getDisplayName()+" x"+TG_inventory.inventory[i].stackSize);
+	                    EntityItem item = player.dropItem(this.tg_inventory.inventory.get(i), true, false);
+	                    if(item!=null) {
+	                    	list.add(item);
+	                    }
+	                    this.tg_inventory.inventory.set(i, ItemStack.EMPTY);
+	                }
+	            }
+	            //player.captureDrops=false;
 	         
 	        }
 		}

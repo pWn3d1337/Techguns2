@@ -24,12 +24,15 @@ public class TGRadiationSystem implements ITGInitializer {
 	public void preInit(FMLPreInitializationEvent event) {
 		TGRadiation.RADIATION_RESISTANCE = (new RangedAttribute((IAttribute)null, Techguns.MODID+".radiationResistance", 0.0D, 0.0D, Float.MAX_VALUE)).setShouldWatch(true);
 	
-		radiation_effect= new RadiationPotion();
-		radiation_effect.setPotionName(Techguns.MODID+".radiation").setRegistryName(new ResourceLocation(Techguns.MODID,"radiation"));
+		if(TGConfig.debug) { //FIXME debug
+			radiation_effect= new RadiationPotion();
+			radiation_effect.setPotionName(Techguns.MODID+".radiation").setRegistryName(new ResourceLocation(Techguns.MODID,"radiation"));
+			
+			radresistance_effect= new RadResistancePotion();
+			radresistance_effect.setPotionName(Techguns.MODID+".radresistance").setRegistryName(new ResourceLocation(Techguns.MODID,"radresistance")).setBeneficial()
+				.registerPotionAttributeModifier(TGRadiation.RADIATION_RESISTANCE, "515AD21C-3FB2-4E36-BBCE-88C2ED738DE2", 1D, 0);
 		
-		radresistance_effect= new RadResistancePotion();
-		radresistance_effect.setPotionName(Techguns.MODID+".radresistance").setRegistryName(new ResourceLocation(Techguns.MODID,"radresistance")).setBeneficial()
-			.registerPotionAttributeModifier(TGRadiation.RADIATION_RESISTANCE, "515AD21C-3FB2-4E36-BBCE-88C2ED738DE2", 1D, 0);
+		}
 	}
 
 	@Override
@@ -42,7 +45,9 @@ public class TGRadiationSystem implements ITGInitializer {
 
 	public void registerPotions(RegistryEvent.Register<Potion> event)
 	{
+		if(TGConfig.debug) { //FIXME debug
 	       event.getRegistry().register(radiation_effect);
 	       event.getRegistry().register(radresistance_effect);
+		}
 	}
 }

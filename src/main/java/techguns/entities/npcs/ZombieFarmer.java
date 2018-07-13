@@ -19,7 +19,7 @@ import techguns.TGuns;
 import techguns.Techguns;
 import techguns.items.armors.GenericArmorMultiCamo;
 
-public class ZombieFarmer extends GenericNPC {
+public class ZombieFarmer extends GenericNPCUndead {
 
 	public static final ResourceLocation LOOT = new ResourceLocation(Techguns.MODID, "entities/zombiefarmer");
 	

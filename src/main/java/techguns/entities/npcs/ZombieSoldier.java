@@ -18,7 +18,7 @@ import techguns.TGArmors;
 import techguns.TGuns;
 import techguns.Techguns;
 
-public class ZombieSoldier extends GenericNPC {
+public class ZombieSoldier extends GenericNPCUndead {
 
 	public static final ResourceLocation LOOT = new ResourceLocation(Techguns.MODID, "entities/zombiesoldier");
 	
@@ -100,6 +100,12 @@ public class ZombieSoldier extends GenericNPC {
 	protected ResourceLocation getLootTable() {
 		return LOOT;
 	}
+
+	@Override
+	protected boolean shouldBurnInDay() {
+		return false;
+	}
+	
 	/*@Override
 	protected ItemStack getRandomItemFromLoottable() {
 		if (TGConfig.reducedLoottables){

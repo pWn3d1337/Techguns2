@@ -52,6 +52,7 @@ import net.minecraftforge.event.entity.player.PlayerDropsEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.event.world.BlockEvent.HarvestDropsEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Optional;
@@ -649,13 +650,9 @@ public class TGEventHandler {
 		TGExtendedPlayer props = TGExtendedPlayer.get(ply);
 		
 		if(props!=null){
-			
-			ply.captureDrops=true;
-			
+
 			props.dropInventory(ply);
-			
-			ply.captureDrops=false;
-					
+
 		}	
 		
 	}
@@ -693,6 +690,18 @@ public class TGEventHandler {
 			}
 		}
 		
+	}
+	
+	//stop XP drop on silk harvesting with mining drill
+	@SubscribeEvent(priority=EventPriority.HIGH)
+	public static void onBlockBreakEvent(BlockEvent.BreakEvent event) {
+		EntityPlayer ply = event.getPlayer();
+		if(ply!=null) {
+			ItemStack stack = ply.getHeldItemMainhand();
+			if(!stack.isEmpty() && stack.getItem() instanceof MiningDrill && ply.isSneaking()) {
+				event.setExpToDrop(0);
+			}
+		}
 	}
 	
 	@SubscribeEvent(priority=EventPriority.HIGH) //run before regular drop events

@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
 
+import micdoodle8.mods.galacticraft.api.client.tabs.TabRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.entity.player.EntityPlayer;
@@ -20,6 +21,7 @@ import techguns.api.damagesystem.DamageType;
 import techguns.capabilities.TGExtendedPlayer;
 import techguns.damagesystem.DamageSystem;
 import techguns.gui.TGBaseGui;
+import techguns.gui.player.tabs.TGPlayerTab;
 import techguns.items.armors.GenericArmor;
 
 public class TGPlayerInventoryGui extends TGBaseGui {
@@ -186,9 +188,12 @@ public class TGPlayerInventoryGui extends TGBaseGui {
 				((TechgunsTConstructIntegrationClient)Techguns.pluginTConstructIntegration).addTabs(this.guiLeft, this.guiTop, this.buttonList);
 
 			}*/
-			this.buttonList.add(new TGGuiTabButton(index, this.guiLeft+5, this.guiTop-26, true, new ItemStack(Blocks.CRAFTING_TABLE,1),-1));
-		    this.buttonList.add(new TGGuiTabButton(index, this.guiLeft+5+28, this.guiTop-26, false,TGItems.newStack(TGItems.PISTOL_ROUNDS,1),0));			
+			//this.buttonList.add(new TGGuiTabButton(index, this.guiLeft+5, this.guiTop-26, true, new ItemStack(Blocks.CRAFTING_TABLE,1),-1));
+		    //this.buttonList.add(new TGGuiTabButton(index, this.guiLeft+5+28, this.guiTop-26, false,TGItems.newStack(TGItems.PISTOL_ROUNDS,1),0));	
 			
+			//Galacticraft API for Tabs
+			TabRegistry.updateTabValues(this.guiLeft, this.guiTop, TGPlayerTab.class);
+			TabRegistry.addTabsToList(this.buttonList);
 			
 		    for(int x =0; x<5;x++){
 		    	this.buttonList.add(new TGGuiToggleButton(++index, this.guiLeft+togglebuttons_xpos/*+173*/, this.guiTop+7+(x*11), x));

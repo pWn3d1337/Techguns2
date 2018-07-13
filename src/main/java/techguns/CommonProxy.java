@@ -74,15 +74,16 @@ public abstract class CommonProxy implements ITGInitializer {
 		Techguns.rad.registerPotions(event);
 	}
 	
-	//TODO REMOVE THIS
 	@SubscribeEvent
     public static void registerPotionTypes(RegistryEvent.Register<PotionType> event)
     {
-        event.getRegistry().register(new PotionType(new PotionEffect(TGRadiationSystem.radiation_effect, 300))
-                .setRegistryName(Techguns.MODID, "radpotion"));
-        
-        event.getRegistry().register(new PotionType(new PotionEffect(TGRadiationSystem.radresistance_effect, 900))
-                .setRegistryName(Techguns.MODID, "radresistancepotion"));
+		if (TGConfig.debug) { //FIXME debug 
+	        event.getRegistry().register(new PotionType(new PotionEffect(TGRadiationSystem.radiation_effect, 300))
+	                .setRegistryName(Techguns.MODID, "radpotion"));
+	        
+	        event.getRegistry().register(new PotionType(new PotionEffect(TGRadiationSystem.radresistance_effect, 900))
+	                .setRegistryName(Techguns.MODID, "radresistancepotion"));
+		}
     }
 	
 	

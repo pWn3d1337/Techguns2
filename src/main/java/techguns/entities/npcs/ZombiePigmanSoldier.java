@@ -18,7 +18,7 @@ import techguns.TGuns;
 import techguns.Techguns;
 import techguns.items.armors.GenericArmorMultiCamo;
 
-public class ZombiePigmanSoldier extends GenericNPC {
+public class ZombiePigmanSoldier extends GenericNPCUndead {
 
 	public static final ResourceLocation LOOT = new ResourceLocation(Techguns.MODID, "entities/zombiepigmansoldier");
 	
@@ -95,6 +95,11 @@ public class ZombiePigmanSoldier extends GenericNPC {
 			break;
 		}
 		if (weapon != null) this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(weapon));
+	}
+
+	@Override
+	protected boolean shouldBurnInDay() {
+		return false;
 	}
 
 	@Override

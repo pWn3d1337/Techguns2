@@ -183,8 +183,10 @@ public class BlockUtils {
 
 		blocks.forEach(b -> {
 			if(includeCenter || !b.equals(center)) {
-				if(miningtool==null || stack.isEmpty() || checkMiningLevels(world,ply, b, miningtool, stack)) {
-					entries.add(b);
+				if(world.getTileEntity(b)==null) {
+					if(miningtool==null || stack.isEmpty() || checkMiningLevels(world,ply, b, miningtool, stack)) {
+						entries.add(b);
+					}
 				}
 			}
 		});

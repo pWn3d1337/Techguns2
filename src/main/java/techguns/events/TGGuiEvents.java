@@ -198,7 +198,7 @@ public class TGGuiEvents extends Gui{
 	}
 	
 	
-	@SideOnly(Side.CLIENT)
+/*	@SideOnly(Side.CLIENT)
 	@SubscribeEvent(priority=EventPriority.NORMAL, receiveCanceled=false)
 	public void onGuiPostInit(GuiScreenEvent.InitGuiEvent.Post event){
 		//System.out.println("Init GUI:"+event.getGui());
@@ -209,13 +209,13 @@ public class TGGuiEvents extends Gui{
 		    int k = (event.getGui().width - xSize) / 2;
 	        int l = (event.getGui().height - ySize) / 2;
 			
-	        //TODO: get this from config file
-	        int index = 2;
-	        event.getButtonList().add(new TGGuiTabButton(index, k+5, l-26, false,new ItemStack(Blocks.CRAFTING_TABLE,1),0));
-	        event.getButtonList().add(new TGGuiTabButton(index, k+5+28, l-26, true,TGItems.newStack(TGItems.PISTOL_ROUNDS,1),0));
+	       // get this from config file
+	       int index = 2;
+	       event.getButtonList().add(new TGGuiTabButton(index, k+5, l-26, false,new ItemStack(Blocks.CRAFTING_TABLE,1),0));
+	       event.getButtonList().add(new TGGuiTabButton(index, k+5+28, l-26, true,TGItems.newStack(TGItems.PISTOL_ROUNDS,1),0));
 			
 		}
-	}
+	}*/
 	
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent(priority=EventPriority.NORMAL, receiveCanceled=false)
