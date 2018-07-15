@@ -347,7 +347,9 @@ public class ClientProxy extends CommonProxy {
 	
 	public boolean hasNightvision=false;
 	
-	public static ModelBiped[] armorModels = {new ModelSteamArmor(0), new ModelSteamArmor(1), new ModelT3PowerArmor(0),new ModelT3PowerArmor(1), new ModelExoSuit(0,1.0f), new ModelExoSuit(1,0.5f),new ModelExoSuit(0,0.75f), new ModelBeret(), new ModelArmorCoat(0,1.0f), new ModelArmorCoat(1,0.51f), new ModelArmorCoat(2,0.49f), new ModelArmorCoat(3,0.75f) };
+	public static ModelBiped[] armorModels = {new ModelSteamArmor(0), new ModelSteamArmor(1), new ModelT3PowerArmor(0),new ModelT3PowerArmor(1),
+			new ModelExoSuit(0,1.0f), new ModelExoSuit(1,0.5f),new ModelExoSuit(0,0.75f), new ModelBeret(), new ModelArmorCoat(0,1.0f),
+			new ModelArmorCoat(1,0.51f), new ModelArmorCoat(2,0.49f), new ModelArmorCoat(3,0.75f), new ModelSteamArmor(0,0.01f), new ModelT3PowerArmor(0, 0.01f) };
 	
 	private boolean isLeft(EnumHand handIn){
 		if(this.getPlayerClient().getPrimaryHand()==EnumHandSide.RIGHT){

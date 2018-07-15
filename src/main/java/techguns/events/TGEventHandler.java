@@ -172,12 +172,12 @@ public class TGEventHandler {
 				}else if (event.getButton() == 1 && ply.getHeldItemMainhand().getItem() instanceof GenericGunCharge && ((GenericGunCharge)ply.getHeldItemMainhand().getItem()).getLockOnTicks() > 0) {
 					//System.out.println("Start/Stop LockOn: RMB = "+event.isButtonstate());
 					ClientProxy cp = ClientProxy.get();
-					cp.keyFirePressedOffhand = event.isButtonstate();
+					//cp.keyFirePressedOffhand = event.isButtonstate();
 					
 					TGExtendedPlayer props = TGExtendedPlayer.get(ply);
 					props.lockOnEntity = null;
 					props.lockOnTicks = -1;
-					System.out.println("reset lock.");
+					//System.out.println("reset lock.");
 				}
 				
 				//System.out.println("EVENT CANCELLED: "+event.isCanceled());
@@ -795,9 +795,11 @@ public class TGEventHandler {
 	
 	@SubscribeEvent
 	public static void onEntityConstruction(EntityConstructing event) {
-		if(event.getEntity() instanceof EntityLivingBase) {
-			EntityLivingBase elb = (EntityLivingBase) event.getEntity();
-			elb.getAttributeMap().registerAttribute(TGRadiation.RADIATION_RESISTANCE).setBaseValue(0);
+		if(TGConfig.debug) { //FIXME remove debug
+			if(event.getEntity() instanceof EntityLivingBase) {
+				EntityLivingBase elb = (EntityLivingBase) event.getEntity();
+				elb.getAttributeMap().registerAttribute(TGRadiation.RADIATION_RESISTANCE).setBaseValue(0);
+			}
 		}
 	}
 }

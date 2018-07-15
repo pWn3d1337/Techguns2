@@ -242,7 +242,7 @@ public class ParticleList<E> implements Iterable<E>{
 				if(hasNext()) {
 					next = current.next;
 				}*/
-
+				
 				list.remove(current);
 				//current=next;
 			} else {

@@ -67,9 +67,13 @@ public class ModelSteamArmor extends ModelBiped {
 	    ModelRenderer LB2;
 	    ModelRenderer LB3;
 	  
-	  public ModelSteamArmor(int type)
+	    public ModelSteamArmor(int type) {
+	    	this(type,0.0f);
+	    }
+	    
+	  public ModelSteamArmor(int type, float scale)
 	  {
-		  
+		  super(scale);
       //this.bipedCloak = new ModelRenderer(this, 0, 0);
       //this.bipedEars = new ModelRenderer(this, 24, 0);
       this.bipedHead = new ModelRenderer(this, 0, 0);
@@ -182,67 +186,67 @@ public class ModelSteamArmor extends ModelBiped {
 	      LA8.setTextureSize(128, 64);
 	      setRotation(LA8, 0F, 0F, 0F);
 	      H1 = new ModelRenderer(this, 95, 32);
-	      H1.addBox(0F, 0F, 0F, 4, 4, 2);
+	      H1.addBox(0F, 0F, 0F, 4, 4, 2,scale);
 	      H1.setRotationPoint(-2F, -3F, -6F);
 	      H1.setTextureSize(128, 64);
 	      H1.mirror = true;
 	      setRotation(H1, 0F, 0F, 0F);
 	      H2 = new ModelRenderer(this, 36, 0);
-	      H2.addBox(0F, 0F, 0F, 1, 6, 6);
+	      H2.addBox(0F, 0F, 0F, 1, 6, 6,scale);
 	      H2.setRotationPoint(-5.5F, -7F, -3F);
 	      H2.setTextureSize(128, 64);
 	      H2.mirror = true;
 	      setRotation(H2, 0F, 0F, 0F);
 	      H3 = new ModelRenderer(this, 0, 0);
-	      H3.addBox(0F, 0F, 0F, 9, 9, 9);
+	      H3.addBox(0F, 0F, 0F, 9, 9, 9,scale);
 	      H3.setRotationPoint(-4.5F, -8.5F, -4.5F);
 	      H3.setTextureSize(128, 64);
 	      H3.mirror = true;
 	      setRotation(H3, 0F, 0F, 0F);
 	      H4 = new ModelRenderer(this, 107, 32);
-	      H4.addBox(0F, 0F, 0F, 7, 2, 1);
+	      H4.addBox(0F, 0F, 0F, 7, 2, 1,scale);
 	      H4.setRotationPoint(-3.5F, -1.5F, -5.5F);
 	      H4.setTextureSize(128, 64);
 	      H4.mirror = true;
 	      setRotation(H4, 0F, 0F, 0F);
 	      H5 = new ModelRenderer(this, 36, 0);
-	      H5.addBox(0F, 0F, 0F, 1, 6, 6);
+	      H5.addBox(0F, 0F, 0F, 1, 6, 6,scale);
 	      H5.setRotationPoint(4.5F, -7F, -3F);
 	      H5.setTextureSize(128, 64);
 	      H5.mirror = false;
 	      setRotation(H5, 0F, 0F, 0F);
 	      H6 = new ModelRenderer(this, 124, 0);
-	      H6.addBox(0F, 0F, 0F, 1, 6, 1);
+	      H6.addBox(0F, 0F, 0F, 1, 6, 1,scale);
 	      H6.setRotationPoint(-3F, -6.5F, 5.5F);
 	      H6.setTextureSize(128, 64);
 	      H6.mirror = true;
 	      setRotation(H6, 0F, 0F, 0F);
 	      H7 = new ModelRenderer(this, 107, 35);
-	      H7.addBox(0F, 0F, 0F, 2, 2, 1);
+	      H7.addBox(0F, 0F, 0F, 2, 2, 1,scale);
 	      H7.setRotationPoint(-3.5F, -2F, 4.5F);
 	      H7.setTextureSize(128, 64);
 	      H7.mirror = true;
 	      setRotation(H7, 0F, 0F, 0F);
 	      H8 = new ModelRenderer(this, 107, 35);
-	      H8.addBox(0F, 0F, 0F, 2, 2, 1);
+	      H8.addBox(0F, 0F, 0F, 2, 2, 1,scale);
 	      H8.setRotationPoint(-3.5F, -7F, 4.5F);
 	      H8.setTextureSize(128, 64);
 	      H8.mirror = true;
 	      setRotation(H8, 0F, 0F, 0F);
 	      H9 = new ModelRenderer(this, 107, 35);
-	      H9.addBox(0F, 0F, 0F, 2, 2, 1);
+	      H9.addBox(0F, 0F, 0F, 2, 2, 1,scale);
 	      H9.setRotationPoint(1.5F, -7F, 4.5F);
 	      H9.setTextureSize(128, 64);
 	      H9.mirror = true;
 	      setRotation(H9, 0F, 0F, 0F);
 	      H10 = new ModelRenderer(this, 124, 0);
-	      H10.addBox(0F, 0F, 0F, 1, 6, 1);
+	      H10.addBox(0F, 0F, 0F, 1, 6, 1,scale);
 	      H10.setRotationPoint(2F, -6.5F, 5.5F);
 	      H10.setTextureSize(128, 64);
 	      H10.mirror = true;
 	      setRotation(H10, 0F, 0F, 0F);
 	      H11 = new ModelRenderer(this, 107, 35);
-	      H11.addBox(0F, 0F, 0F, 2, 2, 1);
+	      H11.addBox(0F, 0F, 0F, 2, 2, 1,scale);
 	      H11.setRotationPoint(1.5F, -2F, 4.5F);
 	      H11.setTextureSize(128, 64);
 	      H11.mirror = true;

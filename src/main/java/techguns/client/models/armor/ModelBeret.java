@@ -22,10 +22,10 @@ public class ModelBeret extends ModelBiped {
         
         this.berettop = new ModelRenderer(this, 0, 0);
         this.berettop.setRotationPoint(0.0F, 0.0F, 0.0F);
-        this.berettop.addBox(-2.0F, -8.5F, -4.0F, 6, 2, 8, 0.6F);
+        this.berettop.addBox(-2.0F, -8.7F, -4.0F, 6, 2, 8, 0.7F); //scale 0.6F  y: -8.5f
         this.beretside = new ModelRenderer(this, 0, 11);
-        this.beretside.setRotationPoint(-2.7F, -8.3F, -4.0F);
-        this.beretside.addBox(-3.0F, 0.0F, 0.0F, 3, 2, 8, 0.55F);
+        this.beretside.setRotationPoint(-2.7F, -8.5F, -4.0F);
+        this.beretside.addBox(-3.0F, 0.0F, 0.0F, 3, 2, 8, 0.65F); //scale 0.55F  y: -8.3f
         this.setRotateAngle(beretside, 0.0F, 0.0F, -0.6108652381980153F);
         
         this.bipedHead.addChild(berettop);
