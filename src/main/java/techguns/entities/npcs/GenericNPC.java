@@ -72,6 +72,8 @@ public class GenericNPC extends EntityMob implements IRangedAttackMob, INPCTechg
 	        this.targetTasks.addTask(1, new EntityAIHurtByTargetTGFactions(this, false));
 	        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
 
+	        this.dataManager.register(SWINGING_ARMS, false);
+
 	        if (world != null && !world.isRemote)
 	        {
 	            this.setCombatTask();
