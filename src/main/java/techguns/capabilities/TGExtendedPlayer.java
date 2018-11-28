@@ -25,6 +25,8 @@ import techguns.util.DataUtil;
 
 public class TGExtendedPlayer implements ITGExtendedPlayer {
 
+	public static final int MAX_RADIATION=1000;
+	
 	public static final DataParameter<ItemStack> DATA_FACE_SLOT = EntityDataManager.<ItemStack>createKey(EntityPlayer.class, DataSerializers.ITEM_STACK);
 	public static final DataParameter<ItemStack> DATA_BACK_SLOT = EntityDataManager.<ItemStack>createKey(EntityPlayer.class, DataSerializers.ITEM_STACK);
 	public static final DataParameter<ItemStack> DATA_HAND_SLOT = EntityDataManager.<ItemStack>createKey(EntityPlayer.class, DataSerializers.ITEM_STACK);
@@ -348,4 +350,12 @@ public class TGExtendedPlayer implements ITGExtendedPlayer {
 		this.entity.getDataManager().set(DATA_FLAG_CHARGING_WEAPON, charging);
 	}
 	
+	public void addRadiation(int amount) {
+		this.radlevel+=amount;
+		if(this.radlevel<0) {
+			this.radlevel=0;
+		} else if (this.radlevel>MAX_RADIATION) {
+			this.radlevel=MAX_RADIATION;
+		}
+	}
 }

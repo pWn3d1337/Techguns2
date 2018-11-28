@@ -46,6 +46,9 @@ public class TGArmors implements ITGInitializer {
 	public static TGArmorMaterial T1_MINER = new TGArmorMaterial("T1_MINER", 60, 0, 13.0f,  SoundEvents.ITEM_ARMOR_EQUIP_LEATHER,0f);
 	public static TGArmorMaterial T1_STEAM = new TGArmorMaterial("T1_STEAM", 200, 0, 18.0f,  SoundEvents.ITEM_ARMOR_EQUIP_IRON,3f).setArmorFire(17.0f).setArmorExplosion(17.0f).setArmorEnergy(16.0f).setArmorIce(15.0f).setArmorLightning(15.0f).setArmorPoison(10.0f).setArmorRadiation(6.0f).setPenetrationResistance(0.1f);
 	
+	public static TGArmorMaterial T2_HAZMAT = new TGArmorMaterial("T2_HAZMAT", 80, 0, 8.0f, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER,0f).setArmorFire(14.0f).setArmorExplosion(12.0f).setArmorEnergy(14.0f).setArmorIce(14.0f).setArmorLightning(14.0f).setArmorPoison(20.0f).setArmorRadiation(20.0f);
+	
+	
 	public static TGArmorMaterial T2_COMBAT = new TGArmorMaterial("T2_COMBAT", 72, 0, 18.0f, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER,2f);
 	public static TGArmorMaterial T2_COMMANDO = new TGArmorMaterial("T2_COMMANDO", 72, 0, 18.0f, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER,1f).setArmorFire(15.0f).setArmorExplosion(15.0f).setArmorEnergy(15.0f).setArmorIce(15.0f).setArmorLightning(15.0f).setArmorPoison(10.0f).setArmorRadiation(5.0f);
 	
@@ -83,6 +86,11 @@ public class TGArmors implements ITGInitializer {
 	public static GenericArmor steam_Leggings;
 	public static GenericArmor steam_Boots;
 
+	public static GenericArmor hazmat_Helmet;
+	public static GenericArmor hazmat_Chestplate;
+	public static GenericArmor hazmat_Leggings;
+	public static GenericArmor hazmat_Boots;
+	
 	public static GenericArmor t2_combat_Helmet;
 	public static GenericArmor t2_combat_Chestplate;
 	public static GenericArmor t2_combat_Leggings;
@@ -142,13 +150,18 @@ public class TGArmors implements ITGInitializer {
 		t1_miner_Chestplate = new GenericArmorMultiCamo("t1_miner_chestplate", T1_MINER, t1_miner_textures, EntityEquipmentSlot.CHEST).setSpeedBoni(0.08f,0.0f).setMiningBoni(0.05f).setRepairMats(new ItemStack(Items.IRON_INGOT,1), TGItems.HEAVY_CLOTH, 0.5f, 4); // 1 for chestplate
 		t1_miner_Leggings = new GenericArmorMultiCamo("t1_miner_leggings", T1_MINER, t1_miner_textures, EntityEquipmentSlot.LEGS).setSpeedBoni(0.08f,0.0f).setMiningBoni(0.05f).setRepairMats(new ItemStack(Items.IRON_INGOT,1), TGItems.HEAVY_CLOTH, 1.0f/3.0f, 2); // 2 for leggings
 		t1_miner_Boots = new GenericArmorMultiCamo("t1_miner_boots", T1_MINER, t1_miner_textures, EntityEquipmentSlot.FEET).setSpeedBoni(0.08f,0.1f).setMiningBoni(0.05f).setFallProtection(0.2f, 1.0f).setRepairMats(new ItemStack(Items.IRON_INGOT,1), TGItems.HEAVY_CLOTH, 0.5f, 2); // 3 for boots
-	
 		
 		String[] steam_armor_textures = {"steam_armor", "steam_armor_rusty", "steam_armor_iron", "steam_armor_hazard"};
 		steam_Helmet = new PoweredArmor("steam_helmet", T1_STEAM, steam_armor_textures, EntityEquipmentSlot.HEAD,ArmorPowerType.STEAM,10).setMiningBoni(0.05f,0.0f).setHealthBonus(1,0).setSpeedBoni(0.05f,0.03f,0.0f,0.0f).setRepairMats(TGItems.STEAMARMOR_PLATE, TGItems.STEAMARMOR_PLATE, 1.0f, 2).setArmorModel(ARMORMODEL_STEAM_ARMOR_2,false).setHideFaceslot(true).setKnockbackResistance(0.15f).setUseRenderHack();
 		steam_Chestplate = new PoweredArmor("steam_chestplate", T1_STEAM, steam_armor_textures, EntityEquipmentSlot.CHEST,ArmorPowerType.STEAM,3600).setSpeedBoni(0.05f,0.03f,0.0f,0.0f).setMiningBoni(0.05f,0.0f).setHealthBonus(2,0).setBattery(TGItems.COMPRESSED_AIR_TANK).setEmptyBattery(TGItems.COMPRESSED_AIR_TANK_EMPTY).setRepairMats(TGItems.STEAMARMOR_PLATE, TGItems.STEAMARMOR_PLATE, 1.0f, 4).setArmorModel(ARMORMODEL_STEAM_ARMOR_0,false).setHideBackslot(true).setHideGloveslot(true).setKnockbackResistance(0.30f).setUseRenderHack(); // 1 for chestplate
 		steam_Leggings = new PoweredArmor("steam_leggings", T1_STEAM, steam_armor_textures, EntityEquipmentSlot.LEGS,ArmorPowerType.STEAM,10).setSpeedBoni(0.05f,0.03f,0f,0f).setMiningBoni(0.05f,0f).setHealthBonus(1,0).setRepairMats(TGItems.STEAMARMOR_PLATE, TGItems.STEAMARMOR_PLATE, 1.0f, 3).setArmorModel(ARMORMODEL_STEAM_ARMOR_1,false).setKnockbackResistance(0.20f).setUseRenderHack(); // 2 for leggings
 		steam_Boots = new PoweredArmor("steam_boots", T1_STEAM, steam_armor_textures, EntityEquipmentSlot.FEET,ArmorPowerType.STEAM,10).setSpeedBoni(0.05f,0.15f,0,0).setMiningBoni(0.05f,0).setFallProtection(0.2f, 1.0f,0,0).setHealthBonus(1,0).setStepAssist(1.0f,0).setRepairMats(TGItems.STEAMARMOR_PLATE, TGItems.STEAMARMOR_PLATE, 1.0f, 2).setArmorModel(ARMORMODEL_STEAM_ARMOR_0,false).setKnockbackResistance(0.15f).setUseRenderHack(); // 3 for boots
+	
+		String[] hazmat_textures = {"hazmatsuit", "hazmatsuit_yellow"}; //FIXME: REPAIR MATS
+		hazmat_Helmet = new GenericArmorMultiCamo("hazmat_helmet", T2_HAZMAT, hazmat_textures, EntityEquipmentSlot.HEAD).setSpeedBoni(0.0f,0.00f).setMiningBoni(0.0f).setRADResistance(1f).setRepairMats(new ItemStack(Items.IRON_INGOT,1), TGItems.HEAVY_CLOTH, 0.5f, 2); //0 for helmet
+		hazmat_Chestplate = new GenericArmorMultiCamo("hazmat_chestplate", T2_HAZMAT, hazmat_textures, EntityEquipmentSlot.CHEST).setSpeedBoni(0.0f,0.0f).setMiningBoni(0.0f).setRADResistance(1f).setRepairMats(new ItemStack(Items.IRON_INGOT,1), TGItems.HEAVY_CLOTH, 0.5f, 4); // 1 for chestplate
+		hazmat_Leggings = new GenericArmorMultiCamo("hazmat_leggings", T2_HAZMAT, hazmat_textures, EntityEquipmentSlot.LEGS).setSpeedBoni(0.0f,0.0f).setMiningBoni(0.0f).setRADResistance(1f).setRepairMats(new ItemStack(Items.IRON_INGOT,1), TGItems.HEAVY_CLOTH, 1.0f/3.0f, 2); // 2 for leggings
+		hazmat_Boots = new GenericArmorMultiCamo("hazmat_boots", T2_HAZMAT, hazmat_textures, EntityEquipmentSlot.FEET).setSpeedBoni(0.0f,0.0f).setMiningBoni(0.0f).setRADResistance(1f).setFallProtection(0.1f, 0.5f).setRepairMats(new ItemStack(Items.IRON_INGOT,1), TGItems.HEAVY_CLOTH, 0.5f, 2); // 3 for boots
 	
 		//T2 Combat Armor
 		String[] t2_combat_textures = {"t2_combat", "t2_combat_wood","t2_combat_desert","t2_combat_arctic","t2_combat_swat","t2_combat_security"};

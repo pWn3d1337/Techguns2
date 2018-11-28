@@ -179,6 +179,8 @@ public class ReactionChamberTweaker {
 		ItemStackOreDict input;
 		FluidStack fluid;
 		
+		int removed =0;
+		
 		public removeInputAction(ItemStackOreDict input, ILiquidStack fluid) {
 			super();
 			this.input = input;
@@ -195,7 +197,7 @@ public class ReactionChamberTweaker {
 				ReactionChamberRecipe rec = ReactionChamberRecipe.getRecipes().get(key);
 								
 				if (rec.input.matches(input) && ItemUtil.isFluidEqual(new FluidStack(rec.liquidIn,1000), fluid)){
-				
+					this.removed++;
 					iter.remove();
 				}
 			}
@@ -203,7 +205,7 @@ public class ReactionChamberTweaker {
 		
 		@Override
 		public String describe() {
-			return "Removed Recipe(s) using "+input+"/"+fluid.getUnlocalizedName()+" from ReactionChamber";
+			return "Removed "+removed+" Recipe(s) using "+input+"/"+fluid.getUnlocalizedName()+" from ReactionChamber";
 		}
 
 	}

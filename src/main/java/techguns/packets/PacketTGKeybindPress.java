@@ -12,6 +12,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.server.permission.PermissionAPI;
+import techguns.TGConfig;
 import techguns.TGPackets;
 import techguns.TGPermissions;
 import techguns.TGSounds;
@@ -100,7 +101,7 @@ public class PacketTGKeybindPress implements IMessage {
 				
 				props.enableSafemode=!props.enableSafemode;
 				
-				if (!props.enableSafemode && PermissionAPI.hasPermission(ply, TGPermissions.ALLOW_UNSAFE_MODE)) {
+				if (!props.enableSafemode && !( (!TGConfig.limitUnsafeModeToOP && !PermissionAPI.hasPermission(ply, TGPermissions.ALLOW_UNSAFE_MODE)) || (TGConfig.limitUnsafeModeToOP && isPlayerOp(ply)) )) {
 					props.enableSafemode=true;
 				} 
 				if(message.showMsg) {
@@ -173,5 +174,10 @@ public class PacketTGKeybindPress implements IMessage {
 		}
 
 		
+	}
+	
+	public static boolean isPlayerOp(EntityPlayer player){
+		boolean op = FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList().getOppedPlayers().getEntry(player.getGameProfile()) != null;
+		return op;
 	}
 }

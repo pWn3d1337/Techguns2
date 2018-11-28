@@ -1,0 +1,6 @@
+{
+    "name": "Weapons",
+    "description": "Techguns weapons exist for different tech-tiers and are designed to be used from the beginning to the endgame. Some weapons are also tools like the powerhammer or the chainsaw.",
+    "icon": "techguns:m4",
+    "sortnum": 0
+}

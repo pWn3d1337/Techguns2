@@ -14,7 +14,7 @@ public class AmmoType {
 	protected HashMap<String,Integer> ammoVariantIDs = new HashMap<>();
 	
 	
-	int bulletsPerMag=0;
+	protected int bulletsPerMag=0;
 	
 	public AmmoType(ItemStack... ammo){
 		this.variants.add(new AmmoVariant(ammo,ammo));
@@ -91,5 +91,9 @@ public class AmmoType {
 		
 		return ((float)clipsize)/bpm;
 	}
-	
+
+	public int getBulletsPerMag() {
+		return bulletsPerMag;
+	}
+
 }

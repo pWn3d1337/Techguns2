@@ -1313,7 +1313,22 @@
     "sounds": [
         "techguns:effects/tfg_explosion_echo"
     ]
-}
+},
 
+"effects.geiger.low": {
+    "category": "player",
+    "sounds": [
+        "techguns:effects/geiger1",
+        "techguns:effects/geiger4"
+    ]
+},
+
+"effects.geiger.high": {
+    "category": "player",
+    "sounds": [
+        "techguns:effects/geiger2",
+        "techguns:effects/geiger3"
+    ]
+}
 
 }

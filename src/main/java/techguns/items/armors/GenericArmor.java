@@ -5,15 +5,18 @@ import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 
 import org.lwjgl.input.Keyboard;
 
+import com.google.common.collect.Multimap;
 import com.mojang.realmsclient.gui.ChatFormatting;
 
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -29,8 +32,10 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
 import techguns.TGArmors;
 import techguns.TGItems;
+import techguns.TGRadiationSystem;
 import techguns.Techguns;
 import techguns.api.damagesystem.DamageType;
+import techguns.api.radiation.TGRadiation;
 import techguns.api.render.IItemTGRenderer;
 import techguns.api.tginventory.ITGSpecialSlot;
 import techguns.capabilities.TGExtendedPlayer;
@@ -41,7 +46,14 @@ import techguns.util.TextUtil;
 
 public class GenericArmor extends ItemArmor implements ISpecialArmor , IItemTGRenderer{
 	//private static ArrayList<Item> techgunArmors = new ArrayList<Item>();
-
+    
+    protected static final UUID[] RAD_RESIST_MODIFIER = {
+    		UUID.fromString("47E9813E-3FB7-415C-A6CD-F9A4A3C55F82"),
+    		UUID.fromString("AD509C77-02FC-40E8-A811-52B29842CE56"),
+    		UUID.fromString("CB3BF616-549C-47EF-ADC8-2ED60C331ABD"),
+    		UUID.fromString("052C821F-1FA9-4D67-A660-D885FAE22EED")
+    };
+    
 	//For vanilla Anvil
 	private ItemStack repairItem=null;
 	
@@ -80,6 +92,8 @@ public class GenericArmor extends ItemArmor implements ISpecialArmor , IItemTGRe
 	protected float coolingsystem=0.0f;
 	
 	protected float waterspeedbonus=0.0f;
+	
+	protected float radresistance=0.0f;
 	
 	protected boolean hideFaceslot=false;
 	protected boolean hideBackslot=false;
@@ -169,6 +183,11 @@ public class GenericArmor extends ItemArmor implements ISpecialArmor , IItemTGRe
 	
 	public GenericArmor setKnockbackResistance(float resistpercent){
 		this.knockbackresistance=resistpercent;
+		return this;
+	}
+	
+	public GenericArmor setRADResistance(float radresistance){
+		this.radresistance=radresistance;
 		return this;
 	}
 	
@@ -642,9 +661,26 @@ public class GenericArmor extends ItemArmor implements ISpecialArmor , IItemTGRe
 		case WATER_SPEED:
 			this.waterspeedbonus=value;
 			return true;
+		case RAD_RESISTANCE:
+			this.radresistance=value;
+			return true;
 		default:
 			return false;		
 		}
 	}
+
+
+	@Override
+	public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
+		Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
+		
+		if(radresistance>0 && slot==this.getEquipmentSlot()) {
+			multimap.put(TGRadiation.RADIATION_RESISTANCE.getName(), new AttributeModifier(RAD_RESIST_MODIFIER[slot.getIndex()],"techguns.radresistance."+slot.toString(), this.radresistance, 0));
+		}
+		
+		return multimap;
+	}
+	
+	
 }
 

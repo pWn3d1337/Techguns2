@@ -30,6 +30,9 @@ public class TGExtendedPlayerClient extends TGExtendedPlayer implements ITGParti
 	protected List<ITGParticle> entityParticlesMH = null;
 	protected List<ITGParticle> entityParticlesOH = null;
 	
+	//used to count down from 20 since last tick when radiation was applied
+	public int radiationticks = 0;
+	
 	public TGExtendedPlayerClient(EntityPlayer entity) {
 		super(entity);
 	}

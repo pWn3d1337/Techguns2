@@ -213,6 +213,10 @@ public class TGSounds {
 	
 	public static SoundEvent GLIDER_LOOP = createSoundEvent("glider.loop");
 	
+	
+	public static SoundEvent GEIGER_LOW = createSoundEvent("effects.geiger.low");
+	public static SoundEvent GEIGER_HIGH = createSoundEvent("effects.geiger.high");
+	
 	public static void registerSounds(RegistryEvent.Register<SoundEvent> event){
 		IForgeRegistry<SoundEvent> reg = event.getRegistry();
 		

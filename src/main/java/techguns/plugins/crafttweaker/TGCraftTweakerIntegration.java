@@ -1,7 +1,6 @@
 package techguns.plugins.crafttweaker;
 
 import crafttweaker.CraftTweakerAPI;
-import techguns.packets.ChemLabTweaker;
 
 public class TGCraftTweakerIntegration {
 

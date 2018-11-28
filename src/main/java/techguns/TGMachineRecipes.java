@@ -30,8 +30,9 @@ import techguns.util.ItemUtil;
 *
 */
 public class TGMachineRecipes {
-		
+
 	public static void addRecipes(){
+		
 		//AMMO PRESS
 		ArrayList<String> metal2 = new ArrayList<String>();
 		ArrayList<String> metal1 = new ArrayList<String>();
@@ -103,8 +104,8 @@ public class TGMachineRecipes {
 			});
 		} else if (TGFluids.fuels.isEmpty() || TGConfig.keepLavaRecipesWhenFuelIsPresent){
 			ChemLabRecipes.addRecipe("gunpowder", 1, "gemLapis", 1, null, 0, new FluidStack(FluidRegistry.LAVA,500), null, TGItems.newStack(TGItems.TGX, 1), true, 20);
-			//ChemLabRecipes.addRecipe(fuelTankEmpty, 1, (ItemStack)null, 0, null, 0, new FluidStack(TGFluids.LAVA,500), null, fuelTank, false, 1);
-			ChemLabRecipes.addRecipe(fuelTank, 1, (ItemStack)null, 0, null, 0, null,new FluidStack(TGFluids.LAVA,500), fuelTankEmpty, false, 1);
+			ChemLabRecipes.addRecipe(fuelTankEmpty, 1, (ItemStack)null, 0, null, 0, new FluidStack(TGFluids.LAVA,500), null, fuelTank, false, 1);
+			//ChemLabRecipes.addRecipe(fuelTank, 1, (ItemStack)null, 0, null, 0, null,new FluidStack(TGFluids.LAVA,500), fuelTankEmpty, false, 1);
 			
 		}
 		
