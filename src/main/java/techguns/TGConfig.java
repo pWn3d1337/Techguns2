@@ -85,6 +85,8 @@ public class TGConfig {
 	
 	public static boolean limitUnsafeModeToOP;
 	
+	public static boolean WIP_disableRadiationSystem;
+	
 	/**
 	 * CATEGORIES
 	 */
@@ -195,6 +197,9 @@ public class TGConfig {
 		cl_fixedSprintFov = config.getFloat("FixedSprintFovMultiplier", CLIENTSIDE, 1.15f, 1.0f, 10.0f, "Multiply the FOV while sprinting by this value independent from the actual speed, has no effect when LockSpeedDependantFov is false, pure clientside check.");
 		
 		cl_sortPassesPerTick = config.getInt("ParticleDepthSortPasses", CLIENTSIDE, 10, 0, 20, "How many bubble sort passes should be performed each tick on particles. 0=off. Clientside");
+		
+		
+		WIP_disableRadiationSystem = config.getBoolean("WIP_disableRadiationSystem", config.CATEGORY_GENERAL, true, "Disable Radiation for players. Radiation system is WIP, only use in creative for testing");
 		
 		if(config.hasChanged()) {
 			config.save();

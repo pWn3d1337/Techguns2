@@ -837,11 +837,10 @@ public class TGEventHandler {
 	
 	@SubscribeEvent
 	public static void onEntityConstruction(EntityConstructing event) {
-		if(TGConfig.debug) { //FIXME remove debug
-			if(event.getEntity() instanceof EntityLivingBase) {
-				EntityLivingBase elb = (EntityLivingBase) event.getEntity();
-				elb.getAttributeMap().registerAttribute(TGRadiation.RADIATION_RESISTANCE).setBaseValue(0);
-			}
+
+		if(event.getEntity() instanceof EntityLivingBase) {
+			EntityLivingBase elb = (EntityLivingBase) event.getEntity();
+			elb.getAttributeMap().registerAttribute(TGRadiation.RADIATION_RESISTANCE).setBaseValue(0);
 		}
 	}
 }

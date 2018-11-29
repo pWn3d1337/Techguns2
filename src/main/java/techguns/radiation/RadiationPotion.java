@@ -67,7 +67,7 @@ public class RadiationPotion extends Potion {
 		
 		int amount = techguns.util.MathUtil.clamp(amplifier+1-res, 0, 10);
 		
-		System.out.println("Radiate:"+ amount + "|RES:"+res);
+		//System.out.println("Radiate:"+ amount + "|RES:"+res);
 		
 		if(elb instanceof EntityPlayer) {
 			if(!((EntityPlayer)elb).capabilities.isCreativeMode ) {
