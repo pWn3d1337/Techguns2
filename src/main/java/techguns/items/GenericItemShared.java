@@ -9,7 +9,11 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -20,6 +24,8 @@ import techguns.api.render.IItemTGRenderer;
 import techguns.api.tginventory.ITGSpecialSlot;
 import techguns.api.tginventory.TGSlotType;
 import techguns.items.armors.TGArmorBonus;
+import techguns.items.guns.ammo.AmmoType;
+import techguns.util.InventoryUtil;
 import techguns.util.TextUtil;
 
 public class GenericItemShared extends GenericItem implements IItemTGRenderer, ITGSpecialSlot{
@@ -77,6 +83,7 @@ public class GenericItemShared extends GenericItem implements IItemTGRenderer, I
 		protected int meta;
 		protected boolean useRenderHack;
 		protected boolean enabled;
+		protected SharedItemAmmoEntry ammoEntry;
 		
 		public SharedItemEntry(String name, int meta, TGSlotType slottype, short maxStackSize, boolean useRenderHack, boolean enabled) {
 			super();
@@ -107,9 +114,36 @@ public class GenericItemShared extends GenericItem implements IItemTGRenderer, I
 		public boolean isEnabled() {
 			return enabled;
 		}
-		
+
+		public SharedItemAmmoEntry getAmmoEntry() {
+			return ammoEntry;
+		}
+	
+		public void setAmmoType(ItemStack bullet, ItemStack magazine,  int amountBullet) {
+			this.ammoEntry = new SharedItemAmmoEntry(bullet, magazine, amountBullet);
+		}
 	}
 
+	public static class SharedItemAmmoEntry {
+		public ItemStack bullet;
+		public ItemStack magazine;
+		public int amountBullet;
+		public int amountMag;
+		
+		public SharedItemAmmoEntry(ItemStack bullet, ItemStack magazine, int amountBullet, int amountMag) {
+			super();
+			this.bullet = bullet;
+			this.magazine = magazine;
+			this.amountBullet = amountBullet;
+			this.amountMag = amountMag;
+		}
+
+		public SharedItemAmmoEntry(ItemStack bullet, ItemStack magazine, int amountBullet) {
+			this(bullet, magazine, amountBullet,1);
+		}
+		
+	}
+	
 	@Override
 	public void initModel() {
 		for (int i=0; i<this.sharedItems.size();i++){
@@ -156,6 +190,15 @@ public class GenericItemShared extends GenericItem implements IItemTGRenderer, I
 		return TGSlotType.NORMAL;
 	}
 
+	protected SharedItemEntry getSharedEntry(ItemStack item) {
+		int dmg = item.getItemDamage();
+		if (dmg <this.sharedItems.size()) {
+			return this.sharedItems.get(dmg);
+		}
+		return null;
+	}
+
+	
 	@Override
 	public float getBonus(TGArmorBonus type, ItemStack stack, boolean consume, EntityPlayer player) {
 		if(stack.getItemDamage()==TGItems.OXYGEN_MASK.getItemDamage()) {
@@ -179,6 +222,13 @@ public class GenericItemShared extends GenericItem implements IItemTGRenderer, I
 		super.addInformation(stack, worldIn, tooltip, flagIn);
 		if(this.getSlot(stack)!=TGSlotType.NORMAL) {
 			tooltip.add(ChatFormatting.GRAY+TextUtil.trans(Techguns.MODID+".tooltip.slot")+": "+this.getSlot(stack));
+			if(this.getSlot(stack)==TGSlotType.AMMOSLOT) {
+				tooltip.add(ChatFormatting.GRAY+TextUtil.trans(Techguns.MODID+".tooltip.rightclickammoslot"));
+				
+				if(this.getSharedEntry(stack).ammoEntry!=null){
+					tooltip.add(ChatFormatting.GRAY+TextUtil.trans(Techguns.MODID+".tooltip.sneakrightclickunload"));
+				}
+			}
 		}
 		if(this.getBonus(TGArmorBonus.EXTRA_HEART, stack)>0.0f){
 			tooltip.add(trans("armorTooltip.healthbonus")+": +"+(int)this.getBonus(TGArmorBonus.EXTRA_HEART, stack)+" "+trans("armorTooltip.hearts"));
@@ -209,6 +259,58 @@ public class GenericItemShared extends GenericItem implements IItemTGRenderer, I
 	
 	private String trans(String text){
 		return TextUtil.trans(Techguns.MODID+"."+text);
+	}
+
+	
+	protected static void addAmmoToPlayerOrDropInWorld(EntityPlayer player, ItemStack stack) {
+		int amount = InventoryUtil.addAmmoToPlayerInventory(player, stack);
+		
+		//only drop on server side
+		if (amount >0 && !player.world.isRemote) {
+			ItemStack stackDrop = stack.copy();
+			stackDrop.setCount(amount);
+			InventoryHelper.spawnItemStack(player.world, player.posX, player.posY, player.posZ, stackDrop);
+		}
+	}
+	
+	@Override
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+		
+		ItemStack stack = player.getHeldItem(hand);
+		
+		if (player.isSneaking()){
+			SharedItemEntry entry = this.getSharedEntry(stack);
+			if(entry!=null) {
+				SharedItemAmmoEntry ammoEntry=entry.getAmmoEntry();
+				if(ammoEntry!=null) {
+					ItemStack stackBullet = ammoEntry.bullet.copy();
+					stackBullet.setCount(ammoEntry.amountBullet);
+					
+					ItemStack stackMag = ammoEntry.magazine.copy();
+					stackMag.setCount(ammoEntry.amountMag);
+					
+					addAmmoToPlayerOrDropInWorld(player, stackBullet);
+					addAmmoToPlayerOrDropInWorld(player, stackMag);
+					
+					stack.shrink(1);
+					
+					return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
+				}
+				
+			}
+			
+		} else if(this.getSlot(stack)==TGSlotType.AMMOSLOT) {
+			
+			ItemStack newStack = stack.copy();
+			int amount = InventoryUtil.addAmmoToAmmoInventory(player, newStack);
+			
+			System.out.println("amount not merged:"+amount);
+			
+			stack.setCount(amount);
+			return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
+		}
+		
+		return super.onItemRightClick(world, player, hand);
 	}
 	
 	

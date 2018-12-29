@@ -32,13 +32,13 @@ public class TGFluids implements ITGInitializer {
 	
 	public static Fluid MILK;
 	
-	protected static String[] oilnames = {"oil", "tree_oil", "crude_oil"};
+	protected static String[] oilnames = {"oil", "tree_oil", "crude_oil", "seed_oil"};
 	public static ArrayList<Fluid> oils = new ArrayList<Fluid>();
 	
 	//public static Fluid OIL;
 	
 	//public static Fluid FUEL;
-	protected static String[] fuelnames = {"fuel", "refined_fuel", "biofuel", "biodiesel", "diesel", "gasoline"};
+	protected static String[] fuelnames = {"fuel", "refined_fuel", "biofuel", "biodiesel", "diesel", "gasoline", "refined_biofuel", "fire_water", "rocket_fuel"};
 	public static ArrayList<Fluid> fuels = new ArrayList<Fluid>();
 	
 	public static Fluid LIQUID_REDSTONE;
@@ -120,8 +120,9 @@ public class TGFluids implements ITGInitializer {
 
 	}
 
-	@Override
-	public void postInit(FMLPostInitializationEvent event) {
+	//@Override
+	//public void postInit(FMLPostInitializationEvent event) {
+	public static void RecipeInit() {
 		//MILK = FluidRegistry.getFluid("milk");
 		
 		/*	if (MILK==null){
@@ -172,5 +173,10 @@ public class TGFluids implements ITGInitializer {
 		//		System.out.println("No Biofuel, fallback to lava");
 				BIOFUEL = LAVA;
 			}
+	}
+
+	@Override
+	public void postInit(FMLPostInitializationEvent event) {
+		
 	}
 }

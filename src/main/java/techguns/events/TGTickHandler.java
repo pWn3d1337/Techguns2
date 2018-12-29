@@ -36,10 +36,12 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import techguns.TGConfig;
 import techguns.TGPackets;
+import techguns.TGRadiationSystem;
 import techguns.TGSounds;
 import techguns.Techguns;
 import techguns.api.guns.IGenericGun;
 import techguns.api.npc.INPCTechgunsShooter;
+import techguns.api.radiation.TGRadiation;
 import techguns.api.tginventory.ITGSpecialSlot;
 import techguns.capabilities.TGExtendedPlayer;
 import techguns.capabilities.TGExtendedPlayerClient;
@@ -47,8 +49,11 @@ import techguns.capabilities.TGShooterValues;
 import techguns.client.ClientProxy;
 import techguns.client.audio.TGSoundCategory;
 import techguns.client.particle.LightPulse;
+import techguns.damagesystem.TGDamageSource;
+import techguns.deatheffects.EntityDeathUtils.DeathType;
 import techguns.entities.npcs.GenericNPC;
 import techguns.gui.player.TGPlayerInventory;
+import techguns.items.additionalslots.ItemGasMask;
 import techguns.items.armors.GenericArmor;
 import techguns.items.armors.PoweredArmor;
 import techguns.items.armors.TGArmorBonus;
@@ -59,6 +64,8 @@ import techguns.packets.PacketShootGun;
 import techguns.packets.PacketShootGunTarget;
 import techguns.packets.PacketSwapWeapon;
 import techguns.packets.PacketTGExtendedPlayerSync;
+import techguns.radiation.ItemRadiationData;
+import techguns.radiation.ItemRadiationRegistry;
 import techguns.util.InventoryUtil;
 
 @Mod.EventBusSubscriber(modid = Techguns.MODID)
@@ -187,7 +194,7 @@ public class TGTickHandler {
 			 
 		 } else if (event.phase == Phase.END){
 		 
-		 	 if(!event.player.world.isRemote) {
+		 	 if(!event.player.world.isRemote) {	 
 				 event.player.getDataManager().set(TGExtendedPlayer.DATA_FACE_SLOT, props.tg_inventory.getStackInSlot(TGPlayerInventory.SLOT_FACE));
 				 event.player.getDataManager().set(TGExtendedPlayer.DATA_BACK_SLOT, props.tg_inventory.getStackInSlot(TGPlayerInventory.SLOT_BACK));
 				 event.player.getDataManager().set(TGExtendedPlayer.DATA_HAND_SLOT, props.tg_inventory.getStackInSlot(TGPlayerInventory.SLOT_HAND));
@@ -432,6 +439,18 @@ public class TGTickHandler {
 			 }
 			 
 			 /**
+			  * Remove Additional Slot Attribute Modifiers
+			  */
+		      IAttributeInstance attributeRadresistance = event.player.getAttributeMap().getAttributeInstance(TGRadiation.RADIATION_RESISTANCE);
+	         if (attributeRadresistance!=null){
+	        	 AttributeModifier rad_resist_faceslot = attributeRadresistance.getModifier(ItemGasMask.UUID_RAD_RESIST_FACE);
+	        	 if (rad_resist_faceslot!=null){
+	        		 attributeRadresistance.removeModifier(rad_resist_faceslot);
+	        	 }
+	         }
+			 
+			 
+			 /**
 			  * Tick addition slots
 			  */
 			 props.isGliding=false;
@@ -441,6 +460,45 @@ public class TGTickHandler {
 			 tickSlot(props.tg_inventory.inventory.get(TGPlayerInventory.SLOT_HAND), event);
 			 
 			 Techguns.proxy.handlePlayerGliding(event.player);
+			 			 
+			 
+			 //check inventory for radioactive items
+			 if(!TGConfig.WIP_disableRadiationSystem && event.side==Side.SERVER && event.player.world.getTotalWorldTime()%TGRadiationSystem.INVENTORY_RADIATION_INVERVALL==0) {
+				 int maxrad=0;
+				 for (ItemStack stack : event.player.inventory.mainInventory) {
+					if(!stack.isEmpty()) {
+						ItemRadiationData data = ItemRadiationRegistry.getRadiationDataFor(stack);
+						if(data!=null) {
+							if(data.radamount>maxrad) {
+								maxrad=data.radamount;
+							}
+						}
+					} 
+				 }
+				 
+				 if(maxrad>0) {
+					 event.player.addPotionEffect(new PotionEffect(TGRadiationSystem.radiation_effect,TGRadiationSystem.INVENTORY_RADIATION_INVERVALL,maxrad-1,false,false));
+				 }
+			 }
+			 
+			 
+			 //TICK Radiation
+			 if(event.side==Side.SERVER && event.player.world.getTotalWorldTime()%20==0) {
+				 if(props.radlevel>=TGRadiationSystem.MINOR_POISONING) {
+					 event.player.addPotionEffect(new PotionEffect(MobEffects.HUNGER,30,0,false,false));	
+				} else if (props.radlevel>=TGRadiationSystem.SEVERE_POISONING) {
+					event.player.addPotionEffect(new PotionEffect(MobEffects.HUNGER,30,1,false,false));
+					event.player.addPotionEffect(new PotionEffect(MobEffects.MINING_FATIGUE,30,1,false,false));
+					event.player.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS,30,1,false,false));
+				} 
+				 
+				if(props.radlevel>=TGRadiationSystem.LETHAL_POISONING) {
+					event.player.addPotionEffect(new PotionEffect(MobEffects.NAUSEA,30,1,false,false));
+					event.player.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS,30,1,false,false));
+					event.player.attackEntityFrom(TGDamageSource.causeRadiationDamage(null, null, DeathType.LASER), 5f);
+				}
+			 }
+
 			 
 			 /**
 			  * detect weapon swaps

@@ -108,7 +108,10 @@ public class TGSpawnManager {
 			}
 		
 		} else {
-			System.out.println("TotalWeight 0, nothing to spawn???");
+			if(dummyEnt!=null) {
+				dummyEnt.setDead();
+			}
+			//System.out.println("TotalWeight 0, nothing to spawn???");
 		}
 		
 		

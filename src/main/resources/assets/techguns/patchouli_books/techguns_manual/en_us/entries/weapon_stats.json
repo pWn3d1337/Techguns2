@@ -1,0 +1,16 @@
+{
+    "name": "Weapon Stats",
+    "icon": "techguns:itemshared:57",
+    "category": "weapons",
+    "pages": [
+        {
+            "type": "text",
+            "text": "When holding [shift] a detailed tooltip shows all stats of a weapon. $(li) Hand-Type $(li) Ammo $(li) Damage Type $(li) Damage $(li) Velocity $(li) Spread $(li) Clipsize $(li) Reload time $(li) Armor Pen $(li) Zoom"
+        },
+        {
+            "type": "text",
+            "title": "Hand-Type & Ammo",
+            "text": "'Hand-Type' determines if a weapon can be dual wielded and if it has an accuracy penalty when doing so. $(br2) 'Ammo' indicates the items needed to reload the gun. This is usually 1 magazine but can also be an amount higher than 1 (eg. shotgun) or 2 different item types (eg. gauss rifle)"
+        }
+    ]
+}

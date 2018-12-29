@@ -5,6 +5,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionType;
@@ -55,6 +56,12 @@ public abstract class CommonProxy implements ITGInitializer {
 	}
 
 	@SubscribeEvent
+	public static void RecipeRegistryEvent(RegistryEvent.Register<IRecipe> event) {
+		TGFluids.RecipeInit();
+		TGMachineRecipes.addRecipes();
+	}
+	
+	@SubscribeEvent
 	public static void registerBlocks(RegistryEvent.Register<Block> event) {
 		Techguns.blocks.registerBlocks(event);
 		Techguns.fluids.registerBlocks(event);
@@ -77,13 +84,16 @@ public abstract class CommonProxy implements ITGInitializer {
 	@SubscribeEvent
     public static void registerPotionTypes(RegistryEvent.Register<PotionType> event)
     {
-		if (TGConfig.debug) { //FIXME debug 
-	        event.getRegistry().register(new PotionType(new PotionEffect(TGRadiationSystem.radiation_effect, 300))
-	                .setRegistryName(Techguns.MODID, "radpotion"));
-	        
-	        event.getRegistry().register(new PotionType(new PotionEffect(TGRadiationSystem.radresistance_effect, 900))
-	                .setRegistryName(Techguns.MODID, "radresistancepotion"));
-		}
+
+        event.getRegistry().register(new PotionType(new PotionEffect(TGRadiationSystem.radiation_effect, 300, 4))
+                .setRegistryName(Techguns.MODID, "radpotion"));
+        
+        event.getRegistry().register(new PotionType(new PotionEffect(TGRadiationSystem.radregen_effect, 600, 9))
+                .setRegistryName(Techguns.MODID, "radregenerationpotion"));
+        
+        event.getRegistry().register(new PotionType(new PotionEffect(TGRadiationSystem.radresistance_effect, 900, 1))
+                .setRegistryName(Techguns.MODID, "radresistancepotion"));
+
     }
 	
 	
@@ -189,4 +199,5 @@ public abstract class CommonProxy implements ITGInitializer {
 	public void handlePlayerGliding(EntityPlayer player) {
 		//do nothing on server
 	}
+	
 }

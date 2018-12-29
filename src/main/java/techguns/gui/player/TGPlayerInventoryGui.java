@@ -125,7 +125,7 @@ public class TGPlayerInventoryGui extends TGBaseGui {
 			
 			int displayedRad =0;
 			if(props!=null){
-				displayedRad = (int) (props.radlevel * 0.001);			
+				displayedRad = props.radlevel; //(int) (props.radlevel * 0.001);			
 			}
 			
 			tooltip.add(ChatFormatting.GREEN+""+ChatFormatting.UNDERLINE+trans("tgguitooltip.currentrad"));

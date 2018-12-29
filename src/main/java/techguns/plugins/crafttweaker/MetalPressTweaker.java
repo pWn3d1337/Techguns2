@@ -111,7 +111,7 @@ public class MetalPressTweaker {
 								
 					if (ItemUtil.isItemEqual(rec.output, this.output)){
 						
-						if (!input1.isEmpty()){
+						if (input1!=null && !input1.isEmpty()){
 						
 							if (rec.slot1.matches(this.input1) && rec.slot2.matches(this.input2)){
 								iter.remove();

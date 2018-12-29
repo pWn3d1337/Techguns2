@@ -4,6 +4,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
 
+import com.mojang.realmsclient.gui.ChatFormatting;
+
 import elucent.albedo.event.GatherLightsEvent;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -20,7 +22,10 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -46,8 +51,11 @@ import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
+import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
+import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerDropsEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
@@ -102,8 +110,11 @@ import techguns.packets.PacketEntityDeathType;
 import techguns.packets.PacketNotifyAmbientEffectChange;
 import techguns.packets.PacketRequestTGPlayerSync;
 import techguns.packets.PacketTGExtendedPlayerSync;
+import techguns.radiation.ItemRadiationData;
+import techguns.radiation.ItemRadiationRegistry;
 import techguns.util.BlockUtils;
 import techguns.util.InventoryUtil;
+import techguns.util.TextUtil;
 
 @Mod.EventBusSubscriber(modid = Techguns.MODID)
 public class TGEventHandler {
@@ -328,6 +339,12 @@ public class TGEventHandler {
 			} catch (InvocationTargetException e) {
 				e.printStackTrace();
 			}
+		} else if ( (event.getSource() == DamageSource.LAVA || event.getSource()==DamageSource.ON_FIRE || event.getSource()==DamageSource.IN_FIRE) && event.getEntityLiving() instanceof EntityPlayer) {
+			float bonus = GenericArmor.getArmorBonusForPlayer((EntityPlayer) event.getEntityLiving(), TGArmorBonus.COOLING_SYSTEM,event.getEntityLiving().world.getTotalWorldTime()%5==0);
+			
+			if (bonus >=1.0f) {
+				event.setCanceled(true);
+			}
 		}
 	}
 	
@@ -437,6 +454,7 @@ public class TGEventHandler {
 				TGExtendedPlayer tgplayer = TGExtendedPlayer.get((EntityPlayer) event.getEntityLiving());
 				tgplayer.foodleft=0;
 				tgplayer.lastSaturation=0;
+				tgplayer.addRadiation(-TGRadiationSystem.RADLOST_ON_DEATH);
 			}
 			
 			if (event.getSource() instanceof TGDamageSource) {
@@ -793,13 +811,36 @@ public class TGEventHandler {
 		//ClientProxy.get().activeLightPulses.forEach(l -> event.getLightList().add(l.provideLight()));
 	}
 	
+	
+	/*@SubscribeEvent
+	public static void itemPickupRadiation(EntityItemPickupEvent event) {
+		ItemStack stack = event.getItem().getItem();
+		if(!stack.isEmpty()) {
+			ItemRadiationData data = ItemRadiationRegistry.getRadiationDataFor(stack);
+			if(data!=null) {
+				event.getEntityPlayer().addPotionEffect(new PotionEffect(TGRadiationSystem.radiation_effect, data.radduration, data.radamount-1, false,false));
+			}
+		}
+	}*/
+	
+	@SubscribeEvent
+	@SideOnly(Side.CLIENT)
+	public static void ItemRadiationTooltip(ItemTooltipEvent event) {
+		ItemStack stack = event.getItemStack();
+		if(!stack.isEmpty()) {
+			ItemRadiationData data = ItemRadiationRegistry.getRadiationDataFor(stack);
+			if(data!=null && data.radamount>0) {
+				event.getToolTip().add(ChatFormatting.GREEN+TextUtil.trans("techguns.radiation")+" "+TextUtil.trans("potion.potency."+(data.radamount-1)));
+			}
+		}
+	}
+	
 	@SubscribeEvent
 	public static void onEntityConstruction(EntityConstructing event) {
-		if(TGConfig.debug) { //FIXME remove debug
-			if(event.getEntity() instanceof EntityLivingBase) {
-				EntityLivingBase elb = (EntityLivingBase) event.getEntity();
-				elb.getAttributeMap().registerAttribute(TGRadiation.RADIATION_RESISTANCE).setBaseValue(0);
-			}
+
+		if(event.getEntity() instanceof EntityLivingBase) {
+			EntityLivingBase elb = (EntityLivingBase) event.getEntity();
+			elb.getAttributeMap().registerAttribute(TGRadiation.RADIATION_RESISTANCE).setBaseValue(0);
 		}
 	}
 }

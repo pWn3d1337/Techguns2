@@ -30,6 +30,16 @@ public class InventoryUtil {
     	}
     }
 	
+	public static int addAmmoToAmmoInventory(EntityPlayer ply, ItemStack ammo){
+    	TGExtendedPlayer props = TGExtendedPlayer.get(ply);
+    	
+    	if (props!=null){
+    		int amount = addItemToInventory(props.tg_inventory.inventory, ammo, props.tg_inventory.SLOTS_AMMO_START, props.tg_inventory.SLOTS_AMMO_END+1);
+    		return amount;
+    	}
+    	return ammo.getCount();
+    }
+	
 	/**
      * Try merge itemstack with inventory, return amount of stacksize that could NOT be merged.
      * @param mainInventory

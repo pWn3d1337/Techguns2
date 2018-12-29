@@ -167,7 +167,20 @@ public class TGGuiEvents extends Gui{
 				offsetY-=10;
 			}
 			
-			
+			if(props.radlevel>0) {
+				String prefix = ChatFormatting.WHITE.toString();
+				if(props.radlevel>=1000) {
+					prefix = ChatFormatting.RED.toString();
+				} else if ( props.radlevel >= 750) {
+					prefix = ChatFormatting.GOLD.toString();
+				} else if (props.radlevel >= 500 ) {
+					prefix = ChatFormatting.YELLOW.toString();
+				}
+				String radtext = props.radlevel+ " RAD";
+				mc.fontRenderer.drawString(prefix+radtext, sr.getScaledWidth()-radtext.length()*6, offsetY, 0xFFFFFFFF);
+				
+				offsetY-=10;
+			}
 			
 		}
 

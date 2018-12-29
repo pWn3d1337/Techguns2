@@ -82,6 +82,11 @@ public class TGConfig {
 	public static float explosiveChargeMaxBlockHardness;
 	public static float explosiveChargeAdvancedMaxBlockHardness;
 	
+	
+	public static boolean limitUnsafeModeToOP;
+	
+	public static boolean WIP_disableRadiationSystem;
+	
 	/**
 	 * CATEGORIES
 	 */
@@ -104,6 +109,8 @@ public class TGConfig {
 		config.addCustomCategoryComment(CLIENTSIDE, "Clientside options, can be changed when playing on a server");
 		
 		debug = config.getBoolean("debug", config.CATEGORY_GENERAL, false, "Enable debug options and unfinished stuff, disable this for playing.");
+		
+		limitUnsafeModeToOP = config.getBoolean("RestrictUnsafeModeToOP", config.CATEGORY_GENERAL, false, "Only opped players can use the unsafe mode of guns, this OVERRIDES the permission setting 'techguns.allowunsafemode'");
 		
 		disableAutofeeder = config.getBoolean("disableAutofeeder", config.CATEGORY_GENERAL, false, "Disable automatic feeding of Food in the Techguns tab. Disable autofeeding if you think it breaks the balance");	
 		machinesNeedNoPower = config.getBoolean("machinesNeedNoPower", config.CATEGORY_GENERAL, false, "Machines don't need power, activate this if you don't want to install a mod with generators and still be able to use the machines");
@@ -190,6 +197,9 @@ public class TGConfig {
 		cl_fixedSprintFov = config.getFloat("FixedSprintFovMultiplier", CLIENTSIDE, 1.15f, 1.0f, 10.0f, "Multiply the FOV while sprinting by this value independent from the actual speed, has no effect when LockSpeedDependantFov is false, pure clientside check.");
 		
 		cl_sortPassesPerTick = config.getInt("ParticleDepthSortPasses", CLIENTSIDE, 10, 0, 20, "How many bubble sort passes should be performed each tick on particles. 0=off. Clientside");
+		
+		
+		WIP_disableRadiationSystem = config.getBoolean("WIP_disableRadiationSystem", config.CATEGORY_GENERAL, true, "Disable Radiation for players. Radiation system is WIP, only use in creative for testing");
 		
 		if(config.hasChanged()) {
 			config.save();

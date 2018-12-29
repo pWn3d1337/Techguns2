@@ -22,6 +22,9 @@ import techguns.init.ITGInitializer;
 import techguns.items.BuildingScanTool;
 import techguns.items.GenericItem;
 import techguns.items.GenericItemShared;
+import techguns.items.GenericItemShared.SharedItemEntry;
+import techguns.items.ItemRadAway;
+import techguns.items.ItemRadpills;
 import techguns.items.ItemTGDoor2x1;
 import techguns.items.ItemTGDoor3x3;
 import techguns.items.WorldGenTestTool;
@@ -33,6 +36,8 @@ import techguns.items.additionalslots.ItemJumpPack;
 import techguns.items.additionalslots.ItemNightVisionGoggles;
 import techguns.items.additionalslots.ItemScubaTanks;
 import techguns.items.additionalslots.ItemTacticalMask;
+import techguns.items.guns.ammo.AmmoType;
+import techguns.items.guns.ammo.AmmoTypes;
 import techguns.items.tools.TGCrowbar;
 import techguns.items.tools.TGSword;
 import techguns.recipes.Recipewriter;
@@ -101,7 +106,8 @@ public class TGItems implements ITGInitializer{
 	 * MATERIALS
 	 */
 	public static ItemStack HEAVY_CLOTH;
-
+	public static ItemStack PROTECTIVE_FIBER;
+	
 	public static ItemStack BIOMASS;
 	
 	/**
@@ -260,6 +266,10 @@ public class TGItems implements ITGInitializer{
 	public static Item BUIDLING_SCAN_TOOL;
 	
 	public static ItemTGDoor2x1 BUNKER_DOOR;
+	
+	//rad stuff
+	public static ItemRadAway RAD_AWAY;
+	public static ItemRadpills RAD_PILLS;
 	
 	//TOOL Materials
 	static ToolMaterial TG_STEEL = EnumHelper.addToolMaterial("Steel", 2, 1000, 7.5f, 2.5f, 12);
@@ -448,11 +458,16 @@ public class TGItems implements ITGInitializer{
 		PLASMA_GENERATOR =  SHARED_ITEM.addsharedVariant("plasmagenerator");
 		
 		WORKING_GLOVES = SHARED_ITEM.addsharedVariant("workinggloves", false, TGSlotType.HANDSLOT, 1, true);
+		PROTECTIVE_FIBER = SHARED_ITEM.addsharedVariant("protectivefiber");
+		
+		
+		RAD_AWAY = new ItemRadAway("radaway");
+		RAD_PILLS = new ItemRadpills("radpills");
 		
 		/**
 		 * Additional Slot items
 		 */
-		GAS_MASK=new ItemGasMask("gasmask",1, 300);
+		GAS_MASK=new ItemGasMask("gasmask",1, 300).setRadresist(1f);
 		GLIDER = new ItemGlider("glider",1,-1);
 		JUMPPACK = new ItemJumpPack("jumppack",4, 1000);
 		SCUBA_TANKS = new ItemScubaTanks("scubatanks", 1, 600);
@@ -514,8 +529,37 @@ public class TGItems implements ITGInitializer{
 	
 	@Override
 	public void init(FMLInitializationEvent event) {
+		
+		//set ammoTypeEntries for Magazines (right click action)
+		
+
+		//bullets
+		//	default
+		setAmmoTypeEntryForMagazine(PISTOL_MAGAZINE, AmmoTypes.PISTOL_MAGAZINE, AmmoTypes.TYPE_DEFAULT);
+		setAmmoTypeEntryForMagazine(ASSAULTRIFLE_MAGAZINE, AmmoTypes.ASSAULT_RIFLE_MAGAZINE, AmmoTypes.TYPE_DEFAULT);
+		setAmmoTypeEntryForMagazine(AS50_MAGAZINE, AmmoTypes.AS50_MAGAZINE, AmmoTypes.TYPE_DEFAULT);
+		setAmmoTypeEntryForMagazine(SMG_MAGAZINE, AmmoTypes.SMG_MAGAZINE, AmmoTypes.TYPE_DEFAULT);
+		setAmmoTypeEntryForMagazine(LMG_MAGAZINE, AmmoTypes.LMG_MAGAZINE, AmmoTypes.TYPE_DEFAULT);
+		setAmmoTypeEntryForMagazine(MINIGUN_DRUM, AmmoTypes.MINIGUN_AMMO_DRUM, AmmoTypes.TYPE_DEFAULT);
+		
+		//incendiary
+		setAmmoTypeEntryForMagazine(PISTOL_MAGAZINE_INCENDIARY, AmmoTypes.PISTOL_MAGAZINE, AmmoTypes.TYPE_INCENDIARY);
+		setAmmoTypeEntryForMagazine(ASSAULTRIFLE_MAGAZINE_INCENDIARY, AmmoTypes.ASSAULT_RIFLE_MAGAZINE, AmmoTypes.TYPE_INCENDIARY);
+		setAmmoTypeEntryForMagazine(AS50_MAGAZINE_INCENDIARY, AmmoTypes.AS50_MAGAZINE, AmmoTypes.TYPE_INCENDIARY);
+		setAmmoTypeEntryForMagazine(SMG_MAGAZINE_INCENDIARY, AmmoTypes.SMG_MAGAZINE, AmmoTypes.TYPE_INCENDIARY);
+		setAmmoTypeEntryForMagazine(LMG_MAGAZINE_INCENDIARY, AmmoTypes.LMG_MAGAZINE, AmmoTypes.TYPE_INCENDIARY);
+		setAmmoTypeEntryForMagazine(MINIGUN_DRUM_INCENDIARY, AmmoTypes.MINIGUN_AMMO_DRUM, AmmoTypes.TYPE_INCENDIARY);
+		
+		//advanced rounds
+		setAmmoTypeEntryForMagazine(ADVANCED_MAGAZINE, AmmoTypes.ADVANCED_MAGAZINE, AmmoTypes.TYPE_DEFAULT);
+		
 	}
 
+	public static void setAmmoTypeEntryForMagazine(ItemStack fullMag, AmmoType ammoType, String variant) {
+		SharedItemEntry entry = SHARED_ITEM.get(fullMag.getItemDamage());
+		entry.setAmmoType(ammoType.getBullet(ammoType.getIDforVariantKey(variant))[0], ammoType.getEmptyMag()[0], ammoType.getBulletsPerMag());
+	}
+	
 	@Override
 	public void postInit(FMLPostInitializationEvent event) {
 		if(WRITE_RECIPES) {
