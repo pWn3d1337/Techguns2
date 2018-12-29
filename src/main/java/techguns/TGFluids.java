@@ -32,13 +32,13 @@ public class TGFluids implements ITGInitializer {
 	
 	public static Fluid MILK;
 	
-	protected static String[] oilnames = {"oil", "tree_oil", "crude_oil", "seed_oil"};
+//	protected static String[] oilnames = {"oil", "tree_oil", "crude_oil", "seed_oil"};
 	public static ArrayList<Fluid> oils = new ArrayList<Fluid>();
 	
 	//public static Fluid OIL;
 	
 	//public static Fluid FUEL;
-	protected static String[] fuelnames = {"fuel", "refined_fuel", "biofuel", "biodiesel", "diesel", "gasoline", "refined_biofuel", "fire_water", "rocket_fuel"};
+//	protected static String[] fuelnames = {"fuel", "refined_fuel", "biofuel", "biodiesel", "diesel", "gasoline", "refined_biofuel", "fire_water", "rocket_fuel"};
 	public static ArrayList<Fluid> fuels = new ArrayList<Fluid>();
 	
 	public static Fluid LIQUID_REDSTONE;
@@ -133,17 +133,17 @@ public class TGFluids implements ITGInitializer {
 			}	*/
 			
 			//OIL = FluidRegistry.getFluid("oil");
-			
-			for (int i=0;i<fuelnames.length;i++) {
-				Fluid f = FluidRegistry.getFluid(fuelnames[i]);
+
+			for (String fluidName: TGConfig.fluidListFuel) {
+				Fluid f = FluidRegistry.getFluid(fluidName);
 				if(f!=null) {
 					fuels.add(f);
 				}
 			}
-			
-			for (int i=0;i<oilnames.length;i++) {
-				Fluid f = FluidRegistry.getFluid(oilnames[i]);
-				if(f!=null) {
+
+			for (String fluidName: TGConfig.fluidListOil) {
+				Fluid f = FluidRegistry.getFluid(fluidName);
+				if (f != null) {
 					oils.add(f);
 				}
 			}
