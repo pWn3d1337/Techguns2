@@ -1,0 +1,37 @@
+{
+    "name": "Fabricator",
+    "icon": "techguns:multiblockmachine:2",
+    "category": "multiblock_machines",
+    "pages": [
+        {
+            "type": "text",
+            "text": "The fabricator is an advanced production machine that needs to be built as multiblock. To form the multiblock, the controller needs to be $(thing)right-clicked$() while you look at the controller and it is the right of the two bottom blocks. This defines the front direction of the machine."
+        }, 
+       {
+            "type": "multiblock",
+            "name": "Fabricator",
+            "multiblock": {
+                "mapping": {
+                     "H": "techguns:multiblockmachine[machinetype=fabricator_housing]",
+                     "G": "techguns:multiblockmachine[machinetype=fabricator_glass]",
+                     "0": "techguns:multiblockmachine[machinetype=fabricator_controller]"
+                 },
+                 "pattern": [
+                    ["GG","GG"],
+                    ["H0","HH"]
+                 ],
+                 "enable_visualize": false
+            }
+       },
+        {
+            "type": "crafting",
+            "recipe": "techguns:multiblockmachine_0_fabricator_housing",
+            "text": "To build a fabricator you need:$(br) $(li) 3x Housing $(li) 4x Glass $(li) 1x Controller $(br) Which means 8 housings need to be crafted in total."
+       },
+       {
+            "type": "crafting",
+            "recipe": "techguns:multiblockmachine_1_fabricator_glass",
+            "recipe2": "techguns:multiblockmachine_2_fabricator_controller"
+       }
+    ]
+}

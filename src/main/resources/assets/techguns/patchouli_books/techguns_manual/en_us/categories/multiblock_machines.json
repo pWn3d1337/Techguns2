@@ -1,0 +1,6 @@
+{
+    "name": "Multiblock Machines",
+    "description": "The most complex machines in techguns are multiblocks and must be built together with multiple blocks",
+    "icon": "techguns:multiblockmachine:5",
+    "sortnum": 4
+}

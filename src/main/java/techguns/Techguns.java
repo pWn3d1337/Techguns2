@@ -31,7 +31,7 @@ public class Techguns
     public static final String GUI_FACTORY = "techguns.gui.config.GuiFactoryTechguns";
     public static final String UPDATEURL = "https://raw.githubusercontent.com/pWn3d1337/Techguns2/master/update.json";
     
-    public static final String DEPENDENCIES = "after:ftbl;after:chisel;";
+    public static final String DEPENDENCIES = "after:ftblib;after:chisel;";
     
     @Mod.Instance
     public static Techguns instance;
@@ -94,7 +94,7 @@ public class Techguns
     @EventHandler
     public void init(FMLInitializationEvent event)
     {
-    	if(Loader.isModLoaded("ftbl")) {
+    	if(Loader.isModLoaded("ftblib")) {
     		FTBLIB_ENABLED=true;
     	}
     	if(Loader.isModLoaded("chisel")) {

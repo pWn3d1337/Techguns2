@@ -1,0 +1,6 @@
+{
+    "name": "Simple Machines",
+    "description": "Techguns adds a few 'simple' machines that do not require power.",
+    "icon": "techguns:simplemachine:8",
+    "sortnum": 2
+}

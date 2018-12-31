@@ -2,5 +2,9 @@
     "name": "Techguns Manual",
     "landing_text": "WIP",
     "version": 1,
-    "creative_tab": "techguns"
+    "creative_tab": "techguns",
+    "model": "techguns:tgmanual",
+    "book_texture": "techguns:textures/gui/tgmanual_textures.png",
+    "nameplate_color": "000000",
+    "open_sound": "techguns:guns.augfire"
 }

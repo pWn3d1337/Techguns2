@@ -1,0 +1,6 @@
+{
+    "name": "Armors",
+    "description": "Techguns adds armor sets for different tech-tiers that are designed to be used from the beginning to the endgame. On the same tier there are usually different armors which have their own advantages and disadvantages.",
+    "icon": "techguns:t2_combat_chestplate",
+    "sortnum": 1
+}
