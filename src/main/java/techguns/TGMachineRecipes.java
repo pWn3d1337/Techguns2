@@ -197,7 +197,7 @@ public class TGMachineRecipes {
 										/**
 										 * ID (STR), INPUT-STACK, FOCUS, FLUID_TYPE, ITEM_OUTPUTS, TICKS, REQ_COMPLETION, INTENSITY, INTENSITY_MARGIN, LIQUIDLEVEL, LIQUID_CONSUMPTION, INSTABILITY_CHANCE, RISK, RF_TICK
 										 */
-		ReactionChamberRecipe.addRecipe("RC_UV_WHEAT",new ItemStackOreDict(new ItemStack(Items.WHEAT_SEEDS, 1)), TGItems.RC_UV_EMITTER, FluidRegistry.WATER, new ItemStack[]{new ItemStack(Items.WHEAT,1), new ItemStack(Items.WHEAT_SEEDS,2)}, 10, 5, 3, 1, 1, 1000, 0.5f, RiskType.BREAK_ITEM,50000);
+		ReactionChamberRecipe.addRecipe("RC_UV_WHEAT",new ItemStackOreDict(new ItemStack(Items.WHEAT_SEEDS, 1)), TGItems.RC_UV_EMITTER, FluidRegistry.WATER, new ItemStack[]{new ItemStack(Items.WHEAT,1), new ItemStack(Items.WHEAT_SEEDS,2)}, 10, 5, 3, 1, 1, 1000, 0.5f, RiskType.EXPLOSION_LOW,50000);
 		
 		ReactionChamberRecipe.addRecipe("RC_LASER_FOCUS",new ItemStackOreDict("gemDiamond",1), TGItems.RC_HEAT_RAY, TGFluids.LIQUID_REDSTONE, new ItemStack[]{TGItems.newStack(TGItems.LASER_FOCUS, 1)}, 10, 5, 3, 1, 4, 4000, 0.5f, RiskType.BREAK_ITEM,100000);
 		

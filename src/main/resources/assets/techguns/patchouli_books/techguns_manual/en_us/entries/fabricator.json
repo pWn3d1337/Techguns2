@@ -32,6 +32,17 @@
             "type": "crafting",
             "recipe": "techguns:multiblockmachine_1_fabricator_glass",
             "recipe2": "techguns:multiblockmachine_2_fabricator_controller"
+       },
+       {
+            "type": "image",
+            "title": "Preview Image",
+            "images": ["techguns:textures/gui/manual/fabricator_image.png"],
+            "text": "A formed fabricator built in the world."
+       },
+       {
+            "type": "text",
+            "title": "Usage",
+            "text": "The fabricator has 4 input slots, 1 output slot and an upgrade slot.$(br2)$(li)Input 1: the general input slot. $(li)Input 2: 'Wire' slot. $(li)Input 3: 'Powder' or 'Mechanical Parts' slot.  $(li)Input 4: 'Plate' slot.$(br2) The machine knows what to put where with $(thing)'Shift+Click'$() or through piping."
        }
     ]
 }

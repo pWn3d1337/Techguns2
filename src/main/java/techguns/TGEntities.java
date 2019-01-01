@@ -139,6 +139,7 @@ public class TGEntities implements ITGInitializer {
 	@Override
 	public void init(FMLInitializationEvent event) {
 
+		//registerSpawn does not add the spawn if the spawnweight is <=0
 		TGSpawnManager.spawnTableOverworld.registerSpawn(new TGNpcSpawn(ZombieSoldier.class, TGConfig.spawnWeightZombieSoldier), 1);
 		TGSpawnManager.spawnTableOverworld.registerSpawn(new TGNpcSpawn(ZombieFarmer.class, TGConfig.spawnWeightZombieFarmer), 0);
 		TGSpawnManager.spawnTableOverworld.registerSpawn(new TGNpcSpawn(ZombieMiner.class, TGConfig.spawnWeightZombieMiner), 0);
@@ -166,10 +167,12 @@ public class TGEntities implements ITGInitializer {
 			}
 		});
 
-		EntityRegistry.addSpawn(TGDummySpawn.class, TGConfig.spawnWeightTGOverworld, 1, 3, EnumCreatureType.MONSTER,overworldBiomes.toArray(new Biome[overworldBiomes.size()]));
-			
-		EntityRegistry.addSpawn(TGDummySpawn.class, TGConfig.spawnWeightTGNether, 1, 3, EnumCreatureType.MONSTER,netherBiomes.toArray(new Biome[netherBiomes.size()]));
-		
+		if(TGConfig.spawnWeightTGOverworld>0) {
+			EntityRegistry.addSpawn(TGDummySpawn.class, TGConfig.spawnWeightTGOverworld, 1, 3, EnumCreatureType.MONSTER,overworldBiomes.toArray(new Biome[overworldBiomes.size()]));
+		}
+		if(TGConfig.spawnWeightTGNether>0) {
+			EntityRegistry.addSpawn(TGDummySpawn.class, TGConfig.spawnWeightTGNether, 1, 3, EnumCreatureType.MONSTER,netherBiomes.toArray(new Biome[netherBiomes.size()]));
+		}
 	}
 
 	@SideOnly(Side.CLIENT)
