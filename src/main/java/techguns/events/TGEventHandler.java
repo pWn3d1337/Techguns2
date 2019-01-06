@@ -12,6 +12,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelBiped.ArmPose;
 import net.minecraft.client.model.ModelPlayer;
 import net.minecraft.client.renderer.ItemRenderer;
@@ -278,24 +279,30 @@ public class TGEventHandler {
 			
 		 	ItemStack stack =ply.getHeldItemMainhand();
 		 	if(!stack.isEmpty() && stack.getItem() instanceof GenericGun && ((GenericGun) stack.getItem()).hasBowAnim()){
-		 		ModelPlayer model = (ModelPlayer) event.getRenderer().getMainModel();
-		 		if (ply.getPrimaryHand()==EnumHandSide.RIGHT) {
-		 			model.rightArmPose = ArmPose.BOW_AND_ARROW;
-		 		} else {
-		 			model.leftArmPose = ArmPose.BOW_AND_ARROW;
+		 		ModelBase mdl = event.getRenderer().getMainModel();
+		 		if (mdl instanceof ModelPlayer) {
+			 		ModelPlayer model = (ModelPlayer) mdl;
+			 		if (ply.getPrimaryHand()==EnumHandSide.RIGHT) {
+			 			model.rightArmPose = ArmPose.BOW_AND_ARROW;
+			 		} else {
+			 			model.leftArmPose = ArmPose.BOW_AND_ARROW;
+			 		}
 		 		}
 		 	} else {
 		 	
 			 	ItemStack stack2 =ply.getHeldItemOffhand();
 			 	if(!stack2.isEmpty() && stack2.getItem() instanceof GenericGun && ((GenericGun) stack2.getItem()).hasBowAnim()){
-			 		ModelPlayer model =  (ModelPlayer) event.getRenderer().getMainModel();
-			 		
-			 		if (ShooterValues.getIsCurrentlyUsingGun(ply,true)){
+			 		ModelBase mdl = event.getRenderer().getMainModel();
+			 		if (mdl instanceof ModelPlayer) {
+				 		ModelPlayer model = (ModelPlayer) mdl;
 				 		
-				 		if (ply.getPrimaryHand()==EnumHandSide.RIGHT) {
-				 			model.leftArmPose = ArmPose.BOW_AND_ARROW;
-				 		} else {
-				 			model.rightArmPose = ArmPose.BOW_AND_ARROW;
+				 		if (ShooterValues.getIsCurrentlyUsingGun(ply,true)){
+					 		
+					 		if (ply.getPrimaryHand()==EnumHandSide.RIGHT) {
+					 			model.leftArmPose = ArmPose.BOW_AND_ARROW;
+					 		} else {
+					 			model.rightArmPose = ArmPose.BOW_AND_ARROW;
+					 		}
 				 		}
 			 		}
 			 	}
