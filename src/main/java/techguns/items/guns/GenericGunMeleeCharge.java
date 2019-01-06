@@ -299,7 +299,7 @@ public class GenericGunMeleeCharge extends GenericGunCharge implements IGenericG
 			list.add(TextUtil.trans("techguns.tooltip.toolclasses")+":");
 			for(String s: this.getMiningLevels().keySet()){
 				if(!s.equals("default")) {
-					list.add(" "+s+": "+(this.getMiningLevels().get(s)+this.getExtraMiningLevel(stack, s, null)));
+					list.add(" "+TextUtil.transTG("toolclass."+s)+": "+(this.getMiningLevels().get(s)+this.getExtraMiningLevel(stack, s, null)));
 				}
 			}
 			list.add(TextUtil.trans("techguns.tooltip.breakspeed")+": "+this.getEffectiveDigSpeed(stack));

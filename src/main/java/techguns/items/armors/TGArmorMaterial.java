@@ -140,6 +140,19 @@ public class TGArmorMaterial {
 		MATERIALS.add(this);
 	}
 	
+	/**
+	 * Set all 'Elemental' or 'Magic' values: fire, lightning, ice and energy
+	 * @param value
+	 * @return
+	 */
+	public TGArmorMaterial setArmorElemental(float value) {
+		this.armorEnergy=value;
+		this.armorFire=value;
+		this.armorIce=value;
+		this.armorLightning=value;
+		return this;
+	}
+	
 	
 	public TGArmorMaterial setPartArmorSplit(float helm, float chest, float legs, float boots){
 		this.factorHead=helm;
@@ -158,6 +171,7 @@ public class TGArmorMaterial {
 		return this;
 	}
 	
+	@Deprecated
 	public TGArmorMaterial setPenetrationResistance(float penresist){
 		this.penetrationResistance = penresist;
 		return this;
@@ -285,6 +299,11 @@ public class TGArmorMaterial {
 		}
 	}
 
+	@Deprecated 
+	/**
+	 * No longer used, replaced by toughness
+	 * @return
+	 */
 	public float getPenetrationResistance() {
 		return penetrationResistance;
 	}

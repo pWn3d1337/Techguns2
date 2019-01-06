@@ -1,5 +1,7 @@
 package techguns.items.armors;
 
+import techguns.util.TextUtil;
+
 public enum ArmorPowerType {
 
 	STEAM,
@@ -9,9 +11,9 @@ public enum ArmorPowerType {
 	public String toString() {
 		switch(this){
 			case STEAM:
-				return "Steam";
+				return TextUtil.transTG("tooltip.powertype.Steam");
 			case RF:
-				return "RF";
+				return TextUtil.transTG("tooltip.powertype.RF");
 			default:
 				return "INVALID";
 		}

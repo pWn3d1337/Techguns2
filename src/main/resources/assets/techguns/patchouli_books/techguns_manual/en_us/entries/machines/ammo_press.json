@@ -1,0 +1,20 @@
+{
+    "name": "Ammo Press",
+    "icon": "techguns:basicmachine:0",
+    "category": "powered_machines",
+    "pages": [
+        {
+            "type": "text",
+            "text": "The Ammo Press is an early game machine that is used for crafting the basic ammo types: 'Pistol Rounds', 'Shotgun shells', 'Rifle Rounds' and 'Sniper Rounds'. The machine has 3 input slots, 1 output slot and an $(l:machine_mechanics#upgrade)upgrade slot$(/l).$(br)With the 2 buttons ( ' < ' and ' > ' ) the type of ammo that is produced is changed, the resource costs are always the same, but the output amount differs per type."
+        }, 
+       {
+            "type": "text",
+            "title": "Usage",
+            "text": "$(li)Input 1: Hard Metal / Core Metal, allowed: Steel Ingots and Lead Ingots, requires 1 Ingot per operation. $(li)Input 2: Soft Metal / Jacket Metal, allowed: Copper, Tin, Bronze, Iron, ... . Requires 2 Ingots per operation. $(li)Input 3: Gunpowder, 1 Item per operation.$(br)Available Recipes may differ on mod setup and should be viewed with Just Enough Items (JEI)."
+       },
+      {
+            "type": "crafting",
+            "recipe": "techguns:basicmachine_0_ammo_press"
+       }
+    ]
+}

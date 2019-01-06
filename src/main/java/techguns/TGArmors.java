@@ -41,28 +41,28 @@ public class TGArmors implements ITGInitializer {
 	public static final int ARMORMODEL_POWER_ARMOR_2 = 13;
 	
 	
-	public static TGArmorMaterial T1_COMBAT = new TGArmorMaterial("T1_COMBAT", 60, 0, 15.0f, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER,0f);
+	public static TGArmorMaterial T1_COMBAT = new TGArmorMaterial("T1_COMBAT", 60, 0, 15.0f, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER,0.5f);
 	public static TGArmorMaterial T1_SCOUT = new TGArmorMaterial("T1_SCOUT", 60, 0, 13.0f,  SoundEvents.ITEM_ARMOR_EQUIP_LEATHER,0f);
 	public static TGArmorMaterial T1_MINER = new TGArmorMaterial("T1_MINER", 60, 0, 13.0f,  SoundEvents.ITEM_ARMOR_EQUIP_LEATHER,0f);
-	public static TGArmorMaterial T1_STEAM = new TGArmorMaterial("T1_STEAM", 200, 0, 18.0f,  SoundEvents.ITEM_ARMOR_EQUIP_IRON,3f).setArmorFire(17.0f).setArmorExplosion(17.0f).setArmorEnergy(16.0f).setArmorIce(15.0f).setArmorLightning(15.0f).setArmorPoison(10.0f).setArmorRadiation(6.0f).setPenetrationResistance(0.1f);
+	public static TGArmorMaterial T1_STEAM = new TGArmorMaterial("T1_STEAM", 200, 0, 19.0f,  SoundEvents.ITEM_ARMOR_EQUIP_IRON,1f).setArmorElemental(17.0f).setArmorExplosion(18.0f).setArmorPoison(10.0f).setArmorRadiation(6.0f).setPenetrationResistance(0.1f);
 	
-	public static TGArmorMaterial T2_HAZMAT = new TGArmorMaterial("T2_HAZMAT", 80, 0, 8.0f, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER,0f).setArmorFire(14.0f).setArmorExplosion(12.0f).setArmorEnergy(14.0f).setArmorIce(14.0f).setArmorLightning(14.0f).setArmorPoison(20.0f).setArmorRadiation(20.0f);
-	
-	
-	public static TGArmorMaterial T2_COMBAT = new TGArmorMaterial("T2_COMBAT", 72, 0, 18.0f, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER,2f);
-	public static TGArmorMaterial T2_COMMANDO = new TGArmorMaterial("T2_COMMANDO", 72, 0, 18.0f, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER,1f).setArmorFire(15.0f).setArmorExplosion(15.0f).setArmorEnergy(15.0f).setArmorIce(15.0f).setArmorLightning(15.0f).setArmorPoison(10.0f).setArmorRadiation(5.0f);
-	
-	public static TGArmorMaterial T2_RIOT = new TGArmorMaterial("T2_RIOT", 96, 0, 18.5f, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER,2.5f).setArmorFire(18.0f).setArmorExplosion(18.0f).setArmorEnergy(18.0f).setArmorIce(17.0f).setArmorLightning(17.0f).setArmorPoison(16.0f).setArmorRadiation(16.0f).setPenetrationResistance(0.1f);
+	public static TGArmorMaterial T2_HAZMAT = new TGArmorMaterial("T2_HAZMAT", 80, 0, 10.0f, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER,0f).setArmorElemental(16.0f).setArmorExplosion(10.0f).setArmorPoison(20.0f).setArmorRadiation(20.0f);
 	
 	
-	public static TGArmorMaterial T3_COMBAT = new TGArmorMaterial("T3_COMBAT", 240, 0, 19.0f, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN,3.5f).setArmorFire(18.0f).setArmorExplosion(18.0f).setArmorEnergy(18.0f).setArmorIce(18.0f).setArmorLightning(18.0f).setArmorPoison(10.0f).setArmorRadiation(6.0f).setPenetrationResistance(0.15f);
+	public static TGArmorMaterial T2_COMBAT = new TGArmorMaterial("T2_COMBAT", 72, 0, 18.0f, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER,1f);
+	public static TGArmorMaterial T2_COMMANDO = new TGArmorMaterial("T2_COMMANDO", 72, 0, 18.0f, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER,1f).setArmorElemental(16.0f).setArmorExplosion(16.0f).setArmorPoison(10.0f).setArmorRadiation(5.0f);
 	
-	public static TGArmorMaterial T3_POWER = new TGArmorMaterial("T3_POWER", 360, 0, 20.0f, SoundEvents.ITEM_ARMOR_EQUIP_IRON,6f).setArmorFire(19.0f).setArmorExplosion(20.0f).setArmorEnergy(20.0f).setArmorIce(19.0f).setArmorLightning(19.0f).setArmorPoison(15.0f).setArmorRadiation(17.0f).setPenetrationResistance(0.25f);
+	public static TGArmorMaterial T2_RIOT = new TGArmorMaterial("T2_RIOT", 96, 0, 18.5f, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER,1.5f).setArmorFire(18.0f).setArmorExplosion(18.0f).setArmorEnergy(18.0f).setArmorIce(17.0f).setArmorLightning(17.0f).setArmorPoison(16.0f).setArmorRadiation(16.0f).setPenetrationResistance(0.1f);
 	
-	public static TGArmorMaterial T3_MINER = new TGArmorMaterial("T3_MINER",300,0,20.0f, SoundEvents.ITEM_ARMOR_EQUIP_IRON,2.5f).setArmorFire(20.0f).setArmorExplosion(20.0f).setArmorEnergy(20.0f).setArmorIce(20.0f).setArmorLightning(20.0f).setArmorPoison(20.0f).setArmorRadiation(20.0f).setPenetrationResistance(0.15f);
+	
+	public static TGArmorMaterial T3_COMBAT = new TGArmorMaterial("T3_COMBAT", 240, 0, 21.0f, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN,2.0f).setArmorFire(18.0f).setArmorExplosion(18.0f).setArmorEnergy(19.0f).setArmorIce(18.0f).setArmorLightning(18.0f).setArmorPoison(10.0f).setArmorRadiation(12.0f).setPenetrationResistance(0.15f);
+	
+	public static TGArmorMaterial T3_POWER = new TGArmorMaterial("T3_POWER", 360, 0, 22.0f, SoundEvents.ITEM_ARMOR_EQUIP_IRON,2.5f).setArmorFire(19.0f).setArmorExplosion(21.0f).setArmorEnergy(20.0f).setArmorIce(19.0f).setArmorLightning(19.0f).setArmorPoison(15.0f).setArmorRadiation(17.0f).setPenetrationResistance(0.25f);
+	
+	public static TGArmorMaterial T3_MINER = new TGArmorMaterial("T3_MINER",300,0,20.0f, SoundEvents.ITEM_ARMOR_EQUIP_IRON,2.0f).setArmorFire(20.0f).setArmorExplosion(20.0f).setArmorEnergy(20.0f).setArmorIce(20.0f).setArmorLightning(20.0f).setArmorPoison(20.0f).setArmorRadiation(20.0f).setPenetrationResistance(0.15f);
 	
 	//Same as T3_Combat
-	public static TGArmorMaterial T3_EXO = new TGArmorMaterial("T3_EXO", 300, 0, 20.0f, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN,3.5f).setArmorFire(18.5f).setArmorExplosion(18.5f).setArmorEnergy(18.5f).setArmorIce(18.5f).setArmorLightning(18.5f).setArmorPoison(10.0f).setArmorRadiation(8.0f).setPenetrationResistance(0.15f);
+	public static TGArmorMaterial T3_EXO = new TGArmorMaterial("T3_EXO", 300, 0, 21.0f, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN,2.0f).setArmorFire(18.5f).setArmorExplosion(18.5f).setArmorEnergy(19.0f).setArmorIce(18.5f).setArmorLightning(18.5f).setArmorPoison(10.0f).setArmorRadiation(12.0f).setPenetrationResistance(0.15f);
 	
 	public static TGArmorMaterial T2_BERET = new TGArmorMaterial("T2_BERET",60,0,8.0f, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER,0);
 

@@ -562,7 +562,7 @@ public class GenericProjectile extends Entity implements IProjectile, IEntityAdd
     @Override
     public void setVelocity(double x, double y, double z)
     {
-        this.motionX = x;
+       /* this.motionX = x;
         this.motionY = y;
         this.motionZ = z;
 
@@ -574,7 +574,7 @@ public class GenericProjectile extends Entity implements IProjectile, IEntityAdd
             this.prevRotationPitch = this.rotationPitch;
             this.prevRotationYaw = this.rotationYaw;
             this.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, this.rotationPitch);
-        }
+        }*/
     }
 	
 	/**
@@ -670,11 +670,17 @@ public class GenericProjectile extends Entity implements IProjectile, IEntityAdd
 	@Override
 	public void writeSpawnData(ByteBuf buffer) {
 		buffer.writeFloat(this.speed);
+		buffer.writeDouble(this.motionX);
+		buffer.writeDouble(this.motionY);
+		buffer.writeDouble(this.motionZ);
 	}
 
 	@Override
 	public void readSpawnData(ByteBuf additionalData) {
 		this.speed=additionalData.readFloat();
+		this.motionX=additionalData.readDouble();
+		this.motionY=additionalData.readDouble();
+		this.motionZ=additionalData.readDouble();
 	}
 	
 	public static void burnBlocks(World world, RayTraceResult mop, double chanceToIgnite) {

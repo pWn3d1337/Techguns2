@@ -1,0 +1,20 @@
+{
+    "name": "Charging Station",
+    "icon": "techguns:simplemachine:10",
+    "category": "powered_machines",
+    "pages": [
+        {
+            "type": "text",
+            "text": "The charging station is a mid-tier machine that is used for charging energy cells. The machine has 1 input slot, 1 output slot an $(l:machine_mechanics#upgrade)upgrade slot$(/l)."
+        }, 
+       {
+            "type": "text",
+            "title": "Usage",
+            "text": "Items that support Forge Energy (FE) API may also be charged in the charging station. $(br)Available Recipes may differ on mod setup and should be viewed with Just Enough Items (JEI)."
+       },
+       {
+            "type": "crafting",
+            "recipe": "techguns:simplemachine_10_charging_station"
+       }
+    ]
+}

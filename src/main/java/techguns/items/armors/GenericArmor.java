@@ -40,6 +40,7 @@ import techguns.api.render.IItemTGRenderer;
 import techguns.api.tginventory.ITGSpecialSlot;
 import techguns.capabilities.TGExtendedPlayer;
 import techguns.client.ClientProxy;
+import techguns.damagesystem.DamageSystem;
 import techguns.damagesystem.TGDamageSource;
 import techguns.gui.player.TGPlayerInventory;
 import techguns.util.TextUtil;
@@ -371,9 +372,9 @@ public class GenericArmor extends ItemArmor implements ISpecialArmor , IItemTGRe
 		
 		EntityEquipmentSlot slot = this.armorType;
 		
-		if (this.getPenetrationResistance()>0.0f){
-			list.add(" "+ChatFormatting.GRAY+trans("armorTooltip.penetrationResistance")+": "+formatArmor.format(this.getPenetrationResistance()));
-		}
+		//if (this.getPenetrationResistance()>0.0f){
+		//	list.add(" "+ChatFormatting.GRAY+trans("armorTooltip.penetrationResistance")+": "+formatArmor.format(this.getPenetrationResistance()));
+		//}
 		
 		list.add(ChatFormatting.DARK_GRAY+" AR: "+formatAV(this.material.getArmorValueSlot(slot, DamageType.PHYSICAL),DamageType.PHYSICAL));
 		list.add(ChatFormatting.GRAY+" PR: "+formatAV(this.material.getArmorValueSlot(slot, DamageType.PROJECTILE),DamageType.PROJECTILE));
@@ -453,6 +454,7 @@ public class GenericArmor extends ItemArmor implements ISpecialArmor , IItemTGRe
 		return this.material.getArmorValueSlot(armorType, type);
 	}
 	
+	@Deprecated
 	public float getPenetrationResistance(){
 		return this.material.getPenetrationResistance();
 	}
@@ -582,15 +584,21 @@ public class GenericArmor extends ItemArmor implements ISpecialArmor , IItemTGRe
 	public ArmorProperties getProperties(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, int slot) {
 		TGDamageSource src = TGDamageSource.getFromGenericDamageSource(source);
 
-		int absorbMax = armor.getMaxDamage()-1-armor.getItemDamage();
+	//	int absorbMax = armor.getMaxDamage()-1-armor.getItemDamage();
 		
-		ArmorProperties props = new ArmorProperties(0, 0, absorbMax);
+	//	ArmorProperties props = new ArmorProperties(0, 0, absorbMax);
 		
-		props.Armor = this.getArmorValue(armor, src.damageType);
-		props.Toughness = Math.max(this.material.toughness - src.armorPenetration,0);
+	//	props.Armor = this.getArmorValue(armor, src.damageType);
+	//	props.Toughness = Math.max(this.material.toughness - src.armorPenetration,0);
 		
-		//System.out.println("Armor"+props.Armor);
-		//System.out.println("Toughness"+props.Toughness);
+		
+		
+		ArmorProperties props = new ArmorProperties(0, 1-DamageSystem.getDamageAfterAbsorb_TGFormula(1.0f, this.getArmorValue(armor, src.damageType), this.material.toughness, src.armorPenetration), Integer.MAX_VALUE);
+		
+	//	System.out.println("Armor:"+this.getArmorValue(armor, src.damageType));
+	//	System.out.println("Toughness:"+this.material.toughness);
+	//	System.out.println("Pen:"+src.armorPenetration);
+	//	System.out.println("Absorb:"+props.AbsorbRatio);
 		
 		return props;
 	}

@@ -14,6 +14,7 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
 import techguns.TGItems;
 import techguns.TGSounds;
+import techguns.Techguns;
 import techguns.util.InventoryUtil;
 import techguns.util.TextUtil;
 
@@ -391,12 +392,12 @@ public class PoweredArmor extends GenericArmorMultiCamo {
 		}
 		int power=tags.getInteger("power");
 		//int maxpower=tags.getInteger("maxpower");
-		list.add(ChatFormatting.AQUA+"Power: "+power+"/"+maxpower);
+		list.add(ChatFormatting.AQUA+TextUtil.transTG("tooltip.power")+": "+power+"/"+maxpower);
 		
 		if (this.armorType==EntityEquipmentSlot.CHEST){
-			list.add(ChatFormatting.AQUA+"PowerType: "+this.powerType.toString()+ " ("+TextUtil.trans(this.battery.getUnlocalizedName()+".name")+")");
+			list.add(ChatFormatting.AQUA+TextUtil.transTG("tooltip.powerType")+": "+this.powerType.toString()+ " ("+TextUtil.trans(this.battery.getUnlocalizedName()+".name")+")");
 		} else {
-			list.add(ChatFormatting.AQUA+"PowerType: "+this.powerType.toString());
+			list.add(ChatFormatting.AQUA+TextUtil.transTG("tooltip.powerType")+": "+this.powerType.toString());
 		}
 		
 		super.addInformation(item, worldIn, list, flagIn);

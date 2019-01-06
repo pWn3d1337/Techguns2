@@ -7,6 +7,7 @@ import java.lang.reflect.Method;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.MobEffects;
@@ -26,6 +27,7 @@ import techguns.api.damagesystem.DamageType;
 import techguns.api.npc.INpcTGDamageSystem;
 import techguns.entities.npcs.NPCTurret;
 import techguns.items.armors.GenericArmor;
+import techguns.util.MathUtil;
 
 public class DamageSystem {
 
@@ -185,7 +187,7 @@ public class DamageSystem {
 
                 boolean flag = false;
 
-                ELB_canBlockDamageSource.invoke(ent, source);
+                //ELB_canBlockDamageSource.invoke(ent, source);
                 
                 if (amount > 0.0F && ((Boolean)ELB_canBlockDamageSource.invoke(ent, source)))
                 {
@@ -408,16 +410,38 @@ public class DamageSystem {
             TGDamageSource dmgsrc = TGDamageSource.getFromGenericDamageSource(source);
             INpcTGDamageSystem tg = (INpcTGDamageSystem) elb;
             
-            float toughness = tg.getToughnessAfterPentration(elb, dmgsrc);
-         /*   System.out.println("DamageBefore:"+damage);
-            System.out.println("Armor:"+tg.getTotalArmorAgainstType(dmgsrc));
-            System.out.println("Pen:"+dmgsrc.armorPenetration);
-            System.out.println("ToughnessAfterPen:"+toughness);*/
+            //float toughness = tg.getToughnessAfterPentration(elb, dmgsrc);
             
-            damage = CombatRules.getDamageAfterAbsorb(damage, tg.getTotalArmorAgainstType(dmgsrc), toughness);
+            float toughness = (float)elb.getEntityAttribute(SharedMonsterAttributes.ARMOR_TOUGHNESS).getAttributeValue();
+            
+            System.out.println("DamageBefore:"+damage);
+            System.out.println("Armor:"+tg.getTotalArmorAgainstType(dmgsrc));
+            System.out.println("Pen(x4):"+dmgsrc.armorPenetration*4);
+            System.out.println("Toughness:"+toughness);
+            
+            //damage = CombatRules.getDamageAfterAbsorb(damage, tg.getTotalArmorAgainstType(dmgsrc), toughness);
+            damage = (float) getDamageAfterAbsorb_TGFormula(damage, tg.getTotalArmorAgainstType(dmgsrc), toughness, dmgsrc.armorPenetration);
         }
 
-        //System.out.println("DamageAfter:"+damage);
+        System.out.println("DamageAfter:"+damage);
         return damage;
+    }
+    
+    /**
+     * based on old 1.7 damage formula
+     * @return
+     */
+    public static double getDamageAfterAbsorb_TGFormula(float damage, float totalArmor, float toughnessAttribute, float penetration)
+    {
+    	//*New Formula*
+        //float f = 2.0F + toughnessAttribute / 4.0F;
+        //float f1 = MathHelper.clamp(totalArmor - damage / f, totalArmor * 0.2F, 20.0F);
+        //return damage * (1.0F - f1 / 25.0F);
+    	
+    	//use toughness to reduce penetration
+    	float pen = Math.max((penetration*4)-toughnessAttribute, 0);
+    	
+    	double armor = MathUtil.clamp(totalArmor-pen, 0.0,24.0);
+    	return damage * (1.0-armor/25.0);
     }
 }

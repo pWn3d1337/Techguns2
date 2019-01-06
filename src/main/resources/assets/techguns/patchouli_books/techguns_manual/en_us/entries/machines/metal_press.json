@@ -1,0 +1,21 @@
+{
+    "name": "Metal Press",
+    "icon": "techguns:basicmachine:1",
+    "category": "powered_machines",
+    "pages": [
+        {
+            "type": "text",
+            "text": "The Metal Press is an early game machine that is used for crafting plates and a few other items required by techguns. The machine has 2 input slots, 1 output slot and an $(l:machine_mechanics#upgrade)upgrade slot$(/l)."
+        }, 
+       {
+            "type": "text",
+            "title": "Usage",
+            "text": "All recipes require two input items and have one output. The 'stack split' button is to allow automation for recipes which require the same item twice. If one slot is empty and the item in the other slot has a recipe where it is needed twice the stack will be split. $(br)Available Recipes may differ on mod setup and should be viewed with Just Enough Items (JEI)."
+       },
+       {
+            "type": "crafting",
+            "recipe": "techguns:basicmachine_1_metal_press",
+            "recipe2": "techguns:basicmachine_1_metal_press_alt"
+       }
+    ]
+}

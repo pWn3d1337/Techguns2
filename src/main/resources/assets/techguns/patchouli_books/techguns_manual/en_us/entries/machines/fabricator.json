@@ -42,7 +42,7 @@
        {
             "type": "text",
             "title": "Usage",
-            "text": "The fabricator has 4 input slots, 1 output slot and an upgrade slot.$(br2)$(li)Input 1: the general input slot. $(li)Input 2: 'Wire' slot. $(li)Input 3: 'Powder' or 'Mechanical Parts' slot.  $(li)Input 4: 'Plate' slot.$(br2) The machine knows what to put where with $(thing)'Shift+Click'$() or through piping."
+            "text": "The fabricator has 4 input slots, 1 output slot and an $(l:machine_mechanics#upgrade)upgrade slot$(/l).$(br2)$(li)Input 1: the general input slot. $(li)Input 2: 'Wire' slot. $(li)Input 3: 'Powder' or 'Mechanical Parts' slot.  $(li)Input 4: 'Plate' slot.$(br2) The machine knows what to put where with $(thing)'Shift+Click'$() or through piping."
        }
     ]
 }
