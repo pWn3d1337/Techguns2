@@ -162,6 +162,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
+import techguns.TGArmors;
 import techguns.TGBlocks;
 import techguns.TGItems;
 import techguns.TGuns;
@@ -426,6 +427,8 @@ public class Recipewriter {
         
         RecipeJsonConverter.addShapedRecipe(newStack(TGItems.WORKING_GLOVES,1), " h","hh", 'h', TGItems.HEAVY_CLOTH);
         
+        RecipeJsonConverter.addShapelessRecipe(newStack(TGItems.PROTECTIVE_FIBER,3), TGItems.HEAVY_CLOTH, TGItems.RUBBER_BAR, TGItems.PLATE_LEAD);
+        
         String[] plateTypes = {"plateIron", "plateTin"};
         Arrays.stream(plateTypes).forEach(p -> {
 	        RecipeJsonConverter.addShapedRecipe(new ItemStack(TGItems.DOOR3x3,2,0), "ppp", "sps","ppp", 's', Blocks.PISTON, 'p', p);
@@ -639,6 +642,13 @@ public class Recipewriter {
 		
 		RecipeJsonConverter.addShapedRecipe(new ItemStack(t2_beret,1), " cc","c c", 'c', TGItems.HEAVY_CLOTH);
 		
+		RecipeJsonConverter.addShapedRecipe(new ItemStack(TGArmors.hazmat_Helmet,1), "fff","f f", 'f', TGItems.PROTECTIVE_FIBER);
+		RecipeJsonConverter.addShapedRecipe(new ItemStack(TGArmors.hazmat_Chestplate,1), "f f","fff","fff", 'f', TGItems.PROTECTIVE_FIBER);
+		RecipeJsonConverter.addShapedRecipe(new ItemStack(TGArmors.hazmat_Leggings,1), "fff","f f","f f", 'f', TGItems.PROTECTIVE_FIBER);
+		RecipeJsonConverter.addShapedRecipe(new ItemStack(TGArmors.hazmat_Boots,1), "f f","f f", 'f', TGItems.PROTECTIVE_FIBER);
+		
+		RecipeJsonConverter.addTGManualRecipe(Items.IRON_INGOT, Blocks.GLASS_PANE, TGItems.STONE_BULLETS);
+		RecipeJsonConverter.addTGManualRecipe(Items.IRON_INGOT, Blocks.GLASS_PANE, TGItems.PISTOL_ROUNDS);
 	}
 	
 	public static void notyetimplemented() {

@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "techguns:hazmat_chestplate"
+  },
+  "pattern": [
+    "f f",
+    "fff",
+    "fff"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "f": {
+      "item": "techguns:itemshared",
+      "data": 133
+    }
+  }
+}

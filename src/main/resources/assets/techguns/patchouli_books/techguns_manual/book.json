@@ -6,5 +6,6 @@
     "model": "techguns:tgmanual",
     "book_texture": "techguns:textures/gui/tgmanual_textures.png",
     "nameplate_color": "000000",
-    "open_sound": "techguns:guns.augfire"
+    "open_sound": "minecraft:item.armor.equip_iron",
+    "flip_sound": "minecraft:ui.button.click"
 }

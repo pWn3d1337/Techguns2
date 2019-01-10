@@ -21,8 +21,11 @@ import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ResourceLocation;
 import techguns.TGConfig;
 import techguns.TGItems;
+import techguns.Techguns;
 import techguns.blocks.machines.BasicMachine;
 import techguns.items.GenericItemShared;
 import techguns.items.guns.GenericGun;
@@ -210,6 +213,47 @@ public class RecipeJsonConverter {
 			}
 		}
 
+		public static void addTGManualRecipe( Object... components) {
+			setupDir();
+
+			// addShapelessRecipe(result, components);
+
+			Map<String, Object> json = new HashMap<>();
+
+			boolean isOreDict = false;
+			List<Map<String, Object>> ingredients = new ArrayList<>();
+			for (Object o : components) {
+				if (o instanceof String)
+					isOreDict = true;
+				ingredients.add(serializeItem(o));
+			}
+			json.put("ingredients", ingredients);
+			json.put("type", isOreDict ? "forge:ore_shapeless" : "minecraft:crafting_shapeless");
+			NBTTagCompound tags = new NBTTagCompound();
+			tags.setString("patchouli:book", Techguns.MODID+":techguns_manual");
+			json.put("result", serializeItemFromResourceLocation(new ResourceLocation("patchouli", "guide_book"), tags));
+
+			// names the json the same name as the output's registry name
+			// repeatedly adds _alt if a file already exists
+			// janky I know but it works
+			String suffix = "";
+			
+			String name = "techguns_manual";//result.getItem().getRegistryName().getResourcePath();
+			
+			File f = new File(RECIPE_DIR, name + suffix + ".json");
+
+			while (f.exists()) {
+				suffix += "_alt";
+				f = new File(RECIPE_DIR, name + suffix + ".json");
+			}
+
+			try (FileWriter w = new FileWriter(f)) {
+				GSON.toJson(json, w);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
 		public static void addShapelessAmmoSwapRecipe(GenericGun gun, AmmoType type, String key)
 		{
 			setupDir();
@@ -404,6 +448,38 @@ public class RecipeJsonConverter {
 			}
 
 			throw new IllegalArgumentException("Not a block, item, stack, or od name");
+		}
+		
+		private static Map<String, Object> serializeItemFromResourceLocation(ResourceLocation item, NBTTagCompound tags) {
+
+			//ItemStack stack = (ItemStack) thing;
+			
+			Map<String, Object> ret = new HashMap<>();
+			ret.put("item", item.toString());
+			
+			
+			Map<String,Object> tags_m = new HashMap<>();
+			for(String s: tags.getKeySet()) {
+				String str = tags.getString(s);
+				if(str!=null && !str.isEmpty())
+				tags_m.put(s, str);
+			}
+			
+			ret.put("nbt", tags_m);
+			
+			/*if (stack.getItem().getHasSubtypes() || stack.getItemDamage() != 0) {
+				ret.put("data", stack.getItemDamage());
+			}*/
+			/*if (stack.getCount() > 1) {
+				ret.put("count", stack.getCount());
+			}*/
+			
+			/*if (stack.hasTagCompound()) {
+				throw new IllegalArgumentException("nbt not implemented");
+			}*/
+
+			return ret;
+			
 		}
 		
 		private static Map<String, Object> serializeItemNBTTag(ItemStack stack, String key, Object value) {

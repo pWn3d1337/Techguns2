@@ -1,0 +1,32 @@
+{
+    "name": "Techguns Inventory Tab",
+    "icon": "techguns:itemshared:1",
+    "category": "tg_inventory",
+    "pages": [
+        {
+            "type": "text",
+            "text": "From the survival inventory the player can switch to the techguns inventory tab by clicking the buttons at the top."
+        },
+        {
+            "type": "text",
+            "title": "Additional Armor Slots",
+            "text": "Techguns adds 3 additional armor slots where special items can be worn. The slots are $(thing)'Face'$(), $(thing)'Back'$() and $(thing)'Hands'$(). Items in this slots give different abilities or bonus stats."
+        },
+         {
+            "type": "text",
+            "title": "Ammo Slots",
+            "text": "There are also additional inventory slots for ammo to not clutter the inventory. Currently 8 slots are available for ammo. Every item that is used as ammo or battery can be put there. Reloading checks for ammo in the ammo inventory first, empty magazines and batteries also get put there first."
+        },
+        {
+            "type": "text",
+            "title": "Food Slots",
+            "text": "The 3 food slots allow to store food items that automatically get eaten when needed. Automatic feeding can be disabled in the config file. $(br2) There also is a healing item slot indicated with a + which is NOT USED as of version 2.0.1.2."
+        },
+        {
+            "type": "text",
+            "title": "Toggle Buttons",
+            "anchor": "buttons",
+            "text": "On the left side of the Techguns Inventory there are small buttons to toggle bonus effects like 'Nightvision' or 'Jetpacks'. This buttons also have keybinds which can be viewed in the keybind options. $(br)The first button toggles the visibility of all $(l:tg_hud#images)Techguns HUD elements$(/l)."
+        }
+    ]
+}

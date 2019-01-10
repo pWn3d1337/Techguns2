@@ -47,6 +47,7 @@ public class BlockTGDoor3x3<T extends Enum<T> & IStringSerializable> extends Gen
 	
 	
 	protected Class<T> clazz;
+	protected Class clazzBlock;
 	protected BlockStateContainer blockStateOverride;
 	
 	protected ItemTGDoor3x3<T> placer;
@@ -315,6 +316,10 @@ public class BlockTGDoor3x3<T extends Enum<T> & IStringSerializable> extends Gen
 	    
 	    
 	public void toggleState(World w, BlockPos masterPos) {
+		toggleState(w, masterPos, true);
+	}
+	
+	public void toggleState(World w, BlockPos masterPos, boolean checkNeighbours) {
 		IBlockState masterstate = w.getBlockState(masterPos);
 		
 		EnumDoorState nextState = this.getNextOpenState(masterstate.getValue(STATE));
@@ -337,6 +342,11 @@ public class BlockTGDoor3x3<T extends Enum<T> & IStringSerializable> extends Gen
 			 if(!w.isRemote) {
 				door.changeStateServerSide();
 				 
+				EnumDoorType type = masterstate.getActualState(w, masterPos).getValue(TYPE);
+				if(checkNeighbours && (type==EnumDoorType.HANGAR_DOWN||type==EnumDoorType.HANGAR_UP)) {
+					checkOpenNeighbours(w, masterPos, masterstate.getActualState(w, masterPos), door);
+				}
+				
 				if(nextState==EnumDoorState.OPENING || nextState==EnumDoorState.CLOSING) {
 					w.scheduleBlockUpdate(masterPos, this, DOOR_OPEN_TICKS-1, 0);
 					
@@ -348,6 +358,115 @@ public class BlockTGDoor3x3<T extends Enum<T> & IStringSerializable> extends Gen
 				 door.setLastStateChangeTime(System.currentTimeMillis());
 			 }
 		 } 
+	}
+	
+	public void checkOpenNeighbours(World w, BlockPos masterPos, IBlockState masterstate, Door3x3TileEntity tile) {
+		
+		//EnumDoorState nextState = this.getNextOpenState(masterstate.getValue(STATE));
+		
+		boolean zplane = masterstate.getValue(ZPLANE);
+		//check sideways
+		
+		BlockPos pos = null;
+	
+		for(int i=0; i<2; i++) {
+			for(int z = 3; z<=9; z+=3) {
+				pos = new BlockPos(masterPos);
+				
+				//IBlockState state;
+				if(zplane) {
+					if (i==0) {
+						pos = pos.add(0, 0, -z);
+					} else {
+						pos = pos.add(0,0,z);
+					}
+				} else {
+					if (i==0) {
+						pos = pos.add(-z, 0, 0);
+					} else {
+						pos = pos.add(z,0,0);
+					}
+				}
+				//state = w.getBlockState(pos);
+				//state = state.getActualState(w, pos);
+						
+				/*if (isMatchingDoorType(masterstate, state)) {
+					Block b = state.getBlock();
+					if(b.getClass() == this.getClass()) {
+						BlockTGDoor3x3<T> d = this.getClass().cast(b);
+						d.toggleState(w, pos,false);						
+					}
+				} else {
+					break;
+				}*/
+				if (!checkBlockAndToggleState(w, pos, masterstate)) {
+					break;
+				}
+			}
+		}
+		
+		//check upper or lower
+		int y;
+		if(masterstate.getValue(TYPE)==EnumDoorType.HANGAR_UP) {
+			y = -3;
+		} else {
+			y = 3;
+		}
+		
+		BlockPos otherMaster = masterPos.add(0, y, 0);
+		
+		if (checkBlockAndToggleState(w, otherMaster, masterstate)) {
+			for(int i=0; i<2; i++) {
+				for(int z = 3; z<=9; z+=3) {
+					pos = new BlockPos(otherMaster);
+					
+					//IBlockState state;
+					if(zplane) {
+						if (i==0) {
+							pos = pos.add(0, 0, -z);
+						} else {
+							pos = pos.add(0,0,z);
+						}
+					} else {
+						if (i==0) {
+							pos = pos.add(-z, 0, 0);
+						} else {
+							pos = pos.add(z,0,0);
+						}
+					}
+					if (!checkBlockAndToggleState(w, pos, masterstate)) {
+						break;
+					}
+				}
+			}
+		}
+		
+	}
+	
+	protected boolean checkBlockAndToggleState(World w, BlockPos pos, IBlockState masterstate) {
+		IBlockState state = w.getBlockState(pos);
+		state = state.getActualState(w, pos);
+				
+		if (isMatchingDoorType(masterstate, state)) {
+			Block b = state.getBlock();
+			if(b.getClass() == this.getClass()) {
+				BlockTGDoor3x3<T> d = this.getClass().cast(b);
+				d.toggleState(w, pos,false);
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	
+	protected boolean isMatchingDoorType(IBlockState master, IBlockState other) {
+		if (master==other) return true;
+		EnumDoorType type = master.getValue(TYPE);
+		if(type==EnumDoorType.HANGAR_DOWN || type == EnumDoorType.HANGAR_UP) {
+			return master.withProperty(TYPE, EnumDoorType.HANGAR_DOWN) == other || master.withProperty(TYPE, EnumDoorType.HANGAR_UP) == other;
+		} else {
+			return false;
+		}
 	}
 	
 	public void setOpenedStateForBlock(World w, BlockPos p, EnumDoorState doorstate) {

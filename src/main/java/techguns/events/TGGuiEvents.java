@@ -238,16 +238,18 @@ public class TGGuiEvents extends Gui{
 	      return;
 	    }
 		
-		/*
-		 * Render Lock on GUI effect
-		 */
 		Minecraft mc = Minecraft.getMinecraft();
-		GameSettings gamesettings = mc.gameSettings;
-		ScaledResolution sr = new ScaledResolution(mc);
 		EntityPlayer player = mc.player;
-		TGExtendedPlayer epc = TGExtendedPlayer.get(player);
 		//if (player.getActiveItemStack().getItem() instanceof GenericGun) {
 		if (player.getHeldItemMainhand().getItem() instanceof GenericGun) {
+			
+			/*
+			 * Render Lock on GUI effect
+			 */
+			GameSettings gamesettings = mc.gameSettings;
+			ScaledResolution sr = new ScaledResolution(mc);
+			TGExtendedPlayer epc = TGExtendedPlayer.get(player);
+			
 			//GenericGun gun = (GenericGun)player.getActiveItemStack().getItem();
 			GenericGun gun = (GenericGun)player.getHeldItemMainhand().getItem();
 			if (gun.getLockOnTicks() > 0 && epc.lockOnEntity != null && epc.lockOnTicks > 0) {

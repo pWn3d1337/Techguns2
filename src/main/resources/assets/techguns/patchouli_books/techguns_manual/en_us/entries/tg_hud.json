@@ -1,0 +1,18 @@
+{
+    "name": "Techguns HUD",
+    "icon": "techguns:itemshared:1",
+    "category": "tg_inventory",
+    "pages": [
+        {
+            "type": "text",
+            "text": "There are a few indicator symbols in the HUD that show the status of Techguns effects. Some can be toggled by $(l:tg_inventory_tab#buttons)button$(/l) or keybind."
+        },
+       {
+            "type": "image",
+            "title": "HUD & Button Symbols",
+            "anchor": "images",
+            "images": ["techguns:textures/gui/manual/tg_hud_symbols.png"],
+            "text": "The symbols used in the Techguns HUD and for $(l:tg_inventory_tab#buttons)buttons$(/l) in the $(l:tg_inventory_tab)Techguns Inventory Tab$(/l)."
+       }
+    ]
+}

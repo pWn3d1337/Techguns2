@@ -3,6 +3,7 @@ package techguns.items;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -15,6 +16,9 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import techguns.TGConfig;
 import techguns.blocks.BlockTGDoor3x3;
 import techguns.tileentities.Door3x3TileEntity;
@@ -36,17 +40,20 @@ public class ItemTGDoor3x3<T extends Enum<T> & IStringSerializable> extends Gene
 	@Override
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
 		if(this.isInCreativeTab(tab)) {
-			if(TGConfig.debug) { //FIXME remove debug
-				for(int i=0; i<this.clazz.getEnumConstants().length;i++) {
-					items.add(new ItemStack(this,1,i));
-				}
-			} else {
-				items.add(new ItemStack(this,1,0));
-			}
-			
+			for(int i=0; i<this.clazz.getEnumConstants().length;i++) {
+				items.add(new ItemStack(this,1,i));
+			}	
 		}
 	}
 
+	@SideOnly(Side.CLIENT)
+    public void initModel() {
+        ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(), "inventory"));
+		for (int i=1; i<this.clazz.getEnumConstants().length;i++) {
+	        ModelLoader.setCustomModelResourceLocation(this, i, new ModelResourceLocation(getRegistryName()+"_"+i, "inventory"));
+		}
+    }
+	
 	/**
      * Called when a Block is right-clicked with this Item
      */

@@ -1,7 +1,7 @@
 package techguns.tileentities;
 
+import static techguns.gui.ButtonConstants.BUTTON_ID_SECURITY;
 import java.util.List;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
@@ -23,8 +23,8 @@ public class RepairBenchTileEnt extends BasicOwnedTileEnt {
 
 	@Override
 	public void buttonClicked(int id, EntityPlayer ply, String data) {
-		if(id>=1 && id<=4 && this.isUseableByPlayer(ply)){
-			int slot=3-(id-1);
+		if(id>BUTTON_ID_SECURITY && id<=BUTTON_ID_SECURITY+4 && this.isUseableByPlayer(ply)){
+			int slot=3-((id-BUTTON_ID_SECURITY)-1);
 			ItemStack item = ply.inventory.armorInventory.get(slot);
 			if(!item.isEmpty() && item.getItem() instanceof GenericArmor){
 				GenericArmor armor = (GenericArmor) item.getItem();
@@ -54,6 +54,8 @@ public class RepairBenchTileEnt extends BasicOwnedTileEnt {
 			
 			
 			
+		} else {
+			super.buttonClicked(id, ply, data);
 		}
 	}
 }

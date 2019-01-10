@@ -687,6 +687,17 @@ public class ReactionChamberTileEntMaster extends MultiBlockMachineTileEntMaster
 	}
 
 	@Override
+	public boolean shouldRenderInPass(int pass) {
+		if(this.formed) {
+			if(pass==1 && this.inputTank.getFluidAmount()>0) {
+				return true;
+			}
+			return pass==0 && this.isWorking(); //return super.shouldRenderInPass(pass);
+		}
+		return false;
+	}
+
+	@Override
 	public void saveTanksToNBT(NBTTagCompound tags) {
 		NBTTagCompound inputTankTags = new NBTTagCompound();
 		this.inputTank.writeToNBT(inputTankTags);

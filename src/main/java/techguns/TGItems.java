@@ -48,7 +48,7 @@ public class TGItems implements ITGInitializer{
 	/**
 	 * FIXME DISABLE THIS BEFORE RELEASE
 	 */
-	public static boolean WRITE_ITEM_JSON = false;
+	public static boolean WRITE_ITEM_JSON = true;
 	/**
 	 * FIXME DISABLE THIS BEFORE RELEASE
 	 */
@@ -598,15 +598,15 @@ public class TGItems implements ITGInitializer{
 		 registerIfEnabled("dustUranium", TGItems.YELLOWCAKE);
 		 registerIfEnabled("ingotUraniumEnriched", TGItems.ENRICHED_URANIUM);
 		 
-		 registerIfEnabled("ingotCopper", INGOT_COPPER);
-		 registerIfEnabled("ingotBronze", INGOT_BRONZE);
-		 registerIfEnabled("ingotLead", INGOT_LEAD);
-		 registerIfEnabled("ingotTin", INGOT_TIN);
-		 registerIfEnabled("ingotSteel", INGOT_STEEL);
+		 OreDictionary.registerOre("ingotCopper", INGOT_COPPER);
+		 OreDictionary.registerOre("ingotBronze", INGOT_BRONZE);
+		 OreDictionary.registerOre("ingotLead", INGOT_LEAD);
+		 OreDictionary.registerOre("ingotTin", INGOT_TIN);
+		 OreDictionary.registerOre("ingotSteel", INGOT_STEEL);
 		 
-		 registerIfEnabled("nuggetCopper", NUGGET_COPPER);
-		 registerIfEnabled("nuggetLead", NUGGET_LEAD);
-		 registerIfEnabled("nuggetSteel", NUGGET_STEEL);
+		 OreDictionary.registerOre("nuggetCopper", NUGGET_COPPER);
+		 OreDictionary.registerOre("nuggetLead", NUGGET_LEAD);
+		 OreDictionary.registerOre("nuggetSteel", NUGGET_STEEL);
 		 
 		 registerIfEnabled("itemRawRubber", RAW_RUBBER);
 		 registerIfEnabled("rawPlastic", RAW_PLASTIC);

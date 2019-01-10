@@ -1,5 +1,6 @@
 package techguns.gui;
 
+import static techguns.gui.ButtonConstants.BUTTON_ID_SECURITY;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -88,9 +89,10 @@ public class RepairBenchGui extends OwnedTileEntGui {
 	@Override
 	public void initGui() {
 		super.initGui();
-		this.buttonList.add(new GuiButtonRepair(1, this.guiLeft+90, this.guiTop+39, 14, 14));
-		this.buttonList.add(new GuiButtonRepair(2, this.guiLeft+90+20, this.guiTop+39, 14, 14));
-		this.buttonList.add(new GuiButtonRepair(3, this.guiLeft+90+40, this.guiTop+39, 14, 14));
-		this.buttonList.add(new GuiButtonRepair(4, this.guiLeft+90+60, this.guiTop+39, 14, 14));
+		int id = BUTTON_ID_SECURITY+1;
+		this.buttonList.add(new GuiButtonRepair(id++, this.guiLeft+90, this.guiTop+39, 14, 14));
+		this.buttonList.add(new GuiButtonRepair(id++, this.guiLeft+90+20, this.guiTop+39, 14, 14));
+		this.buttonList.add(new GuiButtonRepair(id++, this.guiLeft+90+40, this.guiTop+39, 14, 14));
+		this.buttonList.add(new GuiButtonRepair(id++, this.guiLeft+90+60, this.guiTop+39, 14, 14));
 	}
 }

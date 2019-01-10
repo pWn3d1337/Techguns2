@@ -1,5 +1,6 @@
 package techguns.gui;
 
+import static techguns.gui.ButtonConstants.BUTTON_ID_SECURITY;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiInventory;
@@ -101,7 +102,7 @@ public class CamoBenchGui extends OwnedTileEntGui {
 	public void initGui() {
 		super.initGui();
 
-		int id=1;
+		int id=BUTTON_ID_SECURITY+1;
 										//id, x, y, width, height, text
 		this.buttonList.add(new GuiButtonExt(id++, this.guiLeft+14+12, this.guiTop+59, 12, 12, ">"));
 		this.buttonList.add(new GuiButtonExt(id++, this.guiLeft+14, this.guiTop+59, 12, 12, "<"));

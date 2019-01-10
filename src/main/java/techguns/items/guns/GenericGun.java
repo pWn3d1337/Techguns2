@@ -981,7 +981,7 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 		
 		if(this.rangeTooltipType == RangeTooltipType.DROP) {
 			return TextUtil.trans("techguns.gun.tooltip.range")+": "+prefix+sStart+","+sEnd+","+ttl+suffix;
-		} else if ( this.rangeTooltipType == rangeTooltipType.NO_DROP) {
+		} else if ( this.rangeTooltipType == RangeTooltipType.NO_DROP) {
 			return TextUtil.trans("techguns.gun.tooltip.range")+": "+prefix+sStart+suffix;
 		} else {
 			return TextUtil.trans("techguns.gun.tooltip.radius")+": "+prefix+sStart+"-"+sEnd+suffix;

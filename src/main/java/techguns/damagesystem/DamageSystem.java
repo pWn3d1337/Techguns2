@@ -414,16 +414,16 @@ public class DamageSystem {
             
             float toughness = (float)elb.getEntityAttribute(SharedMonsterAttributes.ARMOR_TOUGHNESS).getAttributeValue();
             
-            System.out.println("DamageBefore:"+damage);
-            System.out.println("Armor:"+tg.getTotalArmorAgainstType(dmgsrc));
-            System.out.println("Pen(x4):"+dmgsrc.armorPenetration*4);
-            System.out.println("Toughness:"+toughness);
+           // System.out.println("DamageBefore:"+damage);
+           // System.out.println("Armor:"+tg.getTotalArmorAgainstType(dmgsrc));
+           // System.out.println("Pen(x4):"+dmgsrc.armorPenetration*4);
+           // System.out.println("Toughness:"+toughness);
             
             //damage = CombatRules.getDamageAfterAbsorb(damage, tg.getTotalArmorAgainstType(dmgsrc), toughness);
-            damage = (float) getDamageAfterAbsorb_TGFormula(damage, tg.getTotalArmorAgainstType(dmgsrc), toughness, dmgsrc.armorPenetration);
+            damage = (float) getDamageAfterAbsorb_TGFormula(damage, tg.getTotalArmorAgainstType(dmgsrc), toughness, dmgsrc.armorPenetration*4);
         }
 
-        System.out.println("DamageAfter:"+damage);
+        //System.out.println("DamageAfter:"+damage);
         return damage;
     }
     
@@ -439,9 +439,20 @@ public class DamageSystem {
         //return damage * (1.0F - f1 / 25.0F);
     	
     	//use toughness to reduce penetration
-    	float pen = Math.max((penetration*4)-toughnessAttribute, 0);
+
+    	float pen = Math.max((penetration)-toughnessAttribute, 0);
     	
     	double armor = MathUtil.clamp(totalArmor-pen, 0.0,24.0);
+    	
+    	/*System.out.println("***********************************");
+    	System.out.println("DAMAGE:"+damage);
+    	System.out.println("Penetration:"+penetration);
+    	System.out.println("Toughness:"+toughnessAttribute);
+    	System.out.println("PEN:"+pen);
+    	System.out.println("TotalArmor"+totalArmor);
+    	System.out.println("ArmorFinal:"+armor);
+    	System.out.println("DamageFinal:"+(damage * (1.0-armor/25.0)));*/
+    	
     	return damage * (1.0-armor/25.0);
     }
 }
