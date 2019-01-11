@@ -64,13 +64,15 @@ import techguns.init.ITGInitializer;
 
 public class TGEntities implements ITGInitializer {
 
+	public static final int bulletTrackRange = 128;
+	
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
 		
 		/**
 		 * PROJECTILES
 		 */
-		int bulletTrackRange = 128;
+		//int bulletTrackRange = 128;
 		
 		EntityRegistry.registerModEntity(new ResourceLocation(Techguns.MODID,"GenericProjectile"),GenericProjectile.class, "GenericProjectile", ++Techguns.modEntityID, Techguns.MODID, bulletTrackRange, 1, true);
 		EntityRegistry.registerModEntity(new ResourceLocation(Techguns.MODID,"GenericProjectileIncendiary"),GenericProjectileIncendiary.class, "GenericProjectileIncendiary", ++Techguns.modEntityID, Techguns.MODID, bulletTrackRange, 1, true);

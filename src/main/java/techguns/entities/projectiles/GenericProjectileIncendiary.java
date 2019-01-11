@@ -94,12 +94,29 @@ public class GenericProjectileIncendiary extends GenericProjectile {
     		yaw = -this.rotationYaw;
     	}    	
 		
-		Techguns.proxy.createFX("Impact_IncendiaryBullet", world, x, y, z, 0.0D, 0.0D, 0.0D, pitch, yaw);
+		//Techguns.proxy.createFX("Impact_IncendiaryBullet", world, x, y, z, 0.0D, 0.0D, 0.0D, pitch, yaw);
 		
 		if (this.showFireTrail) {
-			this.world.playSound(x, y, z, TGSounds.BULLET_IMPACT_DIRT, SoundCategory.AMBIENT, 1.0f, 1.0f, distdelay);
+			//this.world.playSound(x, y, z, TGSounds.BULLET_IMPACT_DIRT, SoundCategory.AMBIENT, 1.0f, 1.0f, distdelay);
+			this.sendImpactFX(x, y, z, pitch, yaw, 5, true);
 		}else {
-			super.doImpactEffects(mat, rayTraceResult, sound);
+			int type =-1;
+	    	if(sound==SoundType.STONE) {
+				type=0;
+				
+			} else if(sound==SoundType.WOOD || sound==SoundType.LADDER) {
+				type=1;
+				
+			} else if(sound==SoundType.GLASS) {
+				type=2;
+				
+			} else if(sound==SoundType.METAL || sound==SoundType.ANVIL) {
+				type=3;
+				
+			} else if(sound ==SoundType.GROUND || sound == SoundType.SAND) {
+				type=4;
+			} 
+	    	this.sendImpactFX(x, y, z, pitch, yaw, type, true);
 		}
 			
 	}
