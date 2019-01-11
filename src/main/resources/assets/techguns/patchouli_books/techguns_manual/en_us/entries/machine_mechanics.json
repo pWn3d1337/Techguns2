@@ -20,15 +20,15 @@
         },
         {
             "type": "text",
-            "title": "Power",
-            "anchor": "power",
-            "text": "Machines that have a power bar on the left side of the gui require power to operate. The power system used by techguns is $(thing)'FE'$() or $(thing)'Forge Energy'$() which is also compatible with most RF (Redstone Flux) based cables. Techguns has no options to generate power itself, you need another mod to produce it. Alternatively you can disable power requirement in the techguns.cfg config file."
-        },
-        {
-            "type": "text",
             "title": "Security Settings",
             "anchor": "security2",
             "text": "To make use of the 'allies' and 'team' settings you need FTBUtilies installed. Without FTBU 'allies' and 'team' is equal to 'public'."
+        },
+        {
+            "type": "text",
+            "title": "Power",
+            "anchor": "power",
+            "text": "Machines that have a power bar on the left side of the gui require power to operate. The power system used by techguns is $(thing)'FE'$() or $(thing)'Forge Energy'$() which is also compatible with most RF (Redstone Flux) based cables. Techguns has no options to generate power itself, you need another mod to produce it. Alternatively you can disable power requirement in the techguns.cfg config file."
         },
         {
             "type": "text",
@@ -42,6 +42,13 @@
             "item": "techguns:itemshared:94",
             "anchor": "upgrade",
             "text": "Some machines have an upgrade slot in the bottom right of their gui. In this slot 'Machine Upgrades' can be placed. The 'Stack Operation' upgrade allows the machine to process the same recipe multiple times at once. The stack upgrade can be applied up to 7 times allowing to process a recipe up to 8x simultaneously."
+        },
+          {
+            "type": "spotlight",
+            "title": "'Wrench'",
+            "item": "techguns:crowbar",
+            "anchor": "wrench",
+            "text": "As many other tech mods, Techguns also has a 'wrench' item. The crowbar is Techguns version of a wrench, but can also be used as pickaxe and for hitting enemies. The crowbar allows to rotate techguns machines or can dismantle them ($(thing)'Sneak + Right Click'$()). Technically everything that has the tool class 'wrench' is considered as wrench."
         }
     ]
 }

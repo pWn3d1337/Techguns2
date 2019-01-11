@@ -1,0 +1,27 @@
+{
+    "name": "T2.5 : Ranger Armor",
+    "icon": "techguns:t2_riot_chestplate",
+    "category": "armors",
+    "pages": [
+        {
+            "type": "text",
+            "text": "The Ranger Veteran Armor is an upgrade to the $(l:armors/combat_armor)Combat Armor$(/l). It also offers protection to radiation."
+        }, 
+        {
+            "type": "entity",
+            "name": "Ranger Veteran Armor",
+            "entity": "minecraft:armor_stand{ShowArms:1,NoBasePlate:1,ArmorItems:[{Count:1,id:'techguns:t2_riot_boots'}, {Count:1,id:'techguns:t2_riot_leggings'}, {Count:1,id:'techguns:t2_riot_chestplate'}, {Count:1,id:'techguns:t2_riot_helmet'}]}",
+            "text": ""
+        },
+        {
+            "type": "crafting",
+            "recipe": "techguns:t2_riot_helmet",
+            "recipe2": "techguns:t2_riot_chestplate"
+        },
+        {
+            "type": "crafting",
+            "recipe": "techguns:t2_riot_leggings",
+            "recipe2": "techguns:t2_riot_boots"
+        }
+    ]
+}

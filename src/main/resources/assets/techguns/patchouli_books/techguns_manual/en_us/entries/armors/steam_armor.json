@@ -1,0 +1,27 @@
+{
+    "name": "T1.5 : Steam Armor",
+    "icon": "techguns:steam_chestplate",
+    "category": "armors",
+    "pages": [
+        {
+            "type": "text",
+            "text": "The Steam Armor is the first $(l:armor_mechanics#powered_armors)powered armor$(/l) and needs 'Compressed Air Tank's."
+        }, 
+        {
+            "type": "entity",
+            "name": "Steam Armor",
+            "entity": "minecraft:armor_stand{ShowArms:1,NoBasePlate:1,ArmorItems:[{Count:1,id:'techguns:steam_boots'}, {Count:1,id:'techguns:steam_leggings'}, {Count:1,id:'techguns:steam_chestplate'}, {Count:1,id:'techguns:steam_helmet'}]}",
+            "text": ""
+        },
+        {
+            "type": "crafting",
+            "recipe": "techguns:steam_helmet",
+            "recipe2": "techguns:steam_chestplate"
+        },
+        {
+            "type": "crafting",
+            "recipe": "techguns:steam_leggings",
+            "recipe2": "techguns:steam_boots"
+        }
+    ]
+}

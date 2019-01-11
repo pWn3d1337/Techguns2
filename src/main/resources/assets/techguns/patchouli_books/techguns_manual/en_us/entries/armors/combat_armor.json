@@ -1,0 +1,27 @@
+{
+    "name": "T2 : Combat Armor",
+    "icon": "techguns:t2_combat_chestplate",
+    "category": "armors",
+    "pages": [
+        {
+            "type": "text",
+            "text": "The Combat Armor is a Tier 2 armor and intended to be used for combat. It's stats are a direct upgrade of the $(l:armors/soldier_armor)Soldier Armor$(/l)."
+        }, 
+        {
+            "type": "entity",
+            "name": "Combat Armor",
+            "entity": "minecraft:armor_stand{ShowArms:1,NoBasePlate:1,ArmorItems:[{Count:1,id:'techguns:t2_combat_boots'}, {Count:1,id:'techguns:t2_combat_leggings'}, {Count:1,id:'techguns:t2_combat_chestplate'}, {Count:1,id:'techguns:t2_combat_helmet'}]}",
+            "text": ""
+        },
+        {
+            "type": "crafting",
+            "recipe": "techguns:t2_combat_helmet",
+            "recipe2": "techguns:t2_combat_chestplate"
+        },
+        {
+            "type": "crafting",
+            "recipe": "techguns:t2_combat_leggings",
+            "recipe2": "techguns:t2_combat_boots"
+        }
+    ]
+}

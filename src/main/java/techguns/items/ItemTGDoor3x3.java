@@ -20,6 +20,7 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import techguns.TGConfig;
+import techguns.Techguns;
 import techguns.blocks.BlockTGDoor3x3;
 import techguns.tileentities.Door3x3TileEntity;
 
@@ -46,6 +47,12 @@ public class ItemTGDoor3x3<T extends Enum<T> & IStringSerializable> extends Gene
 		}
 	}
 
+	@Override
+	public String getUnlocalizedName(ItemStack stack) {
+		return super.getUnlocalizedName(stack)+(stack.getItemDamage()>0?"_"+stack.getItemDamage():"");
+	}
+
+	
 	@SideOnly(Side.CLIENT)
     public void initModel() {
         ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(), "inventory"));
