@@ -30,8 +30,8 @@ public class Techguns
     public static final String NAME = "Techguns";
     public static final String GUI_FACTORY = "techguns.gui.config.GuiFactoryTechguns";
     public static final String UPDATEURL = "https://raw.githubusercontent.com/pWn3d1337/Techguns2/master/update.json";
-    
-    public static final String DEPENDENCIES = "after:ftblib;after:chisel;after:patchouli";
+    public static final String FORGE_BUILD = "14.23.5.2807";
+    public static final String DEPENDENCIES = "required:forge@["+FORGE_BUILD+",);after:ftblib;after:chisel;after:patchouli";
     
     @Mod.Instance
     public static Techguns instance;
