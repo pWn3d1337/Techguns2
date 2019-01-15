@@ -1,0 +1,12 @@
+{
+	"parent": "block/cube",
+	"textures": {
+		"particle": "techguns:blocks/drill_engine",
+		"north": "techguns:blocks/drill_engine_c",
+		"south": "techguns:blocks/drill_engine_c",
+		"east": "techguns:blocks/drill_engine_c",
+		"west": "techguns:blocks/drill_engine_c",
+		"up": "techguns:blocks/drill_engine_top_c",
+		"down": "techguns:blocks/drill_engine_top_c"
+	}
+}

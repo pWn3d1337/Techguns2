@@ -19,7 +19,7 @@ public enum EnumMultiBlockMachineType implements IStringSerializable, IMachineTy
 		REACTIONCHAMBER_HOUSING(3,ReactionChamberTileEntSlave.class,true,EnumBlockRenderType.MODEL),
 		REACTIONCHAMBER_GLASS(4,ReactionChamberTileEntSlave.class,false,EnumBlockRenderType.MODEL,BlockRenderLayer.CUTOUT,SoundType.GLASS),
 		REACTIONCHAMBER_CONTROLLER(5,ReactionChamberTileEntMaster.class,true,EnumBlockRenderType.MODEL,BlockRenderLayer.CUTOUT,SoundType.METAL);
-		
+	
 		private int id;
 		private String name;
 		private Class<? extends TileEntity> tile;

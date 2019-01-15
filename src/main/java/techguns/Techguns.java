@@ -47,6 +47,7 @@ public class Techguns
     public static AmmoTypes ammoTypes = new AmmoTypes();
     public static TGArmors armors = new TGArmors();
     public static TGFluids fluids = new TGFluids();
+    public static TGOreClusters orecluster = new TGOreClusters();
     
     public static TGRadiationSystem rad = new TGRadiationSystem();
     
@@ -63,7 +64,8 @@ public class Techguns
     	blocks,
     	entities,
     	packets,
-    	rad
+    	rad,
+    	orecluster
     };
     
     

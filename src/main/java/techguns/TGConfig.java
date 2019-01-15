@@ -91,6 +91,10 @@ public class TGConfig {
 	 */
 	public static String[] fluidListOil;
 	public static String[] fluidListFuel;
+
+	public static float oreDrillMultiplierOres;
+	public static float oreDrillMultiplierPower;
+	
 	/**
 	 * CATEGORIES
 	 */
@@ -208,6 +212,12 @@ public class TGConfig {
 		fluidListFuel = config.getStringList("FluidListFuel", "Fluid Recipes", new String[]{"fuel", "refined_fuel", "biofuel", "biodiesel", "diesel", "gasoline", "fluiddiesel", "fluidnitrodiesel", "fliudnitrofuel"}, "Fluids that can be used to fill up fuel tanks");
 		fluidListOil = config.getStringList("FluidListOil", "Fluid Recipes", new String[]{"oil", "tree_oil", "crude_oil", "fluidoil", "seed_oil"}, "Fluids that are treated as oil.");
 
+		
+		oreDrillMultiplierOres = config.getFloat("oreDrillMultiplierOre", "Ore Drills", 1.0f, 0.001f, 1000.0f, "Multiplier to default rate on how many ores an ore drill produces");
+		
+		oreDrillMultiplierPower = config.getFloat("oreDrillMultiplierPower", "Ore Drills", 1.0f, 0f, 1000.0f, "Multiplier to default rate on how much power an ore drill requires");
+	
+		
 		if(config.hasChanged()) {
 			config.save();
 		}

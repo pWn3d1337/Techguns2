@@ -1,0 +1,11 @@
+{
+  "ctm": {
+    "ctm_version": 1,
+    "type": "ctm",
+    "layer": "CUTOUT",
+    "textures": ["techguns:blocks/drill_scaffold_c-ctm"],
+    "extra": {
+      "light": 0
+    }
+  }
+}

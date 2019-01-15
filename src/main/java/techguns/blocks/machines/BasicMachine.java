@@ -56,7 +56,7 @@ import techguns.tileentities.TurretTileEnt;
 import techguns.util.TextUtil;
 
 /**
- * A Machine that is rendered with TESR and has no properties besides type, 16 types per block.
+ * A Machine that can be rendered with TESR and has no properties besides type, 16 types per block.
  *
  * @param <T> Enum of all Machine Types
  */
@@ -98,7 +98,7 @@ public class BasicMachine<T extends Enum<T> & IStringSerializable & IMachineType
 	@Override
 	public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> items) {
 		for (T t : clazz.getEnumConstants()) {
-			if(!t.debugOnly() || TGConfig.debug) {
+			if( (!t.debugOnly() || TGConfig.debug) && !(t.hideInCreative())) {
 				items.add(new ItemStack(this,1,this.getMetaFromState(getDefaultState().withProperty(MACHINE_TYPE, t))));
 			}
 		}
@@ -254,7 +254,8 @@ public class BasicMachine<T extends Enum<T> & IStringSerializable & IMachineType
 		super.registerBlock(event);
 		for (T t : clazz.getEnumConstants()) {
 			if(TileEntity.getKey(t.getTileClass())==null) {
-				GameRegistry.registerTileEntity(t.getTileClass(), Techguns.MODID+":"+t.getName());
+				//GameRegistry.registerTileEntity(t.getTileClass(), Techguns.MODID+":"+t.getName());
+				GameRegistry.registerTileEntity(t.getTileClass(), new ResourceLocation(Techguns.MODID,t.getName()));
 			}
 		}
 	}

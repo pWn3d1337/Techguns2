@@ -46,6 +46,7 @@ import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -200,6 +201,7 @@ import techguns.client.render.tileentities.RenderDungeonGenerator;
 import techguns.client.render.tileentities.RenderDungeonScanner;
 import techguns.client.render.tileentities.RenderFabricator;
 import techguns.client.render.tileentities.RenderMachine;
+import techguns.client.render.tileentities.RenderOreDrill;
 import techguns.client.render.tileentities.RenderReactionChamber;
 import techguns.client.render.tileentities.RenderTurret;
 import techguns.deatheffects.EntityDeathUtils.DeathType;
@@ -260,6 +262,7 @@ import techguns.gui.DungeonScannerGui;
 import techguns.gui.ExplosiveChargeGui;
 import techguns.gui.FabricatorGui;
 import techguns.gui.MetalPressGui;
+import techguns.gui.OreDrillGui;
 import techguns.gui.ReactionChamberGui;
 import techguns.gui.RepairBenchGui;
 import techguns.gui.TurretGui;
@@ -273,6 +276,7 @@ import techguns.gui.containers.DungeonScannerContainer;
 import techguns.gui.containers.ExplosiveChargeContainer;
 import techguns.gui.containers.FabricatorContainer;
 import techguns.gui.containers.MetalPressContainer;
+import techguns.gui.containers.OreDrillContainer;
 import techguns.gui.containers.ReactionChamberContainer;
 import techguns.gui.containers.RepairBenchContainer;
 import techguns.gui.containers.TurretContainer;
@@ -290,6 +294,7 @@ import techguns.tileentities.ExplosiveChargeAdvTileEnt;
 import techguns.tileentities.ExplosiveChargeTileEnt;
 import techguns.tileentities.FabricatorTileEntMaster;
 import techguns.tileentities.MetalPressTileEnt;
+import techguns.tileentities.OreDrillTileEntMaster;
 import techguns.tileentities.ReactionChamberTileEntMaster;
 import techguns.tileentities.RepairBenchTileEnt;
 import techguns.tileentities.TurretTileEnt;
@@ -307,12 +312,12 @@ public class ClientProxy extends CommonProxy {
 	
 	protected GuiHandlerRegister guihandler = new GuiHandlerRegister();
 	
-	public static Field Field_ItemRenderer_equippedProgressMainhand = ReflectionHelper.findField(ItemRenderer.class, "equippedProgressMainHand", "field_187469_f");
-	public static Field Field_ItemRenderer_equippedProgressOffhand = ReflectionHelper.findField(ItemRenderer.class, "equippedProgressOffHand", "field_187471_h");
-	public static Field Field_ItemRenderer_prevEquippedProgressMainhand = ReflectionHelper.findField(ItemRenderer.class, "prevEquippedProgressMainHand", "field_187470_g");
-	public static Field Field_ItemRenderer_prevEquippedProgressOffhand = ReflectionHelper.findField(ItemRenderer.class, "prevEquippedProgressOffHand", "field_187472_i");
+	public static Field Field_ItemRenderer_equippedProgressMainhand = ObfuscationReflectionHelper.findField(ItemRenderer.class, "field_187469_f"); //ReflectionHelper.findField(ItemRenderer.class, "equippedProgressMainHand", "field_187469_f");
+	public static Field Field_ItemRenderer_equippedProgressOffhand =  ObfuscationReflectionHelper.findField(ItemRenderer.class, "field_187471_h");//ReflectionHelper.findField(ItemRenderer.class, "equippedProgressOffHand", "field_187471_h");
+	public static Field Field_ItemRenderer_prevEquippedProgressMainhand = ObfuscationReflectionHelper.findField(ItemRenderer.class, "field_187470_g");//ReflectionHelper.findField(ItemRenderer.class, "prevEquippedProgressMainHand", "field_187470_g");
+	public static Field Field_ItemRenderer_prevEquippedProgressOffhand = ObfuscationReflectionHelper.findField(ItemRenderer.class, "field_187472_i");//ReflectionHelper.findField(ItemRenderer.class, "prevEquippedProgressOffHand", "field_187472_i");
 	
-	protected static Field RenderPlayer_LayerRenderers = ReflectionHelper.findField(RenderLivingBase.class, "layerRenderers", "field_177097_h");
+	protected static Field RenderPlayer_LayerRenderers = ObfuscationReflectionHelper.findField(RenderLivingBase.class, "field_177097_h");//ReflectionHelper.findField(RenderLivingBase.class, "layerRenderers", "field_177097_h");
 	
 	public LinkedList<LightPulse> activeLightPulses;
 	
@@ -424,6 +429,8 @@ public class ClientProxy extends CommonProxy {
 		
 		ClientRegistry.bindTileEntitySpecialRenderer(Door3x3TileEntity.class, new RenderDoor3x3Fast());
 		
+		ClientRegistry.bindTileEntitySpecialRenderer(OreDrillTileEntMaster.class, new RenderOreDrill());
+		
 		this.initGuiHandler();
 		
 		//Galacticraft API for TABS
@@ -449,6 +456,7 @@ public class ClientProxy extends CommonProxy {
 		guihandler.<Door3x3TileEntity>addEntry(Door3x3TileEntity.class, Door3x3Gui::new, Door3x3Container::new);
 		guihandler.<ExplosiveChargeTileEnt>addEntry(ExplosiveChargeTileEnt.class, ExplosiveChargeGui::new, ExplosiveChargeContainer::new);
 		guihandler.<ExplosiveChargeAdvTileEnt>addEntry(ExplosiveChargeAdvTileEnt.class, ExplosiveChargeGui::new, ExplosiveChargeContainer::new);
+		guihandler.<OreDrillTileEntMaster>addEntry(OreDrillTileEntMaster.class, OreDrillGui::new, OreDrillContainer::new);
 	}
 	
 	@Override
