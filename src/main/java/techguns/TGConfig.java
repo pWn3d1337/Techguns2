@@ -205,7 +205,7 @@ public class TGConfig {
 		
 		WIP_disableRadiationSystem = config.getBoolean("WIP_disableRadiationSystem", config.CATEGORY_GENERAL, true, "Disable Radiation for players. Radiation system is WIP, only use in creative for testing");
 
-		fluidListFuel = config.getStringList("FluidListFuel", "Fluid Recipes", new String[]{"fuel", "refined_fuel", "biofuel", "biodiesel", "diesel", "gasoline", "fluiddiesel", "fluidnitrodiesel", "fliudnitrofuel"}, "Fluids that can be used to fill up fuel tanks");
+		fluidListFuel = config.getStringList("FluidListFuel", "Fluid Recipes", new String[]{"fuel", "refined_fuel", "biofuel", "biodiesel", "diesel", "gasoline", "fluiddiesel", "fluidnitrodiesel", "fliudnitrofuel", "refined_biofuel", "fire_water", "rocket_fuel"}, "Fluids that can be used to fill up fuel tanks");
 		fluidListOil = config.getStringList("FluidListOil", "Fluid Recipes", new String[]{"oil", "tree_oil", "crude_oil", "fluidoil", "seed_oil"}, "Fluids that are treated as oil.");
 
 		if(config.hasChanged()) {
