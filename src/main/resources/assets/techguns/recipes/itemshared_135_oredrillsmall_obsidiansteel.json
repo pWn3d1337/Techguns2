@@ -1,0 +1,20 @@
+{
+  "result": {
+    "item": "techguns:itemshared",
+    "data": 135
+  },
+  "pattern": [
+    "sps",
+    "sps",
+    " s "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "p": {
+      "item": "#PLATEOBSIDIANSTEEL"
+    },
+    "s": {
+      "item": "#INGOTOBSIDIANSTEEL"
+    }
+  }
+}

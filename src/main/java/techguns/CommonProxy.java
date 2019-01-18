@@ -59,6 +59,7 @@ public abstract class CommonProxy implements ITGInitializer {
 	public static void RecipeRegistryEvent(RegistryEvent.Register<IRecipe> event) {
 		TGFluids.RecipeInit();
 		TGMachineRecipes.addRecipes();
+		Techguns.orecluster.RecipeInit();
 	}
 	
 	@SubscribeEvent

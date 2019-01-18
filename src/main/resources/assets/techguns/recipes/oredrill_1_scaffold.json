@@ -1,0 +1,21 @@
+{
+  "result": {
+    "item": "techguns:oredrill",
+    "data": 1,
+    "count": 8
+  },
+  "pattern": [
+    "bbb",
+    "bpb",
+    "bbb"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "p": {
+      "item": "#PLATEIRON"
+    },
+    "b": {
+      "item": "minecraft:iron_bars"
+    }
+  }
+}

@@ -94,7 +94,8 @@ public class TGConfig {
 
 	public static float oreDrillMultiplierOres;
 	public static float oreDrillMultiplierPower;
-	
+	public static float oreDrillMultiplierFuel;
+	public static float oreDrillFuelValueFuel;
 	/**
 	 * CATEGORIES
 	 */
@@ -217,6 +218,11 @@ public class TGConfig {
 		
 		oreDrillMultiplierPower = config.getFloat("oreDrillMultiplierPower", "Ore Drills", 1.0f, 0f, 1000.0f, "Multiplier to default rate on how much power an ore drill requires");
 	
+		oreDrillMultiplierFuel = config.getFloat("oreDrillFuelMultiplier", "Ore Drills", 1000, 1, 100000, "Multiplier to calculate value of furnace fuel burn time = RF for ore Drill. burnTime* <THIS_VALUE> = RF. Only for internal use of the ore Drill, no real RF generation.");
+		
+		oreDrillFuelValueFuel = config.getFloat("oreDrillFuelValueFuel", "Ore Drills", 100, 1, 100000, "Fuel value for Liquid Fuel for use in ore Drills, this is per Millibucket, not Bucket, so 1/1000 of bucket value");
+		
+		
 		
 		if(config.hasChanged()) {
 			config.save();

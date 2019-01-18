@@ -101,6 +101,7 @@ public class PacketTGKeybindPress implements IMessage {
 				
 				props.enableSafemode=!props.enableSafemode;
 				
+				System.out.println("SM+"+props.enableSafemode+ " Perm:"+PermissionAPI.hasPermission(ply, TGPermissions.ALLOW_UNSAFE_MODE)+ " limitOP:"+TGConfig.limitUnsafeModeToOP+ " isOP:"+isPlayerOp(ply));
 				if (!props.enableSafemode && !( (!TGConfig.limitUnsafeModeToOP && !PermissionAPI.hasPermission(ply, TGPermissions.ALLOW_UNSAFE_MODE)) || (TGConfig.limitUnsafeModeToOP && isPlayerOp(ply)) )) {
 					props.enableSafemode=true;
 				} 

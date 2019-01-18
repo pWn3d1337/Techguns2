@@ -166,10 +166,12 @@ import techguns.TGArmors;
 import techguns.TGBlocks;
 import techguns.TGItems;
 import techguns.TGuns;
+import techguns.blocks.EnumOreClusterType;
 import techguns.blocks.TGMetalPanelType;
 import techguns.blocks.machines.EnumExplosiveChargeType;
 import techguns.blocks.machines.EnumMachineType;
 import techguns.blocks.machines.EnumMultiBlockMachineType;
+import techguns.blocks.machines.EnumOreDrillType;
 import techguns.blocks.machines.EnumSimpleMachineType;
 import techguns.items.guns.GenericGun;
 import techguns.items.guns.ammo.AmmoType;
@@ -437,11 +439,31 @@ public class Recipewriter {
 	        RecipeJsonConverter.addShapedRecipe(new ItemStack(TGBlocks.METAL_PANEL,32), "sss","psp","sss", 's', "stone", 'p', p);
         });
         
+        
+        RecipeJsonConverter.addShapedRecipe(new ItemStack(TGBlocks.ORE_DRILL_BLOCK,8,TGBlocks.ORE_DRILL_BLOCK.getMetaFromState(TGBlocks.ORE_DRILL_BLOCK.getDefaultState().withProperty(TGBlocks.ORE_DRILL_BLOCK.MACHINE_TYPE, EnumOreDrillType.FRAME))), "pbp","bpb","pbp", 'p', "plateIron", 'b', new ItemStack(Blocks.IRON_BARS,1));
+        RecipeJsonConverter.addShapedRecipe(new ItemStack(TGBlocks.ORE_DRILL_BLOCK,8,TGBlocks.ORE_DRILL_BLOCK.getMetaFromState(TGBlocks.ORE_DRILL_BLOCK.getDefaultState().withProperty(TGBlocks.ORE_DRILL_BLOCK.MACHINE_TYPE, EnumOreDrillType.SCAFFOLD))), "bbb","bpb","bbb", 'p', "plateIron", 'b', new ItemStack(Blocks.IRON_BARS,1));
+        RecipeJsonConverter.addShapedRecipe(new ItemStack(TGBlocks.ORE_DRILL_BLOCK,4,TGBlocks.ORE_DRILL_BLOCK.getMetaFromState(TGBlocks.ORE_DRILL_BLOCK.getDefaultState().withProperty(TGBlocks.ORE_DRILL_BLOCK.MACHINE_TYPE, EnumOreDrillType.ROD))), "ipi","ipi","ipi", 'p', "plateIron", 'i', "ingotIron");
+        RecipeJsonConverter.addShapedRecipe(new ItemStack(TGBlocks.ORE_DRILL_BLOCK,4,TGBlocks.ORE_DRILL_BLOCK.getMetaFromState(TGBlocks.ORE_DRILL_BLOCK.getDefaultState().withProperty(TGBlocks.ORE_DRILL_BLOCK.MACHINE_TYPE, EnumOreDrillType.ENGINE))), "bbb","beb","bbb", 'b', new ItemStack(Blocks.IRON_BARS,1),'e', TGItems.ELECTRIC_ENGINE);
+        RecipeJsonConverter.addShapedRecipe(new ItemStack(TGBlocks.ORE_DRILL_BLOCK,1,TGBlocks.ORE_DRILL_BLOCK.getMetaFromState(TGBlocks.ORE_DRILL_BLOCK.getDefaultState().withProperty(TGBlocks.ORE_DRILL_BLOCK.MACHINE_TYPE, EnumOreDrillType.CONTROLLER))), "pcp","cec","pcp", 'p', "plateIron", 'c', "circuitBasic",'e', TGItems.ELECTRIC_ENGINE);
+	  
+        RecipeJsonConverter.addShapedRecipe(newStack(TGItems.OREDRILLHEAD_STEEL,1),"sps","sps"," s ", 's', "ingotSteel", 'p', "plateSteel");
+        RecipeJsonConverter.addShapedRecipe(newStack(TGItems.OREDRILLHEAD_OBSIDIANSTEEL,1),"sps","sps"," s ", 's', "ingotObsidianSteel", 'p', "plateObsidianSteel");
+        RecipeJsonConverter.addShapedRecipe(newStack(TGItems.OREDRILLHEAD_CARBON,1),"sss","sss"," s ",  's', "plateCarbon");
+        
+        RecipeJsonConverter.addShapedRecipe(newStack(TGItems.OREDRILLHEAD_MEDIUM_STEEL,1),"d d"," d ", 'd', TGItems.OREDRILLHEAD_STEEL);
+        RecipeJsonConverter.addShapedRecipe(newStack(TGItems.OREDRILLHEAD_MEDIUM_OBSIDIANSTEEL,1),"d d"," d ", 'd', TGItems.OREDRILLHEAD_OBSIDIANSTEEL);
+        RecipeJsonConverter.addShapedRecipe(newStack(TGItems.OREDRILLHEAD_MEDIUM_CARBON,1),"d d"," d ", 'd', TGItems.OREDRILLHEAD_CARBON);
+        
+        RecipeJsonConverter.addShapedRecipe(newStack(TGItems.OREDRILLHEAD_LARGE_STEEL,1),"d d"," d ", 'd', TGItems.OREDRILLHEAD_MEDIUM_STEEL);
+        RecipeJsonConverter.addShapedRecipe(newStack(TGItems.OREDRILLHEAD_LARGE_OBSIDIANSTEEL,1),"d d"," d ", 'd', TGItems.OREDRILLHEAD_MEDIUM_OBSIDIANSTEEL);
+        RecipeJsonConverter.addShapedRecipe(newStack(TGItems.OREDRILLHEAD_LARGE_CARBON,1),"d d"," d ", 'd', TGItems.OREDRILLHEAD_MEDIUM_CARBON);
+        	
         addGunRecipes();
         addArmorRecipes();
         addUpgradeRecipes();
         addAmmoChangeRecipes();
 	}
+
 	
 	public static void addUpgradeRecipes() {
 		RecipeJsonConverter.addShapelessMiningHeadUpgradeRecipe(TGuns.miningdrill, TGItems.MININGDRILLHEAD_CARBON, "miningHead",0);
@@ -655,28 +677,7 @@ public class Recipewriter {
    /*     
         
      
-     //	
-        RecipeJsonConverter.addShapedRecipe(new ItemStack(TGBlocks.oreDrill,8,0), "pbp","bpb","pbp", 'p', "plateIron", 'b', new ItemStack(Blocks.iron_bars,1)));
-        RecipeJsonConverter.addShapedRecipe(new ItemStack(TGBlocks.oreDrill,8,1), "bbb","bpb","bbb", 'p', "plateIron", 'b', new ItemStack(Blocks.iron_bars,1)));
-        RecipeJsonConverter.addShapedRecipe(new ItemStack(TGBlocks.oreDrill,4,2), "ipi","ipi","ipi", 'p', "plateIron", 'i', "ingotIron"));
-        RecipeJsonConverter.addShapedRecipe(new ItemStack(TGBlocks.oreDrill,4,3), "bbb","beb","bbb", 'p', "plateIron", 'b', new ItemStack(Blocks.iron_bars,1),'e', TGItems.electricEngine));
-        RecipeJsonConverter.addShapedRecipe(new ItemStack(TGBlocks.oreDrill,1,4), "pcp","cec","pcp", 'p', "plateIron", 'c', "circuitBasic",'e', TGItems.electricEngine));
-	
-        RecipeJsonConverter.addShapedRecipe(new ItemStack(TGBlocks.container,8,0), "i i"," c ", "i i", 'i', "ingotIron", 'c', Blocks.chest));
-        
-        RecipeJsonConverter.addShapedRecipe(newStack(oreDrillSmallSteel,1),"sps","sps"," s ", 's', "ingotSteel", 'p', "plateSteel"));
-        RecipeJsonConverter.addShapedRecipe(newStack(oreDrillSmallObsidianSteel,1),"sps","sps"," s ", 's', "ingotObsidianSteel", 'p', "plateObsidianSteel"));
-        RecipeJsonConverter.addShapedRecipe(newStack(oreDrillSmallCarbon,1),"sss","sss"," s ",  's', "plateCarbon"));
-        
-        RecipeJsonConverter.addShapedRecipe(newStack(oreDrillMediumSteel,1),"d d"," d ", 'd', TGItems.oreDrillSmallSteel));
-        RecipeJsonConverter.addShapedRecipe(newStack(oreDrillMediumObsidianSteel,1),"d d"," d ", 'd', TGItems.oreDrillSmallObsidianSteel));
-        RecipeJsonConverter.addShapedRecipe(newStack(oreDrillMediumCarbon,1),"d d"," d ", 'd', TGItems.oreDrillSmallCarbon));
-        
-        RecipeJsonConverter.addShapedRecipe(newStack(oreDrillLargeSteel,1),"d d"," d ", 'd', TGItems.oreDrillMediumSteel));
-        RecipeJsonConverter.addShapedRecipe(newStack(oreDrillLargeObsidianSteel,1),"d d"," d ", 'd', TGItems.oreDrillMediumObsidianSteel));
-        RecipeJsonConverter.addShapedRecipe(newStack(oreDrillLargeCarbon,1),"d d"," d ", 'd', TGItems.oreDrillMediumCarbon));
-        	
-       
+     //	       
       
         RecipeJsonConverter.addShapedRecipe(new ItemStack(TGItems.oreClusterScanner,1), "g g", "pcp","pep", 'g', "wireGold", 'p', "plateSteel", 'c', "circuitElite", 'e', TGItems.energyCell));
 	

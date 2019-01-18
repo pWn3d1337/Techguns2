@@ -217,6 +217,10 @@ public class TGSounds {
 	public static SoundEvent GEIGER_LOW = createSoundEvent("effects.geiger.low");
 	public static SoundEvent GEIGER_HIGH = createSoundEvent("effects.geiger.high");
 	
+	public static SoundEvent ORE_DRILL_WORK_SMALL = createSoundEvent("machines.oredrillsmallwork");
+	public static SoundEvent ORE_DRILL_WORK_MEDIUM = createSoundEvent("machines.oredrillmediumwork");
+	public static SoundEvent ORE_DRILL_WORK_LARGE = createSoundEvent("machines.oredrilllargework");
+	
 	public static void registerSounds(RegistryEvent.Register<SoundEvent> event){
 		IForgeRegistry<SoundEvent> reg = event.getRegistry();
 		

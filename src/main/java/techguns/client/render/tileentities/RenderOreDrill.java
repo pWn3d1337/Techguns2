@@ -59,10 +59,12 @@ public class RenderOreDrill extends TileEntitySpecialRenderer<OreDrillTileEntMas
             	GL11.glTranslatef(0, -0.75f, 0);
             }
             GL11.glTranslatef(0, 2*(tile.getEngines()+1), 0);
-            
+           
             if(tile.hasDrill()&&tile.isRedstoneEnabled()&&tile.hasPower()){
             	GL11.glRotatef(rot*10f + ((1f/36f)*partialTick), 0, 1, 0);
             }
+            
+            //System.out.println("Radius:"+tile.getDrillRadius()+" HasDrill:"+tile.hasDrill()+" DrillType:"+tile.getDrillType());
             
             Tessellator tess = Tessellator.getInstance();
             if (tile.hasDrill()){
@@ -110,7 +112,7 @@ public class RenderOreDrill extends TileEntitySpecialRenderer<OreDrillTileEntMas
 		
 		float max = (float) Math.log((length*DRILLERCUBESPERBLOCK+1.0f));
 		float radiusfactor=1.0f;
-		switch(tile.getRadius()){
+		switch(tile.getDrillRadius()){
 			case 0:
 			case 1:
 				radiusfactor=0.35f;
@@ -135,7 +137,7 @@ public class RenderOreDrill extends TileEntitySpecialRenderer<OreDrillTileEntMas
 				rotate=true;
 			}
 			float factor = (float) Math.log((length*DRILLERCUBESPERBLOCK)-i+1.0f);
-			float size = ((tile.getRadius()==0?1.0f:tile.getRadius()*1.0f)*factor)*(1.0f/max)*radiusfactor;
+			float size = ((tile.getDrillRadius()==0?1.0f:tile.getDrillRadius()*1.0f)*factor)*(1.0f/max)*radiusfactor;
 			
 			GL11.glTranslatef(axis[0]*height, axis[1]*height, axis[2]*height);
 			
