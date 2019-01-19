@@ -5,6 +5,7 @@ import java.util.List;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
@@ -117,24 +118,15 @@ public class OreDrillGui extends PoweredTileEntGui {
 		super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
 		int k = (this.width - this.xSize) / 2;
 		int l = (this.height - this.ySize) / 2;
+				 
+		this.mc.getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 		
-		if (this.tile.isWorking()) {
-			Minecraft.getMinecraft().getTextureManager().bindTexture(texture);
-			int i1 = this.tile.getProgressScaled(36);
-	        this.drawTexturedModalRect(k + 73, l + 17, 177, 1, 25, i1+1);
-		}
-
-		 if (this.tile.getCurrentFuelBufferMax()>0){
-        	int s = 12-this.tile.getFuelBufferScaled(12);
-        	this.drawTexturedModalRect(k+35, l+36+s, 188, 39+s, 6, 12-s);
-        	
-        }
-		 
 		if(this.tile.inputTank.getFluidAmount()>0){
         	int px = this.tile.inputTank.getFluidAmount()*TANK_H / this.tile.inputTank.getCapacity();
 
         	TextureAtlasSprite tex = mc.getTextureMapBlocks().getTextureExtry(tile.inputTank.getFluid().getFluid().getStill().toString());
         	
+        	//System.out.println("Draw input fluid");
         	this.drawFluidWithTesselator(tex, k+INPUT_TANK_X+1, l+TANK_Y, TANK_W, TANK_H, px);
         }
         
@@ -150,6 +142,18 @@ public class OreDrillGui extends PoweredTileEntGui {
 		
 		this.drawTexturedModalRect(k + INPUT_TANK_X, l + TANK_Y, 176, 40, TANK_W+2, TANK_H+2);
 		this.drawTexturedModalRect(k + OUTPUT_TANK_X, l + TANK_Y, 176, 40, TANK_W+2, TANK_H+2);
+		
+		if (this.tile.isWorking()) {
+			//Minecraft.getMinecraft().getTextureManager().bindTexture(texture);
+			int i1 = this.tile.getProgressScaled(36);
+	        this.drawTexturedModalRect(k + 73, l + 17, 177, 1, 25, i1+1);
+		}
+
+		 if (this.tile.getCurrentFuelBufferMax()>0){
+        	int s = 12-this.tile.getFuelBufferScaled(12);
+        	this.drawTexturedModalRect(k+35, l+36+s, 188, 39+s, 6, 12-s);
+        	
+        }
 	}
 
 }

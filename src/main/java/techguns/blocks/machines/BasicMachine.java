@@ -146,12 +146,14 @@ public class BasicMachine<T extends Enum<T> & IStringSerializable & IMachineType
 							MultiBlockMachineTileEntMaster master = (MultiBlockMachineTileEntMaster) tile;
 							if (!master.isFormed()) {
 								//System.out.println("UNFORMED MASTER TRY FORM");
-								if (MultiBlockRegister.canForm(master, player, facing)) {
-									if (MultiBlockRegister.form(tileent, player, facing)) {
-										master.needUpdate();
+								if(MultiBlockRegister.canFormFromSide(tileent, facing)) {
+									if (MultiBlockRegister.canForm(master, player, facing)) {
+										if (MultiBlockRegister.form(tileent, player, facing)) {
+											master.needUpdate();
+										}
 									}
+									return true;
 								}
-								return false;
 							} 
 						}
 					

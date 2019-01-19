@@ -13,6 +13,7 @@ import net.minecraft.world.World;
 import techguns.TGBlocks;
 import techguns.blocks.machines.EnumMultiBlockMachineType;
 import techguns.blocks.machines.MultiBlockMachine;
+import techguns.packets.PacketMultiBlockFormInvalidBlockMessage;
 import techguns.tileentities.MultiBlockMachineTileEntMaster;
 import techguns.tileentities.ReactionChamberTileEntMaster;
 
@@ -155,9 +156,14 @@ public class ReactionChamberDefinition extends MultiBlockMachineSchematic {
 		IBlockState unformedHousing = TGBlocks.MULTIBLOCK_MACHINE.getDefaultState().withProperty(TGBlocks.MULTIBLOCK_MACHINE.MACHINE_TYPE, EnumMultiBlockMachineType.REACTIONCHAMBER_HOUSING).withProperty(MultiBlockMachine.FORMED, false);
 		IBlockState unformedGlass = TGBlocks.MULTIBLOCK_MACHINE.getDefaultState().withProperty(TGBlocks.MULTIBLOCK_MACHINE.MACHINE_TYPE, EnumMultiBlockMachineType.REACTIONCHAMBER_GLASS).withProperty(MultiBlockMachine.FORMED, false);
 		
-		return this.canFormFromSide(dir) && 
+		if (this.canFormFromSide(dir) && 
 			   allBlocksMatch(w, player, this.getGlassBlocks(masterPos, dir),unformedGlass) && 
-			   allBlocksMatch(w, player, this.getHousingBlocks(masterPos, dir),unformedHousing);
+			   allBlocksMatch(w, player, this.getHousingBlocks(masterPos, dir),unformedHousing)) {
+			return true;
+		} else {
+			sendErrorMSG(w, masterPos, player, PacketMultiBlockFormInvalidBlockMessage.MSG_TYPE_MULTIBLOCK_ERROR);
+			return false;
+		}
 	}
 
 	@Override

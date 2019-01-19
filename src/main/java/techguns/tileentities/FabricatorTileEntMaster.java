@@ -141,7 +141,8 @@ public class FabricatorTileEntMaster extends MultiBlockMachineTileEntMaster {
 		ItemStack itemOut = this.currentOperation.getItemOutput0();
 		if (!itemOut.isEmpty()) {
 			if (!this.inventory.getStackInSlot(SLOT_OUTPUT).isEmpty()) {
-				this.inventory.getStackInSlot(SLOT_OUTPUT).grow(itemOut.getCount());
+				//this.inventory.getStackInSlot(SLOT_OUTPUT).grow(itemOut.getCount());
+				this.inventory.insertItemNoCheck(SLOT_OUTPUT, itemOut, false);
 			} else {
 				this.inventory.setStackInSlot(SLOT_OUTPUT, itemOut);
 			}

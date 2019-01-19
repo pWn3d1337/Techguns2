@@ -50,7 +50,7 @@ public class ItemStackHandlerPlus extends ItemStackHandler {
 	/**
 	 * Extract without check
 	 */
-	public ItemStack extractFromGui(int slot, int amount, boolean simulate) {
+	public ItemStack extractWithoutCheck(int slot, int amount, boolean simulate) {
 		return super.extractItem(slot, amount, simulate);
 	}
 }

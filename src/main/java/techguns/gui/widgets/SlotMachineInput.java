@@ -24,7 +24,7 @@ public class SlotMachineInput extends SlotItemHandler {
     @Override
     public boolean canTakeStack(EntityPlayer playerIn)
     {
-        return !inventory.extractFromGui(index, 1, true).isEmpty();
+        return !inventory.extractWithoutCheck(index, 1, true).isEmpty();
     }
 
     /**
@@ -35,7 +35,7 @@ public class SlotMachineInput extends SlotItemHandler {
     @Nonnull
     public ItemStack decrStackSize(int amount)
     {
-        return inventory.extractFromGui(index, amount, false);
+        return inventory.extractWithoutCheck(index, amount, false);
     }
 	
 }

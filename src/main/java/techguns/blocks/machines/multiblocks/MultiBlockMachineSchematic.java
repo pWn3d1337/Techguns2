@@ -34,7 +34,7 @@ public abstract class MultiBlockMachineSchematic {
 	public abstract boolean canFormFromSide(EnumFacing side);
 	
 	protected static boolean allBlocksMatch(World w, EntityPlayer player, ArrayList<BlockPos> positions, IBlockState blockstate) {
-		return allBlocksMatch(w, player, positions, blockstate, true);
+		return allBlocksMatch(w, player, positions, blockstate, false);
 	}
 	
 	protected static boolean allBlocksMatch(World w, EntityPlayer player, ArrayList<BlockPos> positions, IBlockState blockstate, boolean message) {

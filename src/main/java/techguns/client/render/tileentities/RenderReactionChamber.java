@@ -224,6 +224,9 @@ public class RenderReactionChamber extends TileEntitySpecialRenderer<ReactionCha
 		GlStateManager.enableCull();
 		TGRenderHelper.disableFXLighting();
 		TGRenderHelper.disableBlendMode(RenderType.ADDITIVE);
+		
+		/*Reactivate Alpha blending*/
+		TGRenderHelper.enableBlendMode(RenderType.ALPHA);
 		//------------------
 		
 	}

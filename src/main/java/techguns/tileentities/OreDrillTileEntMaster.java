@@ -5,19 +5,27 @@ import java.util.ArrayList;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fluids.capability.FluidTankPropertiesWrapper;
+import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandlerItem;
+import net.minecraftforge.fluids.capability.IFluidTankProperties;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import techguns.TGConfig;
@@ -59,13 +67,15 @@ public class OreDrillTileEntMaster extends MultiBlockMachineTileEntMaster implem
 	
 	public ItemStack lastDrill=ItemStack.EMPTY;
 	
-	protected static final double useRangeSquared=128.8d;
+	protected static final int useRangeSquared=144;
 	
 	public static final int CAPACITY_INPUT_TANK=16*Fluid.BUCKET_VOLUME;
 	public static final int CAPACITY_OUTPUT_TANK=32*Fluid.BUCKET_VOLUME;
 	
 	public FluidTank inputTank;
 	public FluidTank outputTank;
+
+	protected OreDrillFluidHandler fluidHandler;
 	
 	public static final int SLOT_DRILL=0;
 	public static final int SLOT_FURNACE=1;
@@ -106,6 +116,8 @@ public class OreDrillTileEntMaster extends MultiBlockMachineTileEntMaster implem
 		
 		this.outputTank = new FluidTankPlus(this,CAPACITY_OUTPUT_TANK);
 		this.outputTank.setTileEntity(this);
+		
+		this.fluidHandler= new OreDrillFluidHandler(this);
 	}
 
 	protected boolean isItemValidForSlot(int slot, ItemStack stack) {
@@ -327,7 +339,7 @@ public class OreDrillTileEntMaster extends MultiBlockMachineTileEntMaster implem
 				}
 				
 				//consume 1 fuel
-				this.inventory.extractItem(SLOT_FURNACE, 1, false);
+				this.inventory.extractWithoutCheck(SLOT_FURNACE, 1, false);
 				
 				this.fuelBuffer=fuelValue;
 				this.currentFuelBufferMax=fuelValue;
@@ -703,4 +715,52 @@ public class OreDrillTileEntMaster extends MultiBlockMachineTileEntMaster implem
 		return -1;
 	}
 
+	@Override
+	protected int getUseRangeSquared() {
+		return this.useRangeSquared;
+	}
+
+	@Override
+	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+		return capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
+	}
+	
+	@Override
+	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+		return capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY ? (T)fluidHandler : super.getCapability(capability, facing);
+	}
+	
+	public static class OreDrillFluidHandler implements IFluidHandler {
+
+		private OreDrillTileEntMaster tile;
+		protected IFluidTankProperties[] tankProperties;
+		
+		public OreDrillFluidHandler(OreDrillTileEntMaster tile) {
+			super();
+			this.tile = tile;
+		}
+
+		@Override
+		public IFluidTankProperties[] getTankProperties() {
+			if ( tankProperties == null) {
+				this.tankProperties =  new IFluidTankProperties[]{new FluidTankPropertiesWrapper(tile.inputTank), new FluidTankPropertiesWrapper(tile.outputTank)};
+			}
+			return tankProperties;
+		}
+
+		@Override
+		public int fill(FluidStack resource, boolean doFill) {
+			return tile.inputTank.fill(resource, doFill);
+		}
+
+		@Override
+		public FluidStack drain(FluidStack resource, boolean doDrain) {
+			return tile.outputTank.drain(resource, doDrain);
+		}
+
+		@Override
+		public FluidStack drain(int maxDrain, boolean doDrain) {
+			return tile.outputTank.drain(maxDrain, doDrain);
+		}
+	}
 }

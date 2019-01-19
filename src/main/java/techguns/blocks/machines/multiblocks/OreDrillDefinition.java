@@ -36,7 +36,10 @@ public class OreDrillDefinition extends MultiBlockMachineSchematic {
 	@Override
 	public boolean checkForm(World w, EntityPlayer player, BlockPos masterPos, EnumFacing direction) {
 		int dir = getDirection(w, player, masterPos);
-		if( dir <0) return false;
+		if( dir <0) {
+			sendErrorMSG(w, masterPos, player, PacketMultiBlockFormInvalidBlockMessage.MSG_TYPE_ORE_DRILL_CONTROLLER_ALONE);
+			return false;
+		}
 		
 		EnumFacing drill_direction = EnumFacing.getFront(dir);
 				
@@ -397,7 +400,8 @@ public class OreDrillDefinition extends MultiBlockMachineSchematic {
 		IBlockState bs = w.getBlockState(p);
 		if(bs.getBlock()==TGBlocks.ORE_DRILL_BLOCK) {
 			EnumOreDrillType t = bs.getValue(TGBlocks.ORE_DRILL_BLOCK.MACHINE_TYPE);
-			if( t == type) {
+			boolean formed = bs.getValue(TGBlocks.ORE_DRILL_BLOCK.FORMED);
+			if( !formed && t == type) {
 				return true;
 			}
 		}
@@ -408,7 +412,8 @@ public class OreDrillDefinition extends MultiBlockMachineSchematic {
 		IBlockState bs = w.getBlockState(p);
 		if(bs.getBlock()==TGBlocks.ORE_DRILL_BLOCK) {
 			EnumOreDrillType type = bs.getValue(TGBlocks.ORE_DRILL_BLOCK.MACHINE_TYPE);
-			if( type == EnumOreDrillType.ROD || type == EnumOreDrillType.ENGINE) {
+			boolean formed = bs.getValue(TGBlocks.ORE_DRILL_BLOCK.FORMED);
+			if( !formed && (type == EnumOreDrillType.ROD || type == EnumOreDrillType.ENGINE)) {
 				return true;
 			}
 		}

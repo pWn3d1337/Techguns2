@@ -12,6 +12,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import techguns.TGItems;
 import techguns.capabilities.TGExtendedPlayer;
 import techguns.gui.player.TGPlayerInventory;
+import techguns.tileentities.operation.ItemStackHandlerPlus;
 
 public class InventoryUtil {
 
@@ -95,25 +96,28 @@ public class InventoryUtil {
      * @param endIndex
      * @return
      */
-    public static int addItemToInventory(ItemStackHandler mainInventory, ItemStack item2, int startIndex, int endIndex){
+    public static int addItemToInventory(ItemStackHandlerPlus mainInventory, ItemStack item2, int startIndex, int endIndex){
     	ItemStack item = item2.copy();//TGItems.newStack(item2, item2.stackSize);
     	
     	for(int i=startIndex;i<endIndex;i++){
+
     		//1st try a merge
     		if (OreDictionary.itemMatches(mainInventory.getStackInSlot(i), item, true) && (mainInventory.getStackInSlot(i).getCount()<item.getMaxStackSize())){
     			int diff = (mainInventory.getStackInSlot(i).getCount() + item.getCount()) -item.getMaxStackSize();
     			if (diff < 0){
-    				int c = mainInventory.getStackInSlot(i).getCount();
-    				mainInventory.getStackInSlot(i).setCount(c+item.getCount());
+    				//int c = mainInventory.getStackInSlot(i).getCount();
+    				//mainInventory.getStackInSlot(i).setCount(c+item.getCount());
 
-    				item.setCount(0);
+    				//item.setCount(0);
+    				mainInventory.insertItemNoCheck(i, item, false);    				
+    				
     				return 0;
     			} else {
-    				mainInventory.getStackInSlot(i).setCount(item.getMaxStackSize());
-    				item.setCount(diff);
+    				item = mainInventory.insertItemNoCheck(i, item, false);
+    				//mainInventory.getStackInSlot(i).setCount(item.getMaxStackSize());
+    				//item.setCount(diff);
     			}
     		}
-
     	}
     	
     	/**
@@ -122,8 +126,9 @@ public class InventoryUtil {
     	if(item.getCount()>0){
     		for(int i=startIndex;i<endIndex;i++){
         		if(mainInventory.getStackInSlot(i).isEmpty()){
-        			mainInventory.setStackInSlot(i,item.copy());
-        			item.setCount(0);
+        			/*mainInventory.setStackInSlot(i,item.copy());
+        			item.setCount(0);*/
+        			mainInventory.insertItemNoCheck(i, item, false);
         			return 0;
         		}
 
@@ -398,7 +403,7 @@ public class InventoryUtil {
         }
     }
     
-    public static boolean consumeAmmo(ItemStackHandler inv,ItemStack ammo,int startIndex, int endIndex){
+    public static boolean consumeAmmo(ItemStackHandlerPlus inv,ItemStack ammo,int startIndex, int endIndex){
     	//ply.consumeInventoryItem(ammo.getItem());
     	
     	int i = searchItem(inv, ammo, startIndex, endIndex);
@@ -409,7 +414,8 @@ public class InventoryUtil {
         }
         else
         {
-        	inv.getStackInSlot(i).shrink(1);
+        	//inv.getStackInSlot(i).shrink(1);
+        	inv.extractWithoutCheck(i, 1, false);
             return true;
         }
     }

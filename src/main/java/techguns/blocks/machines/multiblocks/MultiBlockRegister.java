@@ -18,6 +18,14 @@ public class MultiBlockRegister {
 		REGISTER.put(OreDrillTileEntMaster.class, new OreDrillDefinition());
 	}
 	
+	public static boolean canFormFromSide(TileEntity tile, EnumFacing sideHit) {
+		MultiBlockMachineSchematic multiblock = REGISTER.get(tile.getClass());
+		if(multiblock!=null) {
+			return multiblock.canFormFromSide(sideHit);
+		}
+		return false;
+	}
+	
 	public static boolean canForm(TileEntity tile, EntityPlayer ply, EnumFacing sideHit) {
 		
 		MultiBlockMachineSchematic multiblock = REGISTER.get(tile.getClass());

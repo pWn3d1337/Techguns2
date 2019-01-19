@@ -3,11 +3,15 @@ package techguns.blocks.machines;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import techguns.blocks.GenericItemBlockMeta;
+import techguns.blocks.GenericItemBlockMetaMachineBlock;
+import techguns.blocks.ItemBlockOreDrill;
 
 public class BlockOreDrill extends MultiBlockMachine<EnumOreDrillType> {
 
@@ -30,4 +34,13 @@ public class BlockOreDrill extends MultiBlockMachine<EnumOreDrillType> {
         }
         return super.shouldSideBeRendered(blockState, blockAccess, pos, side);	
 	}
+
+	@Override
+	public ItemBlock createItemBlock() {
+		ItemBlockOreDrill itemblock =  new ItemBlockOreDrill(this);
+		this.itemblock=itemblock;
+		return itemblock;
+	}
+	
+	
 }

@@ -70,6 +70,7 @@ public abstract class TGBaseGui extends GuiContainer {
     		if(offset+len>px){
     			len=px-offset;
     		}
+    		System.out.println("Draw:"+x+", "+(y+height-offset-len)+" D:"+width+"x"+len);
     		this.drawTexturedModelRectFromIconFluidTank(x, y+height-offset-len, tex,width,len);
     		offset+=tex.getIconHeight();
     	}
