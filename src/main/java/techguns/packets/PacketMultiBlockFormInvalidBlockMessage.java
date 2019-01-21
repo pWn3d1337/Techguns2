@@ -19,6 +19,7 @@ public class PacketMultiBlockFormInvalidBlockMessage implements IMessage {
 	public static final int MSG_TYPE_ORE_DRILL_CONTROLLER_PLACEMENT_ERROR = 6;
 	public static final int MSG_TYPE_ORE_DRILL_CONTROLLER_ALONE = 7;
 	public static final int MSG_TYPE_MULTIBLOCK_ERROR = 8;
+	public static final int MSG_TYPE_ROD_SIZE = 9;
 	
 	protected BlockPos pos;
 	protected short type;
@@ -77,6 +78,9 @@ public class PacketMultiBlockFormInvalidBlockMessage implements IMessage {
 				break;
 			case MSG_TYPE_MULTIBLOCK_ERROR:
 				player.sendStatusMessage(new TextComponentString(TextUtil.trans("techguns.msg.error.multiblockinvalid")), true);
+				break;
+			case MSG_TYPE_ROD_SIZE:
+				player.sendStatusMessage(new TextComponentString(TextUtil.trans("techguns.msg.error.oredrill.rodsize")), true);
 				break;
 			default:
 				player.sendStatusMessage(new TextComponentString(TextUtil.trans("techguns.multiblock.invalidblock")+": "+p.getX()+ ", "+p.getY()+", "+p.getZ()), false);

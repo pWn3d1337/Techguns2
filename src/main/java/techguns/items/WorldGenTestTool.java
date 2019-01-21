@@ -20,6 +20,7 @@ import techguns.world.structures.AlienBugNestStructure;
 import techguns.world.structures.Barracks;
 import techguns.world.structures.FactoryHouseSmall;
 import techguns.world.structures.MilitaryCamp;
+import techguns.world.structures.SmallMine;
 import techguns.world.structures.SmallTrainstation;
 import techguns.world.structures.WorldgenStructure.BiomeColorType;
 
@@ -125,8 +126,9 @@ public class WorldGenTestTool extends GenericItem{
 			//FactoryHouseSmall b = new FactoryHouseSmall(8, 8, 8, 8, 8, 8);
 			//SmallTrainstation b = new SmallTrainstation(8, 8, 8, 8, 8, 8);
 			
-			AircraftCarrier b = new AircraftCarrier(54,24,21,54,24,21);
-						
+			//AircraftCarrier b = new AircraftCarrier(54,24,21,54,24,21);
+				
+			SmallMine b = new SmallMine(15,11,11,15,11,11);
 			//new AlienBugNest(x ,y+32, z,sizeX, 0, sizeZ, rnd).setBlocks(world);
 			
 			b.setBlocks(world, x, y, z, sizeX, 8, sizeZ,0/*rnd.nextInt(4)*/, BiomeColorType.WOODLAND, rnd);

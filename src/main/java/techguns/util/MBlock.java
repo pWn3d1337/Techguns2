@@ -15,6 +15,7 @@ import net.minecraft.world.World;
 import techguns.world.BlockData;
 import techguns.world.BlockRotator;
 import techguns.world.EnumLootType;
+import techguns.world.structures.WorldgenStructure.BiomeColorType;
 
 public class MBlock implements Serializable {
 	
@@ -118,10 +119,10 @@ public class MBlock implements Serializable {
 	}
 	
 	public void setBlock(World w, MutableBlockPos pos, int rotation) {
-		setBlock(w,pos,rotation,null);
+		setBlock(w,pos,rotation,null,BiomeColorType.WOODLAND);
 	}
 	
-	public void setBlock(World w, MutableBlockPos pos, int rotation, EnumLootType loottype) {
+	public void setBlock(World w, MutableBlockPos pos, int rotation, EnumLootType loottype, BiomeColorType biome) {
 		if(pos.getY()>=1) {
 			IBlockState targetState = BlockRotator.getRotatedHorizontal(state, rotation);
 			w.setBlockState(pos, targetState,2);
@@ -131,10 +132,10 @@ public class MBlock implements Serializable {
 		}
 	}
 	
-	public void setBlockReplaceableOnly(World w, MutableBlockPos pos, int rotation, EnumLootType loottype) {
+	public void setBlockReplaceableOnly(World w, MutableBlockPos pos, int rotation, EnumLootType loottype, BiomeColorType biome) {
 		IBlockState bs = w.getBlockState(pos);
 		if (bs.getBlock().isReplaceable(w, pos)) {
-			setBlock(w, pos, rotation, loottype);
+			setBlock(w, pos, rotation, loottype, biome);
 		}
 	}
 }

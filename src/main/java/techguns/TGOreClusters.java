@@ -17,13 +17,14 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.oredict.OreDictionary;
 import techguns.blocks.EnumOreClusterType;
 import techguns.blocks.EnumOreType;
+import techguns.blocks.IEnumOreClusterType;
 import techguns.init.ITGInitializer;
 import techguns.tileentities.operation.MachineOperation;
 
 public class TGOreClusters implements ITGInitializer{
 	protected HashMap<EnumOreClusterType, OreCluster> registry = new HashMap<>();
 	
-	public OreCluster getClusterForType(EnumOreClusterType type) {
+	public OreCluster getClusterForType(IEnumOreClusterType type) {
 		return registry.get(type);
 	}
 	
@@ -109,7 +110,7 @@ public class TGOreClusters implements ITGInitializer{
 		OreCluster c = this.registry.get(type);
 		if(c!=null) {
 			OreClusterWeightedEntry entry = new OreClusterWeightedEntry(oredict, weight);
-			if(!c.oreEntries.contains(entry)) {
+			if(!entry.isEmpty() && !c.oreEntries.contains(entry)) {
 				c.oreEntries.add(entry);
 			}
 		}
@@ -136,6 +137,18 @@ public class TGOreClusters implements ITGInitializer{
 			if(!ores.isEmpty()) {
 				this.ore = ores.get(0).copy();
 			}
+		}
+
+		public boolean isEmpty() {
+			return ore.isEmpty() && fluid==null;
+		}
+		
+		public ItemStack getOre() {
+			return ore;
+		}
+
+		public FluidStack getFluid() {
+			return fluid;
 		}
 
 		@Override
@@ -184,7 +197,11 @@ public class TGOreClusters implements ITGInitializer{
 			return multiplier_power;
 		}
 		
-		public MachineOperation getNewOperation(World w, double orePerHour, int radius) {
+		public ArrayList<OreClusterWeightedEntry> getOreEntries() {
+			return oreEntries;
+		}
+
+		public MachineOperation getNewOperation(World w, double orePerHour, int radius, double powerMult) {
 			OreClusterWeightedEntry entry = WeightedRandom.getRandomItem(w.rand, oreEntries);
 			
 			MachineOperation op=null;
@@ -195,7 +212,7 @@ public class TGOreClusters implements ITGInitializer{
 				op= new MachineOperation(ItemStack.EMPTY, new FluidStack(entry.fluid.getFluid(),Fluid.BUCKET_VOLUME), new ItemStack[0]);
 			} 
 			if(op!=null) {
-				op.setPowerPerTick((int)(80*orePerHour*Math.max(radius, 1)*TGConfig.oreDrillMultiplierPower));
+				op.setPowerPerTick((int)(80*orePerHour*Math.max(radius, 1)*powerMult*TGConfig.oreDrillMultiplierPower));
 				return op;
 			}
 			

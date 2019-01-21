@@ -10,6 +10,8 @@ import techguns.world.structures.AlienBugNestStructure;
 import techguns.world.structures.CastleStructure;
 import techguns.world.structures.FactoryHouseSmall;
 import techguns.world.structures.MilitaryBaseStructure;
+import techguns.world.structures.OreClusterSpike;
+import techguns.world.structures.SmallMine;
 import techguns.world.structures.SmallTrainstation;
 import techguns.world.structures.WorldgenStructure;
 
@@ -32,11 +34,13 @@ public class TGStructureSpawnRegister {
 		DESERTS_ONLY.add(BiomeDictionary.Type.SANDY);
 		DESERTS_ONLY.add(BiomeDictionary.Type.WASTELAND);
 		
-		spawns_small.add(new TGStructureSpawn(new FactoryHouseSmall(8,0,7,9,5,10).setXZSize(11, 10),1,null,OVERWORLD,LAND,StructureSize.SMALL));
-	    spawns_small.add(new TGStructureSpawn(new SmallTrainstation(0, 0, 0, 0, 0, 0).setXZSize(11, 12),1,null,OVERWORLD,LAND,StructureSize.SMALL));
+		spawns_small.add(new TGStructureSpawn(new FactoryHouseSmall(8,0,7,9,5,10).setXZSize(11, 10),10,null,OVERWORLD,LAND,StructureSize.SMALL));
+	    spawns_small.add(new TGStructureSpawn(new SmallTrainstation(0, 0, 0, 0, 0, 0).setXZSize(11, 12),10,null,OVERWORLD,LAND,StructureSize.SMALL));
+	    spawns_small.add(new TGStructureSpawn(new SmallMine(15, 11,11, 15, 11, 11).setXZSize(15, 11),10,null,OVERWORLD,LAND,StructureSize.SMALL));
 
 		//spawns_medium.add(new TGStructureSpawn(new HouseMedium(16, 12, 16, 16, 12, 16).setXZSize(16, 16),1,null,OVERWORLD,LAND,StructureSize.MEDIUM));	
 		spawns_medium.add(new TGStructureSpawn(new AlienBugNestStructure().setXZSize(4, 4),1,DESERTS_ONLY,OVERWORLD,LAND,StructureSize.MEDIUM));
+		spawns_medium.add(new TGStructureSpawn(new OreClusterSpike(6,7,6,6,7,6).setXZSize(6, 6),1,null,OVERWORLD,LAND,StructureSize.MEDIUM));
 		//spawns_medium.add(new TGStructureSpawn(new BigBunker(32,14,17,32,14,17).setXZSize(32, 17), 1, null, OVERWORLD, LAND, StructureSize.MEDIUM));
 				
 		spawns_big.add(new TGStructureSpawn(new MilitaryBaseStructure(0, 0, 0, 0, 0, 0),1,null,OVERWORLD,LAND,StructureSize.BIG));

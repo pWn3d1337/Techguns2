@@ -26,8 +26,7 @@ public class OreDrillDefinition extends MultiBlockMachineSchematic {
 	};
 
 	public static final int MAX_RADIUS=3;
-	public static final int MAX_ENGINES = 6;
-	public static final int MAX_RODS = 8;
+	public static final int MAX_SIZE = 16;
 	
 	public OreDrillDefinition() {
 		super(OreDrillTileEntMaster.class);
@@ -50,7 +49,7 @@ public class OreDrillDefinition extends MultiBlockMachineSchematic {
 		int engines = length[0];
 		int rods = length[1];
 		
-		if(engines>=0&& rods>0) {
+		if(engines>=0&& rods>0 && (rods+engines<=MAX_SIZE)) {
 		
 			if(engines==0 && rods==1) {
 				return true; 
@@ -61,35 +60,39 @@ public class OreDrillDefinition extends MultiBlockMachineSchematic {
 			
 			//Have radius, check all blocks
 			
-			//check engine block
-			if(allBlocksMatch(w, player, getEngineBlocks(w, masterPos, drill_direction, rad, engines), TGBlocks.ORE_DRILL_BLOCK.getDefaultState().withProperty(TGBlocks.ORE_DRILL_BLOCK.MACHINE_TYPE, EnumOreDrillType.ENGINE).withProperty(TGBlocks.ORE_DRILL_BLOCK.FORMED, false), false)) {
-				//engines OK, check outer frame
-				if(allBlocksMatch(w, player, getFrameBlocks(w, masterPos, drill_direction, rad+1, engines+rods, true, true), TGBlocks.ORE_DRILL_BLOCK.getDefaultState().withProperty(TGBlocks.ORE_DRILL_BLOCK.MACHINE_TYPE, EnumOreDrillType.FRAME).withProperty(TGBlocks.ORE_DRILL_BLOCK.FORMED, false), false)) {
-					
-					if(allBlocksMatch(w, player, getFrameBlocks(w, masterPos, drill_direction, rad+1, engines+rods, false, true), TGBlocks.ORE_DRILL_BLOCK.getDefaultState().withProperty(TGBlocks.ORE_DRILL_BLOCK.MACHINE_TYPE, EnumOreDrillType.SCAFFOLD).withProperty(TGBlocks.ORE_DRILL_BLOCK.FORMED, false), false)) {
+			
+			if (this.checkDrillSize(rods, engines, rad)) {
+				//check engine block
+				if(allBlocksMatch(w, player, getEngineBlocks(w, masterPos, drill_direction, rad, engines), TGBlocks.ORE_DRILL_BLOCK.getDefaultState().withProperty(TGBlocks.ORE_DRILL_BLOCK.MACHINE_TYPE, EnumOreDrillType.ENGINE).withProperty(TGBlocks.ORE_DRILL_BLOCK.FORMED, false), false)) {
+					//engines OK, check outer frame
+					if(allBlocksMatch(w, player, getFrameBlocks(w, masterPos, drill_direction, rad+1, engines+rods, true, true), TGBlocks.ORE_DRILL_BLOCK.getDefaultState().withProperty(TGBlocks.ORE_DRILL_BLOCK.MACHINE_TYPE, EnumOreDrillType.FRAME).withProperty(TGBlocks.ORE_DRILL_BLOCK.FORMED, false), false)) {
 						
-						if(allBlocksMatch(w, player, getAirBlocks(w, masterPos.offset(drill_direction, engines), drill_direction, rad, rods-1), Blocks.AIR.getDefaultState(), false)) {
-							return true;
+						if(allBlocksMatch(w, player, getFrameBlocks(w, masterPos, drill_direction, rad+1, engines+rods, false, true), TGBlocks.ORE_DRILL_BLOCK.getDefaultState().withProperty(TGBlocks.ORE_DRILL_BLOCK.MACHINE_TYPE, EnumOreDrillType.SCAFFOLD).withProperty(TGBlocks.ORE_DRILL_BLOCK.FORMED, false), false)) {
+							
+							if(allBlocksMatch(w, player, getAirBlocks(w, masterPos.offset(drill_direction, engines), drill_direction, rad, rods-1), Blocks.AIR.getDefaultState(), false)) {
+								return true;
+							} else {
+								//Air Block Error
+								sendErrorMSG(w, masterPos, player, PacketMultiBlockFormInvalidBlockMessage.MSG_TYPE_ORE_DRILL_AIR_ERROR);
+							}
+							
 						} else {
-							//Air Block Error
-							sendErrorMSG(w, masterPos, player, PacketMultiBlockFormInvalidBlockMessage.MSG_TYPE_ORE_DRILL_AIR_ERROR);
+							//Scaffold Error
+							sendErrorMSG(w, masterPos, player, PacketMultiBlockFormInvalidBlockMessage.MSG_TYPE_ORE_DRILL_SCAFFOLD_ERROR);
 						}
 						
 					} else {
-						//Scaffold Error
-						sendErrorMSG(w, masterPos, player, PacketMultiBlockFormInvalidBlockMessage.MSG_TYPE_ORE_DRILL_SCAFFOLD_ERROR);
-					}
+						//Frame Error
+						sendErrorMSG(w, masterPos, player, PacketMultiBlockFormInvalidBlockMessage.MSG_TYPE_ORE_DRILL_FRAME_ERROR);
+					}	
 					
 				} else {
-					//Frame Error
-					sendErrorMSG(w, masterPos, player, PacketMultiBlockFormInvalidBlockMessage.MSG_TYPE_ORE_DRILL_FRAME_ERROR);
-				}	
-				
+					//Engine Error
+					sendErrorMSG(w, masterPos, player, PacketMultiBlockFormInvalidBlockMessage.MSG_TYPE_ORE_DRILL_ENGINE_ERROR);
+				}
 			} else {
-				//Engine Error
-				sendErrorMSG(w, masterPos, player, PacketMultiBlockFormInvalidBlockMessage.MSG_TYPE_ORE_DRILL_ENGINE_ERROR);
+				sendErrorMSG(w, masterPos, player, PacketMultiBlockFormInvalidBlockMessage.MSG_TYPE_ROD_SIZE);
 			}
-			
 			return false;
 			
 			
@@ -104,6 +107,11 @@ public class OreDrillDefinition extends MultiBlockMachineSchematic {
 		}
 	}
 
+	public boolean checkDrillSize(int rods, int engines, int radius) {
+		//System.out.println("Radius:"+radius+" Rods:"+rods+ "Engines: "+engines);
+		return rods>=(radius*2+1) && rods >= engines && engines > radius;		
+	}
+	
 	public static EnumFacing getSide1(EnumFacing facing) {
 		switch(facing.getAxis()) {
 		case X:
@@ -365,12 +373,12 @@ public class OreDrillDefinition extends MultiBlockMachineSchematic {
 			
 		} else if (isDrillType(w, p.offset(dir, 1), EnumOreDrillType.ENGINE)) {
 			engines++;
-			while(isDrillType(w, p.offset(dir, engines+1), EnumOreDrillType.ENGINE) && engines<MAX_ENGINES) {
+			while(isDrillType(w, p.offset(dir, engines+1), EnumOreDrillType.ENGINE) && engines<MAX_SIZE) {
 				engines++;
 			}
 			if (isDrillType(w, p.offset(dir, engines+rods+1), EnumOreDrillType.ROD)) {
 				rods++;
-				while(isDrillType(w, p.offset(dir, engines+rods+1), EnumOreDrillType.ROD ) && rods<MAX_RODS) {
+				while(isDrillType(w, p.offset(dir, engines+rods+1), EnumOreDrillType.ROD ) && rods<MAX_SIZE) {
 					rods++;
 				}				
 				if(isOreCluster(w, p.offset(dir, engines+rods+1))) {
