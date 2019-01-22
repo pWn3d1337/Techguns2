@@ -52,6 +52,10 @@ public class OreDrillMachineRecipe implements IMachineRecipe {
 		return list;
 	}
 
+	public EnumOreClusterType getType() {
+		return type;
+	}
+
 	protected ArrayList<ItemStack> getDrills(){
 		if(drills==null) {
 			drills = new ArrayList<ItemStack>(9);

@@ -397,6 +397,7 @@ public class OreDrillTileEntMaster extends MultiBlockMachineTileEntMaster implem
 	
 	protected boolean checkDrill(){
 		if(this.world.getTotalWorldTime()%20==0){
+			//System.out.println("CheckDrill Last:"+this.lastDrill+" Current:"+this.inventory.getStackInSlot(SLOT_DRILL));
 			if (this.lastDrill.isEmpty() && this.inventory.getStackInSlot(SLOT_DRILL).isEmpty()) {
 				//this.complete=false;
 				this.hasDrill=false;
@@ -408,7 +409,7 @@ public class OreDrillTileEntMaster extends MultiBlockMachineTileEntMaster implem
 			} else {
 				if(this.inventory.getStackInSlot(SLOT_DRILL).isEmpty() || !this.lastDrill.isItemEqual(this.inventory.getStackInSlot(SLOT_DRILL))){
 					//System.out.println("Drill no longer matches");
-					this.lastDrill=this.inventory.getStackInSlot(SLOT_DRILL);
+					this.lastDrill=this.inventory.getStackInSlot(SLOT_DRILL).copy();
 					this.currentOperation=null;
 					this.progress=0;
 					this.totaltime=0;
@@ -722,7 +723,7 @@ public class OreDrillTileEntMaster extends MultiBlockMachineTileEntMaster implem
 
 	public int getValidSlotForItemInMachine(ItemStack stack) {
 		if(this.isItemValidForSlot(SLOT_DRILL, stack)) return SLOT_DRILL;
-		if(this.isItemValidForSlot(SLOT_FURNACE, lastDrill)) return SLOT_FURNACE;
+		if(this.isItemValidForSlot(SLOT_FURNACE, stack)) return SLOT_FURNACE;
 		return -1;
 	}
 

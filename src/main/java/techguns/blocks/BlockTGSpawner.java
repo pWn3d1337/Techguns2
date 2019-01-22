@@ -100,7 +100,7 @@ public class BlockTGSpawner extends GenericBlockMetaEnum<EnumMonsterSpawnerType>
 		}
 	}
 
-	@Override
+	/*@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
 			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		if(!worldIn.isRemote) {
@@ -113,7 +113,7 @@ public class BlockTGSpawner extends GenericBlockMetaEnum<EnumMonsterSpawnerType>
 			}
 		}
 		return true;
-	}
+	}*/
 
 	@Override
 	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {

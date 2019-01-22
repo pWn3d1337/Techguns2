@@ -14,6 +14,7 @@ public class MBlockOreClusterTypeOre extends MultiMMBlockOreCluster {
 	public MBlockOreClusterTypeOre(MBlock[] ore, int[] weights, MBlock stone, float stonechance) {
 		super(ore, weights);
 		this.stone=stone;
+		this.stonechance=stonechance;
 	}
 	
 	@Override

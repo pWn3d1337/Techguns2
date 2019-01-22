@@ -47,7 +47,7 @@
             "type": "text",
             "title": "Power Consumption",
             "anchor": "power",
-            "text": "The required power per tick is calculated the following: 80 * $(l:oredrills/ore_clusters#ores_per_hour)Ores Per Hour$(/l) * Maximum ( $(l:oredrills/ore_clusters#formulas)Drill Radius$(/l) , 1 ) * $(l:oredrills/ore_clusters#formulas3)Cluster Power Multiplier$(/l) * $(l:oredrills/ore_clusters#formulas2)Global Power Multiplier$(/l)$(br2)The Power per Tick directly determines the RF requirement. Consuming Liquid or Solid Fuel has an own multiplier for fuel to RF."
+            "text": "The required power per tick is calculated the following: 8 * $(l:oredrills/ore_clusters#ores_per_hour)Ores Per Hour$(/l) * ( 1 + Maximum ( $(l:oredrills/ore_clusters#formulas)Drill Radius$(/l) - 1, 0 ) * 0.2 ) * $(l:oredrills/ore_clusters#formulas3)Cluster Power Multiplier$(/l) * $(l:oredrills/ore_clusters#formulas2)Global Power Multiplier$(/l)$(br2)The Power per Tick directly determines the RF requirement. Consuming Liquid or Solid Fuel has an own multiplier for fuel to RF."
         }
     ]
 }

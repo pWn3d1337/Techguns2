@@ -30,14 +30,14 @@ public class TGOreClusters implements ITGInitializer{
 	
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
-		registry.put(EnumOreClusterType.COAL, new OreCluster(0, 1d, 1d));
-		registry.put(EnumOreClusterType.COMMON_METAL, new OreCluster(0, 1d, 1.2d));
-		registry.put(EnumOreClusterType.RARE_METAL, new OreCluster(1, 0.8d, 1.5d));
-		registry.put(EnumOreClusterType.SHINY_METAL, new OreCluster(2, 0.5d, 2.0d));
-		registry.put(EnumOreClusterType.URANIUM, new OreCluster(3, 0.1d, 2d));
-		registry.put(EnumOreClusterType.COMMON_GEM, new OreCluster(1, 0.8d, 1.2d));
-		registry.put(EnumOreClusterType.SHINY_GEM, new OreCluster(3, 0.2d, 2d));
-		registry.put(EnumOreClusterType.NETHER_CRYSTAL, new OreCluster(2, 0.5d, 1.5d));
+		registry.put(EnumOreClusterType.COAL, new OreCluster(TGConfig.mininglevel_coal, TGConfig.oremult_coal, TGConfig.powermult_coal));
+		registry.put(EnumOreClusterType.COMMON_METAL, new OreCluster(TGConfig.mininglevel_common_metal, TGConfig.oremult_common_metal, TGConfig.powermult_common_metal));
+		registry.put(EnumOreClusterType.RARE_METAL, new OreCluster(TGConfig.mininglevel_rare_metal, TGConfig.oremult_rare_metal, TGConfig.powermult_rare_metal));
+		registry.put(EnumOreClusterType.SHINY_METAL, new OreCluster(TGConfig.mininglevel_shiny_metal, TGConfig.oremult_shiny_metal, TGConfig.powermult_shiny_metal));
+		registry.put(EnumOreClusterType.URANIUM, new OreCluster(TGConfig.mininglevel_uranium, TGConfig.oremult_uranium, TGConfig.powermult_uranium));
+		registry.put(EnumOreClusterType.COMMON_GEM, new OreCluster(TGConfig.mininglevel_common_gem, TGConfig.oremult_common_gem, TGConfig.powermult_common_gem));
+		registry.put(EnumOreClusterType.SHINY_GEM, new OreCluster(TGConfig.mininglevel_shiny_gem, TGConfig.oremult_shiny_gem, TGConfig.powermult_shiny_gem));
+		registry.put(EnumOreClusterType.NETHER_CRYSTAL, new OreCluster(TGConfig.mininglevel_nether_crystal, TGConfig.oremult_nether_crystal, TGConfig.powermult_nether_crystal));
 	}
 
 	public void RecipeInit() {
@@ -212,7 +212,7 @@ public class TGOreClusters implements ITGInitializer{
 				op= new MachineOperation(ItemStack.EMPTY, new FluidStack(entry.fluid.getFluid(),Fluid.BUCKET_VOLUME), new ItemStack[0]);
 			} 
 			if(op!=null) {
-				op.setPowerPerTick((int)(80*orePerHour*Math.max(radius, 1)*powerMult*TGConfig.oreDrillMultiplierPower));
+				op.setPowerPerTick((int)(8*orePerHour* (1+ Math.max(radius-1,0)*0.2)*powerMult*TGConfig.oreDrillMultiplierPower));
 				return op;
 			}
 			
@@ -221,7 +221,7 @@ public class TGOreClusters implements ITGInitializer{
 		
 		public MachineOperation getCobbleStoneOperation() {
 			MachineOperation op = new MachineOperation(new ItemStack(Blocks.COBBLESTONE), new ItemStack[0]);
-			op.setPowerPerTick((int) (240*TGConfig.oreDrillMultiplierPower));
+			op.setPowerPerTick((int) (24*TGConfig.oreDrillMultiplierPower));
 			return op;
 		}
 	}

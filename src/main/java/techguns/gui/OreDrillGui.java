@@ -61,15 +61,16 @@ public class OreDrillGui extends PoweredTileEntGui {
 		   
 	        if (this.isInRect(mx, my, 74, 16, 27, 39)){
 	        	List<String> tooltip = new ArrayList<String>();
+	        	tooltip.add(String.format("%.2f",(this.tile.progress*1.0f/this.tile.totaltime*100.0f))+"%");
+	        	tooltip.add(TextUtil.trans("techguns.gui.oredrill.orehour")+": "+String.format("%.2f",1200.0/this.tile.totaltime*60.0));
 	        	if(this.tile.getPowerPerTick()>0) {
 	        		tooltip.add(TextUtil.trans("techguns.gui.oredrill.rftick")+": "+this.tile.getPowerPerTick());
 	        	}
-	        	tooltip.add(String.format("%.2f",(this.tile.progress*1.0f/this.tile.totaltime*100.0f))+"%");
-	        	tooltip.add(TextUtil.trans("techguns.gui.oredrill.orehour")+": "+String.format("%.2f",1200.0/this.tile.totaltime*60.0));
 	        	tooltip.add("");
-	        	tooltip.add(TextUtil.trans("techguns.oredrill.drillsize")+": "+tile.getRods());
+	        	tooltip.add(TextUtil.trans("techguns.oredrill.drillsize")+": "+(tile.getRods()+tile.getEngines()));
 	        	tooltip.add(TextUtil.trans("techguns.oredrill.drillradius")+": "+tile.getDrillRadius());
-	        	tooltip.add(TextUtil.trans("techguns.oredrill.enginesize")+": "+tile.getEngines()+"x"+(tile.getRadius()*2+1)+"x"+(tile.getRadius()*2+1)+": "+(tile.getEngines()*(tile.getRadius()*2+1)*(tile.getRadius()*2+1)));
+	       	//tooltip.add(TextUtil.trans("techguns.oredrill.enginesize")+": "+tile.getEngines()+"x"+(tile.getRadius()*2+1)+"x"+(tile.getRadius()*2+1)+": "+(tile.getEngines()*(tile.getRadius()*2+1)*(tile.getRadius()*2+1)));
+	        	
 	        	this.drawHoveringText(tooltip, mx, my);
 	        	
 	        } else if (this.isInRect(mx, my, INPUT_TANK_X, TANK_Y-1, TANK_W+1, TANK_H+1)){
