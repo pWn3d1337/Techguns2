@@ -17,6 +17,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraftforge.server.permission.PermissionAPI;
 import techguns.TGConfig;
 import techguns.TGPermissions;
+import techguns.Techguns;
 import techguns.api.capabilities.AttackTime;
 import techguns.api.capabilities.ITGExtendedPlayer;
 import techguns.client.particle.ITGParticle;
@@ -249,7 +250,7 @@ public class TGExtendedPlayer implements ITGExtendedPlayer {
 		this.enableNightVision=states.get(1);
 		this.enableSafemode=states.get(2);
 		
-		if (entity!=null && !PermissionAPI.hasPermission(entity, TGPermissions.ALLOW_UNSAFE_MODE)) {
+		if (entity!=null && !Techguns.instance.permissions.canUseUnsafeMode(entity)) {
 			this.enableSafemode=true;
 		}
 		

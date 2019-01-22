@@ -1,10 +1,10 @@
 {
   "homepage": "https://github.com/pWn3d1337/Techguns2",
   "1.12.2": {
-    "2.0.1.1": "ALPHA"
+    "2.0.1.2": "Beta"
   },
   "promos": {
-    "1.12.2-latest": "2.0.1.1",
-    "1.12.2-recommended": "2.0.1.1"
+    "1.12.2-latest": "2.0.1.2",
+    "1.12.2-recommended": "2.0.1.2"
   }
 }

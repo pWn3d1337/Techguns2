@@ -39,14 +39,15 @@ public class Techguns
     @SidedProxy(clientSide = "techguns.client.ClientProxy", serverSide = "techguns.server.ServerProxy")
     public static CommonProxy proxy;
     
-    public static TGItems items = new TGItems();
-    public static TGBlocks blocks = new TGBlocks();
-    public static TGuns guns = new TGuns();
-    public static TGEntities entities = new TGEntities();
-    public static TGPackets packets = new TGPackets();
-    public static AmmoTypes ammoTypes = new AmmoTypes();
-    public static TGArmors armors = new TGArmors();
-    public static TGFluids fluids = new TGFluids();
+    public TGItems items = new TGItems();
+    public TGBlocks blocks = new TGBlocks();
+    public TGuns guns = new TGuns();
+    public TGEntities entities = new TGEntities();
+    public TGPackets packets = new TGPackets();
+    public AmmoTypes ammoTypes = new AmmoTypes();
+    public TGArmors armors = new TGArmors();
+    public TGFluids fluids = new TGFluids();
+    public TGPermissions permissions = new TGPermissions();
     public static TGOreClusters orecluster = new TGOreClusters();
     
     public static TGRadiationSystem rad = new TGRadiationSystem();
@@ -65,7 +66,8 @@ public class Techguns
     	entities,
     	packets,
     	rad,
-    	orecluster
+    	orecluster,
+    	permissions
     };
     
     
