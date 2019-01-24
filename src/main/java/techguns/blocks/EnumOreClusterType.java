@@ -1,6 +1,7 @@
 package techguns.blocks;
 
 public enum EnumOreClusterType implements IEnumOreClusterType {
+	//Parameter Values are not actually used anymore
 	COAL(0,1f),
 	COMMON_METAL(0,1f),
 	RARE_METAL(1,0.8f),
@@ -8,7 +9,8 @@ public enum EnumOreClusterType implements IEnumOreClusterType {
 	URANIUM(3,0.1f),
 	COMMON_GEM(1,0.8f),
 	SHINY_GEM(3,0.1f),
-	NETHER_CRYSTAL(2,0.5f)
+	NETHER_CRYSTAL(2,0.5f),
+	OIL(2,0.5f)
 	;
 
 	protected int mininglevel;
@@ -34,4 +36,12 @@ public enum EnumOreClusterType implements IEnumOreClusterType {
 		return multiplier;
 	}
 
+	public static EnumOreClusterType getFromString(String str) {
+		for(EnumOreClusterType e: EnumOreClusterType.class.getEnumConstants()) {
+			if(e.name().equalsIgnoreCase(str)) {
+				return e;
+			}
+		}
+		return null;
+	}
 }

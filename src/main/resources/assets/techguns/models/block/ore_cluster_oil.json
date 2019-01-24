@@ -1,0 +1,6 @@
+{
+    "parent": "minecraft:block/cube_all",
+    "textures": {
+		"all": "techguns:blocks/ore_cluster_oil"
+    }
+}

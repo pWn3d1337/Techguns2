@@ -747,3 +747,4 @@ techguns.orecluster.mininglevel=Cluster Mining Level
 techguns.orecluster.powermult=Required Power Multiplier
 techguns.orecluster.amountmult=Quantity Multiplier
 techguns.oredrill.powerperore=Power per Ore (Radius 1)
+tile.techguns.orecluster.8.name=Ore Cluster (Oil)

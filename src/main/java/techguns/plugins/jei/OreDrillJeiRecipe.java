@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import mezz.jei.api.IJeiHelpers;
+import mezz.jei.api.ingredients.IIngredientRegistry;
 import mezz.jei.api.recipe.IStackHelper;
 import techguns.TGConfig;
 import techguns.TGOreClusters;
@@ -61,7 +62,7 @@ public class OreDrillJeiRecipe extends BasicRecipeWrapper {
 		return mr.getChance();
 	}
 	
-	public static List<OreDrillJeiRecipe> getRecipes(IJeiHelpers helpers) {
+	public static List<OreDrillJeiRecipe> getRecipes(IJeiHelpers helpers, IIngredientRegistry registry) {
 		IStackHelper stackHelper = helpers.getStackHelper();
 	
 		List<OreDrillJeiRecipe> recipes = new ArrayList<OreDrillJeiRecipe>();
@@ -71,7 +72,7 @@ public class OreDrillJeiRecipe extends BasicRecipeWrapper {
 			
 			ArrayList<OreClusterWeightedEntry> entries = cluster.getOreEntries();
 			for(OreClusterWeightedEntry we : entries) {
-				recipes.add(new OreDrillJeiRecipe(new OreDrillMachineRecipe(we, type)));
+				recipes.add(new OreDrillJeiRecipe(new OreDrillMachineRecipe(we, type,registry.getFuels())));
 			}
 		}
 		

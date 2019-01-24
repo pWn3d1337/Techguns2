@@ -23,6 +23,9 @@
     },
     "type=shiny_gem": {
       "model": "techguns:ore_cluster_shiny_gem"
+    },
+	"type=oil": {
+      "model": "techguns:ore_cluster_oil"
     }
   }
 }

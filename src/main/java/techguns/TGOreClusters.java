@@ -38,6 +38,7 @@ public class TGOreClusters implements ITGInitializer{
 		registry.put(EnumOreClusterType.COMMON_GEM, new OreCluster(TGConfig.mininglevel_common_gem, TGConfig.oremult_common_gem, TGConfig.powermult_common_gem));
 		registry.put(EnumOreClusterType.SHINY_GEM, new OreCluster(TGConfig.mininglevel_shiny_gem, TGConfig.oremult_shiny_gem, TGConfig.powermult_shiny_gem));
 		registry.put(EnumOreClusterType.NETHER_CRYSTAL, new OreCluster(TGConfig.mininglevel_nether_crystal, TGConfig.oremult_nether_crystal, TGConfig.powermult_nether_crystal));
+		registry.put(EnumOreClusterType.OIL, new OreCluster(TGConfig.mininglevel_oil, TGConfig.oremult_oil, TGConfig.powermult_oil));
 	}
 
 	public void RecipeInit() {
@@ -65,6 +66,15 @@ public class TGOreClusters implements ITGInitializer{
 		this.addOreToCluster(new ItemStack(Blocks.GLOWSTONE), EnumOreClusterType.NETHER_CRYSTAL, 40);
 		this.addOreToCluster(new ItemStack(Items.BLAZE_ROD), EnumOreClusterType.NETHER_CRYSTAL, 10);
 		
+		if(!TGFluids.worldspawn_oils.isEmpty()) {
+			//prefer oil which has a block implementation
+			if(TGFluids.OIL_WORLDSPAWN!=null) {
+				this.addOreToCluster(new FluidStack(TGFluids.OIL_WORLDSPAWN,1000), EnumOreClusterType.OIL, 10);
+			//otherwise use first oil
+			} else {
+				this.addOreToCluster(new FluidStack(TGFluids.worldspawn_oils.get(0),1000), EnumOreClusterType.OIL, 10);
+			}
+		}	
 		
 		//add modded ores from oreDict
 		this.addOreToCluster("oreSilver", EnumOreClusterType.SHINY_METAL, 40);
@@ -86,10 +96,34 @@ public class TGOreClusters implements ITGInitializer{
 		
 	}
 
+	public boolean removeOreFromCluster(ItemStack ore, EnumOreClusterType type) {
+		OreCluster c = this.registry.get(type);
+		if(c!=null) {
+			OreClusterWeightedEntry entry = new OreClusterWeightedEntry(ore, 1);
+			if(c.oreEntries.contains(entry)) {
+				return c.oreEntries.remove(entry);
+			}
+		}
+		return false;
+	}
+	
+	public boolean removeOreFromCluster(FluidStack fluid, EnumOreClusterType type) {
+		OreCluster c = this.registry.get(type);
+		if(c!=null) {
+			OreClusterWeightedEntry entry = new OreClusterWeightedEntry(fluid, 1);
+			if(c.oreEntries.contains(entry)) {
+				return c.oreEntries.remove(entry);
+			}
+		}
+		return false;
+	}
+	
 	public void addOreToCluster(ItemStack ore, EnumOreClusterType type, int weight) {
 		OreCluster c = this.registry.get(type);
 		if(c!=null) {
-			OreClusterWeightedEntry entry = new OreClusterWeightedEntry(ore, weight);
+			ItemStack ore2=ore.copy();
+			ore2.setCount(1);
+			OreClusterWeightedEntry entry = new OreClusterWeightedEntry(ore2, weight);
 			if(!c.oreEntries.contains(entry)) {
 				c.oreEntries.add(entry);
 			}
@@ -99,7 +133,9 @@ public class TGOreClusters implements ITGInitializer{
 	public void addOreToCluster(FluidStack fluid, EnumOreClusterType type, int weight) {
 		OreCluster c = this.registry.get(type);
 		if(c!=null) {
-			OreClusterWeightedEntry entry = new OreClusterWeightedEntry(fluid, weight);
+			FluidStack fluid2=fluid.copy();
+			fluid2.amount=Fluid.BUCKET_VOLUME;
+			OreClusterWeightedEntry entry = new OreClusterWeightedEntry(fluid2, weight);
 			if(!c.oreEntries.contains(entry)) {
 				c.oreEntries.add(entry);
 			}
@@ -159,7 +195,7 @@ public class TGOreClusters implements ITGInitializer{
 					return this.oredictname.equals(other.oredictname);
 					
 				} else if(!this.ore.isEmpty() && !other.ore.isEmpty()) {
-					return this.ore.getItem()==other.ore.getItem();
+					return this.ore.getItem()==other.ore.getItem() && this.ore.getItemDamage()==other.ore.getItemDamage();
 					
 				} else if(this.fluid!=null && other.fluid !=null) {
 					return this.fluid.getFluid() == other.fluid.getFluid();

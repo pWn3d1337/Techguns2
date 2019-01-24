@@ -90,7 +90,7 @@ public class OreClusterMeteorBasis extends WorldgenStructure {
 		
 		int indexRoll=rollBlockIndex(rnd, totalweight, clusterWeights);
 		
-		BlockUtils.cleanUpwards(world, blocks, blockList, posX, posY, posZ, centerX, centerZ, direction, 0, 5);
+		BlockUtils.cleanUpwards(world, blocks, blockList, posX, posY, posZ, centerX, centerZ, direction, 0, 30);
 		BlockUtils.placeScannedStructure(world, blocks, blockList, posX, posY-5, posZ, centerX, centerZ, direction, 0,this.lootTier,colorType,indexRoll,rnd);
 		BlockUtils.placeScannedStructure(world, blocks, blockList, posX, posY-5, posZ, centerX, centerZ, direction, 1,this.lootTier,colorType);
 	}

@@ -49,12 +49,14 @@ public class OreDrillJeiRecipeCategory extends BasicRecipeCategory<OreDrillJeiRe
 	*/
 		guiItemStacks.init(OreDrillTileEntMaster.SLOT_DRILL, true, OreDrillContainer.SLOT_DRILL_X+JEI_OFFSET_X, OreDrillContainer.SLOTS_ROW1_Y+JEI_OFFSET_Y);
 		guiItemStacks.init(1, true, 69, 40);
+		guiItemStacks.init(2, true, OreDrillContainer.SLOT_DRILL_X+JEI_OFFSET_X, OreDrillContainer.SLOTS_FURNACE_Y+JEI_OFFSET_Y);
 		
-		guiItemStacks.init(OreDrillTileEntMaster.SLOT_OUTPUT1, false, OreDrillContainer.SLOTS_OUTPUT_X+JEI_OFFSET_X, OreDrillContainer.SLOTS_ROW1_Y+JEI_OFFSET_Y);
+		guiItemStacks.init(3, false, OreDrillContainer.SLOTS_OUTPUT_X+JEI_OFFSET_X, OreDrillContainer.SLOTS_ROW1_Y+JEI_OFFSET_Y);
 		guiItemStacks.addTooltipCallback(new OreDrillOutputTooltipCallback(recipeWrapper));
 		
 		guiFluidStacks.init(0, true, OreDrillGui.INPUT_TANK_X+2+JEI_OFFSET_X, OreDrillGui.TANK_Y+1+JEI_OFFSET_Y, OreDrillGui.TANK_W, OreDrillGui.TANK_H, OreDrillTileEntMaster.CAPACITY_INPUT_TANK, false, tank_overlay);
 		guiFluidStacks.init(1, false, OreDrillGui.OUTPUT_TANK_X+2+JEI_OFFSET_X, OreDrillGui.TANK_Y+1+JEI_OFFSET_Y, OreDrillGui.TANK_W, OreDrillGui.TANK_H, OreDrillTileEntMaster.CAPACITY_OUTPUT_TANK, false, tank_overlay);
+		guiFluidStacks.addTooltipCallback(new TankTooltipCallback(recipeWrapper));
 		
 		guiItemStacks.set(ingredients);
 		guiFluidStacks.set(ingredients);
@@ -75,6 +77,23 @@ public class OreDrillJeiRecipeCategory extends BasicRecipeCategory<OreDrillJeiRe
 			}
 		}
 
+	}
+	
+	protected class TankTooltipCallback implements ITooltipCallback<FluidStack>{
+		OreDrillJeiRecipe jeiRec;
+
+		public TankTooltipCallback(OreDrillJeiRecipe jeiRec) {
+			super();
+			this.jeiRec = jeiRec;
+		}
+
+		@Override
+		public void onTooltip(int slotIndex, boolean input, FluidStack ingredient, List<String> tooltip) {
+			if(!input) {
+				tooltip.add(tooltip.size()-1, TextUtil.transTG("oredrill.jei.chance")+": "+String.format("%.2f", jeiRec.getChance()*100f)+"%" );
+			}
+		}
+		
 	}
 	
 	@Override

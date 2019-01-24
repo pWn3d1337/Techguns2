@@ -90,6 +90,7 @@ public class TGConfig {
 	 * FLUID RECIPES
 	 */
 	public static String[] fluidListOil;
+	public static String[] fluidListOilWorldspawn;
 	public static String[] fluidListFuel;
 
 	public static float oreDrillMultiplierOres;
@@ -106,6 +107,7 @@ public class TGConfig {
 	public static int mininglevel_common_gem;
 	public static int mininglevel_shiny_gem;
 	public static int mininglevel_nether_crystal;
+	public static int mininglevel_oil;
 
 	public static double oremult_coal;
 	public static double oremult_common_metal;
@@ -115,6 +117,7 @@ public class TGConfig {
 	public static double oremult_common_gem;
 	public static double oremult_shiny_gem;
 	public static double oremult_nether_crystal;
+	public static double oremult_oil;
 	
 	public static double powermult_coal;
 	public static double powermult_common_metal;
@@ -124,6 +127,7 @@ public class TGConfig {
 	public static double powermult_common_gem;
 	public static double powermult_shiny_gem;
 	public static double powermult_nether_crystal;
+	public static double powermult_oil;
 	
 	/**
 	 * CATEGORIES
@@ -243,6 +247,7 @@ public class TGConfig {
 
 		fluidListFuel = config.getStringList("FluidListFuel", "Fluid Recipes", new String[]{"fuel", "refined_fuel", "biofuel", "biodiesel", "diesel", "gasoline", "fluiddiesel", "fluidnitrodiesel", "fliudnitrofuel", "refined_biofuel", "fire_water", "rocket_fuel"}, "Fluids that can be used to fill up fuel tanks");
 		fluidListOil = config.getStringList("FluidListOil", "Fluid Recipes", new String[]{"oil", "tree_oil", "crude_oil", "fluidoil", "seed_oil"}, "Fluids that are treated as oil.");
+		fluidListOilWorldspawn = config.getStringList("FluidListOilWorldspawn", "Fluid Recipes", new String[]{"oil", "crude_oil"}, "Fluids that are treated as oil for worlspawn and oil ore clusters.");
 
 		
 		oreDrillMultiplierOres = config.getFloat("oreDrillMultiplierOre", ORE_DRILLS, 1.0f, 0.001f, 1000.0f, "Multiplier to default rate on how many ores an ore drill produces");
@@ -261,7 +266,8 @@ public class TGConfig {
 		mininglevel_common_gem = config.getInt("cluster_mininglevel_common_gem", ORE_DRILLS,          1, 0, 10, "Mining Level for common gem ore clusters");
 		mininglevel_shiny_gem = config.getInt("cluster_mininglevel_shiny_gem", ORE_DRILLS,            3, 0, 10, "Mining Level for shiny gem ore clusters");
 		mininglevel_nether_crystal = config.getInt("cluster_mininglevel_nether_crystal", ORE_DRILLS,  2, 0, 10, "Mining Level for nether crystal ore clusters");
-		
+		mininglevel_oil = config.getInt("cluster_mininglevel_oil", ORE_DRILLS,  					  2, 0, 10, "Mining Level for oil clusters");
+			
 		oremult_coal = config.getFloat("cluster_oremult_coal", ORE_DRILLS,  				   10f, 0.0001f, 1000f, "Ore Multiplier for coal ore clusters");
 		oremult_common_metal = config.getFloat("cluster_oremult_common_metal", ORE_DRILLS,      5f, 0.0001f, 1000f, "Ore Multiplier for common metal ore clusters");
 		oremult_rare_metal = config.getFloat("cluster_oremult_rare_metal", ORE_DRILLS,        2.5f, 0.0001f, 1000f, "Ore Multiplier for rare metal ore clusters");
@@ -270,7 +276,8 @@ public class TGConfig {
 		oremult_common_gem = config.getFloat("cluster_oremult_common_gem", ORE_DRILLS,          5f, 0.0001f, 1000f, "Ore Multiplier for common gem ore clusters");
 		oremult_shiny_gem = config.getFloat("cluster_oremult_shiny_gem", ORE_DRILLS, 		  0.2f, 0.0001f, 1000f, "Ore Multiplier for shiny gem ore clusters");
 		oremult_nether_crystal = config.getFloat("cluster_oremult_nether_crystal", ORE_DRILLS,  4f, 0.0001f, 1000f, "Ore Multiplier for nether crystal ore clusters");
-
+		oremult_oil = config.getFloat("cluster_oremult_oil", ORE_DRILLS,  						4f, 0.0001f, 1000f, "Ore Multiplier for oil clusters");
+		
 		powermult_coal = config.getFloat("cluster_powermult_coal", ORE_DRILLS,                      0.1f, 0.0001f, 1000f, "Power Multiplier for coal ore clusters");
 		powermult_common_metal = config.getFloat("cluster_powermult_common_metal", ORE_DRILLS,      0.2f, 0.0001f, 1000f, "Power Multiplier for common metal ore clusters");
 		powermult_rare_metal = config.getFloat("cluster_powermult_rare_metal", ORE_DRILLS,          0.4f, 0.0001f, 1000f, "Power Multiplier for rare metal ore clusters");
@@ -279,6 +286,8 @@ public class TGConfig {
 		powermult_common_gem = config.getFloat("cluster_powermult_common_gem", ORE_DRILLS,  		0.2f, 0.0001f, 1000f, "Power Multiplier for common gem ore clusters");
 		powermult_shiny_gem = config.getFloat("cluster_powermult_shiny_gem", ORE_DRILLS,            1.0f, 0.0001f, 1000f, "Power Multiplier for shiny gem ore clusters");
 		powermult_nether_crystal = config.getFloat("cluster_powermult_nether_crystal", ORE_DRILLS,  0.5f, 0.0001f, 1000f, "Power Multiplier for nether crystal ore clusters");
+		powermult_oil = config.getFloat("cluster_powermult_oil", ORE_DRILLS,  						1.0f, 0.0001f, 1000f, "Power Multiplier for oil clusters");
+		
 		
 		if(config.hasChanged()) {
 			config.save();

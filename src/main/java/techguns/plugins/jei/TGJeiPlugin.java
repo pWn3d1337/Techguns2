@@ -69,7 +69,7 @@ public class TGJeiPlugin implements IModPlugin {
 		registry.addRecipes(CamoBenchJeiRecipe.getRecipes(jeiHelpers), CAMO_BENCH);
 		registry.addRecipes(ChargingStationJeiRecipe.getRecipes(jeiHelpers), CHARGING_STATION);
 		registry.addRecipes(ReactionChamberJeiRecipe.getRecipes(jeiHelpers), REACTION_CHAMBER);
-		registry.addRecipes(OreDrillJeiRecipe.getRecipes(jeiHelpers), ORE_DRILL);
+		registry.addRecipes(OreDrillJeiRecipe.getRecipes(jeiHelpers, ingredientRegistry), ORE_DRILL);
 		
 		registry.addRecipeClickArea(AmmoPressGui.class, 119, 36, 19, 22, AMMO_PRESS);
 		registry.addRecipeClickArea(MetalPressGui.class, 119, 36, 19, 22, METAL_PRESS);
