@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "techguns:itemshared",
+    "data": 136
+  },
+  "pattern": [
+    "sss",
+    "sss",
+    " s "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "s": {
+      "item": "#PLATECARBON"
+    }
+  }
+}

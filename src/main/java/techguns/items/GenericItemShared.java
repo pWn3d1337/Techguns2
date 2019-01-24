@@ -254,7 +254,14 @@ public class GenericItemShared extends GenericItem implements IItemTGRenderer, I
 			tooltip.add(trans("armorTooltip.oxygengear"));
 		} if(this.getBonus(TGArmorBonus.COOLING_SYSTEM, stack)>0.0f){
 			tooltip.add(trans("armorTooltip.coolingsystem"));
-		}	
+		} 
+		if(stack.getItemDamage()==TGItems.OREDRILLHEAD_STEEL.getItemDamage() || stack.getItemDamage() == TGItems.OREDRILLHEAD_MEDIUM_STEEL.getItemDamage() || stack.getItemDamage() == TGItems.OREDRILLHEAD_LARGE_STEEL.getItemDamage()) {
+			tooltip.add(trans("oredrill.mininglevel")+" +1");
+		} else if (stack.getItemDamage()==TGItems.OREDRILLHEAD_OBSIDIANSTEEL.getItemDamage() || stack.getItemDamage() == TGItems.OREDRILLHEAD_MEDIUM_OBSIDIANSTEEL.getItemDamage() || stack.getItemDamage() == TGItems.OREDRILLHEAD_LARGE_OBSIDIANSTEEL.getItemDamage()) {
+			tooltip.add(trans("oredrill.mininglevel")+ " +2");
+		} else if (stack.getItemDamage()==TGItems.OREDRILLHEAD_CARBON.getItemDamage() || stack.getItemDamage() == TGItems.OREDRILLHEAD_MEDIUM_CARBON.getItemDamage() || stack.getItemDamage() == TGItems.OREDRILLHEAD_LARGE_CARBON.getItemDamage()) {
+			tooltip.add(trans("oredrill.mininglevel")+ " +3");
+		}
 	}
 	
 	private String trans(String text){

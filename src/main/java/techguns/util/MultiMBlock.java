@@ -8,6 +8,7 @@ import net.minecraft.util.math.BlockPos.MutableBlockPos;
 import net.minecraft.world.World;
 import techguns.world.BlockRotator;
 import techguns.world.EnumLootType;
+import techguns.world.structures.WorldgenStructure.BiomeColorType;
 
 public class MultiMBlock extends MBlock {
 
@@ -38,7 +39,7 @@ public class MultiMBlock extends MBlock {
 	}
 	
 	@Override
-	public void setBlock(World w, MutableBlockPos pos, int rotation, EnumLootType loottype) {
+	public void setBlock(World w, MutableBlockPos pos, int rotation, EnumLootType loottype, BiomeColorType biome) {
 		int index = this.rollBlockIndex(w.rand);
 		
 		IBlockState targetState = BlockRotator.getRotatedHorizontal(states[index], rotation);

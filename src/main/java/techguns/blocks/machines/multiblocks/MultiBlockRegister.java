@@ -6,6 +6,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import techguns.tileentities.FabricatorTileEntMaster;
+import techguns.tileentities.OreDrillTileEntMaster;
 import techguns.tileentities.ReactionChamberTileEntMaster;
 
 public class MultiBlockRegister {
@@ -14,6 +15,15 @@ public class MultiBlockRegister {
 	static {
 		REGISTER.put(FabricatorTileEntMaster.class, new FabricatorDefinition());
 		REGISTER.put(ReactionChamberTileEntMaster.class, new ReactionChamberDefinition());
+		REGISTER.put(OreDrillTileEntMaster.class, new OreDrillDefinition());
+	}
+	
+	public static boolean canFormFromSide(TileEntity tile, EnumFacing sideHit) {
+		MultiBlockMachineSchematic multiblock = REGISTER.get(tile.getClass());
+		if(multiblock!=null) {
+			return multiblock.canFormFromSide(sideHit);
+		}
+		return false;
 	}
 	
 	public static boolean canForm(TileEntity tile, EntityPlayer ply, EnumFacing sideHit) {

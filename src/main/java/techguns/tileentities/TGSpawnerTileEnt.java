@@ -233,13 +233,13 @@ public class TGSpawnerTileEnt extends BasicTGTileEntity implements ITickable {
 
 	}
 
-	//FIXME: Remove
+	/*
 	public void debug() {
 		System.out.println("Left:"+this.mobsLeft);
 		System.out.println("Active:"+this.activeMobs.size());
 		System.out.println("MaxActive:"+this.maxActive);
 		System.out.println("Delay:"+this.delay+"/"+this.spawndelay);
 		System.out.println("Types:"+this.mobtypes.size());
-	}
+	}*/
 	
 }

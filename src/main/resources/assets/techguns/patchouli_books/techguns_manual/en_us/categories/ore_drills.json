@@ -1,0 +1,6 @@
+{
+    "name": "Ore Drills",
+    "description": "Ore Drills are a multiblock machine to drill resources from ore clusters which have an endless supply of ores.",
+    "icon": "techguns:itemshared:137",
+    "sortnum": 8
+}

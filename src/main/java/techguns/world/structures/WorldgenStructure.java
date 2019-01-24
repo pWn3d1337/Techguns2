@@ -213,5 +213,18 @@ public abstract class WorldgenStructure {
 	public enum BiomeColorType {
 		WOODLAND, SNOW, DESERT, NETHER;
 	}
+	
+	protected static int rollBlockIndex(Random rnd, int totalWeight, int[] weights){
+		int roll = rnd.nextInt(totalWeight+1);
+
+		int sum =0;
+		for (int i =0; i<weights.length; i++){
+			sum+=weights[i];
+			if (roll <= sum){
+				return i;
+			}		
+		}		
+		return weights.length;
+	}
 }
 

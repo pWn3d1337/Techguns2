@@ -66,7 +66,7 @@ public class SmallTrainstation extends WorldgenStructure {
 		
 		blockList.add(new MBlockTGSpawner(EnumMonsterSpawnerType.HOLE,3,2,200,1).addMobType(ZombieMiner.class, 1));
 		
-		blocks = BlockUtils.loadStructureFromFile("smallTrainstation");
+		blocks = BlockUtils.loadStructureFromFile("small_trainstation");
 	}
 	
 	public SmallTrainstation(int minX, int minY, int minZ, int maxX, int maxY, int maxZ) {
@@ -89,7 +89,7 @@ public class SmallTrainstation extends WorldgenStructure {
 		}
 		BlockUtils.cleanUpwards(world, blocks, blockList, posX, posY, posZ, centerX, centerZ, direction, 0, 7);
 		BlockUtils.placeFoundation(world, blocks, blockList, posX, posY, posZ, centerX, centerZ, direction, 0,1);
-		BlockUtils.placeScannedStructure(world, blocks, blockList, posX, posY, posZ, centerX, centerZ, direction, 0,this.lootTier);
-		BlockUtils.placeScannedStructure(world, blocks, blockList, posX, posY, posZ, centerX, centerZ, direction, 1,this.lootTier);
+		BlockUtils.placeScannedStructure(world, blocks, blockList, posX, posY, posZ, centerX, centerZ, direction, 0,this.lootTier,colorType);
+		BlockUtils.placeScannedStructure(world, blocks, blockList, posX, posY, posZ, centerX, centerZ, direction, 1,this.lootTier,colorType);
 	}
 }

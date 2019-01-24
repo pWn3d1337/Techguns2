@@ -16,6 +16,7 @@ import techguns.TGConfig;
 import techguns.TGPackets;
 import techguns.TGPermissions;
 import techguns.TGSounds;
+import techguns.Techguns;
 import techguns.capabilities.TGExtendedPlayer;
 import techguns.items.armors.GenericArmor;
 import techguns.items.armors.TGArmorBonus;
@@ -101,7 +102,7 @@ public class PacketTGKeybindPress implements IMessage {
 				
 				props.enableSafemode=!props.enableSafemode;
 				
-				if (!props.enableSafemode && !( (!TGConfig.limitUnsafeModeToOP && !PermissionAPI.hasPermission(ply, TGPermissions.ALLOW_UNSAFE_MODE)) || (TGConfig.limitUnsafeModeToOP && isPlayerOp(ply)) )) {
+				if (!props.enableSafemode && !Techguns.instance.permissions.canUseUnsafeMode(ply)) {
 					props.enableSafemode=true;
 				} 
 				if(message.showMsg) {
@@ -174,10 +175,5 @@ public class PacketTGKeybindPress implements IMessage {
 		}
 
 		
-	}
-	
-	public static boolean isPlayerOp(EntityPlayer player){
-		boolean op = FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList().getOppedPlayers().getEntry(player.getGameProfile()) != null;
-		return op;
 	}
 }

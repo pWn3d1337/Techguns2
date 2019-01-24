@@ -22,6 +22,7 @@ import techguns.util.MathUtil.Vec2;
 import techguns.util.MultiMBlock;
 import techguns.world.EnumLootType;
 import techguns.world.dungeon.presets.specialblocks.MBlockTGSpawner;
+import techguns.world.structures.WorldgenStructure.BiomeColorType;
 
 public class AlienBugNest {
 
@@ -335,8 +336,8 @@ public class AlienBugNest {
 		
 		
 		@Override
-		public void setBlock(World w, MutableBlockPos pos, int rotation, EnumLootType loottype) {
-			super.setBlock(w, pos, rotation, loottype);
+		public void setBlock(World w, MutableBlockPos pos, int rotation, EnumLootType loottype, BiomeColorType biome) {
+			super.setBlock(w, pos, rotation, loottype,biome);
 			placeSlimeAt(w, new MutableBlockPos(pos).move(EnumFacing.NORTH));
 			placeSlimeAt(w, new MutableBlockPos(pos).move(EnumFacing.EAST));
 			placeSlimeAt(w, new MutableBlockPos(pos).move(EnumFacing.SOUTH));

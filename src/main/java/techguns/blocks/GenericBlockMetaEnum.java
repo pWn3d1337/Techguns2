@@ -82,6 +82,10 @@ public class GenericBlockMetaEnum<T extends Enum<T> & IStringSerializable> exten
 		return itemblock;
 	}
 
+	public boolean shouldAutoGenerateJsonForEnum() {
+		return true;
+	}
+	
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void registerItemBlockModels() {

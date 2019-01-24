@@ -72,6 +72,7 @@ public class MachineOperation {
 		NBTTagCompound tags = new NBTTagCompound();
 		
 		tags.setByte("stackMultiplier", (byte) stackMultiplier);
+		tags.setInteger("powerPerTick", this.powerPerTick);
 		
 		if(inputs!=null && inputs.size()>0) {
 			
@@ -153,6 +154,7 @@ public class MachineOperation {
 		NBTTagCompound tags = compound.getCompoundTag("operation");
 		
 		this.stackMultiplier = tags.getByte("stackMultiplier");
+		this.powerPerTick= tags.getInteger("powerPerTick");
 		
 		if(tags.hasKey("InputSize")) {
 			if (this.inputs!=null) {

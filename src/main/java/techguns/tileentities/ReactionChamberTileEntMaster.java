@@ -29,6 +29,7 @@ import net.minecraftforge.fluids.FluidEvent;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.fml.common.network.NetworkRegistry.TargetPoint;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
@@ -69,7 +70,7 @@ public class ReactionChamberTileEntMaster extends MultiBlockMachineTileEntMaster
 	public static final int BUTTON_ID_INTENSTIY_DEC=ButtonConstants.BUTTON_ID_REDSTONE+4;
 	public static final int BUTTON_ID_DUMPTANK=ButtonConstants.BUTTON_ID_REDSTONE+5;
 	
-	public static Field playerChunkMapEntry_Players = ReflectionHelper.findField(PlayerChunkMapEntry.class, "players","field_187283_c");
+	public static Field playerChunkMapEntry_Players = ObfuscationReflectionHelper.findField(PlayerChunkMapEntry.class, "field_187283_c"); //ReflectionHelper.findField(PlayerChunkMapEntry.class, "players","field_187283_c");
 	
 	protected byte intensity=0;
 	protected byte liquidLevel=0;

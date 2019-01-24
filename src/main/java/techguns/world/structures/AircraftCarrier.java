@@ -69,7 +69,7 @@ public class AircraftCarrier extends WorldgenStructure {
 		blockList.add(new MBlockTGSpawner(EnumMonsterSpawnerType.HOLE,6,2,150,2).addMobType(ArmySoldier.class, 1).addMobType(Commando.class, 1));
 		blockList.add(new MBlockTGSpawner(EnumMonsterSpawnerType.SOLDIER_SPAWN,1,1,200,0).addMobType(AttackHelicopter.class, 1));
 		blockList.add(MBlockRegister.SUPPLY_CRATES_CHANCE);
-		blocks = BlockUtils.loadStructureFromFile("airCraftCarrier");
+		blocks = BlockUtils.loadStructureFromFile("aircraft_carrier");
 	}
 	
 	
@@ -114,8 +114,8 @@ public class AircraftCarrier extends WorldgenStructure {
 			centerZ = (int) (sizeZ/2.0f);
 		}
 
-		BlockUtils.placeScannedStructure(world, blocks, blockList, posX, posY, posZ, centerX, centerZ, direction, 0, this.lootTier);
-		BlockUtils.placeScannedStructure(world, blocks, blockList, posX, posY, posZ, centerX, centerZ, direction, 1,  this.lootTier);
+		BlockUtils.placeScannedStructure(world, blocks, blockList, posX, posY, posZ, centerX, centerZ, direction, 0, this.lootTier, colorType);
+		BlockUtils.placeScannedStructure(world, blocks, blockList, posX, posY, posZ, centerX, centerZ, direction, 1,  this.lootTier, colorType);
 		
 		//Place flag
 	//	BlockUtils.setBlockRotated(world, new MBlock(TGBlocks.basicMachine, 7), posX, posY+8, posZ, 24, 9, centerX, centerZ, direction, this.lootTier);

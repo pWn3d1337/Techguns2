@@ -47,7 +47,7 @@ public class FactoryHouseSmall extends WorldgenStructure{
 		blockList.add(new MBlock(TGBlocks.LAMP_0, EnumFacing.WEST.ordinal()));
 		blockList.add(new MBlockTGSpawner(EnumMonsterSpawnerType.HOLE,5,2,150,2).addMobType(ZombieMiner.class, 1));
 		
-		blocks = BlockUtils.loadStructureFromFile("factoryBuildingSmall");
+		blocks = BlockUtils.loadStructureFromFile("factory_building_small");
 
 	}
 
@@ -75,7 +75,7 @@ public class FactoryHouseSmall extends WorldgenStructure{
 		
 		BlockUtils.cleanUpwards(world, blocks, blockList, posX, posY, posZ, centerX, centerZ, direction, 0, 7);
 		BlockUtils.placeFoundation(world, blocks, blockList, posX, posY, posZ, centerX, centerZ, direction, 0,3);
-		BlockUtils.placeScannedStructure(world, blocks, blockList, posX, posY, posZ, centerX, centerZ, direction, 0,this.lootTier);
-		BlockUtils.placeScannedStructure(world, blocks, blockList, posX, posY, posZ, centerX, centerZ, direction, 1,this.lootTier);
+		BlockUtils.placeScannedStructure(world, blocks, blockList, posX, posY, posZ, centerX, centerZ, direction, 0,this.lootTier,colorType);
+		BlockUtils.placeScannedStructure(world, blocks, blockList, posX, posY, posZ, centerX, centerZ, direction, 1,this.lootTier,colorType);
 	}
 }

@@ -61,6 +61,10 @@ public abstract class MultiBlockMachineTileEntSlave extends TileEntity {
 		this.type=type;
 	}
 	
+	public int getSlaveType() {
+		return this.type;
+	}
+	
 	@Override
 	public SPacketUpdateTileEntity getUpdatePacket() {
 		NBTTagCompound tags = new NBTTagCompound();

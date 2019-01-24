@@ -1,0 +1,21 @@
+{
+  "result": {
+    "item": "techguns:oredrill",
+    "data": 2,
+    "count": 4
+  },
+  "pattern": [
+    "ipi",
+    "ipi",
+    "ipi"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "p": {
+      "item": "#PLATEIRON"
+    },
+    "i": {
+      "item": "#INGOTIRON"
+    }
+  }
+}

@@ -172,7 +172,8 @@ public class MetalPressTileEnt extends BasicMachineTileEnt {
 		if (this.inventory.getStackInSlot(SLOT_OUTPUT).isEmpty()) {
 			this.inventory.setStackInSlot(SLOT_OUTPUT, currentOperation.getItemOutput0());
 		} else {
-			this.inventory.getStackInSlot(SLOT_OUTPUT).grow(currentOperation.getItemOutput0().getCount());
+			//this.inventory.getStackInSlot(SLOT_OUTPUT).grow(currentOperation.getItemOutput0().getCount());
+			this.inventory.insertItemNoCheck(SLOT_OUTPUT, currentOperation.getItemOutput0(), false);
 		}
 	}
 

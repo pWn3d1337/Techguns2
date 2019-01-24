@@ -5,6 +5,8 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import techguns.capabilities.TGSpawnerNPCData;
+import techguns.capabilities.TGSpawnerNPCDataCapProvider;
 
 public abstract class GenericNPCUndead extends GenericNPC {
 
@@ -43,6 +45,10 @@ public abstract class GenericNPCUndead extends GenericNPC {
     }
 
 	protected boolean shouldBurnInDay() {
+		TGSpawnerNPCData data = this.getCapability(TGSpawnerNPCDataCapProvider.TG_GENERICNPC_DATA);
+		if(data!=null) {
+			return !data.hasSpawner();
+		}
 		return true;
 	}
 }

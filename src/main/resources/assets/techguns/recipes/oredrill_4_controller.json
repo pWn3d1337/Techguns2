@@ -1,0 +1,24 @@
+{
+  "result": {
+    "item": "techguns:oredrill",
+    "data": 4
+  },
+  "pattern": [
+    "pcp",
+    "cec",
+    "pcp"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "p": {
+      "item": "#PLATEIRON"
+    },
+    "c": {
+      "item": "#CIRCUITBASIC"
+    },
+    "e": {
+      "item": "techguns:itemshared",
+      "data": 70
+    }
+  }
+}

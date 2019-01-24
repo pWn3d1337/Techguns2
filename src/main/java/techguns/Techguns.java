@@ -26,7 +26,7 @@ public class Techguns
 {
     public static final String MODID = "techguns";
     public static final String MCVERSION = "1.12.2";
-    public static final String VERSION = "2.0.1.2";
+    public static final String VERSION = "2.0.1.3";
     public static final String NAME = "Techguns";
     public static final String GUI_FACTORY = "techguns.gui.config.GuiFactoryTechguns";
     public static final String UPDATEURL = "https://raw.githubusercontent.com/pWn3d1337/Techguns2/master/update.json";
@@ -39,14 +39,16 @@ public class Techguns
     @SidedProxy(clientSide = "techguns.client.ClientProxy", serverSide = "techguns.server.ServerProxy")
     public static CommonProxy proxy;
     
-    public static TGItems items = new TGItems();
-    public static TGBlocks blocks = new TGBlocks();
-    public static TGuns guns = new TGuns();
-    public static TGEntities entities = new TGEntities();
-    public static TGPackets packets = new TGPackets();
-    public static AmmoTypes ammoTypes = new AmmoTypes();
-    public static TGArmors armors = new TGArmors();
-    public static TGFluids fluids = new TGFluids();
+    public TGItems items = new TGItems();
+    public TGBlocks blocks = new TGBlocks();
+    public TGuns guns = new TGuns();
+    public TGEntities entities = new TGEntities();
+    public TGPackets packets = new TGPackets();
+    public AmmoTypes ammoTypes = new AmmoTypes();
+    public TGArmors armors = new TGArmors();
+    public TGFluids fluids = new TGFluids();
+    public TGPermissions permissions = new TGPermissions();
+    public static TGOreClusters orecluster = new TGOreClusters();
     
     public static TGRadiationSystem rad = new TGRadiationSystem();
     
@@ -63,7 +65,9 @@ public class Techguns
     	blocks,
     	entities,
     	packets,
-    	rad
+    	rad,
+    	orecluster,
+    	permissions
     };
     
     

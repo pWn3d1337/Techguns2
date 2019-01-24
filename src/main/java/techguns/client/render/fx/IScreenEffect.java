@@ -46,7 +46,7 @@ public interface IScreenEffect {
 	//</Old gun muzzle flashes>
 	
     public static IScreenEffect muzzleGreenFlare = new ScreenEffect("textures/fx/lensflare1.png", 1, 1, 1, RenderType.ADDITIVE).setFade(FadeType.SMOOTH).setColor(0.5f, 1.0f, 0.25f, 1.0f);	
-	public static IScreenEffect sniperScope = new ScreenEffect("textures/fx/testscope.png",1,1,1, RenderType.SOLID);
+	public static IScreenEffect sniperScope = new ScreenEffect("textures/fx/testscope.png",1,1,1, RenderType.ALPHA);
 	public static IScreenEffect techScope = new ScreenEffect("textures/fx/techscope.png",1,1,1, RenderType.ALPHA).setFlipAxis(false, true);
 
 	public default void doRender(float progress, float offsetX, float offsetY, float offsetZ, float scale, boolean is3p) {

@@ -271,6 +271,19 @@ public class TGItems implements ITGInitializer{
 	public static ItemRadAway RAD_AWAY;
 	public static ItemRadpills RAD_PILLS;
 	
+	//DrillHeads
+	public static ItemStack OREDRILLHEAD_STEEL;
+	public static ItemStack OREDRILLHEAD_OBSIDIANSTEEL;
+	public static ItemStack OREDRILLHEAD_CARBON;
+
+	public static ItemStack OREDRILLHEAD_MEDIUM_STEEL;
+	public static ItemStack OREDRILLHEAD_MEDIUM_OBSIDIANSTEEL;
+	public static ItemStack OREDRILLHEAD_MEDIUM_CARBON;
+	
+	public static ItemStack OREDRILLHEAD_LARGE_STEEL;
+	public static ItemStack OREDRILLHEAD_LARGE_OBSIDIANSTEEL;
+	public static ItemStack OREDRILLHEAD_LARGE_CARBON;
+	
 	//TOOL Materials
 	static ToolMaterial TG_STEEL = EnumHelper.addToolMaterial("Steel", 2, 1000, 7.5f, 2.5f, 12);
 		
@@ -459,6 +472,18 @@ public class TGItems implements ITGInitializer{
 		
 		WORKING_GLOVES = SHARED_ITEM.addsharedVariant("workinggloves", false, TGSlotType.HANDSLOT, 1, true);
 		PROTECTIVE_FIBER = SHARED_ITEM.addsharedVariant("protectivefiber");
+		
+		OREDRILLHEAD_STEEL = SHARED_ITEM.addsharedVariant("oredrillsmall_steel", false, TGSlotType.DRILL_SMALL, 1, true);
+		OREDRILLHEAD_OBSIDIANSTEEL = SHARED_ITEM.addsharedVariant("oredrillsmall_obsidiansteel", false, TGSlotType.DRILL_SMALL, 1, true);
+		OREDRILLHEAD_CARBON = SHARED_ITEM.addsharedVariant("oredrillsmall_carbon", false, TGSlotType.DRILL_SMALL, 1, true);
+		
+		OREDRILLHEAD_MEDIUM_STEEL = SHARED_ITEM.addsharedVariant("oredrillmedium_steel", false, TGSlotType.DRILL_MEDIUM, 1, true);
+		OREDRILLHEAD_MEDIUM_OBSIDIANSTEEL = SHARED_ITEM.addsharedVariant("oredrillmedium_obsidiansteel", false, TGSlotType.DRILL_MEDIUM, 1, true);
+		OREDRILLHEAD_MEDIUM_CARBON = SHARED_ITEM.addsharedVariant("oredrillmedium_carbon", false, TGSlotType.DRILL_MEDIUM, 1, true);
+
+		OREDRILLHEAD_LARGE_STEEL = SHARED_ITEM.addsharedVariant("oredrilllarge_steel", false, TGSlotType.DRILL_LARGE, 1, true);
+		OREDRILLHEAD_LARGE_OBSIDIANSTEEL = SHARED_ITEM.addsharedVariant("oredrilllarge_obsidiansteel", false, TGSlotType.DRILL_LARGE, 1, true);
+		OREDRILLHEAD_LARGE_CARBON = SHARED_ITEM.addsharedVariant("oredrilllarge_carbon", false, TGSlotType.DRILL_LARGE, 1, true);
 		
 		
 		RAD_AWAY = new ItemRadAway("radaway");
