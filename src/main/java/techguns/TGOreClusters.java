@@ -238,20 +238,22 @@ public class TGOreClusters implements ITGInitializer{
 		}
 
 		public MachineOperation getNewOperation(World w, double orePerHour, int radius, double powerMult) {
-			OreClusterWeightedEntry entry = WeightedRandom.getRandomItem(w.rand, oreEntries);
+			if(!oreEntries.isEmpty()) {
+				OreClusterWeightedEntry entry = WeightedRandom.getRandomItem(w.rand, oreEntries);
+				
+				MachineOperation op=null;
+				
+				if(!entry.ore.isEmpty()) {
+					op= new MachineOperation(new ItemStack(entry.ore.getItem(),1,entry.ore.getItemDamage()), null, new ItemStack[0]);
+				} else if (entry.fluid!=null){
+					op= new MachineOperation(ItemStack.EMPTY, new FluidStack(entry.fluid.getFluid(),Fluid.BUCKET_VOLUME), new ItemStack[0]);
+				} 
+				if(op!=null) {
+					op.setPowerPerTick((int)(8*orePerHour* (1+ Math.max(radius-1,0)*0.2)*powerMult*TGConfig.oreDrillMultiplierPower));
+					return op;
+				}
 			
-			MachineOperation op=null;
-			
-			if(!entry.ore.isEmpty()) {
-				op= new MachineOperation(new ItemStack(entry.ore.getItem(),1,entry.ore.getItemDamage()), null, new ItemStack[0]);
-			} else if (entry.fluid!=null){
-				op= new MachineOperation(ItemStack.EMPTY, new FluidStack(entry.fluid.getFluid(),Fluid.BUCKET_VOLUME), new ItemStack[0]);
-			} 
-			if(op!=null) {
-				op.setPowerPerTick((int)(8*orePerHour* (1+ Math.max(radius-1,0)*0.2)*powerMult*TGConfig.oreDrillMultiplierPower));
-				return op;
 			}
-			
 			return getCobbleStoneOperation();
 		}
 		

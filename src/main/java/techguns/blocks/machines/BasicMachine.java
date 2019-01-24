@@ -137,14 +137,13 @@ public class BasicMachine<T extends Enum<T> & IStringSerializable & IMachineType
 
 				TileEntity tile = world.getTileEntity(pos);
 				if (!world.isRemote && tile!=null && tile instanceof BasicInventoryTileEnt) {
-					
 					BasicInventoryTileEnt tileent = (BasicInventoryTileEnt) tile;
 					
 					if (tileent.isUseableByPlayer(player)) {
 						
 						if(tile instanceof MultiBlockMachineTileEntMaster) {
 							MultiBlockMachineTileEntMaster master = (MultiBlockMachineTileEntMaster) tile;
-							if (!master.isFormed()) {
+							if (!master.isFormed() && !player.isSneaking()) {
 								//System.out.println("UNFORMED MASTER TRY FORM");
 								if(MultiBlockRegister.canFormFromSide(tileent, facing)) {
 									if (MultiBlockRegister.canForm(master, player, facing)) {

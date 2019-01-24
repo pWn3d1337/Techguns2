@@ -650,6 +650,15 @@ public class OreDrillTileEntMaster extends MultiBlockMachineTileEntMaster implem
 		}
 	}
 	
+	@Override
+	public void onMultiBlockBreak() {
+		super.onMultiBlockBreak();
+		this.currentOperation=null;
+		this.progress=0;
+		this.totaltime=0;
+		this.needUpdate();
+	}
+
 	public int getClusterSize(int count,BlockPos startPos, ArrayList<BlockPos> visited, OreCluster clusterType, IBlockState clusterMeta){
 
 		IBlockState targetState = this.world.getBlockState(startPos);

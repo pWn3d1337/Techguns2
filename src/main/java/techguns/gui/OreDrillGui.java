@@ -47,14 +47,14 @@ public class OreDrillGui extends PoweredTileEntGui {
 
 		   if(!tile.isFormed()){
 	        	String s1= TextUtil.trans("techguns.container.oredrill.broken");
-	        	String s2= TextUtil.trans("techguns.container.oredrill.broken2");
+	        	//String s2= TextUtil.trans("techguns.container.oredrill.broken2");
 	        	int startx = this.xSize/2 - ((s1.length()*6)/2);
-	        	int startx2 = this.xSize/2 - ((s2.length()*6)/2);
+	        	//int startx2 = this.xSize/2 - ((s2.length()*6)/2);
 
 	            int red = 0xFFFF2020;
 	    		
-		    	this.fontRenderer.drawString(s1, startx-16, 44, red);
-		    	this.fontRenderer.drawString(s2, startx2-16, 52, red);
+		    	this.fontRenderer.drawString(s1, startx-16+30, 44-20, red);
+		    	//this.fontRenderer.drawString(s2, startx2-16, 52, red);
 	        } else {
 	        	//this.fontRendererObj.drawString(TextUtil.trans("techguns.MULTIBLOCK OK"), 50, 24, 4210752);
 	        }
