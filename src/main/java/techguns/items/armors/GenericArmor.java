@@ -67,8 +67,9 @@ public class GenericArmor extends ItemArmor implements ISpecialArmor , IItemTGRe
 	String textureName;
 	
 	//ModelBiped model;	
-	int modelIndex=-1;
-	boolean doubleTex=true;
+	//int modelIndex=-1;
+	protected ResourceLocation armorModel=null; //default vanilla model
+	protected boolean doubleTex=true;
 	
 	/*public static double ARMOR_CAP = 24.0D/25.0D;
 	public static float MAX_ARMOR = 24.0f;*/
@@ -106,6 +107,8 @@ public class GenericArmor extends ItemArmor implements ISpecialArmor , IItemTGRe
 	
 	protected boolean use3dRenderHack = false;
 	
+	protected String modid=Techguns.MODID;
+	
 	public GenericArmor(String unlocalizedName, TGArmorMaterial material, String textureName, EntityEquipmentSlot type) {
 	    super(material.createVanillaMaterial(), 0, type);
 	    this.material=material;
@@ -124,6 +127,17 @@ public class GenericArmor extends ItemArmor implements ISpecialArmor , IItemTGRe
 	    //techgunArmors.add(this);
 	}
 	
+	/**
+	 * allow other mods to use techguns armor classes
+	 * this also sets the registry name, only call this method in preInit
+	 * @param modid
+	 * @return
+	 */
+	public GenericArmor setModid(String modid) {
+		this.modid=modid;
+		this.setRegistryName(new ResourceLocation(modid, getUnlocalizedName()));
+		return this;
+	}
 	
 	/**
 	 * SteamArmor (0,1)
@@ -131,8 +145,13 @@ public class GenericArmor extends ItemArmor implements ISpecialArmor , IItemTGRe
 	 * ExoSuit (4,5,6)
 	 * Beret (7)
 	 */
-	public GenericArmor setArmorModel(int index, boolean doubleTex) {
+	/*public GenericArmor setArmorModel(int index, boolean doubleTex) {
 		this.modelIndex = index;
+		this.doubleTex=doubleTex;
+		return this;
+	}*/
+	public GenericArmor setArmorModel(ResourceLocation key, boolean doubleTex) {
+		this.armorModel=key;
 		this.doubleTex=doubleTex;
 		return this;
 	}
@@ -322,10 +341,10 @@ public class GenericArmor extends ItemArmor implements ISpecialArmor , IItemTGRe
 	}
 	
 	private String getSingleTexture(){
-		return Techguns.MODID + ":textures/armor/" + this.textureName + ".png";
+		return this.modid + ":textures/armor/" + this.textureName + ".png";
 	}
 	private String getDoubleTexture(){
-		return Techguns.MODID + ":textures/armor/" + this.textureName + "_" + (this.armorType == EntityEquipmentSlot.LEGS ? "2" : "1") + ".png";
+		return this.modid + ":textures/armor/" + this.textureName + "_" + (this.armorType == EntityEquipmentSlot.LEGS ? "2" : "1") + ".png";
 	}
 	
 	protected boolean hasDoubleTexture(){
@@ -338,9 +357,12 @@ public class GenericArmor extends ItemArmor implements ISpecialArmor , IItemTGRe
 	
 	@Override
 	public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped _default) {
-		if(modelIndex >=0 ){
-			
-			ModelBiped model = ClientProxy.armorModels[this.modelIndex];
+		//if(modelIndex >=0 ){
+		if(this.armorModel!=null) {
+
+			ModelBiped model = ClientProxy.get().getArmorModel(this.armorModel);// ClientProxy.armorModels[this.modelIndex];
+
+			if(model==null) return null;
 			
 			model.bipedHead.showModel = armorSlot == EntityEquipmentSlot.HEAD;
 			model.bipedHeadwear.showModel = armorSlot == EntityEquipmentSlot.HEAD;
@@ -577,7 +599,7 @@ public class GenericArmor extends ItemArmor implements ISpecialArmor , IItemTGRe
 
 	@Override
 	public String getUnlocalizedName(ItemStack s) {
-		return "techguns."+super.getUnlocalizedName(s);
+		return this.modid+"."+super.getUnlocalizedName(s);
 	}
 
 	@Override

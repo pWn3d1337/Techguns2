@@ -2,6 +2,7 @@ package techguns.client;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -352,9 +353,22 @@ public class ClientProxy extends CommonProxy {
 	
 	public boolean hasNightvision=false;
 	
-	public static ModelBiped[] armorModels = {new ModelSteamArmor(0), new ModelSteamArmor(1), new ModelT3PowerArmor(0),new ModelT3PowerArmor(1),
+	/*public static ModelBiped[] armorModels = {new ModelSteamArmor(0), new ModelSteamArmor(1), new ModelT3PowerArmor(0),new ModelT3PowerArmor(1),
 			new ModelExoSuit(0,1.0f), new ModelExoSuit(1,0.5f),new ModelExoSuit(0,0.75f), new ModelBeret(), new ModelArmorCoat(0,1.0f),
 			new ModelArmorCoat(1,0.51f), new ModelArmorCoat(2,0.49f), new ModelArmorCoat(3,0.75f), new ModelSteamArmor(0,0.01f), new ModelT3PowerArmor(0, 0.01f) };
+	*/
+	
+	protected HashMap<String,ModelBiped> armorModelRegistry = new HashMap<>();
+	
+	public void registerArmorModel(ResourceLocation key, ModelBiped model) {
+		//System.out.println("Registering: "+key.toString()+" "+model);
+		this.armorModelRegistry.put(key.toString(), model);
+	}
+	
+	public ModelBiped getArmorModel(ResourceLocation key) {
+		return this.armorModelRegistry.get(key.toString());
+	}
+	
 	
 	private boolean isLeft(EnumHand handIn){
 		if(this.getPlayerClient().getPrimaryHand()==EnumHandSide.RIGHT){
@@ -382,6 +396,22 @@ public class ClientProxy extends CommonProxy {
 		} else {
 			this.activeLightPulses=new LinkedList<>();
 		}
+		
+		//Register Armor models
+		registerArmorModel(TGArmors.ARMORMODEL_STEAM_ARMOR_0, new ModelSteamArmor(0));
+		registerArmorModel(TGArmors.ARMORMODEL_STEAM_ARMOR_1, new ModelSteamArmor(1));
+		registerArmorModel(TGArmors.ARMORMODEL_POWER_ARMOR_0, new ModelT3PowerArmor(0));
+		registerArmorModel(TGArmors.ARMORMODEL_POWER_ARMOR_1, new ModelT3PowerArmor(1));
+		registerArmorModel(TGArmors.ARMORMODEL_EXO_SUIT_0, new ModelExoSuit(0,1.0f));
+		registerArmorModel(TGArmors.ARMORMODEL_EXO_SUIT_1, new ModelExoSuit(1,0.5f));
+		registerArmorModel(TGArmors.ARMORMODEL_EXO_SUIT_2, new ModelExoSuit(0,0.75f));
+		registerArmorModel(TGArmors.ARMORMODEL_BERET_0, new ModelBeret());
+		registerArmorModel(TGArmors.ARMORMODEL_COAT_0, new ModelArmorCoat(0,1.0f));
+		registerArmorModel(TGArmors.ARMORMODEL_COAT_1, new ModelArmorCoat(1,0.51f));
+		registerArmorModel(TGArmors.ARMORMODEL_COAT_2, new ModelArmorCoat(2,0.49f));
+		registerArmorModel(TGArmors.ARMORMODEL_COAT_3, new ModelArmorCoat(3,0.75f));
+		registerArmorModel(TGArmors.ARMORMODEL_STEAM_ARMOR_2, new ModelSteamArmor(0,0.01f));
+		registerArmorModel(TGArmors.ARMORMODEL_POWER_ARMOR_2, new ModelT3PowerArmor(0,0.01f));
 	}
 
 	@Override
@@ -1059,6 +1089,14 @@ public class ClientProxy extends CommonProxy {
 		}
 	}
 	
+	@Override
+	public void setGunTextures(GenericGun gun, ResourceLocation path, int variations) {
+		gun.textures=new ArrayList<ResourceLocation>();
+		for(int i=0;i<variations;i++){
+			gun.textures.add(new ResourceLocation(path.getResourceDomain(),path.getResourcePath()+(i!=0?("_"+i):"")+".png"));
+		}
+	}
+
 	@Override
 	public void handleSoundEvent(EntityPlayer ply, int entityId, SoundEvent soundname, float volume, float pitch, boolean repeat, boolean moving,
 			boolean gunPosition,boolean playOnOwnPlayer, TGSoundCategory soundCategory, EntityCondition condition) {

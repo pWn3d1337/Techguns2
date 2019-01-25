@@ -7,6 +7,7 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -25,20 +26,20 @@ import techguns.tools.ItemJsonCreator;
 public class TGArmors implements ITGInitializer {
 	public static ArrayList<GenericArmor> armors = new ArrayList<>();
 	
-	public static final int ARMORMODEL_STEAM_ARMOR_0 = 0;
-	public static final int ARMORMODEL_STEAM_ARMOR_1 = 1;
-	public static final int ARMORMODEL_POWER_ARMOR_0 = 2;
-	public static final int ARMORMODEL_POWER_ARMOR_1 = 3;
-	public static final int ARMORMODEL_EXO_SUIT_0 = 4;
-	public static final int ARMORMODEL_EXO_SUIT_1 = 5;
-	public static final int ARMORMODEL_EXO_SUIT_2 = 6;
-	public static final int ARMORMODEL_BERET_0 = 7;
-	public static final int ARMORMODEL_COAT_0 = 8;
-	public static final int ARMORMODEL_COAT_1 = 9;
-	public static final int ARMORMODEL_COAT_2 = 10;
-	public static final int ARMORMODEL_COAT_3 = 11;
-	public static final int ARMORMODEL_STEAM_ARMOR_2 = 12;
-	public static final int ARMORMODEL_POWER_ARMOR_2 = 13;
+	public static final ResourceLocation ARMORMODEL_STEAM_ARMOR_0 = new ResourceLocation(Techguns.MODID, "steam_armor_0");
+	public static final ResourceLocation ARMORMODEL_STEAM_ARMOR_1 = new ResourceLocation(Techguns.MODID, "steam_armor_1");
+	public static final ResourceLocation ARMORMODEL_POWER_ARMOR_0 = new ResourceLocation(Techguns.MODID, "power_armor_0");
+	public static final ResourceLocation ARMORMODEL_POWER_ARMOR_1 = new ResourceLocation(Techguns.MODID, "power_armor_1");
+	public static final ResourceLocation ARMORMODEL_EXO_SUIT_0 = new ResourceLocation(Techguns.MODID, "exo_suit_0");
+	public static final ResourceLocation ARMORMODEL_EXO_SUIT_1 = new ResourceLocation(Techguns.MODID, "exo_suit_1");
+	public static final ResourceLocation ARMORMODEL_EXO_SUIT_2 = new ResourceLocation(Techguns.MODID, "exo_suit_2");
+	public static final ResourceLocation ARMORMODEL_BERET_0 = new ResourceLocation(Techguns.MODID, "beret_0");
+	public static final ResourceLocation ARMORMODEL_COAT_0 = new ResourceLocation(Techguns.MODID, "coat_0");
+	public static final ResourceLocation ARMORMODEL_COAT_1 = new ResourceLocation(Techguns.MODID, "coat_1");
+	public static final ResourceLocation ARMORMODEL_COAT_2 = new ResourceLocation(Techguns.MODID, "coat_2");
+	public static final ResourceLocation ARMORMODEL_COAT_3 = new ResourceLocation(Techguns.MODID, "coat_3");
+	public static final ResourceLocation ARMORMODEL_STEAM_ARMOR_2 = new ResourceLocation(Techguns.MODID, "steam_armor_2");
+	public static final ResourceLocation ARMORMODEL_POWER_ARMOR_2 = new ResourceLocation(Techguns.MODID, "power_armor_2");
 	
 	
 	public static TGArmorMaterial T1_COMBAT = new TGArmorMaterial("T1_COMBAT", 60, 0, 15.0f, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER,0.5f);

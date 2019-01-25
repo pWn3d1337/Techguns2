@@ -724,6 +724,16 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 		return this;
 	}
 	
+	public GenericGun setTexture(ResourceLocation path){
+		return setTextures(path,1);
+	}
+	
+	public GenericGun setTextures(ResourceLocation path, int variations){
+		Techguns.proxy.setGunTextures(this, path, variations);
+		this.camoCount=variations;
+		return this;
+	}
+	
 	@Override
 	public ResourceLocation getCurrentTexture(ItemStack stack) {
 		int camo = this.getCurrentCamoIndex(stack);

@@ -10,6 +10,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionType;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.CapabilityManager;
@@ -122,6 +123,10 @@ public abstract class CommonProxy implements ITGInitializer {
 	}
 	
 	public void setGunTextures(GenericGun gun, String path, int variations){
+		
+	}
+	
+	public void setGunTextures(GenericGun gun, ResourceLocation path, int variations){
 		
 	}
 	
