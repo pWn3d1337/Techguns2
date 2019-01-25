@@ -52,73 +52,27 @@ public class TGArmorMaterial {
 	protected int enchantability;
 	
 	protected String texture;
-	/**
-	 * Specify all type values individually
-	 * @param name
-	 * @param phys
-	 * @param proj
-	 * @param fire
-	 * @param exp
-	 * @param energy
-	 * @param poison
-	 * @param ice
-	 * @param light
-	 * @param rad
-	 */
-	/*public TGArmorMaterial(String name,
-			int baseDurability, int enchantability, float toughness, SoundEvent equipSound, float phys, float proj, float fire, float exp, float energy, float poison, float ice, float light, float rad, float dark){
-		this.name=name;
-		this.baseDur=baseDurability;
-		this.enchantability=enchantability;
-		this.armorPhys=phys;
-		this.armorProjectile=proj;
-		this.armorFire=fire;
-		this.armorExplosion=exp;
-		this.armorEnergy=energy;
-		this.armorPoison = poison;
-		this.armorIce=ice;
-		this.armorLightning=light;
-		this.armorRadiation=rad;
-		this.armorDark=dark;
-		this.toughness=toughness;
-		this.equipSound=equipSound;
-		this.texture=name.toLowerCase();
-	}*/
+	
+	protected String modid;
 	
 	
 	/**
-	 * Common values
-	 * sets melee and projectile, all other to elemental (except poison and radiation, which are 0)
-	 * @param phys
-	 * @param proj
-	 * @param elemental
+	 * Don't use this constructor outside of techguns, use the one with modid as 1st parameter
+	 * 
+	 * Set the armor values with standard factors, phys and proj are equal to armor, rad/poison are 0, all others are 0.75*armor;
+	 * @param armor
 	 * @return
 	 */
-	/*public TGArmorMaterial(String name,int baseDurability, int enchantability, float phys, SoundEvent equipSound, float toughness, float proj, float elemental){
-		this.name=name;
-		this.baseDur=baseDurability;
-		this.enchantability=enchantability;
-		this.armorPhys=phys;
-		this.armorProjectile=proj;
-		this.armorFire=elemental;
-		this.armorExplosion=elemental;
-		this.armorEnergy=elemental;
-		this.armorIce=elemental;
-		this.armorLightning=elemental;
-		this.armorDark=elemental;
-		this.armorPoison=elemental;
-		this.toughness=toughness;
-		this.equipSound=equipSound;
-		this.texture=name.toLowerCase();
-	}*/
-	
+	public TGArmorMaterial(String name, int baseDurability, int enchantability, float armor, SoundEvent equipSound, float toughness){
+		this(Techguns.MODID,name,baseDurability,enchantability,armor,equipSound,toughness);
+	}
 	
 	/**
 	 * Set the armor values with standard factors, phys and proj are equal to armor, rad/poison are 0, all others are 0.75*armor;
 	 * @param armor
 	 * @return
 	 */
-	public TGArmorMaterial(String name, int baseDurability, int enchantability, float armor, SoundEvent equipSound, float toughness){
+	public TGArmorMaterial(String modid, String name, int baseDurability, int enchantability, float armor, SoundEvent equipSound, float toughness){
 		this.name=name;
 		this.baseDur=baseDurability;
 		this.enchantability=enchantability;
@@ -136,6 +90,7 @@ public class TGArmorMaterial {
 		this.toughness=toughness;
 		this.equipSound=equipSound;
 		this.texture=name.toLowerCase();
+		this.modid=modid;
 		
 		MATERIALS.add(this);
 	}
@@ -236,7 +191,7 @@ public class TGArmorMaterial {
 		av[1]=Math.round(this.getArmorValueSlot(EntityEquipmentSlot.LEGS, DamageType.PHYSICAL));
 		av[0]=Math.round(this.getArmorValueSlot(EntityEquipmentSlot.FEET, DamageType.PHYSICAL));*/
 		
-		return EnumHelper.addArmorMaterial(name,Techguns.MODID+":"+this.texture, baseDur,new int[]{0,0,0,0}, enchantability, equipSound, toughness);
+		return EnumHelper.addArmorMaterial(name,this.modid+":"+this.texture, baseDur,new int[]{0,0,0,0}, enchantability, equipSound, toughness);
 	}
 	
 	public TGArmorMaterial setArmorProjectile(float armorProjectile) {

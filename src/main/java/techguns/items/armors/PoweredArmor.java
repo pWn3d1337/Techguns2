@@ -49,7 +49,12 @@ public class PoweredArmor extends GenericArmorMultiCamo {
 	
 	public PoweredArmor(String unlocalizedName, TGArmorMaterial material,
 			String[] textureNames, EntityEquipmentSlot type, ArmorPowerType powerType, int maxpower) {
-		super(unlocalizedName, material, textureNames, type);
+		this(Techguns.MODID, unlocalizedName, material, textureNames, type, powerType, maxpower);
+	}
+	
+	public PoweredArmor(String modid, String unlocalizedName, TGArmorMaterial material,
+			String[] textureNames, EntityEquipmentSlot type, ArmorPowerType powerType, int maxpower) {
+		super(modid, unlocalizedName, material, textureNames, type);
 		this.powerType = powerType;
 		this.maxpower=maxpower;
 	}

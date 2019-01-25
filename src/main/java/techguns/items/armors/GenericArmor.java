@@ -110,12 +110,17 @@ public class GenericArmor extends ItemArmor implements ISpecialArmor , IItemTGRe
 	protected String modid=Techguns.MODID;
 	
 	public GenericArmor(String unlocalizedName, TGArmorMaterial material, String textureName, EntityEquipmentSlot type) {
+		this(Techguns.MODID, unlocalizedName, material, textureName, type);
+	}
+	
+	public GenericArmor(String modid, String unlocalizedName, TGArmorMaterial material, String textureName, EntityEquipmentSlot type) {
 	    super(material.createVanillaMaterial(), 0, type);
 	    this.material=material;
 	    this.textureName = textureName; //Armor Texture
 		setCreativeTab(Techguns.tabTechgun);
+		this.modid=modid;
 	    this.setUnlocalizedName(unlocalizedName);
-	    this.setRegistryName(new ResourceLocation(Techguns.MODID, unlocalizedName));
+	    this.setRegistryName(new ResourceLocation(modid, unlocalizedName));
 	   // this.setTextureName(Techguns.MODID + ":" + unlocalizedName); //Item Texture
 	    //for tooltip
 	    this.armorValue=Math.round(material.getArmorValueSlot(type, DamageType.PHYSICAL));
@@ -125,18 +130,6 @@ public class GenericArmor extends ItemArmor implements ISpecialArmor , IItemTGRe
 	    TGArmors.armors.add(this);
 	   // this.repairItem= repairMaterial;
 	    //techgunArmors.add(this);
-	}
-	
-	/**
-	 * allow other mods to use techguns armor classes
-	 * this also sets the registry name, only call this method in preInit
-	 * @param modid
-	 * @return
-	 */
-	public GenericArmor setModid(String modid) {
-		this.modid=modid;
-		this.setRegistryName(new ResourceLocation(modid, getUnlocalizedName()));
-		return this;
 	}
 	
 	/**
