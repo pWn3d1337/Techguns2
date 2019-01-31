@@ -57,6 +57,7 @@ public class RecipeJsonConverter {
 			recipe_types.put(AMMO_CHANGE_COPY_NBT_RECIPE, AmmoSwitchRecipeFactory.class.getName());
 			recipe_types.put(MiningToolUpgradeHeadRecipeFactory.MINING_TOOL_UPGRADE_RECIPE, MiningToolUpgradeHeadRecipeFactory.class.getName());
 			recipe_types.put(ShapedOreRecipeCopyNBTFactory.COPY_NBT_RECIPE, ShapedOreRecipeCopyNBTFactory.class.getName());
+			recipe_types.put(AmmoSumRecipeFactory.AMMO_SUM_RECIPE, AmmoSumRecipeFactory.class.getName());
 		}
 	
 		private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
@@ -345,6 +346,14 @@ public class RecipeJsonConverter {
 		}
 		
 		public static void addShapedCopyNBTRecipe(ItemStack result, Object... components) {
+			addShapedRecipeSpecialType(result, new ResourceLocation(Techguns.MODID, ShapedOreRecipeCopyNBTFactory.COPY_NBT_RECIPE), components);
+		}
+		
+		public static void addShapedAmmoSumRecipe(ItemStack result, Object... components) {
+			addShapedRecipeSpecialType(result, new ResourceLocation(Techguns.MODID, AmmoSumRecipeFactory.AMMO_SUM_RECIPE), components);
+		}
+		
+		public static void addShapedRecipeSpecialType(ItemStack result, ResourceLocation type, Object... components) {
 			setupDir();
 
 			// GameRegistry.addShapedRecipe(result, components);
@@ -379,7 +388,7 @@ public class RecipeJsonConverter {
 			}
 			json.put("key", key);
 			//json.put("type", isOreDict ? "forge:ore_shaped" : "minecraft:crafting_shaped");
-			json.put("type", "techguns:"+ShapedOreRecipeCopyNBTFactory.COPY_NBT_RECIPE);
+			json.put("type", type.toString());
 			json.put("result", serializeItem(result));
 
 			// names the json the same name as the output's registry name

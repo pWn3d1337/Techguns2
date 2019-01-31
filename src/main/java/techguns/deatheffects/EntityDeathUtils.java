@@ -2,22 +2,41 @@ package techguns.deatheffects;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityCaveSpider;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.monster.EntityEnderman;
+import net.minecraft.entity.monster.EntityEvoker;
+import net.minecraft.entity.monster.EntityGhast;
+import net.minecraft.entity.monster.EntityHusk;
+import net.minecraft.entity.monster.EntityMagmaCube;
 import net.minecraft.entity.monster.EntityPigZombie;
+import net.minecraft.entity.monster.EntityPolarBear;
+import net.minecraft.entity.monster.EntityShulker;
+import net.minecraft.entity.monster.EntitySilverfish;
 import net.minecraft.entity.monster.EntitySkeleton;
+import net.minecraft.entity.monster.EntitySlime;
 import net.minecraft.entity.monster.EntitySpider;
+import net.minecraft.entity.monster.EntityStray;
+import net.minecraft.entity.monster.EntityVex;
+import net.minecraft.entity.monster.EntityVindicator;
 import net.minecraft.entity.monster.EntityWitch;
+import net.minecraft.entity.monster.EntityWitherSkeleton;
 import net.minecraft.entity.monster.EntityZombie;
+import net.minecraft.entity.monster.EntityZombieVillager;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.passive.EntityCow;
+import net.minecraft.entity.passive.EntityDonkey;
 import net.minecraft.entity.passive.EntityHorse;
+import net.minecraft.entity.passive.EntityLlama;
 import net.minecraft.entity.passive.EntityMooshroom;
+import net.minecraft.entity.passive.EntityMule;
+import net.minecraft.entity.passive.EntityParrot;
 import net.minecraft.entity.passive.EntityPig;
+import net.minecraft.entity.passive.EntityRabbit;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.passive.EntitySquid;
 import net.minecraft.entity.passive.EntityVillager;
@@ -41,64 +60,90 @@ import techguns.entities.npcs.ZombieMiner;
 import techguns.entities.npcs.ZombiePigmanSoldier;
 import techguns.entities.npcs.ZombieSoldier;
 
-
+/**
+ * Server and client side, needed by server to know to send out packets
+ *
+ */
 public class EntityDeathUtils {
 	
-	public static HashMap<DeathType, List<Class<? extends EntityLivingBase>>> entityDeathTypes;
+	public static HashMap<DeathType, HashSet<Class<? extends EntityLivingBase>>> entityDeathTypes;
 
+	public static HashSet<Class<? extends EntityLivingBase>> goreMap = new HashSet<>();
 	static {
-		entityDeathTypes = new HashMap<DeathType, List<Class<? extends EntityLivingBase>>>();
+		entityDeathTypes = new HashMap<>();
 		//Gore
-		ArrayList<Class<? extends EntityLivingBase>> listGore = new ArrayList<Class<? extends EntityLivingBase>>();
-		listGore.add(EntityPlayer.class);
-		listGore.add(EntityZombie.class);
-		listGore.add(EntitySkeleton.class);
-		listGore.add(EntityEnderman.class);
-		listGore.add(EntityCreeper.class);
-		listGore.add(EntityCow.class);
-		listGore.add(EntitySheep.class);
-		listGore.add(EntityPig.class);
-		listGore.add(EntityChicken.class);
-		listGore.add(EntityPigZombie.class);
-		listGore.add(ZombieSoldier.class);
-		listGore.add(ArmySoldier.class);
-		listGore.add(CyberDemon.class);
-		listGore.add(ZombiePigmanSoldier.class);
-		listGore.add(EntitySpider.class);
-		listGore.add(EntityCaveSpider.class);
-		listGore.add(EntityWitch.class);
-		//listGore.add(EntitySlime.class);
-		listGore.add(ZombieFarmer.class);
-		listGore.add(ZombieMiner.class);
-		listGore.add(Bandit.class);
-		listGore.add(ZombieSoldier.class);
-		listGore.add(EntityHorse.class);
-		listGore.add(EntityMooshroom.class);
-		listGore.add(EntityWolf.class);
-		listGore.add(EntitySquid.class);
-		//listGore.add(EntityGhast.class);
-		listGore.add(EntityVillager.class);
-		listGore.add(PsychoSteve.class);
-		listGore.add(DictatorDave.class);
-		listGore.add(SkeletonSoldier.class);
-		listGore.add(AlienBug.class);
-		listGore.add(StormTrooper.class);
-		listGore.add(SuperMutantElite.class);
-		listGore.add(SuperMutantHeavy.class);
-		listGore.add(SuperMutantBasic.class);
-		listGore.add(Outcast.class);
-		listGore.add(Commando.class);
-		entityDeathTypes.put(DeathType.GORE, listGore);
+		
+		goreMap.add(EntityPlayer.class);
+		goreMap.add(EntityZombie.class);
+		goreMap.add(EntitySkeleton.class);
+		goreMap.add(EntityEnderman.class);
+		goreMap.add(EntityCreeper.class);
+		goreMap.add(EntityCow.class);
+		goreMap.add(EntitySheep.class);
+		goreMap.add(EntityPig.class);
+		goreMap.add(EntityChicken.class);
+		goreMap.add(EntityPigZombie.class);
+		goreMap.add(ZombieSoldier.class);
+		goreMap.add(ArmySoldier.class);
+		goreMap.add(CyberDemon.class);
+		goreMap.add(ZombiePigmanSoldier.class);
+		goreMap.add(EntitySpider.class);
+		goreMap.add(EntityCaveSpider.class);
+		goreMap.add(EntityWitch.class);
+		goreMap.add(EntitySlime.class);
+		goreMap.add(ZombieFarmer.class);
+		goreMap.add(ZombieMiner.class);
+		goreMap.add(Bandit.class);
+		goreMap.add(ZombieSoldier.class);
+		goreMap.add(EntityHorse.class);
+		goreMap.add(EntityMooshroom.class);
+		goreMap.add(EntityWolf.class);
+		goreMap.add(EntitySquid.class);
+		//goreMap.add(EntityGhast.class);
+		goreMap.add(EntityVillager.class);
+		goreMap.add(PsychoSteve.class);
+		goreMap.add(DictatorDave.class);
+		goreMap.add(SkeletonSoldier.class);
+		goreMap.add(AlienBug.class);
+		goreMap.add(StormTrooper.class);
+		goreMap.add(SuperMutantElite.class);
+		goreMap.add(SuperMutantHeavy.class);
+		goreMap.add(SuperMutantBasic.class);
+		goreMap.add(Outcast.class);
+		goreMap.add(Commando.class);
+		
+		goreMap.add(EntityLlama.class);
+		goreMap.add(EntityEvoker.class);
+		goreMap.add(EntityHusk.class);
+		goreMap.add(EntityPolarBear.class);
+		goreMap.add(EntityMagmaCube.class);
+		goreMap.add(EntityParrot.class);
+		goreMap.add(EntityRabbit.class);
+		goreMap.add(EntityStray.class);
+		goreMap.add(EntitySilverfish.class);
+		goreMap.add(EntityVindicator.class);
+		goreMap.add(EntityVex.class);
+		goreMap.add(EntityShulker.class);
+		goreMap.add(EntityWitherSkeleton.class);
+		goreMap.add(EntityGhast.class);
+		goreMap.add(EntityZombieVillager.class);
+		goreMap.add(EntityHorse.class);
+		goreMap.add(EntityDonkey.class);
+		goreMap.add(EntityMule.class);
+		
+		entityDeathTypes.put(DeathType.GORE, goreMap);
+	}
+	
+	/**
+	 * Add an entity to the gore death type list
+	 * @param clazz
+	 */
+	public static void addEntityToDeathEffectList(Class<? extends EntityLivingBase> clazz) {
+		entityDeathTypes.get(DeathType.GORE).add(clazz);
 	}
 	
 	public static boolean hasSpecialDeathAnim(EntityLivingBase entityLiving, DeathType deathtype) {
-		/*if (entityLiving instanceof IBossDisplayData){
-			if(entityLiving instanceof GenericNPC){
-				return true;
-			}
-			return false;
-		}*/
-		
+
 		//TEST CODE:
 		if (deathtype == DeathType.BIO || deathtype == DeathType.LASER) return true;
 		
@@ -109,51 +154,9 @@ public class EntityDeathUtils {
 		
 		return false;
 		
-		//try {
-		//	return entityDeathTypes.get(deathtype).contains(entityLiving.getClass());
-		//} catch (Exception e) {
-		//	return false;
-		//}
-	}
 
+	}
 	
-//	public enum EntityDT {
-//		ZOMBIE,
-//		SKELETON,
-//		PLAYER,
-//		COW,
-//		SHEEP,
-//		CREEPER,
-//		CHICKEN,
-//		VILLAGER,
-//		ZOMBIE_SOLDIER,
-//		ARMY_SOLDIER,
-//		SPIDER,
-//		ENDERMAN,
-//		PIG,
-//		GENERIC;
-//	}
-//	
-//	
-//	public static EntityDT getEntityDeathType(Entity entity) {
-//		EntityDT entityType;
-//		if (entity instanceof EntityPlayer) entityType = EntityDT.PLAYER;
-//		else if (entity instanceof EntityZombie) entityType = EntityDT.ZOMBIE;
-//		else if (entity instanceof EntitySkeleton) entityType = EntityDT.SKELETON;
-//		else if (entity instanceof ZombieSoldier) entityType = EntityDT.ZOMBIE_SOLDIER;
-//		else if (entity instanceof ArmySoldier) entityType = EntityDT.ARMY_SOLDIER;
-//		else if (entity instanceof EntityVillager) entityType = EntityDT.VILLAGER;
-//		else if (entity instanceof EntityCow) entityType = EntityDT.COW;
-//		else if (entity instanceof EntityChicken) entityType = EntityDT.CHICKEN;
-//		else if (entity instanceof EntityCreeper) entityType = EntityDT.CREEPER;
-//		else if (entity instanceof EntitySheep) entityType = EntityDT.SHEEP;
-//		else if (entity instanceof EntitySpider) entityType = EntityDT.SPIDER;
-//		else if (entity instanceof EntityEnderman) entityType = EntityDT.ENDERMAN;
-//		else if (entity instanceof EntityPig) entityType = EntityDT.PIG;
-//		else entityType = EntityDT.GENERIC;
-//		return entityType;
-//	}
-//	
     public enum DeathType {
     	DEFAULT(0), GORE(1), BIO(2), LASER(3), DISMEMBER(4);
     	

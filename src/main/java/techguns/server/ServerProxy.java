@@ -8,6 +8,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import techguns.CommonProxy;
 import techguns.events.TechgunsGuiHandler.GuiHandlerRegister;
 import techguns.gui.containers.AmmoPressContainer;
+import techguns.gui.containers.BlastFurnaceContainer;
 import techguns.gui.containers.CamoBenchContainer;
 import techguns.gui.containers.ChargingStationContainer;
 import techguns.gui.containers.ChemLabContainer;
@@ -22,6 +23,7 @@ import techguns.gui.containers.ReactionChamberContainer;
 import techguns.gui.containers.RepairBenchContainer;
 import techguns.gui.containers.TurretContainer;
 import techguns.tileentities.AmmoPressTileEnt;
+import techguns.tileentities.BlastFurnaceTileEnt;
 import techguns.tileentities.CamoBenchTileEnt;
 import techguns.tileentities.ChargingStationTileEnt;
 import techguns.tileentities.ChemLabTileEnt;
@@ -65,6 +67,7 @@ public class ServerProxy extends CommonProxy {
 		guihandler.<ExplosiveChargeTileEnt>addEntry(ExplosiveChargeTileEnt.class, ExplosiveChargeContainer<ExplosiveChargeTileEnt>::new);
 		guihandler.<ExplosiveChargeAdvTileEnt>addEntry(ExplosiveChargeAdvTileEnt.class, ExplosiveChargeContainer<ExplosiveChargeAdvTileEnt>::new);
 		guihandler.<OreDrillTileEntMaster>addEntry(OreDrillTileEntMaster.class, OreDrillContainer::new);
+		guihandler.<BlastFurnaceTileEnt>addEntry(BlastFurnaceTileEnt.class, BlastFurnaceContainer::new);
 	}
 	
 	@Override

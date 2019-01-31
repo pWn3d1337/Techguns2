@@ -88,8 +88,8 @@ public class PresetCastle implements IDungeonPreset{
 	public void initDungeonPath(IDungeonPath d_path) {
 		MazeDungeonPath path = (MazeDungeonPath) d_path;
 		path.startHeightLevel = 1;
-		path.chanceStraight = 0.7f; //next segment will go forward; -> inverse chance to left/right
-		path.chanceRamp = 0.4f; //when straight, roll again for a ramp
+		path.chanceStraight = 0.8f; //next segment will go forward; -> inverse chance to left/right
+		path.chanceRamp = 0.5f; //when straight, roll again for a ramp
 		path.chanceRoom = 0.25f; //else, roll for a room
 		path.chanceFork = 0.4f; //roll again for another direction, when not a ramp
 		path.chanceUp = 0.65f;

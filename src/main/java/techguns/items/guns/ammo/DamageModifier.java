@@ -13,6 +13,9 @@ public class DamageModifier {
 	protected float rangeMul=1.0f;
 	protected float rangeAdd=0f;
 	
+	protected float velocityMul=1.0f;
+	protected float velocityAdd=0f;
+	
 	public DamageModifier setDmg(float mul, float add) {
 		this.dmgMul=mul;
 		this.dmgAdd=add;
@@ -28,6 +31,12 @@ public class DamageModifier {
 	public DamageModifier setRange(float mul, float add) {
 		this.rangeMul=mul;
 		this.rangeAdd=add;
+		return this;
+	}
+	
+	public DamageModifier setVelocity(float mul, float add) {
+		this.velocityMul=mul;
+		this.velocityAdd=add;
 		return this;
 	}
 	
@@ -47,7 +56,9 @@ public class DamageModifier {
 		return Math.round(ttl*rangeMul +rangeAdd);
 	}
 
-	
+	public float getVelocity(float velocity) {
+		return velocity*velocityMul+velocityAdd;
+	}
 	
 	public float getDmgMul() {
 		return dmgMul;
@@ -72,8 +83,15 @@ public class DamageModifier {
 	public float getRangeAdd() {
 		return rangeAdd;
 	}
-	
-	
+
+	public float getVelocityMul() {
+		return velocityMul;
+	}
+
+	public float getVelocityAdd() {
+		return velocityAdd;
+	}
+
 	
 	/*public GenericProjectile applyTo(GenericProjectile proj) {
 		if(this.dmgMul!=1 || this.dmgAdd!=0){

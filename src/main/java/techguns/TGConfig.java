@@ -129,6 +129,9 @@ public class TGConfig {
 	public static double powermult_nether_crystal;
 	public static double powermult_oil;
 	
+	
+	public static String[] biomeBlacklist;
+	
 	/**
 	 * CATEGORIES
 	 */
@@ -196,6 +199,8 @@ public class TGConfig {
 		
 		spawnWeightPsychoSteve = config.getInt("SpawnWeightPsychoSteve", "NPC Spawn", 3, 0, 10000, "Spawn weight for spawning Psycho Steve, early game boss, don't set to high value, at 0 spawn will not be registered");
 	
+		biomeBlacklist = config.getStringList("BiomeBlacklist", "NPC Spawn", new String[]{""}, "Biome Registry names (e.g: minecraft:mushroom_island) that are excluded from Techguns monster spawning");
+		
 		
 		damagePvP = config.getFloat("DamagePvP", DAMAGE_FACTORS, 0.5f, 0.0f, 100.0f, "Damage factor Techguns weapons deal when fired from players against other players, is zero when PvP is disabled");
 		

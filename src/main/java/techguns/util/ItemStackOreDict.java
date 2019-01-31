@@ -49,6 +49,23 @@ public class ItemStackOreDict {
 		}
 	}
 
+	public boolean hasItems() {
+		if(isEmpty()) return false;
+		
+		if(this.oreDictName!=null) {
+			return !OreDictionary.getOres(this.oreDictName,true).isEmpty();
+		}else {
+			return !this.item.isEmpty();
+		}
+	}
+	
+	/**
+	 * @return if using an oredict name
+	 */
+	public boolean isOreDict() {
+		return this.oreDictName!=null;
+	}
+	
 	public ItemStackOreDict setNoStrictMode(){
 		this.strict=false;
 		return this;

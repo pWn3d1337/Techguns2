@@ -15,7 +15,7 @@
         {
             "type": "text",
             "title": "Advanced Machines",
-            "text": "After enough cybernetic parts are collected to build a $(l:fabricator)Fabricator$(/l) and a $(l:reaction_chamber)Reaction Chamber$(/l) it is possible to advance to the next tech-tier. The Fabricator can produce cybernetic parts so it is recommended to build that one first."
+            "text": "After enough cybernetic parts are collected to build a $(l:machines/fabricator)Fabricator$(/l) and a $(l:machines/reaction_chamber)Reaction Chamber$(/l) it is possible to advance to the next tech-tier. The Fabricator can produce cybernetic parts so it is recommended to build that one first."
         }
     ]
 }

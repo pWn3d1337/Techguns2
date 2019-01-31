@@ -15,6 +15,10 @@
 		"facing=north,machinetype=charging_station": { "model": "techguns:charging_station_centered.obj", "transform":"forge:default-block"},
         "facing=south,machinetype=charging_station": { "model": "techguns:charging_station_centered.obj", "y": 180 },
         "facing=west,machinetype=charging_station":  { "model": "techguns:charging_station_centered.obj", "y": 270 },
-        "facing=east,machinetype=charging_station":  { "model": "techguns:charging_station_centered.obj", "y": 90 }
+        "facing=east,machinetype=charging_station":  { "model": "techguns:charging_station_centered.obj", "y": 90 },
+		"facing=north,machinetype=blast_furnace": { "model": "techguns:blast_furnace" },
+        "facing=south,machinetype=blast_furnace": { "model": "techguns:blast_furnace", "y": 180 },
+        "facing=west,machinetype=blast_furnace":  { "model": "techguns:blast_furnace", "y": 270 },
+        "facing=east,machinetype=blast_furnace":  { "model": "techguns:blast_furnace", "y": 90 }
     }
 }

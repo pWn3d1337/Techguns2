@@ -6,7 +6,7 @@
     "rr ",
     "rrc"
   ],
-  "type": "minecraft:crafting_shaped",
+  "type": "techguns:ammo_sum_recipe",
   "key": {
     "r": {
       "item": "techguns:guidedmissilelauncher"

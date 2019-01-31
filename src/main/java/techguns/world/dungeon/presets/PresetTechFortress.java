@@ -8,6 +8,7 @@ import techguns.tileentities.TGSpawnerTileEnt;
 import techguns.world.dungeon.DungeonSegment;
 import techguns.world.dungeon.DungeonTemplate;
 import techguns.world.dungeon.IDungeonPath;
+import techguns.world.dungeon.MazeDungeonPath;
 import techguns.world.dungeon.TemplateSegment.SegmentType;
 
 public class PresetTechFortress implements IDungeonPreset{
@@ -49,7 +50,16 @@ public class PresetTechFortress implements IDungeonPreset{
 
 	@Override
 	public void initDungeonPath(IDungeonPath d_path) {
-		//MazeDungeonPath path = (MazeDungeonPath) d_path;
+		MazeDungeonPath path = (MazeDungeonPath) d_path;
+		path.startHeightLevel = 1;
+		path.chanceStraight = 0.8f; //next segment will go forward; -> inverse chance to left/right
+		path.chanceRamp = 0.5f; //when straight, roll again for a ramp
+		path.chanceRoom = 0.25f; //else, roll for a room
+		path.chanceFork = 0.4f; //roll again for another direction, when not a ramp
+		path.chanceUp = 0.65f;
+		path.useFoundations = true;
+		path.usePillars = true;
+		path.useRoof = true;
 	}
 
 	@Override

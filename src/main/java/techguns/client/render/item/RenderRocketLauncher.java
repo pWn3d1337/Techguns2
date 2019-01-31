@@ -16,6 +16,7 @@ public class RenderRocketLauncher extends RenderGunBase90 {
 	static {
 		textures.put(AmmoTypes.TYPE_DEFAULT, new ResourceLocation(Techguns.MODID,"textures/guns/rocket.png"));
 		textures.put(AmmoTypes.TYPE_NUKE, new ResourceLocation(Techguns.MODID,"textures/guns/rocket_nuke.png"));
+		textures.put(AmmoTypes.TYPE_HV, new ResourceLocation(Techguns.MODID,"textures/guns/rocket_hv.png"));
 	}
 	
 	public RenderRocketLauncher(ModelMultipart model, int parts) {

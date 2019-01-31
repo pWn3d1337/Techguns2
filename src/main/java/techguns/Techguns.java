@@ -26,7 +26,7 @@ public class Techguns
 {
     public static final String MODID = "techguns";
     public static final String MCVERSION = "1.12.2";
-    public static final String VERSION = "2.0.1.3";
+    public static final String VERSION = "2.0.2.0";
     public static final String NAME = "Techguns";
     public static final String GUI_FACTORY = "techguns.gui.config.GuiFactoryTechguns";
     public static final String UPDATEURL = "https://raw.githubusercontent.com/pWn3d1337/Techguns2/master/update.json";

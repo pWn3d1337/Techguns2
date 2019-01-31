@@ -8,6 +8,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.JsonUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.crafting.CraftingHelper.ShapedPrimer;
 import net.minecraftforge.common.crafting.IRecipeFactory;
@@ -29,8 +30,8 @@ public class ShapedOreRecipeCopyNBTFactory implements IRecipeFactory {
 		p.height=recipe.getRecipeHeight();
 		p.width=recipe.getRecipeWidth();
 		p.input=recipe.getIngredients();
+		p.mirrored= JsonUtils.getBoolean(json, "mirrored", true);
 		ShapedOreRecipeCopyNBT r = new ShapedOreRecipeCopyNBT(new ResourceLocation(Techguns.MODID, COPY_NBT_RECIPE), recipe.getRecipeOutput(), p);
-		r.setMirrored(p.mirrored);
 		return r;
 	}
 

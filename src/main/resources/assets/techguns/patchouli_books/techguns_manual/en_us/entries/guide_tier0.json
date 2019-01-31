@@ -10,7 +10,7 @@
         {
             "type": "text",
             "title": "Starting out",
-            "text": "The first step is to collect some resources like iron, coal and maybe redstone and built a basic power generation setup (depends on what mods are installed). After power is available the first 3 machines of techguns can be built, the $(l:metal_press)Metal Press$(/l), the $(l:ammo_press)Ammo Press$(/l) and the $(l:chemical_laboratory)Chemical Laboratory$(/l). The $(l:camo_bench)Camo Bench$(/l), the $(l:repair_bench)Repair Bench$(/l) can also be used from the beginning but are not required to progress."
+            "text": "The first step is to collect some resources like iron, coal and maybe redstone and built a basic power generation setup (depends on what mods are installed). After power is available the first machines of techguns can be built, the $(l:machines/metal_press)Metal Press$(/l), the $(l:machines/ammo_press)Ammo Press$(/l), $(l:machines/chemical_laboratory)Chemical Laboratory$(/l) and the $(l:machines/blast_furnace)Blast Furnace$(/l). The $(l:machines/camo_bench)Camo Bench$(/l), the $(l:machines/repair_bench)Repair Bench$(/l) can also be used from the beginning but are not required to progress."
         },
          {
             "type": "text",

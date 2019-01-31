@@ -1,0 +1,28 @@
+{
+  "result": {
+    "item": "techguns:guidedmissilelauncher",
+    "data": 1
+  },
+  "pattern": [
+    " gc",
+    " bb",
+    " f "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "b": {
+      "item": "techguns:itemshared",
+      "data": 39
+    },
+    "c": {
+      "item": "#CIRCUITELITE"
+    },
+    "f": {
+      "item": "techguns:itemshared",
+      "data": 35
+    },
+    "g": {
+      "item": "#HARDENEDGLASSORGLASS"
+    }
+  }
+}

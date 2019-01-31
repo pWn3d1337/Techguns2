@@ -18,6 +18,7 @@ import techguns.world.structures.AircraftCarrier;
 import techguns.world.structures.AlienBugNest;
 import techguns.world.structures.AlienBugNestStructure;
 import techguns.world.structures.Barracks;
+import techguns.world.structures.CastleStructure;
 import techguns.world.structures.FactoryHouseSmall;
 import techguns.world.structures.MilitaryCamp;
 import techguns.world.structures.OreClusterMeteorBasis;
@@ -133,7 +134,8 @@ public class WorldGenTestTool extends GenericItem{
 			//SmallMine b = new SmallMine();
 			//new AlienBugNest(x ,y+32, z,sizeX, 0, sizeZ, rnd).setBlocks(world);
 			
-			TechFortressStructure b = new TechFortressStructure();
+			//TechFortressStructure b = new TechFortressStructure();
+			CastleStructure b = new CastleStructure();
 			
 			//OreClusterMeteorBasis b = new OreClusterMeteorBasis();
 			b.setBlocks(world, x, y, z, sizeX, 32, sizeZ,0/*rnd.nextInt(4)*/, BiomeColorType.WOODLAND, rnd);
