@@ -86,7 +86,7 @@ public class TGJeiPlugin implements IModPlugin {
 		//NO CLICKAREA for camobench
 		registry.addRecipeClickArea(ChargingStationGui.class, 38, 18, 28, 12, CHARGING_STATION);
 		registry.addRecipeClickArea(ReactionChamberGui.class, 66, 60, 102, 14, REACTION_CHAMBER);
-		registry.addRecipeClickArea(BlastFurnaceGui.class, 20, 52, 102, 12, BLAST_FURNACE);
+		registry.addRecipeClickArea(BlastFurnaceGui.class, 18, 52, 90, 12, BLAST_FURNACE);
 		
 		registry.addRecipeCatalyst(new ItemStack(TGBlocks.BASIC_MACHINE,1,TGBlocks.BASIC_MACHINE.getMetaFromState(TGBlocks.BASIC_MACHINE.getDefaultState().withProperty(TGBlocks.BASIC_MACHINE.MACHINE_TYPE, EnumMachineType.AMMO_PRESS))), AMMO_PRESS);
 		registry.addRecipeCatalyst(new ItemStack(TGBlocks.BASIC_MACHINE,1,TGBlocks.BASIC_MACHINE.getMetaFromState(TGBlocks.BASIC_MACHINE.getDefaultState().withProperty(TGBlocks.BASIC_MACHINE.MACHINE_TYPE, EnumMachineType.METAL_PRESS))), METAL_PRESS);
