@@ -756,3 +756,6 @@ techguns.container.blast_furnace=Blast Furnace
 techguns.tooltip.duration=Duration
 techguns.tooltip.ticks=ticks
 tile.techguns.simplemachine.11.name=Blast Furnace
+techguns.container.oredrill.drillrequired.0=Requires Small Drill
+techguns.container.oredrill.drillrequired.1=Requires Medium Drill
+techguns.container.oredrill.drillrequired.2=Requires Large Drill

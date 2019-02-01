@@ -15,7 +15,7 @@ public enum EnumOreDrillType implements IStringSerializable, IMachineType<EnumOr
 	ROD(2,OreDrillTileEntSlave.class,true,EnumBlockRenderType.MODEL),
 	ENGINE(3,OreDrillTileEntSlave.class,true,EnumBlockRenderType.MODEL),
 	CONTROLLER(4,OreDrillTileEntMaster.class,true,EnumBlockRenderType.MODEL),
-	SCAFFOLD_HIDDEN(5,OreDrillTileEntSlave.class,true,EnumBlockRenderType.INVISIBLE,BlockRenderLayer.CUTOUT,SoundType.METAL, true)
+	SCAFFOLD_HIDDEN(5,OreDrillTileEntSlave.class,false,EnumBlockRenderType.INVISIBLE,BlockRenderLayer.CUTOUT,SoundType.METAL, true)
 	;
 
 	private int id;

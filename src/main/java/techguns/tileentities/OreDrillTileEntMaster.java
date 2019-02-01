@@ -88,7 +88,7 @@ public class OreDrillTileEntMaster extends MultiBlockMachineTileEntMaster implem
 	
 	public OreDrillTileEntMaster() {
 		super(11, 500000);
-	
+		
 		this.inventory = new ItemStackHandlerPlus(11) {
 
 			@Override
@@ -157,11 +157,13 @@ public class OreDrillTileEntMaster extends MultiBlockMachineTileEntMaster implem
 	public AxisAlignedBB getRenderBoundingBox() {
 		if(this.isFormed()) {
 			BlockPos p = this.getPos();
-			BlockPos rod_end = this.getPos().offset(drill_direction, rods+engines);
+			BlockPos rod_end = this.getPos().offset(drill_direction, rods+engines+1);
 			
-			BlockPos other = rod_end.offset(OreDrillDefinition.getSide2(drill_direction), +radius+2);
-			BlockPos first = p.offset(OreDrillDefinition.getSide1(drill_direction), -radius-2);
+			BlockPos other = rod_end.offset(OreDrillDefinition.getSide1(drill_direction), +(radius+2)).offset(OreDrillDefinition.getSide2(drill_direction), +(radius+1));
+			BlockPos first = p.offset(OreDrillDefinition.getSide1(drill_direction), -(radius+2)).offset(OreDrillDefinition.getSide2(drill_direction), -(radius+1));
+			//System.out.println("BB:"+first.toString()+"->"+other.toString());
 			return new AxisAlignedBB(first,other);
+			//return super.getRenderBoundingBox().expand(50, 50, 50);*/
 		} else {
 			return super.getRenderBoundingBox();
 		}
