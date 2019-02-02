@@ -75,7 +75,6 @@ public class ItemJetpack extends ItemTGSpecialSlotAmmo {
 			}
 
 		}
-
 	}
 
 	protected void applyBoostToPlayer(EntityPlayer ply, ItemStack item) {

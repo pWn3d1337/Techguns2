@@ -1,5 +1,7 @@
 package techguns.api.tginventory;
 
+import techguns.util.TextUtil;
+
 public enum TGSlotType {
 	NORMAL,
 	FACESLOT,
@@ -18,30 +20,34 @@ public enum TGSlotType {
 	public String toString() {
 		switch(this){
 			case FACESLOT:
-				return "Face";
+				return trans("face");
 			case BACKSLOT:
-				return "Back";
+				return trans("back");
 			case HANDSLOT:
-				return "Hands";
+				return trans("hands");
 			case AMMOSLOT:
-				return "Ammo";
+				return trans("ammo");
 			case FOODSLOT:
-				return "Food";
+				return trans("food");
 			case HEALSLOT:
-				return "Healing";
+				return trans("healing");
 			case TURRETARMOR:
-				return "Turret armor";
+				return trans("turret_armor");
 			case REACTION_CHAMBER_FOCUS:
-				return "Reaction Chamber Focus";
+				return trans("reaction_focus");
 			case DRILL_SMALL:
-				return "Small Drill";
+				return trans("small_drill");
 			case DRILL_MEDIUM:
-				return "Medium Drill";
+				return trans("medium drill");
 			case DRILL_LARGE:
-				return "Large Drill";
+				return trans("large drill");
 			default:
-				return "Normal Item";
+				return trans("normal_item");
 		}
+	}
+	
+	protected String trans(String key) {
+		return TextUtil.transTG("tooltip.tgslottype."+key);
 	}
 	
 }

@@ -1,0 +1,21 @@
+{
+  "result": {
+    "nbt": {
+      "patchouli:book": "techguns:techguns_manual"
+    },
+    "item": "patchouli:guide_book"
+  },
+  "ingredients": [
+    {
+      "item": "minecraft:iron_ingot"
+    },
+    {
+      "item": "minecraft:glass_pane"
+    },
+    {
+      "item": "techguns:itemshared",
+      "data": 0
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import mezz.jei.api.ingredients.IIngredients;
+import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
@@ -53,22 +54,22 @@ public abstract class BasicRecipeWrapper implements IRecipeWrapper {
 		
 		List<List<ItemStack>> inputs = recipe.getItemInputs();
 		if(inputs!=null && !inputs.isEmpty()) {
-			ingredients.setInputLists(ItemStack.class, inputs);
+			ingredients.setInputLists(VanillaTypes.ITEM, inputs);
 		}
 		
 		List<List<FluidStack>> fluidsIn = recipe.getFluidInputs();
 		if(fluidsIn!=null && !fluidsIn.isEmpty()) {
-			ingredients.setInputLists(FluidStack.class, fluidsIn);
+			ingredients.setInputLists(VanillaTypes.FLUID, fluidsIn);
 		}
 		
 		List<List<ItemStack>> outputs = recipe.getItemOutputs();
 		if(outputs!=null && !outputs.isEmpty()) {
-			ingredients.setOutputLists(ItemStack.class, outputs);
+			ingredients.setOutputLists(VanillaTypes.ITEM, outputs);
 		}
 		
 		List<List<FluidStack>> fluidsOut = recipe.getFluidOutputs();
 		if(fluidsOut!=null && !fluidsOut.isEmpty()) {
-			ingredients.setOutputLists(FluidStack.class, fluidsOut);
+			ingredients.setOutputLists(VanillaTypes.FLUID, fluidsOut);
 		}
 	}
 	

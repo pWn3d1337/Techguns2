@@ -14,23 +14,21 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import techguns.util.BlockUtils;
-import techguns.world.dungeon.Dungeon;
-import techguns.world.dungeon.DungeonTemplate;
-import techguns.world.dungeon.presets.IDungeonPreset;
-import techguns.world.dungeon.presets.PresetTemplateTest;
-import techguns.world.dungeon.presets.PresetTestDungeon;
 import techguns.world.structures.AircraftCarrier;
 import techguns.world.structures.AlienBugNest;
 import techguns.world.structures.AlienBugNestStructure;
 import techguns.world.structures.Barracks;
 import techguns.world.structures.FactoryHouseSmall;
 import techguns.world.structures.MilitaryCamp;
+import techguns.world.structures.OreClusterMeteorBasis;
+import techguns.world.structures.SmallMine;
 import techguns.world.structures.SmallTrainstation;
+import techguns.world.structures.TechFortressStructure;
 import techguns.world.structures.WorldgenStructure.BiomeColorType;
 
 public class WorldGenTestTool extends GenericItem{
 
-	static String[] modes = new String[]{"MilitaryBase", "DUNGEON TEST", "Smooth", "Flatten", "Remove Junk",/* "Sphere", "Cylinder"*/};
+	static String[] modes = new String[]{"MilitaryBase", "Barracks", "Smooth", "Flatten", "Remove Junk",/* "Sphere", "Cylinder"*/};
 	
 	public WorldGenTestTool(String name) {
 		this(name,true);
@@ -131,22 +129,18 @@ public class WorldGenTestTool extends GenericItem{
 			//SmallTrainstation b = new SmallTrainstation(8, 8, 8, 8, 8, 8);
 			
 			//AircraftCarrier b = new AircraftCarrier(54,24,21,54,24,21);
-						
+				
+			//SmallMine b = new SmallMine();
 			//new AlienBugNest(x ,y+32, z,sizeX, 0, sizeZ, rnd).setBlocks(world);
 			
-			//b.setBlocks(world, x, y, z, sizeX, 8, sizeZ,0/*rnd.nextInt(4)*/, BiomeColorType.WOODLAND, rnd);
+			TechFortressStructure b = new TechFortressStructure();
+			
+			//OreClusterMeteorBasis b = new OreClusterMeteorBasis();
+			b.setBlocks(world, x, y, z, sizeX, 32, sizeZ,0/*rnd.nextInt(4)*/, BiomeColorType.WOODLAND, rnd);
 			
 			//bugnest
 			//AlienBugNestStructure b = new AlienBugNestStructure();
 			//b.spawnStructureWorldgen(world, x>>4, z>>4, 4, 0, 4, rnd, Biomes.PLAINS);
-			
-			//------------------
-			//New Dungeon Test
-			
-			Dungeon dungeon = new Dungeon(new PresetTestDungeon());
-
-			dungeon.generate(world, x, y, z, sizeX, 32, sizeZ);
-			
 			
 			break;
 		case 2: //Smooth

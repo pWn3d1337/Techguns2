@@ -1,0 +1,21 @@
+{
+    "name": "3. High-Tech Weaponry",
+    "icon": "techguns:tfg",
+    "category": "survival_guide",
+    "pages": [
+        {
+            "type": "text",
+            "text": "With a $(l:fabricator)Fabricator$(/l) and a $(l:reactionchamber)Reaction Chamber$(/l) you have access to new high-tech weapons and armors."
+        },
+        {
+            "type": "text",
+            "title": "Advanced Processing",
+            "text": "The reaction chamber can process titanium ore needed for tier 3 armors. Also it is possible to enrich uranium for nuclear weapons. The fabricator produces energy cells and other items needed."
+        },
+        {
+            "type": "text",
+            "title": "The Power of Flight",
+            "text": "If you acquire a nether star you can craft the 'anti-gravity device' allowing you to use creative flight when worn."
+        }
+    ]
+}

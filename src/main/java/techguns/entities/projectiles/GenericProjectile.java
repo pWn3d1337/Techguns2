@@ -29,9 +29,12 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.RayTraceResult.Type;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.network.NetworkRegistry.TargetPoint;
 import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import techguns.TGEntities;
+import techguns.TGPackets;
 import techguns.TGSounds;
 import techguns.Techguns;
 import techguns.api.damagesystem.DamageType;
@@ -43,6 +46,7 @@ import techguns.deatheffects.EntityDeathUtils.DeathType;
 import techguns.factions.TGNpcFactions;
 import techguns.items.guns.GenericGun;
 import techguns.items.guns.IProjectileFactory;
+import techguns.packets.PacketGunImpactFX;
 
 public class GenericProjectile extends Entity implements IProjectile, IEntityAdditionalSpawnData {
 
@@ -528,7 +532,7 @@ public class GenericProjectile extends Entity implements IProjectile, IEntityAdd
     		yaw = -this.rotationYaw;
     	}
     	
-    	if(sound==SoundType.STONE) {
+    	/*if(sound==SoundType.STONE) {
 			this.world.playSound(x, y, z, TGSounds.BULLET_IMPACT_STONE, SoundCategory.AMBIENT, 1.0f, 1.0f, distdelay);
 			Techguns.proxy.createFX("Impact_BulletRock", world, x, y, z, 0.0D, 0.0D, 0.0D, pitch, yaw);
 			
@@ -552,9 +556,38 @@ public class GenericProjectile extends Entity implements IProjectile, IEntityAdd
 			this.world.playSound(x, y, z, TGSounds.BULLET_IMPACT_DIRT, SoundCategory.AMBIENT, 1.0f, 1.0f, distdelay);
 	    	Techguns.proxy.createFX("Impact_BulletDefault", world, x, y, z, 0.0D, 0.0D, 0.0D, pitch, yaw);
 			//this.world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, x, y, z, 0.0D, 0.0D, 0.0D);
-		}		
+		}*/
+    	
+    	int type =-1;
+    	if(sound==SoundType.STONE) {
+			type=0;
+			
+		} else if(sound==SoundType.WOOD || sound==SoundType.LADDER) {
+			type=1;
+			
+		} else if(sound==SoundType.GLASS) {
+			type=2;
+			
+		} else if(sound==SoundType.METAL || sound==SoundType.ANVIL) {
+			type=3;
+			
+		} else if(sound ==SoundType.GROUND || sound == SoundType.SAND) {
+			type=4;
+			
+		} 
+    	this.sendImpactFX(x, y, z, pitch, yaw, type);
 	}
 
+    protected void sendImpactFX(double x, double y, double z, float pitch, float yaw, int type) {
+    	sendImpactFX(x, y, z, pitch, yaw, type, false);
+    }
+    
+    protected void sendImpactFX(double x, double y, double z, float pitch, float yaw, int type, boolean incendiary) {
+    	if(!this.world.isRemote) {
+    		TGPackets.network.sendToAllAround(new PacketGunImpactFX((short) type,x,y,z,pitch,yaw, incendiary), new TargetPoint(this.world.provider.getDimension(), x,y,z, TGEntities.bulletTrackRange));
+    	}
+    }
+    
 	/**
      * Updates the entity motion clientside, called by packets from the server
      */
@@ -562,7 +595,7 @@ public class GenericProjectile extends Entity implements IProjectile, IEntityAdd
     @Override
     public void setVelocity(double x, double y, double z)
     {
-        this.motionX = x;
+       /* this.motionX = x;
         this.motionY = y;
         this.motionZ = z;
 
@@ -574,7 +607,7 @@ public class GenericProjectile extends Entity implements IProjectile, IEntityAdd
             this.prevRotationPitch = this.rotationPitch;
             this.prevRotationYaw = this.rotationYaw;
             this.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, this.rotationPitch);
-        }
+        }*/
     }
 	
 	/**
@@ -670,11 +703,17 @@ public class GenericProjectile extends Entity implements IProjectile, IEntityAdd
 	@Override
 	public void writeSpawnData(ByteBuf buffer) {
 		buffer.writeFloat(this.speed);
+		buffer.writeDouble(this.motionX);
+		buffer.writeDouble(this.motionY);
+		buffer.writeDouble(this.motionZ);
 	}
 
 	@Override
 	public void readSpawnData(ByteBuf additionalData) {
 		this.speed=additionalData.readFloat();
+		this.motionX=additionalData.readDouble();
+		this.motionY=additionalData.readDouble();
+		this.motionZ=additionalData.readDouble();
 	}
 	
 	public static void burnBlocks(World world, RayTraceResult mop, double chanceToIgnite) {

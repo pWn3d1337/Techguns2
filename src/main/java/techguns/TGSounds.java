@@ -211,6 +211,16 @@ public class TGSounds {
 	public static SoundEvent C4_TICK = createSoundEvent("c4charge.tick");
 	public static SoundEvent C4_PLANT = createSoundEvent("c4charge.plant");
 	
+	public static SoundEvent GLIDER_LOOP = createSoundEvent("glider.loop");
+	
+	
+	public static SoundEvent GEIGER_LOW = createSoundEvent("effects.geiger.low");
+	public static SoundEvent GEIGER_HIGH = createSoundEvent("effects.geiger.high");
+	
+	public static SoundEvent ORE_DRILL_WORK_SMALL = createSoundEvent("machines.oredrillsmallwork");
+	public static SoundEvent ORE_DRILL_WORK_MEDIUM = createSoundEvent("machines.oredrillmediumwork");
+	public static SoundEvent ORE_DRILL_WORK_LARGE = createSoundEvent("machines.oredrilllargework");
+	
 	public static void registerSounds(RegistryEvent.Register<SoundEvent> event){
 		IForgeRegistry<SoundEvent> reg = event.getRegistry();
 		

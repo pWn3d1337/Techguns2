@@ -6,6 +6,8 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import techguns.TGBlocks;
+import techguns.blocks.machines.BasicMachine;
 import techguns.blocks.machines.MultiBlockMachine;
 import techguns.blocks.machines.multiblocks.MultiBlockMachineSchematic;
 import techguns.blocks.machines.multiblocks.MultiBlockRegister;
@@ -25,6 +27,11 @@ public abstract class MultiBlockMachineTileEntMaster extends BasicMachineTileEnt
 
 	public boolean isFormed() {
 		return formed;
+	}
+	
+	@Override
+	protected BasicMachine getMachineBlockType() {
+		return TGBlocks.ORE_DRILL_BLOCK;
 	}
 	
 	@Override

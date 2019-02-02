@@ -27,7 +27,11 @@ public class TGNpcSpawnTable {
 		return spawnlist.get(dangerlevel);
 	}
 	
+	/**
+	 * Spawns are not added if weight <=0
+	 */
 	public void registerSpawn(TGNpcSpawn spawn, int danger){
+		if(spawn.spawnWeight<=0) return; //don't register if spawnweight is 0
 		if(danger<0 || danger >maxDanger) {
 			System.out.println("Tried to register NPC spawn for dangerlevel outside of [0-"+maxDanger+"]: "+danger);
 			return;
@@ -35,6 +39,4 @@ public class TGNpcSpawnTable {
 		ArrayList<TGNpcSpawn> list = spawnlist.get(danger);
 		list.add(spawn);
 	}
-	
-	
 }

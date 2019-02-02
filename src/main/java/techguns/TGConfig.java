@@ -82,6 +82,53 @@ public class TGConfig {
 	public static float explosiveChargeMaxBlockHardness;
 	public static float explosiveChargeAdvancedMaxBlockHardness;
 	
+	
+	public static boolean limitUnsafeModeToOP;
+	
+	public static boolean WIP_disableRadiationSystem;
+	/**
+	 * FLUID RECIPES
+	 */
+	public static String[] fluidListOil;
+	public static String[] fluidListOilWorldspawn;
+	public static String[] fluidListFuel;
+
+	public static float oreDrillMultiplierOres;
+	public static float oreDrillMultiplierPower;
+	public static float oreDrillMultiplierFuel;
+	public static float oreDrillFuelValueFuel;
+
+	/** ore cluster values **/
+	public static int mininglevel_coal;
+	public static int mininglevel_common_metal;
+	public static int mininglevel_rare_metal;
+	public static int mininglevel_shiny_metal;
+	public static int mininglevel_uranium;
+	public static int mininglevel_common_gem;
+	public static int mininglevel_shiny_gem;
+	public static int mininglevel_nether_crystal;
+	public static int mininglevel_oil;
+
+	public static double oremult_coal;
+	public static double oremult_common_metal;
+	public static double oremult_rare_metal;
+	public static double oremult_shiny_metal;
+	public static double oremult_uranium;
+	public static double oremult_common_gem;
+	public static double oremult_shiny_gem;
+	public static double oremult_nether_crystal;
+	public static double oremult_oil;
+	
+	public static double powermult_coal;
+	public static double powermult_common_metal;
+	public static double powermult_rare_metal;
+	public static double powermult_shiny_metal;
+	public static double powermult_uranium;
+	public static double powermult_common_gem;
+	public static double powermult_shiny_gem;
+	public static double powermult_nether_crystal;
+	public static double powermult_oil;
+	
 	/**
 	 * CATEGORIES
 	 */
@@ -91,7 +138,9 @@ public class TGConfig {
 	private static final String ID_CONFLICTS = "ID Conflicts";
 	private static final String WORLDGEN="World Generation";
 	private static final String DAMAGE_FACTORS="Damage Factors";
+	private static final String ORE_DRILLS = "Ore Drills";
 	
+
 	public static void init(FMLPreInitializationEvent event){
 		//Load the config file
 		config = new Configuration(event.getSuggestedConfigurationFile());
@@ -104,6 +153,8 @@ public class TGConfig {
 		config.addCustomCategoryComment(CLIENTSIDE, "Clientside options, can be changed when playing on a server");
 		
 		debug = config.getBoolean("debug", config.CATEGORY_GENERAL, false, "Enable debug options and unfinished stuff, disable this for playing.");
+		
+		limitUnsafeModeToOP = config.getBoolean("RestrictUnsafeModeToOP", config.CATEGORY_GENERAL, false, "Only opped players can use the unsafe mode of guns, this OVERRIDES the permission setting 'techguns.allowunsafemode'");
 		
 		disableAutofeeder = config.getBoolean("disableAutofeeder", config.CATEGORY_GENERAL, false, "Disable automatic feeding of Food in the Techguns tab. Disable autofeeding if you think it breaks the balance");	
 		machinesNeedNoPower = config.getBoolean("machinesNeedNoPower", config.CATEGORY_GENERAL, false, "Machines don't need power, activate this if you don't want to install a mod with generators and still be able to use the machines");
@@ -190,6 +241,53 @@ public class TGConfig {
 		cl_fixedSprintFov = config.getFloat("FixedSprintFovMultiplier", CLIENTSIDE, 1.15f, 1.0f, 10.0f, "Multiply the FOV while sprinting by this value independent from the actual speed, has no effect when LockSpeedDependantFov is false, pure clientside check.");
 		
 		cl_sortPassesPerTick = config.getInt("ParticleDepthSortPasses", CLIENTSIDE, 10, 0, 20, "How many bubble sort passes should be performed each tick on particles. 0=off. Clientside");
+		
+		
+		WIP_disableRadiationSystem = config.getBoolean("WIP_disableRadiationSystem", config.CATEGORY_GENERAL, true, "Disable Radiation for players. Radiation system is WIP, only use in creative for testing");
+
+		fluidListFuel = config.getStringList("FluidListFuel", "Fluid Recipes", new String[]{"fuel", "refined_fuel", "biofuel", "biodiesel", "diesel", "gasoline", "fluiddiesel", "fluidnitrodiesel", "fliudnitrofuel", "refined_biofuel", "fire_water", "rocket_fuel"}, "Fluids that can be used to fill up fuel tanks");
+		fluidListOil = config.getStringList("FluidListOil", "Fluid Recipes", new String[]{"oil", "tree_oil", "crude_oil", "fluidoil", "seed_oil"}, "Fluids that are treated as oil.");
+		fluidListOilWorldspawn = config.getStringList("FluidListOilWorldspawn", "Fluid Recipes", new String[]{"oil", "crude_oil"}, "Fluids that are treated as oil for worlspawn and oil ore clusters.");
+
+		
+		oreDrillMultiplierOres = config.getFloat("oreDrillMultiplierOre", ORE_DRILLS, 1.0f, 0.001f, 1000.0f, "Multiplier to default rate on how many ores an ore drill produces");
+		
+		oreDrillMultiplierPower = config.getFloat("oreDrillMultiplierPower", ORE_DRILLS, 1.0f, 0f, 1000.0f, "Multiplier to default rate on how much power an ore drill requires");
+	
+		oreDrillMultiplierFuel = config.getFloat("oreDrillFuelMultiplier", ORE_DRILLS, 1000, 1, 100000, "Multiplier to calculate value of furnace fuel burn time = RF for ore Drill. burnTime* <THIS_VALUE> = RF. Only for internal use of the ore Drill, no real RF generation.");
+		
+		oreDrillFuelValueFuel = config.getFloat("oreDrillFuelValueFuel", ORE_DRILLS, 100, 1, 100000, "Fuel value for Liquid Fuel for use in ore Drills, this is per Millibucket, not Bucket, so 1/1000 of bucket value");
+		
+		mininglevel_coal = config.getInt("cluster_mininglevel_coal", ORE_DRILLS, 				      0, 0, 10, "Mining Level for coal ore clusters");
+		mininglevel_common_metal = config.getInt("cluster_mininglevel_common_metal", ORE_DRILLS, 	  0, 0, 10, "Mining Level for common metal ore clusters");
+		mininglevel_rare_metal = config.getInt("cluster_mininglevel_rare_metal", ORE_DRILLS,          1, 0, 10, "Mining Level for rare metal ore clusters");
+		mininglevel_shiny_metal = config.getInt("cluster_mininglevel_shiny_metal", ORE_DRILLS ,       2, 0, 10, "Mining Level for shiny metal ore clusters");
+		mininglevel_uranium = config.getInt("cluster_mininglevel_uranium", ORE_DRILLS,  		      3, 0, 10, "Mining Level for uranium ore clusters");
+		mininglevel_common_gem = config.getInt("cluster_mininglevel_common_gem", ORE_DRILLS,          1, 0, 10, "Mining Level for common gem ore clusters");
+		mininglevel_shiny_gem = config.getInt("cluster_mininglevel_shiny_gem", ORE_DRILLS,            3, 0, 10, "Mining Level for shiny gem ore clusters");
+		mininglevel_nether_crystal = config.getInt("cluster_mininglevel_nether_crystal", ORE_DRILLS,  2, 0, 10, "Mining Level for nether crystal ore clusters");
+		mininglevel_oil = config.getInt("cluster_mininglevel_oil", ORE_DRILLS,  					  2, 0, 10, "Mining Level for oil clusters");
+			
+		oremult_coal = config.getFloat("cluster_oremult_coal", ORE_DRILLS,  				   10f, 0.0001f, 1000f, "Ore Multiplier for coal ore clusters");
+		oremult_common_metal = config.getFloat("cluster_oremult_common_metal", ORE_DRILLS,      5f, 0.0001f, 1000f, "Ore Multiplier for common metal ore clusters");
+		oremult_rare_metal = config.getFloat("cluster_oremult_rare_metal", ORE_DRILLS,        2.5f, 0.0001f, 1000f, "Ore Multiplier for rare metal ore clusters");
+		oremult_shiny_metal = config.getFloat("cluster_oremult_shiny_metal", ORE_DRILLS,        1f, 0.0001f, 1000f, "Ore Multiplier for shiny metal ore clusters");
+		oremult_uranium = config.getFloat("cluster_oremult_uranium", ORE_DRILLS,              0.5f, 0.0001f, 1000f, "Ore Multiplier for uranium ore clusters");
+		oremult_common_gem = config.getFloat("cluster_oremult_common_gem", ORE_DRILLS,          5f, 0.0001f, 1000f, "Ore Multiplier for common gem ore clusters");
+		oremult_shiny_gem = config.getFloat("cluster_oremult_shiny_gem", ORE_DRILLS, 		  0.2f, 0.0001f, 1000f, "Ore Multiplier for shiny gem ore clusters");
+		oremult_nether_crystal = config.getFloat("cluster_oremult_nether_crystal", ORE_DRILLS,  4f, 0.0001f, 1000f, "Ore Multiplier for nether crystal ore clusters");
+		oremult_oil = config.getFloat("cluster_oremult_oil", ORE_DRILLS,  						4f, 0.0001f, 1000f, "Ore Multiplier for oil clusters");
+		
+		powermult_coal = config.getFloat("cluster_powermult_coal", ORE_DRILLS,                      0.1f, 0.0001f, 1000f, "Power Multiplier for coal ore clusters");
+		powermult_common_metal = config.getFloat("cluster_powermult_common_metal", ORE_DRILLS,      0.2f, 0.0001f, 1000f, "Power Multiplier for common metal ore clusters");
+		powermult_rare_metal = config.getFloat("cluster_powermult_rare_metal", ORE_DRILLS,          0.4f, 0.0001f, 1000f, "Power Multiplier for rare metal ore clusters");
+		powermult_shiny_metal = config.getFloat("cluster_powermult_shiny_metal", ORE_DRILLS, 		1.0f, 0.0001f, 1000f, "Power Multiplier for shiny metal ore clusters");
+		powermult_uranium = config.getFloat("cluster_powermult_uranium", ORE_DRILLS, 				1.0f, 0.0001f, 1000f, "Power Multiplier for uranium ore clusters");
+		powermult_common_gem = config.getFloat("cluster_powermult_common_gem", ORE_DRILLS,  		0.2f, 0.0001f, 1000f, "Power Multiplier for common gem ore clusters");
+		powermult_shiny_gem = config.getFloat("cluster_powermult_shiny_gem", ORE_DRILLS,            1.0f, 0.0001f, 1000f, "Power Multiplier for shiny gem ore clusters");
+		powermult_nether_crystal = config.getFloat("cluster_powermult_nether_crystal", ORE_DRILLS,  0.5f, 0.0001f, 1000f, "Power Multiplier for nether crystal ore clusters");
+		powermult_oil = config.getFloat("cluster_powermult_oil", ORE_DRILLS,  						1.0f, 0.0001f, 1000f, "Power Multiplier for oil clusters");
+		
 		
 		if(config.hasChanged()) {
 			config.save();

@@ -1,0 +1,6 @@
+{
+    "name": "Multiblock Machines",
+    "description": "The most complex machines in techguns are multiblocks and must be built together with multiple blocks. $(l:machine_mechanics)'Machine Mechanics'$(/l) are applicable to multiblock machines as well.",
+    "icon": "techguns:multiblockmachine:5",
+    "sortnum": 4
+}

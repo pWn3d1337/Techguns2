@@ -60,7 +60,12 @@ public enum EnumArmorStat {
 	 /**
 	  * underwater speed
 	  */
-	 WATER_SPEED;
+	 WATER_SPEED,
+	
+	/**
+	 * rad resistance entity attribute
+	 */
+	RAD_RESISTANCE;
 	
 	public static EnumArmorStat parseFromString(String s) {
 		for(EnumArmorStat e :EnumArmorStat.values()) {

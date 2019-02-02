@@ -1,0 +1,77 @@
+{
+    "name": "* Armor Stats *",
+    "icon": "techguns:t2_combat_chestplate",
+    "category": "armors",
+    "pages": [
+        {
+            "type": "text",
+            "text": "When holding [shift] a detailed tooltip shows all stats of an armor. $(br) $(li) $(l:armor_stats#power_type)Power$(/l) $(li) $(l:armor_stats#power_type)PowerType$(/l) $(li) $(l:armor_stats#durability_toughness)Durability $(li) $(l:armor_stats#durability_toughness)Toughness$(/l) $(li) $(l:armor_stats#armor)Armor-Values$(/l) $(li) $(l:armor_stats#armor)Penetration-Resistance$(/l)"
+        },
+        {
+            "type": "text",
+            "title": "Bonus Effects",
+            "anchor": "bonus",
+            "text": "The following bonus effects can be provided by armors:$(br) $(li)$(l:armor_stats#move_mine_speed)Move speed$(/l)$(li)$(l:armor_stats#move_mine_speed)Mining speed$(/l) $(li)$(l:armor_stats#fall_damage)Fall damage$(/l) $(li)$(l:armor_stats#fall_damage)Fall height$(/l) $(li)$(l:armor_stats#accuracy)Gun accuracy$(/l) $(li)$(l:armor_stats#accuracy)Extra Hearts$(/l) $(li)$(l:armor_stats#nightvision)Nightvision$(/l) $(li)$(l:armor_stats#nightvision)Step-Assist$(/l) $(li)$(l:armor_stats#oxygen)Oxygen Gear$(/l) $(li)$(l:armor_stats#cooling)Cooling System$(/l)"
+        },
+        {
+            "type": "text",
+            "title": "Power & PowerType",
+            "anchor": "power_type",
+            "text": "Power shows the current and maximum amount of power the armor holds. PowerType shows the $(l:armor_mechanics#powered_armors)Power-Type$(/l) and the item used to reload the armor. The reload item is automatically consumed from the players ammo inventory and regular inventory."
+        },
+        {
+            "type": "text",
+            "title": "Durability & Toughness",
+            "anchor": "durability_toughness",
+            "text": "Item Durability and Armor Toughness are vanilla minecraft mechanics. Techguns armors do not get destroyed by reaching 0 durability, see $(l:armor_mechanics)Armor Mechanics$(/l). Otherwise both mechanics work like vanilla."
+        },
+        {
+            "type": "text",
+            "title": "Armor & Penetration",
+            "anchor": "armor",
+            "text": "Armor Values shows the armor value against each different damage type. TODO: Damage Types Entry. Penetration resistance: TODO finalize damage formula."
+        },
+        {
+            "type": "text",
+            "title": "Move & Mining speed",
+            "anchor": "move_mine_speed",
+            "text": "Movement speed bonus increases a players movement speed by the given percentage. Mining speed increases the speed while harvesting a block. $(br)Underwater mining speed bonus is only applied when the player is under water."
+        },
+        {
+            "type": "text",
+            "title": "Fall damage & height",
+            "anchor": "fall_damage",
+            "text": "Fall damage reduces the damage taken from falling by the given amount. $(br2)Fall height removes the given amount of height from the fall distance and allows to fall higher before taking any damage at all."
+        },
+         {
+            "type": "text",
+            "title": "Accuracy & Hearts",
+            "anchor": "accuracy",
+            "text": "Gun accuracy reduces the $(l:weapon_stats#spread)spread$(/l) of guns.$(br2) Extra Hearts increases the player's health points (hearts) by the given amount. Note: 1 Heart in the user interfaces represents 2 health points. 10 Hearts = 20 Health."
+        },
+         {
+            "type": "text",
+            "title": "Nightvision & Step-Assist",
+            "anchor": "nightvision",
+            "text": "Nightvision allows the player to activate nightvision with the $(9)$(k:techguns.key.toggleNightvision)$()-key. $(br2)Step-Assist allows the player to toggle step-assist with the $(9)$(k:techguns.key.toggleStepassist)$()-key. While step assist is active a full block height can be walked over without jumping."
+        },
+         {
+            "type": "text",
+            "title": "Knockback Resistance",
+            "anchor": "knockback",
+            "text": "Gives the player a chance to avoid beeing knocked back by damage. If this chance exceeds 100% a player can no longer be knocked back by damage."
+        },
+          {
+            "type": "text",
+            "title": "Oxygen gear",
+            "anchor": "oxygen",
+            "text": "Oxygen gear allows the player to breath underwater when oxygen tanks are equipped in the player's back slot (TODO:tg inventory)."
+        },
+         {
+            "type": "text",
+            "title": "Cooling System",
+            "anchor": "cooling",
+            "text": "A cooling system automatically extinguishes the player when burning while draining Power from the armor. Also absorbs lava damage at the cost of power."
+        }
+    ]
+}

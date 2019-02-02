@@ -1,0 +1,17 @@
+{
+    "name": "Connectable Doors",
+    "icon": "techguns:item_door3x3:1",
+    "category": "doors",
+    "pages": [
+        {
+            "type": "text",
+            "text": "The two 'Hangar Doors' can be connected to a larger door. This means if you open a door, adjacent doors get opened as well. This overrides all security settings of neighbouring doors. If you want central control, neighbouring doors can be set to 'Redstone Mode' and 'Ignore Signal' to disable all other ways of opening."
+        },
+       {
+            "type": "image",
+            "title": "Connected Door",
+            "images": ["techguns:textures/gui/manual/connected_door.png"],
+            "text": "6 connected hangar doors"
+       }        
+    ]
+}

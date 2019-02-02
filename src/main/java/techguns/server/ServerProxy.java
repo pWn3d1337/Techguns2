@@ -17,6 +17,7 @@ import techguns.gui.containers.DungeonScannerContainer;
 import techguns.gui.containers.ExplosiveChargeContainer;
 import techguns.gui.containers.FabricatorContainer;
 import techguns.gui.containers.MetalPressContainer;
+import techguns.gui.containers.OreDrillContainer;
 import techguns.gui.containers.ReactionChamberContainer;
 import techguns.gui.containers.RepairBenchContainer;
 import techguns.gui.containers.TurretContainer;
@@ -31,6 +32,7 @@ import techguns.tileentities.ExplosiveChargeAdvTileEnt;
 import techguns.tileentities.ExplosiveChargeTileEnt;
 import techguns.tileentities.FabricatorTileEntMaster;
 import techguns.tileentities.MetalPressTileEnt;
+import techguns.tileentities.OreDrillTileEntMaster;
 import techguns.tileentities.ReactionChamberTileEntMaster;
 import techguns.tileentities.RepairBenchTileEnt;
 import techguns.tileentities.TurretTileEnt;
@@ -62,6 +64,7 @@ public class ServerProxy extends CommonProxy {
 		guihandler.<Door3x3TileEntity>addEntry(Door3x3TileEntity.class, Door3x3Container::new);
 		guihandler.<ExplosiveChargeTileEnt>addEntry(ExplosiveChargeTileEnt.class, ExplosiveChargeContainer<ExplosiveChargeTileEnt>::new);
 		guihandler.<ExplosiveChargeAdvTileEnt>addEntry(ExplosiveChargeAdvTileEnt.class, ExplosiveChargeContainer<ExplosiveChargeAdvTileEnt>::new);
+		guihandler.<OreDrillTileEntMaster>addEntry(OreDrillTileEntMaster.class, OreDrillContainer::new);
 	}
 	
 	@Override

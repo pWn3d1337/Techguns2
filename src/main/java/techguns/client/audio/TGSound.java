@@ -17,7 +17,7 @@ public class TGSound extends MovingSound {
 
 	boolean gunPosition;
 	boolean moving;
-	
+	TGSoundCategory tgcategory=null;
 	EntityCondition condition = EntityCondition.NONE;
 	
 	public TGSound(SoundEvent soundname, Entity entity, float volume, float pitch, boolean repeat, boolean moving, boolean gunPosition, TGSoundCategory category, EntityCondition condition) {
@@ -50,6 +50,7 @@ public class TGSound extends MovingSound {
 	
 	public TGSound(SoundEvent soundname, Entity entity, float volume, float pitch, boolean repeat, TGSoundCategory category) {
 		super(soundname, category.getVanillaCategory());
+		this.tgcategory=category;
 		this.volume = volume; //TGConfig.getVolumeMultiplier(volume, category);
 		this.pitch = pitch;
 		this.repeat = repeat;

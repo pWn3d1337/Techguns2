@@ -5,7 +5,12 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
+import net.minecraft.potion.PotionType;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.CapabilityManager;
@@ -52,19 +57,47 @@ public abstract class CommonProxy implements ITGInitializer {
 	}
 
 	@SubscribeEvent
+	public static void RecipeRegistryEvent(RegistryEvent.Register<IRecipe> event) {
+		TGFluids.RecipeInit();
+		TGMachineRecipes.addRecipes();
+		Techguns.orecluster.RecipeInit();
+	}
+	
+	@SubscribeEvent
 	public static void registerBlocks(RegistryEvent.Register<Block> event) {
-		Techguns.blocks.registerBlocks(event);
-		Techguns.fluids.registerBlocks(event);
+		Techguns.instance.blocks.registerBlocks(event);
+		Techguns.instance.fluids.registerBlocks(event);
 	}
 
 	@SubscribeEvent
 	public static void registerItems(RegistryEvent.Register<Item> event) {
-		Techguns.blocks.registerItems(event);
-		Techguns.fluids.registerItems(event);
-		Techguns.items.registerItems(event);
-		Techguns.armors.registerItems(event);
-		Techguns.guns.registerItems(event);
+		Techguns.instance.blocks.registerItems(event);
+		Techguns.instance.fluids.registerItems(event);
+		Techguns.instance.items.registerItems(event);
+		Techguns.instance.armors.registerItems(event);
+		Techguns.instance.guns.registerItems(event);
 	}
+	
+	@SubscribeEvent
+	public static void registerPotions(RegistryEvent.Register<Potion> event) {
+		Techguns.rad.registerPotions(event);
+	}
+	
+	@SubscribeEvent
+    public static void registerPotionTypes(RegistryEvent.Register<PotionType> event)
+    {
+
+        event.getRegistry().register(new PotionType(new PotionEffect(TGRadiationSystem.radiation_effect, 300, 4))
+                .setRegistryName(Techguns.MODID, "radpotion"));
+        
+        event.getRegistry().register(new PotionType(new PotionEffect(TGRadiationSystem.radregen_effect, 600, 9))
+                .setRegistryName(Techguns.MODID, "radregenerationpotion"));
+        
+        event.getRegistry().register(new PotionType(new PotionEffect(TGRadiationSystem.radresistance_effect, 900, 1))
+                .setRegistryName(Techguns.MODID, "radresistancepotion"));
+
+    }
+	
 	
 	@SubscribeEvent
 	public static void registerSounds(RegistryEvent.Register<SoundEvent> event) {
@@ -90,6 +123,10 @@ public abstract class CommonProxy implements ITGInitializer {
 	}
 	
 	public void setGunTextures(GenericGun gun, String path, int variations){
+		
+	}
+	
+	public void setGunTextures(GenericGun gun, ResourceLocation path, int variations){
 		
 	}
 	
@@ -164,4 +201,9 @@ public abstract class CommonProxy implements ITGInitializer {
     
     public void clearItemParticleSystemsHand(EntityLivingBase entity, EnumHand hand) {
 	}
+
+	public void handlePlayerGliding(EntityPlayer player) {
+		//do nothing on server
+	}
+	
 }

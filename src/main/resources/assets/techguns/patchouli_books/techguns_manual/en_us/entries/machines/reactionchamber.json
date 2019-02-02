@@ -1,0 +1,101 @@
+{
+    "name": "Reaction Chamber",
+    "icon": "techguns:multiblockmachine:5",
+    "category": "multiblock_machines",
+    "pages": [
+        {
+            "type": "text",
+            "text": "The reaction chamber is an advanced production machine that needs to be built as multiblock. To form the multiblock, the controller needs to be $(thing)right-clicked$() while you look at the controller. This defines the front direction of the machine."
+        }, 
+       {
+            "type": "multiblock",
+            "name": "Reaction Chamber",
+            "multiblock": {
+                "mapping": {
+                     "H": "techguns:multiblockmachine[machinetype=reactionchamber_housing]",
+                     "G": "techguns:multiblockmachine[machinetype=reactionchamber_glass]",
+                     "0": "techguns:multiblockmachine[machinetype=reactionchamber_controller]"
+                 },
+                 "pattern": [
+                    ["HHH", "HHH", "HHH"],
+                    ["GGG", "GGG", "GGG"],
+                    ["GGG", "GGG", "GGG"],
+                    ["HHH", "HHH", "H0H"]
+                 ],
+                 "enable_visualize": false
+            }
+       },
+        {
+            "type": "crafting",
+            "recipe": "techguns:multiblockmachine_3_reactionchamber_housing",
+            "text": "To build a reaction chamber you need:$(br) $(li) 17x Housing $(li) 18x Glass $(li) 1x Controller $(br) Which means 36 housings need to be crafted in total."
+       },
+       {
+            "type": "crafting",
+            "recipe": "techguns:multiblockmachine_4_reactionchamber_glass",
+            "recipe2": "techguns:multiblockmachine_5_reactionchamber_controller"
+       },
+       {
+            "type": "image",
+            "title": "Preview Image",
+            "images": ["techguns:textures/gui/manual/reactionchamber_image.png"],
+            "text": "A formed reaction chamber built in the world."
+       },
+       {
+            "type": "text",
+            "title": "Input Sides",
+            "text": "Power can be provided through the top middle block or directly to the controller. Items and Liquids can be piped in and out at the 3 housing blocks in the middle of each side of the bottom row. Piping is possible from the side or from the bottom."
+       },
+       {
+            "type": "image",
+            "title": "GUI",
+            "images": ["techguns:textures/gui/manual/rc_gui_manual.png"],
+            "text": "The reaction chamber GUI"
+       },
+       {
+            "type": "text",
+            "title": "GUI Elements",
+            "text": "$(li)1: Input slot $(li)2: $(l:reactionchamber#focus)Reaction Chamber Focus$(/l) $(li)3: $(l:reactionchamber#intensity)Intensitiy Level$(/l) $(li)4: $(l:reactionchamber#liquid)Input Tank$(/l) $(li)5: $(l:reactionchamber#liquid)Liquid Level$(/l) $(li)6: Progress Bars $(li)7: Output Slots $(li)8: Power Bar"
+       },
+       {
+            "type": "spotlight",
+            "title": "Reaction Chamber Focus",
+            "anchor": "focus",
+            "item": "techguns:itemshared:104",
+            "text": "A reaction chamber focus is required to be placed in the focus slot. $(br)The heatray focus is the first focus that will be used in the chamber.$(br) A focus has no durability and is not consumed."
+       },
+       {
+            "type": "text",
+            "title": "Intensity Level",
+            "anchor": "intensity",
+            "text": "The intensity level has a range from 0 to 10 and must be set according to the recipe for starting the reaction.$(br)During a reaction tick which happens every 3 seconds the required intensity may change. If the intensity requires adjustment the bar turns orange."
+       },
+       {
+            "type": "text",
+            "title": "Liquid Input & Level",
+            "anchor": "liquid",
+            "text": "The input tank holds the liquid required for the reaction. The liquid level defines how much liquid should be pumped into the tank. The liquid level ranges from 0% to 100% where each 10% step is equal to the amount of 1 bucket. Pipes can only pipe in liquid when the tank is below the target liquid level. Draining is only possible for the amount above the liquid level."
+       },
+       {
+            "type": "text",
+            "title": "Liquid Input & Level",
+            "text": "A good setup is to pump in and drain the liquid at the same time to a liquid tank from any mod placed near the chamber. The liquid level does not need to be adjusted during operation. To start a reaction the liquid level and amount in the tank must match to the recipe. After each operation some of the liquid may be consumed. This is defined by the recipe."
+       },
+       {
+            "type": "text",
+            "title": "Progress Bars",
+            "anchor": "reaction_minigame",
+            "text": "The reaction chamber has a minigame during a reaction. A recipe has $(thing)'Recipe Tick'$() which happen every 3 seconds. During a such a tick the recipe gains $(thing)Completion$() if intensity, liquidlevel and power requirement match. The two progress bars represent the reaction process. The green bar is the completion which needs to reach the end before the orange bar. The orange bar is the time restriction and always"
+       },
+       {
+            "type": "text",
+            "title": "Progress Bars",
+            "text": " progresses each recipe tick. How many completion is required depends on the recipe. The time limit can also be different. Each  $(thing)'Recipe Tick'$() power is consumed, this is another case for failure. If not enough power is stored no completion is gained. The power is consumed at once, that means there is a time frame of 3 seconds in which the machine must be filled with power again."
+       },
+        {
+            "type": "text",
+            "title": "Failure Cases",
+            "text": "If a reaction fails there are some things that may happen depending on the recipe. The input item is always lost in case of failure. But some recipes may even cause an explosion of the reaction chamber. $(li)'Break Item': input is lost $(li)'Small Explosion': Chamber is damaged, room is safe. $(li)'Medium Explosion': Chamber is destroyed, room is in danger, base is safe."
+       }
+    ]
+}

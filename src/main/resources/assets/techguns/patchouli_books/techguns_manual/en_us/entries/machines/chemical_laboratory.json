@@ -1,0 +1,25 @@
+{
+    "name": "Chemical Laboratory",
+    "icon": "techguns:basicmachine:2",
+    "category": "powered_machines",
+    "pages": [
+        {
+            "type": "text",
+            "text": "The Chemical Laboratory is an early game machine that is used for some utility crafting recipes and for filling tanks and compressed air cells. The machine has 1 input tank, 2 item input slots, 1 output slot, 1 output tank and an $(l:machine_mechanics#upgrade)upgrade slot$(/l)."
+        }, 
+       {
+            "type": "text",
+            "title": "Usage",
+            "text": "The third input slot is currently not used. Recipes may need different combinations on input liquid and items. Not all slots need to be used in each recipe. The 'toggle drain' button can be used to change which tank should be drained with pipes. This also applies to 'Right-clicking' with an empty bucket (or other fluid container). Filling is possible with both tanks and pipes."
+       },
+       {
+            "type": "text",
+            "title": "Usage",
+            "text": "Both tanks have a 'dump' button that deletes the content of the tank. $(br)Available Recipes may differ on mod setup and should be viewed with Just Enough Items (JEI)."
+       },
+       {
+            "type": "crafting",
+            "recipe": "techguns:basicmachine_2_chem_lab"
+       }
+    ]
+}

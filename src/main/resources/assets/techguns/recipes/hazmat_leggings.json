@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "techguns:hazmat_leggings"
+  },
+  "pattern": [
+    "fff",
+    "f f",
+    "f f"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "f": {
+      "item": "techguns:itemshared",
+      "data": 133
+    }
+  }
+}

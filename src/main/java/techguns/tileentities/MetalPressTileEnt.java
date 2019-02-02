@@ -17,6 +17,8 @@ import techguns.tileentities.operation.MetalPressRecipes;
 
 public class MetalPressTileEnt extends BasicMachineTileEnt {
 
+	protected static final float SOUND_VOLUME=0.5f;
+	
 	public static final int SLOT_INPUT1=0;
 	public static final int SLOT_INPUT2=1;
 	public static final int SLOT_OUTPUT=2;
@@ -170,7 +172,8 @@ public class MetalPressTileEnt extends BasicMachineTileEnt {
 		if (this.inventory.getStackInSlot(SLOT_OUTPUT).isEmpty()) {
 			this.inventory.setStackInSlot(SLOT_OUTPUT, currentOperation.getItemOutput0());
 		} else {
-			this.inventory.getStackInSlot(SLOT_OUTPUT).grow(currentOperation.getItemOutput0().getCount());
+			//this.inventory.getStackInSlot(SLOT_OUTPUT).grow(currentOperation.getItemOutput0().getCount());
+			this.inventory.insertItemNoCheck(SLOT_OUTPUT, currentOperation.getItemOutput0(), false);
 		}
 	}
 
@@ -182,7 +185,7 @@ public class MetalPressTileEnt extends BasicMachineTileEnt {
 		int halfTime = (Math.round((float)totaltime*0.5f));
 		
 		if (this.progress == soundTick1 || this.progress == soundTick1+halfTime) {
-			world.playSound(this.getPos().getX(), this.getPos().getY(), this.getPos().getZ(), TGSounds.METAL_PRESS_WORK,SoundCategory.BLOCKS, 1.0F, 1.0F, true );
+			world.playSound(this.getPos().getX(), this.getPos().getY(), this.getPos().getZ(), TGSounds.METAL_PRESS_WORK,SoundCategory.BLOCKS, SOUND_VOLUME, 1.0F, true );
 		}
 	}
 

@@ -5,15 +5,18 @@ import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 
 import org.lwjgl.input.Keyboard;
 
+import com.google.common.collect.Multimap;
 import com.mojang.realmsclient.gui.ChatFormatting;
 
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -29,19 +32,29 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
 import techguns.TGArmors;
 import techguns.TGItems;
+import techguns.TGRadiationSystem;
 import techguns.Techguns;
 import techguns.api.damagesystem.DamageType;
+import techguns.api.radiation.TGRadiation;
 import techguns.api.render.IItemTGRenderer;
 import techguns.api.tginventory.ITGSpecialSlot;
 import techguns.capabilities.TGExtendedPlayer;
 import techguns.client.ClientProxy;
+import techguns.damagesystem.DamageSystem;
 import techguns.damagesystem.TGDamageSource;
 import techguns.gui.player.TGPlayerInventory;
 import techguns.util.TextUtil;
 
 public class GenericArmor extends ItemArmor implements ISpecialArmor , IItemTGRenderer{
 	//private static ArrayList<Item> techgunArmors = new ArrayList<Item>();
-
+    
+    protected static final UUID[] RAD_RESIST_MODIFIER = {
+    		UUID.fromString("47E9813E-3FB7-415C-A6CD-F9A4A3C55F82"),
+    		UUID.fromString("AD509C77-02FC-40E8-A811-52B29842CE56"),
+    		UUID.fromString("CB3BF616-549C-47EF-ADC8-2ED60C331ABD"),
+    		UUID.fromString("052C821F-1FA9-4D67-A660-D885FAE22EED")
+    };
+    
 	//For vanilla Anvil
 	private ItemStack repairItem=null;
 	
@@ -54,8 +67,9 @@ public class GenericArmor extends ItemArmor implements ISpecialArmor , IItemTGRe
 	String textureName;
 	
 	//ModelBiped model;	
-	int modelIndex=-1;
-	boolean doubleTex=true;
+	//int modelIndex=-1;
+	protected ResourceLocation armorModel=null; //default vanilla model
+	protected boolean doubleTex=true;
 	
 	/*public static double ARMOR_CAP = 24.0D/25.0D;
 	public static float MAX_ARMOR = 24.0f;*/
@@ -81,6 +95,8 @@ public class GenericArmor extends ItemArmor implements ISpecialArmor , IItemTGRe
 	
 	protected float waterspeedbonus=0.0f;
 	
+	protected float radresistance=0.0f;
+	
 	protected boolean hideFaceslot=false;
 	protected boolean hideBackslot=false;
 	protected boolean hideGloveslot=false;
@@ -91,13 +107,20 @@ public class GenericArmor extends ItemArmor implements ISpecialArmor , IItemTGRe
 	
 	protected boolean use3dRenderHack = false;
 	
+	protected String modid=Techguns.MODID;
+	
 	public GenericArmor(String unlocalizedName, TGArmorMaterial material, String textureName, EntityEquipmentSlot type) {
+		this(Techguns.MODID, unlocalizedName, material, textureName, type);
+	}
+	
+	public GenericArmor(String modid, String unlocalizedName, TGArmorMaterial material, String textureName, EntityEquipmentSlot type) {
 	    super(material.createVanillaMaterial(), 0, type);
 	    this.material=material;
 	    this.textureName = textureName; //Armor Texture
 		setCreativeTab(Techguns.tabTechgun);
+		this.modid=modid;
 	    this.setUnlocalizedName(unlocalizedName);
-	    this.setRegistryName(new ResourceLocation(Techguns.MODID, unlocalizedName));
+	    this.setRegistryName(new ResourceLocation(modid, unlocalizedName));
 	   // this.setTextureName(Techguns.MODID + ":" + unlocalizedName); //Item Texture
 	    //for tooltip
 	    this.armorValue=Math.round(material.getArmorValueSlot(type, DamageType.PHYSICAL));
@@ -109,15 +132,19 @@ public class GenericArmor extends ItemArmor implements ISpecialArmor , IItemTGRe
 	    //techgunArmors.add(this);
 	}
 	
-	
 	/**
 	 * SteamArmor (0,1)
 	 * PowerArmor (2,3)
 	 * ExoSuit (4,5,6)
 	 * Beret (7)
 	 */
-	public GenericArmor setArmorModel(int index, boolean doubleTex) {
+	/*public GenericArmor setArmorModel(int index, boolean doubleTex) {
 		this.modelIndex = index;
+		this.doubleTex=doubleTex;
+		return this;
+	}*/
+	public GenericArmor setArmorModel(ResourceLocation key, boolean doubleTex) {
+		this.armorModel=key;
 		this.doubleTex=doubleTex;
 		return this;
 	}
@@ -169,6 +196,11 @@ public class GenericArmor extends ItemArmor implements ISpecialArmor , IItemTGRe
 	
 	public GenericArmor setKnockbackResistance(float resistpercent){
 		this.knockbackresistance=resistpercent;
+		return this;
+	}
+	
+	public GenericArmor setRADResistance(float radresistance){
+		this.radresistance=radresistance;
 		return this;
 	}
 	
@@ -302,10 +334,10 @@ public class GenericArmor extends ItemArmor implements ISpecialArmor , IItemTGRe
 	}
 	
 	private String getSingleTexture(){
-		return Techguns.MODID + ":textures/armor/" + this.textureName + ".png";
+		return this.modid + ":textures/armor/" + this.textureName + ".png";
 	}
 	private String getDoubleTexture(){
-		return Techguns.MODID + ":textures/armor/" + this.textureName + "_" + (this.armorType == EntityEquipmentSlot.LEGS ? "2" : "1") + ".png";
+		return this.modid + ":textures/armor/" + this.textureName + "_" + (this.armorType == EntityEquipmentSlot.LEGS ? "2" : "1") + ".png";
 	}
 	
 	protected boolean hasDoubleTexture(){
@@ -318,9 +350,12 @@ public class GenericArmor extends ItemArmor implements ISpecialArmor , IItemTGRe
 	
 	@Override
 	public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped _default) {
-		if(modelIndex >=0 ){
-			
-			ModelBiped model = ClientProxy.armorModels[this.modelIndex];
+		//if(modelIndex >=0 ){
+		if(this.armorModel!=null) {
+
+			ModelBiped model = ClientProxy.get().getArmorModel(this.armorModel);// ClientProxy.armorModels[this.modelIndex];
+
+			if(model==null) return null;
 			
 			model.bipedHead.showModel = armorSlot == EntityEquipmentSlot.HEAD;
 			model.bipedHeadwear.showModel = armorSlot == EntityEquipmentSlot.HEAD;
@@ -352,9 +387,9 @@ public class GenericArmor extends ItemArmor implements ISpecialArmor , IItemTGRe
 		
 		EntityEquipmentSlot slot = this.armorType;
 		
-		if (this.getPenetrationResistance()>0.0f){
-			list.add(" "+ChatFormatting.GRAY+trans("armorTooltip.penetrationResistance")+": "+formatArmor.format(this.getPenetrationResistance()));
-		}
+		//if (this.getPenetrationResistance()>0.0f){
+		//	list.add(" "+ChatFormatting.GRAY+trans("armorTooltip.penetrationResistance")+": "+formatArmor.format(this.getPenetrationResistance()));
+		//}
 		
 		list.add(ChatFormatting.DARK_GRAY+" AR: "+formatAV(this.material.getArmorValueSlot(slot, DamageType.PHYSICAL),DamageType.PHYSICAL));
 		list.add(ChatFormatting.GRAY+" PR: "+formatAV(this.material.getArmorValueSlot(slot, DamageType.PROJECTILE),DamageType.PROJECTILE));
@@ -434,6 +469,7 @@ public class GenericArmor extends ItemArmor implements ISpecialArmor , IItemTGRe
 		return this.material.getArmorValueSlot(armorType, type);
 	}
 	
+	@Deprecated
 	public float getPenetrationResistance(){
 		return this.material.getPenetrationResistance();
 	}
@@ -466,7 +502,7 @@ public class GenericArmor extends ItemArmor implements ISpecialArmor , IItemTGRe
             	}
             	            	
             	
-                if (stack.attemptDamageItem(damage, entity.getRNG(), (EntityPlayerMP) entity))
+                if (stack.attemptDamageItem(damage, entity.getRNG(), entity instanceof EntityPlayerMP ? (EntityPlayerMP) entity : null))
                 {
                 	entity.renderBrokenItemStack(stack);
 
@@ -556,22 +592,28 @@ public class GenericArmor extends ItemArmor implements ISpecialArmor , IItemTGRe
 
 	@Override
 	public String getUnlocalizedName(ItemStack s) {
-		return "techguns."+super.getUnlocalizedName(s);
+		return this.modid+"."+super.getUnlocalizedName(s);
 	}
 
 	@Override
 	public ArmorProperties getProperties(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, int slot) {
 		TGDamageSource src = TGDamageSource.getFromGenericDamageSource(source);
 
-		int absorbMax = armor.getMaxDamage()-1-armor.getItemDamage();
+	//	int absorbMax = armor.getMaxDamage()-1-armor.getItemDamage();
 		
-		ArmorProperties props = new ArmorProperties(0, 0, absorbMax);
+	//	ArmorProperties props = new ArmorProperties(0, 0, absorbMax);
 		
-		props.Armor = this.getArmorValue(armor, src.damageType);
-		props.Toughness = Math.max(this.material.toughness - src.armorPenetration,0);
+	//	props.Armor = this.getArmorValue(armor, src.damageType);
+	//	props.Toughness = Math.max(this.material.toughness - src.armorPenetration,0);
 		
-		//System.out.println("Armor"+props.Armor);
-		//System.out.println("Toughness"+props.Toughness);
+		
+		
+		ArmorProperties props = new ArmorProperties(0, 1-DamageSystem.getDamageAfterAbsorb_TGFormula(1.0f, this.getArmorValue(armor, src.damageType), this.material.toughness, src.armorPenetration), Integer.MAX_VALUE);
+		
+	//	System.out.println("Armor:"+this.getArmorValue(armor, src.damageType));
+	//	System.out.println("Toughness:"+this.material.toughness);
+	//	System.out.println("Pen:"+src.armorPenetration);
+	//	System.out.println("Absorb:"+props.AbsorbRatio);
 		
 		return props;
 	}
@@ -642,9 +684,25 @@ public class GenericArmor extends ItemArmor implements ISpecialArmor , IItemTGRe
 		case WATER_SPEED:
 			this.waterspeedbonus=value;
 			return true;
+		case RAD_RESISTANCE:
+			this.radresistance=value;
+			return true;
 		default:
 			return false;		
 		}
 	}
+
+
+	@Override
+	public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
+		Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
+		
+		if(slot==this.armorType&&radresistance>0) {
+			multimap.put(TGRadiation.RADIATION_RESISTANCE.getName(), new AttributeModifier(RAD_RESIST_MODIFIER[slot.getIndex()],"techguns.radresistance."+slot.toString(), this.radresistance, 0));
+		}
+		return multimap;
+	}
+	
+	
 }
 

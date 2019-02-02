@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "techguns:oredrill",
+    "data": 3,
+    "count": 4
+  },
+  "pattern": [
+    "bbb",
+    "beb",
+    "bbb"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "b": {
+      "item": "minecraft:iron_bars"
+    },
+    "e": {
+      "item": "techguns:itemshared",
+      "data": 70
+    }
+  }
+}

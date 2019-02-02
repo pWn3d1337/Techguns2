@@ -20,6 +20,8 @@ import techguns.tileentities.operation.MachineSlotItem;
 
 public class FabricatorTileEntMaster extends MultiBlockMachineTileEntMaster {
 
+	protected static final float SOUND_VOLUME=0.5f;
+	
 	public static final int SLOT_INPUT1 =0;
 	public static final int SLOT_WIRES=1;
 	public static final int SLOT_POWDER=2;
@@ -139,7 +141,8 @@ public class FabricatorTileEntMaster extends MultiBlockMachineTileEntMaster {
 		ItemStack itemOut = this.currentOperation.getItemOutput0();
 		if (!itemOut.isEmpty()) {
 			if (!this.inventory.getStackInSlot(SLOT_OUTPUT).isEmpty()) {
-				this.inventory.getStackInSlot(SLOT_OUTPUT).grow(itemOut.getCount());
+				//this.inventory.getStackInSlot(SLOT_OUTPUT).grow(itemOut.getCount());
+				this.inventory.insertItemNoCheck(SLOT_OUTPUT, itemOut, false);
 			} else {
 				this.inventory.setStackInSlot(SLOT_OUTPUT, itemOut);
 			}
@@ -150,7 +153,7 @@ public class FabricatorTileEntMaster extends MultiBlockMachineTileEntMaster {
 	protected void playAmbientSound() {
 		if (this.world.isRemote && this.progress == 1) {
 			//machines.fabricatorWork
-			world.playSound(this.getPos().getX(), this.getPos().getY(), this.getPos().getZ(), TGSounds.FABRICATOR_WORK, SoundCategory.BLOCKS, 1.0F, 1.0F, true );
+			world.playSound(this.getPos().getX(), this.getPos().getY(), this.getPos().getZ(), TGSounds.FABRICATOR_WORK, SoundCategory.BLOCKS, SOUND_VOLUME, 1.0F, true );
 		}
 	}
 

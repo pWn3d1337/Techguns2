@@ -94,7 +94,7 @@ public class BuildingScanTool extends GenericItem {
 					//int meta = world.getBlockMetadata(coordX, coordY, coordZ);
 					
 					
-					if ((bs != Blocks.AIR.getDefaultState()) && (b != Blocks.DIRT.getDefaultState()) && (bs!= Blocks.GRASS.getDefaultState()) ){
+					if ((bs != Blocks.AIR.getDefaultState()) && (bs != Blocks.DIRT.getDefaultState()) && (bs!= Blocks.GRASS.getDefaultState()) ){
 						MBlock mblock = new MBlock(bs);
 						if (!blockList.contains(mblock)) {
 							blockList.add(mblock);

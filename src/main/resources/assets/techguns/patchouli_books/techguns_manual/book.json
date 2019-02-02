@@ -1,0 +1,11 @@
+{
+    "name": "Techguns Manual",
+    "landing_text": "WIP",
+    "version": 1,
+    "creative_tab": "techguns",
+    "model": "techguns:tgmanual",
+    "book_texture": "techguns:textures/gui/tgmanual_textures.png",
+    "nameplate_color": "000000",
+    "open_sound": "minecraft:item.armor.equip_iron",
+    "flip_sound": "minecraft:ui.button.click"
+}

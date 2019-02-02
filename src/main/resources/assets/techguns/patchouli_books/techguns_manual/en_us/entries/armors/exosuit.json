@@ -1,0 +1,27 @@
+{
+    "name": "T3 : Exo Suit",
+    "icon": "techguns:t3_exo_chestplate",
+    "category": "armors",
+    "pages": [
+        {
+            "type": "text",
+            "text": "The Exo Suit is a  $(l:armor_mechanics#powered_armors)powered$(/l) Tier 3 armor intended for combat with high movement bonuses and uses $(thing)Energy Cell$()s for power. It's an upgrade of the $(l:armors/advanced_combat_armor)Advanced Combat Armor$(/l)."
+        }, 
+        {
+            "type": "entity",
+            "name": "Exo Suit",
+            "entity": "minecraft:armor_stand{ShowArms:1,NoBasePlate:1,ArmorItems:[{Count:1,id:'techguns:t3_exo_boots'}, {Count:1,id:'techguns:t3_exo_leggings'}, {Count:1,id:'techguns:t3_exo_chestplate'}, {Count:1,id:'techguns:t3_exo_helmet'}]}",
+            "text": ""
+        },
+        {
+            "type": "crafting",
+            "recipe": "techguns:t3_exo_helmet",
+            "recipe2": "techguns:t3_exo_chestplate"
+        },
+        {
+            "type": "crafting",
+            "recipe": "techguns:t3_exo_leggings",
+            "recipe2": "techguns:t3_exo_boots"
+        }
+    ]
+}

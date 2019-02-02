@@ -1,0 +1,148 @@
+{
+    "name": "Ore Drill Multiblock",
+    "icon": "techguns:oredrill:4",
+    "category": "ore_drills",
+    "pages": [
+        {
+            "type": "text",
+            "text": "Ore drills are multiblock machines and general $(l:machine_mechanics)machine mechanics$(/l) apply. Ore drills can be built in different sizes and rotations but must be adjacent to an ore cluster. There are 5 different block types involved in building an ore drill. The formulas for calculating output and power are explained $(l:oredrills/ore_clusters#formulas)here$(/l)."
+        },
+         {
+            "type": "crafting",
+            "recipe": "techguns:oredrill_0_frame",
+            "recipe2": "techguns:oredrill_1_scaffold"
+       },
+        {
+            "type": "crafting",
+            "recipe": "techguns:oredrill_2_rod",
+            "recipe2": "techguns:oredrill_3_engine"
+       },
+         {
+            "type": "crafting",
+            "recipe": "techguns:oredrill_4_controller",
+            "text": "To start building an ore drill find an $(l:oredrills/ore_clusters)ore cluster$(/l) and start with placing down the rod(s). To form the multiblock, $(thing)right+click$() the controller."
+       },
+        {
+            "type": "multiblock",
+            "name": "Minimum Size Ore Drill",
+            "anchor": "tinydrill",
+            "multiblock": {
+                "mapping": {
+                     "R": "techguns:oredrill[machinetype=controller]",
+                     "0": "techguns:oredrill[machinetype=rod]",
+                     "C": "techguns:orecluster[type=common_metal]"
+                 },
+                 "pattern": [
+                    ["R"],
+                    ["0"],
+                    ["C"]
+                 ],
+                 "enable_visualize": false
+            }
+       },
+        {
+            "type": "text",
+            "title": "Dimensions",
+            "text": "The smallest possible drill is just 1 controller and 1 rod. All bigger sizes require a frame. The following constraints must hold:$(li)length of rods+engines <= 16 $(li)rod length >= drill diameter$(li)Engine block height >= radius$(li)rod length >= engine length"
+        },
+           {
+            "type": "multiblock",
+            "name": "Small Ore Drill",
+            "multiblock": {
+                "mapping": {
+                     "0": "techguns:oredrill[machinetype=controller]",
+                     "R": "techguns:oredrill[machinetype=rod]",
+                     "F": "techguns:oredrill[machinetype=frame]",
+                     "S": "techguns:oredrill[machinetype=scaffold]",
+                     "E": "techguns:oredrill[machinetype=engine]",
+                     "C": "techguns:orecluster[type=common_metal]"
+                 },
+                 "pattern": [
+                    ["   ", " 0 ", "   "],               
+                    ["FFF","FEF","FFF"],
+                    ["FSF","SES","FSF"],
+                    ["FSF","SRS","FSF"],
+                    ["FFF","FRF","FFF"],
+                    ["   ", " C ", "   "]
+                 ],
+                 "enable_visualize": false
+            }
+       },
+        {
+            "type": "multiblock",
+            "name": "Medium Ore Drill",
+            "multiblock": {
+                "mapping": {
+                     "0": "techguns:oredrill[machinetype=controller]",
+                     "R": "techguns:oredrill[machinetype=rod]",
+                     "F": "techguns:oredrill[machinetype=frame]",
+                     "S": "techguns:oredrill[machinetype=scaffold]",
+                     "E": "techguns:oredrill[machinetype=engine]",
+                     "C": "techguns:orecluster[type=common_metal]"
+                 },
+                 "pattern": [
+                    [" FFFFFFFF ", " FSSSSSSF ", " FSSSSSSF ", " FSSSSSSF ", " FFFFFFFF "],
+                    [" FSSSSSSF ", " S    EEE ", " S    EEE ", " S    EEE ", " FSSSSSSF "],
+                    [" FSSSSSSF ", " S    EEE ", "CRRRRREEE0", " S    EEE ", " FSSSSSSF "],
+                    [" FSSSSSSF ", " S    EEE ", " S    EEE ", " S    EEE ", " FSSSSSSF "],
+                    [" FFFFFFFF ", " FSSSSSSF ", " FSSSSSSF ", " FSSSSSSF ", " FFFFFFFF "]
+                 ],
+                 "enable_visualize": false
+            }
+       },
+          {
+            "type": "multiblock",
+            "name": "Max Size Ore Drill",
+            "multiblock": {
+                "mapping": {
+                     "0": "techguns:oredrill[machinetype=controller]",
+                     "R": "techguns:oredrill[machinetype=rod]",
+                     "F": "techguns:oredrill[machinetype=frame]",
+                     "S": "techguns:oredrill[machinetype=scaffold]",
+                     "E": "techguns:oredrill[machinetype=engine]",
+                     "C": "techguns:orecluster[type=common_metal]"
+                 },
+                 "pattern": [
+                    ["         ","         ","         ","         ","    0    ","         ","         ","         ","         "],               
+                    ["FFFFFFFFF","FEEEEEEEF","FEEEEEEEF","FEEEEEEEF","FEEEEEEEF","FEEEEEEEF","FEEEEEEEF","FEEEEEEEF","FFFFFFFFF"],
+                    ["FSSSSSSSF","SEEEEEEES","SEEEEEEES","SEEEEEEES","SEEEEEEES","SEEEEEEES","SEEEEEEES","SEEEEEEES","FSSSSSSSF"],
+                    ["FSSSSSSSF","SEEEEEEES","SEEEEEEES","SEEEEEEES","SEEEEEEES","SEEEEEEES","SEEEEEEES","SEEEEEEES","FSSSSSSSF"],
+                    ["FSSSSSSSF","SEEEEEEES","SEEEEEEES","SEEEEEEES","SEEEEEEES","SEEEEEEES","SEEEEEEES","SEEEEEEES","FSSSSSSSF"],
+                    ["FSSSSSSSF","SEEEEEEES","SEEEEEEES","SEEEEEEES","SEEEEEEES","SEEEEEEES","SEEEEEEES","SEEEEEEES","FSSSSSSSF"],
+                    ["FSSSSSSSF","SEEEEEEES","SEEEEEEES","SEEEEEEES","SEEEEEEES","SEEEEEEES","SEEEEEEES","SEEEEEEES","FSSSSSSSF"],
+                    ["FSSSSSSSF","SEEEEEEES","SEEEEEEES","SEEEEEEES","SEEEEEEES","SEEEEEEES","SEEEEEEES","SEEEEEEES","FSSSSSSSF"],
+                    ["FSSSSSSSF","S       S","S       S","S       S","S   R   S","S       S","S       S","S       S","FSSSSSSSF"],
+                    ["FSSSSSSSF","S       S","S       S","S       S","S   R   S","S       S","S       S","S       S","FSSSSSSSF"],
+                    ["FSSSSSSSF","S       S","S       S","S       S","S   R   S","S       S","S       S","S       S","FSSSSSSSF"],
+                    ["FSSSSSSSF","S       S","S       S","S       S","S   R   S","S       S","S       S","S       S","FSSSSSSSF"],
+                    ["FSSSSSSSF","S       S","S       S","S       S","S   R   S","S       S","S       S","S       S","FSSSSSSSF"],
+                    ["FSSSSSSSF","S       S","S       S","S       S","S   R   S","S       S","S       S","S       S","FSSSSSSSF"],
+                    ["FSSSSSSSF","S       S","S       S","S       S","S   R   S","S       S","S       S","S       S","FSSSSSSSF"],
+                    ["FSSSSSSSF","S       S","S       S","S       S","S   R   S","S       S","S       S","S       S","FSSSSSSSF"],
+                    ["FFFFFFFFF","FSSSSSSSF","FSSSSSSSF","FSSSSSSSF","FSSSRSSSF","FSSSSSSSF","FSSSSSSSF","FSSSSSSSF","FFFFFFFFF"],
+                    ["         ","         ","         ","         ","    C    ","         ","         ","         ","         "]
+                 ],
+                 "enable_visualize": false
+            }
+       },
+        {
+            "type": "spotlight",
+            "title": "Drill Item",
+            "item": "techguns:itemshared:137",
+            "anchor": "drill",
+            "text": "An ore drill item is required for the drill to work. Depending on the size of the multiblock a different drill size is required. In the gui when hovering the progress bar the radius of the drill is shown. A Radius of 0 (just controller and rod) needs a small drill, radius 1 and 2 require a medium drill, while 3 and 4 need a large drill."
+        },
+        {
+            "type": "spotlight",
+            "title": "Drill Item",
+            "item": "techguns:itemshared:138",
+            "anchor": "drill",
+            "text": "The material of the drill defines the mining level of the drill. Iron has a mininglevel of 1, obsidian steel 2 and carbon 3."
+        },
+         {
+            "type": "text",
+            "title": "Power",
+            "text": "The drill multiblock can be powered by cables or by inputting items that can be used as furnace fuel or liquid fuel. The power from items is calculated from the furnace burn time. Liquid fuel burn value is defined in the config file. Every fluid that is defined as 'fuel' in the config file is added with the same burn value. Formulas are explained $(l:oredrills/ore_clusters#power)here$(/l)."
+        }
+    ]
+}

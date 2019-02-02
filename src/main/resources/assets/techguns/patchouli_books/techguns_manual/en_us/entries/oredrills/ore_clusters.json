@@ -1,0 +1,53 @@
+{
+    "name": "Ore Cluster",
+    "icon": "techguns:orecluster:1",
+    "category": "ore_drills",
+    "pages": [
+        {
+            "type": "text",
+            "text": "Ore Cluster can be found in the world and need $(l:oredrills/ore_drills)Ore Drills$(/l) to harvest resources. There are different ore cluster types and each holds different resources. Ore clusters are unbreakable and endless amount of ore can be harvested from them."
+        },
+          {
+            "type": "text",
+            "title": "Cluster Types",
+            "anchor": "types",
+            "text": "There are different cluster types and the output might vary depending on installed mods. For output details refer to JEI. Each type has a different mininglevel. Higher mininglevel need bigger drills or better drill item materials."
+        },
+        {
+            "type": "text",
+            "title": "Formulas",
+            "anchor": "formulas",
+            "text": "Calculating the required power per tick and amount of output is quite complicated. The following numbers are involved: $(li)$(l)Clustersize$(): amount of connected cluster blocks $(li)$(l)Cluster Mining Level$(): can be seen on the block tooltip $(li)$(l)Drill Radius$(): value from 0 to 4. 0 is a drill consisting of only $(l:oredrills/ore_drills#tinydrill)controller & rod$(/l), for others it is radius including middle block."
+        },
+        {
+            "type": "text",
+            "title": "Formulas",
+            "anchor": "formulas2",
+            "text": "$(li)$(l)Drill Rod Size$(): amount of rod blocks in the drill$(li)$(l)Engine Size$(): the height of the engine block, which is the number of engine blocks between rod and controller.$(li)$(l)Drill Item Mining level$(): can be seen in the tooltip of the drill item. $(li)$(l)Global Ore Multiplier$(): read from config file$(li)$(l)Global Power Multiplier$(): read from config file"
+        },
+         {
+            "type": "text",
+            "title": "Formulas",
+            "anchor": "formulas3",
+            "text": "$(li)$(l)Cluster Ore Multiplier$(): Cluster type individual multiplier, displayed in the block tooltip$(li)$(l)Cluster Power Multiplier$(): Cluster type individual multiplier to power, displayed in the block tooltip"
+        },
+         {
+            "type": "text",
+            "title": "Derived Variables",
+            "anchor": "formulas4",
+            "text": "$(li)$(l)Effective Mininglevel$() = $(l:oredrills/ore_clusters#formulas2)Drill Item Mining Level$(/l) + $(l:oredrills/ore_clusters#formulas)Drill Radius$(/l) - $(l:oredrills/ore_clusters#formulas)Cluster Mining Level$(/l). The $(thing)Effective Mining Level$() must be >= 0, otherwise the drill will only output cobblestone$(br2)$(li)$(l)Effective Cluster Size$() = Minimum ( $(l:oredrills/ore_clusters#formulas)Clustersize$(/l), ( $(l:oredrills/ore_clusters#formulas2)Drill Rod Size$(/l) + $(l:oredrills/ore_clusters#formulas2)Engine Size$(/l) ))"
+        },
+         {
+            "type": "text",
+            "title": "Ores Per Hour",
+            "anchor": "ores_per_hour",
+            "text": "$(thing)Ores per Hour$() determines the ore output per time and is calculated the following way: ( ($(l:oredrills/ore_clusters#formulas4)Effective Cluster Size$(/l) * 3 ) + ($(l:oredrills/ore_clusters#formulas4)Effective Cluster Size$(/l) * $(l:oredrills/ore_clusters#formulas4)Effective Mining Level$(/l) * 0.5 ) ) * $(l:oredrills/ore_clusters#formulas3)Cluster Ore Multiplier$(/l) * $(l:oredrills/ore_clusters#formulas2)Global Ore Multiplier$(/l)$(br2)"
+        },
+        {
+            "type": "text",
+            "title": "Power Consumption",
+            "anchor": "power",
+            "text": "The required power per tick is calculated the following: 8 * $(l:oredrills/ore_clusters#ores_per_hour)Ores Per Hour$(/l) * ( 1 + Maximum ( $(l:oredrills/ore_clusters#formulas)Drill Radius$(/l) - 1, 0 ) * 0.2 ) * $(l:oredrills/ore_clusters#formulas3)Cluster Power Multiplier$(/l) * $(l:oredrills/ore_clusters#formulas2)Global Power Multiplier$(/l)$(br2)The Power per Tick directly determines the RF requirement. Consuming Liquid or Solid Fuel has an own multiplier for fuel to RF."
+        }
+    ]
+}

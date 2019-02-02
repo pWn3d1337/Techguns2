@@ -102,6 +102,7 @@ public abstract class BasicMachineTileEnt extends BasicPoweredTileEnt implements
     	return 1;
     }
     
+        
 	@Override
 	public void update() {
 		if (this.isRedstoneEnabled()){

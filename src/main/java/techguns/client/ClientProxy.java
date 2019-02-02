@@ -2,11 +2,14 @@ package techguns.client;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import micdoodle8.mods.galacticraft.api.client.tabs.InventoryTabVanilla;
+import micdoodle8.mods.galacticraft.api.client.tabs.TabRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -44,6 +47,7 @@ import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -58,6 +62,7 @@ import techguns.TGConfig;
 import techguns.TGEntities;
 import techguns.TGFluids;
 import techguns.TGItems;
+import techguns.TGSounds;
 import techguns.TGuns;
 import techguns.Techguns;
 import techguns.api.npc.INPCTechgunsShooter;
@@ -65,6 +70,7 @@ import techguns.api.render.IItemRenderer;
 import techguns.api.render.IItemTGRenderer;
 import techguns.capabilities.TGDeathTypeCap;
 import techguns.capabilities.TGDeathTypeCapStorage;
+import techguns.capabilities.TGExtendedPlayer;
 import techguns.capabilities.TGExtendedPlayerClient;
 import techguns.capabilities.TGShooterValues;
 import techguns.client.audio.TGSound;
@@ -196,6 +202,7 @@ import techguns.client.render.tileentities.RenderDungeonGenerator;
 import techguns.client.render.tileentities.RenderDungeonScanner;
 import techguns.client.render.tileentities.RenderFabricator;
 import techguns.client.render.tileentities.RenderMachine;
+import techguns.client.render.tileentities.RenderOreDrill;
 import techguns.client.render.tileentities.RenderReactionChamber;
 import techguns.client.render.tileentities.RenderTurret;
 import techguns.deatheffects.EntityDeathUtils.DeathType;
@@ -256,6 +263,7 @@ import techguns.gui.DungeonScannerGui;
 import techguns.gui.ExplosiveChargeGui;
 import techguns.gui.FabricatorGui;
 import techguns.gui.MetalPressGui;
+import techguns.gui.OreDrillGui;
 import techguns.gui.ReactionChamberGui;
 import techguns.gui.RepairBenchGui;
 import techguns.gui.TurretGui;
@@ -269,9 +277,11 @@ import techguns.gui.containers.DungeonScannerContainer;
 import techguns.gui.containers.ExplosiveChargeContainer;
 import techguns.gui.containers.FabricatorContainer;
 import techguns.gui.containers.MetalPressContainer;
+import techguns.gui.containers.OreDrillContainer;
 import techguns.gui.containers.ReactionChamberContainer;
 import techguns.gui.containers.RepairBenchContainer;
 import techguns.gui.containers.TurretContainer;
+import techguns.gui.player.tabs.TGPlayerTab;
 import techguns.items.guns.GenericGun;
 import techguns.keybind.TGKeybinds;
 import techguns.tileentities.AmmoPressTileEnt;
@@ -285,6 +295,7 @@ import techguns.tileentities.ExplosiveChargeAdvTileEnt;
 import techguns.tileentities.ExplosiveChargeTileEnt;
 import techguns.tileentities.FabricatorTileEntMaster;
 import techguns.tileentities.MetalPressTileEnt;
+import techguns.tileentities.OreDrillTileEntMaster;
 import techguns.tileentities.ReactionChamberTileEntMaster;
 import techguns.tileentities.RepairBenchTileEnt;
 import techguns.tileentities.TurretTileEnt;
@@ -302,12 +313,12 @@ public class ClientProxy extends CommonProxy {
 	
 	protected GuiHandlerRegister guihandler = new GuiHandlerRegister();
 	
-	public static Field Field_ItemRenderer_equippedProgressMainhand = ReflectionHelper.findField(ItemRenderer.class, "equippedProgressMainHand", "field_187469_f");
-	public static Field Field_ItemRenderer_equippedProgressOffhand = ReflectionHelper.findField(ItemRenderer.class, "equippedProgressOffHand", "field_187471_h");
-	public static Field Field_ItemRenderer_prevEquippedProgressMainhand = ReflectionHelper.findField(ItemRenderer.class, "prevEquippedProgressMainHand", "field_187470_g");
-	public static Field Field_ItemRenderer_prevEquippedProgressOffhand = ReflectionHelper.findField(ItemRenderer.class, "prevEquippedProgressOffHand", "field_187472_i");
+	public static Field Field_ItemRenderer_equippedProgressMainhand = ObfuscationReflectionHelper.findField(ItemRenderer.class, "field_187469_f"); //ReflectionHelper.findField(ItemRenderer.class, "equippedProgressMainHand", "field_187469_f");
+	public static Field Field_ItemRenderer_equippedProgressOffhand =  ObfuscationReflectionHelper.findField(ItemRenderer.class, "field_187471_h");//ReflectionHelper.findField(ItemRenderer.class, "equippedProgressOffHand", "field_187471_h");
+	public static Field Field_ItemRenderer_prevEquippedProgressMainhand = ObfuscationReflectionHelper.findField(ItemRenderer.class, "field_187470_g");//ReflectionHelper.findField(ItemRenderer.class, "prevEquippedProgressMainHand", "field_187470_g");
+	public static Field Field_ItemRenderer_prevEquippedProgressOffhand = ObfuscationReflectionHelper.findField(ItemRenderer.class, "field_187472_i");//ReflectionHelper.findField(ItemRenderer.class, "prevEquippedProgressOffHand", "field_187472_i");
 	
-	protected static Field RenderPlayer_LayerRenderers = ReflectionHelper.findField(RenderLivingBase.class, "layerRenderers", "field_177097_h");
+	protected static Field RenderPlayer_LayerRenderers = ObfuscationReflectionHelper.findField(RenderLivingBase.class, "field_177097_h");//ReflectionHelper.findField(RenderLivingBase.class, "layerRenderers", "field_177097_h");
 	
 	public LinkedList<LightPulse> activeLightPulses;
 	
@@ -342,7 +353,22 @@ public class ClientProxy extends CommonProxy {
 	
 	public boolean hasNightvision=false;
 	
-	public static ModelBiped[] armorModels = {new ModelSteamArmor(0), new ModelSteamArmor(1), new ModelT3PowerArmor(0),new ModelT3PowerArmor(1), new ModelExoSuit(0,1.0f), new ModelExoSuit(1,0.5f),new ModelExoSuit(0,0.75f), new ModelBeret(), new ModelArmorCoat(0,1.0f), new ModelArmorCoat(1,0.51f), new ModelArmorCoat(2,0.49f), new ModelArmorCoat(3,0.75f) };
+	/*public static ModelBiped[] armorModels = {new ModelSteamArmor(0), new ModelSteamArmor(1), new ModelT3PowerArmor(0),new ModelT3PowerArmor(1),
+			new ModelExoSuit(0,1.0f), new ModelExoSuit(1,0.5f),new ModelExoSuit(0,0.75f), new ModelBeret(), new ModelArmorCoat(0,1.0f),
+			new ModelArmorCoat(1,0.51f), new ModelArmorCoat(2,0.49f), new ModelArmorCoat(3,0.75f), new ModelSteamArmor(0,0.01f), new ModelT3PowerArmor(0, 0.01f) };
+	*/
+	
+	protected HashMap<String,ModelBiped> armorModelRegistry = new HashMap<>();
+	
+	public void registerArmorModel(ResourceLocation key, ModelBiped model) {
+		//System.out.println("Registering: "+key.toString()+" "+model);
+		this.armorModelRegistry.put(key.toString(), model);
+	}
+	
+	public ModelBiped getArmorModel(ResourceLocation key) {
+		return this.armorModelRegistry.get(key.toString());
+	}
+	
 	
 	private boolean isLeft(EnumHand handIn){
 		if(this.getPlayerClient().getPrimaryHand()==EnumHandSide.RIGHT){
@@ -370,6 +396,22 @@ public class ClientProxy extends CommonProxy {
 		} else {
 			this.activeLightPulses=new LinkedList<>();
 		}
+		
+		//Register Armor models
+		registerArmorModel(TGArmors.ARMORMODEL_STEAM_ARMOR_0, new ModelSteamArmor(0));
+		registerArmorModel(TGArmors.ARMORMODEL_STEAM_ARMOR_1, new ModelSteamArmor(1));
+		registerArmorModel(TGArmors.ARMORMODEL_POWER_ARMOR_0, new ModelT3PowerArmor(0));
+		registerArmorModel(TGArmors.ARMORMODEL_POWER_ARMOR_1, new ModelT3PowerArmor(1));
+		registerArmorModel(TGArmors.ARMORMODEL_EXO_SUIT_0, new ModelExoSuit(0,1.0f));
+		registerArmorModel(TGArmors.ARMORMODEL_EXO_SUIT_1, new ModelExoSuit(1,0.5f));
+		registerArmorModel(TGArmors.ARMORMODEL_EXO_SUIT_2, new ModelExoSuit(0,0.75f));
+		registerArmorModel(TGArmors.ARMORMODEL_BERET_0, new ModelBeret());
+		registerArmorModel(TGArmors.ARMORMODEL_COAT_0, new ModelArmorCoat(0,1.0f));
+		registerArmorModel(TGArmors.ARMORMODEL_COAT_1, new ModelArmorCoat(1,0.51f));
+		registerArmorModel(TGArmors.ARMORMODEL_COAT_2, new ModelArmorCoat(2,0.49f));
+		registerArmorModel(TGArmors.ARMORMODEL_COAT_3, new ModelArmorCoat(3,0.75f));
+		registerArmorModel(TGArmors.ARMORMODEL_STEAM_ARMOR_2, new ModelSteamArmor(0,0.01f));
+		registerArmorModel(TGArmors.ARMORMODEL_POWER_ARMOR_2, new ModelT3PowerArmor(0,0.01f));
 	}
 
 	@Override
@@ -417,7 +459,16 @@ public class ClientProxy extends CommonProxy {
 		
 		ClientRegistry.bindTileEntitySpecialRenderer(Door3x3TileEntity.class, new RenderDoor3x3Fast());
 		
+		ClientRegistry.bindTileEntitySpecialRenderer(OreDrillTileEntMaster.class, new RenderOreDrill());
+		
 		this.initGuiHandler();
+		
+		//Galacticraft API for TABS
+		if(TabRegistry.getTabList().isEmpty()) {
+			MinecraftForge.EVENT_BUS.register(new TabRegistry());
+			TabRegistry.registerTab(new InventoryTabVanilla());
+		}
+		TabRegistry.registerTab(new TGPlayerTab());
 	}
 	
 	protected void initGuiHandler() {
@@ -435,6 +486,7 @@ public class ClientProxy extends CommonProxy {
 		guihandler.<Door3x3TileEntity>addEntry(Door3x3TileEntity.class, Door3x3Gui::new, Door3x3Container::new);
 		guihandler.<ExplosiveChargeTileEnt>addEntry(ExplosiveChargeTileEnt.class, ExplosiveChargeGui::new, ExplosiveChargeContainer::new);
 		guihandler.<ExplosiveChargeAdvTileEnt>addEntry(ExplosiveChargeAdvTileEnt.class, ExplosiveChargeGui::new, ExplosiveChargeContainer::new);
+		guihandler.<OreDrillTileEntMaster>addEntry(OreDrillTileEntMaster.class, OreDrillGui::new, OreDrillContainer::new);
 	}
 	
 	@Override
@@ -1038,6 +1090,14 @@ public class ClientProxy extends CommonProxy {
 	}
 	
 	@Override
+	public void setGunTextures(GenericGun gun, ResourceLocation path, int variations) {
+		gun.textures=new ArrayList<ResourceLocation>();
+		for(int i=0;i<variations;i++){
+			gun.textures.add(new ResourceLocation(path.getResourceDomain(),path.getResourcePath()+(i!=0?("_"+i):"")+".png"));
+		}
+	}
+
+	@Override
 	public void handleSoundEvent(EntityPlayer ply, int entityId, SoundEvent soundname, float volume, float pitch, boolean repeat, boolean moving,
 			boolean gunPosition,boolean playOnOwnPlayer, TGSoundCategory soundCategory, EntityCondition condition) {
 		Entity entity = null;
@@ -1306,5 +1366,22 @@ public class ClientProxy extends CommonProxy {
 		}
 	}
 	
-	
+	@Override
+	public void handlePlayerGliding(EntityPlayer player) {
+		if (player.world.isRemote){
+			TGExtendedPlayerClient props = TGExtendedPlayerClient.get(player);
+			if(props.isGliding){
+				 if(props.gliderLoop==null){
+					 props.gliderLoop=new TGSound(TGSounds.GLIDER_LOOP, player, 0.75f, 1.0f, true, true, false,TGSoundCategory.PLAYER_EFFECT);
+					 Minecraft.getMinecraft().getSoundHandler().playSound(props.gliderLoop);
+				 }
+			 } else {
+				 if(props.gliderLoop!=null){
+					 props.gliderLoop.setDonePlaying();
+					 props.gliderLoop=null;
+				 }
+			 }
+		}
+	}
+
 }

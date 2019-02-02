@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.Random;
 
 import javax.annotation.Nullable;
 
@@ -183,8 +184,10 @@ public class BlockUtils {
 
 		blocks.forEach(b -> {
 			if(includeCenter || !b.equals(center)) {
-				if(miningtool==null || stack.isEmpty() || checkMiningLevels(world,ply, b, miningtool, stack)) {
-					entries.add(b);
+				if(world.getTileEntity(b)==null) {
+					if(miningtool==null || stack.isEmpty() || checkMiningLevels(world,ply, b, miningtool, stack)) {
+						entries.add(b);
+					}
 				}
 			}
 		});
@@ -660,7 +663,7 @@ public class BlockUtils {
 				for (int o=1; o<=range; o++){
 
 					//BlockUtils.setBlockRotated(world, block, posX, posY+o, posZ, x, z, centerX, centerZ, rotation,0);
-					BlockUtils.setMBlockRotated(world, block, p.setPos(posX+x, posY+y+o, posZ+z), axis, rotation, null);
+					BlockUtils.setMBlockRotated(world, block, p.setPos(posX+x, posY+y+o, posZ+z), axis, rotation, null, BiomeColorType.WOODLAND);
 					
 					//setBlockRotatedReplaceAirOnly(world, block, posX, posY-o, posZ, x, z, centerX, centerZ, rotation);
 					//world.setBlock(posX+x, posY-o, posZ+z, Blocks.diamond_block);
@@ -669,7 +672,11 @@ public class BlockUtils {
 		}
 	}
 	
-	public static void placeScannedStructure(World world, short[][]blocks, ArrayList<MBlock> blockList, int posX, int posY, int posZ, int centerX, int centerZ, int rotation, int pass, EnumLootType loottype) {
+	public static void placeScannedStructure(World world, short[][]blocks, ArrayList<MBlock> blockList, int posX, int posY, int posZ, int centerX, int centerZ, int rotation, int pass, EnumLootType loottype, BiomeColorType biome) {
+		placeScannedStructure(world, blocks, blockList, posX, posY, posZ, centerX, centerZ, rotation, pass, loottype, biome, 0, null);
+	}
+	
+	public static void placeScannedStructure(World world, short[][]blocks, ArrayList<MBlock> blockList, int posX, int posY, int posZ, int centerX, int centerZ, int rotation, int pass, EnumLootType loottype, BiomeColorType biome, int indexRoll, Random rnd) {
 		//System.out.println("Blocks.length = "+blocks.length + "Blocks[0].length = "+blocks[0].length);
 		MutableBlockPos p = new MutableBlockPos();
 		BlockPos axis = new BlockPos(posX+centerX, 1, posZ+centerZ);
@@ -686,7 +693,11 @@ public class BlockUtils {
 			MBlock block = blockList.get(blocks[i][3]);
 						
 			if (block.getPass() == pass) {
-				BlockUtils.setMBlockRotated(world, block, p.setPos(posX+x, posY+y, posZ+z), axis, rotation, loottype);
+				if(block instanceof MultiMMBlockOreCluster) {
+					BlockUtils.setMBlockRotatedOreclusterBlock(world, (MultiMMBlockOreCluster)block, p.setPos(posX+x, posY+y, posZ+z), axis, rotation, loottype, biome, indexRoll, rnd);
+				} else {
+					BlockUtils.setMBlockRotated(world, block, p.setPos(posX+x, posY+y, posZ+z), axis, rotation, loottype, biome);
+				}
 				//BlockUtils.setBlockRotated(world, block, posX, posY+y, posZ, x, z, centerX, centerZ, rotation, lootTier);
 			}
 		}
@@ -720,14 +731,19 @@ public class BlockUtils {
 		}
 	}
 	
-	public static void setMBlockRotated(World w, MBlock mblock, MutableBlockPos pos, BlockPos axis, int rotation, EnumLootType loottype) {
+	public static void setMBlockRotated(World w, MBlock mblock, MutableBlockPos pos, BlockPos axis, int rotation, EnumLootType loottype, BiomeColorType biome) {
 		BlockUtils.rotateAroundY(pos, axis, rotation);
-		mblock.setBlock(w, pos, rotation, loottype);
+		mblock.setBlock(w, pos, rotation, loottype,biome);
+	}
+	
+	public static void setMBlockRotatedOreclusterBlock(World w, MultiMMBlockOreCluster mblock, MutableBlockPos pos, BlockPos axis, int rotation, EnumLootType loottype, BiomeColorType biome, int indexRoll, Random rnd) {
+		BlockUtils.rotateAroundY(pos, axis, rotation);
+		mblock.setBlock(w, pos, rotation, loottype,biome,indexRoll,rnd);
 	}
 	
 	public static void setMBlockRotatedReplaceableOnly(World w, MBlock mblock, MutableBlockPos pos, BlockPos axis, int rotation, EnumLootType loottype) {
 		BlockUtils.rotateAroundY(pos, axis, rotation);
-		mblock.setBlockReplaceableOnly(w, pos, rotation, loottype);
+		mblock.setBlockReplaceableOnly(w, pos, rotation, loottype, BiomeColorType.WOODLAND);
 	}
 
 	/**

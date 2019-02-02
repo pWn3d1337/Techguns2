@@ -1,0 +1,15 @@
+{
+    "name": "Camo Bench",
+    "icon": "techguns:simplemachine:8",
+    "category": "simple_machines",
+    "pages": [
+        {
+            "type": "text",
+            "text": "The camo bench allows to change the texture of techguns items but also can recolor vanilla blocks like wool. $(br) Put an item the top left slot and press the buttons to change the color. The camo of currently equipped armor parts can also be changed directly."
+        }, 
+       {
+            "type": "crafting",
+            "recipe": "techguns:simplemachine_8_camo_bench"
+       }
+    ]
+}

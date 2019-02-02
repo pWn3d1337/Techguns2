@@ -1,0 +1,59 @@
+{
+    "name": "* Weapon Stats *",
+    "icon": "techguns:itemshared:58",
+    "category": "weapons",
+    "pages": [
+        {
+            "type": "text",
+            "text": "When holding [shift] a detailed tooltip shows all stats of a weapon. $(li) $(l:weapon_stats#handtype_ammo)Hand-Type$(/l) $(li) $(l:weapon_stats#handtype_ammo)Ammo$(/l) $(li) $(l:weapon_stats#damage_type)Damage Type $(li) $(l:weapon_stats#damage_type)Damage$(/l) $(li) $(l:weapon_stats#range)Range$(/l) $(li) $(l:weapon_stats#velocity)Velocity$(/l) $(li) $(l:weapon_stats#spread)Spread$(/l) $(li) $(l:weapon_stats#clipsize_reload)Clipsize$(/l) $(li) $(l:weapon_stats#clipsize_reload)Reload time$(/l) $(li) $(l:weapon_stats#armorpen)Armor Pen$(/l) $(li) $(l:weapon_stats#zoom)Zoom$(/l)"
+        },
+        {
+            "type": "text",
+            "title": "Hand-Type & Ammo",
+            "anchor": "handtype_ammo",
+            "text": "$(l:weapon_mechanics#hand_types)Hand-Type$(/l) determines if a weapon can be dual wielded and if it has an accuracy penalty when doing so. $(br2) 'Ammo' indicates the items needed to reload the gun. This is usually 1 magazine but can also be an amount higher than 1 (eg. shotgun) or 2 different item types (eg. gauss rifle)"
+        },
+        {
+            "type": "text",
+            "title": "Damage Type & Damage",
+            "anchor": "damage_type",
+            "text": "Damage Type defines the type of damage a weapon deals (Who would have thought?) and damage defines the amount. There are two different damage values (e.g 10-6). The first value is the damage dealt at close range the second value is the minimum damage dealt at far ranges. At which ranges the damage drop occurs is defined by the weapon range."
+        },
+        {
+            "type": "text",
+            "title": "Range",
+            "anchor": "range",
+            "text": "Weapon range defines at what distance the damage drops occur. Range has 3 different values, e.g. 10,20,30. This means the weapon will deal maximum damage up to a distance of 10 blocks. Between 10 and 20 the damage is linearly interpolated between maximum and minimum damage. Between 20 and 30 distance minimum damage is dealt. At distance 30 the projectile disappears."
+        },
+        {
+            "type": "text",
+            "title": "Velocity",
+            "anchor": "velocity",
+            "text": "Velocity defines how fast the projectile of the weapon flies. The unit for this is blocks per tick. A tick happens 20 times per second in minecraft. So a velocity of 2.0 means the projectile flies a distance of 40 blocks per second. This might not be applicable for some weapons like lasers where there is no travel time."
+        },
+        {
+            "type": "text",
+            "title": "Spread",
+            "anchor": "spread",
+            "text": "Spread defines how accurate a weapon is. The spread value is the angular offset that gets randomly added when shooting. A spread of 0 means a perfectly straight shot. A low value is more accurate. Most weapons that can zoom in have reduced spread when zoomed in. A second spread value prefixed with 'Z:' shows the spread the weapon has while zoomed in."
+        },
+        {
+            "type": "text",
+            "title": "Clipsize & Reloadtime",
+            "anchor": "clipsize_reload",
+            "text": "The clipsize defines how much ammo is in a clip or magazine. $(br2) The reloadtime defines how long it takes to reload the gun in seconds."
+        },
+         {
+            "type": "text",
+            "title": "Armor Pen",
+            "anchor": "armorpen",
+            "text": "Armor Pen stands for 'Armor Penetration'. WIP damage formulas are not final."
+        },
+         {
+            "type": "text",
+            "title": "Zoom",
+            "anchor": "zoom",
+            "text": "This defines the kind of zooming behaviour for this weapon. Not every weapon has a zoom. Zoom:(toogle) means the zoom is toggled when right-clicking. 'Mult:' which stands for multiplier defines how strong the zoom is. Mult:0.35 means the Field of View is multiplied by 0.35 while zooming."
+        }
+    ]
+}

@@ -724,6 +724,16 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 		return this;
 	}
 	
+	public GenericGun setTexture(ResourceLocation path){
+		return setTextures(path,1);
+	}
+	
+	public GenericGun setTextures(ResourceLocation path, int variations){
+		Techguns.proxy.setGunTextures(this, path, variations);
+		this.camoCount=variations;
+		return this;
+	}
+	
 	@Override
 	public ResourceLocation getCurrentTexture(ItemStack stack) {
 		int camo = this.getCurrentCamoIndex(stack);
@@ -981,7 +991,7 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 		
 		if(this.rangeTooltipType == RangeTooltipType.DROP) {
 			return TextUtil.trans("techguns.gun.tooltip.range")+": "+prefix+sStart+","+sEnd+","+ttl+suffix;
-		} else if ( this.rangeTooltipType == rangeTooltipType.NO_DROP) {
+		} else if ( this.rangeTooltipType == RangeTooltipType.NO_DROP) {
 			return TextUtil.trans("techguns.gun.tooltip.range")+": "+prefix+sStart+suffix;
 		} else {
 			return TextUtil.trans("techguns.gun.tooltip.radius")+": "+prefix+sStart+"-"+sEnd+suffix;
@@ -1007,7 +1017,7 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 			//list.add(TextUtil.trans("techguns.gun.tooltip.range")+": "+this.damageDropStart+","+this.damageDropEnd+","+this.ticksToLive);
 			list.add(getTooltipTextRange(stack));
 			list.add(TextUtil.trans("techguns.gun.tooltip.velocity")+": "+this.speed);
-			list.add(TextUtil.trans("techguns.gun.tooltip.spread")+": "+this.accuracy);
+			list.add(TextUtil.trans("techguns.gun.tooltip.spread")+": "+this.accuracy + (this.zoombonus!=1.0 ? (" Z:"+this.zoombonus*this.accuracy) : ""));
 			list.add(TextUtil.trans("techguns.gun.tooltip.clipsize")+": "+this.clipsize);
 			list.add(TextUtil.trans("techguns.gun.tooltip.reloadTime")+": "+this.reloadtime*0.05f+"s");
 			if (this.penetration>0.0f){

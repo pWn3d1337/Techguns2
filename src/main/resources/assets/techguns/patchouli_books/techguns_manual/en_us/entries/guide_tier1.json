@@ -1,0 +1,21 @@
+{
+    "name": "1. Preparing for Nether",
+    "icon": "techguns:ak47",
+    "category": "survival_guide",
+    "pages": [
+        {
+            "type": "text",
+            "text": "To progress further into Techguns you need to get to the nether, but the nether is a very dangerous place so you need to get the best weapons and armor available at the current tech level."
+        },
+        {
+            "type": "text",
+            "title": "Establish Base",
+            "text": "Before you got to the nether you should have established a base and setup ore processing systems and power generation from other mods. You need to mine obsidian to build a nether portal but obsidian is also need for the best pre-nether equipment."
+        },
+        {
+            "type": "text",
+            "title": "Armor and Weapons",
+            "text": "The recommended armor setup is a full 'Steam' or 'Ranger Veteran' armor set. A combat armor might be enough too, but don't fight in the nether with tier 1 armors. For weapons you want to craft an 'AKM' or 'Bolt Action Rifle'."
+        }
+    ]
+}

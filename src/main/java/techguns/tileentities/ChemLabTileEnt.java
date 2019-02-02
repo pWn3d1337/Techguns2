@@ -42,6 +42,8 @@ public class ChemLabTileEnt extends BasicMachineTileEnt implements ITileEntityFl
 
 	private Random rng = new Random();
 	
+	protected static final float SOUND_VOLUME=0.65f;
+	
 	public static final int BUTTON_ID_DUMP_INPUT = ButtonConstants.BUTTON_ID_REDSTONE+1;
 	public static final int BUTTON_ID_DUMP_OUTPUT = ButtonConstants.BUTTON_ID_REDSTONE+2;
 	public static final int BUTTON_ID_TOGGLE_DRAIN = ButtonConstants.BUTTON_ID_REDSTONE+3;	
@@ -269,7 +271,8 @@ public class ChemLabTileEnt extends BasicMachineTileEnt implements ITileEntityFl
 		ItemStack itemOut = this.currentOperation.getItemOutput0();
 		if (!itemOut.isEmpty()) {
 			if (!this.inventory.getStackInSlot(SLOT_OUTPUT).isEmpty()) {
-				this.inventory.getStackInSlot(SLOT_OUTPUT).grow(itemOut.getCount());
+				this.inventory.insertItemNoCheck(SLOT_OUTPUT, itemOut, false);
+				//this.inventory.getStackInSlot(SLOT_OUTPUT).grow(itemOut.getCount());
 			} else {
 				this.inventory.setStackInSlot(SLOT_OUTPUT, itemOut);
 			}
@@ -288,7 +291,7 @@ public class ChemLabTileEnt extends BasicMachineTileEnt implements ITileEntityFl
 		int halfTime = (Math.round((float) totaltime * 0.5f));
 		if (this.progress == soundTick1 || this.progress == soundTick1 + halfTime) {
 			//worldObj.playSound(this.xCoord, this.yCoord, this.zCoord, "techguns:machines.chemlabWork", 1.0F, 1.0F, true);
-			world.playSound(this.getPos().getX(), this.getPos().getY(), this.getPos().getZ(), TGSounds.CHEM_LAB_WORK,SoundCategory.BLOCKS, 1.0F, 1.0F, true );
+			world.playSound(this.getPos().getX(), this.getPos().getY(), this.getPos().getZ(), TGSounds.CHEM_LAB_WORK,SoundCategory.BLOCKS, SOUND_VOLUME, 1.0F, true );
 		}
 
 		if ( this.world.isRemote) {

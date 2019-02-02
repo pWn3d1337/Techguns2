@@ -1,0 +1,27 @@
+{
+    "name": "T3 : HEV Suit",
+    "icon": "techguns:t3_miner_chestplate",
+    "category": "armors",
+    "pages": [
+        {
+            "type": "text",
+            "text": "The HEV or Hazardous Envirnonment Suit is a $(l:armor_mechanics#powered_armors)powered$(/l) Tier 3 armor and requires $(thing)Energy Cell$()s. It is designed for mining operations in dangerous environments."
+        }, 
+        {
+            "type": "entity",
+            "name": "HEV Suit",
+            "entity": "minecraft:armor_stand{ShowArms:1,NoBasePlate:1,ArmorItems:[{Count:1,id:'techguns:t3_miner_boots'}, {Count:1,id:'techguns:t3_miner_leggings'}, {Count:1,id:'techguns:t3_miner_chestplate'}, {Count:1,id:'techguns:t3_miner_helmet'}]}",
+            "text": ""
+        },
+        {
+            "type": "crafting",
+            "recipe": "techguns:t3_miner_helmet",
+            "recipe2": "techguns:t3_miner_chestplate"
+        },
+        {
+            "type": "crafting",
+            "recipe": "techguns:t3_miner_leggings",
+            "recipe2": "techguns:t3_miner_boots"
+        }
+    ]
+}

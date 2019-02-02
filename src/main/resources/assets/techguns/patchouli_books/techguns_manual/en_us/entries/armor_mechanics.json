@@ -1,0 +1,29 @@
+{
+    "name": "* Armor Mechanics *",
+    "icon": "techguns:t1_scout_chestplate",
+    "category": "armors",
+    "pages": [
+        {
+            "type": "text",
+            "text": "Techguns armors are equipped like normal minecraft armors but they have a lot of special features. $(br2) Techguns armors are not destroyed at 0 durability, they stop to give their stats when reaching 1 durability and no longer take damage."
+        }, 
+        {
+            "type": "text",
+            "title": "Armor Repairing",
+            "anchor": "repairing",
+            "text": "Techguns armor can be repaired at the 'Repair Bench'. Each ammo has a defined amount of materials that is need dependent on durability. Repairing an armor is cheaper than creating a new one. The amount of repair materials needed is shown in the tooltip at the repair bench."
+        },
+        {
+            "type": "text",
+            "title": "Powered Armors",
+            "anchor": "powered_armors",
+            "text": "Some armors are $(thing)'Powered Armors'$() which means they need power to operate. Currently there are two power types in the game: $(thing)Steam$() and $(thing)RF$(). Only the chestplate consumes power providing items and powers the other slots. Wearing two different power types does not work. Powered armors only provide their bonus stats when they are powered. Protection is given also without power."
+        },
+        {
+            "type": "text",
+            "title": "Reloading Armors",
+            "anchor": "armor_reloading",
+            "text": "The chestplate automatically consumes the required power item from the player's inventory when it's empty. The chestplate provides the power to other equipped slots with the same power-type. Some bonus effects drain additional power when used, for example the jump boost will drain extra power each time you jump."
+        }
+    ]
+}

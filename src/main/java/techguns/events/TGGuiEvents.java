@@ -167,7 +167,20 @@ public class TGGuiEvents extends Gui{
 				offsetY-=10;
 			}
 			
-			
+			if(props.radlevel>0) {
+				String prefix = ChatFormatting.WHITE.toString();
+				if(props.radlevel>=1000) {
+					prefix = ChatFormatting.RED.toString();
+				} else if ( props.radlevel >= 750) {
+					prefix = ChatFormatting.GOLD.toString();
+				} else if (props.radlevel >= 500 ) {
+					prefix = ChatFormatting.YELLOW.toString();
+				}
+				String radtext = props.radlevel+ " RAD";
+				mc.fontRenderer.drawString(prefix+radtext, sr.getScaledWidth()-radtext.length()*6, offsetY, 0xFFFFFFFF);
+				
+				offsetY-=10;
+			}
 			
 		}
 
@@ -198,7 +211,7 @@ public class TGGuiEvents extends Gui{
 	}
 	
 	
-	@SideOnly(Side.CLIENT)
+/*	@SideOnly(Side.CLIENT)
 	@SubscribeEvent(priority=EventPriority.NORMAL, receiveCanceled=false)
 	public void onGuiPostInit(GuiScreenEvent.InitGuiEvent.Post event){
 		//System.out.println("Init GUI:"+event.getGui());
@@ -209,13 +222,13 @@ public class TGGuiEvents extends Gui{
 		    int k = (event.getGui().width - xSize) / 2;
 	        int l = (event.getGui().height - ySize) / 2;
 			
-	        //TODO: get this from config file
-	        int index = 2;
-	        event.getButtonList().add(new TGGuiTabButton(index, k+5, l-26, false,new ItemStack(Blocks.CRAFTING_TABLE,1),0));
-	        event.getButtonList().add(new TGGuiTabButton(index, k+5+28, l-26, true,TGItems.newStack(TGItems.PISTOL_ROUNDS,1),0));
+	       // get this from config file
+	       int index = 2;
+	       event.getButtonList().add(new TGGuiTabButton(index, k+5, l-26, false,new ItemStack(Blocks.CRAFTING_TABLE,1),0));
+	       event.getButtonList().add(new TGGuiTabButton(index, k+5+28, l-26, true,TGItems.newStack(TGItems.PISTOL_ROUNDS,1),0));
 			
 		}
-	}
+	}*/
 	
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent(priority=EventPriority.NORMAL, receiveCanceled=false)
@@ -225,16 +238,18 @@ public class TGGuiEvents extends Gui{
 	      return;
 	    }
 		
-		/*
-		 * Render Lock on GUI effect
-		 */
 		Minecraft mc = Minecraft.getMinecraft();
-		GameSettings gamesettings = mc.gameSettings;
-		ScaledResolution sr = new ScaledResolution(mc);
 		EntityPlayer player = mc.player;
-		TGExtendedPlayer epc = TGExtendedPlayer.get(player);
 		//if (player.getActiveItemStack().getItem() instanceof GenericGun) {
 		if (player.getHeldItemMainhand().getItem() instanceof GenericGun) {
+			
+			/*
+			 * Render Lock on GUI effect
+			 */
+			GameSettings gamesettings = mc.gameSettings;
+			ScaledResolution sr = new ScaledResolution(mc);
+			TGExtendedPlayer epc = TGExtendedPlayer.get(player);
+			
 			//GenericGun gun = (GenericGun)player.getActiveItemStack().getItem();
 			GenericGun gun = (GenericGun)player.getHeldItemMainhand().getItem();
 			if (gun.getLockOnTicks() > 0 && epc.lockOnEntity != null && epc.lockOnTicks > 0) {

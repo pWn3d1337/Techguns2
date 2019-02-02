@@ -1,7 +1,6 @@
 package techguns.plugins.crafttweaker;
 
 import crafttweaker.CraftTweakerAPI;
-import techguns.packets.ChemLabTweaker;
 
 public class TGCraftTweakerIntegration {
 
@@ -15,6 +14,7 @@ public class TGCraftTweakerIntegration {
 		CraftTweakerAPI.registerClass(ReactionChamberTweaker.class);
 		CraftTweakerAPI.registerClass(GunStatTweaker.class);
 		CraftTweakerAPI.registerClass(ArmorStatTweaker.class);
+		CraftTweakerAPI.registerClass(OreClusterTweaker.class);
 	}
 
 }

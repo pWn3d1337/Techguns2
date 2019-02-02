@@ -62,6 +62,8 @@ public class GenericGunMeleeCharge extends GenericGunCharge implements IGenericG
 	
 	protected boolean hasCustomAnim = true;
 	
+	protected float melee_sound_volume=0.65f;
+	
 	public GenericGunMeleeCharge(String name, ChargedProjectileSelector projectile_selector, boolean semiAuto,
 			int minFiretime, int clipsize, int reloadtime, float damage, SoundEvent firesound, SoundEvent reloadsound,
 			int TTL, float accuracy, float fullChargeTime, int ammoConsumedOnFullCharge) {
@@ -230,7 +232,7 @@ public class GenericGunMeleeCharge extends GenericGunCharge implements IGenericG
 				//server side:;
 				//SoundUtil.playSoundOnEntityGunPosition(entityLiving.worldObj, entityLiving, "techguns:guns.powerhammerSwing", SOUND_DISTANCE, 1.0F, false, false);	
 				if(!openingContainer && sendSound){
-					TGPackets.network.sendToAllAround(new PacketPlaySound(getSwingSound(), entityLiving, 1.0f, 1.0f, false, false, true, true,TGSoundCategory.GUN_FIRE), TGPackets.targetPointAroundEnt(entityLiving, 32.0f));
+					TGPackets.network.sendToAllAround(new PacketPlaySound(getSwingSound(), entityLiving, melee_sound_volume, 1.0f, false, false, true, true,TGSoundCategory.GUN_FIRE), TGPackets.targetPointAroundEnt(entityLiving, 32.0f));
 				}
 				
 				return this.hasCustomAnim;
@@ -246,7 +248,7 @@ public class GenericGunMeleeCharge extends GenericGunCharge implements IGenericG
 			if (entityLiving instanceof EntityPlayer) {
 				SoundEvent sound = this.getBlockBreakSound();
 				if(sound!=null) {
-					worldIn.playSound((EntityPlayer)entityLiving, pos.getX()+0.5D, pos.getY()+0.5D, pos.getZ()+0.5D, sound, SoundCategory.PLAYERS, 1.0f, 1.0f);
+					worldIn.playSound((EntityPlayer)entityLiving, pos.getX()+0.5D, pos.getY()+0.5D, pos.getZ()+0.5D, sound, SoundCategory.PLAYERS, melee_sound_volume, 1.0f);
 				}
 			}
 			return true;
@@ -297,7 +299,7 @@ public class GenericGunMeleeCharge extends GenericGunCharge implements IGenericG
 			list.add(TextUtil.trans("techguns.tooltip.toolclasses")+":");
 			for(String s: this.getMiningLevels().keySet()){
 				if(!s.equals("default")) {
-					list.add(" "+s+": "+(this.getMiningLevels().get(s)+this.getExtraMiningLevel(stack, s, null)));
+					list.add(" "+TextUtil.transTG("toolclass."+s)+": "+(this.getMiningLevels().get(s)+this.getExtraMiningLevel(stack, s, null)));
 				}
 			}
 			list.add(TextUtil.trans("techguns.tooltip.breakspeed")+": "+this.getEffectiveDigSpeed(stack));

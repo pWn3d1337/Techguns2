@@ -132,66 +132,60 @@ public class TessellatorCube {
 			
 		}	
 		
-	   //  drawBottom(buf);
-	   //  drawTop(buf);
+	     drawBottom(buf);
+	     drawTop(buf);
 	     drawFront(buf);
-	   //  drawBack(buf);
-	   //  drawLeft(buf);
-	   //  drawRight(buf);
+	     drawBack(buf);
+	     drawLeft(buf);
+	     drawRight(buf);
 		}
 		
 	protected void drawTop(BufferBuilder buf){
 		// top
-		buf.normal(0.0F, 1.0F, 0.0F);
-		buf.pos(minX, maxY, minZ).tex(t_x0, t_y0).endVertex();
-		buf.pos(minX, maxY, maxZ).tex(t_x0, t_y1).endVertex();
-		buf.pos(maxX, maxY, maxZ).tex(t_x1, t_y1).endVertex();
-		buf.pos(maxX, maxY, minZ).tex(t_x1, t_y0).endVertex();
+		buf.pos(minX, maxY, minZ).tex(t_x0, t_y0).normal(0.0F, 1.0F, 0.0F).endVertex();
+		buf.pos(minX, maxY, maxZ).tex(t_x0, t_y1).normal(0.0F, 1.0F, 0.0F).endVertex();
+		buf.pos(maxX, maxY, maxZ).tex(t_x1, t_y1).normal(0.0F, 1.0F, 0.0F).endVertex();
+		buf.pos(maxX, maxY, minZ).tex(t_x1, t_y0).normal(0.0F, 1.0F, 0.0F).endVertex();
 
 	}
 
 	protected void drawBottom(BufferBuilder buf) {
 		// bottom
-		buf.normal(0.0F, -1.0F, 0.0F);
-		buf.pos(maxX, minY, minZ).tex(bo_x1, bo_y0).endVertex();
-		buf.pos(maxX, minY, maxZ).tex(bo_x1, bo_y1).endVertex();
-		buf.pos(minX, minY, maxZ).tex(bo_x0, bo_y1).endVertex();
-		buf.pos(minX, minY, minZ).tex(bo_x0, bo_y0).endVertex();
+		buf.pos(maxX, minY, minZ).tex(bo_x1, bo_y0).normal(0.0F, -1.0F, 0.0F).endVertex();
+		buf.pos(maxX, minY, maxZ).tex(bo_x1, bo_y1).normal(0.0F, -1.0F, 0.0F).endVertex();
+		buf.pos(minX, minY, maxZ).tex(bo_x0, bo_y1).normal(0.0F, -1.0F, 0.0F).endVertex();
+		buf.pos(minX, minY, minZ).tex(bo_x0, bo_y0).normal(0.0F, -1.0F, 0.0F).endVertex();
 	}
 
 	protected void drawFront(BufferBuilder buf) {
 		// front
-		buf.normal(1.0F, 0.0F, 0.0F);
-		buf.pos(minX, minY, minZ).tex(f_x0, f_y1).endVertex();
-		buf.pos(minX, maxY, minZ).tex(f_x0, f_y0).endVertex();
-		buf.pos(maxX, maxY, minZ).tex(f_x1, f_y0).endVertex();
-		buf.pos(maxX, minY, minZ).tex(f_x1, f_y1).endVertex();
+		buf.pos(minX, minY, minZ).tex(f_x0, f_y1).normal(1.0F, 0.0F, 0.0F).endVertex();
+		buf.pos(minX, maxY, minZ).tex(f_x0, f_y0).normal(1.0F, 0.0F, 0.0F).endVertex();
+		buf.pos(maxX, maxY, minZ).tex(f_x1, f_y0).normal(1.0F, 0.0F, 0.0F).endVertex();
+		buf.pos(maxX, minY, minZ).tex(f_x1, f_y1).normal(1.0F, 0.0F, 0.0F).endVertex();
 	}
 
 	protected void drawBack(BufferBuilder buf) {
 		// back
-		buf.normal(-1.0F, 1.0F, 0.0F);
-		buf.pos(maxX, minY, maxZ).tex(ba_x1, ba_y0).endVertex();
-		buf.pos(maxX, maxY, maxZ).tex(ba_x1, ba_y1).endVertex();
-		buf.pos(minX, maxY, maxZ).tex(ba_x0, ba_y1).endVertex();
-		buf.pos(minX, minY, maxZ).tex(ba_x0, ba_y0).endVertex();
+		buf.pos(maxX, minY, maxZ).tex(ba_x1, ba_y0).normal(-1.0F, 0.0F, 0.0F).endVertex();
+		buf.pos(maxX, maxY, maxZ).tex(ba_x1, ba_y1).normal(-1.0F, 0.0F, 0.0F).endVertex();
+		buf.pos(minX, maxY, maxZ).tex(ba_x0, ba_y1).normal(-1.0F, 0.0F, 0.0F).endVertex();
+		buf.pos(minX, minY, maxZ).tex(ba_x0, ba_y0).normal(-1.0F, 0.0F, 0.0F).endVertex();
 	}
 
 	protected void drawLeft(BufferBuilder buf) {
 		// left
-		buf.normal(0.0F, 0.0F, 1.0F);
-		buf.pos(minX, minY, maxZ).tex(l_x1, l_y0).endVertex();
-		buf.pos(minX, maxY, maxZ).tex(l_x1, l_y1).endVertex();
-		buf.pos(minX, maxY, minZ).tex(l_x0, l_y1).endVertex();
-		buf.pos(minX, minY, minZ).tex(l_x0, l_y0).endVertex();
+		buf.pos(minX, minY, maxZ).tex(l_x1, l_y0).normal(0.0F, 0.0F, 1.0F).endVertex();
+		buf.pos(minX, maxY, maxZ).tex(l_x1, l_y1).normal(0.0F, 0.0F, 1.0F).endVertex();
+		buf.pos(minX, maxY, minZ).tex(l_x0, l_y1).normal(0.0F, 0.0F, 1.0F).endVertex();
+		buf.pos(minX, minY, minZ).tex(l_x0, l_y0).normal(0.0F, 0.0F, 1.0F).endVertex();
 	}
 
 	protected void drawRight(BufferBuilder buf) {
 		// right
-		buf.normal(0.0F, 0.0F, -1.0F);
-		buf.pos(maxX, minY, minZ).tex(r_x0, r_y0).endVertex();
-		buf.pos(maxX, maxY, minZ).tex(r_x0, r_y1).endVertex();
-		buf.pos(maxX, maxY, maxZ).tex(r_x1, r_y1).endVertex();
-		buf.pos(maxX, minY, maxZ).tex(r_x1, r_y0).endVertex();
+		buf.pos(maxX, minY, minZ).tex(r_x0, r_y0).normal(0.0F, 0.0F, -1.0F).endVertex();
+		buf.pos(maxX, maxY, minZ).tex(r_x0, r_y1).normal(0.0F, 0.0F, -1.0F).endVertex();
+		buf.pos(maxX, maxY, maxZ).tex(r_x1, r_y1).normal(0.0F, 0.0F, -1.0F).endVertex();
+		buf.pos(maxX, minY, maxZ).tex(r_x1, r_y0).normal(0.0F, 0.0F, -1.0F).endVertex();
 	}
 }

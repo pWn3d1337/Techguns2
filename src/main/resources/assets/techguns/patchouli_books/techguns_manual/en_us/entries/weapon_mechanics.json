@@ -1,0 +1,38 @@
+{
+    "name": "* Weapon Mechanics *",
+    "icon": "techguns:itemshared:57",
+    "category": "weapons",
+    "pages": [
+        {
+            "type": "text",
+            "text": "Weapons have a left click action and optionally a $(thing)right click action$(). The $(thing)left click action$() is either primary fire or melee when the weapon is a tool or a melee weapon. The $(thing)right-click action$() differs between weapon. Some weapons do not have a $(thing)right-click action$(), others have zooming, secondary fire mode or a charging attack."
+        }, 
+        {
+            "type": "text",
+            "title": "Hand Types",
+            "anchor": "hand_types",
+            "text": "There are three different hand types for weapons: $(thing)'One-Handed'$(), $(thing)'Two-Handed'$() and $(thing)'Dual Wield Penalty'$(). 'Dual Wield Penalty' is like 'One-Handed' but gets an accuracy penalty when used with dual wielding. 'Two-Handed' weapons always block the second hand. The off-hand item is not rendered and cannot be used. Only 'Two-Handed' weapons can have a right click action but don't always have to."
+        },
+        {
+            "type": "text",
+            "title": "Reloading",
+            "text": "A gun that has no more ammo left will be reloaded when you try to shoot it, provided that there is enough ammo left in your inventory. There is also a keybind ($(9)$(k:techguns.key.forceReload)$()) to force-reload a weapon. This allows to reload partially emptied guns but can cause loss of ammunition. If for example a magazine needs 3 bullet items to craft and the gun is reloaded with 25/30 shots, you only get 2 bullet items back."
+        },
+        {
+            "type": "text",
+            "title": "Ammo and Durability",
+            "text": "Guns do NOT have durability. The durability bar on the item shows how much percent ammo is left. Ammunition is the only operation cost. The ammo count is also shown in left bottom corner of the screen in the following format: <ammo in magazine>/<magazine capacity> x <how often you can reload from your inventory>."
+        },
+        {
+            "type": "text",
+            "title": "Safe mode",
+            "text": "Guns have a safe mode that avoids all block damage. The safe mode can be toggle with the $(9)$(k:techguns.key.toggleSafemode)$()-key. With safe mode enabled weapons like a rocket launcher can be used near your base without blowing everything up. Server administrators can force players to use the safe mode. "
+        },
+        {
+            "type": "image",
+            "title": "Safe mode Indicator",
+            "images": ["techguns:textures/gui/manual/safemode_on.png","techguns:textures/gui/manual/safemode_off.png"],
+            "text": "The icon showing the current state of safe-mode while holding a gun."
+        }
+    ]
+}

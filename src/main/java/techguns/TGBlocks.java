@@ -21,6 +21,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import techguns.blocks.BlockBioblob;
 import techguns.blocks.BlockDebugMarker;
 import techguns.blocks.BlockMilitaryCrate;
+import techguns.blocks.BlockOreCluster;
 import techguns.blocks.BlockSandbags;
 import techguns.blocks.BlockTGCamoNet;
 import techguns.blocks.BlockTGCamoNetTop;
@@ -42,6 +43,7 @@ import techguns.blocks.EnumLadderType;
 import techguns.blocks.EnumLampType;
 import techguns.blocks.EnumLightblockType;
 import techguns.blocks.EnumNetherMetalType;
+import techguns.blocks.EnumOreClusterType;
 import techguns.blocks.EnumOreType;
 import techguns.blocks.EnumTGSandHardTypes;
 import techguns.blocks.EnumTGSlimyType;
@@ -52,9 +54,11 @@ import techguns.blocks.IGenericBlock;
 import techguns.blocks.TGMetalPanelType;
 import techguns.blocks.machines.BasicMachine;
 import techguns.blocks.machines.BlockExplosiveCharge;
+import techguns.blocks.machines.BlockOreDrill;
 import techguns.blocks.machines.EnumExplosiveChargeType;
 import techguns.blocks.machines.EnumMachineType;
 import techguns.blocks.machines.EnumMultiBlockMachineType;
+import techguns.blocks.machines.EnumOreDrillType;
 import techguns.blocks.machines.EnumSimpleMachineType;
 import techguns.blocks.machines.MultiBlockMachine;
 import techguns.blocks.machines.SimpleMachine;
@@ -114,6 +118,10 @@ public class TGBlocks implements ITGInitializer{
 	
 	public static BlockTGSlimyLadder SLIMY_LADDER;
 	
+	public static BlockOreCluster<EnumOreClusterType> ORE_CLUSTER;
+	
+	public static BlockOreDrill ORE_DRILL_BLOCK;
+	
 	public void registerBlocks(RegistryEvent.Register<Block> event) {
 		BLOCKLIST.forEach(b -> b.registerBlock(event));
 	}
@@ -162,6 +170,10 @@ public class TGBlocks implements ITGInitializer{
 		SLIMY_BLOCK = new BlockTGSlimy("slimy", EnumTGSlimyType.class);
 		SLIMY_LADDER = new BlockTGSlimyLadder("slimyladder");
 		
+		ORE_CLUSTER= new BlockOreCluster<EnumOreClusterType>("orecluster", Material.ROCK, EnumOreClusterType.class);
+		
+		ORE_DRILL_BLOCK = new BlockOreDrill("oredrill");
+		
 		if (TGConfig.debug) {
 			DEBUG_BLOCK = new BlockDebugMarker("debugblock", Material.GROUND);
 		}
@@ -170,7 +182,10 @@ public class TGBlocks implements ITGInitializer{
 			BLOCKLIST.stream().filter(new Predicate<IGenericBlock>() {
 				@Override
 				public boolean test(IGenericBlock t) {
-					return t instanceof GenericBlockMetaEnum;
+					if(t instanceof GenericBlockMetaEnum) {
+						return ((GenericBlockMetaEnum)t).shouldAutoGenerateJsonForEnum();
+					}
+					return false;
 				}
 			}).forEach(b -> BlockJsonCreator.writeBlockstateJsonFileForBlock((GenericBlockMetaEnum)b));			
 		}

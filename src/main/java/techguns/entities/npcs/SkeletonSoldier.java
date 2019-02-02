@@ -18,7 +18,7 @@ import techguns.TGArmors;
 import techguns.TGuns;
 import techguns.Techguns;
 
-public class SkeletonSoldier extends GenericNPC {
+public class SkeletonSoldier extends GenericNPCUndead {
 
 	public static final ResourceLocation LOOT = new ResourceLocation(Techguns.MODID, "entities/skeletonsoldier");
 	

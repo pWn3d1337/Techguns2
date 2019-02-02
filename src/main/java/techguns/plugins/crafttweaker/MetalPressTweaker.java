@@ -111,7 +111,7 @@ public class MetalPressTweaker {
 								
 					if (ItemUtil.isItemEqual(rec.output, this.output)){
 						
-						if (!input1.isEmpty()){
+						if (input1!=null && !input1.isEmpty()){
 						
 							if (rec.slot1.matches(this.input1) && rec.slot2.matches(this.input2)){
 								iter.remove();
@@ -127,7 +127,7 @@ public class MetalPressTweaker {
 		
 		@Override
 		public String describe() {
-			if (!this.input1.isEmpty()){
+			if (this.input1!=null && !this.input1.isEmpty()){
 				return "Removed Recipe "+input1+"+"+input2+"-->"+this.output+" from MetalPress";
 			}
 			return "Removed Recipe(s) for "+this.output+" from MetalPress";

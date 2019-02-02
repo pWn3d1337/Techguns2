@@ -1,0 +1,16 @@
+{
+    "name": "Door Configuration",
+    "icon": "techguns:crowbar",
+    "category": "doors",
+    "pages": [
+        {
+            "type": "text",
+            "text": "To open the config gui of a Tech Door $(thing)[Sneak + Right Click]$() it while holding a $(l:machine_mechanics#wrench)'Wrench'$(/l). The doors have 3 modes: $(thing)'manual'$(), $(thing)'redstone controlled'$() or $(thing)'automatic'$(). A manual door needs to be opened by $(thing)'right-clicking'$() it, an automatic door reacts to players nearby. A redstone controlled door can be $(l:machine_mechanics#redstone)configured like machines$(/l). The signal can come from all sides."
+        },
+        {
+            "type": "text",
+            "title": "Security & Modes",
+            "text": "Doors can be configured to $(l:machine_mechanics#security)security settings$(/l) like machines. Security settings are only relevant for 'Manual' and 'Automatic' mode, while redstone control is only needed in 'Redstone' mode. Auto-Close is only used in 'Manual' mode and closes the door 5 seconds after opening."
+        }
+    ]
+}

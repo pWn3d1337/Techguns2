@@ -139,28 +139,6 @@ public class GaussProjectile extends AdvancedBulletProjectile implements ILightP
 
 	}
 	
-	@Override
-	public void setVelocity(double x, double y, double z) {
-		// TODO ?
-	}
-	
-	
-	@Override
-	public void writeSpawnData(ByteBuf buffer) {
-		super.writeSpawnData(buffer);
-		buffer.writeDouble(this.motionX);
-		buffer.writeDouble(this.motionY);
-		buffer.writeDouble(this.motionZ);
-	}
-
-	@Override
-	public void readSpawnData(ByteBuf additionalData) {
-		super.readSpawnData(additionalData);
-		this.motionX=additionalData.readDouble();
-		this.motionY=additionalData.readDouble();
-		this.motionZ=additionalData.readDouble();
-	}
-	
 	@Optional.Method(modid="albedo")
 	@Override
 	public Light provideLight() {

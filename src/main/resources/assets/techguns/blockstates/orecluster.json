@@ -1,0 +1,31 @@
+{
+  "variants": {
+    "type=coal": {
+      "model": "techguns:ore_cluster_coal"
+    },
+    "type=common_metal": {
+      "model": "techguns:ore_cluster_common_metal"
+    },
+    "type=nether_crystal": {
+      "model": "techguns:ore_cluster_nether_crystal"
+    },
+    "type=uranium": {
+      "model": "techguns:ore_cluster_uranium"
+    },
+    "type=common_gem": {
+      "model": "techguns:ore_cluster_common_gem"
+    },
+    "type=shiny_metal": {
+      "model": "techguns:ore_cluster_shiny_metal"
+    },
+    "type=rare_metal": {
+      "model": "techguns:ore_cluster_rare_metal"
+    },
+    "type=shiny_gem": {
+      "model": "techguns:ore_cluster_shiny_gem"
+    },
+	"type=oil": {
+      "model": "techguns:ore_cluster_oil"
+    }
+  }
+}

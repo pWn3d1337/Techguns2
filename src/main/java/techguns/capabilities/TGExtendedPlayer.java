@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -14,7 +15,9 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.EnumHand;
 import net.minecraftforge.server.permission.PermissionAPI;
+import techguns.TGConfig;
 import techguns.TGPermissions;
+import techguns.Techguns;
 import techguns.api.capabilities.AttackTime;
 import techguns.api.capabilities.ITGExtendedPlayer;
 import techguns.client.particle.ITGParticle;
@@ -24,6 +27,8 @@ import techguns.util.DataUtil;
 
 public class TGExtendedPlayer implements ITGExtendedPlayer {
 
+	public static final int MAX_RADIATION=1000;
+	
 	public static final DataParameter<ItemStack> DATA_FACE_SLOT = EntityDataManager.<ItemStack>createKey(EntityPlayer.class, DataSerializers.ITEM_STACK);
 	public static final DataParameter<ItemStack> DATA_BACK_SLOT = EntityDataManager.<ItemStack>createKey(EntityPlayer.class, DataSerializers.ITEM_STACK);
 	public static final DataParameter<ItemStack> DATA_HAND_SLOT = EntityDataManager.<ItemStack>createKey(EntityPlayer.class, DataSerializers.ITEM_STACK);
@@ -245,7 +250,7 @@ public class TGExtendedPlayer implements ITGExtendedPlayer {
 		this.enableNightVision=states.get(1);
 		this.enableSafemode=states.get(2);
 		
-		if (entity!=null && !PermissionAPI.hasPermission(entity, TGPermissions.ALLOW_UNSAFE_MODE)) {
+		if (entity!=null && !Techguns.instance.permissions.canUseUnsafeMode(entity)) {
 			this.enableSafemode=true;
 		}
 		
@@ -313,6 +318,32 @@ public class TGExtendedPlayer implements ITGExtendedPlayer {
 		}
 	}
 	
+	public void addDropsToList(EntityPlayer player, List<EntityItem> list ){
+		if(!player.world.isRemote){
+			if (!player.world.getGameRules().getBoolean("keepInventory"))
+	        {
+	            //this.inventory.dropAllItems();
+	            int i;
+	        
+	            //player.captureDrops=true;
+	            for (i = 0; i < this.tg_inventory.inventory.size(); ++i)
+	            {
+	                if (!this.tg_inventory.inventory.get(i).isEmpty())
+	                {
+	                	//System.out.println("Dropping "+TG_inventory.inventory[i].getDisplayName()+" x"+TG_inventory.inventory[i].stackSize);
+	                    EntityItem item = player.dropItem(this.tg_inventory.inventory.get(i), true, false);
+	                    if(item!=null) {
+	                    	list.add(item);
+	                    }
+	                    this.tg_inventory.inventory.set(i, ItemStack.EMPTY);
+	                }
+	            }
+	            //player.captureDrops=false;
+	         
+	        }
+		}
+	}
+	
 	public boolean isChargingWeapon() {
 		return this.entity.getDataManager().get(DATA_FLAG_CHARGING_WEAPON);
 	}
@@ -321,4 +352,15 @@ public class TGExtendedPlayer implements ITGExtendedPlayer {
 		this.entity.getDataManager().set(DATA_FLAG_CHARGING_WEAPON, charging);
 	}
 	
+	public void addRadiation(int amount) {
+		
+		if (TGConfig.WIP_disableRadiationSystem) {amount=0;}
+		
+		this.radlevel+=amount;
+		if(this.radlevel<0) {
+			this.radlevel=0;
+		} else if (this.radlevel>MAX_RADIATION) {
+			this.radlevel=MAX_RADIATION;
+		}
+	}
 }

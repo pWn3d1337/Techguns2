@@ -32,13 +32,15 @@ public class TGFluids implements ITGInitializer {
 	
 	public static Fluid MILK;
 	
-	protected static String[] oilnames = {"oil", "tree_oil", "crude_oil"};
+//	protected static String[] oilnames = {"oil", "tree_oil", "crude_oil", "seed_oil"};
 	public static ArrayList<Fluid> oils = new ArrayList<Fluid>();
 	
+	public static ArrayList<Fluid> worldspawn_oils = new ArrayList<Fluid>();
 	//public static Fluid OIL;
+	public static Fluid OIL_WORLDSPAWN=null;
 	
 	//public static Fluid FUEL;
-	protected static String[] fuelnames = {"fuel", "refined_fuel", "biofuel", "biodiesel", "diesel", "gasoline"};
+//	protected static String[] fuelnames = {"fuel", "refined_fuel", "biofuel", "biodiesel", "diesel", "gasoline", "refined_biofuel", "fire_water", "rocket_fuel"};
 	public static ArrayList<Fluid> fuels = new ArrayList<Fluid>();
 	
 	public static Fluid LIQUID_REDSTONE;
@@ -120,8 +122,9 @@ public class TGFluids implements ITGInitializer {
 
 	}
 
-	@Override
-	public void postInit(FMLPostInitializationEvent event) {
+	//@Override
+	//public void postInit(FMLPostInitializationEvent event) {
+	public static void RecipeInit() {
 		//MILK = FluidRegistry.getFluid("milk");
 		
 		/*	if (MILK==null){
@@ -132,18 +135,28 @@ public class TGFluids implements ITGInitializer {
 			}	*/
 			
 			//OIL = FluidRegistry.getFluid("oil");
-			
-			for (int i=0;i<fuelnames.length;i++) {
-				Fluid f = FluidRegistry.getFluid(fuelnames[i]);
+
+			for (String fluidName: TGConfig.fluidListFuel) {
+				Fluid f = FluidRegistry.getFluid(fluidName);
 				if(f!=null) {
 					fuels.add(f);
 				}
 			}
-			
-			for (int i=0;i<oilnames.length;i++) {
-				Fluid f = FluidRegistry.getFluid(oilnames[i]);
-				if(f!=null) {
+
+			for (String fluidName: TGConfig.fluidListOil) {
+				Fluid f = FluidRegistry.getFluid(fluidName);
+				if (f != null) {
 					oils.add(f);
+				}
+			}
+			
+			for (String fluidName: TGConfig.fluidListOilWorldspawn) {
+				Fluid f = FluidRegistry.getFluid(fluidName);
+				if (f != null) {
+					worldspawn_oils.add(f);
+					if(f.getBlock()!=null && OIL_WORLDSPAWN==null){
+						OIL_WORLDSPAWN=f;
+					}
 				}
 			}
 
@@ -172,5 +185,10 @@ public class TGFluids implements ITGInitializer {
 		//		System.out.println("No Biofuel, fallback to lava");
 				BIOFUEL = LAVA;
 			}
+	}
+
+	@Override
+	public void postInit(FMLPostInitializationEvent event) {
+		
 	}
 }

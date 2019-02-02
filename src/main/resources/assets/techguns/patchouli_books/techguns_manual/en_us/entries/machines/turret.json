@@ -1,0 +1,26 @@
+{
+    "name": "Turret",
+    "icon": "techguns:basicmachine:3",
+    "category": "powered_machines",
+    "pages": [
+         {
+            "type": "crafting",
+            "recipe": "techguns:basicmachine_3_turret",
+            "text": "The turret can be built quite early in the game but requires a power supply to function. $(br2) Any Techgun can be mounted on the turret, even melee weapons like the chainsaw."
+       },
+        {
+            "type": "text",
+            "text": "The turret base spawns a turret NPC that can be equipped with a techguns weapon. Power is constantly needed for operation and additional power is consumed for repairing the turret npc. Turrets can also be placed upside down by facing the bottom of a block while placing the turret or by using a $(l:machine_mechanics#wrench)'Wrench'$(/l) on the bottom face."
+        }, 
+       {
+            "type": "text",
+            "title": "Usage",
+            "text": "The turret gui has multiple slots, the left 3x3 slots are for ammo, the right 3x3 slots store empty magazines. The two slots in the middle are for equipping a gun and a turret armor which increases the armor rating of the turret npc. When the turret NPC dies the base will spawn a new one after a repair delay but needs additional power during that process."
+       },
+        {
+            "type": "text",
+            "title": "Turret AI",
+            "text": "How far the turret detects enemies and attacks them depends on the type of weapon that is equipped. There are buttons on the left side of the gui to change the attacking behaviour of the turret. This allows to specify if other players should be attacked. This is similar to $(l:machine_mechanics#security)Security Settings$(/l). There is also a button to toggle if neutral animals should get killed."
+       }
+    ]
+}

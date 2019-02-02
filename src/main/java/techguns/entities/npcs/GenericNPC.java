@@ -53,7 +53,7 @@ public class GenericNPC extends EntityMob implements IRangedAttackMob, INPCTechg
 		
 	protected boolean hasAimedBowAnim;
 	    
-	    private static final DataParameter<Boolean> SWINGING_ARMS = EntityDataManager.<Boolean>createKey(AbstractSkeleton.class, DataSerializers.BOOLEAN);
+	    private static final DataParameter<Boolean> SWINGING_ARMS = EntityDataManager.<Boolean>createKey(GenericNPC.class, DataSerializers.BOOLEAN);
 	    private EntityAIRangedAttack aiRangedAttack =  null;
 	    private final EntityAIAttackMelee aiAttackOnCollide = new EntityAIAttackMelee(this, 1.2D, false);
 	  
@@ -65,13 +65,14 @@ public class GenericNPC extends EntityMob implements IRangedAttackMob, INPCTechg
 	    public GenericNPC(World world)
 	    {
 	        super(world);
+	        this.dataManager.register(SWINGING_ARMS, false);
 	        this.tasks.addTask(1, new EntityAISwimming(this));
 	        this.tasks.addTask(5, new EntityAIWander(this, 1.0D));
 	        this.tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
 	        this.tasks.addTask(6, new EntityAILookIdle(this));
 	        this.targetTasks.addTask(1, new EntityAIHurtByTargetTGFactions(this, false));
 	        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
-
+	        
 	        if (world != null && !world.isRemote)
 	        {
 	            this.setCombatTask();

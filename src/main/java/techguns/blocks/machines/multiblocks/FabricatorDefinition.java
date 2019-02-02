@@ -9,6 +9,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import techguns.TGBlocks;
 import techguns.blocks.machines.EnumMultiBlockMachineType;
+import techguns.packets.PacketMultiBlockFormInvalidBlockMessage;
 import techguns.tileentities.FabricatorTileEntMaster;
 import techguns.tileentities.MultiBlockMachineTileEntMaster;
 
@@ -52,14 +53,19 @@ public class FabricatorDefinition extends MultiBlockMachineSchematic {
 	
 	@Override
 	public boolean checkForm(World w, EntityPlayer ply, BlockPos masterPos, EnumFacing direction) {
-		return this.canFormFromSide(direction) &&
+		if( this.canFormFromSide(direction) &&
 				allBlocksMatch(w, ply, getBottomRow(masterPos, direction), TGBlocks.MULTIBLOCK_MACHINE.getDefaultState()
 				.withProperty(TGBlocks.MULTIBLOCK_MACHINE.MACHINE_TYPE, EnumMultiBlockMachineType.FABRICATOR_HOUSING)
 				.withProperty(TGBlocks.MULTIBLOCK_MACHINE.FORMED, false)
 				) && allBlocksMatch(w, ply, getTopRow(masterPos, direction), TGBlocks.MULTIBLOCK_MACHINE.getDefaultState()
 						.withProperty(TGBlocks.MULTIBLOCK_MACHINE.MACHINE_TYPE, EnumMultiBlockMachineType.FABRICATOR_GLASS)
 						.withProperty(TGBlocks.MULTIBLOCK_MACHINE.FORMED, false)
-						);
+						)) {
+			return true;
+		} else {
+			sendErrorMSG(w, masterPos, ply, PacketMultiBlockFormInvalidBlockMessage.MSG_TYPE_MULTIBLOCK_ERROR);
+			return false;
+		}
 	}
 
 	

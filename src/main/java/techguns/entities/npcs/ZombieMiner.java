@@ -19,7 +19,7 @@ import techguns.TGuns;
 import techguns.Techguns;
 import techguns.items.armors.GenericArmorMultiCamo;
 
-public class ZombieMiner extends GenericNPC {
+public class ZombieMiner extends GenericNPCUndead {
 	public static final ResourceLocation LOOT = new ResourceLocation(Techguns.MODID, "entities/zombieminer");
 	
 	public ZombieMiner(World world) {

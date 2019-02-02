@@ -64,13 +64,15 @@ import techguns.init.ITGInitializer;
 
 public class TGEntities implements ITGInitializer {
 
+	public static final int bulletTrackRange = 128;
+	
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
 		
 		/**
 		 * PROJECTILES
 		 */
-		int bulletTrackRange = 128;
+		//int bulletTrackRange = 128;
 		
 		EntityRegistry.registerModEntity(new ResourceLocation(Techguns.MODID,"GenericProjectile"),GenericProjectile.class, "GenericProjectile", ++Techguns.modEntityID, Techguns.MODID, bulletTrackRange, 1, true);
 		EntityRegistry.registerModEntity(new ResourceLocation(Techguns.MODID,"GenericProjectileIncendiary"),GenericProjectileIncendiary.class, "GenericProjectileIncendiary", ++Techguns.modEntityID, Techguns.MODID, bulletTrackRange, 1, true);
@@ -121,6 +123,7 @@ public class TGEntities implements ITGInitializer {
 		registerModEntityWithEgg(SuperMutantHeavy.class, "SuperMutantHeavy", 0xc6a96b, 0x51350e);
 		registerModEntityWithEgg(AttackHelicopter.class, "AttackHelicopter", 0x373d23, 0x8ec0d7,200);
 		registerModEntityWithEgg(AlienBug.class, "AlienBug", 0xc6a96b, 0x71552e);
+		
 	}
 
 
@@ -139,6 +142,7 @@ public class TGEntities implements ITGInitializer {
 	@Override
 	public void init(FMLInitializationEvent event) {
 
+		//registerSpawn does not add the spawn if the spawnweight is <=0
 		TGSpawnManager.spawnTableOverworld.registerSpawn(new TGNpcSpawn(ZombieSoldier.class, TGConfig.spawnWeightZombieSoldier), 1);
 		TGSpawnManager.spawnTableOverworld.registerSpawn(new TGNpcSpawn(ZombieFarmer.class, TGConfig.spawnWeightZombieFarmer), 0);
 		TGSpawnManager.spawnTableOverworld.registerSpawn(new TGNpcSpawn(ZombieMiner.class, TGConfig.spawnWeightZombieMiner), 0);
@@ -166,10 +170,12 @@ public class TGEntities implements ITGInitializer {
 			}
 		});
 
-		EntityRegistry.addSpawn(TGDummySpawn.class, TGConfig.spawnWeightTGOverworld, 1, 3, EnumCreatureType.MONSTER,overworldBiomes.toArray(new Biome[overworldBiomes.size()]));
-			
-		EntityRegistry.addSpawn(TGDummySpawn.class, TGConfig.spawnWeightTGNether, 1, 3, EnumCreatureType.MONSTER,netherBiomes.toArray(new Biome[netherBiomes.size()]));
-		
+		if(TGConfig.spawnWeightTGOverworld>0) {
+			EntityRegistry.addSpawn(TGDummySpawn.class, TGConfig.spawnWeightTGOverworld, 1, 3, EnumCreatureType.MONSTER,overworldBiomes.toArray(new Biome[overworldBiomes.size()]));
+		}
+		if(TGConfig.spawnWeightTGNether>0) {
+			EntityRegistry.addSpawn(TGDummySpawn.class, TGConfig.spawnWeightTGNether, 1, 3, EnumCreatureType.MONSTER,netherBiomes.toArray(new Biome[netherBiomes.size()]));
+		}
 	}
 
 	@SideOnly(Side.CLIENT)

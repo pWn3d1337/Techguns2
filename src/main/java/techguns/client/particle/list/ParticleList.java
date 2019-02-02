@@ -86,7 +86,10 @@ public class ParticleList<E> implements Iterable<E>{
 		} else {
 			
 			listElem.prev.next=listElem.next;
-			listElem.next.prev=listElem.prev;
+			
+			if(listElem.next!=null) { //This should not happen, but there where crash reports
+				listElem.next.prev=listElem.prev;
+			}
 			//listElem.next=null;
 			listElem.prev=null;
 		}
@@ -242,7 +245,7 @@ public class ParticleList<E> implements Iterable<E>{
 				if(hasNext()) {
 					next = current.next;
 				}*/
-
+				
 				list.remove(current);
 				//current=next;
 			} else {

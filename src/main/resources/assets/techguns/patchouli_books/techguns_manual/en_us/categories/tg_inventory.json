@@ -1,0 +1,6 @@
+{
+    "name": "Techguns Inventory",
+    "description": "Information about Techguns Inventory tab and additional slots slots.",
+    "icon": "techguns:itemshared:1",
+    "sortnum": 6
+}

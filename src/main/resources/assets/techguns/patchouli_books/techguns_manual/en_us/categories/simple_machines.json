@@ -1,0 +1,6 @@
+{
+    "name": "Simple Machines",
+    "description": "Techguns adds a few 'simple' machines that do not require power. $(l:machine_mechanics#security)Security Settings$(/l) may still be applicable.",
+    "icon": "techguns:simplemachine:8",
+    "sortnum": 2
+}

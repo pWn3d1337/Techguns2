@@ -12,9 +12,11 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.server.permission.PermissionAPI;
+import techguns.TGConfig;
 import techguns.TGPackets;
 import techguns.TGPermissions;
 import techguns.TGSounds;
+import techguns.Techguns;
 import techguns.capabilities.TGExtendedPlayer;
 import techguns.items.armors.GenericArmor;
 import techguns.items.armors.TGArmorBonus;
@@ -100,7 +102,7 @@ public class PacketTGKeybindPress implements IMessage {
 				
 				props.enableSafemode=!props.enableSafemode;
 				
-				if (!props.enableSafemode && PermissionAPI.hasPermission(ply, TGPermissions.ALLOW_UNSAFE_MODE)) {
+				if (!props.enableSafemode && !Techguns.instance.permissions.canUseUnsafeMode(ply)) {
 					props.enableSafemode=true;
 				} 
 				if(message.showMsg) {

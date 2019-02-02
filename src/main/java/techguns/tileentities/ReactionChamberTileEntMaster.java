@@ -29,6 +29,7 @@ import net.minecraftforge.fluids.FluidEvent;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.fml.common.network.NetworkRegistry.TargetPoint;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
@@ -69,7 +70,7 @@ public class ReactionChamberTileEntMaster extends MultiBlockMachineTileEntMaster
 	public static final int BUTTON_ID_INTENSTIY_DEC=ButtonConstants.BUTTON_ID_REDSTONE+4;
 	public static final int BUTTON_ID_DUMPTANK=ButtonConstants.BUTTON_ID_REDSTONE+5;
 	
-	public static Field playerChunkMapEntry_Players = ReflectionHelper.findField(PlayerChunkMapEntry.class, "players","field_187283_c");
+	public static Field playerChunkMapEntry_Players = ObfuscationReflectionHelper.findField(PlayerChunkMapEntry.class, "field_187283_c"); //ReflectionHelper.findField(PlayerChunkMapEntry.class, "players","field_187283_c");
 	
 	protected byte intensity=0;
 	protected byte liquidLevel=0;
@@ -687,6 +688,17 @@ public class ReactionChamberTileEntMaster extends MultiBlockMachineTileEntMaster
 	}
 
 	@Override
+	public boolean shouldRenderInPass(int pass) {
+		if(this.formed) {
+			if(pass==1 && this.inputTank.getFluidAmount()>0) {
+				return true;
+			}
+			return pass==0 && this.isWorking(); //return super.shouldRenderInPass(pass);
+		}
+		return false;
+	}
+
+	@Override
 	public void saveTanksToNBT(NBTTagCompound tags) {
 		NBTTagCompound inputTankTags = new NBTTagCompound();
 		this.inputTank.writeToNBT(inputTankTags);
@@ -704,17 +716,18 @@ public class ReactionChamberTileEntMaster extends MultiBlockMachineTileEntMaster
 			
 			ChunkPos cp = this.world.getChunkFromBlockCoords(getPos()).getPos();
 			PlayerChunkMapEntry entry = ((WorldServer) this.world).getPlayerChunkMap().getEntry(cp.x, cp.z);
-	
-			try {
-				List<EntityPlayerMP> players = (List<EntityPlayerMP>) playerChunkMapEntry_Players.get(entry);
-				IMessage packet = new PacketUpdateTileEntTanks(this, this.getPos());
-				for (EntityPlayerMP entityplayermp : players) {
-					TGPackets.network.sendTo(packet, entityplayermp);
+			if(entry !=null ) {
+				try {
+					List<EntityPlayerMP> players = (List<EntityPlayerMP>) playerChunkMapEntry_Players.get(entry);
+					IMessage packet = new PacketUpdateTileEntTanks(this, this.getPos());
+					for (EntityPlayerMP entityplayermp : players) {
+						TGPackets.network.sendTo(packet, entityplayermp);
+					}
+				} catch (IllegalArgumentException e) {
+					e.printStackTrace();
+				} catch (IllegalAccessException e) {
+					e.printStackTrace();
 				}
-			} catch (IllegalArgumentException e) {
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				e.printStackTrace();
 			}
 
 		}

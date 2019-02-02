@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 import techguns.TGuns;
 import techguns.Techguns;
 
-public class CyberDemon extends GenericNPC {
+public class CyberDemon extends GenericNPCUndead {
 
 	public static final ResourceLocation LOOT = new ResourceLocation(Techguns.MODID, "entities/cyberdemon");
 	
@@ -115,4 +115,11 @@ public class CyberDemon extends GenericNPC {
 	protected ResourceLocation getLootTable() {
 		return LOOT;
 	}
+
+	@Override
+	protected boolean shouldBurnInDay() {
+		return false;
+	}
+	
+	
 }

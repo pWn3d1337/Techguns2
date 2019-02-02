@@ -1,0 +1,54 @@
+{
+    "name": "* Machine Mechanics *",
+    "icon": "techguns:itemshared:70",
+    "category": "powered_machines",
+    "pages": [
+        {
+            "type": "text",
+            "text": "Techguns machines share a few mechanics. This includes: $(l:machine_mechanics#power)Power$(/l), $(l:machine_mechanics#security)Security Settings$(/l) and $(l:machine_mechanics#redstone)Redstone Control$(/l). Power and Redstone Control is only relevant to powered machines, while Security Settings are also applicable to simple machines. The $(l:machine_mechanics#upgrade)'Upgrade Slot'$(/l) is also a shared mechanic between multiple machines."
+        },
+        {
+            "type": "text",
+            "title": "Side Configuration",
+            "text": "Techguns machines share the concept to not need side configuration. This means input and extraction from pipes can come from any side. Recipes are designed in a way that for each item it must be deterministic in which slot it belongs. Extraction from machines require pipes with 'extract' mode as the machines do not output to inventories themselves."
+        },
+        {
+            "type": "text",
+            "title": "Security Settings",
+            "anchor": "security",
+            "text": "Security Settings allow to restrict access to a machine. Machines have a lock-button that has 4 states.$(br2)$(li)public$(li)allies$(li)team$(li)owner$(br2)No matter what setting, only the owner (=the player who placed the machine) can change the security setting."
+        },
+        {
+            "type": "text",
+            "title": "Security Settings",
+            "anchor": "security2",
+            "text": "To make use of the 'allies' and 'team' settings you need FTBUtilies installed. Without FTBU 'allies' and 'team' is equal to 'public'."
+        },
+        {
+            "type": "text",
+            "title": "Power",
+            "anchor": "power",
+            "text": "Machines that have a power bar on the left side of the gui require power to operate. The power system used by techguns is $(thing)'FE'$() or $(thing)'Forge Energy'$() which is also compatible with most RF (Redstone Flux) based cables. Techguns has no options to generate power itself, you need another mod to produce it. Alternatively you can disable power requirement in the techguns.cfg config file."
+        },
+        {
+            "type": "text",
+            "title": "Redstone Control",
+            "anchor": "redstone",
+            "text": "With redstone control a machine can be configured to react to redstone signals. The indicator in the top left with a red and green light indicate the current state. This allows to turn off machines by redstone signals. By default a machine ignores signals."
+        },
+        {
+            "type": "spotlight",
+            "title": "Upgrade Slot",
+            "item": "techguns:itemshared:94",
+            "anchor": "upgrade",
+            "text": "Some machines have an upgrade slot in the bottom right of their gui. In this slot 'Machine Upgrades' can be placed. The 'Stack Operation' upgrade allows the machine to process the same recipe multiple times at once. The stack upgrade can be applied up to 7 times allowing to process a recipe up to 8x simultaneously."
+        },
+          {
+            "type": "spotlight",
+            "title": "'Wrench'",
+            "item": "techguns:crowbar",
+            "anchor": "wrench",
+            "text": "As many other tech mods, Techguns also has a 'wrench' item. The crowbar is Techguns version of a wrench, but can also be used as pickaxe and for hitting enemies. The crowbar allows to rotate techguns machines or can dismantle them ($(thing)'Sneak + Right Click'$()). Technically everything that has the tool class 'wrench' is considered as wrench."
+        }
+    ]
+}

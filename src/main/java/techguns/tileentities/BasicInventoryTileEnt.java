@@ -36,7 +36,7 @@ public class BasicInventoryTileEnt extends BasicTGTileEntity {
 		};
 	}
 	
-    public ItemStackHandler getInventory() {
+    public ItemStackHandlerPlus getInventory() {
 		return inventory;
 	}
     

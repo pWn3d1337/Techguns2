@@ -4,12 +4,16 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
 
+import com.mojang.realmsclient.gui.ChatFormatting;
+
 import elucent.albedo.event.GatherLightsEvent;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.ISound;
 import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelBiped.ArmPose;
 import net.minecraft.client.model.ModelPlayer;
 import net.minecraft.client.renderer.ItemRenderer;
@@ -20,7 +24,10 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -40,17 +47,23 @@ import net.minecraftforge.client.event.RenderHandEvent;
 import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
+import net.minecraftforge.client.event.sound.SoundEvent.SoundSourceEvent;
+import net.minecraftforge.event.entity.EntityEvent.EntityConstructing;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
+import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
+import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerDropsEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.event.world.BlockEvent.HarvestDropsEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Optional;
@@ -64,16 +77,19 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import techguns.TGBlocks;
 import techguns.TGConfig;
 import techguns.TGPackets;
+import techguns.TGRadiationSystem;
 import techguns.Techguns;
 import techguns.api.guns.GunHandType;
 import techguns.api.guns.GunManager;
 import techguns.api.guns.IGenericGun;
 import techguns.api.npc.INpcTGDamageSystem;
+import techguns.api.radiation.TGRadiation;
 import techguns.api.tginventory.ITGSpecialSlot;
 import techguns.api.tginventory.TGSlotType;
 import techguns.capabilities.TGExtendedPlayer;
 import techguns.client.ClientProxy;
 import techguns.client.ShooterValues;
+import techguns.client.audio.TGSound;
 import techguns.client.render.entities.npcs.RenderAttackHelicopter;
 import techguns.client.render.entities.projectiles.DeathEffectEntityRenderer;
 import techguns.client.render.entities.projectiles.RenderGrenade40mmProjectile;
@@ -98,8 +114,11 @@ import techguns.packets.PacketEntityDeathType;
 import techguns.packets.PacketNotifyAmbientEffectChange;
 import techguns.packets.PacketRequestTGPlayerSync;
 import techguns.packets.PacketTGExtendedPlayerSync;
+import techguns.radiation.ItemRadiationData;
+import techguns.radiation.ItemRadiationRegistry;
 import techguns.util.BlockUtils;
 import techguns.util.InventoryUtil;
+import techguns.util.TextUtil;
 
 @Mod.EventBusSubscriber(modid = Techguns.MODID)
 public class TGEventHandler {
@@ -168,12 +187,12 @@ public class TGEventHandler {
 				}else if (event.getButton() == 1 && ply.getHeldItemMainhand().getItem() instanceof GenericGunCharge && ((GenericGunCharge)ply.getHeldItemMainhand().getItem()).getLockOnTicks() > 0) {
 					//System.out.println("Start/Stop LockOn: RMB = "+event.isButtonstate());
 					ClientProxy cp = ClientProxy.get();
-					cp.keyFirePressedOffhand = event.isButtonstate();
+					//cp.keyFirePressedOffhand = event.isButtonstate();
 					
 					TGExtendedPlayer props = TGExtendedPlayer.get(ply);
 					props.lockOnEntity = null;
 					props.lockOnTicks = -1;
-					System.out.println("reset lock.");
+					//System.out.println("reset lock.");
 				}
 				
 				//System.out.println("EVENT CANCELLED: "+event.isCanceled());
@@ -263,24 +282,30 @@ public class TGEventHandler {
 			
 		 	ItemStack stack =ply.getHeldItemMainhand();
 		 	if(!stack.isEmpty() && stack.getItem() instanceof GenericGun && ((GenericGun) stack.getItem()).hasBowAnim()){
-		 		ModelPlayer model = (ModelPlayer) event.getRenderer().getMainModel();
-		 		if (ply.getPrimaryHand()==EnumHandSide.RIGHT) {
-		 			model.rightArmPose = ArmPose.BOW_AND_ARROW;
-		 		} else {
-		 			model.leftArmPose = ArmPose.BOW_AND_ARROW;
+		 		ModelBase mdl = event.getRenderer().getMainModel();
+		 		if (mdl instanceof ModelPlayer) {
+			 		ModelPlayer model = (ModelPlayer) mdl;
+			 		if (ply.getPrimaryHand()==EnumHandSide.RIGHT) {
+			 			model.rightArmPose = ArmPose.BOW_AND_ARROW;
+			 		} else {
+			 			model.leftArmPose = ArmPose.BOW_AND_ARROW;
+			 		}
 		 		}
 		 	} else {
 		 	
 			 	ItemStack stack2 =ply.getHeldItemOffhand();
 			 	if(!stack2.isEmpty() && stack2.getItem() instanceof GenericGun && ((GenericGun) stack2.getItem()).hasBowAnim()){
-			 		ModelPlayer model =  (ModelPlayer) event.getRenderer().getMainModel();
-			 		
-			 		if (ShooterValues.getIsCurrentlyUsingGun(ply,true)){
+			 		ModelBase mdl = event.getRenderer().getMainModel();
+			 		if (mdl instanceof ModelPlayer) {
+				 		ModelPlayer model = (ModelPlayer) mdl;
 				 		
-				 		if (ply.getPrimaryHand()==EnumHandSide.RIGHT) {
-				 			model.leftArmPose = ArmPose.BOW_AND_ARROW;
-				 		} else {
-				 			model.rightArmPose = ArmPose.BOW_AND_ARROW;
+				 		if (ShooterValues.getIsCurrentlyUsingGun(ply,true)){
+					 		
+					 		if (ply.getPrimaryHand()==EnumHandSide.RIGHT) {
+					 			model.leftArmPose = ArmPose.BOW_AND_ARROW;
+					 		} else {
+					 			model.rightArmPose = ArmPose.BOW_AND_ARROW;
+					 		}
 				 		}
 			 		}
 			 	}
@@ -323,6 +348,12 @@ public class TGEventHandler {
 				e.printStackTrace();
 			} catch (InvocationTargetException e) {
 				e.printStackTrace();
+			}
+		} else if ( (event.getSource() == DamageSource.LAVA || event.getSource()==DamageSource.ON_FIRE || event.getSource()==DamageSource.IN_FIRE) && event.getEntityLiving() instanceof EntityPlayer) {
+			float bonus = GenericArmor.getArmorBonusForPlayer((EntityPlayer) event.getEntityLiving(), TGArmorBonus.COOLING_SYSTEM,event.getEntityLiving().world.getTotalWorldTime()%5==0);
+			
+			if (bonus >=1.0f) {
+				event.setCanceled(true);
 			}
 		}
 	}
@@ -433,6 +464,7 @@ public class TGEventHandler {
 				TGExtendedPlayer tgplayer = TGExtendedPlayer.get((EntityPlayer) event.getEntityLiving());
 				tgplayer.foodleft=0;
 				tgplayer.lastSaturation=0;
+				tgplayer.addRadiation(-TGRadiationSystem.RADLOST_ON_DEATH);
 			}
 			
 			if (event.getSource() instanceof TGDamageSource) {
@@ -646,13 +678,9 @@ public class TGEventHandler {
 		TGExtendedPlayer props = TGExtendedPlayer.get(ply);
 		
 		if(props!=null){
-			
-			ply.captureDrops=true;
-			
+
 			props.dropInventory(ply);
-			
-			ply.captureDrops=false;
-					
+
 		}	
 		
 	}
@@ -690,6 +718,18 @@ public class TGEventHandler {
 			}
 		}
 		
+	}
+	
+	//stop XP drop on silk harvesting with mining drill
+	@SubscribeEvent(priority=EventPriority.HIGH)
+	public static void onBlockBreakEvent(BlockEvent.BreakEvent event) {
+		EntityPlayer ply = event.getPlayer();
+		if(ply!=null) {
+			ItemStack stack = ply.getHeldItemMainhand();
+			if(!stack.isEmpty() && stack.getItem() instanceof MiningDrill && ply.isSneaking()) {
+				event.setExpToDrop(0);
+			}
+		}
 	}
 	
 	@SubscribeEvent(priority=EventPriority.HIGH) //run before regular drop events
@@ -782,4 +822,35 @@ public class TGEventHandler {
 	}
 	
 	
+	/*@SubscribeEvent
+	public static void itemPickupRadiation(EntityItemPickupEvent event) {
+		ItemStack stack = event.getItem().getItem();
+		if(!stack.isEmpty()) {
+			ItemRadiationData data = ItemRadiationRegistry.getRadiationDataFor(stack);
+			if(data!=null) {
+				event.getEntityPlayer().addPotionEffect(new PotionEffect(TGRadiationSystem.radiation_effect, data.radduration, data.radamount-1, false,false));
+			}
+		}
+	}*/
+	
+	@SubscribeEvent
+	@SideOnly(Side.CLIENT)
+	public static void ItemRadiationTooltip(ItemTooltipEvent event) {
+		ItemStack stack = event.getItemStack();
+		if(!stack.isEmpty()) {
+			ItemRadiationData data = ItemRadiationRegistry.getRadiationDataFor(stack);
+			if(data!=null && data.radamount>0) {
+				event.getToolTip().add(ChatFormatting.GREEN+TextUtil.trans("techguns.radiation")+" "+TextUtil.trans("potion.potency."+(data.radamount-1)));
+			}
+		}
+	}
+	
+	@SubscribeEvent
+	public static void onEntityConstruction(EntityConstructing event) {
+
+		if(event.getEntity() instanceof EntityLivingBase) {
+			EntityLivingBase elb = (EntityLivingBase) event.getEntity();
+			elb.getAttributeMap().registerAttribute(TGRadiation.RADIATION_RESISTANCE).setBaseValue(0);
+		}
+	}
 }

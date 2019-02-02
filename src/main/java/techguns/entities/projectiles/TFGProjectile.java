@@ -88,11 +88,13 @@ public class TFGProjectile extends GenericProjectile implements IEntityAdditiona
 
 	@Override
 	public void writeSpawnData(ByteBuf buffer) {
+		super.writeSpawnData(buffer);
 		buffer.writeFloat(this.size);
 	}
 
 	@Override
 	public void readSpawnData(ByteBuf additionalData) {
+		super.readSpawnData(additionalData);
 		this.size=additionalData.readFloat();
 		Techguns.proxy.createFXOnEntity("TFGTrail", this, this.size*0.75f);
 	}

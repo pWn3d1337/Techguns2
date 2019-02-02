@@ -25,8 +25,13 @@ public class GenericArmorMultiCamo extends GenericArmor implements ICamoChangeab
 		protected String[] textureNames;
 		protected String camoNameSuffix="";
 		
+		
 		public GenericArmorMultiCamo(String unlocalizedName, TGArmorMaterial material, String[] textureNames, EntityEquipmentSlot type) {
-		    super(unlocalizedName,material, textureNames[0],type);
+			this(Techguns.MODID, unlocalizedName, material, textureNames, type);
+		}
+		
+		public GenericArmorMultiCamo(String modid, String unlocalizedName, TGArmorMaterial material, String[] textureNames, EntityEquipmentSlot type) {
+		    super(modid,unlocalizedName,material, textureNames[0],type);
 		   this.textureNames=textureNames;
 		}
 
@@ -107,7 +112,7 @@ public class GenericArmorMultiCamo extends GenericArmor implements ICamoChangeab
 				camoID=tags.getByte("camo");
 			}
 			if(camoID>=0){
-				return TextUtil.trans(Techguns.MODID+".item."+textureNames[0]+"."+camoNameSuffix+"camoname."+camoID);
+				return TextUtil.trans(this.modid+".item."+textureNames[0]+"."+camoNameSuffix+"camoname."+camoID);
 			} else {
 				return TextUtil.trans(Techguns.MODID+".item.invalidcamo");
 			}
@@ -155,7 +160,7 @@ public class GenericArmorMultiCamo extends GenericArmor implements ICamoChangeab
 	    	 
 	    	int i = armor.getCurrentCamoIndex(stack);
 	    	if (i>=0 && i<this.textureNames.length){
-		        return Techguns.MODID+":textures/models/armor/"+this.textureNames[i]+(this.hasDoubleTexture()?("_layer_"+getArmorLayer(slot)):"")+".png";
+		        return this.modid+":textures/models/armor/"+this.textureNames[i]+(this.hasDoubleTexture()?("_layer_"+getArmorLayer(slot)):"")+".png";
 	    	} else {
 	    		return null;
 	    	}
