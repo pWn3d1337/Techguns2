@@ -1,0 +1,11 @@
+{
+  "ctm": {
+    "ctm_version": 1,
+    "type": "ctm",
+    "layer": "SOLID",
+    "textures": ["techguns:blocks/nethermetal_plate_black-ctm"],
+    "extra": {
+      "light": 0
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "ctm": {
+    "ctm_version": 1,
+    "type": "ctm",
+    "layer": "CUTOUT",
+    "textures": ["techguns:blocks/nethermetal_border_alpha-ctm"],
+    "extra": {
+      "light": 0
+    }
+  }
+}
