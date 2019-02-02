@@ -45,6 +45,7 @@ import techguns.entities.projectiles.FlamethrowerProjectile;
 import techguns.entities.projectiles.FragGrenadeProjectile;
 import techguns.entities.projectiles.GaussProjectile;
 import techguns.entities.projectiles.GenericProjectile;
+import techguns.entities.projectiles.GenericProjectileExplosive;
 import techguns.entities.projectiles.GenericProjectileIncendiary;
 import techguns.entities.projectiles.Grenade40mmProjectile;
 import techguns.entities.projectiles.GrenadeProjectile;
@@ -53,6 +54,7 @@ import techguns.entities.projectiles.LaserProjectile;
 import techguns.entities.projectiles.NDRProjectile;
 import techguns.entities.projectiles.PowerHammerProjectile;
 import techguns.entities.projectiles.RocketProjectile;
+import techguns.entities.projectiles.RocketProjectileHV;
 import techguns.entities.projectiles.RocketProjectileNuke;
 import techguns.entities.projectiles.SonicShotgunProjectile;
 import techguns.entities.projectiles.StoneBulletProjectile;
@@ -98,6 +100,8 @@ public class TGEntities implements ITGInitializer {
 		EntityRegistry.registerModEntity(new ResourceLocation(Techguns.MODID,"FragGrenadeProjectile"),FragGrenadeProjectile.class, "FragGrenadeProjectile", ++Techguns.modEntityID, Techguns.MODID, bulletTrackRange, 1, true);
 		EntityRegistry.registerModEntity(new ResourceLocation(Techguns.MODID,"RocketProjectileNuke"),RocketProjectileNuke.class, "RocketProjectileNuke", ++Techguns.modEntityID, Techguns.MODID, bulletTrackRange, 1, true);
 		EntityRegistry.registerModEntity(new ResourceLocation(Techguns.MODID,"TFGProjectile"),TFGProjectile.class, "TFGProjectile", ++Techguns.modEntityID, Techguns.MODID, bulletTrackRange, 1, true);
+		EntityRegistry.registerModEntity(new ResourceLocation(Techguns.MODID,"GenericProjectileExplosive"),GenericProjectileExplosive.class, "GenericProjectileExplosive", ++Techguns.modEntityID, Techguns.MODID, bulletTrackRange, 1, true);
+		EntityRegistry.registerModEntity(new ResourceLocation(Techguns.MODID,"RocketProjectileHV"),RocketProjectileHV.class, "RocketProjectileHV", ++Techguns.modEntityID, Techguns.MODID, bulletTrackRange, 1, true);
 		
 		
 		/**
@@ -163,10 +167,14 @@ public class TGEntities implements ITGInitializer {
 		ArrayList<Biome> overworldBiomes = new ArrayList<>();
 		ArrayList<Biome> netherBiomes = new ArrayList<>();
 		ForgeRegistries.BIOMES.forEach(b -> {
-			if (!BiomeDictionary.hasType(b, BiomeDictionary.Type.NETHER) && !BiomeDictionary.hasType(b, BiomeDictionary.Type.END)){
-				overworldBiomes.add(b);
-			} else if (BiomeDictionary.hasType(b, Type.NETHER)) {
-				netherBiomes.add(b);
+			
+			if (!isBlacklisted(b.getRegistryName().toString())) {
+			
+				if (!BiomeDictionary.hasType(b, BiomeDictionary.Type.NETHER) && !BiomeDictionary.hasType(b, BiomeDictionary.Type.END)){
+					overworldBiomes.add(b);
+				} else if (BiomeDictionary.hasType(b, Type.NETHER)) {
+					netherBiomes.add(b);
+				}
 			}
 		});
 
@@ -178,6 +186,15 @@ public class TGEntities implements ITGInitializer {
 		}
 	}
 
+	protected static boolean isBlacklisted(String registryName) {
+		for (String s: TGConfig.biomeBlacklist) {
+			if(registryName.equals(s)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	@SideOnly(Side.CLIENT)
     public static void initModels() {
     }

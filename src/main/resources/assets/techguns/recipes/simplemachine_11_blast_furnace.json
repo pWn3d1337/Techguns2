@@ -1,0 +1,30 @@
+{
+  "result": {
+    "item": "techguns:simplemachine",
+    "data": 11
+  },
+  "pattern": [
+    "iri",
+    "ifi",
+    "sbs"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "b": {
+      "item": "#BLOCKIRON"
+    },
+    "r": {
+      "item": "#DUSTREDSTONE"
+    },
+    "s": {
+      "item": "minecraft:stonebrick",
+      "data": 0
+    },
+    "f": {
+      "item": "minecraft:furnace"
+    },
+    "i": {
+      "item": "#PLATEIRON"
+    }
+  }
+}

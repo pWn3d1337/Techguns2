@@ -1,5 +1,6 @@
 package techguns.client;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,12 +9,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import com.feed_the_beast.ftblib.lib.client.ModelBase;
+
 import micdoodle8.mods.galacticraft.api.client.tabs.InventoryTabVanilla;
 import micdoodle8.mods.galacticraft.api.client.tabs.TabRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
+import net.minecraft.client.model.ModelCow;
+import net.minecraft.client.model.ModelQuadruped;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.block.model.ModelBakery;
@@ -88,6 +93,7 @@ import techguns.client.models.armor.ModelNightVisionGoggles;
 import techguns.client.models.armor.ModelOxygenTanks;
 import techguns.client.models.armor.ModelSteamArmor;
 import techguns.client.models.armor.ModelT3PowerArmor;
+import techguns.client.models.gibs.ModelGibsQuadruped;
 import techguns.client.models.guns.ModelAK;
 import techguns.client.models.guns.ModelAS50;
 import techguns.client.models.guns.ModelAUG;
@@ -139,10 +145,12 @@ import techguns.client.models.machines.ModelChemLab;
 import techguns.client.models.machines.ModelMetalPress;
 import techguns.client.models.machines.ModelTurretBase;
 import techguns.client.models.projectiles.ModelRocket;
+import techguns.client.particle.DeathEffect;
 import techguns.client.particle.LightPulse;
 import techguns.client.particle.TGFX;
 import techguns.client.particle.TGParticleManager;
 import techguns.client.particle.TGParticleSystem;
+import techguns.client.particle.DeathEffect.GoreData;
 import techguns.client.render.AdditionalSlotRenderRegistry;
 import techguns.client.render.ItemRenderHack;
 import techguns.client.render.RenderAdditionalSlotItem;
@@ -196,6 +204,7 @@ import techguns.client.render.item.RenderItemBaseRocketItem;
 import techguns.client.render.item.RenderItemLMGMag;
 import techguns.client.render.item.RenderMiningToolMultiTexture;
 import techguns.client.render.item.RenderRocketLauncher;
+import techguns.client.render.tileentities.RenderBlastfurnace;
 import techguns.client.render.tileentities.RenderChargingStation;
 import techguns.client.render.tileentities.RenderDoor3x3Fast;
 import techguns.client.render.tileentities.RenderDungeonGenerator;
@@ -238,6 +247,7 @@ import techguns.entities.projectiles.FlyingGibs;
 import techguns.entities.projectiles.FragGrenadeProjectile;
 import techguns.entities.projectiles.GaussProjectile;
 import techguns.entities.projectiles.GenericProjectile;
+import techguns.entities.projectiles.GenericProjectileExplosive;
 import techguns.entities.projectiles.GenericProjectileIncendiary;
 import techguns.entities.projectiles.Grenade40mmProjectile;
 import techguns.entities.projectiles.GrenadeProjectile;
@@ -246,6 +256,7 @@ import techguns.entities.projectiles.LaserProjectile;
 import techguns.entities.projectiles.NDRProjectile;
 import techguns.entities.projectiles.PowerHammerProjectile;
 import techguns.entities.projectiles.RocketProjectile;
+import techguns.entities.projectiles.RocketProjectileHV;
 import techguns.entities.projectiles.RocketProjectileNuke;
 import techguns.entities.projectiles.SonicShotgunProjectile;
 import techguns.entities.projectiles.StoneBulletProjectile;
@@ -254,6 +265,7 @@ import techguns.entities.projectiles.TeslaProjectile;
 import techguns.events.TGGuiEvents;
 import techguns.events.TechgunsGuiHandler.GuiHandlerRegister;
 import techguns.gui.AmmoPressGui;
+import techguns.gui.BlastFurnaceGui;
 import techguns.gui.CamoBenchGui;
 import techguns.gui.ChargingStationGui;
 import techguns.gui.ChemLabGui;
@@ -268,6 +280,7 @@ import techguns.gui.ReactionChamberGui;
 import techguns.gui.RepairBenchGui;
 import techguns.gui.TurretGui;
 import techguns.gui.containers.AmmoPressContainer;
+import techguns.gui.containers.BlastFurnaceContainer;
 import techguns.gui.containers.CamoBenchContainer;
 import techguns.gui.containers.ChargingStationContainer;
 import techguns.gui.containers.ChemLabContainer;
@@ -285,6 +298,7 @@ import techguns.gui.player.tabs.TGPlayerTab;
 import techguns.items.guns.GenericGun;
 import techguns.keybind.TGKeybinds;
 import techguns.tileentities.AmmoPressTileEnt;
+import techguns.tileentities.BlastFurnaceTileEnt;
 import techguns.tileentities.CamoBenchTileEnt;
 import techguns.tileentities.ChargingStationTileEnt;
 import techguns.tileentities.ChemLabTileEnt;
@@ -461,6 +475,8 @@ public class ClientProxy extends CommonProxy {
 		
 		ClientRegistry.bindTileEntitySpecialRenderer(OreDrillTileEntMaster.class, new RenderOreDrill());
 		
+		ClientRegistry.bindTileEntitySpecialRenderer(BlastFurnaceTileEnt.class, new RenderBlastfurnace());
+		
 		this.initGuiHandler();
 		
 		//Galacticraft API for TABS
@@ -487,6 +503,7 @@ public class ClientProxy extends CommonProxy {
 		guihandler.<ExplosiveChargeTileEnt>addEntry(ExplosiveChargeTileEnt.class, ExplosiveChargeGui::new, ExplosiveChargeContainer::new);
 		guihandler.<ExplosiveChargeAdvTileEnt>addEntry(ExplosiveChargeAdvTileEnt.class, ExplosiveChargeGui::new, ExplosiveChargeContainer::new);
 		guihandler.<OreDrillTileEntMaster>addEntry(OreDrillTileEntMaster.class, OreDrillGui::new, OreDrillContainer::new);
+		guihandler.<BlastFurnaceTileEnt>addEntry(BlastFurnaceTileEnt.class, BlastFurnaceGui::new, BlastFurnaceContainer::new);
 	}
 	
 	@Override
@@ -517,6 +534,7 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void postInit(FMLPostInitializationEvent event) {
 		super.postInit(event);
+		DeathEffect.postInit();
 	}
 
 	@SubscribeEvent
@@ -556,6 +574,14 @@ public class ClientProxy extends CommonProxy {
 				{0,0f,0}, //Ground
 				{0,0.25f,-0.05f} //frame
 		};
+		
+		float[][] rocketTranslations = {
+				{0,0f,0f}, //First Person
+				{0f,-0.1f,0.02f}, //Third Person
+				{0.0f,0.0f,0}, //GUI
+				{0.0f,0.0f,0}, //Ground
+				{0,0,0f} //frame
+		};
 		/*
 		  DEFAULT
 		 
@@ -584,23 +610,14 @@ public class ClientProxy extends CommonProxy {
 		sharedRenderer.addRenderForType("as50magazineempty", new RenderItemBase(new ModelAS50Mag(true), new ResourceLocation(Techguns.MODID,"textures/guns/as50_mag.png")).setBaseScale(1.5f).setGUIScale(0.75f).setBaseTranslation(0.0325f, -0.2f, 0.33f).setTransformTranslations(as50magTranslations));
 		
 		sharedRenderer.addRenderForType("as50magazine_incendiary", new RenderItemBase(new ModelAS50Mag(false), new ResourceLocation(Techguns.MODID,"textures/guns/as50_mag_inc.png")).setBaseScale(1.5f).setGUIScale(0.75f).setBaseTranslation(0.0325f, -0.2f, 0.33f).setTransformTranslations(as50magTranslations));
+		sharedRenderer.addRenderForType("as50magazine_explosive", new RenderItemBase(new ModelAS50Mag(false), new ResourceLocation(Techguns.MODID,"textures/guns/as50_mag_exp.png")).setBaseScale(1.5f).setGUIScale(0.75f).setBaseTranslation(0.0325f, -0.2f, 0.33f).setTransformTranslations(as50magTranslations));
 		
 		
-		sharedRenderer.addRenderForType("rocket", new RenderItemBaseRocketItem(new ModelRocket(), new ResourceLocation(Techguns.MODID,"textures/guns/rocket.png")).setBaseScale(1.5f).setGUIScale(0.5f).setBaseTranslation(0, 0, 0.1f).setTransformTranslations(new float[][]{
-			{0,0f,0f}, //First Person
-			{0f,-0.1f,0.02f}, //Third Person
-			{0.0f,0.0f,0}, //GUI
-			{0.0f,0.0f,0}, //Ground
-			{0,0,0f} //frame
-		}).setFirstPersonScale(0.35f));
+		sharedRenderer.addRenderForType("rocket", new RenderItemBaseRocketItem(new ModelRocket(), new ResourceLocation(Techguns.MODID,"textures/guns/rocket.png")).setBaseScale(1.5f).setGUIScale(0.5f).setBaseTranslation(0, 0, 0.1f).setTransformTranslations(rocketTranslations).setFirstPersonScale(0.35f));
 		
-		sharedRenderer.addRenderForType("rocket_nuke", new RenderItemBaseRocketItem(new ModelRocket(), new ResourceLocation(Techguns.MODID,"textures/guns/rocket_nuke.png")).setBaseScale(1.5f).setGUIScale(0.5f).setBaseTranslation(0, 0, 0.1f).setTransformTranslations(new float[][]{
-			{0,0f,0f}, //First Person
-			{0f,-0.1f,0.02f}, //Third Person
-			{0.0f,0.0f,0}, //GUI
-			{0.0f,0.0f,0}, //Ground
-			{0,0,0f} //frame
-		}).setFirstPersonScale(0.35f));
+		sharedRenderer.addRenderForType("rocket_nuke", new RenderItemBaseRocketItem(new ModelRocket(), new ResourceLocation(Techguns.MODID,"textures/guns/rocket_nuke.png")).setBaseScale(1.5f).setGUIScale(0.5f).setBaseTranslation(0, 0, 0.1f).setTransformTranslations(rocketTranslations).setFirstPersonScale(0.35f));
+		
+		sharedRenderer.addRenderForType("rocket_high_velocity", new RenderItemBaseRocketItem(new ModelRocket(), new ResourceLocation(Techguns.MODID,"textures/guns/rocket_hv.png")).setBaseScale(1.5f).setGUIScale(0.5f).setBaseTranslation(0, 0, 0.1f).setTransformTranslations(rocketTranslations).setFirstPersonScale(0.35f));
 		
 		ItemRenderHack.registerItemRenderer(TGItems.SHARED_ITEM, sharedRenderer);
 		
@@ -726,7 +743,7 @@ public class ClientProxy extends CommonProxy {
 				}).setMuzzleFXPos3P(0.09f, -0.30f).setRecoilAnim(GunAnimation.genericRecoil, 0.1f, 10.0f));
 		
 		ItemRenderHack.registerItemRenderer(TGuns.grimreaper,new RenderGunBase90(new ModelGrimReaper(),1).setBaseTranslation(0.3f, -0.2f, RenderItemBase.SCALE*0.5f)
-				.setGUIScale(0.3f).setMuzzleFx(ScreenEffect.muzzleFlash_gun, 0, 0.39f, -0.61f, 0.75f,0).setTransformTranslations(new float[][]{
+				.setGUIScale(0.3f).setChargeTranslationAmount(0.025f).setMuzzleFx(ScreenEffect.muzzleFlash_gun, 0, 0.39f, -0.61f, 0.75f,0).setTransformTranslations(new float[][]{
 					{0f,0.25f,0.18f}, //First Person
 					{0,0.13f,0.1f}, //Third Person
 					{-0.02f,0.01f,0.0f}, //GUI
@@ -1046,6 +1063,8 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerEntityRenderingHandler(FragGrenadeProjectile.class, RenderFragGrenadeProjectile::new);
 		RenderingRegistry.registerEntityRenderingHandler(RocketProjectileNuke.class, RenderRocketProjectile::new);
 		RenderingRegistry.registerEntityRenderingHandler(TFGProjectile.class, RenderInvisibleProjectile<TFGProjectile>::new);
+		RenderingRegistry.registerEntityRenderingHandler(GenericProjectileExplosive.class, RenderGenericProjectile<GenericProjectile>::new);
+		RenderingRegistry.registerEntityRenderingHandler(RocketProjectileHV.class, RenderRocketProjectile::new);
 		
 		//NPCS
 		RenderingRegistry.registerEntityRenderingHandler(NPCTurret.class, RenderNPCTurret::new);
@@ -1384,4 +1403,30 @@ public class ClientProxy extends CommonProxy {
 		}
 	}
 
+	/*@Override
+	public boolean addGoreStatsQuadruped(String entityClass, String modelClass, int r, int g, int b) {
+		Class c, m;
+		try {
+			c = Class.forName(entityClass);
+			m = Class.forName(modelClass);
+		} catch (Exception e) {
+			return false;
+		}
+		
+		if(EntityLivingBase.class.isAssignableFrom(c) && ModelQuadruped.class.isAssignableFrom(m)) {
+			ModelQuadruped mdl;		
+			try {
+				Constructor cnstr = m.getDeclaredConstructor(float.class);
+				mdl = (ModelQuadruped) cnstr.newInstance(1.0f);
+			} catch (Exception e) {
+				return false;
+			}
+			
+			DeathEffect.goreStats.put(c, new GoreData(new ModelGibsQuadruped(mdl), r,g,b));
+			
+		}
+		return false;
+	}*/
+
+	
 }

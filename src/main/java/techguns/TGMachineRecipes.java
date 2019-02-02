@@ -13,6 +13,8 @@ import net.minecraftforge.oredict.OreDictionary;
 import techguns.blocks.EnumOreType;
 import techguns.items.armors.ICamoChangeable;
 import techguns.tileentities.operation.AmmoPressBuildPlans;
+import techguns.tileentities.operation.BlastFurnaceRecipes;
+import techguns.tileentities.operation.BlastFurnaceRecipes.BlastFurnaceRecipe;
 import techguns.tileentities.operation.CamoBenchRecipes;
 import techguns.tileentities.operation.CamoBenchRecipes.CamoBenchRecipe;
 import techguns.tileentities.operation.ChargingStationRecipe;
@@ -47,7 +49,7 @@ public class TGMachineRecipes {
 		AmmoPressBuildPlans.init(metal1, metal2, powders);
 		
 		//METAL PRESS
-		MetalPressRecipes.addRecipe("ingotSteel", new ItemStack(Blocks.OBSIDIAN,1), TGItems.newStack(TGItems.INGOT_OBSIDIAN_STEEL,1), true);
+		//MetalPressRecipes.addRecipe("ingotSteel", new ItemStack(Blocks.OBSIDIAN,1), TGItems.newStack(TGItems.INGOT_OBSIDIAN_STEEL,1), true);
 		MetalPressRecipes.addRecipe("ingotTin","ingotTin",TGItems.newStack(TGItems.PLATE_TIN,2), true);
 		MetalPressRecipes.addRecipe("ingotCopper","ingotCopper",TGItems.newStack(TGItems.PLATE_COPPER,2), true);
 		MetalPressRecipes.addRecipe("ingotBronze","ingotBronze",TGItems.newStack(TGItems.PLATE_BRONZE,2), true);
@@ -66,6 +68,7 @@ public class TGMachineRecipes {
 		MetalPressRecipes.addRecipe("plateIron", new ItemStack(Blocks.TNT,1), TGItems.newStack(TGItems.GRENADE_40MM, 16), true);
 		MetalPressRecipes.addRecipe("ingotTitanium","ingotTitanium",TGItems.newStack(TGItems.PLATE_TITANIUM,2), true);
 		MetalPressRecipes.addRecipe("plateObsidianSteel","plateTitanium",TGItems.newStack(TGItems.GAUSSRIFLE_SLUGS,4), true);
+		MetalPressRecipes.addRecipe(TGItems.newStack(TGItems.SNIPER_ROUNDS_INCENDIARY, 1), TGItems.newStack(TGItems.TGX, 1), TGItems.newStack(TGItems.SNIPER_ROUNDS_EXPLOSIVE, 1), true);
 		
 		//CHEM LAB
 
@@ -101,11 +104,14 @@ public class TGMachineRecipes {
 				ChemLabRecipes.addRecipe("gunpowder", 1, "gemLapis", 1, null, 0, new FluidStack(f,250), null, TGItems.newStack(TGItems.TGX, 1), true, 20);
 				ChemLabRecipes.addRecipe(fuelTankEmpty, 1, (ItemStack)null, 0, null, 0, new FluidStack(f,250), null, fuelTank, false, 1);
 				//ChemLabRecipes.addRecipe(fuelTank, 1, (ItemStack)null, 0, null, 0, null, new FluidStack(f,250), fuelTankEmpty, false, 1);
+				ChemLabRecipes.addRecipe(TGItems.newStack(TGItems.ROCKET, 1), 1, (ItemStack)null, 0, null, 0, new FluidStack(f,125), null, TGItems.newStack(TGItems.ROCKET_HIGH_VELOCITY,1), false, 5);
 			});
-		} else if (TGFluids.fuels.isEmpty() || TGConfig.keepLavaRecipesWhenFuelIsPresent){
+		} 
+		if (TGFluids.fuels.isEmpty() || TGConfig.keepLavaRecipesWhenFuelIsPresent){
 			ChemLabRecipes.addRecipe("gunpowder", 1, "gemLapis", 1, null, 0, new FluidStack(FluidRegistry.LAVA,500), null, TGItems.newStack(TGItems.TGX, 1), true, 20);
 			ChemLabRecipes.addRecipe(fuelTankEmpty, 1, (ItemStack)null, 0, null, 0, new FluidStack(TGFluids.LAVA,500), null, fuelTank, false, 1);
 			//ChemLabRecipes.addRecipe(fuelTank, 1, (ItemStack)null, 0, null, 0, null,new FluidStack(TGFluids.LAVA,500), fuelTankEmpty, false, 1);
+			ChemLabRecipes.addRecipe(TGItems.newStack(TGItems.ROCKET, 1), 1, (ItemStack)null, 0, null, 0, new FluidStack(TGFluids.LAVA,250), null, TGItems.newStack(TGItems.ROCKET_HIGH_VELOCITY,1), false, 5);
 			
 		}
 		
@@ -177,7 +183,13 @@ public class TGMachineRecipes {
 			}
 		});
 		CamoBenchRecipes.addRecipe(new CamoBenchRecipes.TGLampCamoBenchRecipe(TGBlocks.LAMP_0,0));
-		
+	
+		/**
+		 * Blast Furnace
+		 */
+		BlastFurnaceRecipes.addRecipe(new ItemStack(Items.IRON_INGOT,4), new ItemStack(Items.COAL,1), TGItems.newStack(TGItems.INGOT_STEEL, 4), 10, 800);
+		BlastFurnaceRecipes.addRecipe(new ItemStack(Items.IRON_INGOT,4), new ItemStack(Items.COAL,1,1), TGItems.newStack(TGItems.INGOT_STEEL, 4), 10, 800);
+		BlastFurnaceRecipes.addRecipe("ingotSteel",1, new ItemStack(Blocks.OBSIDIAN,1), TGItems.newStack(TGItems.INGOT_OBSIDIAN_STEEL, 1), 10, 200);
 		
 		/**
 		 * CHARGING STATION

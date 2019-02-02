@@ -20,6 +20,7 @@ import techguns.entities.projectiles.FlamethrowerProjectile;
 import techguns.entities.projectiles.FragGrenadeProjectile;
 import techguns.entities.projectiles.GaussProjectile;
 import techguns.entities.projectiles.GenericProjectile;
+import techguns.entities.projectiles.GenericProjectileExplosive;
 import techguns.entities.projectiles.GenericProjectileIncendiary;
 import techguns.entities.projectiles.Grenade40mmProjectile;
 import techguns.entities.projectiles.GrenadeProjectile;
@@ -28,6 +29,7 @@ import techguns.entities.projectiles.LaserProjectile;
 import techguns.entities.projectiles.NDRProjectile;
 import techguns.entities.projectiles.PowerHammerProjectile;
 import techguns.entities.projectiles.RocketProjectile;
+import techguns.entities.projectiles.RocketProjectileHV;
 import techguns.entities.projectiles.RocketProjectileNuke;
 import techguns.entities.projectiles.SonicShotgunProjectile;
 import techguns.entities.projectiles.StoneBulletProjectile;
@@ -194,7 +196,9 @@ public class TGuns implements ITGInitializer {
 	public void preInit(FMLPreInitializationEvent event) {
 
 		IProjectileFactory<GenericProjectile> GENERIC_PROJECTILE = new GenericProjectile.Factory();
-		IProjectileFactory[] GENERIC_BULLET = {GENERIC_PROJECTILE, new GenericProjectileIncendiary.Factory(false)};
+		IProjectileFactory<GenericProjectile> INCENDIARY_ROUNDS = new GenericProjectileIncendiary.Factory(false);
+		IProjectileFactory[] GENERIC_BULLET = {GENERIC_PROJECTILE, INCENDIARY_ROUNDS};
+		IProjectileFactory[] SNIPER_ROUNDS = {GENERIC_PROJECTILE, INCENDIARY_ROUNDS, new GenericProjectileExplosive.Factory()};
 		
 		SHOTGUN_PROJECTILES = new ProjectileSelector<GenericProjectile>(AmmoTypes.SHOTGUN_ROUNDS, GENERIC_PROJECTILE, new GenericProjectileIncendiary.Factory(true));
 		
@@ -204,7 +208,7 @@ public class TGuns implements ITGInitializer {
 		PISTOL_MAG_PROJECTILES = new ProjectileSelector<GenericProjectile>(AmmoTypes.PISTOL_MAGAZINE, GENERIC_BULLET);
 		LMG_MAG_PROJECTILES = new ProjectileSelector<GenericProjectile>(AmmoTypes.LMG_MAGAZINE, GENERIC_BULLET);
 		RIFLE_PROJECTILES = new ProjectileSelector<GenericProjectile>(AmmoTypes.RIFLE_ROUNDS, GENERIC_BULLET);
-		SNIPER_MAG_PROJECTILES = new ProjectileSelector<GenericProjectile>(AmmoTypes.AS50_MAGAZINE, GENERIC_BULLET);
+		SNIPER_MAG_PROJECTILES = new ProjectileSelector<GenericProjectile>(AmmoTypes.AS50_MAGAZINE, SNIPER_ROUNDS);
 		ADVANCED_MAG_PROJECTILES = new ProjectileSelector<AdvancedBulletProjectile>(AmmoTypes.ADVANCED_MAGAZINE, new AdvancedBulletProjectile.Factory());
 		MINIGUN_MAG_PROJECTILES = new ProjectileSelector<GenericProjectile>(AmmoTypes.MINIGUN_AMMO_DRUM, GENERIC_BULLET);
 		BLASTER_ENERGYCELL_PROJECTILES = new ProjectileSelector<BlasterProjectile>(AmmoTypes.ENERGY_CELL, new BlasterProjectile.Factory());
@@ -218,7 +222,7 @@ public class TGuns implements ITGInitializer {
 		GAUSS_PROJECTILES = new ProjectileSelector<GaussProjectile>(AmmoTypes.AMMO_GAUSS_RIFLE, new GaussProjectile.Factory());
 		NDR_PROJECTILES = new ProjectileSelector<NDRProjectile>(AmmoTypes.NUCLEAR_POWER_CELL, new NDRProjectile.Factory());
 		GRENADE40MM_PROJECTILES = new ProjectileSelector<Grenade40mmProjectile>(AmmoTypes.GRENADES_40MM, new Grenade40mmProjectile.Factory());
-		ROCKET_PROJECTILES = new ProjectileSelector(AmmoTypes.ROCKETS, new RocketProjectile.Factory(), new RocketProjectileNuke.Factory());
+		ROCKET_PROJECTILES = new ProjectileSelector(AmmoTypes.ROCKETS, new RocketProjectile.Factory(), new RocketProjectileNuke.Factory(), new RocketProjectileHV.Factory());
 		
 		SONIC_SHOTGUN_PROJECTILES = new ProjectileSelector<SonicShotgunProjectile>(AmmoTypes.ENERGY_CELL, new SonicShotgunProjectile.Factory());
 		

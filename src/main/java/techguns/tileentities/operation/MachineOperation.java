@@ -17,6 +17,7 @@ public class MachineOperation {
 	protected ArrayList<FluidStack> fluid_outputs=null;
 	protected int stackMultiplier=1;
 	
+	protected int time=100;
 	protected int powerPerTick = 0;
 	
 	public MachineOperation(ItemStack output, ItemStack... inputs) {
@@ -309,4 +310,14 @@ public class MachineOperation {
 		FluidStack fluid = this.getFluid_inputs().get(index);
 		return fluid.amount*this.stackMultiplier;
 	}
+
+	public int getTime() {
+		return time;
+	}
+
+	public MachineOperation setTime(int time) {
+		this.time = time;
+		return this;
+	}
+	
 }

@@ -32,9 +32,11 @@ public class AmmoTypes implements ITGInitializer{
 	
 	public static AmmoType AMMO_GAUSS_RIFLE;
 	
-	public static String TYPE_INCENDIARY = "incendiary";
-	public static String TYPE_DEFAULT = "default";
-	public static String TYPE_NUKE = "nuke";
+	public static final String TYPE_INCENDIARY = "incendiary";
+	public static final String TYPE_DEFAULT = "default";
+	public static final String TYPE_NUKE = "nuke";
+	public static final String TYPE_EXPLOSIVE = "explosive";
+	public static final String TYPE_HV = "high_velocity";
 	
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
@@ -70,9 +72,11 @@ public class AmmoTypes implements ITGInitializer{
 		ADVANCED_MAGAZINE = new AmmoType(TGItems.ADVANCED_MAGAZINE, TGItems.ADVANCED_MAGAZINE_EMPTY, TGItems.ADVANCED_ROUNDS, 3);
 		AS50_MAGAZINE = new AmmoType(TGItems.AS50_MAGAZINE, TGItems.AS50_MAGAZINE_EMPTY, TGItems.SNIPER_ROUNDS,2);
 		AS50_MAGAZINE.addVariant(TYPE_INCENDIARY, TGItems.AS50_MAGAZINE_INCENDIARY, TGItems.SNIPER_ROUNDS_INCENDIARY);
+		AS50_MAGAZINE.addVariant(TYPE_EXPLOSIVE, TGItems.AS50_MAGAZINE_EXPLOSIVE, TGItems.SNIPER_ROUNDS_EXPLOSIVE);
 		
 		ROCKETS = new AmmoType(TGItems.ROCKET);
 		ROCKETS.addVariant(TYPE_NUKE, TGItems.ROCKET_NUKE);
+		ROCKETS.addVariant(TYPE_HV, TGItems.ROCKET_HIGH_VELOCITY);
 		
 		ROCKETS_NO_NUKES = new AmmoType(TGItems.ROCKET);
 		

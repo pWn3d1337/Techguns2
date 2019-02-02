@@ -26,16 +26,16 @@ public class CastleStructure extends WorldgenStructure{
 	
 	@Override
 	public int getSizeX(Random rnd) {
-		return 16+rnd.nextInt(32);
+		return 32+rnd.nextInt(16);
 	}
 
 	@Override
 	public int getSizeZ(Random rnd) {
-		return 16+rnd.nextInt(32);
+		return 32+rnd.nextInt(16);
 	}
 	
 	@Override
 	public int getSizeY(Random rnd) {
-		return 8+rnd.nextInt(16);
+		return 24+rnd.nextInt(16);
 	}
 }

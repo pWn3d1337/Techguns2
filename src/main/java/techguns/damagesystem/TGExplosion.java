@@ -93,7 +93,7 @@ public class TGExplosion {
         this.secondaryRadius = secondaryRadius;
 
         this.blockDamageFactor = blockDamageFactor;
-        this.damagesTerrain = (blockDamageFactor > 0.01);
+        this.damagesTerrain = (blockDamageFactor >= 0.01);
         
         this.position = new Vec3d(this.x, this.y, this.z);
         
@@ -105,7 +105,11 @@ public class TGExplosion {
     	return this;
     }
     
-    /**
+    public Explosion getExplosionDummy() {
+		return explosionDummy;
+	}
+
+	/**
      * Does the first part of the explosion (destroy blocks)
      */
     public void doExplosion(boolean playSound)

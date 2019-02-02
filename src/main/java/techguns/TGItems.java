@@ -225,6 +225,11 @@ public class TGItems implements ITGInitializer{
 	public static ItemStack RECEIVER_TITANIUM;
 	public static ItemStack PLASMA_GENERATOR;
 	
+	public static ItemStack SNIPER_ROUNDS_EXPLOSIVE;
+	public static ItemStack AS50_MAGAZINE_EXPLOSIVE;
+	
+	public static ItemStack ROCKET_HIGH_VELOCITY;
+	
 	/**
 	 * ADDITONAL SLOT ITEMS
 	 */
@@ -485,6 +490,10 @@ public class TGItems implements ITGInitializer{
 		OREDRILLHEAD_LARGE_OBSIDIANSTEEL = SHARED_ITEM.addsharedVariant("oredrilllarge_obsidiansteel", false, TGSlotType.DRILL_LARGE, 1, true);
 		OREDRILLHEAD_LARGE_CARBON = SHARED_ITEM.addsharedVariant("oredrilllarge_carbon", false, TGSlotType.DRILL_LARGE, 1, true);
 		
+		AS50_MAGAZINE_EXPLOSIVE = SHARED_ITEM.addsharedVariant("as50magazine_explosive", true, TGSlotType.AMMOSLOT);
+		SNIPER_ROUNDS_EXPLOSIVE = SHARED_ITEM.addsharedVariant("sniperrounds_explosive",TGSlotType.AMMOSLOT);
+		
+		ROCKET_HIGH_VELOCITY = SHARED_ITEM.addsharedVariant("rocket_high_velocity",true,TGSlotType.AMMOSLOT);
 		
 		RAD_AWAY = new ItemRadAway("radaway");
 		RAD_PILLS = new ItemRadpills("radpills");
@@ -574,6 +583,9 @@ public class TGItems implements ITGInitializer{
 		setAmmoTypeEntryForMagazine(SMG_MAGAZINE_INCENDIARY, AmmoTypes.SMG_MAGAZINE, AmmoTypes.TYPE_INCENDIARY);
 		setAmmoTypeEntryForMagazine(LMG_MAGAZINE_INCENDIARY, AmmoTypes.LMG_MAGAZINE, AmmoTypes.TYPE_INCENDIARY);
 		setAmmoTypeEntryForMagazine(MINIGUN_DRUM_INCENDIARY, AmmoTypes.MINIGUN_AMMO_DRUM, AmmoTypes.TYPE_INCENDIARY);
+		
+		//explosive
+		setAmmoTypeEntryForMagazine(AS50_MAGAZINE_EXPLOSIVE, AmmoTypes.AS50_MAGAZINE, AmmoTypes.TYPE_EXPLOSIVE);
 		
 		//advanced rounds
 		setAmmoTypeEntryForMagazine(ADVANCED_MAGAZINE, AmmoTypes.ADVANCED_MAGAZINE, AmmoTypes.TYPE_DEFAULT);

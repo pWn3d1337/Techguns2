@@ -975,12 +975,12 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 			}
 			
 			if(mod.getRangeMul()!=1f) {
-				float f = mod.getDmgMul()-1f;
+				float f = mod.getRangeMul()-1f;
 				String x = String.format("%.0f", f*100f);
 				suffix += " ("+sgn+x+"%)";
 			}
 			if(mod.getRangeAdd()!=0f) {
-				float add = mod.getDmgAdd();
+				float add = mod.getRangeAdd();
 				suffix += " ("+(add>0?"+":"")+String.format("%.1f", add)+")";
 			}
 	
@@ -996,6 +996,41 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 		} else {
 			return TextUtil.trans("techguns.gun.tooltip.radius")+": "+prefix+sStart+"-"+sEnd+suffix;
 		}
+	
+	}
+	
+	protected String getTooltipTextVelocity(ItemStack stack) {
+		DamageModifier mod = this.projectile_selector.getFactoryForType(this.getCurrentAmmoVariantKey(stack)).getDamageModifier();
+		
+		float velocity = mod.getVelocity(this.speed);
+		
+		String prefix = "";	
+		String suffix="";
+		if(velocity != this.speed) {
+
+			String sgn="+";
+			if (velocity >= this.speed) {
+				prefix = ChatFormatting.GREEN.toString();
+			} else {
+				prefix = ChatFormatting.RED.toString();
+				sgn="";
+			}
+			
+			if(mod.getVelocityMul()!=1f) {
+				float f = mod.getVelocityMul()-1f;
+				String x = String.format("%.0f", f*100f);
+				suffix += " ("+sgn+x+"%)";
+			}
+			if(mod.getVelocityAdd()!=0f) {
+				float add = mod.getVelocityAdd();
+				suffix += " ("+(add>0?"+":"")+String.format("%.1f", add)+")";
+			}
+	
+		} 
+			
+		String sVelocity = String.format("%.1f", velocity);
+		
+		return TextUtil.trans("techguns.gun.tooltip.velocity")+": "+prefix+sVelocity+suffix;
 	
 	}
 		
@@ -1016,7 +1051,8 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 			list.add(TextUtil.trans("techguns.gun.tooltip.damage")+(this.shotgun ? ("(x"+ (this.bulletcount+1)+")") : "" )+": "+getTooltipTextDmg(stack,true));
 			//list.add(TextUtil.trans("techguns.gun.tooltip.range")+": "+this.damageDropStart+","+this.damageDropEnd+","+this.ticksToLive);
 			list.add(getTooltipTextRange(stack));
-			list.add(TextUtil.trans("techguns.gun.tooltip.velocity")+": "+this.speed);
+			//list.add(TextUtil.trans("techguns.gun.tooltip.velocity")+": "+this.speed);
+			list.add(getTooltipTextVelocity(stack));
 			list.add(TextUtil.trans("techguns.gun.tooltip.spread")+": "+this.accuracy + (this.zoombonus!=1.0 ? (" Z:"+this.zoombonus*this.accuracy) : ""));
 			list.add(TextUtil.trans("techguns.gun.tooltip.clipsize")+": "+this.clipsize);
 			list.add(TextUtil.trans("techguns.gun.tooltip.reloadTime")+": "+this.reloadtime*0.05f+"s");

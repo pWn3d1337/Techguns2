@@ -95,6 +95,11 @@ public class RenderOreDrill extends TileEntitySpecialRenderer<OreDrillTileEntMas
 		return pos;
 	}
 	
+	@Override
+	public boolean isGlobalRenderer(OreDrillTileEntMaster te) {
+		return te.isFormed();
+	}
+
 	protected void drawDriller(OreDrillTileEntMaster tile, OreDrillCube cube, Tessellator tess){
 
 		int length = tile.getRods();

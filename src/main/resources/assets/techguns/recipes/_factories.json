@@ -1,6 +1,7 @@
 {
   "recipes": {
     "miningtool_upgrade": "techguns.recipes.MiningToolUpgradeHeadRecipeFactory",
+    "ammo_sum_recipe": "techguns.recipes.AmmoSumRecipeFactory",
     "ammo_change_crafting": "techguns.recipes.AmmoSwitchRecipeFactory",
     "copy_nbt": "techguns.recipes.ShapedOreRecipeCopyNBTFactory"
   },

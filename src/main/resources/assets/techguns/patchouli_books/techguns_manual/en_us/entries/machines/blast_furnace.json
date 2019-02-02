@@ -1,0 +1,20 @@
+{
+    "name": "Blast Furnace",
+    "icon": "techguns:simplemachine:11",
+    "category": "powered_machines",
+    "pages": [
+        {
+            "type": "text",
+            "text": "The Blast Furnace is used for crafting 'Steel' and 'Obsidian Steel' and therefore required to advance to high tiers'. The machine has 2 input slots, 1 output slot and an $(l:machine_mechanics#upgrade)upgrade slot$(/l)."
+        }, 
+       {
+            "type": "text",
+            "title": "Usage",
+            "text": "The left input slot is for ingots, the right input slot for additional materials like coal. The amount of input items, the duration and required power may differ per recipe. $(br)Available Recipes may differ on mod setup and should be viewed with Just Enough Items (JEI)."
+       },
+      {
+            "type": "crafting",
+            "recipe": "techguns:simplemachine_11_blast_furnace"
+       }
+    ]
+}

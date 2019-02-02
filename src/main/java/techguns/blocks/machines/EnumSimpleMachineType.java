@@ -8,11 +8,13 @@ import techguns.api.machines.IMachineType;
 import techguns.tileentities.CamoBenchTileEnt;
 import techguns.tileentities.ChargingStationTileEnt;
 import techguns.tileentities.RepairBenchTileEnt;
+import techguns.tileentities.BlastFurnaceTileEnt;
 
 public enum EnumSimpleMachineType implements IStringSerializable, IMachineType<EnumSimpleMachineType> {
 	CAMO_BENCH(0, CamoBenchTileEnt.class,true,EnumBlockRenderType.MODEL),
 	REPAIR_BENCH(1, RepairBenchTileEnt.class,true,EnumBlockRenderType.MODEL),
-	CHARGING_STATION(2, ChargingStationTileEnt.class, false, EnumBlockRenderType.MODEL);
+	CHARGING_STATION(2, ChargingStationTileEnt.class, false, EnumBlockRenderType.MODEL),
+	BLAST_FURNACE(3, BlastFurnaceTileEnt.class, true, EnumBlockRenderType.MODEL);
 	
 	private int id;
 	private String name;

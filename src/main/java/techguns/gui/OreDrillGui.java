@@ -56,11 +56,31 @@ public class OreDrillGui extends PoweredTileEntGui {
 		    	this.fontRenderer.drawString(s1, startx-16+30, 44-20, red);
 		    	//this.fontRenderer.drawString(s2, startx2-16, 52, red);
 	        } else {
+	        	if(tile.getDrillItemMiningLevel()<0) {
+	        		
+	        		int rad = tile.getDrillRadius();
+	        		String s1="2";
+	        		if(rad==0) {
+	        			s1="0";
+	        		} else if(rad==1 || rad==2) {
+	        			s1="1";
+	        		}
+	        		String s2= TextUtil.trans("techguns.container.oredrill.drillrequired."+s1);
+	        		
+		        	//String s2= TextUtil.trans("techguns.container.oredrill.broken2");
+		        	int startx = this.xSize/2 - ((s2.length()*6)/2);
+		        	//int startx2 = this.xSize/2 - ((s2.length()*6)/2);
+
+		            int red = 0xFFFF2020;
+		    		
+			    	this.fontRenderer.drawString(s2, startx-16+30, 44-20, red);
+	        	}
 	        	//this.fontRendererObj.drawString(TextUtil.trans("techguns.MULTIBLOCK OK"), 50, 24, 4210752);
 	        }
 		   
 	        if (this.isInRect(mx, my, 74, 16, 27, 39)){
 	        	List<String> tooltip = new ArrayList<String>();
+	        	
 	        	tooltip.add(String.format("%.2f",(this.tile.progress*1.0f/this.tile.totaltime*100.0f))+"%");
 	        	tooltip.add(TextUtil.trans("techguns.gui.oredrill.orehour")+": "+String.format("%.2f",1200.0/this.tile.totaltime*60.0));
 	        	if(this.tile.getPowerPerTick()>0) {

@@ -48,7 +48,7 @@ public class OreDrillContainer extends BasicMachineContainer {
 		if (inventory instanceof ItemStackHandlerPlus) {
 			ItemStackHandlerPlus handler = (ItemStackHandlerPlus) inventory;
 	
-			this.addSlotToContainer(new SlotDrill(handler, OreDrillTileEntMaster.SLOT_DRILL, SLOT_DRILL_X, SLOTS_ROW1_Y));
+			this.addSlotToContainer(new SlotDrill(handler, OreDrillTileEntMaster.SLOT_DRILL, SLOT_DRILL_X, SLOTS_ROW1_Y, tile));
 			this.addSlotToContainer(new SlotFurnaceFuelTG(handler, OreDrillTileEntMaster.SLOT_FURNACE, SLOT_DRILL_X, SLOTS_FURNACE_Y));
 		
 			for (int i=0;i<3;i++){

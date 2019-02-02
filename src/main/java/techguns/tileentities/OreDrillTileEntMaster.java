@@ -88,7 +88,7 @@ public class OreDrillTileEntMaster extends MultiBlockMachineTileEntMaster implem
 	
 	public OreDrillTileEntMaster() {
 		super(11, 500000);
-	
+		
 		this.inventory = new ItemStackHandlerPlus(11) {
 
 			@Override
@@ -157,11 +157,13 @@ public class OreDrillTileEntMaster extends MultiBlockMachineTileEntMaster implem
 	public AxisAlignedBB getRenderBoundingBox() {
 		if(this.isFormed()) {
 			BlockPos p = this.getPos();
-			BlockPos rod_end = this.getPos().offset(drill_direction, rods+engines);
+			BlockPos rod_end = this.getPos().offset(drill_direction, rods+engines+1);
 			
-			BlockPos other = rod_end.offset(OreDrillDefinition.getSide2(drill_direction), +radius);
-			BlockPos first = p.offset(OreDrillDefinition.getSide1(drill_direction), -radius);
+			BlockPos other = rod_end.offset(OreDrillDefinition.getSide1(drill_direction), +(radius+2)).offset(OreDrillDefinition.getSide2(drill_direction), +(radius+1));
+			BlockPos first = p.offset(OreDrillDefinition.getSide1(drill_direction), -(radius+2)).offset(OreDrillDefinition.getSide2(drill_direction), -(radius+1));
+			//System.out.println("BB:"+first.toString()+"->"+other.toString());
 			return new AxisAlignedBB(first,other);
+			//return super.getRenderBoundingBox().expand(50, 50, 50);*/
 		} else {
 			return super.getRenderBoundingBox();
 		}
@@ -627,24 +629,25 @@ public class OreDrillTileEntMaster extends MultiBlockMachineTileEntMaster implem
 	@Override
 	protected void playAmbientSound() {
 		//System.out.println("Ambient Sound:"+soundLoopDelay);
+		BlockPos soundPos=this.getPos().offset(drill_direction, engines).offset(drill_direction, (int)(rods*0.5));
 		if (!this.world.isRemote && soundLoopDelay-- <= 0) {
 			if (this.radius == 0) {
 				//world.playSound(this.getPos().getX(), this.getPos().getY(), this.getPos().getZ(), TGSounds.ORE_DRILL_WORK_SMALL, SoundCategory.BLOCKS, SOUND_VOLUME, 1.0F, true );		
 				//worldplaySound(this.xCoord, this.yCoord, this.zCoord, "techguns:machines.oredrillSmallWork", 1.5F, 1.0F, true );
-				TGPackets.network.sendToAllTracking(new PacketPlaySound(TGSounds.ORE_DRILL_WORK_SMALL, this.pos.getX(), this.pos.getY(), this.pos.getZ(), SOUND_VOLUME, 1.0f, false, TGSoundCategory.MACHINE), new TargetPoint(this.world.provider.getDimension(),this.pos.getX()+0.5,this.pos.getY()+0.5,this.pos.getZ()+0.5,32.0f));
+				TGPackets.network.sendToAllTracking(new PacketPlaySound(TGSounds.ORE_DRILL_WORK_SMALL, soundPos.getX(), soundPos.getY(), soundPos.getZ(), SOUND_VOLUME, 1.0f, false, TGSoundCategory.MACHINE), new TargetPoint(this.world.provider.getDimension(),soundPos.getX()+0.5,soundPos.getY()+0.5,soundPos.getZ()+0.5,32.0f));
 				soundLoopDelay = 61; //62 ticks = 3.1 sec
 				
 			}else if (this.radius <= 2) {
 				//world.playSound(this.xCoord, this.yCoord, this.zCoord, "techguns:machines.oredrillMediumWork", 2.25F, 1.0F, true );
 				//world.playSound(this.getPos().getX(), this.getPos().getY(), this.getPos().getZ(), TGSounds.ORE_DRILL_WORK_MEDIUM, SoundCategory.BLOCKS, SOUND_VOLUME, 1.0F, true );
 				
-				TGPackets.network.sendToAllTracking(new PacketPlaySound(TGSounds.ORE_DRILL_WORK_MEDIUM, this.pos.getX(), this.pos.getY(), this.pos.getZ(), SOUND_VOLUME, 1.0f, false, TGSoundCategory.MACHINE), new TargetPoint(this.world.provider.getDimension(),this.pos.getX()+0.5,this.pos.getY()+0.5,this.pos.getZ()+0.5,32.0f));
+				TGPackets.network.sendToAllTracking(new PacketPlaySound(TGSounds.ORE_DRILL_WORK_MEDIUM, soundPos.getX(), soundPos.getY(), soundPos.getZ(), SOUND_VOLUME, 1.0f, false, TGSoundCategory.MACHINE), new TargetPoint(this.world.provider.getDimension(),soundPos.getX()+0.5,soundPos.getY()+0.5,soundPos.getZ()+0.5,32.0f));
 				soundLoopDelay = 61; //62 ticks = 3.1 sec
 			}else {
 				//world.playSound(this.xCoord, this.yCoord, this.zCoord, "techguns:machines.oredrillLargeWork", 3.0F, 1.0F, true );
 				//world.playSound(this.getPos().getX(), this.getPos().getY(), this.getPos().getZ(), TGSounds.ORE_DRILL_WORK_LARGE, SoundCategory.BLOCKS, SOUND_VOLUME, 1.0F, true );		
 	
-				TGPackets.network.sendToAllTracking(new PacketPlaySound(TGSounds.ORE_DRILL_WORK_LARGE, this.pos.getX(), this.pos.getY(), this.pos.getZ(), SOUND_VOLUME, 1.0f, false, TGSoundCategory.MACHINE), new TargetPoint(this.world.provider.getDimension(),this.pos.getX()+0.5,this.pos.getY()+0.5,this.pos.getZ()+0.5,32.0f));
+				TGPackets.network.sendToAllTracking(new PacketPlaySound(TGSounds.ORE_DRILL_WORK_LARGE, soundPos.getX(), soundPos.getY(), soundPos.getZ(), SOUND_VOLUME, 1.0f, false, TGSoundCategory.MACHINE), new TargetPoint(this.world.provider.getDimension(),soundPos.getX()+0.5,soundPos.getY()+0.5,soundPos.getZ()+0.5,32.0f));
 				soundLoopDelay = 61; //62 ticks = 3.1 sec
 			}
 		}
