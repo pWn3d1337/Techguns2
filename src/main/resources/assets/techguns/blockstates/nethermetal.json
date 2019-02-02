@@ -17,6 +17,18 @@
     },
     "type=grey_tiles": {
       "model": "techguns:nethermetal_grey_tiles"
+    },
+	"type=border_red": {
+      "model": "techguns:nethermetal_border_red"
+    },
+	"type=plate_black": {
+      "model": "techguns:nethermetal_plate_black"
+    },
+	"type=plate_red": {
+      "model": "techguns:nethermetal_plate_red"
+    },
+	"type=border_lava": {
+      "model": "techguns:nethermetal_border_lava"
     }
   }
 }

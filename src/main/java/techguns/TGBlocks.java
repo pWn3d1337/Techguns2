@@ -47,6 +47,7 @@ import techguns.blocks.EnumTGSandHardTypes;
 import techguns.blocks.EnumTGSlimyType;
 import techguns.blocks.GenericBlockMetaEnum;
 import techguns.blocks.GenericBlockMetaEnumCamoChangeable;
+import techguns.blocks.GenericBlockMetaEnumCamoChangeableLightlevel;
 import techguns.blocks.IGenericBlock;
 import techguns.blocks.TGMetalPanelType;
 import techguns.blocks.machines.BasicMachine;
@@ -136,7 +137,7 @@ public class TGBlocks implements ITGInitializer{
 		SANDBAGS = (BlockSandbags) new BlockSandbags("sandbags").setHardness(6.0f);
 		LAMP_0 = (BlockTGLamp<EnumLampType>) new BlockTGLamp<EnumLampType>("lamp0", EnumLampType.class).setHardness(4.0f);
 		METAL_PANEL = (GenericBlockMetaEnum) new GenericBlockMetaEnumCamoChangeable<TGMetalPanelType>("metalpanel", Material.IRON, Material.IRON.getMaterialMapColor(), SoundType.METAL, TGMetalPanelType.class).setHardness(8.0f);
-		NETHER_METAL = (GenericBlockMetaEnum) new GenericBlockMetaEnumCamoChangeable<EnumNetherMetalType>("nethermetal", Material.IRON, Material.IRON.getMaterialMapColor(), SoundType.METAL, EnumNetherMetalType.class).setHardness(8.0f);
+		NETHER_METAL = (GenericBlockMetaEnum) new GenericBlockMetaEnumCamoChangeableLightlevel<EnumNetherMetalType>("nethermetal", Material.IRON, Material.IRON.getMaterialMapColor(), SoundType.METAL, EnumNetherMetalType.class).setHardness(8.0f);
 		
 		CONCRETE = (GenericBlockMetaEnum<EnumConcreteType>) new GenericBlockMetaEnumCamoChangeable<EnumConcreteType>("concrete", Material.ROCK, EnumConcreteType.class).setHardness(8.0f);
 		LADDER_0 = (BlockTGLadder<EnumLadderType>) new BlockTGLadder<EnumLadderType>("ladder0", EnumLadderType.class).setHardness(6.0f);
