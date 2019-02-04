@@ -79,7 +79,7 @@ public class DungeonGeneratorTileEnt extends BasicOwnedTileEnt {
 	private void generateDungeon(String name) {
 		Dungeon dungeon;
 		if (name == null || name.equals("") || name.length() ==0 || !DungeonTemplate.dungeonTemplates.containsKey(name)) {
-			dungeon = new Dungeon(IDungeonPreset.PRESET_CASTLE);
+			dungeon = new Dungeon(IDungeonPreset.PRESET_NETHER);
 		}else {
 			dungeon = new Dungeon(new PresetTemplateTest(DungeonTemplate.dungeonTemplates.get(name)));
 		}

@@ -67,6 +67,10 @@ public class TGArmors implements ITGInitializer {
 	
 	public static TGArmorMaterial T2_BERET = new TGArmorMaterial("T2_BERET",60,0,8.0f, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER,0);
 
+	
+	public static TGArmorMaterial T4_PRAETOR = new TGArmorMaterial("T4_PRAETOR",300,0,20.0f, SoundEvents.ITEM_ARMOR_EQUIP_IRON,2.0f).setArmorFire(20.0f).setArmorExplosion(20.0f).setArmorEnergy(20.0f).setArmorIce(20.0f).setArmorLightning(20.0f).setArmorPoison(20.0f).setArmorRadiation(20.0f).setPenetrationResistance(0.15f);
+	
+	
 	public static GenericArmor t1_combat_Helmet;
 	public static GenericArmor t1_combat_Chestplate;
 	public static GenericArmor t1_combat_Leggings;
@@ -126,6 +130,11 @@ public class TGArmors implements ITGInitializer {
 	public static GenericArmor t3_exo_Chestplate;
 	public static GenericArmor t3_exo_Leggings;
 	public static GenericArmor t3_exo_Boots;
+	
+	public static GenericArmor t4_praetor_Helmet;
+	public static GenericArmor t4_praetor_Chestplate;
+	public static GenericArmor t4_praetor_Leggings;
+	public static GenericArmor t4_praetor_Boots;
 	
 	public static GenericArmor t2_beret;
 	/**
@@ -213,6 +222,12 @@ public class TGArmors implements ITGInitializer {
 		
 		String[] t2_beret_textures = {"beret_texture", "beret_texture_black", "beret_texture_green"};
 		t2_beret = new GenericArmorMultiCamo("t2_beret", T2_BERET, t2_beret_textures, EntityEquipmentSlot.HEAD).setSpeedBoni(0.1f,0.0f).setRepairMats(TGItems.HEAVY_CLOTH, TGItems.HEAVY_CLOTH, 1.0f, 2).setArmorModel(TGArmors.ARMORMODEL_BERET_0,false); //0 for helmet
+		
+		String[] t4_praetor_textures = {"t4_praetor"};
+		t4_praetor_Helmet = new PoweredArmor("t4_praetor_helmet", T4_PRAETOR, t4_praetor_textures, EntityEquipmentSlot.HEAD,ArmorPowerType.RF,10).setSpeedBoni(0.1f,0.3f,0,0).setWaterspeedBonus(1.25f, 0).setMiningBoni(0.1f,0).setMiningBoniWater(1.25f,0).setOxygenGear(1.0f,0.0f).setHideFaceslot(true).setRepairMats(TGItems.PLATE_CARBON, TGItems.CIRCUIT_BOARD_ELITE, 0.5f, 2).setKnockbackResistance(0.10f); //0 for helmet
+		t4_praetor_Chestplate = new PoweredArmor("t4_praetor_chestplate", T4_PRAETOR, t4_praetor_textures, EntityEquipmentSlot.CHEST,ArmorPowerType.RF,10000).setBattery(TGItems.ENERGY_CELL).setEmptyBattery(TGItems.ENERGY_CELL_EMPTY).setSpeedBoni(0.1f, 0.03f,0,0).setWaterspeedBonus(1.25f, 0).setMiningBoni(0.1f,0).setMiningBoniWater(1.25f,0).setCoolingSystem(1.0f,0).setRepairMats(TGItems.PLATE_CARBON, TGItems.CIRCUIT_BOARD_ELITE, 0.5f, 4).setHideGloveslot(true).setKnockbackResistance(0.25f); // 1 for chestplate
+		t4_praetor_Leggings = new PoweredArmor("t4_praetor_leggings", T4_PRAETOR, t4_praetor_textures, EntityEquipmentSlot.LEGS,ArmorPowerType.RF,10).setSpeedBoni(0.1f, 0.03f,0,0).setWaterspeedBonus(1.25f, 0).setMiningBoni(0.1f,0).setMiningBoniWater(1.25f,0).setRepairMats(TGItems.PLATE_CARBON, TGItems.CIRCUIT_BOARD_ELITE, 1.0f/3.0f, 3).setKnockbackResistance(0.15f); // 2 for leggings
+		t4_praetor_Boots = new PoweredArmor("t4_praetor_boots", T4_PRAETOR, t4_praetor_textures, EntityEquipmentSlot.FEET,ArmorPowerType.RF,10).setSpeedBoni(0.1f, 0.15f,0,0).setWaterspeedBonus(1.25f, 0).setMiningBoni(0.1f,0).setMiningBoniWater(1.25f,0).setStepAssist(1.0f,0).setFallProtection(0.5f, 3.0f,0,0).setRepairMats(TGItems.PLATE_CARBON, TGItems.CIRCUIT_BOARD_ELITE, 0.5f, 2).setKnockbackResistance(0.10f); // 3 for boots
 		
 		
 		if(TGItems.WRITE_ITEM_JSON && event.getSide()==Side.CLIENT){
