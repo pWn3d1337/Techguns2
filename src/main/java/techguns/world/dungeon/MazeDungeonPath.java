@@ -50,6 +50,7 @@ public class MazeDungeonPath implements IDungeonPath {
 	public boolean usePillars = true;
 	public boolean useFoundations = true;
 	public boolean useRoof = false; //currently uses pillar segment of top template
+	public boolean useBottomLayer = false; //copy lowest layer one level lower (increases number of levels by 1)
 	
 	//public float spawnDensity = 0.05f; //Spawners per segment count
 	//---------
@@ -82,6 +83,10 @@ public class MazeDungeonPath implements IDungeonPath {
 	 */
 	@Override
 	public void generatePath() {
+		if (this.useBottomLayer) { //reduce total height by one, so we can shift upwards by one
+			this.sY -= 1;
+		}
+		
 		int startX;
 		int startZ;
 		EnumFacing startFacing;
@@ -611,6 +616,12 @@ public class MazeDungeonPath implements IDungeonPath {
 	 */
 	@Override
 	public void generateDungeon(World world, int posX, int posY, int posZ, IDungeonPreset preset) {
+		
+		if (this.useBottomLayer) { 
+			//shift all segments upwards by 1
+			this.cloneBottomLayer();
+		}
+		
 		for (int i = 0; i < sX; i++) {
 			for (int j = 0; j < sY; j++) {
 				for (int k = 0; k < sZ; k++) {
@@ -721,6 +732,32 @@ public class MazeDungeonPath implements IDungeonPath {
 		}
 	}
 	
+	/**
+	 * Expand dungeon Y size by 1, shift dungeon upwards by 1, clone Bottom Layer
+	 */
+	private void cloneBottomLayer() {
+		PathSegment[][][] dungeonVolume2 = new PathSegment[sX][sY+1][sZ];
+		for (int i = 0; i < sX; i++) {
+			for (int j = 0; j < sY; j++) {
+				for (int k = 0; k < sZ; k++) {
+					if (dungeonVolume[i][j][k] != null) {
+						dungeonVolume2[i][j+1][k] = dungeonVolume[i][j][k];
+						dungeonVolume2[i][j+1][k].y++;
+						if (j == 0) {
+							PathSegment seg2 = new PathSegment(i, j, k);
+							PathSegment seg = dungeonVolume[i][j][k];
+							seg2.pattern = seg.pattern;
+							dungeonVolume2[i][j][k] = seg2;
+						}
+					}
+				}
+			}
+		}
+		this.dungeonVolume = dungeonVolume2;
+		sY = sY+1;
+	}
+
+
 	/* (non-Javadoc)
 	 * @see techguns.world.dungeon.IDungeonPath#generateNPCSpawners(net.minecraft.world.World, int, int, int, techguns.world.dungeon.presets.IDungeonPreset)
 	 */
