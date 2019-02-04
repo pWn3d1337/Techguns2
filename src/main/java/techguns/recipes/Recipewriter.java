@@ -460,6 +460,8 @@ public class Recipewriter {
         RecipeJsonConverter.addShapedRecipe(newStack(TGItems.OREDRILLHEAD_LARGE_STEEL,1),"d d"," d ", 'd', TGItems.OREDRILLHEAD_MEDIUM_STEEL);
         RecipeJsonConverter.addShapedRecipe(newStack(TGItems.OREDRILLHEAD_LARGE_OBSIDIANSTEEL,1),"d d"," d ", 'd', TGItems.OREDRILLHEAD_MEDIUM_OBSIDIANSTEEL);
         RecipeJsonConverter.addShapedRecipe(newStack(TGItems.OREDRILLHEAD_LARGE_CARBON,1),"d d"," d ", 'd', TGItems.OREDRILLHEAD_MEDIUM_CARBON);
+        
+        RecipeJsonConverter.addShapedRecipe(newStack(TGItems.PLASTIC_BAG,4),"pp","pp", 'p', "sheetPlastic");
         	
         addGunRecipes();
         addArmorRecipes();

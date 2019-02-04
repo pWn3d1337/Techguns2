@@ -5,11 +5,15 @@ import java.util.ArrayList;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.init.PotionTypes;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.PotionUtils;
+import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
+import techguns.api.radiation.TGRadiation;
 import techguns.blocks.EnumOreType;
 import techguns.items.armors.ICamoChangeable;
 import techguns.tileentities.operation.AmmoPressBuildPlans;
@@ -102,7 +106,7 @@ public class TGMachineRecipes {
 		if(!TGFluids.fuels.isEmpty()){
 			TGFluids.fuels.forEach(f -> {
 				ChemLabRecipes.addRecipe("gunpowder", 1, "gemLapis", 1, null, 0, new FluidStack(f,250), null, TGItems.newStack(TGItems.TGX, 1), true, 20);
-				ChemLabRecipes.addRecipe(fuelTankEmpty, 1, (ItemStack)null, 0, null, 0, new FluidStack(f,250), null, fuelTank, false, 1);
+				ChemLabRecipes.addRecipe((ItemStack)null, 0, (ItemStack)null, 0, fuelTankEmpty, 1, new FluidStack(f,250), null, fuelTank, false, 1);
 				//ChemLabRecipes.addRecipe(fuelTank, 1, (ItemStack)null, 0, null, 0, null, new FluidStack(f,250), fuelTankEmpty, false, 1);
 				ChemLabRecipes.addRecipe(TGItems.newStack(TGItems.ROCKET, 1), 1, (ItemStack)null, 0, null, 0, new FluidStack(f,125), null, TGItems.newStack(TGItems.ROCKET_HIGH_VELOCITY,1), false, 5);
 			});
@@ -121,9 +125,9 @@ public class TGMachineRecipes {
 		ItemStackOreDict nullStack = new ItemStackOreDict((ItemStack)null);
 		ChemLabRecipes.addRecipe(stackLogWood, 1, nullStack, 0, null, 0, new FluidStack(TGFluids.WATER,1000), null, TGItems.newStack(TGItems.RAW_RUBBER, 1), false, 20);
 		
-		ChemLabRecipes.addRecipe(TGItems.newStack(TGItems.BIOMASS, 1),1, TGItems.newStack(TGItems.BIO_TANK_EMPTY,1), 1, null, 0, new FluidStack(TGFluids.WATER,500), null, TGItems.newStack(TGItems.BIO_TANK, 1), true, 1);
+		ChemLabRecipes.addRecipe(TGItems.newStack(TGItems.BIOMASS, 1),1, (ItemStack)null, 0, TGItems.newStack(TGItems.BIO_TANK_EMPTY,1), 1, new FluidStack(TGFluids.WATER,500), null, TGItems.newStack(TGItems.BIO_TANK, 1), false, 1);
 		
-		ChemLabRecipes.addRecipe(new ItemStack(Items.COAL,1), 1, TGItems.newStack(TGItems.COMPRESSED_AIR_TANK_EMPTY, 1), 1, null, 0, new FluidStack(TGFluids.WATER,250), null, TGItems.newStack(TGItems.COMPRESSED_AIR_TANK, 1), true, 5);
+		ChemLabRecipes.addRecipe(new ItemStack(Items.COAL,1), 1, (ItemStack)null, 0, TGItems.newStack(TGItems.COMPRESSED_AIR_TANK_EMPTY, 1), 1, new FluidStack(TGFluids.WATER,250), null, TGItems.newStack(TGItems.COMPRESSED_AIR_TANK, 1), true, 5);
 		
 		ChemLabRecipes.addRecipe(new ItemStack(Blocks.NETHERRACK), 1, new ItemStack(Blocks.SOUL_SAND), 1, null, 0, new FluidStack(TGFluids.LAVA,1000), null, TGItems.newStack(TGItems.NETHER_CHARGE, 4), true, 20);
 		
@@ -131,13 +135,13 @@ public class TGMachineRecipes {
 
 		ChemLabRecipes.addRecipe(uranium, 1, nullStack, 0, null, 0, new FluidStack(TGFluids.ACID,250), null, TGItems.newStack(TGItems.YELLOWCAKE, 3), false, 20);
 		
-		ChemLabRecipes.addRecipe(TGItems.NUCLEAR_POWERCELL_EMPTY, 1, TGItems.ENRICHED_URANIUM, 1, null, 0, new FluidStack(TGFluids.WATER,1000), null, TGItems.newStack(TGItems.NUCLEAR_POWERCELL, 1), true, 40);
+		ChemLabRecipes.addRecipe(TGItems.ENRICHED_URANIUM, 1, (ItemStack)null, 0, TGItems.NUCLEAR_POWERCELL_EMPTY, 1, new FluidStack(TGFluids.WATER,1000), null, TGItems.newStack(TGItems.NUCLEAR_POWERCELL, 1), true, 40);
 		
 		if (TGFluids.MILK!=null){
 			ChemLabRecipes.addRecipe(new ItemStack(Items.DYE,1,2), 1, "itemRawRubber", 1, null, 0, new FluidStack(TGFluids.MILK,500), null, new ItemStack(Items.SLIME_BALL), true, 25);
 		}
 		
-		ChemLabRecipes.addRecipe(new ItemStack(Items.LEATHER,2), 2, "slimeball", 1, null, 0, new FluidStack(TGFluids.ACID,500), null, TGItems.newStack(TGItems.TREATED_LEATHER,2), false, 20);
+		ChemLabRecipes.addRecipe(new ItemStack(Items.LEATHER,2), 2, "slimeball", 1, null, 0, new FluidStack(TGFluids.ACID,500), null, TGItems.newStack(TGItems.TREATED_LEATHER,2), true, 20);
 
 		ChemLabRecipes.addRecipe(new ItemStack(Items.ROTTEN_FLESH), 1, (ItemStack)null, 0, null, 0, new FluidStack(TGFluids.WATER,500), null, new ItemStack(Items.LEATHER,1), false, 15);
 		
@@ -149,6 +153,9 @@ public class TGMachineRecipes {
 		ChemLabRecipes.addRecipe(TGItems.PISTOL_ROUNDS, 2, new ItemStack(Items.BLAZE_POWDER), 1, null, 0, new FluidStack(TGFluids.LAVA,250), null, TGItems.newStack(TGItems.PISTOL_ROUNDS_INCENDIARY,2), false, 25);
 		ChemLabRecipes.addRecipe(TGItems.SNIPER_ROUNDS, 1, new ItemStack(Items.BLAZE_POWDER), 1, null, 0, new FluidStack(TGFluids.LAVA,250), null, TGItems.newStack(TGItems.SNIPER_ROUNDS_INCENDIARY,1), false, 25);
 		ChemLabRecipes.addRecipe(TGItems.SHOTGUN_ROUNDS, 8, new ItemStack(Items.BLAZE_POWDER), 1, null, 0, new FluidStack(TGFluids.LAVA,250), null, TGItems.newStack(TGItems.SHOTGUN_ROUNDS_INCENDIARY,8), false, 25);
+		
+		ChemLabRecipes.addRecipe( new ItemStack(Items.SUGAR), 4, new ItemStack(Items.SPECKLED_MELON),1,new ItemStack(Items.GLASS_BOTTLE),1, new FluidStack(TGFluids.MILK, 1000), null, new ItemStack(TGItems.RAD_PILLS, 4), true, 20);
+		ChemLabRecipes.addRecipe( new ItemStack(Items.NETHER_WART), 1, new ItemStack(Items.SPECKLED_MELON), 1,TGItems.newStack(TGItems.PLASTIC_BAG, 1),1, new FluidStack(TGFluids.ACID, 250), null, new ItemStack(TGItems.RAD_AWAY, 1), true, 25);
 		
 		
 		/**
@@ -249,6 +256,17 @@ public class TGMachineRecipes {
 		GameRegistry.addSmelting(TGItems.RAW_PLASTIC,TGItems.PLASTIC_SHEET, 0);
 		
 		GameRegistry.addSmelting(TGItems.ORE_TITANIUM, TGItems.INGOT_TITANIUM, 0);
-	
+		
+		//brewing
+		ItemStack awkwardPotion = PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), PotionTypes.AWKWARD);
+		ItemStack radPotion = PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), TGRadiationSystem.RAD_POTION);
+		
+		BrewingRecipeRegistry.addRecipe(awkwardPotion, "dustUranium", radPotion);
+		BrewingRecipeRegistry.addRecipe(awkwardPotion, TGItems.newStack(TGItems.ENRICHED_URANIUM, 1), PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), TGRadiationSystem.RAD_POTION_SEVERE));
+		
+		BrewingRecipeRegistry.addRecipe(awkwardPotion, "ingotLead", PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), TGRadiationSystem.RAD_RESISTANCE_POTION));
+		
+		BrewingRecipeRegistry.addRecipe(radPotion, new ItemStack(Items.GOLDEN_CARROT), PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), TGRadiationSystem.RAD_REGENERATION_POTION));
+		BrewingRecipeRegistry.addRecipe(radPotion, new ItemStack(Items.SPECKLED_MELON), PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), TGRadiationSystem.RAD_REGENERATION_POTION));
 	}
 }

@@ -4,6 +4,7 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.IAttribute;
 import net.minecraft.entity.ai.attributes.RangedAttribute;
 import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -31,6 +32,11 @@ public class TGRadiationSystem implements ITGInitializer {
 	public static int RADLOST_ON_DEATH=200;
 	
 	public static final int INVENTORY_RADIATION_INVERVALL=60;
+	
+	public static PotionType RAD_POTION;
+	public static PotionType RAD_RESISTANCE_POTION;
+	public static PotionType RAD_REGENERATION_POTION;
+	public static PotionType RAD_POTION_SEVERE;
 	
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {

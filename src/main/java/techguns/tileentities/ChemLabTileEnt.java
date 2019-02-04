@@ -136,13 +136,13 @@ public class ChemLabTileEnt extends BasicMachineTileEnt implements ITileEntityFl
 		if(slot==SLOT_BOTTLE){
 			return ChemLabRecipes.allowInFlaskSlot(item);
 		} else if(slot==SLOT_INPUT1 && this.input1.get().isEmpty() && this.input2.get().isEmpty()){
-			return ChemLabRecipes.hasRecipeUsing(item);
+			return !ChemLabRecipes.allowInFlaskSlot(item) && ChemLabRecipes.hasRecipeUsing(item);
 		} else if (slot==SLOT_INPUT1 && this.input1.get().isEmpty() && !this.input2.get().isEmpty()){
-			return ChemLabRecipes.allowAsInput2(this.input2.get(), item);
+			return !ChemLabRecipes.allowInFlaskSlot(item) && ChemLabRecipes.allowAsInput2(this.input2.get(), item);
 		} else if (slot==SLOT_INPUT1 && !this.input1.get().isEmpty()){
 			return ItemUtil.isItemEqual(this.input1.get(), item);
 		} else if (slot==SLOT_INPUT2 && !this.input1.get().isEmpty()){
-			return ChemLabRecipes.allowAsInput2(this.input1.get(), item);
+			return !ChemLabRecipes.allowInFlaskSlot(item) && ChemLabRecipes.allowAsInput2(this.input1.get(), item);
 		} else if (slot==SLOT_INPUT2 && !this.input2.get().isEmpty()){
 			return ItemUtil.isItemEqual(this.input2.get(), item);
 		}
@@ -314,7 +314,13 @@ public class ChemLabTileEnt extends BasicMachineTileEnt implements ITileEntityFl
 	
 
 	public int getValidSlotForItemInMachine(ItemStack item) {
-		if (!this.input1.get().isEmpty() && OreDictionary.itemMatches(this.input1.get(), item, true)) {
+		if (ChemLabRecipes.allowInFlaskSlot(item)) {
+			if (this.input_bottle.get().isEmpty()) {
+				return SLOT_BOTTLE;
+			} else if (OreDictionary.itemMatches(this.input_bottle.get(), item, true)) {
+				return SLOT_BOTTLE;
+			}
+		} else if (!this.input1.get().isEmpty() && OreDictionary.itemMatches(this.input1.get(), item, true)) {
 			return SLOT_INPUT1;
 		} else if (!this.input2.get().isEmpty() && OreDictionary.itemMatches(this.input2.get(), item, true)) {
 			return SLOT_INPUT2;
@@ -322,10 +328,6 @@ public class ChemLabTileEnt extends BasicMachineTileEnt implements ITileEntityFl
 			return SLOT_INPUT1;
 		} else if (!this.input1.get().isEmpty() && this.input2.get().isEmpty() && (ChemLabRecipes.allowAsInput2(this.input1.get(), item))) {
 			return SLOT_INPUT2;
-		} else if (!this.input_bottle.get().isEmpty() && OreDictionary.itemMatches(this.input_bottle.get(), item, true)) {
-			return SLOT_BOTTLE;
-		} else if (this.input_bottle.get().isEmpty() && ChemLabRecipes.allowInFlaskSlot(item)) {
-			return SLOT_BOTTLE;
 		} else if (TGItems.isMachineUpgrade(item)) {
 			return SLOT_UPGRADE;
 		}

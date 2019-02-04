@@ -5,7 +5,9 @@ import java.util.List;
 import com.mojang.realmsclient.gui.ChatFormatting;
 
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
@@ -29,7 +31,14 @@ public class ItemRadAway extends GenericItemConsumable {
 
 	@Override
 	protected void onConsumed(ItemStack stack, World worldIn, EntityPlayer player) {
-		player.addPotionEffect(new PotionEffect(TGRadiationSystem.radregen_effect, 400, 4, false, false));
+		player.addPotionEffect(new PotionEffect(TGRadiationSystem.radregen_effect, 400, 14, false, false));
+		
+		if(!worldIn.isRemote) {
+			ItemStack bottle = TGItems.newStack(TGItems.PLASTIC_BAG, 1);
+			if(!player.addItemStackToInventory(bottle)) {
+				 worldIn.spawnEntity(new EntityItem(worldIn, player.posX, player.posY, player.posZ, bottle));
+			}
+		}
 	}
 
 	@Override
@@ -40,7 +49,7 @@ public class ItemRadAway extends GenericItemConsumable {
 	@Override
 	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 		super.addInformation(stack, worldIn, tooltip, flagIn);
-		tooltip.add(ChatFormatting.BLUE+TextUtil.trans("techguns.radregeneration")+" "+TextUtil.trans("potion.potency.4") +" (-200)");
+		tooltip.add(ChatFormatting.BLUE+TextUtil.trans("techguns.radregeneration")+" "+TextUtil.trans("potion.potency.9") +" (-300)");
 	}
 	
 }

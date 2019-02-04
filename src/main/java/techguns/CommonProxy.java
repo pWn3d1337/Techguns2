@@ -87,14 +87,27 @@ public abstract class CommonProxy implements ITGInitializer {
     public static void registerPotionTypes(RegistryEvent.Register<PotionType> event)
     {
 
-        event.getRegistry().register(new PotionType(new PotionEffect(TGRadiationSystem.radiation_effect, 300, 4))
-                .setRegistryName(Techguns.MODID, "radpotion"));
+		TGRadiationSystem.RAD_POTION = new PotionType(new PotionEffect(TGRadiationSystem.radiation_effect, 300, 4))
+                .setRegistryName(Techguns.MODID, "radpotion");
+		
+		TGRadiationSystem.RAD_POTION_SEVERE = new PotionType(new PotionEffect(TGRadiationSystem.radiation_effect, 300, 24))
+                .setRegistryName(Techguns.MODID, "radpotion_severe");
+
+		TGRadiationSystem.RAD_REGENERATION_POTION = new PotionType(new PotionEffect(TGRadiationSystem.radregen_effect, 400, 9))
+                .setRegistryName(Techguns.MODID, "radregenerationpotion");
+		
+		TGRadiationSystem.RAD_RESISTANCE_POTION = new PotionType(new PotionEffect(TGRadiationSystem.radresistance_effect, 900, 1))
+                .setRegistryName(Techguns.MODID, "radresistancepotion");
+		
+
+		
+        event.getRegistry().register(TGRadiationSystem.RAD_POTION);
         
-        event.getRegistry().register(new PotionType(new PotionEffect(TGRadiationSystem.radregen_effect, 600, 9))
-                .setRegistryName(Techguns.MODID, "radregenerationpotion"));
+        event.getRegistry().register(TGRadiationSystem.RAD_POTION_SEVERE);
         
-        event.getRegistry().register(new PotionType(new PotionEffect(TGRadiationSystem.radresistance_effect, 900, 1))
-                .setRegistryName(Techguns.MODID, "radresistancepotion"));
+        event.getRegistry().register(TGRadiationSystem.RAD_REGENERATION_POTION);
+        
+        event.getRegistry().register(TGRadiationSystem.RAD_RESISTANCE_POTION);
 
     }
 	

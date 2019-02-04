@@ -8,12 +8,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 import techguns.tileentities.ChemLabTileEnt;
+import techguns.tileentities.operation.ChemLabRecipes.ChemLabRecipe.ChemRecipeType;
 import techguns.util.ItemStackOreDict;
 import techguns.util.ItemUtil;
 
 public class ChemLabRecipes {
 	
 	private static ArrayList<ChemLabRecipe> recipes = new ArrayList<ChemLabRecipe>();
+	
+	private static ArrayList<ItemStack> bottleItems = new ArrayList<>();
 	
 	public static MachineOperation getOutputFor(ChemLabTileEnt tile){
 		ItemStack slot1 = tile.input1.get();
@@ -23,8 +26,9 @@ public class ChemLabRecipes {
 		
 		for (int i=0; i < recipes.size(); i++){
 			ChemLabRecipe recipe = recipes.get(i);
-			if ( recipe.isValidInput(slot1, slot2,slot3,fluidIn)) {
-				return recipe.getOperationFor(tile);
+			ChemRecipeType t  = recipe.isValidInput(slot1, slot2,slot3,fluidIn);
+			if ( t != ChemRecipeType.INVALID) {
+				return recipe.getOperationFor(tile,t);
 			}
 		}
 		return null;		
@@ -65,8 +69,28 @@ public class ChemLabRecipes {
 		return null;
 	}
 	
+	protected static void addToFlaskSlot(ItemStack item){
+		if(!item.isEmpty()) {
+			for(int i =0; i<bottleItems.size(); i++) {
+				if(item.areItemsEqual(item, bottleItems.get(i))) {
+					return;
+				}
+			}
+			ItemStack s = item.copy();
+			s.setCount(1);
+			bottleItems.add(s);
+		}
+	}
+	
 	public static boolean allowInFlaskSlot(ItemStack item){
-		return !item.isEmpty() && item.getItem() == Items.GLASS_BOTTLE;
+		if(!item.isEmpty()) {
+			for(int i =0; i<bottleItems.size(); i++) {
+				if(item.areItemsEqual(item, bottleItems.get(i))) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 	
 	public static boolean hasRecipeUsing(ItemStack item){
@@ -140,18 +164,30 @@ public class ChemLabRecipes {
 			this.amounts[2]=amount3;
 			this.amounts[3]=fluidIn!=null?fluidIn.amount:0;
 			this.powerPerTick=powerPerTick;
+			
+			addToFlaskSlot(this.slot3);
+		}
+		
+		public static enum ChemRecipeType {
+			INVALID,
+			VALID,
+			VALID_SWAPPED;
 		}
 		
 		//Returns if this contents are a valid input for this recipe;
-		public boolean isValidInput(ItemStack slot1, ItemStack slot2, ItemStack slot3, FluidStack fluidIn){
+		public ChemRecipeType isValidInput(ItemStack slot1, ItemStack slot2, ItemStack slot3, FluidStack fluidIn){
 			//System.out.println("Slot1:"+slot1+"Slot2:"+slot2+"Slot3"+slot3);
 			if (this.slot1.isEqualWithOreDict(slot1) && this.slot2.isEqualWithOreDict(slot2) && ((!this.slot3.isEmpty() && OreDictionary.itemMatches(this.slot3,slot3,true)) || (this.slot3.isEmpty() && slot3.isEmpty()))) {
-				return checkLiquid(fluidIn) && checkAmounts(slot1,slot2,slot3,false);
+				if(checkLiquid(fluidIn) && checkAmounts(slot1,slot2,slot3,false)) {
+					return ChemRecipeType.VALID;
+				}
 			}
 			if (allowSwap && this.slot1.isEqualWithOreDict(slot2) && this.slot2.isEqualWithOreDict(slot1) && ((!this.slot3.isEmpty() && OreDictionary.itemMatches(this.slot3,slot3,true)) || (this.slot3.isEmpty() && slot3.isEmpty()))){
-				return checkLiquid(fluidIn) && checkAmounts(slot1,slot2,slot3,true);
+				if (checkLiquid(fluidIn) && checkAmounts(slot1,slot2,slot3,true)) {
+					return ChemRecipeType.VALID_SWAPPED;
+				}
 			}
-			return false;
+			return ChemRecipeType.INVALID;
 		}
 		
 		public boolean isValidInputSlot1_2(ItemStack slot1, ItemStack slot2){
@@ -197,14 +233,23 @@ public class ChemLabRecipes {
 			return false;
 		}
 		
-		public MachineOperation getOperationFor(ChemLabTileEnt tile) {
-			ArrayList<ItemStack> inputs = new ArrayList<ItemStack>();
+		public MachineOperation getOperationFor(ChemLabTileEnt tile, ChemRecipeType t) {
+			ArrayList<ItemStack> inputs = new ArrayList<ItemStack>(3);
 			
-			ItemStack input1 = tile.input1.get().copy();
-			input1.setCount(this.amounts[0]);
-			
-			ItemStack input2 = tile.input2.get().copy();
-			input2.setCount(this.amounts[1]);
+			ItemStack input1, input2;
+			if (t==t.VALID_SWAPPED) {
+				input1 = tile.input2.get().copy();
+				input1.setCount(this.amounts[1]);
+				
+				input2 = tile.input1.get().copy();
+				input2.setCount(this.amounts[0]);
+			} else {
+				input1 = tile.input1.get().copy();
+				input1.setCount(this.amounts[0]);
+				
+				input2 = tile.input2.get().copy();
+				input2.setCount(this.amounts[1]);
+			}
 			
 			ItemStack bottle = tile.input_bottle.get().copy();
 			bottle.setCount(this.amounts[2]);
@@ -213,18 +258,18 @@ public class ChemLabRecipes {
 			inputs.add(input2);
 			inputs.add(bottle);
 			
-			ArrayList<FluidStack> fluidsIn = new ArrayList<FluidStack>();
+			ArrayList<FluidStack> fluidsIn = new ArrayList<FluidStack>(1);
 			if(this.fluidIn!=null) {
 				FluidStack fluidin = this.fluidIn.copy();
 				fluidin.amount = this.amounts[3];
 				fluidsIn.add(fluidin);
 			}
 			
-			ArrayList<ItemStack> outputs = new ArrayList<ItemStack>();
+			ArrayList<ItemStack> outputs = new ArrayList<ItemStack>(1);
 			ItemStack output = this.output.copy();
 			outputs.add(output);
 			
-			ArrayList<FluidStack> fluidsOut = new ArrayList<FluidStack>();
+			ArrayList<FluidStack> fluidsOut = new ArrayList<FluidStack>(1);
 			if(this.fluidOutput!=null) {
 				FluidStack fluidout = this.fluidOutput.copy();
 				fluidsOut.add(fluidout);

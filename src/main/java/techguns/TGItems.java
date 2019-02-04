@@ -48,7 +48,7 @@ public class TGItems implements ITGInitializer{
 	/**
 	 * FIXME DISABLE THIS BEFORE RELEASE
 	 */
-	public static boolean WRITE_ITEM_JSON = true;
+	public static boolean WRITE_ITEM_JSON = false;
 	/**
 	 * FIXME DISABLE THIS BEFORE RELEASE
 	 */
@@ -262,6 +262,8 @@ public class TGItems implements ITGInitializer{
 	
 	public static ItemStack CHAINSAWBLADES_OBSIDIAN;
 	public static ItemStack CHAINSAWBLADES_CARBON;
+	
+	public static ItemStack PLASTIC_BAG;
 	
 	//Tools/weapons
 	public static Item COMBAT_KNIFE;
@@ -494,6 +496,8 @@ public class TGItems implements ITGInitializer{
 		SNIPER_ROUNDS_EXPLOSIVE = SHARED_ITEM.addsharedVariant("sniperrounds_explosive",TGSlotType.AMMOSLOT);
 		
 		ROCKET_HIGH_VELOCITY = SHARED_ITEM.addsharedVariant("rocket_high_velocity",true,TGSlotType.AMMOSLOT);
+		
+		PLASTIC_BAG = SHARED_ITEM.addsharedVariant("plasticbag");
 		
 		RAD_AWAY = new ItemRadAway("radaway");
 		RAD_PILLS = new ItemRadpills("radpills");
