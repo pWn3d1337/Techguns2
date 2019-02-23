@@ -776,3 +776,5 @@ potion.potency.23=XXIV
 potion.potency.24=XXV
 potion.effect.radpotion_severe=Potion of Severe Radiation
 item.techguns.plasticbag.name=Plastic Bag
+techguns.container.grinder=Grinder
+tile.techguns.simplemachine2.8.name=Grinder

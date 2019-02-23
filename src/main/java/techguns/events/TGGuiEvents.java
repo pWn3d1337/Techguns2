@@ -47,6 +47,9 @@ public class TGGuiEvents extends Gui{
 		Minecraft mc = Minecraft.getMinecraft();
 		
 		EntityPlayer ply = mc.player;
+		
+		if(ply.isSpectator()) return;
+		
 		TGExtendedPlayer props = TGExtendedPlayer.get(ply);
 		ItemStack item =ply.getHeldItemMainhand();
 		ItemStack item_off =ply.getHeldItemOffhand();

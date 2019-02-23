@@ -24,6 +24,7 @@ import techguns.tileentities.operation.CamoBenchRecipes.CamoBenchRecipe;
 import techguns.tileentities.operation.ChargingStationRecipe;
 import techguns.tileentities.operation.ChemLabRecipes;
 import techguns.tileentities.operation.FabricatorRecipe;
+import techguns.tileentities.operation.GrinderRecipes;
 import techguns.tileentities.operation.MetalPressRecipes;
 import techguns.tileentities.operation.ReactionBeamFocus;
 import techguns.tileentities.operation.ReactionChamberRecipe;
@@ -38,6 +39,13 @@ import techguns.util.ItemUtil;
 public class TGMachineRecipes {
 
 	public static void addRecipes(){
+		
+		ItemStack GOLD_OR_ELECTRUM=ItemStack.EMPTY;
+		if(OreDictionary.doesOreNameExist("ingotElectrum")) {
+			GOLD_OR_ELECTRUM = OreDictionary.getOres("ingotElectrum").get(0);
+		} else {
+			GOLD_OR_ELECTRUM = new ItemStack(Items.GOLD_INGOT,1);
+		}
 		
 		//AMMO PRESS
 		ArrayList<String> metal2 = new ArrayList<String>();
@@ -268,5 +276,138 @@ public class TGMachineRecipes {
 		
 		BrewingRecipeRegistry.addRecipe(radPotion, new ItemStack(Items.GOLDEN_CARROT), PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), TGRadiationSystem.RAD_REGENERATION_POTION));
 		BrewingRecipeRegistry.addRecipe(radPotion, new ItemStack(Items.SPECKLED_MELON), PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), TGRadiationSystem.RAD_REGENERATION_POTION));
+	
+		/**
+		 * Grinder recipes
+		 */
+		
+		GrinderRecipes.addGenericArmorRecipes();
+		
+		//some pre defined things
+		ItemStack[] BARREL_STONE = {new ItemStack(Blocks.COBBLESTONE,3)};
+		ItemStack[] BARREL_IRON = {new ItemStack(Items.IRON_INGOT,3)};
+		ItemStack[] BARREL_OBSI = {TGItems.newStack(TGItems.INGOT_OBSIDIAN_STEEL, 3)};
+		ItemStack[] BARREL_CARBON = {TGItems.newStack(TGItems.CARBON_FIBERS, 3)};
+		
+		ItemStack[] RECEIVER_OBSI = {TGItems.newStack(TGItems.INGOT_OBSIDIAN_STEEL, 3)};
+		
+		GrinderRecipes.addRecipe(TGuns.handcannon, BARREL_STONE, ironAndWood(0,1,4));
+		GrinderRecipes.addRecipe(TGuns.sawedoff, ironAndWood(4,1,0), new ItemStack[] {new ItemStack(Items.FLINT,1)});
+		GrinderRecipes.addRecipe(TGuns.revolver, ironAndWood(3,1,0));
+		GrinderRecipes.addRecipe(TGuns.goldenrevolver, ironAndWood(3,1,0), new ItemStack[] {new ItemStack(Items.GOLD_INGOT,4)});
+		GrinderRecipes.addRecipe(TGuns.thompson, ironAndWood(4,1,0));
+		GrinderRecipes.addRecipe(TGuns.ak47, BARREL_OBSI, ironAndWood(4,1,0));
+		GrinderRecipes.addRecipe(TGuns.boltaction, BARREL_OBSI, ironAndWood(4,1,0));
+		GrinderRecipes.addRecipe(TGuns.m4, BARREL_OBSI, steelAndPlastic(2,2,0));
+		GrinderRecipes.addRecipe(TGuns.m4_infiltrator, BARREL_OBSI, steelAndPlastic(3,2,0), new ItemStack[] {new ItemStack(Items.REDSTONE,1)});
+		GrinderRecipes.addRecipe(TGuns.pistol, BARREL_OBSI, steelAndPlastic(0, 1, 0), ironAndWood(2,0,0));
+		GrinderRecipes.addRecipe(TGuns.combatshotgun, BARREL_OBSI, steelAndPlastic(2, 2, 0));
+		GrinderRecipes.addRecipe(TGuns.mac10, BARREL_OBSI, steelAndPlastic(1,0,5), ironAndWood(1,0,0));
+		GrinderRecipes.addRecipe(TGuns.flamethrower, steelAndPlastic(0, 2, 0), ironAndWood(2, 0, 0));
+		GrinderRecipes.addRecipe(TGuns.rocketlauncher, new ItemStack[] {TGItems.newStack(TGItems.INGOT_OBSIDIAN_STEEL,6)}, steelAndPlastic(1, 0, 5));
+		GrinderRecipes.addRecipe(TGuns.grimreaper, new ItemStack[] {TGItems.newStack(TGItems.INGOT_OBSIDIAN_STEEL, 32), TGItems.newStack(TGItems.CIRCUIT_BOARD_ELITE, 1), TGItems.newStack(TGItems.CARBON_FIBERS, 1)});
+		GrinderRecipes.addRecipe(TGuns.grenadelauncher, BARREL_OBSI, steelAndPlastic(2, 2, 0));
+		GrinderRecipes.addRecipe(TGuns.aug, BARREL_OBSI, steelAndPlastic(2, 2, 0));
+		GrinderRecipes.addRecipe(TGuns.netherblaster, new ItemStack[] {TGItems.newStack(TGItems.INGOT_OBSIDIAN_STEEL, 4), TGItems.newStack(TGItems.CYBERNETIC_PARTS, 2)});
+		GrinderRecipes.addRecipe(TGuns.biogun, steelAndPlastic(2, 2, 0), new ItemStack[] {new ItemStack(Blocks.GLASS,2)});
+		GrinderRecipes.addRecipe(TGuns.teslagun, carbonPlasticAndRedstone(3, 2, 2));
+		GrinderRecipes.addRecipe(TGuns.lmg, new ItemStack[] {TGItems.newStack(TGItems.INGOT_OBSIDIAN_STEEL, 6), TGItems.newStack(TGItems.INGOT_STEEL, 4), TGItems.newStack(TGItems.PLASTIC_SHEET, 2)});
+		GrinderRecipes.addRecipe(TGuns.minigun, new ItemStack[] {TGItems.newStack(TGItems.INGOT_OBSIDIAN_STEEL, 20), TGItems.newStack(TGItems.INGOT_STEEL, 2), TGItems.newStack(TGItems.ELECTRIC_ENGINE, 1)});
+		GrinderRecipes.addRecipe(TGuns.as50, new ItemStack[] {TGItems.newStack(TGItems.INGOT_OBSIDIAN_STEEL, 9), TGItems.newStack(TGItems.PLASTIC_SHEET, 2), new ItemStack(Items.DIAMOND, 1)});
+		GrinderRecipes.addRecipe(TGuns.vector, obsiAndPlastic(5, 2));
+		GrinderRecipes.addRecipe(TGuns.scar, obsiAndPlastic(5, 2));
+		GrinderRecipes.addRecipe(TGuns.lasergun, obsiAndPlastic(2, 2), new ItemStack[] {new ItemStack(Items.REDSTONE,20), TGItems.newStack(GOLD_OR_ELECTRUM, 3)});
+		GrinderRecipes.addRecipe(TGuns.blasterrifle, carbonPlasticAndRedstone(3, 1, 20), new ItemStack[] {TGItems.newStack(GOLD_OR_ELECTRUM, 3)});
+	//TODO: BlasterShotgun NoREcipe
+		GrinderRecipes.addRecipe(TGuns.sonicshotgun, carbonPlasticAndRedstone(3, 2, 2), new ItemStack[] {TGItems.newStack(TGItems.INGOT_TITANIUM, 1)});
+		GrinderRecipes.addRecipe(TGuns.pdw, carbonPlasticAndRedstone(6, 1, 0), obsiAndPlastic(1, 0));
+		GrinderRecipes.addRecipe(TGuns.pulserifle, carbonPlasticAndRedstone(6, 1, 0), obsiAndPlastic(1, 0));
+		GrinderRecipes.addRecipe(TGuns.mibgun,  new ItemStack[] {TGItems.newStack(GOLD_OR_ELECTRUM, 3), TGItems.newStack(TGItems.INGOT_TITANIUM, 1), new ItemStack(Items.REDSTONE,20)});
+		//TODO: AlienBlaster norecipe
+		GrinderRecipes.addRecipe(TGuns.powerhammer, ironAndWood(4,0,0), new ItemStack[] {new ItemStack(Items.FLINT,1)});
+		GrinderRecipes.addRecipe(TGuns.chainsaw, ironAndWood(5,0,0), new ItemStack[] {TGItems.newStack(TGItems.PLASTIC_SHEET, 1)});
+		GrinderRecipes.addRecipe(TGuns.nucleardeathray, new ItemStack[] {TGItems.newStack(TGItems.CARBON_FIBERS, 6), TGItems.newStack(TGItems.INGOT_LEAD, 3), TGItems.newStack(TGItems.MECHANICAL_PARTS_CARBON,1), TGItems.newStack(TGItems.CIRCUIT_BOARD_ELITE, 1)});
+		GrinderRecipes.addRecipe(TGuns.gaussrifle, new ItemStack[] {TGItems.newStack(TGItems.CARBON_FIBERS, 9), TGItems.newStack(TGItems.INGOT_TITANIUM, 1), TGItems.newStack(TGItems.PLASTIC_SHEET, 1), TGItems.newStack(TGItems.CIRCUIT_BOARD_ELITE, 1)});
+		GrinderRecipes.addRecipe(TGuns.guidedmissilelauncher, new ItemStack[] {TGItems.newStack(TGItems.INGOT_OBSIDIAN_STEEL, 8), TGItems.newStack(TGItems.WIRE_COPPER, 1)});
+		GrinderRecipes.addRecipe(TGuns.miningdrill, obsiAndPlastic(6, 2));
+		GrinderRecipes.addRecipe(TGuns.tfg, new ItemStack[] {TGItems.newStack(TGItems.INGOT_TITANIUM, 5), TGItems.newStack(TGItems.INGOT_LEAD,4), TGItems.newStack(TGItems.CARBON_FIBERS, 4)});
+	
+		GrinderRecipes.addRecipe(TGItems.PLATE_CARBON, new ItemStack[] {TGItems.newStack(TGItems.CARBON_FIBERS, 1)});
+		
+		//Ammo crush
+		GrinderRecipes.addRecipeChance(TGItems.RIFLE_ROUNDS, new ItemStack[] {TGItems.newStack(TGItems.NUGGET_LEAD, 1), TGItems.newStack(TGItems.NUGGET_COPPER, 2), new ItemStack(Items.GUNPOWDER)}, new double[] {1d,1d,0.125d});
+		GrinderRecipes.addRecipeChance(TGItems.PISTOL_ROUNDS, new ItemStack[] {TGItems.newStack(TGItems.NUGGET_LEAD, 1), TGItems.newStack(TGItems.NUGGET_COPPER, 1), new ItemStack(Items.GUNPOWDER)}, new double[] {0.75d,1.5d,1.0d/12.0d});
+		GrinderRecipes.addRecipeChance(TGItems.SNIPER_ROUNDS, new ItemStack[] {TGItems.newStack(TGItems.NUGGET_LEAD, 2), TGItems.newStack(TGItems.NUGGET_COPPER, 4), new ItemStack(Items.GUNPOWDER)}, new double[] {1d,1d,0.25d});
+		GrinderRecipes.addRecipeChance(TGItems.SHOTGUN_ROUNDS, new ItemStack[] {TGItems.newStack(TGItems.NUGGET_LEAD, 1), TGItems.newStack(TGItems.NUGGET_COPPER, 1), new ItemStack(Items.GUNPOWDER)}, new double[] {0.5d,1d,0.0625d});
+		
+		GrinderRecipes.addRecipeChance(TGItems.RIFLE_ROUNDS_INCENDIARY, new ItemStack[] {TGItems.newStack(TGItems.NUGGET_LEAD, 1), TGItems.newStack(TGItems.NUGGET_COPPER, 2), new ItemStack(Items.GUNPOWDER), new ItemStack(Items.BLAZE_POWDER)}, new double[] {1d,1d,0.125d, 0.125d});
+		GrinderRecipes.addRecipeChance(TGItems.PISTOL_ROUNDS_INCENDIARY, new ItemStack[] {TGItems.newStack(TGItems.NUGGET_LEAD, 1), TGItems.newStack(TGItems.NUGGET_COPPER, 1), new ItemStack(Items.GUNPOWDER), new ItemStack(Items.BLAZE_POWDER)}, new double[] {0.75d,1.5d,1.0d/12.0d, 0.125d});
+		GrinderRecipes.addRecipeChance(TGItems.SNIPER_ROUNDS_INCENDIARY, new ItemStack[] {TGItems.newStack(TGItems.NUGGET_LEAD, 2), TGItems.newStack(TGItems.NUGGET_COPPER, 4), new ItemStack(Items.GUNPOWDER), new ItemStack(Items.BLAZE_POWDER)}, new double[] {1d,1d,0.25d, 0.125d});
+		GrinderRecipes.addRecipeChance(TGItems.SHOTGUN_ROUNDS_INCENDIARY, new ItemStack[] {TGItems.newStack(TGItems.NUGGET_LEAD, 1), TGItems.newStack(TGItems.NUGGET_COPPER, 1), new ItemStack(Items.GUNPOWDER), new ItemStack(Items.BLAZE_POWDER)}, new double[] {0.5d,1d,0.0625d, 0.125d});
+		
+		
+		
+	}	
+	
+	
+	private static ItemStack[] ironAndWood(int iron, int wood, int nuggets) {
+		int size = (iron>0?1:0)+(wood>0?1:0)+(nuggets>0?1:0);
+		ItemStack[] ret = new ItemStack[size];
+		int i =0;
+		if(iron>0) {
+			ret[i++]=new ItemStack(Items.IRON_INGOT, iron);
+		}
+		if(wood>0) {
+			ret[i++]=new ItemStack(Blocks.LOG, wood);
+		}
+		if(nuggets>0) {
+			ret[i++]=new ItemStack(Items.IRON_NUGGET, nuggets);
+		}
+		return ret;
+	}
+	
+	private static ItemStack[] steelAndPlastic(int steel, int plastic, int nuggets) {
+		int size = (steel>0?1:0)+(plastic>0?1:0)+(nuggets>0?1:0);
+		ItemStack[] ret = new ItemStack[size];
+		int i =0;
+		if(steel>0) {
+			ret[i++]=TGItems.newStack(TGItems.INGOT_STEEL, steel);
+		}
+		if(plastic>0) {
+			ret[i++]=TGItems.newStack(TGItems.PLASTIC_SHEET, plastic);
+		}
+		if(nuggets>0) {
+			ret[i++]=TGItems.newStack(TGItems.INGOT_STEEL, nuggets);
+		}
+		return ret;
+	}
+	
+	private static ItemStack[] obsiAndPlastic(int steel, int plastic) {
+		int size = (steel>0?1:0)+(plastic>0?1:0);
+		ItemStack[] ret = new ItemStack[size];
+		int i =0;
+		if(steel>0) {
+			ret[i++]=TGItems.newStack(TGItems.INGOT_OBSIDIAN_STEEL, steel);
+		}
+		if(plastic>0) {
+			ret[i++]=TGItems.newStack(TGItems.PLASTIC_SHEET, plastic);
+		}
+		return ret;
+	}
+	
+	private static ItemStack[] carbonPlasticAndRedstone(int carbon, int plastic, int redstone) {
+		int size = (carbon>0?1:0)+(plastic>0?1:0)+(redstone>0?1:0);
+		ItemStack[] ret = new ItemStack[size];
+		int i =0;
+		if(carbon>0) {
+			ret[i++]=TGItems.newStack(TGItems.CARBON_FIBERS, carbon);
+		}
+		if(plastic>0) {
+			ret[i++]=TGItems.newStack(TGItems.PLASTIC_SHEET, plastic);
+		}
+		if(redstone>0) {
+			ret[i++]=new ItemStack(Items.REDSTONE, redstone);
+		}
+		return ret;
 	}
 }

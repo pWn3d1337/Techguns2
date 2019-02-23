@@ -939,4 +939,48 @@ public class BlockUtils {
 		}	
 	}
 	
+	 
+	 protected static int getAirHeight(World w, int x, int z, int minH, int maxH, int airH) {
+		 
+		 MutableBlockPos p = new MutableBlockPos(x,minH,z);
+		 int countAir=0;
+		 for(int y=maxH; y>minH; y-- ) {
+			p.setY(y);
+			IBlockState bs = w.getBlockState(p);
+			 if (bs==Blocks.AIR.getDefaultState() || bs.getBlock().isReplaceable(w, p)) {
+				 countAir++;				
+			 } else {
+				 if(countAir>=airH) {
+					 return y;
+				 }
+				 countAir=0;
+			 }
+		 }
+		 return -1;
+		 
+	 }
+	 
+	public static int getCaveHeight(World w, int cx, int cz, int heightDiff, int minY, int maxY) {
+		
+		int h1 = getAirHeight(w, cx*16, cz*16, minY, maxY, heightDiff);
+		int h2 = getAirHeight(w, cx*16+15, cz*16, minY, maxY, heightDiff);
+		int h3 = getAirHeight(w, cx*16, cz*16+15, minY, maxY, heightDiff);
+		int h4 = getAirHeight(w, cx*16+15, cz*16+15, minY, maxY, heightDiff);
+		
+		System.out.println("H1"+h1+ " H2:"+h2+ " H3:"+h3+ " H4:"+h4);
+		
+		if(MathUtil.allInRange(minY, maxY, h1,h2,h3,h4)) {
+			
+			System.out.println(" -->MIN_MAX");
+			int min = MathUtil.min(h1,h2,h3,h4);
+			int max = MathUtil.max(h1,h2,h3,h4);
+			
+			System.out.println(" --->Min:"+min+" Max:"+max);
+			if(max-min <= heightDiff) {
+				return MathUtil.getAverageHeight(h1,h2,h3,h4);
+			}
+			
+		}
+		return -1;
+	}
 }

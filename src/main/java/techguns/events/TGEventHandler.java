@@ -90,6 +90,7 @@ import techguns.capabilities.TGExtendedPlayer;
 import techguns.client.ClientProxy;
 import techguns.client.ShooterValues;
 import techguns.client.audio.TGSound;
+import techguns.client.render.GLStateSnapshot;
 import techguns.client.render.entities.npcs.RenderAttackHelicopter;
 import techguns.client.render.entities.projectiles.DeathEffectEntityRenderer;
 import techguns.client.render.entities.projectiles.RenderGrenade40mmProjectile;
@@ -615,7 +616,14 @@ public class TGEventHandler {
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent
 	public static void onRenderWorldLast(RenderWorldLastEvent event) {
+
+		GLStateSnapshot states = new GLStateSnapshot();
+		//System.out.println("***********BEFORE**********");
+		//states.printDebug();
 		ClientProxy.get().particleManager.renderParticles(Minecraft.getMinecraft().getRenderViewEntity(), event.getPartialTicks());
+		states.restore();
+		//System.out.println("<<<<<<<<<<<AFTER>>>>>>>>>>>>");
+		//new GLStateSnapshot().printDebug();
 	}
 	
 	@SubscribeEvent

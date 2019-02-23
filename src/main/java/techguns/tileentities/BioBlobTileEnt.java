@@ -152,6 +152,7 @@ public class BioBlobTileEnt extends TileEntity implements ITGTileEntSecurity, IT
 		if (!this.world.isRemote) {
 			this.size+=power;
 			if(size>3){
+				size=3;
 				//kaboom
 				float radius = 3.0f;
 				

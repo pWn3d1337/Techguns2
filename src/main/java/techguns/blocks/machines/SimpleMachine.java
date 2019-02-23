@@ -20,7 +20,7 @@ import techguns.api.machines.IMachineType;
 import techguns.util.BlockUtils;
 
 /**
- * A Machine that has no TESR and 4 rotation types
+ * A Machine that has 4 rotation types as block property
  */
 public class SimpleMachine<T extends Enum<T> & IStringSerializable & IMachineType> extends BasicMachine<T> {
 	
@@ -86,7 +86,11 @@ public class SimpleMachine<T extends Enum<T> & IStringSerializable & IMachineTyp
 	public void registerItemBlockModels() {
 		for(int i = 0; i< clazz.getEnumConstants().length;i++) {
 			IBlockState state = getDefaultState().withProperty(MACHINE_TYPE, clazz.getEnumConstants()[i]);
-			ModelLoader.setCustomModelResourceLocation(this.itemblock, this.getMetaFromState(state), new ModelResourceLocation(getRegistryName(),BlockUtils.getBlockStateVariantString(state)));
+			if(clazz.getEnumConstants()[i].hasCustomModelLocation()) {
+				clazz.getEnumConstants()[i].setCustomModelLocation(this.itemblock, this.getMetaFromState(state), getRegistryName(), state);
+			} else {
+				ModelLoader.setCustomModelResourceLocation(this.itemblock, this.getMetaFromState(state), new ModelResourceLocation(getRegistryName(),BlockUtils.getBlockStateVariantString(state)));
+			}
 		}
 	}
 

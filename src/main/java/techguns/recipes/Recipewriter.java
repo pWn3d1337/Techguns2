@@ -173,6 +173,7 @@ import techguns.blocks.machines.EnumMachineType;
 import techguns.blocks.machines.EnumMultiBlockMachineType;
 import techguns.blocks.machines.EnumOreDrillType;
 import techguns.blocks.machines.EnumSimpleMachineType;
+import techguns.blocks.machines.EnumSimpleMachineType2;
 import techguns.items.guns.GenericGun;
 import techguns.items.guns.ammo.AmmoType;
 
@@ -357,6 +358,9 @@ public class Recipewriter {
         
         int blast_furnace_meta = TGBlocks.SIMPLE_MACHINE.getMetaFromState(TGBlocks.SIMPLE_MACHINE.getDefaultState().withProperty(TGBlocks.SIMPLE_MACHINE.MACHINE_TYPE, EnumSimpleMachineType.BLAST_FURNACE));      
         RecipeJsonConverter.addShapedRecipe(new ItemStack(TGBlocks.SIMPLE_MACHINE,1,blast_furnace_meta), "iri","ifi","sbs", 'f', Blocks.FURNACE, 'i', "plateIron", 'b', "blockIron", 's', Blocks.STONEBRICK, 'r', "dustRedstone");
+        
+        int grinder_meta = TGBlocks.SIMPLE_MACHINE2.getMetaFromState(TGBlocks.SIMPLE_MACHINE2.getDefaultState().withProperty(TGBlocks.SIMPLE_MACHINE2.MACHINE_TYPE, EnumSimpleMachineType2.GRINDER));      
+        RecipeJsonConverter.addShapedRecipe(new ItemStack(TGBlocks.SIMPLE_MACHINE2,1,grinder_meta), "imi","mem","iri", 'i', "plateIron", 'm', TGItems.MECHANICAL_PARTS_IRON, 'e', TGItems.ELECTRIC_ENGINE, 'r', "dustRedstone");
         
         
         RecipeJsonConverter.addShapedRecipe(TGItems.newStack(TGItems.QUARTZ_ROD,1), "q  ", " q ", "  q", 'q', "gemQuartz");

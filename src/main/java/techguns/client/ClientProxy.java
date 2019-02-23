@@ -210,6 +210,7 @@ import techguns.client.render.tileentities.RenderDoor3x3Fast;
 import techguns.client.render.tileentities.RenderDungeonGenerator;
 import techguns.client.render.tileentities.RenderDungeonScanner;
 import techguns.client.render.tileentities.RenderFabricator;
+import techguns.client.render.tileentities.RenderGrinder;
 import techguns.client.render.tileentities.RenderMachine;
 import techguns.client.render.tileentities.RenderOreDrill;
 import techguns.client.render.tileentities.RenderReactionChamber;
@@ -274,6 +275,7 @@ import techguns.gui.DungeonGeneratorGui;
 import techguns.gui.DungeonScannerGui;
 import techguns.gui.ExplosiveChargeGui;
 import techguns.gui.FabricatorGui;
+import techguns.gui.GrinderGui;
 import techguns.gui.MetalPressGui;
 import techguns.gui.OreDrillGui;
 import techguns.gui.ReactionChamberGui;
@@ -289,6 +291,7 @@ import techguns.gui.containers.DungeonGeneratorContainer;
 import techguns.gui.containers.DungeonScannerContainer;
 import techguns.gui.containers.ExplosiveChargeContainer;
 import techguns.gui.containers.FabricatorContainer;
+import techguns.gui.containers.GrinderContainer;
 import techguns.gui.containers.MetalPressContainer;
 import techguns.gui.containers.OreDrillContainer;
 import techguns.gui.containers.ReactionChamberContainer;
@@ -308,6 +311,7 @@ import techguns.tileentities.DungeonScannerTileEnt;
 import techguns.tileentities.ExplosiveChargeAdvTileEnt;
 import techguns.tileentities.ExplosiveChargeTileEnt;
 import techguns.tileentities.FabricatorTileEntMaster;
+import techguns.tileentities.GrinderTileEnt;
 import techguns.tileentities.MetalPressTileEnt;
 import techguns.tileentities.OreDrillTileEntMaster;
 import techguns.tileentities.ReactionChamberTileEntMaster;
@@ -476,6 +480,7 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(OreDrillTileEntMaster.class, new RenderOreDrill());
 		
 		ClientRegistry.bindTileEntitySpecialRenderer(BlastFurnaceTileEnt.class, new RenderBlastfurnace());
+		ClientRegistry.bindTileEntitySpecialRenderer(GrinderTileEnt.class, new RenderGrinder());
 		
 		this.initGuiHandler();
 		
@@ -504,6 +509,7 @@ public class ClientProxy extends CommonProxy {
 		guihandler.<ExplosiveChargeAdvTileEnt>addEntry(ExplosiveChargeAdvTileEnt.class, ExplosiveChargeGui::new, ExplosiveChargeContainer::new);
 		guihandler.<OreDrillTileEntMaster>addEntry(OreDrillTileEntMaster.class, OreDrillGui::new, OreDrillContainer::new);
 		guihandler.<BlastFurnaceTileEnt>addEntry(BlastFurnaceTileEnt.class, BlastFurnaceGui::new, BlastFurnaceContainer::new);
+		guihandler.<GrinderTileEnt>addEntry(GrinderTileEnt.class, GrinderGui::new, GrinderContainer::new);
 	}
 	
 	@Override
@@ -1203,7 +1209,10 @@ public class ClientProxy extends CommonProxy {
 	public void createFXOnEntity(String name, Entity ent) {
 		List<TGParticleSystem> systems = TGFX.createFXOnEntity(ent, name);
 		if (systems!=null) {
-			systems.forEach(s -> particleManager.addEffect(s)); //Minecraft.getMinecraft().effectRenderer.addEffect(s));
+			systems.forEach(s -> {
+				s.condition=EntityCondition.ENTITY_ALIVE;
+				particleManager.addEffect(s);
+			}); //Minecraft.getMinecraft().effectRenderer.addEffect(s));
 		}
 	}
 	
@@ -1213,6 +1222,7 @@ public class ClientProxy extends CommonProxy {
 		if (systems!=null) {
 			for (TGParticleSystem s : systems) {
 				s.scale = scale;
+				s.condition=EntityCondition.ENTITY_ALIVE;
 				particleManager.addEffect(s);
 			}
 		}

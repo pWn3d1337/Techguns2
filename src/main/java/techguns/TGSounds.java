@@ -221,6 +221,9 @@ public class TGSounds {
 	public static SoundEvent ORE_DRILL_WORK_MEDIUM = createSoundEvent("machines.oredrillmediumwork");
 	public static SoundEvent ORE_DRILL_WORK_LARGE = createSoundEvent("machines.oredrilllargework");
 	
+	public static SoundEvent GRINDER_START = createSoundEvent("machines.grinder.start");
+	public static SoundEvent GRINDER_WORK = createSoundEvent("machines.grinder.work");
+	
 	public static void registerSounds(RegistryEvent.Register<SoundEvent> event){
 		IForgeRegistry<SoundEvent> reg = event.getRegistry();
 		

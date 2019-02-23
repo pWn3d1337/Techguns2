@@ -147,7 +147,7 @@ public class TGParticle extends Particle implements ITGParticle {
 			
 			if (this.particleSystem.entity != null) {
 				
-				if (this.particleSystem.entity.isDead) {
+				if (!this.particleSystem.entity.isEntityAlive()) {
 					this.setExpired();
 					return;
 				}
@@ -700,6 +700,12 @@ public class TGParticle extends Particle implements ITGParticle {
 	@Override
 	public void setItemAttached() {
 		this.itemAttached=true;
+	}
+
+	@Override
+	public void setExpired() {
+		super.setExpired();
+		this.particleSystem=null;
 	}
 	
 }

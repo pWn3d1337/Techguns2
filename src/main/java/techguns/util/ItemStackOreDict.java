@@ -146,6 +146,10 @@ public class ItemStackOreDict {
 			return OreDictionary.itemMatches(this.item, other.item, false);
 		}
 	}
+	
+	public boolean matches (ItemStack other) {
+		return this.matches(new ItemStackOreDict(other, other.getCount()));
+	}
 
 }
 

@@ -109,6 +109,8 @@ public class GenericArmor extends ItemArmor implements ISpecialArmor , IItemTGRe
 	
 	protected String modid=Techguns.MODID;
 	
+	protected ResourceLocation modelLoc;
+	
 	public GenericArmor(String unlocalizedName, TGArmorMaterial material, String textureName, EntityEquipmentSlot type) {
 		this(Techguns.MODID, unlocalizedName, material, textureName, type);
 	}
@@ -120,7 +122,9 @@ public class GenericArmor extends ItemArmor implements ISpecialArmor , IItemTGRe
 		setCreativeTab(Techguns.tabTechgun);
 		this.modid=modid;
 	    this.setUnlocalizedName(unlocalizedName);
-	    this.setRegistryName(new ResourceLocation(modid, unlocalizedName));
+	    ResourceLocation reg = new ResourceLocation(modid, unlocalizedName);
+	    this.setRegistryName(reg);
+	    this.modelLoc = reg;
 	   // this.setTextureName(Techguns.MODID + ":" + unlocalizedName); //Item Texture
 	    //for tooltip
 	    this.armorValue=Math.round(material.getArmorValueSlot(type, DamageType.PHYSICAL));
@@ -143,12 +147,21 @@ public class GenericArmor extends ItemArmor implements ISpecialArmor , IItemTGRe
 		this.doubleTex=doubleTex;
 		return this;
 	}*/
+	public GenericArmor setArmorModel(ResourceLocation key, boolean doubleTex, ResourceLocation backupTex) {
+		this.armorModel=key;
+		this.doubleTex=doubleTex;
+		this.modelLoc = backupTex;
+		return this;
+	}
+	
 	public GenericArmor setArmorModel(ResourceLocation key, boolean doubleTex) {
 		this.armorModel=key;
 		this.doubleTex=doubleTex;
 		return this;
 	}
 
+	
+	
 	public static boolean isTechgunArmor(ItemStack i) {
 		if (i==null){
 			return false;
@@ -629,7 +642,7 @@ public class GenericArmor extends ItemArmor implements ISpecialArmor , IItemTGRe
 	
 	@SideOnly(Side.CLIENT)
     public void initModel() {
-        ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(), "inventory"));
+        ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(this.modelLoc, "inventory"));
     }
 
 	@Override

@@ -94,7 +94,7 @@ public class TGTickHandler {
 			if (event.player == cp.getPlayerClient()) {
 				//TGExtendedPlayer props = TGExtendedPlayer.get(cp.getPlayerClient());
 				
-				if (Minecraft.getMinecraft().inGameHasFocus) {
+				if (Minecraft.getMinecraft().inGameHasFocus && !event.player.isSpectator()) {
 					ItemStack stack = event.player.getHeldItemMainhand();
 					ItemStack stackOff = event.player.getHeldItemOffhand();
 					

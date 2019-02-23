@@ -21,7 +21,7 @@ public class DungeonTemplate implements Serializable{
 	public static final String SCAN_DIR = "./templates/";
 	
 	private static final String DUNGEON_TEMPLATE_DIR="/assets/techguns/dungeons/";
-	private static final String[] TEMPLATE_LIST = new String[] { "ncdung1", "nclower1", "ncmid1", "ncupper1", "nctop1", "ncroof1", "nether0", "nether1", "netherB0", "netherB1" }; //Castle
+	private static final String[] TEMPLATE_LIST = new String[] { "ncdung1", "nclower1", "ncmid1", "ncupper1", "nctop1", "ncroof1", "nether0", "nether1", "nether_b0", "nether_b1" }; //Castle
 	
 	protected ResourceLocation LOOTTABLE = null;
 	

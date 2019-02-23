@@ -100,6 +100,59 @@ public class MathUtil {
     }
     
     /**
+     * Return if all passed integers are withing bounds
+     * @param lowerBound
+     * @param upperBound
+     * @param values
+     * @return
+     */
+    public static boolean allInRange(int lowerBound, int upperBound, Integer... values) {
+    	for(int i=0;i<values.length;i++) {
+    		if(values[i]<lowerBound || values[i]> upperBound) {
+    			return false;
+    		}
+    	}
+    	
+		return true;
+    }
+    
+    public static int min(Integer... values) {
+    	int min=Integer.MAX_VALUE;
+    	for(int i=0;i<values.length;i++) {
+    		if(values[i]<min) {
+    			min=values[i];
+    		}
+    	}
+    	
+		return min;
+    }
+    
+    public static int max(Integer... values) {
+    	int max=Integer.MIN_VALUE;
+    	for(int i=0;i<values.length;i++) {
+    		if(values[i]>max) {
+    			max=values[i];
+    		}
+    	}
+    	
+		return max;
+    }
+    
+    /**
+     * get average from multiple ints, rounded to next int.
+     * @param values
+     * @return
+     */
+    public static int getAverageHeight(Integer... values) {
+    	int sum=0;
+    	for(int i=0;i<values.length;i++) {
+    		sum+=values[i];
+    	}
+		return (int) Math.round(sum/((double)values.length));
+    }
+    
+    
+    /**
      * Returns a rotation angle that is inbetween two other rotation angles. par1 and par2 are the angles between which
      * to interpolate, par3 is probably a float between 0.0 and 1.0 that tells us where "between" the two angles we are.
      * Example: par1 = 30, par2 = 50, par3 = 0.5, then return = 40

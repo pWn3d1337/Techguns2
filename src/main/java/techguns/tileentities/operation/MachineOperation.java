@@ -286,6 +286,16 @@ public class MachineOperation {
 	public ArrayList<ItemStack> getOutputs() {
 		return outputs;
 	}
+	
+	public ArrayList<ItemStack> getOutputsWithMult() {
+		ArrayList<ItemStack> outputs = new ArrayList<>();
+		this.outputs.forEach(o -> {
+			ItemStack it = o.copy();
+			it.setCount(o.getCount()*this.stackMultiplier);
+			outputs.add(it);
+		});
+		return outputs;
+	}
 
 	public ArrayList<FluidStack> getFluid_inputs() {
 		return fluid_inputs;

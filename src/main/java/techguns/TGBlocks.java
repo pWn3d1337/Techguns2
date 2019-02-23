@@ -60,6 +60,7 @@ import techguns.blocks.machines.EnumMachineType;
 import techguns.blocks.machines.EnumMultiBlockMachineType;
 import techguns.blocks.machines.EnumOreDrillType;
 import techguns.blocks.machines.EnumSimpleMachineType;
+import techguns.blocks.machines.EnumSimpleMachineType2;
 import techguns.blocks.machines.MultiBlockMachine;
 import techguns.blocks.machines.SimpleMachine;
 import techguns.init.ITGInitializer;
@@ -73,6 +74,8 @@ public class TGBlocks implements ITGInitializer{
 	public static BasicMachine<EnumMachineType> BASIC_MACHINE;
 	
 	public static SimpleMachine<EnumSimpleMachineType> SIMPLE_MACHINE;
+	
+	public static SimpleMachine<EnumSimpleMachineType2> SIMPLE_MACHINE2;
 	
 	public static MultiBlockMachine<EnumMultiBlockMachineType> MULTIBLOCK_MACHINE;
 	
@@ -139,6 +142,7 @@ public class TGBlocks implements ITGInitializer{
 	public void preInit(FMLPreInitializationEvent event) {
 		BASIC_MACHINE= new BasicMachine<EnumMachineType>("basicmachine",EnumMachineType.class);
 		SIMPLE_MACHINE = new SimpleMachine<EnumSimpleMachineType>("simplemachine",EnumSimpleMachineType.class);
+		SIMPLE_MACHINE2 = new SimpleMachine<EnumSimpleMachineType2>("simplemachine2",EnumSimpleMachineType2.class);
 		MULTIBLOCK_MACHINE = new MultiBlockMachine<EnumMultiBlockMachineType>("multiblockmachine", EnumMultiBlockMachineType.class);
 		TG_ORE = new BlockTGOre("basicore");
 		BIOBLOB= new BlockBioblob("bioblob");

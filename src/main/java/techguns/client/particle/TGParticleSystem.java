@@ -326,7 +326,12 @@ public class TGParticleSystem extends Particle implements ITGParticle {
 	@Override
 	public void setItemAttached() {
 	}
-	
+
+	@Override
+	public void setExpired() {
+		super.setExpired();
+		this.entity=null;
+	}
 	
 //ACTUALLY WE DON'T NEED THIS	
 //	@SideOnly(Side.CLIENT)

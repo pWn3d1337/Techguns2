@@ -437,10 +437,10 @@ public class ChemLabTileEnt extends BasicMachineTileEnt implements ITileEntityFl
 			IItemHandler playerInventory = player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
             if (playerInventory != null)
             {
-                FluidActionResult fluidActionResult = FluidUtil.tryFillContainerAndStow(stack, this.outputTank, playerInventory, Integer.MAX_VALUE, player);
+                FluidActionResult fluidActionResult = FluidUtil.tryFillContainerAndStow(stack, this.outputTank, playerInventory, Integer.MAX_VALUE, player,true);
                 if (!fluidActionResult.isSuccess())
                 {
-                    fluidActionResult = FluidUtil.tryEmptyContainerAndStow(stack, this.inputTank, playerInventory, Integer.MAX_VALUE, player);
+                    fluidActionResult = FluidUtil.tryEmptyContainerAndStow(stack, this.inputTank, playerInventory, Integer.MAX_VALUE, player, true);
                 }
 
                 if (fluidActionResult.isSuccess())

@@ -10,7 +10,10 @@ public class TGRenderHelper {
 	protected static float lastBrightnessX=0;
 	protected static float lastBrightnessY=0;
 	
-	private static int lastBlendSrc=0;
+	protected static int lastBlendFuncSrc=0;
+	protected static int lastBlendFuncDest=0;
+	
+	/*private static int lastBlendSrc=0;
 	private static int lastBlendDst=0;
 	private static void snapshotBlendFunc() {
 		lastBlendSrc=GL11.glGetInteger(GL11.GL_BLEND_SRC);
@@ -18,7 +21,7 @@ public class TGRenderHelper {
 	}
 	private static void restoreBlendFunc() {
 		GL11.glBlendFunc(lastBlendSrc, lastBlendDst);
-	}
+	}*/
 
 	public static void enableFXLighting()
     {
@@ -61,9 +64,13 @@ public class TGRenderHelper {
     		GlStateManager.enableBlend();
     	}
         if (type == RenderType.ALPHA) {
+        	lastBlendFuncSrc = GlStateManager.glGetInteger(GL11.GL_BLEND_SRC);
+			lastBlendFuncDest = GlStateManager.glGetInteger(GL11.GL_BLEND_DST);
         	GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
         	
         } else if (type == RenderType.ADDITIVE || type==RenderType.NO_Z_TEST) {
+        	lastBlendFuncSrc = GlStateManager.glGetInteger(GL11.GL_BLEND_SRC);
+			lastBlendFuncDest = GlStateManager.glGetInteger(GL11.GL_BLEND_DST);
         	GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE);
         }      
         if (type==RenderType.NO_Z_TEST){
@@ -83,7 +90,8 @@ public class TGRenderHelper {
     		GlStateManager.disableBlend();
     	}
 		if (type == RenderType.ALPHA || type == RenderType.ADDITIVE || type==RenderType.NO_Z_TEST) {
-			GlStateManager.blendFunc(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+			//GlStateManager.blendFunc(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+			GlStateManager.blendFunc(lastBlendFuncSrc, lastBlendFuncDest);
         }
         if (type==RenderType.NO_Z_TEST){
         	GlStateManager.depthMask(true);

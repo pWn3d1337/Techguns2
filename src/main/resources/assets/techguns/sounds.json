@@ -1329,6 +1329,19 @@
         "techguns:effects/geiger2",
         "techguns:effects/geiger3"
     ]
-}
+},
 
+"machines.grinder.start": {
+    "category": "block",
+    "sounds": [
+        "techguns:machines/grind_start"
+    ]
+},
+
+"machines.grinder.work": {
+    "category": "block",
+    "sounds": [
+        "techguns:machines/grind"
+    ]
+}
 }

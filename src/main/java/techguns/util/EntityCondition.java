@@ -9,7 +9,8 @@ import techguns.capabilities.TGExtendedPlayer;
  */
 public enum EntityCondition {
 	NONE(0),
-	CHARGING_WEAPON(1);
+	CHARGING_WEAPON(1),
+	ENTITY_ALIVE(2);
 	
 	public byte id = 0;
 	private EntityCondition(int id) {
@@ -31,6 +32,8 @@ public enum EntityCondition {
 				return txp.isChargingWeapon();
 			}
 			return false;
+		case ENTITY_ALIVE:
+			return entity.isEntityAlive();
 		case NONE:
 		default: //If no condition is set, never stop a sound/particle.
 			return true;

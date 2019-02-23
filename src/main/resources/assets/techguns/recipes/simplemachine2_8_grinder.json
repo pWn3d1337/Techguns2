@@ -1,0 +1,28 @@
+{
+  "result": {
+    "item": "techguns:simplemachine2",
+    "data": 8
+  },
+  "pattern": [
+    "imi",
+    "mem",
+    "iri"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "r": {
+      "item": "#DUSTREDSTONE"
+    },
+    "e": {
+      "item": "techguns:itemshared",
+      "data": 70
+    },
+    "i": {
+      "item": "#PLATEIRON"
+    },
+    "m": {
+      "item": "techguns:itemshared",
+      "data": 57
+    }
+  }
+}

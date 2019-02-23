@@ -1,0 +1,12 @@
+{
+	"forge_marker": 1,
+		"defaults": {
+			"custom": { "flip-v": true }
+	},
+    "variants": {
+        "facing=north,machinetype=grinder": { "model": "techguns:grinder" },
+        "facing=south,machinetype=grinder": { "model": "techguns:grinder", "y": 180 },
+        "facing=west,machinetype=grinder":  { "model": "techguns:grinder", "y": 270 },
+        "facing=east,machinetype=grinder":  { "model": "techguns:grinder", "y": 90 }
+    }
+}
