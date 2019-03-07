@@ -12,6 +12,7 @@ import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import techguns.TGConfig;
 
 public class BlockDebugMarker extends GenericBlockMetaEnum<EnumDebugBlockType> {
 
@@ -55,9 +56,11 @@ public class BlockDebugMarker extends GenericBlockMetaEnum<EnumDebugBlockType> {
 
 	@Override
 	public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> items) {
-		items.add(new ItemStack(this,1,this.getMetaFromState(getDefaultState().withProperty(TYPE, EnumDebugBlockType.AIRMARKER))));
-		items.add(new ItemStack(this,1,this.getMetaFromState(getDefaultState().withProperty(TYPE, EnumDebugBlockType.ANTIAIRMARKER))));
-		items.add(new ItemStack(this,1,this.getMetaFromState(getDefaultState().withProperty(TYPE, EnumDebugBlockType.INTERIORMARKER_NORTH))));
+		if(TGConfig.debug) {
+			items.add(new ItemStack(this,1,this.getMetaFromState(getDefaultState().withProperty(TYPE, EnumDebugBlockType.AIRMARKER))));
+			items.add(new ItemStack(this,1,this.getMetaFromState(getDefaultState().withProperty(TYPE, EnumDebugBlockType.ANTIAIRMARKER))));
+			items.add(new ItemStack(this,1,this.getMetaFromState(getDefaultState().withProperty(TYPE, EnumDebugBlockType.INTERIORMARKER_NORTH))));
+		}
 	}
 
 	@Override
@@ -79,7 +82,5 @@ public class BlockDebugMarker extends GenericBlockMetaEnum<EnumDebugBlockType> {
 		}
 		return super.getStateForPlacement(world, pos, facing, hitX, hitY, hitZ, meta, placer, hand);
 	}
-
-	
 	
 }

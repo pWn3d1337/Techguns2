@@ -7,6 +7,10 @@
         "facing=north,machinetype=grinder": { "model": "techguns:grinder" },
         "facing=south,machinetype=grinder": { "model": "techguns:grinder", "y": 180 },
         "facing=west,machinetype=grinder":  { "model": "techguns:grinder", "y": 270 },
-        "facing=east,machinetype=grinder":  { "model": "techguns:grinder", "y": 90 }
+        "facing=east,machinetype=grinder":  { "model": "techguns:grinder", "y": 90 },
+		"facing=north,machinetype=armor_bench": { "model": "techguns:upgrade_bench" },
+        "facing=south,machinetype=armor_bench": { "model": "techguns:upgrade_bench", "y": 180 },
+        "facing=west,machinetype=armor_bench":  { "model": "techguns:upgrade_bench", "y": 270 },
+        "facing=east,machinetype=armor_bench":  { "model": "techguns:upgrade_bench", "y": 90 }
     }
 }

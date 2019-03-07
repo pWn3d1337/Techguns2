@@ -23,6 +23,8 @@ public class TGDamageSource extends EntityDamageSource {
 		public DeathType deathType;
 		public float goreChance=0.5f;
 		
+		public boolean knockbackOnShieldBlock=true;
+		
 		/**
 		 * Anti-Toughness
 		 */
@@ -54,6 +56,7 @@ public class TGDamageSource extends EntityDamageSource {
 		
 		public static TGDamageSource causeBulletDamage(Entity projectile, Entity shooter, DeathType deathType){
 			TGDamageSource src = new TGDamageSource("tg_bullet",projectile, shooter, DamageType.PROJECTILE, deathType);
+			src.knockbackOnShieldBlock=false;
 			src.ignoreHurtresistTime=true;
 			return src;
 		}
@@ -65,6 +68,7 @@ public class TGDamageSource extends EntityDamageSource {
 		public static TGDamageSource causePoisonDamage(Entity projectile, Entity shooter, DeathType deathType){
 			TGDamageSource src = new TGDamageSource("tg_poison",projectile, shooter, DamageType.POISON, deathType);
 			src.ignoreHurtresistTime=true;
+			src.knockbackOnShieldBlock=false;
 			return src;
 		}
 		
@@ -72,6 +76,7 @@ public class TGDamageSource extends EntityDamageSource {
 		public static TGDamageSource causeFireDamage(Entity projectile, Entity shooter, DeathType deathType){
 			TGDamageSource src = new TGDamageSource("tg_fire",projectile, shooter, DamageType.FIRE, deathType);
 			src.ignoreHurtresistTime=true;
+			src.knockbackOnShieldBlock=false;
 			return src;
 		}
 		
@@ -82,24 +87,28 @@ public class TGDamageSource extends EntityDamageSource {
 		public static TGDamageSource causeEnergyDamage(Entity projectile, Entity shooter, DeathType deathType){
 			TGDamageSource src = new TGDamageSource("tg_energy",projectile, shooter, DamageType.ENERGY, deathType);
 			src.ignoreHurtresistTime=true;
+			src.knockbackOnShieldBlock=false;
 			return src;
 		}
 
 		public static TGDamageSource causeRadiationDamage(Entity projectile, Entity shooter, DeathType deathType){
 			TGDamageSource src = new TGDamageSource("tg_rad",projectile, shooter, DamageType.RADIATION, deathType);
 			src.ignoreHurtresistTime=true;
+			src.knockbackOnShieldBlock=false;
 			return src;
 		}
 		
 		public static TGDamageSource causeLightningDamage(Entity projectile, Entity shooter, DeathType deathType){
 			TGDamageSource src = new TGDamageSource("tg_lightning",projectile, shooter, DamageType.LIGHTNING, deathType);
 			src.ignoreHurtresistTime=true;
+			src.knockbackOnShieldBlock=false;
 			return src;
 		}
 		
 		public static TGDamageSource causeDarkDamage(Entity projectile, Entity shooter, DeathType deathType){
 			TGDamageSource src = new TGDamageSource("tg_dark",projectile, shooter, DamageType.DARK, deathType);
 			src.ignoreHurtresistTime=true;
+			src.knockbackOnShieldBlock=false;
 			return src;
 		}
 		
@@ -291,6 +300,7 @@ public class TGDamageSource extends EntityDamageSource {
 			}
 			if(dmg.isProjectile()){
 				this.setProjectile();
+				this.knockbackOnShieldBlock=false;
 			}
 			if(dmg.isUnblockable()){
 				this.setDamageBypassesArmor();
@@ -329,4 +339,13 @@ public class TGDamageSource extends EntityDamageSource {
 			return this.damageSourceEntity;
 		}
 
+		public boolean knockbackOnShieldBlock() {
+			return this.knockbackOnShieldBlock;
+		}
+
+		public TGDamageSource setKnockbackOnShieldBlock(boolean knockbackOnShieldBlock) {
+			this.knockbackOnShieldBlock = knockbackOnShieldBlock;
+			return this;
+		}
+		
 }

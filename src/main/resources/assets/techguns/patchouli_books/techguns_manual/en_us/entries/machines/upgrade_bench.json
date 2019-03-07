@@ -1,0 +1,26 @@
+{
+    "name": "Upgrade Bench",
+    "icon": "techguns:simplemachine2:9",
+    "category": "simple_machines",
+    "pages": [
+        {
+            "type": "text",
+            "text": "The upgrade bench is used to add upgrades to Techguns armors. Technically upgrades are equal to vanilla enchants."
+        }, 
+       {
+            "type": "text",
+            "title": "Usage",
+            "text": "Add the Techguns armor in the left slot and the armor upgrade in the middle slot. If the input is valid the right slot shows the output. The upgrade is applied when the output item is taken. Upgrading also costs XP. The needed amount and the player's current XP is shown in the gui. Upgrading to a high level of the same type costs less xp."
+       },
+      {
+            "type": "crafting",
+            "recipe": "techguns:simplemachine2_9_armor_bench"
+       },
+       {    "type": "spotlight",
+            "title": "Armor Upgrade",
+            "anchor": "upgrade",
+            "item": "techguns:itemshared:147",
+            "text": "Each armor upgrade shows which enchantment and level it holds. The xp cost is cheaper when the same upgrade with a lower level is already present."
+       }
+    ]
+}

@@ -36,9 +36,9 @@ public class PresetNetherDungeon implements IDungeonPreset{
 	public PresetNetherDungeon() {
 		//"ncdung1", "nclower1", "ncmid1", "ncupper1", "nctop1", "ncroof1" 
 		
-		bottomTemplates.add(DungeonTemplate.dungeonTemplates.get("netherB0").setLoottable(LOOTTABLE));
+		bottomTemplates.add(DungeonTemplate.dungeonTemplates.get("nether_b0").setLoottable(LOOTTABLE));
 		
-		lowerTemplates.add(DungeonTemplate.dungeonTemplates.get("netherB1").setLoottable(LOOTTABLE));
+		lowerTemplates.add(DungeonTemplate.dungeonTemplates.get("nether_b1").setLoottable(LOOTTABLE));
 		
 		midTemplates.add(DungeonTemplate.dungeonTemplates.get("nether0").setLoottable(LOOTTABLE));
 		

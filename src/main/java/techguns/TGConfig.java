@@ -129,6 +129,7 @@ public class TGConfig {
 	public static double powermult_nether_crystal;
 	public static double powermult_oil;
 	
+	public static int upgrade_xp_cost;
 	
 	public static String[] biomeBlacklist;
 	
@@ -156,6 +157,8 @@ public class TGConfig {
 		config.addCustomCategoryComment(CLIENTSIDE, "Clientside options, can be changed when playing on a server");
 		
 		debug = config.getBoolean("debug", config.CATEGORY_GENERAL, false, "Enable debug options and unfinished stuff, disable this for playing.");
+		
+		upgrade_xp_cost = config.getInt("UpgradeXPCost", config.CATEGORY_GENERAL, 20, 0, 10000, "Base XP value for Upgrade Bench recipes (enchants)");
 		
 		limitUnsafeModeToOP = config.getBoolean("RestrictUnsafeModeToOP", config.CATEGORY_GENERAL, false, "Only opped players can use the unsafe mode of guns, this OVERRIDES the permission setting 'techguns.allowunsafemode'");
 		

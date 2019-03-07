@@ -1,0 +1,26 @@
+{
+  "result": {
+    "item": "techguns:simplemachine2",
+    "data": 9
+  },
+  "pattern": [
+    " c ",
+    "oeo",
+    "sos"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "s": {
+      "item": "#OBSIDIAN"
+    },
+    "c": {
+      "item": "#WORKBENCH"
+    },
+    "e": {
+      "item": "#GEMEMERALD"
+    },
+    "o": {
+      "item": "#PLATEOBSIDIANSTEEL"
+    }
+  }
+}

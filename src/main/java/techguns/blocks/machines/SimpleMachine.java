@@ -11,7 +11,9 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
@@ -50,12 +52,20 @@ public class SimpleMachine<T extends Enum<T> & IStringSerializable & IMachineTyp
 		return true;
 	}*/
 
+	
+	
 	@Override
 	public boolean isFullCube(IBlockState state) {
 		T t = state.getValue(MACHINE_TYPE);
 		return t.isFullCube();
 	}
 	
+	@Override
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+		T t = state.getValue(MACHINE_TYPE);
+		return t.getBoundingBox(state, source, pos);
+	}
+
 	@Override
 	public boolean isOpaqueCube(IBlockState state) {
 		/**

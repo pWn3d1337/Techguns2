@@ -178,9 +178,9 @@ public class TGBlocks implements ITGInitializer{
 		
 		ORE_DRILL_BLOCK = new BlockOreDrill("oredrill");
 		
-		if (TGConfig.debug) {
-			DEBUG_BLOCK = new BlockDebugMarker("debugblock", Material.GROUND);
-		}
+		//if (TGConfig.debug) {
+		DEBUG_BLOCK = new BlockDebugMarker("debugblock", Material.GROUND);
+		//}
 		
 		if(TGItems.WRITE_ITEM_JSON && event.getSide()==Side.CLIENT){
 			BLOCKLIST.stream().filter(new Predicate<IGenericBlock>() {

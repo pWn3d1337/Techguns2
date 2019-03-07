@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
 import net.minecraft.init.PotionTypes;
 import net.minecraft.item.ItemStack;
@@ -17,6 +18,8 @@ import techguns.api.radiation.TGRadiation;
 import techguns.blocks.EnumOreType;
 import techguns.items.armors.ICamoChangeable;
 import techguns.tileentities.operation.AmmoPressBuildPlans;
+import techguns.tileentities.operation.UpgradeBenchRecipes;
+import techguns.tileentities.operation.UpgradeBenchRecipes.UpgradeBenchRecipe;
 import techguns.tileentities.operation.BlastFurnaceRecipes;
 import techguns.tileentities.operation.BlastFurnaceRecipes.BlastFurnaceRecipe;
 import techguns.tileentities.operation.CamoBenchRecipes;
@@ -205,6 +208,7 @@ public class TGMachineRecipes {
 		BlastFurnaceRecipes.addRecipe(new ItemStack(Items.IRON_INGOT,4), new ItemStack(Items.COAL,1), TGItems.newStack(TGItems.INGOT_STEEL, 4), 10, 800);
 		BlastFurnaceRecipes.addRecipe(new ItemStack(Items.IRON_INGOT,4), new ItemStack(Items.COAL,1,1), TGItems.newStack(TGItems.INGOT_STEEL, 4), 10, 800);
 		BlastFurnaceRecipes.addRecipe("ingotSteel",1, new ItemStack(Blocks.OBSIDIAN,1), TGItems.newStack(TGItems.INGOT_OBSIDIAN_STEEL, 1), 10, 200);
+		BlastFurnaceRecipes.addRecipe("ingotCopper", 3,"ingotTin",1,TGItems.newStack(TGItems.INGOT_BRONZE, 4), 10, 100);
 		
 		/**
 		 * CHARGING STATION
@@ -346,7 +350,22 @@ public class TGMachineRecipes {
 		GrinderRecipes.addRecipeChance(TGItems.SHOTGUN_ROUNDS_INCENDIARY, new ItemStack[] {TGItems.newStack(TGItems.NUGGET_LEAD, 1), TGItems.newStack(TGItems.NUGGET_COPPER, 1), new ItemStack(Items.GUNPOWDER), new ItemStack(Items.BLAZE_POWDER)}, new double[] {0.5d,1d,0.0625d, 0.125d});
 		
 		
+		/**
+		 * Upgrade bench recipes
+		 */
+		UpgradeBenchRecipes.addRecipe(TGItems.PLATE_CARBON, Enchantments.PROTECTION, 4);
 		
+		UpgradeBenchRecipes.addRecipe(TGItems.UPGRADE_PROTECTION_1, Enchantments.PROTECTION, 1);
+		UpgradeBenchRecipes.addRecipe(TGItems.UPGRADE_PROJECTILE_PROTECTION_1, Enchantments.PROJECTILE_PROTECTION, 1);
+		UpgradeBenchRecipes.addRecipe(TGItems.UPGRADE_BLAST_PROTECTION_1, Enchantments.BLAST_PROTECTION, 1);
+		
+		UpgradeBenchRecipes.addRecipe(TGItems.UPGRADE_PROTECTION_2, Enchantments.PROTECTION, 2);
+		UpgradeBenchRecipes.addRecipe(TGItems.UPGRADE_PROJECTILE_PROTECTION_2, Enchantments.PROJECTILE_PROTECTION, 2);
+		UpgradeBenchRecipes.addRecipe(TGItems.UPGRADE_BLAST_PROTECTION_2, Enchantments.BLAST_PROTECTION, 2);
+		
+		UpgradeBenchRecipes.addRecipe(TGItems.UPGRADE_PROTECTION_3, Enchantments.PROTECTION, 3);
+		UpgradeBenchRecipes.addRecipe(TGItems.UPGRADE_PROJECTILE_PROTECTION_3, Enchantments.PROJECTILE_PROTECTION, 3);
+		UpgradeBenchRecipes.addRecipe(TGItems.UPGRADE_BLAST_PROTECTION_3, Enchantments.BLAST_PROTECTION, 3);
 	}	
 	
 	

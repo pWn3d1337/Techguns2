@@ -6,6 +6,8 @@ import java.util.Random;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.FluidStack;
+import techguns.TGRadiationSystem;
+import techguns.entities.special.EntityRadiation;
 import techguns.tileentities.ReactionChamberTileEntMaster;
 
 public class ReactionChamberOperation extends MachineOperation {
@@ -89,6 +91,9 @@ public class ReactionChamberOperation extends MachineOperation {
 			//do recipe tick
 			if (powered && focusMatch && this.required_intensity==intensity && this.recipe.liquidLevel==liquidLevel){
 				completion++;
+				this.doRadiation(tile, true);
+			} else {
+				this.doRadiation(tile, false);
 			}
 			
 			if(!focusMatch) {
@@ -124,6 +129,27 @@ public class ReactionChamberOperation extends MachineOperation {
 			return true;
 		} else {
 			return this.isFinished(tile);
+		}
+	}
+	
+	public void doRadiation(ReactionChamberTileEntMaster tile, boolean success) {
+		if(!tile.getWorld().isRemote && TGRadiationSystem.isEnabled()) { 
+			ReactionBeamFocus focus = ReactionBeamFocus.getBeamFocus(tile.getInventory().getStackInSlot(ReactionChamberTileEntMaster.SLOT_FOCUS));
+			if(focus!=null) {
+				int rad=0;
+				if(success) {
+					rad = (int) Math.ceil(focus.radiationFactor_success*tile.getIntensity());
+				} else {
+					rad = (int) Math.ceil(focus.radiationFactor_failure*tile.getIntensity());
+				}
+				
+				if(rad>0) {
+					
+					TGRadiationSystem.applyRadToEntities(tile, focus.rad_radius_outer, 62, rad-1, focus.rad_radius_inner, 0);
+					
+				}
+				
+			}
 		}
 	}
 	

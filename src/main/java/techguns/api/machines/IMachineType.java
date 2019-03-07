@@ -1,5 +1,6 @@
 package techguns.api.machines;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.Item;
@@ -7,6 +8,9 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -33,5 +37,9 @@ public interface IMachineType<E extends Enum<E>> {
 	@SideOnly(Side.CLIENT)
 	public default void setCustomModelLocation(Item itemblock, int meta, ResourceLocation registryName, IBlockState state) {
 		//do nothing
+	}
+	
+	public default AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+		return Block.FULL_BLOCK_AABB;
 	}
 }

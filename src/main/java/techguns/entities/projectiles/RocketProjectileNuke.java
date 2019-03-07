@@ -1,16 +1,19 @@
 package techguns.entities.projectiles;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
 import techguns.TGPackets;
+import techguns.TGRadiationSystem;
 import techguns.TGSounds;
 import techguns.Techguns;
 import techguns.api.damagesystem.DamageType;
 import techguns.damagesystem.TGDamageSource;
 import techguns.damagesystem.TGExplosion;
 import techguns.deatheffects.EntityDeathUtils.DeathType;
+import techguns.entities.special.EntityRadiation;
 import techguns.items.guns.GenericGun;
 import techguns.items.guns.IProjectileFactory;
 import techguns.items.guns.ammo.DamageModifier;
@@ -45,7 +48,14 @@ public class RocketProjectileNuke extends RocketProjectile {
 			explosion.setDmgSrc(getProjectileDamageSource());
 			
 			explosion.doExplosion(false);
-			this.world.playSound((EntityPlayer)null, this.posX, this.posY, this.posZ, TGSounds.NUKE_EXPLOSION, SoundCategory.BLOCKS, 4.0F, 1.0F);    	
+			this.world.playSound((EntityPlayer)null, this.posX, this.posY, this.posZ, TGSounds.NUKE_EXPLOSION, SoundCategory.BLOCKS, 4.0F, 1.0F);   
+			
+			/** DO RADIATION**/
+			if(TGRadiationSystem.isEnabled()) {
+				EntityRadiation rad = new EntityRadiation(this, 20*60, this.damageDropStart, 9, this.damageDropEnd, 2);
+				this.world.spawnEntity(rad);
+			}
+			
 		}else {
 			Techguns.proxy.createLightPulse(this.posX, this.posY, this.posZ, 5, 80, 80.0f, 1.0f, 1f, 0.9f, 0.5f);
 		}

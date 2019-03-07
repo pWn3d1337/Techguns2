@@ -644,6 +644,12 @@ public class GenericArmor extends ItemArmor implements ISpecialArmor , IItemTGRe
     public void initModel() {
         ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(this.modelLoc, "inventory"));
     }
+	
+	@SideOnly(Side.CLIENT)
+	@Override
+	public boolean hasEffect(ItemStack stack) {
+		return false;
+	}
 
 	@Override
 	public boolean shouldUseRenderHack(ItemStack stack) {

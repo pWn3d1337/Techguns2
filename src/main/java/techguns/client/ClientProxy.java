@@ -93,6 +93,7 @@ import techguns.client.models.armor.ModelNightVisionGoggles;
 import techguns.client.models.armor.ModelOxygenTanks;
 import techguns.client.models.armor.ModelSteamArmor;
 import techguns.client.models.armor.ModelT3PowerArmor;
+import techguns.client.models.armor.ModelT4PowerArmorMk2;
 import techguns.client.models.gibs.ModelGibsQuadruped;
 import techguns.client.models.guns.ModelAK;
 import techguns.client.models.guns.ModelAS50;
@@ -266,6 +267,7 @@ import techguns.entities.projectiles.TeslaProjectile;
 import techguns.events.TGGuiEvents;
 import techguns.events.TechgunsGuiHandler.GuiHandlerRegister;
 import techguns.gui.AmmoPressGui;
+import techguns.gui.UpgradeBenchGui;
 import techguns.gui.BlastFurnaceGui;
 import techguns.gui.CamoBenchGui;
 import techguns.gui.ChargingStationGui;
@@ -282,6 +284,7 @@ import techguns.gui.ReactionChamberGui;
 import techguns.gui.RepairBenchGui;
 import techguns.gui.TurretGui;
 import techguns.gui.containers.AmmoPressContainer;
+import techguns.gui.containers.UpgradeBenchContainer;
 import techguns.gui.containers.BlastFurnaceContainer;
 import techguns.gui.containers.CamoBenchContainer;
 import techguns.gui.containers.ChargingStationContainer;
@@ -301,6 +304,7 @@ import techguns.gui.player.tabs.TGPlayerTab;
 import techguns.items.guns.GenericGun;
 import techguns.keybind.TGKeybinds;
 import techguns.tileentities.AmmoPressTileEnt;
+import techguns.tileentities.UpgradeBenchTileEnt;
 import techguns.tileentities.BlastFurnaceTileEnt;
 import techguns.tileentities.CamoBenchTileEnt;
 import techguns.tileentities.ChargingStationTileEnt;
@@ -430,6 +434,10 @@ public class ClientProxy extends CommonProxy {
 		registerArmorModel(TGArmors.ARMORMODEL_COAT_3, new ModelArmorCoat(3,0.75f));
 		registerArmorModel(TGArmors.ARMORMODEL_STEAM_ARMOR_2, new ModelSteamArmor(0,0.01f));
 		registerArmorModel(TGArmors.ARMORMODEL_POWER_ARMOR_2, new ModelT3PowerArmor(0,0.01f));
+		
+		registerArmorModel(TGArmors.ARMORMODEL_POWER_ARMOR_MK2_0, new ModelT4PowerArmorMk2(0));
+		registerArmorModel(TGArmors.ARMORMODEL_POWER_ARMOR_MK2_1, new ModelT4PowerArmorMk2(1));
+		registerArmorModel(TGArmors.ARMORMODEL_POWER_ARMOR_MK2_2, new ModelT4PowerArmorMk2(0,0.01f));
 	}
 
 	@Override
@@ -510,6 +518,7 @@ public class ClientProxy extends CommonProxy {
 		guihandler.<OreDrillTileEntMaster>addEntry(OreDrillTileEntMaster.class, OreDrillGui::new, OreDrillContainer::new);
 		guihandler.<BlastFurnaceTileEnt>addEntry(BlastFurnaceTileEnt.class, BlastFurnaceGui::new, BlastFurnaceContainer::new);
 		guihandler.<GrinderTileEnt>addEntry(GrinderTileEnt.class, GrinderGui::new, GrinderContainer::new);
+		guihandler.<UpgradeBenchTileEnt>addEntry(UpgradeBenchTileEnt.class, UpgradeBenchGui::new, UpgradeBenchContainer::new);
 	}
 	
 	@Override
@@ -1007,8 +1016,12 @@ public class ClientProxy extends CommonProxy {
 		ItemRenderHack.registerItemRenderer(TGArmors.t3_power_Chestplate,  new RenderArmorItem(new ModelT3PowerArmor(0), new ResourceLocation(Techguns.MODID,"textures/models/armor/powerarmor.png"), EntityEquipmentSlot.CHEST) );
 		ItemRenderHack.registerItemRenderer(TGArmors.t3_power_Leggings,  new RenderArmorItem(new ModelT3PowerArmor(1), new ResourceLocation(Techguns.MODID,"textures/models/armor/powerarmor.png"), EntityEquipmentSlot.LEGS) );
 		ItemRenderHack.registerItemRenderer(TGArmors.t3_power_Boots,  new RenderArmorItem(new ModelT3PowerArmor(0), new ResourceLocation(Techguns.MODID,"textures/models/armor/powerarmor.png"), EntityEquipmentSlot.FEET) );
-	
 		
+		ItemRenderHack.registerItemRenderer(TGArmors.t4_power_Helmet,  new RenderArmorItem(new ModelT4PowerArmorMk2(0), new ResourceLocation(Techguns.MODID,"textures/models/armor/powerarmor_mk2_darkgrey.png"), EntityEquipmentSlot.HEAD) );
+		ItemRenderHack.registerItemRenderer(TGArmors.t4_power_Chestplate,  new RenderArmorItem(new ModelT4PowerArmorMk2(0), new ResourceLocation(Techguns.MODID,"textures/models/armor/powerarmor_mk2_darkgrey.png"), EntityEquipmentSlot.CHEST) );
+		ItemRenderHack.registerItemRenderer(TGArmors.t4_power_Leggings,  new RenderArmorItem(new ModelT4PowerArmorMk2(1), new ResourceLocation(Techguns.MODID,"textures/models/armor/powerarmor_mk2_darkgrey.png"), EntityEquipmentSlot.LEGS) );
+		ItemRenderHack.registerItemRenderer(TGArmors.t4_power_Boots,  new RenderArmorItem(new ModelT4PowerArmorMk2(0), new ResourceLocation(Techguns.MODID,"textures/models/armor/powerarmor_mk2_darkgrey.png"), EntityEquipmentSlot.FEET) );
+	
 		ItemRenderHack.registerItemRenderer(TGuns.stielgranate,new RenderGrenade(new ModelStielgranate(), new ResourceLocation(Techguns.MODID,"textures/guns/stielgranate.png")).setBaseScale(1f).setGUIScale(0.8f).setBaseTranslation(-RenderItemBase.SCALE*0.5f, 0.48f, -RenderItemBase.SCALE).setTransformTranslations(new float[][]{
 			{0f,-0.06f,0f}, //First Person
 			{0f,-0.15f,0.06f}, //Third Person

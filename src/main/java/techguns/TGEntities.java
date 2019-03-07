@@ -62,6 +62,7 @@ import techguns.entities.projectiles.TFGProjectile;
 import techguns.entities.projectiles.TeslaProjectile;
 import techguns.entities.spawn.TGNpcSpawn;
 import techguns.entities.spawn.TGSpawnManager;
+import techguns.entities.special.EntityRadiation;
 import techguns.init.ITGInitializer;
 
 public class TGEntities implements ITGInitializer {
@@ -102,7 +103,7 @@ public class TGEntities implements ITGInitializer {
 		EntityRegistry.registerModEntity(new ResourceLocation(Techguns.MODID,"TFGProjectile"),TFGProjectile.class, "TFGProjectile", ++Techguns.modEntityID, Techguns.MODID, bulletTrackRange, 1, true);
 		EntityRegistry.registerModEntity(new ResourceLocation(Techguns.MODID,"GenericProjectileExplosive"),GenericProjectileExplosive.class, "GenericProjectileExplosive", ++Techguns.modEntityID, Techguns.MODID, bulletTrackRange, 1, true);
 		EntityRegistry.registerModEntity(new ResourceLocation(Techguns.MODID,"RocketProjectileHV"),RocketProjectileHV.class, "RocketProjectileHV", ++Techguns.modEntityID, Techguns.MODID, bulletTrackRange, 1, true);
-		
+		EntityRegistry.registerModEntity(new ResourceLocation(Techguns.MODID,"RadiationEntity"), EntityRadiation.class, "RadiationEntity", ++Techguns.modEntityID, Techguns.MODID, bulletTrackRange, 1, false);
 		
 		/**
 		 * NPCS

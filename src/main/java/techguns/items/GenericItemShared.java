@@ -8,6 +8,7 @@ import com.mojang.realmsclient.gui.ChatFormatting;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
@@ -16,6 +17,7 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import techguns.TGItems;
@@ -25,6 +27,8 @@ import techguns.api.tginventory.ITGSpecialSlot;
 import techguns.api.tginventory.TGSlotType;
 import techguns.items.armors.TGArmorBonus;
 import techguns.items.guns.ammo.AmmoType;
+import techguns.tileentities.operation.UpgradeBenchRecipes;
+import techguns.tileentities.operation.UpgradeBenchRecipes.UpgradeBenchRecipe;
 import techguns.util.InventoryUtil;
 import techguns.util.TextUtil;
 
@@ -228,6 +232,8 @@ public class GenericItemShared extends GenericItem implements IItemTGRenderer, I
 				if(this.getSharedEntry(stack).ammoEntry!=null){
 					tooltip.add(ChatFormatting.GRAY+TextUtil.trans(Techguns.MODID+".tooltip.sneakrightclickunload"));
 				}
+			} else if (this.getSlot(stack)==TGSlotType.ARMOR_UPGRADE) {
+				this.addArmorEnchantTooltip(stack, worldIn, tooltip, flagIn);
 			}
 		}
 		if(this.getBonus(TGArmorBonus.EXTRA_HEART, stack)>0.0f){
@@ -261,6 +267,19 @@ public class GenericItemShared extends GenericItem implements IItemTGRenderer, I
 			tooltip.add(trans("oredrill.mininglevel")+ " +2");
 		} else if (stack.getItemDamage()==TGItems.OREDRILLHEAD_CARBON.getItemDamage() || stack.getItemDamage() == TGItems.OREDRILLHEAD_MEDIUM_CARBON.getItemDamage() || stack.getItemDamage() == TGItems.OREDRILLHEAD_LARGE_CARBON.getItemDamage()) {
 			tooltip.add(trans("oredrill.mininglevel")+ " +3");
+		}
+	}
+	
+	protected void addArmorEnchantTooltip(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+		UpgradeBenchRecipe rec = UpgradeBenchRecipes.getUpgradeRecipeForUpgradeItem(stack);
+		if(rec!=null) {
+			
+			Enchantment ench = rec.getEnch();
+			tooltip.add(TextFormatting.AQUA+ench.getTranslatedName(rec.getLevel()));
+			
+			if(flagIn.isAdvanced() && ench.type!=null) {
+				tooltip.add(" "+ench.type.toString());
+			}
 		}
 	}
 	

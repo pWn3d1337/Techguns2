@@ -13,6 +13,7 @@ import mezz.jei.api.gui.IGuiItemStackGroup;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.ITooltipCallback;
 import mezz.jei.api.ingredients.IIngredients;
+import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import techguns.gui.GrinderGui;
@@ -33,10 +34,10 @@ public class GrinderRecipeCategory extends BasicRecipeCategory<GrinderJeiRecipe>
 	public GrinderRecipeCategory(IGuiHelper guiHelper) {
 		super(guiHelper, GrinderGui.texture, "grinder",TGJeiPlugin.GRINDER);
 		
-		this.progress1_static = guiHelper.createDrawable(GrinderGui.texture, 167, 0, 21, 21);
+		this.progress1_static = guiHelper.createDrawable(GrinderGui.texture, 0, 167, 21, 21);
 		this.progress1 = guiHelper.createAnimatedDrawable(progress1_static, 100, IDrawableAnimated.StartDirection.LEFT, false);
 		
-		this.progress2_static = guiHelper.createDrawable(GrinderGui.texture, 167, 0, 21, 21);
+		this.progress2_static = guiHelper.createDrawable(GrinderGui.texture, 0, 167, 21, 21);
 		this.progress2 = guiHelper.createAnimatedDrawable(progress2_static, 100, IDrawableAnimated.StartDirection.RIGHT, false);
 	}
 
@@ -55,6 +56,15 @@ public class GrinderRecipeCategory extends BasicRecipeCategory<GrinderJeiRecipe>
 
 		guiItemStacks.set(ingredients);
 	}
+	
+	@Override
+	public void drawExtras(Minecraft minecraft) {
+		super.drawExtras(minecraft);
+		this.powerbar.draw(minecraft, 8+JEI_OFFSET_X, 17+JEI_OFFSET_Y);
+		this.progress1.draw(minecraft, 32+JEI_OFFSET_X, 40+JEI_OFFSET_Y);
+		this.progress2.draw(minecraft, 52+JEI_OFFSET_X, 40+JEI_OFFSET_Y);
+	}
+
 	
 	protected class GrinderOutputTooltipCallback implements ITooltipCallback<ItemStack>{
 		GrinderJeiRecipe jeiRec;

@@ -40,6 +40,9 @@ public class TGArmors implements ITGInitializer {
 	public static final ResourceLocation ARMORMODEL_COAT_3 = new ResourceLocation(Techguns.MODID, "coat_3");
 	public static final ResourceLocation ARMORMODEL_STEAM_ARMOR_2 = new ResourceLocation(Techguns.MODID, "steam_armor_2");
 	public static final ResourceLocation ARMORMODEL_POWER_ARMOR_2 = new ResourceLocation(Techguns.MODID, "power_armor_2");
+	public static final ResourceLocation ARMORMODEL_POWER_ARMOR_MK2_0 = new ResourceLocation(Techguns.MODID, "power_armor_mk2_0");
+	public static final ResourceLocation ARMORMODEL_POWER_ARMOR_MK2_1 = new ResourceLocation(Techguns.MODID, "power_armor_mk2_1");
+	public static final ResourceLocation ARMORMODEL_POWER_ARMOR_MK2_2 = new ResourceLocation(Techguns.MODID, "power_armor_mk2_2");
 	
 	
 	public static TGArmorMaterial T1_COMBAT = new TGArmorMaterial("T1_COMBAT", 60, 0, 15.0f, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER,0.5f);
@@ -69,6 +72,8 @@ public class TGArmors implements ITGInitializer {
 
 	
 	public static TGArmorMaterial T4_PRAETOR = new TGArmorMaterial("T4_PRAETOR",300,0,20.0f, SoundEvents.ITEM_ARMOR_EQUIP_IRON,2.0f).setArmorFire(20.0f).setArmorExplosion(20.0f).setArmorEnergy(20.0f).setArmorIce(20.0f).setArmorLightning(20.0f).setArmorPoison(20.0f).setArmorRadiation(20.0f).setPenetrationResistance(0.15f);
+	
+	public static TGArmorMaterial T4_POWER = new TGArmorMaterial("T4_POWER", 360, 0, 22.0f, SoundEvents.ITEM_ARMOR_EQUIP_IRON,2.5f).setArmorFire(19.0f).setArmorExplosion(21.0f).setArmorEnergy(20.0f).setArmorIce(19.0f).setArmorLightning(19.0f).setArmorPoison(15.0f).setArmorRadiation(17.0f).setPenetrationResistance(0.25f);
 	
 	
 	public static GenericArmor t1_combat_Helmet;
@@ -135,6 +140,11 @@ public class TGArmors implements ITGInitializer {
 	public static GenericArmor t4_praetor_Chestplate;
 	public static GenericArmor t4_praetor_Leggings;
 	public static GenericArmor t4_praetor_Boots;
+	
+	public static GenericArmor t4_power_Helmet;
+	public static GenericArmor t4_power_Chestplate;
+	public static GenericArmor t4_power_Leggings;
+	public static GenericArmor t4_power_Boots;
 	
 	public static GenericArmor t2_beret;
 	/**
@@ -230,6 +240,14 @@ public class TGArmors implements ITGInitializer {
 		t4_praetor_Chestplate = new PoweredArmor("t4_praetor_chestplate", T4_PRAETOR, t4_praetor_textures, EntityEquipmentSlot.CHEST,ArmorPowerType.RF,10000).setBattery(TGItems.ENERGY_CELL).setEmptyBattery(TGItems.ENERGY_CELL_EMPTY).setSpeedBoni(0.1f, 0.03f,0,0).setWaterspeedBonus(1.25f, 0).setMiningBoni(0.1f,0).setMiningBoniWater(1.25f,0).setCoolingSystem(1.0f,0).setRepairMats(TGItems.PLATE_CARBON, TGItems.CIRCUIT_BOARD_ELITE, 0.5f, 4).setHideGloveslot(true).setKnockbackResistance(0.25f); // 1 for chestplate
 		t4_praetor_Leggings = new PoweredArmor("t4_praetor_leggings", T4_PRAETOR, t4_praetor_textures, EntityEquipmentSlot.LEGS,ArmorPowerType.RF,10).setSpeedBoni(0.1f, 0.03f,0,0).setWaterspeedBonus(1.25f, 0).setMiningBoni(0.1f,0).setMiningBoniWater(1.25f,0).setRepairMats(TGItems.PLATE_CARBON, TGItems.CIRCUIT_BOARD_ELITE, 1.0f/3.0f, 3).setKnockbackResistance(0.15f); // 2 for leggings
 		t4_praetor_Boots = new PoweredArmor("t4_praetor_boots", T4_PRAETOR, t4_praetor_textures, EntityEquipmentSlot.FEET,ArmorPowerType.RF,10).setSpeedBoni(0.1f, 0.15f,0,0).setWaterspeedBonus(1.25f, 0).setMiningBoni(0.1f,0).setMiningBoniWater(1.25f,0).setStepAssist(1.0f,0).setFallProtection(0.5f, 3.0f,0,0).setRepairMats(TGItems.PLATE_CARBON, TGItems.CIRCUIT_BOARD_ELITE, 0.5f, 2).setKnockbackResistance(0.10f); // 3 for boots
+		
+		//T4 power armor mk2
+		String[] t4_power_armor_textures = {"powerarmor_mk2_darkgrey", "powerarmor_mk2", "powerarmor_mk2_black", "powerarmor_mk2_white"};
+		ResourceLocation pwrplate2 = new ResourceLocation(Techguns.MODID, "platesteel");
+		t4_power_Helmet = new PoweredArmor("t4_power_helmet", T4_POWER, t4_power_armor_textures, EntityEquipmentSlot.HEAD,ArmorPowerType.RF,10).setMiningBoni(0.05f,0.0f).setHealthBonus(1,0).setSpeedBoni(0.05f,0.03f,0.0f,0.0f).setRepairMats(TGItems.POWER_ARMOR_PLATING, TGItems.WIRE_GOLD, 0.5f, 2).setArmorModel(TGArmors.ARMORMODEL_POWER_ARMOR_MK2_2,false,pwrplate2).setHideFaceslot(true).setKnockbackResistance(0.20f).setUseRenderHack(); //0 for helmet
+		t4_power_Chestplate = new PoweredArmor("t4_power_chestplate", T4_POWER, t4_power_armor_textures, EntityEquipmentSlot.CHEST,ArmorPowerType.RF,3600).setSpeedBoni(0.05f,0.03f,0.0f,0.0f).setMiningBoni(0.05f,0.0f).setHealthBonus(2,0).setBattery(TGItems.ENERGY_CELL).setEmptyBattery(TGItems.ENERGY_CELL_EMPTY).setRepairMats(TGItems.POWER_ARMOR_PLATING, TGItems.WIRE_GOLD, 0.5f, 4).setArmorModel(TGArmors.ARMORMODEL_POWER_ARMOR_MK2_0,false,pwrplate).setHideBackslot(false).setHideGloveslot(true).setKnockbackResistance(0.35f).setUseRenderHack(); // 1 for chestplate
+		t4_power_Leggings = new PoweredArmor("t4_power_leggings", T4_POWER, t4_power_armor_textures, EntityEquipmentSlot.LEGS,ArmorPowerType.RF,10).setSpeedBoni(0.05f,0.03f,0f,0f).setMiningBoni(0.05f,0f).setHealthBonus(1,0).setRepairMats(TGItems.POWER_ARMOR_PLATING, TGItems.WIRE_GOLD, 1.0f/3.0f, 3).setArmorModel(TGArmors.ARMORMODEL_POWER_ARMOR_MK2_1,false,pwrplate2).setKnockbackResistance(0.25f).setUseRenderHack(); // 2 for leggings
+		t4_power_Boots = new PoweredArmor("t4_power_boots", T4_POWER, t4_power_armor_textures, EntityEquipmentSlot.FEET,ArmorPowerType.RF,10).setSpeedBoni(0.05f,0.15f,0,0).setMiningBoni(0.05f,0).setFallProtection(0.2f, 1.0f,0,0).setHealthBonus(1,0).setStepAssist(1.0f,0).setRepairMats(TGItems.POWER_ARMOR_PLATING, TGItems.WIRE_GOLD, 0.5f, 2).setArmorModel(TGArmors.ARMORMODEL_POWER_ARMOR_MK2_0,false,pwrplate2).setKnockbackResistance(0.20f).setUseRenderHack(); // 3 for boots
 		
 		
 		if(TGItems.WRITE_ITEM_JSON && event.getSide()==Side.CLIENT){

@@ -18,8 +18,8 @@ public abstract class BasicRecipeCategory<T extends IRecipeWrapper> implements I
 	
 	protected final IGuiHelper guiHelper;
 	
-	public static int JEI_OFFSET_X=-8;
-	public static int JEI_OFFSET_Y=-16;
+	public static final int JEI_OFFSET_X=-8;
+	public static final int JEI_OFFSET_Y=-16;
 	
 	protected final String uid;
 	

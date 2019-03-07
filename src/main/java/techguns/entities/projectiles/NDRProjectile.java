@@ -5,11 +5,13 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import techguns.TGPackets;
+import techguns.TGRadiationSystem;
 import techguns.Techguns;
 import techguns.api.damagesystem.DamageType;
 import techguns.client.ClientProxy;
@@ -173,6 +175,14 @@ public class NDRProjectile extends AbstractBeamProjectile {
 	
 	
 	
+	@Override
+	protected void onHitEffect(EntityLivingBase ent, RayTraceResult rayTraceResultIn) {
+		super.onHitEffect(ent, rayTraceResultIn);
+		if(TGRadiationSystem.isEnabled()) {
+			ent.addPotionEffect(new PotionEffect(TGRadiationSystem.radiation_effect,40,4,false,true));
+		}
+	}
+
 	@Override
 	protected TGDamageSource getProjectileDamageSource() {
 		TGDamageSource src = TGDamageSource.causeRadiationDamage(this, this.shooter, DeathType.LASER);

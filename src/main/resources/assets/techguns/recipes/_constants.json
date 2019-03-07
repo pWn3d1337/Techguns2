@@ -106,6 +106,13 @@
   {
     "ingredient": {
       "type": "forge:ore_dict",
+      "ore": "gemEmerald"
+    },
+    "name": "GEMEMERALD"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
       "ore": "gemLapis"
     },
     "name": "GEMLAPIS"
@@ -220,6 +227,13 @@
       "ore": "nuggetSteel"
     },
     "name": "NUGGETSTEEL"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "obsidian"
+    },
+    "name": "OBSIDIAN"
   },
   {
     "ingredient": {

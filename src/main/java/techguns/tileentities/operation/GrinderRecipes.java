@@ -63,7 +63,7 @@ public class GrinderRecipes {
 	
 	public static MachineOperation getOperationForInput(ItemStack input,  GrinderTileEnt tile) {
 		for(GrinderRecipe r: recipes) {
-			if(r.input.matches(new ItemStackOreDict(input,1))) {
+			if(r.matchesInput(new ItemStackOreDict(input,1))) {
 				return r.getOperation(input, tile);
 			}
 		}
@@ -72,7 +72,7 @@ public class GrinderRecipes {
 	
 	public static boolean hasRecipeForInput(ItemStack input) {
 		for(GrinderRecipe r: recipes) {
-			if(r.input.matches(new ItemStackOreDict(input,1))) {
+			if(r.matchesInput(new ItemStackOreDict(input,1))) {
 				return true;
 			}
 		}
@@ -88,6 +88,10 @@ public class GrinderRecipes {
 			super();
 			this.input = input;
 			this.outputs = outputs;
+		}
+		
+		public boolean matchesInput(ItemStackOreDict input) {
+			return this.input.matches(input);
 		}
 		
 		public MachineOperation getOperation(ItemStack input, GrinderTileEnt tile) {
@@ -185,6 +189,10 @@ public class GrinderRecipes {
 			return op;
 		}
 
+		@Override
+		public boolean matchesInput(ItemStackOreDict input) {
+			return input.item !=null && !input.isEmpty() && this.armor == input.item.getItem();
+		}
 
 		@Override
 		public List<List<ItemStack>> getItemInputs() {

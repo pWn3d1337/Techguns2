@@ -10,14 +10,17 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
+import net.minecraft.item.ItemShield;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.CombatRules;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSource;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.common.FMLCommonHandler;
@@ -193,9 +196,13 @@ public class DamageSystem {
                 {
                     //ent.damageShield(amount);
                 	ELB_damageShield.invoke(ent, amount);
-                    amount = 0.0F;
+                    //amount = 0.0F;
+                	/**SHIELD DAMAGE HOOK**/
+                	amount = calculateShieldDamage(ent, amount, dmgsrc);
+                	/**END**/
 
-                    if (!source.isProjectile())
+                    //if (!source.isProjectile())
+                	if(dmgsrc.knockbackOnShieldBlock())
                     {
                         Entity entity = source.getImmediateSource();
 
@@ -379,6 +386,19 @@ public class DamageSystem {
         }
     }
 
+    public static float calculateShieldDamage(EntityLivingBase ent, float amount, TGDamageSource source) {
+    	
+    	ItemStack offHand = ent.getHeldItem(EnumHand.OFF_HAND);
+    	if(offHand.getItem()==Items.SHIELD) {
+    		float amountNew = ShieldStats.VANILLA_SHIELD.getAmount(amount, source);
+    		//System.out.println("HIT_SHIELD: "+amount +"->"+amountNew );
+    		return amountNew;
+    	} else if (offHand.getItem() instanceof ItemShield) {
+    		return ShieldStats.DEFAULT_STATS.getAmount(amount, source);
+    	}
+    	
+		return amount;
+	}
     
     public static void livingHurt(EntityLivingBase elb, DamageSource damageSrc, float damageAmount) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
     	damageAmount = ELB_applyArmorCalculations(elb,damageSrc, damageAmount);

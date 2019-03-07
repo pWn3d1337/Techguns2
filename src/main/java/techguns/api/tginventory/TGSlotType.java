@@ -14,7 +14,8 @@ public enum TGSlotType {
 	REACTION_CHAMBER_FOCUS,
 	DRILL_SMALL,
 	DRILL_MEDIUM,
-	DRILL_LARGE;
+	DRILL_LARGE,
+	ARMOR_UPGRADE;
 
 	@Override
 	public String toString() {
@@ -38,9 +39,11 @@ public enum TGSlotType {
 			case DRILL_SMALL:
 				return trans("small_drill");
 			case DRILL_MEDIUM:
-				return trans("medium drill");
+				return trans("medium_drill");
 			case DRILL_LARGE:
-				return trans("large drill");
+				return trans("large_drill");
+			case ARMOR_UPGRADE:
+				return trans("armor_ugpgrade");
 			default:
 				return trans("normal_item");
 		}

@@ -1,0 +1,20 @@
+{
+    "name": "Grinder",
+    "icon": "techguns:simplemachine2:8",
+    "category": "powered_machines",
+    "pages": [
+        {
+            "type": "text",
+            "text": "The Grinder is used to recycle guns, armors and some other items. It has an input slot, 9 output slots and an $(l:machine_mechanics#upgrade)upgrade slot$(/l)."
+        }, 
+       {
+            "type": "text",
+            "title": "Usage",
+            "text": "The left input slot is for input, the right slots are for output. $(br)Available Recipes may differ on mod setup and should be viewed with Just Enough Items (JEI)."
+       },
+      {
+            "type": "crafting",
+            "recipe": "techguns:simplemachine2_8_grinder"
+       }
+    ]
+}

@@ -17,6 +17,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraftforge.server.permission.PermissionAPI;
 import techguns.TGConfig;
 import techguns.TGPermissions;
+import techguns.TGRadiationSystem;
 import techguns.Techguns;
 import techguns.api.capabilities.AttackTime;
 import techguns.api.capabilities.ITGExtendedPlayer;
@@ -354,7 +355,7 @@ public class TGExtendedPlayer implements ITGExtendedPlayer {
 	
 	public void addRadiation(int amount) {
 		
-		if (TGConfig.WIP_disableRadiationSystem) {amount=0;}
+		if (!TGRadiationSystem.isEnabled()) {amount=0;}
 		
 		this.radlevel+=amount;
 		if(this.radlevel<0) {

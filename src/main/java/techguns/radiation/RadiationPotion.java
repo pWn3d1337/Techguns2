@@ -65,7 +65,7 @@ public class RadiationPotion extends Potion {
 		
 		int res = (int) elb.getEntityAttribute(TGRadiation.RADIATION_RESISTANCE).getAttributeValue();
 		
-		int amount = techguns.util.MathUtil.clamp(amplifier+1-res, 0, 10);
+		int amount = techguns.util.MathUtil.clamp(amplifier+1-res, 0, 1000);
 		
 		//System.out.println("Radiate:"+ amount + "|RES:"+res);
 		

@@ -1,0 +1,23 @@
+{
+  "result": {
+    "item": "techguns:itemshared",
+    "data": 149
+  },
+  "pattern": [
+    "pip",
+    "igi",
+    "pip"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "p": {
+      "item": "#PLATESTEEL"
+    },
+    "g": {
+      "item": "#INGOTGOLD"
+    },
+    "i": {
+      "item": "#BLOCKWOOL"
+    }
+  }
+}

@@ -87,4 +87,22 @@ public abstract class TGBaseGui extends GuiContainer {
         buffer.pos((double)(x + 0), (double)(y + 0), (double)this.zLevel).tex((double)icon.getMinU(), (double)icon.getInterpolatedV(icon.getIconHeight()-h)).endVertex();
         tessellator.draw();
     }
+	
+    /**
+     * Draws a textured rectangle at the current z-value, with color as ints
+     */
+    public void drawTexturedModalRect(int x, int y, int textureX, int textureY, int width, int height, int r, int g, int b, int a)
+    {
+        float f = 0.00390625F;
+        float f1 = 0.00390625F;
+        Tessellator tessellator = Tessellator.getInstance();
+        BufferBuilder bufferbuilder = tessellator.getBuffer();
+        bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
+        bufferbuilder.pos((double)(x + 0), (double)(y + height), (double)this.zLevel).tex((double)((float)(textureX + 0) * 0.00390625F), (double)((float)(textureY + height) * 0.00390625F)).color(r, g, b, a).endVertex();
+        bufferbuilder.pos((double)(x + width), (double)(y + height), (double)this.zLevel).tex((double)((float)(textureX + width) * 0.00390625F), (double)((float)(textureY + height) * 0.00390625F)).color(r, g, b, a).endVertex();
+        bufferbuilder.pos((double)(x + width), (double)(y + 0), (double)this.zLevel).tex((double)((float)(textureX + width) * 0.00390625F), (double)((float)(textureY + 0) * 0.00390625F)).color(r, g, b, a).endVertex();
+        bufferbuilder.pos((double)(x + 0), (double)(y + 0), (double)this.zLevel).tex((double)((float)(textureX + 0) * 0.00390625F), (double)((float)(textureY + 0) * 0.00390625F)).color(r, g, b, a).endVertex();
+        tessellator.draw();
+    }
+    
 }

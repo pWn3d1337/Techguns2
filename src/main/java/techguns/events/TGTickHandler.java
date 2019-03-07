@@ -463,7 +463,7 @@ public class TGTickHandler {
 			 			 
 			 
 			 //check inventory for radioactive items
-			 if(!TGConfig.WIP_disableRadiationSystem && event.side==Side.SERVER && event.player.world.getTotalWorldTime()%TGRadiationSystem.INVENTORY_RADIATION_INVERVALL==0) {
+			 if(TGRadiationSystem.isEnabled() && event.side==Side.SERVER && event.player.world.getTotalWorldTime()%TGRadiationSystem.INVENTORY_RADIATION_INVERVALL==0) {
 				 int maxrad=0;
 				 for (ItemStack stack : event.player.inventory.mainInventory) {
 					if(!stack.isEmpty()) {

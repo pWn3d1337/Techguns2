@@ -291,6 +291,19 @@ public class TGItems implements ITGInitializer{
 	public static ItemStack OREDRILLHEAD_LARGE_OBSIDIANSTEEL;
 	public static ItemStack OREDRILLHEAD_LARGE_CARBON;
 	
+	//armor upgrades
+	public static ItemStack UPGRADE_PROTECTION_1;
+	public static ItemStack UPGRADE_BLAST_PROTECTION_1;
+	public static ItemStack UPGRADE_PROJECTILE_PROTECTION_1;
+	
+	public static ItemStack UPGRADE_PROTECTION_2;
+	public static ItemStack UPGRADE_BLAST_PROTECTION_2;
+	public static ItemStack UPGRADE_PROJECTILE_PROTECTION_2;
+	
+	public static ItemStack UPGRADE_PROTECTION_3;
+	public static ItemStack UPGRADE_BLAST_PROTECTION_3;
+	public static ItemStack UPGRADE_PROJECTILE_PROTECTION_3;
+	
 	//TOOL Materials
 	static ToolMaterial TG_STEEL = EnumHelper.addToolMaterial("Steel", 2, 1000, 7.5f, 2.5f, 12);
 		
@@ -498,6 +511,18 @@ public class TGItems implements ITGInitializer{
 		ROCKET_HIGH_VELOCITY = SHARED_ITEM.addsharedVariant("rocket_high_velocity",true,TGSlotType.AMMOSLOT);
 		
 		PLASTIC_BAG = SHARED_ITEM.addsharedVariant("plasticbag");
+		
+		UPGRADE_PROTECTION_1 = SHARED_ITEM.addsharedVariant("upgrade_protection_1", false, TGSlotType.ARMOR_UPGRADE, 1, true);
+		UPGRADE_PROJECTILE_PROTECTION_1 = SHARED_ITEM.addsharedVariant("upgrade_projectile_protection_1", false, TGSlotType.ARMOR_UPGRADE, 1, true);
+		UPGRADE_BLAST_PROTECTION_1 = SHARED_ITEM.addsharedVariant("upgrade_blast_protection_1", false, TGSlotType.ARMOR_UPGRADE, 1, true);
+		
+		UPGRADE_PROTECTION_2 = SHARED_ITEM.addsharedVariant("upgrade_protection_2", false, TGSlotType.ARMOR_UPGRADE, 1, true);
+		UPGRADE_PROJECTILE_PROTECTION_2 = SHARED_ITEM.addsharedVariant("upgrade_projectile_protection_2", false, TGSlotType.ARMOR_UPGRADE, 1, true);
+		UPGRADE_BLAST_PROTECTION_2 = SHARED_ITEM.addsharedVariant("upgrade_blast_protection_2", false, TGSlotType.ARMOR_UPGRADE, 1, true);
+		
+		UPGRADE_PROTECTION_3 = SHARED_ITEM.addsharedVariant("upgrade_protection_3", false, TGSlotType.ARMOR_UPGRADE, 1, true);
+		UPGRADE_PROJECTILE_PROTECTION_3 = SHARED_ITEM.addsharedVariant("upgrade_projectile_protection_3", false, TGSlotType.ARMOR_UPGRADE, 1, true);
+		UPGRADE_BLAST_PROTECTION_3 = SHARED_ITEM.addsharedVariant("upgrade_blast_protection_3", false, TGSlotType.ARMOR_UPGRADE, 1, true);
 		
 		RAD_AWAY = new ItemRadAway("radaway");
 		RAD_PILLS = new ItemRadpills("radpills");

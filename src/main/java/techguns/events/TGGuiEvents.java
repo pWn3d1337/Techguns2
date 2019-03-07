@@ -11,6 +11,7 @@ import net.minecraft.client.settings.GameSettings;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
@@ -20,9 +21,12 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import techguns.TGItems;
+import techguns.TGRadiationSystem;
 import techguns.Techguns;
 import techguns.api.guns.GunManager;
+import techguns.api.radiation.TGRadiation;
 import techguns.capabilities.TGExtendedPlayer;
+import techguns.debug.Keybinds;
 import techguns.gui.player.TGGuiTabButton;
 import techguns.gui.player.TGPlayerInventory;
 import techguns.gui.player.TGPlayerInventoryGui;
@@ -30,6 +34,7 @@ import techguns.items.additionalslots.ItemTGSpecialSlotAmmo;
 import techguns.items.armors.PoweredArmor;
 import techguns.items.guns.GenericGun;
 import techguns.util.InventoryUtil;
+import techguns.util.MathUtil;
 
 public class TGGuiEvents extends Gui{
 
@@ -171,6 +176,8 @@ public class TGGuiEvents extends Gui{
 			}
 			
 			if(props.radlevel>0) {
+				
+				
 				String prefix = ChatFormatting.WHITE.toString();
 				if(props.radlevel>=1000) {
 					prefix = ChatFormatting.RED.toString();
@@ -183,6 +190,19 @@ public class TGGuiEvents extends Gui{
 				mc.fontRenderer.drawString(prefix+radtext, sr.getScaledWidth()-radtext.length()*6, offsetY, 0xFFFFFFFF);
 				
 				offsetY-=10;
+				
+				String currentRadText="";
+				PotionEffect currentRad = ply.getActivePotionEffect(TGRadiationSystem.radiation_effect);
+				if(currentRad!=null) {
+					int res = (int) ply.getEntityAttribute(TGRadiation.RADIATION_RESISTANCE).getAttributeValue();
+					
+					int amount = techguns.util.MathUtil.clamp(currentRad.getAmplifier()+1-res, 0, 1000);
+					
+					currentRadText= "+["+amount+" RAD/s]";
+					mc.fontRenderer.drawString(currentRadText, sr.getScaledWidth()-currentRadText.length()*6 + 4, offsetY, 0xFFFFFFFF);
+					
+					offsetY-=10;
+				}
 			}
 			
 		}

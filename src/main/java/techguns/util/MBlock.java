@@ -7,6 +7,7 @@ import java.io.Serializable;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockPos.MutableBlockPos;
@@ -105,8 +106,18 @@ public class MBlock implements Serializable {
 	private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
 		in.defaultReadObject();
 		String name = in.readUTF();
+		//System.out.println("GetBlock:"+name);
 		this.block = Block.getBlockFromName(name);
-		this.state= block.getStateFromMeta(this.meta);
+		
+		if(this.block!=null) {
+		
+			this.state= block.getStateFromMeta(this.meta);
+		} else {
+			//TODO: handle chisel blocks when chisel not present
+			
+			this.block = Blocks.COBBLESTONE;
+			this.state = Blocks.COBBLESTONE.getDefaultState();
+		}
 		//this.meta = in.read();
 	}
 

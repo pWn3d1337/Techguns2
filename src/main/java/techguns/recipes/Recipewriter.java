@@ -362,6 +362,9 @@ public class Recipewriter {
         int grinder_meta = TGBlocks.SIMPLE_MACHINE2.getMetaFromState(TGBlocks.SIMPLE_MACHINE2.getDefaultState().withProperty(TGBlocks.SIMPLE_MACHINE2.MACHINE_TYPE, EnumSimpleMachineType2.GRINDER));      
         RecipeJsonConverter.addShapedRecipe(new ItemStack(TGBlocks.SIMPLE_MACHINE2,1,grinder_meta), "imi","mem","iri", 'i', "plateIron", 'm', TGItems.MECHANICAL_PARTS_IRON, 'e', TGItems.ELECTRIC_ENGINE, 'r', "dustRedstone");
         
+        int armor_bench_meta = TGBlocks.SIMPLE_MACHINE2.getMetaFromState(TGBlocks.SIMPLE_MACHINE2.getDefaultState().withProperty(TGBlocks.SIMPLE_MACHINE2.MACHINE_TYPE, EnumSimpleMachineType2.ARMOR_BENCH));      
+        RecipeJsonConverter.addShapedRecipe(new ItemStack(TGBlocks.SIMPLE_MACHINE2,1,armor_bench_meta), " c ","oeo","sos", 'e', "gemEmerald", 'o', "plateObsidianSteel", 's', "obsidian", 'c', "workbench");
+        
         
         RecipeJsonConverter.addShapedRecipe(TGItems.newStack(TGItems.QUARTZ_ROD,1), "q  ", " q ", "  q", 'q', "gemQuartz");
         RecipeJsonConverter.addShapedRecipe(TGItems.newStack(TGItems.QUARTZ_ROD,1), "  q", " q ", "q  ", 'q', "gemQuartz");
@@ -467,6 +470,19 @@ public class Recipewriter {
         
         RecipeJsonConverter.addShapedRecipe(newStack(TGItems.PLASTIC_BAG,4),"pp","pp", 'p', "sheetPlastic");
         	
+        RecipeJsonConverter.addShapedRecipe(newStack(TGItems.UPGRADE_PROTECTION_1,1), "pip","igi","pip", 'p', "plateSteel", 'g', "ingotGold", 'i', "plateIron");
+        RecipeJsonConverter.addShapedRecipe(newStack(TGItems.UPGRADE_BLAST_PROTECTION_1,1), "pip","igi","pip", 'p', "plateSteel", 'g', "ingotGold", 'i', "blockWool");
+        RecipeJsonConverter.addShapedRecipe(newStack(TGItems.UPGRADE_PROJECTILE_PROTECTION_1,1), "pip","igi","pip", 'p', "plateSteel", 'g', "ingotGold", 'i', TGItems.STEAMARMOR_PLATE);
+        
+        RecipeJsonConverter.addShapedRecipe(newStack(TGItems.UPGRADE_PROTECTION_2,1), "pip","igi","pip", 'p', "plateObsidianSteel", 'g', "ingotGold", 'i', "plateIron");
+        RecipeJsonConverter.addShapedRecipe(newStack(TGItems.UPGRADE_BLAST_PROTECTION_2,1), "pip","igi","pip", 'p', "plateObsidianSteel", 'g', "ingotGold", 'i', "blockWool");
+        RecipeJsonConverter.addShapedRecipe(newStack(TGItems.UPGRADE_PROJECTILE_PROTECTION_2,1), "pip","igi","pip", 'p', "plateObsidianSteel", 'g', "ingotGold", 'i', TGItems.STEAMARMOR_PLATE);
+        
+        RecipeJsonConverter.addShapedRecipe(newStack(TGItems.UPGRADE_PROTECTION_3,1), "pip","igi","pip", 'p', "plateCarbon", 'g', "gemDiamond", 'i', "plateIron");
+        RecipeJsonConverter.addShapedRecipe(newStack(TGItems.UPGRADE_BLAST_PROTECTION_3,1), "pip","igi","pip", 'p', "plateCarbon", 'g', "gemDiamond", 'i', "blockWool");
+        RecipeJsonConverter.addShapedRecipe(newStack(TGItems.UPGRADE_PROJECTILE_PROTECTION_3,1), "pip","igi","pip", 'p', "plateCarbon", 'g', "gemDiamond", 'i', TGItems.STEAMARMOR_PLATE);
+        
+        
         addGunRecipes();
         addArmorRecipes();
         addUpgradeRecipes();
