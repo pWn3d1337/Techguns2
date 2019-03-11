@@ -353,7 +353,7 @@ public class TGMachineRecipes {
 		/**
 		 * Upgrade bench recipes
 		 */
-		UpgradeBenchRecipes.addRecipe(TGItems.PLATE_CARBON, Enchantments.PROTECTION, 4);
+		//UpgradeBenchRecipes.addRecipe(TGItems.PLATE_CARBON, Enchantments.PROTECTION, 4);
 		
 		UpgradeBenchRecipes.addRecipe(TGItems.UPGRADE_PROTECTION_1, Enchantments.PROTECTION, 1);
 		UpgradeBenchRecipes.addRecipe(TGItems.UPGRADE_PROJECTILE_PROTECTION_1, Enchantments.PROJECTILE_PROTECTION, 1);
