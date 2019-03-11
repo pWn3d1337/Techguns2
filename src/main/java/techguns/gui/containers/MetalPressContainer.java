@@ -85,7 +85,7 @@ public class MetalPressContainer extends BasicMachineContainer {
 					
 					if (id >=MetalPressTileEnt.SLOT_INPUT1 && id<=MetalPressTileEnt.SLOT_UPGRADE){
 						//PRESSED IN MACHINE GUI
-						if (!this.mergeItemStack(stack1, 3, 39, true)) {
+						if (!this.mergeItemStack(stack1, 3, 39, false)) {
 							return ItemStack.EMPTY;
 						}
 						slot.onSlotChange(stack1, stack);

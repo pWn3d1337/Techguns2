@@ -117,7 +117,7 @@ public class ReactionChamberContainer extends BasicMachineContainer {
 					
 					if (id >=0 && id<=HIGHEST_MACHINE_SLOT){
 						//PRESSED IN MACHINE GUI 0-input, 1-focus, 2,3,4,5 -> outputs
-						if (!this.mergeItemStack(stack1, HIGHEST_MACHINE_SLOT+1, HIGHEST_MACHINE_SLOT+37, true)) {
+						if (!this.mergeItemStack(stack1, HIGHEST_MACHINE_SLOT+1, HIGHEST_MACHINE_SLOT+37, false)) {
 							return ItemStack.EMPTY;
 						}
 						slot.onSlotChange(stack1, stack);

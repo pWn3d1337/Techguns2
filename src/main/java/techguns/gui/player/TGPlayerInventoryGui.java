@@ -16,6 +16,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import techguns.TGItems;
+import techguns.TGRadiationSystem;
 import techguns.Techguns;
 import techguns.api.damagesystem.DamageType;
 import techguns.capabilities.TGExtendedPlayer;
@@ -23,6 +24,7 @@ import techguns.damagesystem.DamageSystem;
 import techguns.gui.TGBaseGui;
 import techguns.gui.player.tabs.TGPlayerTab;
 import techguns.items.armors.GenericArmor;
+import techguns.util.TextUtil;
 
 public class TGPlayerInventoryGui extends TGBaseGui {
 
@@ -130,8 +132,27 @@ public class TGPlayerInventoryGui extends TGBaseGui {
 			
 			tooltip.add(ChatFormatting.GREEN+""+ChatFormatting.UNDERLINE+trans("tgguitooltip.currentrad"));
 			tooltip.add(displayedRad+"/"+"1000");
-			tooltip.add(trans("tgguitooltip.radeffects")+": "+ChatFormatting.GREEN+"NONE");
 			
+			if(displayedRad<TGRadiationSystem.MINOR_POISONING) {
+				tooltip.add(trans("tgguitooltip.radeffects")+": "+ChatFormatting.GREEN+trans("tgguitooltip.radeffects.none"));
+			} else {
+				tooltip.add(trans("tgguitooltip.radeffects")+":");
+				
+				if(displayedRad<TGRadiationSystem.SEVERE_POISONING) {
+					tooltip.add(" "+TextUtil.trans("effect.hunger"));
+				} else {
+					tooltip.add(" "+TextUtil.trans("effect.hunger")+" "+TextUtil.trans("potion.potency.1"));
+					tooltip.add(" "+TextUtil.trans("effect.digSlowDown")+" "+TextUtil.trans("potion.potency.1"));
+					tooltip.add(" "+TextUtil.trans("effect.weakness")+" "+TextUtil.trans("potion.potency.1"));
+					
+					if(displayedRad>=(TGRadiationSystem.LETHAL_POISONING)) {
+						tooltip.add(" "+TextUtil.trans("effect.confusion")+" "+TextUtil.trans("potion.potency.1"));
+						tooltip.add(" "+TextUtil.trans("effect.moveSlowdown")+" "+TextUtil.trans("potion.potency.1"));
+						tooltip.add(" "+trans("gun.tooltip.damage"));
+					}
+				}
+				
+			}
 			return tooltip;
 		}
 		
@@ -164,6 +185,20 @@ public class TGPlayerInventoryGui extends TGBaseGui {
 
 			int k = (this.width - this.xSize) / 2;
 			int l = (this.height - this.ySize) / 2;
+			
+			TGExtendedPlayer props = TGExtendedPlayer.get(Minecraft.getMinecraft().player);
+			
+			int displayedRad =0;
+			if(props!=null){
+				displayedRad = props.radlevel; //(int) (props.radlevel * 0.001);			
+			}
+			
+			if(displayedRad>0) {
+				Minecraft.getMinecraft().getTextureManager().bindTexture(texture);
+				int width = (int) Math.ceil(displayedRad/1000.0d*52d);
+				this.drawTexturedModalRect(k + 116, l + 8, 177, 0, width, 4);
+			}
+			
 	        GuiInventory.drawEntityOnScreen(k + 51, l + 75, 30, (float)(k + 51) - this.sizex, (float)(l + 75 - 50) - this.sizey, this.mc.player);
 		}
 

@@ -121,7 +121,7 @@ public class ChemLabContainer extends BasicMachineContainer {
 					
 					if (id >=0 && id<5){
 						//PRESSED IN MACHINE GUI
-						if (!this.mergeItemStack(stack1, 5, 41, true)) {
+						if (!this.mergeItemStack(stack1, 5, 41, false)) {
 							return ItemStack.EMPTY;
 						}
 						slot.onSlotChange(stack1, stack);

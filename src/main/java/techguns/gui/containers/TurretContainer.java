@@ -124,7 +124,7 @@ public class TurretContainer extends RedstoneTileContainer {
 				if(slotid<=TurretTileEnt.SLOT_ARMOR){
 
 					//put item back in player inventory
-					if (!this.mergeItemStack(stack1, TurretTileEnt.SLOT_ARMOR+1, TurretTileEnt.SLOT_ARMOR+1+36, true)) {
+					if (!this.mergeItemStack(stack1, TurretTileEnt.SLOT_ARMOR+1, TurretTileEnt.SLOT_ARMOR+1+36, false)) {
 						return ItemStack.EMPTY;
 					}
 					slot.onSlotChange(stack1, stack);
@@ -135,19 +135,19 @@ public class TurretContainer extends RedstoneTileContainer {
 					if(stack.getItem() instanceof GenericGun){
 						
 						//put weapon in weaponslot
-						if (!this.mergeItemStack(stack1, TurretTileEnt.SLOT_WEAPON, TurretTileEnt.SLOT_WEAPON+1, true)) {
+						if (!this.mergeItemStack(stack1, TurretTileEnt.SLOT_WEAPON, TurretTileEnt.SLOT_WEAPON+1, false)) {
 							return ItemStack.EMPTY;
 						}
 						slot.onSlotChange(stack1, stack);
 					} else if(stack.getItem() instanceof ITGSpecialSlot && (((ITGSpecialSlot)stack.getItem()).getSlot(stack)==TGSlotType.TURRETARMOR)){	
 						//put in armorslot
-						if (!this.mergeItemStack(stack1, TurretTileEnt.SLOT_ARMOR,TurretTileEnt.SLOT_ARMOR+1, true)) {
+						if (!this.mergeItemStack(stack1, TurretTileEnt.SLOT_ARMOR,TurretTileEnt.SLOT_ARMOR+1, false)) {
 							return ItemStack.EMPTY;
 						}
 						slot.onSlotChange(stack1, stack);
 					} else {
 						//put item in input inventory
-						if (!this.mergeItemStack(stack1, TurretTileEnt.SLOT_OUTPUT1, TurretTileEnt.SLOT_INPUT1+TurretTileEnt.INPUTS_SIZE, true)) {
+						if (!this.mergeItemStack(stack1, TurretTileEnt.SLOT_OUTPUT1, TurretTileEnt.SLOT_INPUT1+TurretTileEnt.INPUTS_SIZE, false)) {
 							return ItemStack.EMPTY;
 						}
 						slot.onSlotChange(stack1, stack);

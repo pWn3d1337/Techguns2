@@ -1,0 +1,24 @@
+{
+  "result": {
+    "item": "techguns:nethermetal",
+    "data": 0,
+    "count": 16
+  },
+  "pattern": [
+    "nsn",
+    "sis",
+    "nsn"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "s": {
+      "item": "#STONE"
+    },
+    "i": {
+      "item": "#INGOTIRON"
+    },
+    "n": {
+      "item": "#NETHERRACK"
+    }
+  }
+}

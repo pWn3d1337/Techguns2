@@ -64,7 +64,7 @@ public class BlastFurnaceContainer extends BasicMachineContainer {
 				if (!stack.isEmpty()){
 					
 					if (id >=0 && id<=BlastFurnaceTileEnt.SLOT_UPGRADE){
-						if (!this.mergeItemStack(stack1, BlastFurnaceTileEnt.SLOT_UPGRADE+1, MAXSLOTS, true)) {
+						if (!this.mergeItemStack(stack1, BlastFurnaceTileEnt.SLOT_UPGRADE+1, MAXSLOTS, false)) {
 							return ItemStack.EMPTY;
 						}
 						slot.onSlotChange(stack1, stack);

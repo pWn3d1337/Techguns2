@@ -484,8 +484,9 @@ public class TGTickHandler {
 			 
 			 //TICK Radiation
 			 if(event.side==Side.SERVER && event.player.world.getTotalWorldTime()%20==0) {
-				 if(props.radlevel>=TGRadiationSystem.MINOR_POISONING) {
+				 if(props.radlevel>=TGRadiationSystem.MINOR_POISONING && props.radlevel < TGRadiationSystem.SEVERE_POISONING ) {
 					 event.player.addPotionEffect(new PotionEffect(MobEffects.HUNGER,30,0,false,false));	
+					 
 				} else if (props.radlevel>=TGRadiationSystem.SEVERE_POISONING) {
 					event.player.addPotionEffect(new PotionEffect(MobEffects.HUNGER,30,1,false,false));
 					event.player.addPotionEffect(new PotionEffect(MobEffects.MINING_FATIGUE,30,1,false,false));
@@ -495,7 +496,7 @@ public class TGTickHandler {
 				if(props.radlevel>=TGRadiationSystem.LETHAL_POISONING) {
 					event.player.addPotionEffect(new PotionEffect(MobEffects.NAUSEA,30,1,false,false));
 					event.player.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS,30,1,false,false));
-					event.player.attackEntityFrom(TGDamageSource.causeRadiationDamage(null, null, DeathType.LASER), 5f);
+					event.player.attackEntityFrom(TGDamageSource.causeLethalRadPoisoningDamage(null, null, DeathType.LASER), 2f);
 				}
 			 }
 

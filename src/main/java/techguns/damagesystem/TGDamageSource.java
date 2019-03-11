@@ -98,6 +98,14 @@ public class TGDamageSource extends EntityDamageSource {
 			return src;
 		}
 		
+		public static TGDamageSource causeLethalRadPoisoningDamage(Entity projectile, Entity shooter, DeathType deathType){
+			TGDamageSource src = new TGDamageSource("tg_rad_poisoning",projectile, shooter, DamageType.UNRESISTABLE, deathType);
+			src.ignoreHurtresistTime=true;
+			src.knockbackOnShieldBlock=false;
+			src.goreChance=1.0f;
+			return src;
+		}
+		
 		public static TGDamageSource causeLightningDamage(Entity projectile, Entity shooter, DeathType deathType){
 			TGDamageSource src = new TGDamageSource("tg_lightning",projectile, shooter, DamageType.LIGHTNING, deathType);
 			src.ignoreHurtresistTime=true;

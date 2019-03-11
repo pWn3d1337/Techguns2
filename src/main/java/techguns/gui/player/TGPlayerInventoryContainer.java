@@ -148,7 +148,7 @@ public class TGPlayerInventoryContainer extends Container {
 
 	            if (id < TGPlayerInventory.NUMSLOTS) {
 	            	//CLICKED IN TG INVENTORY
-	            	if (!this.mergeItemStack(itemstack1, DEFAULT_INV_START, DEFAULT_INV_START+36, true)) {
+	            	if (!this.mergeItemStack(itemstack1, DEFAULT_INV_START, DEFAULT_INV_START+36, false)) {
 						return ItemStack.EMPTY;
 					}
 					slot.onSlotChange(itemstack1, itemstack);

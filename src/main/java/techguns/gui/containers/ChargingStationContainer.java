@@ -54,7 +54,7 @@ public class ChargingStationContainer extends BasicMachineContainer {
 				if (!stack.isEmpty()){
 					
 					if (id >=0 && id<=HIGHEST_SLOT){
-						if (!this.mergeItemStack(stack1, HIGHEST_SLOT+1, MAXSLOTS, true)) {
+						if (!this.mergeItemStack(stack1, HIGHEST_SLOT+1, MAXSLOTS, false)) {
 							return ItemStack.EMPTY;
 						}
 						slot.onSlotChange(stack1, stack);

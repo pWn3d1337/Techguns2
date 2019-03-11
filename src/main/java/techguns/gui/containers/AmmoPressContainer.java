@@ -90,7 +90,7 @@ public class AmmoPressContainer extends BasicMachineContainer {
 					
 					if (id >=0 && id<=AmmoPressTileEnt.SLOT_UPGRADE){
 						//PRESSED IN MACHINE GUI
-						if (!this.mergeItemStack(stack1, AmmoPressTileEnt.SLOT_UPGRADE+1, AmmoPressTileEnt.SLOT_UPGRADE+37, true)) {
+						if (!this.mergeItemStack(stack1, AmmoPressTileEnt.SLOT_UPGRADE+1, AmmoPressTileEnt.SLOT_UPGRADE+37, false)) {
 							return ItemStack.EMPTY;
 						}
 						slot.onSlotChange(stack1, stack);

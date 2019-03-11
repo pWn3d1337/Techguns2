@@ -420,6 +420,9 @@ public class Recipewriter {
         
         RecipeJsonConverter.addShapedRecipe(new ItemStack(TGBlocks.CONCRETE,16), "ccc","cbc","ccc", 'b', Blocks.IRON_BARS, 'c', new ItemStack(Blocks.CONCRETE, 1, OreDictionary.WILDCARD_VALUE));
         
+        RecipeJsonConverter.addShapedRecipe(new ItemStack(TGBlocks.NETHER_METAL,16), "nsn","sis","nsn", 'i', "ingotIron", 'n', "netherrack", 's', "stone");
+        
+        
         RecipeJsonConverter.addShapedRecipe(new ItemStack(TGBlocks.METAL_STAIRS,6,7), "b  ", "bb ", "bbb", 'b', new ItemStack(TGBlocks.METAL_PANEL,1,TGMetalPanelType.PANEL_LARGE_BORDER.ordinal()));
         RecipeJsonConverter.addShapelessRecipe(new ItemStack(TGBlocks.METAL_PANEL,1,TGMetalPanelType.PANEL_LARGE_BORDER.ordinal()), new ItemStack(TGBlocks.METAL_STAIRS,1,7));
         

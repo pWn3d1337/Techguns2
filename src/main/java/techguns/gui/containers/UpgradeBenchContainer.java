@@ -20,6 +20,7 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import techguns.TGConfig;
 import techguns.gui.widgets.SlotArmor;
+import techguns.items.armors.GenericArmor;
 import techguns.tileentities.UpgradeBenchTileEnt;
 import techguns.tileentities.BasicOwnedTileEnt;
 import techguns.tileentities.operation.UpgradeBenchRecipes;
@@ -41,6 +42,9 @@ public class UpgradeBenchContainer extends OwnedTileContainer {
     public static final int SLOT_UPGRADE_X=53;
     public static final int SLOT_OUTPUT_X=116;
     
+	protected static final int MAXSLOTS = 3+36+4+1; //36 = inventory size
+    protected static final int HIGHEST_SLOT=2;
+	
 	public UpgradeBenchContainer(InventoryPlayer player, UpgradeBenchTileEnt ent) {
 		super(player, ent);
 		this.tile=ent;
@@ -221,4 +225,64 @@ public class UpgradeBenchContainer extends OwnedTileContainer {
        }
    }
 
+	@Override
+	public ItemStack transferStackInSlot(EntityPlayer ply, int id) {
+
+		ItemStack stack = ItemStack.EMPTY;
+		Slot slot = (Slot) this.inventorySlots.get(id);
+
+			if(slot.getHasStack()){
+				ItemStack stack1 = slot.getStack();
+				stack=stack1.copy();
+				if (!stack.isEmpty()){
+					
+					if (id >=0 && id<=HIGHEST_SLOT){
+						if (!this.mergeItemStack(stack1, HIGHEST_SLOT+1, MAXSLOTS, false)) {
+							return ItemStack.EMPTY;
+						}
+						slot.onSlotChange(stack1, stack);
+					} else if (id >HIGHEST_SLOT && id <MAXSLOTS){
+						
+						int validslot = this.getValidSlotForItemInInventory(stack1);
+						//System.out.println("put it in slot"+validslot);
+						if (validslot >=0){
+							
+							if(!this.mergeItemStack(stack1, validslot, validslot+1, false)){
+								return ItemStack.EMPTY;
+							}
+							slot.onSlotChange(stack1, stack);
+							
+						} else {
+							return ItemStack.EMPTY;
+						}
+						
+						
+					}
+
+					if (stack1.getCount() == 0) {
+						slot.putStack(ItemStack.EMPTY);
+					} else {
+						slot.onSlotChanged();
+					}
+
+					if (stack1.getCount() == stack.getCount()) {
+						return ItemStack.EMPTY;
+					}
+
+					slot.onTake(ply, stack1);
+				}
+			}
+		
+			return stack;
+	}
+
+	protected int getValidSlotForItemInInventory(ItemStack stack1) {
+		if (!stack1.isEmpty() && stack1.getItem() instanceof GenericArmor) {
+			return 0;
+		} else if(UpgradeBenchRecipes.getUpgradeRecipeForUpgradeItem(stack1) != null) {
+			return 1;
+		}  
+		return -1;
+	}
+   
 }

@@ -123,7 +123,7 @@ public class OreDrillContainer extends BasicMachineContainer {
 					} else if (id>=OreDrillTileEntMaster.SLOT_FURNACE && id < machine_inventory_end) {
 						
 						//PRESSED IN MACHINE GUI 2-10 output, 1 fuelinput
-						if (!this.mergeItemStack(stack1, machine_inventory_end, machine_inventory_end+36, true)) {
+						if (!this.mergeItemStack(stack1, machine_inventory_end, machine_inventory_end+36, false)) {
 							return null;
 						}
 						slot.onSlotChange(stack1, stack);

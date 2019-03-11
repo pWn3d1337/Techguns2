@@ -57,7 +57,7 @@ public class RepairBenchContainer extends OwnedTileContainer {
 					if(stack1.getItem() instanceof ItemArmor){
 						int type=getArmorIntFromEntityEquipmentSlot(((ItemArmor)stack1.getItem()).armorType);
 						//put armor into player armor inventory
-						if (!this.mergeItemStack(stack1, 9+36+type, 9+36+type+1, true)) {
+						if (!this.mergeItemStack(stack1, 9+36+type, 9+36+type+1, false)) {
 							return ItemStack.EMPTY;
 						}
 						slot.onSlotChange(stack1, stack);
@@ -71,7 +71,7 @@ public class RepairBenchContainer extends OwnedTileContainer {
 					//pressed in armor gui
 				
 				//put item back in player inventory
-					if (!this.mergeItemStack(stack1, 9, 9+36, true)) {
+					if (!this.mergeItemStack(stack1, 9, 9+36, false)) {
 						return ItemStack.EMPTY;
 					}
 					slot.onSlotChange(stack1, stack);

@@ -203,6 +203,13 @@
   {
     "ingredient": {
       "type": "forge:ore_dict",
+      "ore": "netherrack"
+    },
+    "name": "NETHERRACK"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
       "ore": "nuggetCopper"
     },
     "name": "NUGGETCOPPER"
