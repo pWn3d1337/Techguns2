@@ -50,6 +50,7 @@ import techguns.entities.projectiles.GenericProjectileIncendiary;
 import techguns.entities.projectiles.Grenade40mmProjectile;
 import techguns.entities.projectiles.GrenadeProjectile;
 import techguns.entities.projectiles.GuidedMissileProjectile;
+import techguns.entities.projectiles.GuidedMissileProjectileHV;
 import techguns.entities.projectiles.LaserProjectile;
 import techguns.entities.projectiles.NDRProjectile;
 import techguns.entities.projectiles.PowerHammerProjectile;
@@ -104,6 +105,8 @@ public class TGEntities implements ITGInitializer {
 		EntityRegistry.registerModEntity(new ResourceLocation(Techguns.MODID,"GenericProjectileExplosive"),GenericProjectileExplosive.class, "GenericProjectileExplosive", ++Techguns.modEntityID, Techguns.MODID, bulletTrackRange, 1, true);
 		EntityRegistry.registerModEntity(new ResourceLocation(Techguns.MODID,"RocketProjectileHV"),RocketProjectileHV.class, "RocketProjectileHV", ++Techguns.modEntityID, Techguns.MODID, bulletTrackRange, 1, true);
 		EntityRegistry.registerModEntity(new ResourceLocation(Techguns.MODID,"RadiationEntity"), EntityRadiation.class, "RadiationEntity", ++Techguns.modEntityID, Techguns.MODID, bulletTrackRange, 1, false);
+		EntityRegistry.registerModEntity(new ResourceLocation(Techguns.MODID,"GuidedMissileProjectileHV"),GuidedMissileProjectileHV.class, "GuidedMissileProjectileHV", ++Techguns.modEntityID, Techguns.MODID, bulletTrackRange, 1, true);
+		
 		
 		/**
 		 * NPCS

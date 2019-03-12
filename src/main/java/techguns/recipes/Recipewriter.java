@@ -115,6 +115,7 @@ import static techguns.TGItems.TURRET_ARMOR_OBSIDIAN_STEEL;
 import static techguns.TGItems.TURRET_ARMOR_STEEL;
 import static techguns.TGItems.WIRE_COPPER;
 import static techguns.TGItems.newStack;
+import static techguns.TGItems.*;
 import static techguns.TGuns.ak47;
 import static techguns.TGuns.as50;
 import static techguns.TGuns.aug;
@@ -402,6 +403,8 @@ public class Recipewriter {
         RecipeJsonConverter.addShapelessRecipe(newStack(PISTOL_MAGAZINE_INCENDIARY, 1), PISTOL_MAGAZINE_EMPTY, PISTOL_ROUNDS_INCENDIARY,PISTOL_ROUNDS_INCENDIARY,PISTOL_ROUNDS_INCENDIARY);
         RecipeJsonConverter.addShapelessRecipe(newStack(SMG_MAGAZINE_INCENDIARY, 1), SMG_MAGAZINE_EMPTY, PISTOL_ROUNDS_INCENDIARY, PISTOL_ROUNDS_INCENDIARY);
         RecipeJsonConverter.addShapelessRecipe(newStack(ASSAULTRIFLE_MAGAZINE_INCENDIARY, 1), ASSAULTRIFLE_MAGAZINE_EMPTY, RIFLE_ROUNDS_INCENDIARY, RIFLE_ROUNDS_INCENDIARY, RIFLE_ROUNDS_INCENDIARY);
+        
+        RecipeJsonConverter.addShapelessRecipe(newStack(AS50_MAGAZINE_EXPLOSIVE,1),AS50_MAGAZINE_EMPTY, SNIPER_ROUNDS_EXPLOSIVE, SNIPER_ROUNDS_EXPLOSIVE);
         
         //tool upgrades
         RecipeJsonConverter.addShapedRecipe(newStack(TGItems.POWERHAMMERHEAD_OBSIDIAN,1), "p  ","pii","p  ", 'p', "plateObsidianSteel", 'i', "ingotSteel");

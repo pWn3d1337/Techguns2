@@ -25,6 +25,7 @@ import techguns.entities.projectiles.GenericProjectileIncendiary;
 import techguns.entities.projectiles.Grenade40mmProjectile;
 import techguns.entities.projectiles.GrenadeProjectile;
 import techguns.entities.projectiles.GuidedMissileProjectile;
+import techguns.entities.projectiles.GuidedMissileProjectileHV;
 import techguns.entities.projectiles.LaserProjectile;
 import techguns.entities.projectiles.NDRProjectile;
 import techguns.entities.projectiles.PowerHammerProjectile;
@@ -229,7 +230,7 @@ public class TGuns implements ITGInitializer {
 		POWERHAMMER_PROJECTILES = new ChargedProjectileSelector<PowerHammerProjectile>(AmmoTypes.COMPRESSED_AIR_TANK, new PowerHammerProjectile.Factory());
 		BIOGUN_PROJECTILES = new ChargedProjectileSelector<BioGunProjectile>(AmmoTypes.BIO_TANK, new BioGunProjectile.Factory());
 		CHAINSAW_PROJECTILES = new ChargedProjectileSelector<ChainsawProjectile>(AmmoTypes.FUEL_TANK, new ChainsawProjectile.Factory());
-		GUIDED_MISSILE_PROJECTILES = new ChargedProjectileSelector<GuidedMissileProjectile>(AmmoTypes.ROCKETS_NO_NUKES, new GuidedMissileProjectile.Factory(), new GuidedMissileProjectile.Factory());
+		GUIDED_MISSILE_PROJECTILES = new ChargedProjectileSelector(AmmoTypes.ROCKETS_NO_NUKES, new GuidedMissileProjectile.Factory(), new GuidedMissileProjectileHV.Factory());
 		TFG_PROJECTILES = new ChargedProjectileSelector<TFGProjectile>(AmmoTypes.NUCLEAR_POWER_CELL, new TFGProjectile.Factory());
 		
 		handcannon = new GenericGun("handcannon", new ProjectileSelector<StoneBulletProjectile>(AmmoTypes.STONE_BULLETS, new StoneBulletProjectile.Factory()), true, 12,1,30, 8.0f, TGSounds.HANDGUN_FIRE, TGSounds.HANDGUN_RELOAD,25,0.035f).setBulletSpeed(1f).setGravity(0.015d).setDamageDrop(10, 25, 5.0f).setAIStats(RANGE_CLOSE, 60, 0, 0).setTexture("textures/guns/handgun").setRecoiltime(12);//.setMuzzleParticle(2,0.2f);

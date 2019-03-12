@@ -1,0 +1,21 @@
+{
+  "result": {
+    "item": "techguns:itemshared",
+    "data": 143
+  },
+  "ingredients": [
+    {
+      "item": "techguns:itemshared",
+      "data": 20
+    },
+    {
+      "item": "techguns:itemshared",
+      "data": 144
+    },
+    {
+      "item": "techguns:itemshared",
+      "data": 144
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

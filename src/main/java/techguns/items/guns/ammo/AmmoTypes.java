@@ -79,6 +79,7 @@ public class AmmoTypes implements ITGInitializer{
 		ROCKETS.addVariant(TYPE_HV, TGItems.ROCKET_HIGH_VELOCITY);
 		
 		ROCKETS_NO_NUKES = new AmmoType(TGItems.ROCKET);
+		ROCKETS_NO_NUKES.addVariant(TYPE_HV, TGItems.ROCKET_HIGH_VELOCITY);
 		
 		NETHER_CHARGE = new AmmoType(TGItems.NETHER_CHARGE);
 		GRENADES_40MM = new AmmoType(TGItems.GRENADE_40MM);

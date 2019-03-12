@@ -39,7 +39,7 @@ public class RocketProjectileHV extends RocketProjectile {
 		@Override
 		public RocketProjectileHV createProjectile(GenericGun gun, World world, EntityLivingBase p, float damage, float speed, int TTL, float spread, float dmgDropStart, float dmgDropEnd,
 				float dmgMin, float penetration, boolean blockdamage, EnumBulletFirePos firePos, float radius, double gravity) {
-			return new RocketProjectileHV(world,p,mod.getDamage(damage),mod.getVelocity(speed),TTL,spread,mod.getRange(dmgDropStart),mod.getRange(dmgDropEnd),mod.getDamage(dmgMin),penetration,blockdamage,firePos,mod.getRadius(radius),gravity);
+			return new RocketProjectileHV(world,p,mod.getDamage(damage),mod.getVelocity(speed),mod.getTTL(TTL),spread,mod.getRange(dmgDropStart),mod.getRange(dmgDropEnd),mod.getDamage(dmgMin),penetration,blockdamage,firePos,mod.getRadius(radius),gravity);
 		}
 
 		@Override

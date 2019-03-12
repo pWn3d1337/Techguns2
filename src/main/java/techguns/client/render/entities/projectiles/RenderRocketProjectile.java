@@ -10,6 +10,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import techguns.Techguns;
 import techguns.client.models.projectiles.ModelRocket;
+import techguns.entities.projectiles.GuidedMissileProjectileHV;
 import techguns.entities.projectiles.RocketProjectileHV;
 import techguns.entities.projectiles.RocketProjectileNuke;
 
@@ -58,7 +59,7 @@ public class RenderRocketProjectile extends Render {
 	protected ResourceLocation getEntityTexture(Entity entity) {
 		if(entity instanceof RocketProjectileNuke) {
 			return textureLocNuke;
-		} else if (entity instanceof RocketProjectileHV) {
+		} else if (entity instanceof RocketProjectileHV || entity instanceof GuidedMissileProjectileHV) {
 			return textureLocHV;
 		}
 		return textureLoc;

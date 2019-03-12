@@ -1,0 +1,15 @@
+{
+  "result": {
+    "item": "techguns:grimreaper"
+  },
+  "ingredients": [
+    {
+      "item": "techguns:grimreaper"
+    },
+    {
+      "item": "techguns:itemshared",
+      "data": 145
+    }
+  ],
+  "type": "techguns:ammo_change_crafting"
+}

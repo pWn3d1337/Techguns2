@@ -1,0 +1,15 @@
+{
+  "result": {
+    "item": "techguns:guidedmissilelauncher"
+  },
+  "ingredients": [
+    {
+      "item": "techguns:guidedmissilelauncher"
+    },
+    {
+      "item": "techguns:itemshared",
+      "data": 145
+    }
+  ],
+  "type": "techguns:ammo_change_crafting"
+}

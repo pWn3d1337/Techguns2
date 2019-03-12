@@ -254,6 +254,7 @@ import techguns.entities.projectiles.GenericProjectileIncendiary;
 import techguns.entities.projectiles.Grenade40mmProjectile;
 import techguns.entities.projectiles.GrenadeProjectile;
 import techguns.entities.projectiles.GuidedMissileProjectile;
+import techguns.entities.projectiles.GuidedMissileProjectileHV;
 import techguns.entities.projectiles.LaserProjectile;
 import techguns.entities.projectiles.NDRProjectile;
 import techguns.entities.projectiles.PowerHammerProjectile;
@@ -1084,6 +1085,7 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerEntityRenderingHandler(TFGProjectile.class, RenderInvisibleProjectile<TFGProjectile>::new);
 		RenderingRegistry.registerEntityRenderingHandler(GenericProjectileExplosive.class, RenderGenericProjectile<GenericProjectile>::new);
 		RenderingRegistry.registerEntityRenderingHandler(RocketProjectileHV.class, RenderRocketProjectile::new);
+		RenderingRegistry.registerEntityRenderingHandler(GuidedMissileProjectileHV.class, RenderRocketProjectile::new);
 		
 		//NPCS
 		RenderingRegistry.registerEntityRenderingHandler(NPCTurret.class, RenderNPCTurret::new);
