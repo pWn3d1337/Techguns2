@@ -349,6 +349,7 @@ public class TGMachineRecipes {
 		GrinderRecipes.addRecipeChance(TGItems.SNIPER_ROUNDS_INCENDIARY, new ItemStack[] {TGItems.newStack(TGItems.NUGGET_LEAD, 2), TGItems.newStack(TGItems.NUGGET_COPPER, 4), new ItemStack(Items.GUNPOWDER), new ItemStack(Items.BLAZE_POWDER)}, new double[] {1d,1d,0.25d, 0.125d});
 		GrinderRecipes.addRecipeChance(TGItems.SHOTGUN_ROUNDS_INCENDIARY, new ItemStack[] {TGItems.newStack(TGItems.NUGGET_LEAD, 1), TGItems.newStack(TGItems.NUGGET_COPPER, 1), new ItemStack(Items.GUNPOWDER), new ItemStack(Items.BLAZE_POWDER)}, new double[] {0.5d,1d,0.0625d, 0.125d});
 		
+		GrinderRecipes.addRecipeChance(TGItems.SNIPER_ROUNDS_EXPLOSIVE, new ItemStack[] {TGItems.newStack(TGItems.NUGGET_LEAD, 2), TGItems.newStack(TGItems.NUGGET_COPPER, 4), new ItemStack(Items.GUNPOWDER), new ItemStack(Items.BLAZE_POWDER), TGItems.newStack(TGItems.TGX, 1)}, new double[] {1d,1d,0.25d, 0.125d, 0.5d});
 		
 		/**
 		 * Upgrade bench recipes
