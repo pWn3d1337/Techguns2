@@ -9,6 +9,7 @@ import net.minecraft.init.Items;
 import net.minecraft.init.PotionTypes;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionUtils;
+import net.minecraft.util.NonNullList;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
@@ -45,7 +46,12 @@ public class TGMachineRecipes {
 		
 		ItemStack GOLD_OR_ELECTRUM=ItemStack.EMPTY;
 		if(OreDictionary.doesOreNameExist("ingotElectrum")) {
-			GOLD_OR_ELECTRUM = OreDictionary.getOres("ingotElectrum").get(0);
+			NonNullList<ItemStack> list = OreDictionary.getOres("ingotElectrum");
+			if(!list.isEmpty()) {
+				GOLD_OR_ELECTRUM = list.get(0);
+			} else {
+				GOLD_OR_ELECTRUM = new ItemStack(Items.GOLD_INGOT,1);
+			}
 		} else {
 			GOLD_OR_ELECTRUM = new ItemStack(Items.GOLD_INGOT,1);
 		}
