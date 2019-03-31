@@ -12,6 +12,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.EnumHandSide;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
@@ -23,15 +25,18 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import techguns.TGItems;
 import techguns.TGRadiationSystem;
 import techguns.Techguns;
+import techguns.api.guns.GunHandType;
 import techguns.api.guns.GunManager;
 import techguns.api.radiation.TGRadiation;
 import techguns.capabilities.TGExtendedPlayer;
 import techguns.debug.Keybinds;
+import techguns.entities.projectiles.EnumBulletFirePos;
 import techguns.gui.player.TGGuiTabButton;
 import techguns.gui.player.TGPlayerInventory;
 import techguns.gui.player.TGPlayerInventoryGui;
 import techguns.items.additionalslots.ItemTGSpecialSlotAmmo;
 import techguns.items.armors.PoweredArmor;
+import techguns.items.guns.EnumCrosshairStyle;
 import techguns.items.guns.GenericGun;
 import techguns.util.InventoryUtil;
 import techguns.util.MathUtil;
@@ -256,7 +261,7 @@ public class TGGuiEvents extends Gui{
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent(priority=EventPriority.NORMAL, receiveCanceled=false)
 	public void onRenderCrosshairs(RenderGameOverlayEvent event){
-		if(event.isCancelable() || event.getType() != ElementType.CROSSHAIRS)
+		if(event.isCanceled() || event.getType() != ElementType.CROSSHAIRS)
 	    {      
 	      return;
 	    }
@@ -272,6 +277,9 @@ public class TGGuiEvents extends Gui{
 			GameSettings gamesettings = mc.gameSettings;
 			ScaledResolution sr = new ScaledResolution(mc);
 			TGExtendedPlayer epc = TGExtendedPlayer.get(player);
+			
+			int x = sr.getScaledWidth() / 2;
+			int y = sr.getScaledHeight() / 2;
 			
 			//GenericGun gun = (GenericGun)player.getActiveItemStack().getItem();
 			GenericGun gun = (GenericGun)player.getHeldItemMainhand().getItem();
@@ -289,8 +297,6 @@ public class TGGuiEvents extends Gui{
 //				float y = (float)(sr.getScaledHeight_double()*0.5);
 				
 				int offset = (int)(Math.max(0.0f, (1.0f-progress)*16.0f))+5;
-				int x = sr.getScaledWidth() / 2;
-				int y = sr.getScaledHeight() / 2;
 				//Outer parts
 				
 				this.drawTexturedModalRect(x-offset-3, y-offset-3, 0, 0, 7,7);
@@ -321,6 +327,46 @@ public class TGGuiEvents extends Gui{
 //	                GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.ONE_MINUS_DST_COLOR, GlStateManager.DestFactor.ONE_MINUS_SRC_COLOR, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 //	                GlStateManager.enableAlpha();
 //	            }
+			} else {
+				//gun crosshair
+				
+					if(gun.getCrossHairStyle()!=EnumCrosshairStyle.VANILLA) {
+						event.setCanceled(true);
+		
+						//Vanilla does this setting too
+					    Minecraft.getMinecraft().getTextureManager().bindTexture(Gui.ICONS);
+					    GlStateManager.enableBlend();
+		
+		                GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.ONE_MINUS_DST_COLOR, GlStateManager.DestFactor.ONE_MINUS_SRC_COLOR, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+		                GlStateManager.enableAlpha();
+		                //end vanilla gl states
+		                
+		                //this.drawTexturedModalRect(l / 2 - 7, i1 / 2 - 7, 0, 0, 16, 16);
+						
+		                float spread = gun.getSpread();
+		                
+		            	if(player.isActiveItemStackBlocking()) {
+			        		if(gun.getHandType()==GunHandType.ONE_HANDED) {
+			        			spread *= 4.0f;
+			        		} else {
+			        			spread *= 8.0f;
+			        		}
+			        	}
+			        	if(gun.isZooming()){
+			        		spread*=gun.getZoombonus();
+			        	}
+		              	
+			        	//System.out.println("Spread:"+spread);
+			        	
+		                int spacing = MathUtil.clamp(Math.round(100*spread),1,10);
+		                
+		                this.drawTexturedModalRect(x - (4+spacing) , y,3,7,4,1);
+		                this.drawTexturedModalRect(x + (1+spacing) , y,8,7,4,1);
+		                this.drawTexturedModalRect(x , y,7,7,1,1);
+		                
+		                this.drawTexturedModalRect(x, y - (4+spacing), 7, 3, 1,4);
+		                this.drawTexturedModalRect(x, y + (1+spacing), 7, 8, 1,4);
+				}
 			}
 
 		}

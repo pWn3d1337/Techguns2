@@ -1,0 +1,13 @@
+{
+  "result": {
+    "item": "techguns:concrete",
+    "data": 3
+  },
+  "ingredients": [
+    {
+      "item": "techguns:stairs_concrete",
+      "data": 7
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

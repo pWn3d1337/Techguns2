@@ -80,17 +80,21 @@ import techguns.capabilities.TGExtendedPlayerClient;
 import techguns.capabilities.TGShooterValues;
 import techguns.client.audio.TGSound;
 import techguns.client.audio.TGSoundCategory;
+import techguns.client.models.armor.ModelAdvancedShield;
 import techguns.client.models.armor.ModelAntiGravPack;
 import techguns.client.models.armor.ModelArmorCoat;
+import techguns.client.models.armor.ModelBallisticShield;
 import techguns.client.models.armor.ModelBeret;
 import techguns.client.models.armor.ModelExoSuit;
 import techguns.client.models.armor.ModelFaceMask;
 import techguns.client.models.armor.ModelGasMask;
 import techguns.client.models.armor.ModelGlider;
 import techguns.client.models.armor.ModelGloves;
+import techguns.client.models.armor.ModelHeavyShield;
 import techguns.client.models.armor.ModelJetPack;
 import techguns.client.models.armor.ModelNightVisionGoggles;
 import techguns.client.models.armor.ModelOxygenTanks;
+import techguns.client.models.armor.ModelRiotShield;
 import techguns.client.models.armor.ModelSteamArmor;
 import techguns.client.models.armor.ModelT3PowerArmor;
 import techguns.client.models.armor.ModelT4PowerArmorMk2;
@@ -164,6 +168,7 @@ import techguns.client.render.entities.npcs.RenderBandit;
 import techguns.client.render.entities.npcs.RenderCommando;
 import techguns.client.render.entities.npcs.RenderCyberDemon;
 import techguns.client.render.entities.npcs.RenderDictatorDave;
+import techguns.client.render.entities.npcs.RenderGhastling;
 import techguns.client.render.entities.npcs.RenderNPCTurret;
 import techguns.client.render.entities.npcs.RenderOutcast;
 import techguns.client.render.entities.npcs.RenderPsychoSteve;
@@ -173,6 +178,7 @@ import techguns.client.render.entities.npcs.RenderSuperMutant;
 import techguns.client.render.entities.npcs.RenderZombieFarmer;
 import techguns.client.render.entities.npcs.RenderZombieMiner;
 import techguns.client.render.entities.npcs.RenderZombiePigmanSoldier;
+import techguns.client.render.entities.npcs.RenderZombiePoliceman;
 import techguns.client.render.entities.npcs.RenderZombieSoldier;
 import techguns.client.render.entities.projectiles.RenderAdvancedBulletProjectile;
 import techguns.client.render.entities.projectiles.RenderBioGunProjectile;
@@ -205,6 +211,7 @@ import techguns.client.render.item.RenderItemBaseRocketItem;
 import techguns.client.render.item.RenderItemLMGMag;
 import techguns.client.render.item.RenderMiningToolMultiTexture;
 import techguns.client.render.item.RenderRocketLauncher;
+import techguns.client.render.item.TileEntityItemRendererTGShield;
 import techguns.client.render.tileentities.RenderBlastfurnace;
 import techguns.client.render.tileentities.RenderChargingStation;
 import techguns.client.render.tileentities.RenderDoor3x3Fast;
@@ -225,6 +232,7 @@ import techguns.entities.npcs.Bandit;
 import techguns.entities.npcs.Commando;
 import techguns.entities.npcs.CyberDemon;
 import techguns.entities.npcs.DictatorDave;
+import techguns.entities.npcs.Ghastling;
 import techguns.entities.npcs.NPCTurret;
 import techguns.entities.npcs.Outcast;
 import techguns.entities.npcs.PsychoSteve;
@@ -236,6 +244,7 @@ import techguns.entities.npcs.SuperMutantHeavy;
 import techguns.entities.npcs.ZombieFarmer;
 import techguns.entities.npcs.ZombieMiner;
 import techguns.entities.npcs.ZombiePigmanSoldier;
+import techguns.entities.npcs.ZombiePoliceman;
 import techguns.entities.npcs.ZombieSoldier;
 import techguns.entities.projectiles.AdvancedBulletProjectile;
 import techguns.entities.projectiles.AlienBlasterProjectile;
@@ -1053,7 +1062,17 @@ public class ClientProxy extends CommonProxy {
 		sharedItemRenderer.addRenderForSharedItem(TGItems.WORKING_GLOVES.getItemDamage(),new RenderAdditionalSlotItem(new ModelGloves(0.45f,false), new ModelGloves(0.45f, true), new ResourceLocation(Techguns.MODID,"textures/models/armor/working_gloves.png"), new ResourceLocation(Techguns.MODID,"textures/models/armor/working_gloves_slim.png")));
 		
 		AdditionalSlotRenderRegistry.register(TGItems.SHARED_ITEM, sharedItemRenderer);
+	
+		TGArmors.riot_shield.setTileEntityItemStackRenderer(new TileEntityItemRendererTGShield(new ModelRiotShield(), new ResourceLocation(Techguns.MODID, "textures/armors/riot_shield.png"),
+				new ResourceLocation(Techguns.MODID, "textures/armors/riot_shield_black.png"), new ResourceLocation(Techguns.MODID, "textures/armors/riot_shield_darkgreen.png"),
+				new ResourceLocation(Techguns.MODID, "textures/armors/riot_shield_grey.png")));
 		
+		TGArmors.ballistic_shield.setTileEntityItemStackRenderer(new TileEntityItemRendererTGShield(new ModelBallisticShield(), new ResourceLocation(Techguns.MODID, "textures/armors/ballistic_shield.png"),
+				new ResourceLocation(Techguns.MODID, "textures/armors/ballistic_shield_black.png"), new ResourceLocation(Techguns.MODID, "textures/armors/ballistic_shield_green.png"),
+				new ResourceLocation(Techguns.MODID, "textures/armors/ballistic_shield_grey.png")));
+		
+		TGArmors.advanced_shield.setTileEntityItemStackRenderer(new TileEntityItemRendererTGShield(new ModelAdvancedShield(), getTextures("textures/armors/advanced_shield", "silver", "green" )));
+				
 	}
 	
 	@Override
@@ -1108,6 +1127,8 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerEntityRenderingHandler(SuperMutantHeavy.class, RenderSuperMutant::new);
 		RenderingRegistry.registerEntityRenderingHandler(AttackHelicopter.class, RenderAttackHelicopter::new);
 		RenderingRegistry.registerEntityRenderingHandler(AlienBug.class, RenderAlienBug::new);
+		RenderingRegistry.registerEntityRenderingHandler(Ghastling.class, RenderGhastling::new);
+		RenderingRegistry.registerEntityRenderingHandler(ZombiePoliceman.class, RenderZombiePoliceman::new);
 	}
 	
 	
@@ -1453,5 +1474,15 @@ public class ClientProxy extends CommonProxy {
 		return false;
 	}*/
 
-	
+	protected static ResourceLocation[] getTextures(String name, String ...suffixes) {
+		ResourceLocation[] tex = new ResourceLocation[suffixes.length+1];
+		tex[0]=new ResourceLocation(Techguns.MODID, name+".png");
+		
+		for(int i=1; i<=suffixes.length; i++) {
+			tex[i] = new ResourceLocation(Techguns.MODID, name+"_"+suffixes[i-1]+".png");
+		}
+		
+		return tex;
+		
+	}
 }

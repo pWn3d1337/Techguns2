@@ -8,6 +8,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
 import techguns.util.BlockUtils;
 import techguns.world.EnumLootType;
+import techguns.world.WorldGenTGStructureSpawn;
 
 public abstract class WorldgenStructure {
 	public int minX; //Minimum size
@@ -164,6 +165,52 @@ public abstract class WorldgenStructure {
 		if(removeJunkOnWorldspawn){
 			BlockUtils.removeJunkInArea(world, x-1, z-1, sizeXr+2, sizeZr+2);
 		}
+		
+		this.setBlocks(world, x, y-1, z, sizeX, sizeY, sizeZ, direction, getBiomeColorTypeFromBiome(biome), rnd);
+	}
+	
+	public void spawnStructureCaveWorldgen(World world, int chunkX, int chunkZ, int sizeX, int sizeY, int sizeZ, Random rnd, Biome biome){
+		int direction = rnd.nextInt(4);
+
+		
+		int sizeXr = direction==0||direction==2 ? sizeX : sizeZ;
+		int sizeZr = direction==0||direction==2 ? sizeZ : sizeX;
+		
+		int centerX = (int) (sizeX/2.0f);
+		int centerZ = (int) (sizeZ/2.0f);
+		
+		/**
+		 * Rotate 4 corner points
+		 */
+		int[] p0 = rotatePoint(0, 0, direction,centerX,centerZ);
+		int[] p1 = rotatePoint(sizeX, 0, direction,centerX,centerZ);
+		int[] p2 = rotatePoint(0, sizeZ, direction,centerX,centerZ);
+		int[] p3 = rotatePoint(sizeX, sizeZ, direction,centerX,centerZ);
+		
+		int minX = Math.min(Math.min(p0[0], p1[0]),Math.min(p2[0], p3[0]));
+		int minZ = Math.min(Math.min(p0[1], p1[1]),Math.min(p2[1], p3[1]));
+		
+		int x=minX+chunkX*16;//-cXr;
+		int z=minZ+chunkZ*16;//-cZr;
+				
+	
+		int offsetX=this.getRotationShiftX(direction);
+		int offsetZ=this.getRotationShiftZ(direction);
+		
+		
+		//int y =BlockUtils.getValidSpawnYArea(world, x+offsetX, z+offsetZ, sizeXr, sizeZr,this.heightdiffLimit,getStep());
+		int y = BlockUtils.getCaveHeight(world, chunkX, chunkZ, 10, WorldGenTGStructureSpawn.NETHER_STRUCT_MIN_Y, WorldGenTGStructureSpawn.NETHER_STRUCT_MAX_y);
+		
+		
+		//System.out.println("Chosen SpawnHeight:"+y);
+		
+		if (y<0){
+			return;
+		}
+		
+		/*if(removeJunkOnWorldspawn){
+			BlockUtils.removeJunkInArea(world, x-1, z-1, sizeXr+2, sizeZr+2);
+		}*/
 		
 		this.setBlocks(world, x, y-1, z, sizeX, sizeY, sizeZ, direction, getBiomeColorTypeFromBiome(biome), rnd);
 	}

@@ -9,6 +9,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
@@ -34,7 +35,7 @@ public class ItemRadAway extends GenericItemConsumable {
 		player.addPotionEffect(new PotionEffect(TGRadiationSystem.radregen_effect, 400, 14, false, false));
 		
 		if(!worldIn.isRemote) {
-			ItemStack bottle = TGItems.newStack(TGItems.PLASTIC_BAG, 1);
+			ItemStack bottle = TGItems.newStack(TGItems.INFUSION_BAG, 1);
 			if(!player.addItemStackToInventory(bottle)) {
 				 worldIn.spawnEntity(new EntityItem(worldIn, player.posX, player.posY, player.posZ, bottle));
 			}
@@ -44,6 +45,11 @@ public class ItemRadAway extends GenericItemConsumable {
 	@Override
 	protected SoundEvent getConsumedSound() {
 		return SoundEvents.ENTITY_PLAYER_BREATH;
+	}
+
+	@Override
+	public EnumAction getItemUseAction(ItemStack stack) {
+		return EnumAction.BOW;
 	}
 
 	@Override

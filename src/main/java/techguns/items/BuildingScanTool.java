@@ -78,7 +78,7 @@ public class BuildingScanTool extends GenericItem {
 		ArrayList<MBlock> blockList = new ArrayList<MBlock>();
 		ArrayList<BlockPosInd> blockPosList = new ArrayList<BlockPosInd>();
 		
-		sbDefBlocks.append("ArrayList<MBlock> blockList = new ArrayList<MBlock>();\n");
+		//sbDefBlocks.append("ArrayList<MBlock> blockList = new ArrayList<MBlock>();\n");
 		MutableBlockPos p = new MutableBlockPos();
 		
 		for (int ix=0;ix<sizeX;ix++){
@@ -99,7 +99,8 @@ public class BuildingScanTool extends GenericItem {
 						if (!blockList.contains(mblock)) {
 							blockList.add(mblock);
 							//sbDefBlocks.append("MBlock block_"+blockList.indexOf(mblock)+" = new MBlock(Block.getBlockFromName(\""+mblock.block.getUnlocalizedName()+"\"), "+mblock.meta+");\n");
-							sbDefBlocks.append("blockList.add(new MBlock(Block.getBlockFromName(\""+mblock.block.getUnlocalizedName()+"\"), "+mblock.meta+"));\n");
+							//sbDefBlocks.append("blockList.add(new MBlock(Block.getBlockFromName(\""+mblock.block.getUnlocalizedName()+"\"), "+mblock.meta+"));\n");
+							sbDefBlocks.append("blockList.add(new MBlock(\""+mblock.block.getRegistryName()+"\", "+mblock.meta+"));\n");
 						}	
 						//String name = "block_"+blockList.indexOf(mblock);
 						//System.out.println("Block("+coordX+","+coordY+","+coordZ+"):"+b.getUnlocalizedName()+":"+meta);

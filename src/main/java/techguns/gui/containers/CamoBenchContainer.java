@@ -1,14 +1,17 @@
 package techguns.gui.containers;
 
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
+import techguns.Techguns;
 import techguns.api.tginventory.TGSlotType;
 import techguns.capabilities.TGExtendedPlayer;
 import techguns.gui.player.TGPlayerInventory;
@@ -42,7 +45,12 @@ public class CamoBenchContainer extends OwnedTileContainer {
 			this.addSlotToContainer(new SlotTG(props.tg_inventory, TGPlayerInventory.SLOT_HAND, 80, 18, TGSlotType.HANDSLOT));		
 			
 		}
-		
+		this.addSlotToContainer(new Slot(player, 40, -17, 94) {
+			@Override
+			public String getSlotTexture() {
+				return "minecraft:items/empty_armor_slot_shield";
+			}
+		});
 
 	}
 	

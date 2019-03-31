@@ -10,6 +10,8 @@ import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
+import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.ITickable;
@@ -38,6 +40,8 @@ public class TGSpawnerTileEnt extends BasicTGTileEntity implements ITickable {
 	protected ArrayList<WeightedSpawnerEntity> mobtypes = new ArrayList<>();
 	
 	protected LinkedList<ITGSpawnerNPC> activeMobs = new LinkedList<>();
+	
+	protected ItemStack weaponOverride = ItemStack.EMPTY;
 	
 	public TGSpawnerTileEnt() {
 		super(false);
@@ -87,6 +91,11 @@ public class TGSpawnerTileEnt extends BasicTGTileEntity implements ITickable {
 		this.spawnrange=spawnrange;
 	}
 	
+	public TGSpawnerTileEnt setWeaponOverride(ItemStack weapon) {
+		this.weaponOverride = weapon;
+		return this;
+	}
+	
 	public void setSpawnHeightOffset(int offset) {
 		this.spawnHeightOffset=offset;
 	}
@@ -106,6 +115,11 @@ public class TGSpawnerTileEnt extends BasicTGTileEntity implements ITickable {
         }
         compound.setTag("mobtypes", nbttaglist);
 		
+        if(!weaponOverride.isEmpty()) {
+        	NBTTagCompound weapon = this.weaponOverride.writeToNBT(new NBTTagCompound());
+        	compound.setTag("weapon", weapon);
+        }
+        
 		return super.writeToNBT(compound);
 	}
 
@@ -134,6 +148,11 @@ public class TGSpawnerTileEnt extends BasicTGTileEntity implements ITickable {
                 this.mobtypes.add(new WeightedSpawnerEntity(nbttaglist.getCompoundTagAt(i)));
             }
         }
+		
+		if(compound.hasKey("weapon", 10)) {
+			NBTTagCompound weapon = compound.getCompoundTag("weapon");
+			this.weaponOverride = new ItemStack(weapon);
+		}
 		
 		super.readFromNBT(compound);
 	}
@@ -176,7 +195,7 @@ public class TGSpawnerTileEnt extends BasicTGTileEntity implements ITickable {
 	
 		          //  if (net.minecraftforge.event.ForgeEventFactory.canEntitySpawnSpawner(npc, this.world, (float)entity.posX, (float)entity.posY, (float)entity.posZ))
 		          //  {
-		            	if (!net.minecraftforge.event.ForgeEventFactory.doSpecialSpawn(elb, this.world, (float)entity.posX, (float)entity.posY, (float)entity.posZ)) {
+		            	if (!net.minecraftforge.event.ForgeEventFactory.doSpecialSpawn(elb, this.world, (float)entity.posX, (float)entity.posY, (float)entity.posZ, null)) {
 		                    elb.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(entity)), (IEntityLivingData)null);
 		            
 		                    if(elb instanceof EntityCreature) {
@@ -186,6 +205,10 @@ public class TGSpawnerTileEnt extends BasicTGTileEntity implements ITickable {
 			                AnvilChunkLoader.spawnEntity(entity, world);
 			                world.playEvent(2004, blockpos, 0);
 			
+			                if(!weaponOverride.isEmpty() && elb instanceof EntityLiving) {
+			                	((EntityLiving) elb).setItemStackToSlot(EntityEquipmentSlot.MAINHAND, this.weaponOverride.copy());
+			                }
+			                
 			                elb.spawnExplosionParticle();
 			                
 			                this.activeMobs.add(npc);

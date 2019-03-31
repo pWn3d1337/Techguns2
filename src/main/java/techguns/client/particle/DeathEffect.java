@@ -85,6 +85,7 @@ import techguns.entities.npcs.Bandit;
 import techguns.entities.npcs.Commando;
 import techguns.entities.npcs.CyberDemon;
 import techguns.entities.npcs.DictatorDave;
+import techguns.entities.npcs.Ghastling;
 import techguns.entities.npcs.PsychoSteve;
 import techguns.entities.npcs.SkeletonSoldier;
 import techguns.entities.npcs.StormTrooper;
@@ -142,6 +143,7 @@ public class DeathEffect {
 		goreStats.put(Bandit.class, new GoreData(modelBiped, 160,21,31));
 		goreStats.put(SkeletonSoldier.class, (new GoreData(new ModelGibsBiped(new ModelSkeleton()), 255,255,255)));
 		goreStats.put(AlienBug.class, (new GoreData(new ModelGibsGeneric(new ModelAlienBug()), 235, 255, 70)));
+		goreStats.put(Ghastling.class, (new GoreData(new ModelGibsSlime(), 255,255,255)).setFXscale(1.0f));
 		
 		goreStats.put(EntityLlama.class, (new GoreData(new ModelGibsQuadruped(new ModelLlama(0f)), 170,26,37)));
 		goreStats.put(EntityEvoker.class, (new GoreData(new ModelGibsIllager(new ModelIllager(0.0F, 0.0F, 64, 64)), 110,21,41)));

@@ -13,6 +13,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemShield;
@@ -196,9 +197,11 @@ public class DamageSystem {
                 {
                     //ent.damageShield(amount);
                 	ELB_damageShield.invoke(ent, amount);
+                	
                     //amount = 0.0F;
                 	/**SHIELD DAMAGE HOOK**/
                 	amount = calculateShieldDamage(ent, amount, dmgsrc);
+                	ShieldStats.playBlockSound(ent, dmgsrc);
                 	/**END**/
 
                     //if (!source.isProjectile())
@@ -388,15 +391,22 @@ public class DamageSystem {
 
     public static float calculateShieldDamage(EntityLivingBase ent, float amount, TGDamageSource source) {
     	
-    	ItemStack offHand = ent.getHeldItem(EnumHand.OFF_HAND);
-    	if(offHand.getItem()==Items.SHIELD) {
+    	//ItemStack offHand = ent.getHeldItem(EnumHand.OFF_HAND);
+    	
+    	ItemStack active = ent.getActiveItemStack();
+    	
+		ShieldStats s = ShieldStats.getStats(active, ent);
+    	
+    	/*if(offHand.getItem()==Items.SHIELD) {
     		float amountNew = ShieldStats.VANILLA_SHIELD.getAmount(amount, source);
     		//System.out.println("HIT_SHIELD: "+amount +"->"+amountNew );
     		return amountNew;
     	} else if (offHand.getItem() instanceof ItemShield) {
     		return ShieldStats.DEFAULT_STATS.getAmount(amount, source);
+    	}*/
+    	if(s!=null) {
+    		return s.getAmount(amount, source);
     	}
-    	
 		return amount;
 	}
     

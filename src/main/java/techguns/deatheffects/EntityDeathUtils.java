@@ -48,6 +48,7 @@ import techguns.entities.npcs.Bandit;
 import techguns.entities.npcs.Commando;
 import techguns.entities.npcs.CyberDemon;
 import techguns.entities.npcs.DictatorDave;
+import techguns.entities.npcs.Ghastling;
 import techguns.entities.npcs.Outcast;
 import techguns.entities.npcs.PsychoSteve;
 import techguns.entities.npcs.SkeletonSoldier;
@@ -111,6 +112,7 @@ public class EntityDeathUtils {
 		goreMap.add(SuperMutantBasic.class);
 		goreMap.add(Outcast.class);
 		goreMap.add(Commando.class);
+		goreMap.add(Ghastling.class);
 		
 		goreMap.add(EntityLlama.class);
 		goreMap.add(EntityEvoker.class);
@@ -130,6 +132,7 @@ public class EntityDeathUtils {
 		goreMap.add(EntityHorse.class);
 		goreMap.add(EntityDonkey.class);
 		goreMap.add(EntityMule.class);
+		
 		
 		entityDeathTypes.put(DeathType.GORE, goreMap);
 	}

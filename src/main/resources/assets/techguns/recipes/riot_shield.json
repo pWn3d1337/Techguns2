@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "techguns:riot_shield"
+  },
+  "pattern": [
+    "igi",
+    "isi",
+    "igi"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "s": {
+      "item": "minecraft:shield"
+    },
+    "g": {
+      "item": "#PANEGLASS"
+    },
+    "i": {
+      "item": "#INGOTSTEEL"
+    }
+  }
+}

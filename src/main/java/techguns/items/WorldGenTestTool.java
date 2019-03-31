@@ -13,6 +13,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
 import techguns.util.BlockUtils;
 import techguns.world.structures.AircraftCarrier;
 import techguns.world.structures.AlienBugNest;
@@ -20,12 +21,16 @@ import techguns.world.structures.AlienBugNestStructure;
 import techguns.world.structures.Barracks;
 import techguns.world.structures.CastleStructure;
 import techguns.world.structures.FactoryHouseSmall;
+import techguns.world.structures.GasStation;
 import techguns.world.structures.MilitaryCamp;
 import techguns.world.structures.OreClusterMeteorBasis;
+import techguns.world.structures.PoliceStation;
 import techguns.world.structures.SmallMine;
 import techguns.world.structures.SmallTrainstation;
+import techguns.world.structures.SurvivorHideout;
 import techguns.world.structures.TechFortressStructure;
 import techguns.world.structures.WorldgenStructure.BiomeColorType;
+import techguns.world.structures.city.CityStructure;
 
 public class WorldGenTestTool extends GenericItem{
 
@@ -135,10 +140,19 @@ public class WorldGenTestTool extends GenericItem{
 			//new AlienBugNest(x ,y+32, z,sizeX, 0, sizeZ, rnd).setBlocks(world);
 			
 			//TechFortressStructure b = new TechFortressStructure();
-			CastleStructure b = new CastleStructure();
+			//CastleStructure b = new CastleStructure();
+			
+			//CityStructure c = new CityStructure();
+			//Biome bi = world.getBiome(new BlockPos(x,y,z));
+			//c.spawnStructureWorldgen(world, x>>4, z>>4, sizeX, sizeY, sizeZ, rnd, bi);
 			
 			//OreClusterMeteorBasis b = new OreClusterMeteorBasis();
-			b.setBlocks(world, x, y, z, sizeX, 32, sizeZ,0/*rnd.nextInt(4)*/, BiomeColorType.WOODLAND, rnd);
+			
+			//PoliceStation b = new PoliceStation();
+			
+			//GasStation b = new GasStation();
+			SurvivorHideout b = new SurvivorHideout();
+			b.setBlocks(world, x, y, z, sizeX, 32, sizeZ, rnd.nextInt(4), BiomeColorType.DESERT, rnd);
 			
 			//bugnest
 			//AlienBugNestStructure b = new AlienBugNestStructure();

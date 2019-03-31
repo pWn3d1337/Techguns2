@@ -16,7 +16,7 @@ import techguns.client.render.fx.MultiScreenEffect;
 import techguns.world.EnumLootType;
 import techguns.world.structures.WorldgenStructure.BiomeColorType;
 
-public class MBlockOreclusterType extends MultiMMBlockOreCluster {
+public class MBlockOreclusterType extends MultiMMBlockIndexRoll {
 
 	float oreChance=0;
 

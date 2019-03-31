@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.HashMap;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -31,6 +34,11 @@ public class MBlock implements Serializable {
 	
 	protected transient int layer=0;
 	
+	protected static final HashMap<BlockMeta, MBlock> replacementTable = new HashMap<>(); 
+	static {
+		replacementTable.put(new BlockMeta("chisel:netherbrick", 13), new MBlock(Blocks.NETHER_BRICK,0));
+	}
+	
 	public MBlock(MBlock other) {
 		this.block=other.block;
 		this.meta=other.meta;
@@ -53,6 +61,10 @@ public class MBlock implements Serializable {
 
 	public MBlock(Block block, int meta) {
 		this(block,meta,false);
+	}
+	
+	public MBlock(String registryname, int meta) {
+		this(Block.REGISTRY.getObject(new ResourceLocation(registryname)),meta,false);
 	}
 	
 	public MBlock(Block block, int meta, boolean hasTileEnt) {
@@ -108,15 +120,20 @@ public class MBlock implements Serializable {
 		String name = in.readUTF();
 		//System.out.println("GetBlock:"+name);
 		this.block = Block.getBlockFromName(name);
-		
+			
 		if(this.block!=null) {
 		
 			this.state= block.getStateFromMeta(this.meta);
 		} else {
-			//TODO: handle chisel blocks when chisel not present
+			MBlock replacement = replacementTable.get(new BlockMeta(name, this.meta));
 			
-			this.block = Blocks.COBBLESTONE;
-			this.state = Blocks.COBBLESTONE.getDefaultState();
+			if(replacement!=null) {
+				this.block = replacement.block;
+				this.state = replacement.getState();
+			} else {
+				this.block = Blocks.COBBLESTONE;
+				this.state = Blocks.COBBLESTONE.getDefaultState();
+			}
 		}
 		//this.meta = in.read();
 	}
@@ -129,6 +146,10 @@ public class MBlock implements Serializable {
 		return hasTileEntity;
 	}
 	
+	protected int getPlacementFlags() {
+		return 2;
+	}
+	
 	public void setBlock(World w, MutableBlockPos pos, int rotation) {
 		setBlock(w,pos,rotation,null,BiomeColorType.WOODLAND);
 	}
@@ -136,7 +157,7 @@ public class MBlock implements Serializable {
 	public void setBlock(World w, MutableBlockPos pos, int rotation, EnumLootType loottype, BiomeColorType biome) {
 		if(pos.getY()>=1) {
 			IBlockState targetState = BlockRotator.getRotatedHorizontal(state, rotation);
-			w.setBlockState(pos, targetState,2);
+			w.setBlockState(pos, targetState,getPlacementFlags());
 			if(this.hasTileEntity) {
 				this.tileEntityPostPlacementAction(w, targetState, pos, rotation);
 			}
@@ -147,6 +168,35 @@ public class MBlock implements Serializable {
 		IBlockState bs = w.getBlockState(pos);
 		if (bs.getBlock().isReplaceable(w, pos)) {
 			setBlock(w, pos, rotation, loottype, biome);
+		}
+	}
+	
+	private static class BlockMeta {
+		String blockname;
+		int blockid;
+		
+		public BlockMeta(@Nonnull String blockname, int blockid) {
+			super();
+			this.blockname = blockname;
+			this.blockid = blockid;
+		}
+		
+		@Override
+		public int hashCode() {
+			final int prime = 31;
+			int result = 1;
+			result = prime * result + blockid;
+			result = prime * result + ((blockname == null) ? 0 : blockname.hashCode());
+			return result;
+		}
+		
+		@Override
+		public boolean equals(Object obj) {
+			if(obj instanceof BlockMeta) {
+				BlockMeta other = (BlockMeta) obj;
+				return this.blockid==other.blockid && this.blockname.equals(other.blockname);
+			}
+			return false;
 		}
 	}
 }

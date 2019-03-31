@@ -30,7 +30,7 @@ public class CamoBenchGui extends OwnedTileEntGui {
 		super(new CamoBenchContainer(ply, tileent),tileent);
 		this.tileent = tileent;
 		this.tex = texture;
-		this.heightSecurityButton=95;
+		this.heightSecurityButton=95+25;
 	}
 
 	@Override
@@ -40,9 +40,16 @@ public class CamoBenchGui extends OwnedTileEntGui {
 		int k = (this.width - this.xSize) / 2;
 		int l = (this.height - this.ySize) / 2;
 
+		//security texture still bound (from super.draw....)
+		this.drawTexturedModalRect(k-22, l+90, 195, 0, 22, 20);
+		this.drawTexturedModalRect(k-22, l+90+20, 195, 25, 22, 5);
+		
 		this.mc.getTextureManager().bindTexture(texture);
 		this.drawTexturedModalRect(k - 45, l + 6, 178, 0, 45, 84);
 
+		//draw offhand slotbg
+		this.drawTexturedModalRect(k-18, l+93, 7, 83, 18, 18);
+		
 		int left = this.guiLeft;
 		int top = this.guiTop;
 

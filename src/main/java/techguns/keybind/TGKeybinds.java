@@ -113,7 +113,7 @@ public class TGKeybinds {
 	private boolean canReloadGun(TGExtendedPlayer props, EntityPlayer ply, ItemStack stack, EnumHand hand) {
 		if(!stack.isEmpty() && stack.getItem() instanceof GenericGun) {
 			GenericGun gun = (GenericGun) stack.getItem();
-			if (props.getFireDelay(hand)<=0 && !gun.isFullyLoaded(stack)){
+			if (props.getFireDelay(hand)<=0 && !gun.isFullyLoaded(stack) && !(ply.getActiveItemStack() == stack)){
 				
 				ItemStack[] ammo = gun.getReloadItem(stack);
 				for (ItemStack s : ammo) {

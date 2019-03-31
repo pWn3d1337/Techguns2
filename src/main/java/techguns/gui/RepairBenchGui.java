@@ -10,6 +10,7 @@ import net.minecraft.util.ResourceLocation;
 import techguns.gui.containers.RepairBenchContainer;
 import techguns.gui.widgets.GuiButtonRepair;
 import techguns.items.armors.GenericArmor;
+import techguns.items.armors.GenericShield;
 import techguns.tileentities.RepairBenchTileEnt;
 import techguns.util.InventoryUtil;
 import techguns.util.TextUtil;
@@ -47,6 +48,15 @@ public class RepairBenchGui extends OwnedTileEntGui {
 	        }
         }
         
+        if(this.isInRect(mx, my, 65, 39, 14,14)) {
+        	ItemStack offhand = this.invplayer.offHandInventory.get(0);
+        	this.drawTooltipRepairMats(offhand, mx, my);
+        }
+        
+        if(this.isInRect(mx, my, 12, 39, 14,14)) {
+        	ItemStack stack = this.tileent.getInventory().getStackInSlot(9);
+        	this.drawTooltipRepairMats(stack, mx, my);
+        }
 	}
 
 
@@ -76,7 +86,29 @@ public class RepairBenchGui extends OwnedTileEntGui {
 					this.drawHoveringText(TextUtil.trans("techguns.repairBench.fullcondition"),mx, my);
 				}
 				
-			} else {
+			} else if (item.getItem() instanceof GenericShield && ((GenericShield)item.getItem()).canRepairOnRepairBench(item)) {
+			
+				if (item.getItemDamage()>0){
+					
+					List<ItemStack> mats =((GenericShield)item.getItem()).getRepairMats(item);
+
+					List<String> tooltips = new ArrayList<String>();
+					tooltips.add(TextUtil.trans("techguns.repairBench.requiredMats"));
+					for(int i=1;i<mats.size()+1;i++){
+						String prefix="";
+						if(InventoryUtil.canConsumeItem(this.tileent.getInventory(), mats.get(i-1), 0, this.tileent.getInventory().getSlots())>0){
+							prefix="\u00A7c";
+						}
+						tooltips.add(prefix+mats.get(i-1).getCount()+"x "+TextUtil.trans(mats.get(i-1).getUnlocalizedName()+".name"));
+					}
+					
+					this.drawHoveringText(tooltips, mx, my);
+					
+				} else {
+					this.drawHoveringText(TextUtil.trans("techguns.repairBench.fullcondition"),mx, my);
+				}
+				
+		    } else {
 				this.drawHoveringText(TextUtil.trans("techguns.repairBench.cantrepair"),mx, my);
 			}
 			
@@ -94,5 +126,11 @@ public class RepairBenchGui extends OwnedTileEntGui {
 		this.buttonList.add(new GuiButtonRepair(id++, this.guiLeft+90+20, this.guiTop+39, 14, 14));
 		this.buttonList.add(new GuiButtonRepair(id++, this.guiLeft+90+40, this.guiTop+39, 14, 14));
 		this.buttonList.add(new GuiButtonRepair(id++, this.guiLeft+90+60, this.guiTop+39, 14, 14));
+		
+		//offhand
+		this.buttonList.add(new GuiButtonRepair(id++, this.guiLeft+65, this.guiTop+39, 14, 14));
+		//general repair slot
+		this.buttonList.add(new GuiButtonRepair(id++, this.guiLeft+9, this.guiTop+39, 14, 14));
+		
 	}
 }

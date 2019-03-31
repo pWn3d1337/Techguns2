@@ -10,6 +10,8 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import techguns.gui.widgets.SlotArmor;
+import techguns.items.armors.GenericArmor;
+import techguns.items.armors.GenericShield;
 import techguns.tileentities.RepairBenchTileEnt;
 
 public class RepairBenchContainer extends OwnedTileContainer {
@@ -23,12 +25,27 @@ public class RepairBenchContainer extends OwnedTileContainer {
 		for (i = 0; i < 9; ++i) {
 			this.addSlotToContainer(new SlotItemHandler(inventory, i, 8 + i * 18, 57));
 		}
+		this.addSlotToContainer(new SlotItemHandler(inventory, 9, 8 , 18) {
+			@Override
+			public boolean isItemValid(ItemStack stack) {
+				if(!stack.isEmpty()) {
+					return stack.getItem() instanceof GenericArmor || stack.getItem() instanceof GenericShield;
+				}
+				return false;
+			}
+		});
 		
 		this.addPlayerInventorySlots(player);
 		
 		for (i = 0; i < 4; ++i) {
 			this.addSlotToContainer(new SlotArmor(player, 39-i, 89+(i*20), 18,i,player.player));
 		}
+		this.addSlotToContainer(new Slot(player, 40, 64, 18) {
+			@Override
+			public String getSlotTexture() {
+				return "minecraft:items/empty_armor_slot_shield";
+			}
+		});
 	}
 
 	@Override

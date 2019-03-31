@@ -12,6 +12,7 @@ import techguns.TGBlocks;
 import techguns.blocks.EnumConcreteType;
 import techguns.blocks.TGMetalPanelType;
 import techguns.util.MBlock;
+import techguns.util.MBlockCamoNetTop;
 import techguns.util.MultiMBlock;
 import techguns.world.BlockRotator;
 import techguns.world.dungeon.presets.specialblocks.RandomStateMBlock;
@@ -69,9 +70,19 @@ public class MBlockRegister {
 	public static MBlock TECHNICAL2_FAN = new MBlock(TGBlocks.METAL_PANEL,TGMetalPanelType.STEELFRAME_DARK.ordinal());
 	
 	public static MBlock IRON_BLOCK_VENTS = new MBlock(Blocks.IRON_BLOCK,0);
+	public static MBlock IRON_BLOCK_SMALL_INGOTS = new MBlock(Blocks.IRON_BLOCK,0);
 	
 	public static MBlock ALUMINIUM_STAIRS_WEST = new MBlock(TGBlocks.METAL_STAIRS.getDefaultState().withProperty(TGBlocks.METAL_STAIRS.FACING, EnumFacing.WEST).withProperty(TGBlocks.METAL_STAIRS.HALF, EnumHalf.BOTTOM));
 	public static MBlock ALUMINIUM_STAIRS_EAST = new MBlock(TGBlocks.METAL_STAIRS.getDefaultState().withProperty(TGBlocks.METAL_STAIRS.FACING, EnumFacing.EAST).withProperty(TGBlocks.METAL_STAIRS.HALF, EnumHalf.BOTTOM));
+	
+	//nether chisel blocks
+	public static MBlock NETHERRACK_ROCKY = new MBlock(Blocks.NETHERRACK,0); //5
+	public static MBlock NETHERRACK_C1 = new MBlock(Blocks.NETHERRACK,0);
+	public static MBlock NETHERRACK_C2 = new MBlock(Blocks.NETHERRACK,0);
+	public static MBlock NETHERRACK_C12 = new MBlock(Blocks.NETHERRACK,0);
+	public static MBlock NETHERRACK_C8 = new MBlock(Blocks.NETHERRACK,0);
+	
+	public static MBlock NETHERBRICKS_C13 = new MBlock(Blocks.NETHER_BRICK,0);
 	
 	//Military Base
 	public static MBlock MILBASE_FENCE = new MBlock(Blocks.IRON_BARS,0);
@@ -109,4 +120,50 @@ public class MBlockRegister {
 	//bricks
 	public static MBlock BRICKS_CRACKED_RND = new MBlock(Blocks.BRICK_BLOCK,0); //new MultiMBlock(new Block[]{ChiselBlocks.brickCustom,ChiselBlocks.brickCustom},new int[]{3,5}, new int[]{2,2})
 
+	//stone brick panel
+	public static MBlock STONE_BRICKS_PANEL = new MBlock(Blocks.STONE,0);
+	public static MBlock STONE_BRICKS_SMALL = new MBlock(Blocks.STONEBRICK,0);
+	
+	public static MBlock STONE_BRICKS_SUNKEN = new MBlock(Blocks.STONEBRICK,0);
+	
+	public static MBlock COBBLESTONE_1 = new MBlock(Blocks.COBBLESTONE,0);
+	public static MBlock COBBLESTONE_2 = new MBlock(Blocks.COBBLESTONE,0);
+	public static MBlock COBBLESTONE_3 = new MBlock(Blocks.COBBLESTONE,0);
+	
+	public static MBlock COBBLESTONE_13 = new MBlock(Blocks.STONEBRICK,0);
+	public static MBlock COBBLESTONE_15 = new MBlock(Blocks.STONEBRICK,0);
+	
+	public static MBlock COBBLESTONE_7 = new MBlock(Blocks.STONE,6);
+	
+	public static MBlock ANDESITE_3 = new MBlock(Blocks.STONE,6);
+	public static MBlock ANDESITE_4 = new MBlock(Blocks.STONE,6);
+	public static MBlock ANDESITE_11 = new MBlock(Blocks.STONE,6);
+	
+	public static MBlock ANDESITE1_0 = new MBlock(Blocks.STONE,6);
+	
+	public static MBlock BRICKS_WEATHERED = new MBlock(Blocks.BRICK_BLOCK,0);
+	public static MBlock BRICKS_WIDE = new MBlock(Blocks.BRICK_BLOCK,0);
+	
+	public static MBlock LABORATORY_WALL = new MBlock(Blocks.QUARTZ_BLOCK,0);
+	public static MBlock LABORATORY_FLOOR = new MBlock(Blocks.STONE,6);
+	public static MBlock LABORATORY_BORDER = new MBlock(Blocks.QUARTZ_BLOCK,2);
+	public static MBlock LABORATORY_DECORATION = new MBlock(Blocks.QUARTZ_BLOCK,1);
+	
+	public static MBlock LIME_WALL = new MBlock(Blocks.SANDSTONE,2);
+	public static MBlock LIME_FLOOR = new MBlock(Blocks.SANDSTONE,0);
+	public static MBlock LIME_BORDER = new MBlock(Blocks.SANDSTONE,1);
+	public static MBlock LIME_DECORATION = new MBlock(Blocks.SANDSTONE,1);
+	
+	public static MBlock IRON_PANE_MODERN_FENCE = new MBlock(Blocks.IRON_BARS,0);
+	
+	public static MBlock OAK_PLANKS_1 = new MBlock(Blocks.PLANKS,0);
+	
+	public static MBlock BLUE_CONCRETE_SMALL_BRICKS = new MBlock(Blocks.CONCRETE,11);
+	
+	public static MBlock GAS_STATION_CONSOLE = new MBlock(Blocks.QUARTZ_STAIRS,1);
+	
+	public static MBlock SURIVIVOR_HIDEOUT_IRON_BOTTOM = new MBlock(Blocks.IRON_BLOCK,0);
+	public static MBlock SURIVIVOR_HIDEOUT_IRON_TOP = new MBlock(Blocks.IRON_BLOCK,0);
+	
+	public static MBlockCamoNetTop CAMO_NET_TOP = new MBlockCamoNetTop();
 }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -26,6 +27,8 @@ public class MBlockTGSpawner extends MBlock {
 	protected ArrayList<Class> classes = new ArrayList<>();
 	protected ArrayList<Integer> weights = new ArrayList<>();
 	
+	protected ItemStack weaponOverride = ItemStack.EMPTY;
+	
 	public MBlockTGSpawner(MBlock other) {
 		super(other);
 		this.hasTileEntity=true;
@@ -42,6 +45,10 @@ public class MBlockTGSpawner extends MBlock {
 		this.hasTileEntity=true;
 	}
 	
+	public MBlockTGSpawner setWeaponOverride(ItemStack weapon) {
+		this.weaponOverride = weapon;
+		return this;
+	}
 	
 	public MBlockTGSpawner addMobType(Class clazz, int weight) {
 		this.classes.add(clazz);
@@ -56,6 +63,10 @@ public class MBlockTGSpawner extends MBlock {
 			TGSpawnerTileEnt spawner = (TGSpawnerTileEnt) tile;
 			
 			spawner.setParams(mobsleft, maxActive, spawndelay, spawnrange);
+			
+			if(!this.weaponOverride.isEmpty()) {
+				spawner.setWeaponOverride(weaponOverride);
+			}
 			
 			for(int i=0;i<classes.size();i++) {
 				spawner.addMobType(classes.get(i), weights.get(i));

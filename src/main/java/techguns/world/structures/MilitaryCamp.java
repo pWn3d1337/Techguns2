@@ -215,14 +215,13 @@ public class MilitaryCamp {
 			//System.err.println("Fail!");
 			return;
 		}
-		//place Flag
+		
 		BlockUtils.flattenArea(world, flagSegment.x, flagSegment.z , flagSegment.sizeX, flagSegment.sizeZ, 0);
 		//TODO: Place Center Structure
 		int posX = flagSegment.x+(flagSegment.sizeX/2);
 		int posZ = flagSegment.z+(flagSegment.sizeZ/2);
 		int posY = getGroundY(world, posX, posZ)+1;
 		
-		//FIXME: Camp flag
 		/*world.setBlock(posX, posY, posZ, TGBlocks.basicMachine, 7, 2);
 		((CampFlagTileEnt)world.getTileEntity(posX, posY, posZ)).init(
 				sizeX, sizeZ,

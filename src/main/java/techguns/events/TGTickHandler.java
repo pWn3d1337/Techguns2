@@ -25,6 +25,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
@@ -76,7 +77,8 @@ public class TGTickHandler {
 	
 	private static Method ITEMFOOD_onFoodEaten;
 	static {
-		ITEMFOOD_onFoodEaten = ReflectionHelper.findMethod(ItemFood.class,"onFoodEaten","func_77849_c", ItemStack.class, World.class, EntityPlayer.class);
+		//ITEMFOOD_onFoodEaten = ReflectionHelper.findMethod(ItemFood.class,"onFoodEaten","func_77849_c", ItemStack.class, World.class, EntityPlayer.class);
+		ITEMFOOD_onFoodEaten = ObfuscationReflectionHelper.findMethod(ItemFood.class, "func_77849_c", void.class, ItemStack.class, World.class, EntityPlayer.class);
 	}
 	
 	@SideOnly(Side.CLIENT)

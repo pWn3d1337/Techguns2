@@ -693,8 +693,8 @@ public class BlockUtils {
 			MBlock block = blockList.get(blocks[i][3]);
 						
 			if (block.getPass() == pass) {
-				if(block instanceof MultiMMBlockOreCluster) {
-					BlockUtils.setMBlockRotatedOreclusterBlock(world, (MultiMMBlockOreCluster)block, p.setPos(posX+x, posY+y, posZ+z), axis, rotation, loottype, biome, indexRoll, rnd);
+				if(block instanceof MultiMMBlockIndexRoll) {
+					BlockUtils.setMBlockRotatedIndexRoll(world, (MultiMMBlockIndexRoll)block, p.setPos(posX+x, posY+y, posZ+z), axis, rotation, loottype, biome, indexRoll, rnd);
 				} else {
 					BlockUtils.setMBlockRotated(world, block, p.setPos(posX+x, posY+y, posZ+z), axis, rotation, loottype, biome);
 				}
@@ -731,12 +731,56 @@ public class BlockUtils {
 		}
 	}
 	
+	/**
+	 * stops the foundation if there is a solid layer found (2 blocks thick or more)
+	 */
+	public static void placeFoundationNether(World world, short[][]blocks, ArrayList<MBlock> blockList, int posX, int posY, int posZ, int centerX, int centerZ, int rotation, int pass, int range) {
+		//System.out.println("Blocks.length = "+blocks.length + "Blocks[0].length = "+blocks[0].length);
+		MutableBlockPos p = new MutableBlockPos();
+		BlockPos axis = new BlockPos(posX+centerX, 1, posZ+centerZ);
+		for (int i = 0; i < blocks.length; i++) {
+			int x = blocks[i][0];
+			int y = blocks[i][1];
+			int z = blocks[i][2];
+			//System.out.println("blocklist:"+blockList.size());
+			if (y==0){
+				MBlock block = blockList.get(blocks[i][3]);
+				if (block.getPass() == pass) {
+	
+					int solidcount=0;
+					for (int o=1; o<=range; o++){
+							
+						/*if(world.isAirBlock(posX+x, posY-o, posZ+z)) {
+							BlockUtils.setBlockRotated(world, block, posX, posY-o, posZ, x, z, centerX, centerZ, rotation);
+						}*/
+						//setBlockRotatedReplaceAirOnly(world, block, posX, posY-o, posZ, x, z, centerX, centerZ, rotation);
+						
+						p.setPos(posX+x, posY+y-o, posZ+z);
+						if (getIsBlockReplaceable(world, new MutableBlockPos(p), axis, rotation)) {
+							setMBlockRotatedReplaceableOnly(world, block, p.setPos(posX+x, posY+y-o, posZ+z), axis, rotation, null);
+							solidcount=0;
+						} else {
+							solidcount++;
+							if(solidcount>=2) {
+								break;
+							}
+						}
+						
+						
+						//world.setBlock(posX+x, posY-o, posZ+z, Blocks.diamond_block);
+					}
+				}
+			}
+		}
+	}
+	
+	
 	public static void setMBlockRotated(World w, MBlock mblock, MutableBlockPos pos, BlockPos axis, int rotation, EnumLootType loottype, BiomeColorType biome) {
 		BlockUtils.rotateAroundY(pos, axis, rotation);
 		mblock.setBlock(w, pos, rotation, loottype,biome);
 	}
 	
-	public static void setMBlockRotatedOreclusterBlock(World w, MultiMMBlockOreCluster mblock, MutableBlockPos pos, BlockPos axis, int rotation, EnumLootType loottype, BiomeColorType biome, int indexRoll, Random rnd) {
+	public static void setMBlockRotatedIndexRoll(World w, MultiMMBlockIndexRoll mblock, MutableBlockPos pos, BlockPos axis, int rotation, EnumLootType loottype, BiomeColorType biome, int indexRoll, Random rnd) {
 		BlockUtils.rotateAroundY(pos, axis, rotation);
 		mblock.setBlock(w, pos, rotation, loottype,biome,indexRoll,rnd);
 	}
@@ -746,6 +790,11 @@ public class BlockUtils {
 		mblock.setBlockReplaceableOnly(w, pos, rotation, loottype, BiomeColorType.WOODLAND);
 	}
 
+	public static boolean getIsBlockReplaceable(World w, MutableBlockPos pos, BlockPos axis, int rotation) {
+		BlockUtils.rotateAroundY(pos, axis, rotation);
+		return w.getBlockState(pos).getBlock().isReplaceable(w, pos);
+	}
+	
 	/**
 	  * Fills a 'hollow' sphere, where block1 is the inner block and block2 is the hull
 	  */
@@ -947,7 +996,7 @@ public class BlockUtils {
 		 for(int y=maxH; y>minH; y-- ) {
 			p.setY(y);
 			IBlockState bs = w.getBlockState(p);
-			 if (bs==Blocks.AIR.getDefaultState() || bs.getBlock().isReplaceable(w, p)) {
+			 if (bs==Blocks.AIR.getDefaultState() /* || bs.getBlock().isReplaceable(w, p)*/) {
 				 countAir++;				
 			 } else {
 				 if(countAir>=airH) {
@@ -967,20 +1016,54 @@ public class BlockUtils {
 		int h3 = getAirHeight(w, cx*16, cz*16+15, minY, maxY, heightDiff);
 		int h4 = getAirHeight(w, cx*16+15, cz*16+15, minY, maxY, heightDiff);
 		
-		System.out.println("H1"+h1+ " H2:"+h2+ " H3:"+h3+ " H4:"+h4);
+		//System.out.println("H1"+h1+ " H2:"+h2+ " H3:"+h3+ " H4:"+h4);
 		
 		if(MathUtil.allInRange(minY, maxY, h1,h2,h3,h4)) {
 			
-			System.out.println(" -->MIN_MAX");
+			//System.out.println(" -->MIN_MAX");
 			int min = MathUtil.min(h1,h2,h3,h4);
 			int max = MathUtil.max(h1,h2,h3,h4);
 			
-			System.out.println(" --->Min:"+min+" Max:"+max);
+			//System.out.println(" --->Min:"+min+" Max:"+max);
 			if(max-min <= heightDiff) {
 				return MathUtil.getAverageHeight(h1,h2,h3,h4);
 			}
 			
 		}
 		return -1;
+	}
+	
+	public static int getGroundY(World world, int x, int z) {
+		return world.getHeight(x, z)-1;
+	}
+	
+	public static void fillBlocksAir(World world, int x, int y, int z, int sizeX, int sizeY, int sizeZ) {
+		MutableBlockPos p = new MutableBlockPos();
+		for (int i = 0; i < sizeX; i++) {			
+			for (int j = 0; j < sizeZ; j++) {
+				for (int k = 0; k < sizeY; k++) {
+					world.setBlockState(p.setPos(x+i, y+k, z+j), Blocks.AIR.getDefaultState(),2);
+				}	
+			}
+		}
+	}
+	
+  /**
+   * convert from old rotation int to EnumFacing
+   * 0=WEST(-x), 1=NORTH(-z), 2=EAST(+x); 3=SOUTH(+z)
+   * @param rot
+   * @return
+   */
+	public static EnumFacing rotationToFacing(int rot) {
+		switch(rot) {
+		case 0:
+			return EnumFacing.WEST;
+		case 1:
+			return EnumFacing.NORTH;
+		case 2: 
+			return EnumFacing.EAST;
+		default:
+			return EnumFacing.SOUTH;
+		}
 	}
 }

@@ -1,6 +1,8 @@
 package techguns.util;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumAction;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
 
 public class EntityUtil {
@@ -33,4 +35,5 @@ public class EntityUtil {
 	      }
 
    }
+	
 }

@@ -172,7 +172,7 @@ public class TGMachineRecipes {
 		ChemLabRecipes.addRecipe(TGItems.SHOTGUN_ROUNDS, 8, new ItemStack(Items.BLAZE_POWDER), 1, null, 0, new FluidStack(TGFluids.LAVA,250), null, TGItems.newStack(TGItems.SHOTGUN_ROUNDS_INCENDIARY,8), false, 25);
 		
 		ChemLabRecipes.addRecipe( new ItemStack(Items.SUGAR), 4, new ItemStack(Items.SPECKLED_MELON),1,new ItemStack(Items.GLASS_BOTTLE),1, new FluidStack(TGFluids.MILK, 1000), null, new ItemStack(TGItems.RAD_PILLS, 4), true, 20);
-		ChemLabRecipes.addRecipe( new ItemStack(Items.NETHER_WART), 1, new ItemStack(Items.SPECKLED_MELON), 1,TGItems.newStack(TGItems.PLASTIC_BAG, 1),1, new FluidStack(TGFluids.ACID, 250), null, new ItemStack(TGItems.RAD_AWAY, 1), true, 25);
+		ChemLabRecipes.addRecipe( new ItemStack(Items.NETHER_WART), 1, new ItemStack(Items.SPECKLED_MELON), 1,TGItems.newStack(TGItems.INFUSION_BAG, 1),1, new FluidStack(TGFluids.ACID, 250), null, new ItemStack(TGItems.RAD_AWAY, 1), true, 25);
 		
 		
 		/**

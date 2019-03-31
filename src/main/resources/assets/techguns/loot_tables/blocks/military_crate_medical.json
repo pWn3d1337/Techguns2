@@ -45,6 +45,34 @@
                             }
                         }
                     ]
+                },
+				{
+                    "type": "item",
+                    "weight": 2,
+					"name": "techguns:radaway",
+					"functions": [
+						{
+							"function": "set_count",
+							"count": {
+								"min": 1,
+								"max": 4
+							}
+						}
+                    ]
+                },
+				{
+                    "type": "item",
+                    "weight": 2,
+					"name": "techguns:radpills",
+					"functions": [
+						{
+							"function": "set_count",
+							"count": {
+								"min": 1,
+								"max": 4
+							}
+						}
+                    ]
                 }
             ]
         }

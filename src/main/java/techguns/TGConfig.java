@@ -133,6 +133,8 @@ public class TGConfig {
 	
 	public static String[] biomeBlacklist;
 	
+	public static boolean spawnOreClusterStructures;
+	
 	/**
 	 * CATEGORIES
 	 */
@@ -234,6 +236,9 @@ public class TGConfig {
 		spawnWeightTGStructureBig = config.getInt("StructureSpawnWeightBig", WORLDGEN, 64, 16, 100000, "Every X chunks it's tried to spawnn a Big building. This is in both dimensions, ChunkX, and ChunkY modulo <this Value> must be 0");
 		spawnWeightTGStructureSmall = config.getInt("StructureSpawnWeightSmall", WORLDGEN, 16, 4, 100000, "Every X chunks it's tried to spawnn a Small building. This is in both dimensions, ChunkX, and ChunkY modulo <this Value> must be 0");
 		spawnWeightTGStructureMedium = config.getInt("StructureSpawnWeightMedium", WORLDGEN, 32, 8, 100000, "Every X chunks it's tried to spawnn a Medium building. This is in both dimensions, ChunkX, and ChunkY modulo <this Value> must be 0");
+		
+		
+		spawnOreClusterStructures = config.getBoolean("SpawnOreClusterStructures", WORLDGEN, true, "When worldgen is enabled, include structure spawns that contain ore clusters.");
 		
 		explosiveChargeMaxBlockHardness = config.getFloat("ExplosiveChargeMaxHardness", config.CATEGORY_GENERAL, 30.0f, 0.0f, Float.MAX_VALUE, "Highest blockHardness normal explosive charges can break, obsidian is 50.0)");
 		

@@ -21,6 +21,7 @@ import techguns.entities.npcs.Bandit;
 import techguns.entities.npcs.Commando;
 import techguns.entities.npcs.CyberDemon;
 import techguns.entities.npcs.DictatorDave;
+import techguns.entities.npcs.Ghastling;
 import techguns.entities.npcs.NPCTurret;
 import techguns.entities.npcs.Outcast;
 import techguns.entities.npcs.PsychoSteve;
@@ -33,6 +34,7 @@ import techguns.entities.npcs.TGDummySpawn;
 import techguns.entities.npcs.ZombieFarmer;
 import techguns.entities.npcs.ZombieMiner;
 import techguns.entities.npcs.ZombiePigmanSoldier;
+import techguns.entities.npcs.ZombiePoliceman;
 import techguns.entities.npcs.ZombieSoldier;
 import techguns.entities.projectiles.AdvancedBulletProjectile;
 import techguns.entities.projectiles.AlienBlasterProjectile;
@@ -131,6 +133,8 @@ public class TGEntities implements ITGInitializer {
 		registerModEntityWithEgg(SuperMutantHeavy.class, "SuperMutantHeavy", 0xc6a96b, 0x51350e);
 		registerModEntityWithEgg(AttackHelicopter.class, "AttackHelicopter", 0x373d23, 0x8ec0d7,200);
 		registerModEntityWithEgg(AlienBug.class, "AlienBug", 0xc6a96b, 0x71552e);
+		registerModEntityWithEgg(Ghastling.class, "Ghastling", 0xaeaeae, 0xce81ff);
+		registerModEntityWithEgg(ZombiePoliceman.class, "ZombiePoliceman", 0x303030, 0x0000FF);
 		
 	}
 

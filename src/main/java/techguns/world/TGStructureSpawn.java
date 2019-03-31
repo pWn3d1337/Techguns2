@@ -31,10 +31,12 @@ public class TGStructureSpawn {
 		this.size = size;
 	}
 
-	public int getWeightForBiome(Biome biome, StructureSize size, StructureLandType type){
+	public int getWeightForBiome(Biome biome, StructureSize size, StructureLandType type, int dimensionid){
 		if (this.size != size){
 			return 0;
 		} else if (!this.allowedTypes.contains(type)){
+			return 0;
+		} else if (!dimensionMatches(dimensionid)) {
 			return 0;
 		}
 		
@@ -53,6 +55,13 @@ public class TGStructureSpawn {
 	
 	public boolean dimensionMatches(World w){
 		int id = w.provider.getDimension();
+		if(this.dimensionIDs.contains(id)){
+			return true;
+		} 
+		return false;
+	}
+	
+	public boolean dimensionMatches(int id){
 		if(this.dimensionIDs.contains(id)){
 			return true;
 		} 

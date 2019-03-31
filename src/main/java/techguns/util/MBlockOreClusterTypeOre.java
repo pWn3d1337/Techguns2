@@ -7,7 +7,7 @@ import net.minecraft.world.World;
 import techguns.world.EnumLootType;
 import techguns.world.structures.WorldgenStructure.BiomeColorType;
 
-public class MBlockOreClusterTypeOre extends MultiMMBlockOreCluster {
+public class MBlockOreClusterTypeOre extends MultiMMBlockIndexRoll {
 	MBlock stone;
 	float stonechance=0;
 	

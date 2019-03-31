@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "techguns:stairs_concrete",
+    "data": 7,
+    "count": 6
+  },
+  "pattern": [
+    "b  ",
+    "bb ",
+    "bbb"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "b": {
+      "item": "techguns:concrete",
+      "data": 3
+    }
+  }
+}

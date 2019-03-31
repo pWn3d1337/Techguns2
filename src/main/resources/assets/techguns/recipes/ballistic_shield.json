@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "techguns:ballistic_shield"
+  },
+  "pattern": [
+    "igi",
+    "isi",
+    "iii"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "s": {
+      "item": "minecraft:shield"
+    },
+    "g": {
+      "item": "#PANEGLASS"
+    },
+    "i": {
+      "item": "#PLATEOBSIDIANSTEEL"
+    }
+  }
+}

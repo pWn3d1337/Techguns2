@@ -36,6 +36,7 @@ import techguns.items.additionalslots.ItemJumpPack;
 import techguns.items.additionalslots.ItemNightVisionGoggles;
 import techguns.items.additionalslots.ItemScubaTanks;
 import techguns.items.additionalslots.ItemTacticalMask;
+import techguns.items.armors.GenericShield;
 import techguns.items.guns.ammo.AmmoType;
 import techguns.items.guns.ammo.AmmoTypes;
 import techguns.items.tools.TGCrowbar;
@@ -58,7 +59,7 @@ public class TGItems implements ITGInitializer{
 	public static final ArrayList<GenericItem> ITEMLIST = new ArrayList<>();
 	
 	public static final ArrayList<Item> ITEMLIST_VANILLA_ITEM = new ArrayList<>();
-	
+		
 	public static GenericItemShared SHARED_ITEM;
 	
 	public static ItemStack STONE_BULLETS;
@@ -263,7 +264,7 @@ public class TGItems implements ITGInitializer{
 	public static ItemStack CHAINSAWBLADES_OBSIDIAN;
 	public static ItemStack CHAINSAWBLADES_CARBON;
 	
-	public static ItemStack PLASTIC_BAG;
+	public static ItemStack INFUSION_BAG;
 	
 	//Tools/weapons
 	public static Item COMBAT_KNIFE;
@@ -510,7 +511,7 @@ public class TGItems implements ITGInitializer{
 		
 		ROCKET_HIGH_VELOCITY = SHARED_ITEM.addsharedVariant("rocket_high_velocity",true,TGSlotType.AMMOSLOT);
 		
-		PLASTIC_BAG = SHARED_ITEM.addsharedVariant("plasticbag");
+		INFUSION_BAG = SHARED_ITEM.addsharedVariant("infusionbag");
 		
 		UPGRADE_PROTECTION_1 = SHARED_ITEM.addsharedVariant("upgrade_protection_1", false, TGSlotType.ARMOR_UPGRADE, 1, true);
 		UPGRADE_PROJECTILE_PROTECTION_1 = SHARED_ITEM.addsharedVariant("upgrade_projectile_protection_1", false, TGSlotType.ARMOR_UPGRADE, 1, true);
@@ -573,6 +574,7 @@ public class TGItems implements ITGInitializer{
 		for(GenericItem item : ITEMLIST){
 			reg.register(item);
 		}
+		
 		for(Item item : ITEMLIST_VANILLA_ITEM){
 			reg.register(item);
 		}

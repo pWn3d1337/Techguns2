@@ -167,6 +167,7 @@ import techguns.TGArmors;
 import techguns.TGBlocks;
 import techguns.TGItems;
 import techguns.TGuns;
+import techguns.blocks.EnumConcreteType;
 import techguns.blocks.EnumOreClusterType;
 import techguns.blocks.TGMetalPanelType;
 import techguns.blocks.machines.EnumExplosiveChargeType;
@@ -431,6 +432,13 @@ public class Recipewriter {
         
         RecipeJsonConverter.addShapedRecipe(new ItemStack(TGBlocks.METAL_STAIRS,6,15), "b  ", "bb ", "bbb", 'b', new ItemStack(TGBlocks.METAL_PANEL,1,TGMetalPanelType.STEELFRAME_DARK.ordinal()));
         RecipeJsonConverter.addShapelessRecipe(new ItemStack(TGBlocks.METAL_PANEL,1,TGMetalPanelType.STEELFRAME_DARK.ordinal()), new ItemStack(TGBlocks.METAL_STAIRS,1,15));
+       
+        
+        RecipeJsonConverter.addShapedRecipe(new ItemStack(TGBlocks.CONCRETE_STAIRS,6,15), "b  ", "bb ", "bbb", 'b', new ItemStack(TGBlocks.CONCRETE,1,EnumConcreteType.CONCRETE_BROWN_LIGHT.ordinal()));
+        RecipeJsonConverter.addShapelessRecipe(new ItemStack(TGBlocks.CONCRETE,1,EnumConcreteType.CONCRETE_BROWN_LIGHT.ordinal()), new ItemStack(TGBlocks.CONCRETE_STAIRS,1,15));
+        
+        RecipeJsonConverter.addShapedRecipe(new ItemStack(TGBlocks.CONCRETE_STAIRS,6,7), "b  ", "bb ", "bbb", 'b', new ItemStack(TGBlocks.CONCRETE,1,EnumConcreteType.CONCRETE_GREY_DARK.ordinal()));
+        RecipeJsonConverter.addShapelessRecipe(new ItemStack(TGBlocks.CONCRETE,1,EnumConcreteType.CONCRETE_GREY_DARK.ordinal()), new ItemStack(TGBlocks.CONCRETE_STAIRS,1,7));
         
         RecipeJsonConverter.addShapedRecipe(new ItemStack(TGBlocks.EXPLOSIVE_CHARGE,8,TGBlocks.EXPLOSIVE_CHARGE.getMetaFromState(TGBlocks.EXPLOSIVE_CHARGE.getDefaultState())), "rtr","tct","rtr", 'r', "itemRubber", 't', Blocks.TNT, 'c', "circuitBasic");
         RecipeJsonConverter.addShapedRecipe(new ItemStack(TGBlocks.EXPLOSIVE_CHARGE,4,TGBlocks.EXPLOSIVE_CHARGE.getMetaFromState(TGBlocks.EXPLOSIVE_CHARGE.getDefaultState().withProperty(TGBlocks.EXPLOSIVE_CHARGE.MACHINE_TYPE, EnumExplosiveChargeType.ADVANCED))), "rtr","tct","rtr", 'r', "sheetPlastic", 't', TGItems.TGX, 'c', "circuitBasic");
@@ -474,7 +482,7 @@ public class Recipewriter {
         RecipeJsonConverter.addShapedRecipe(newStack(TGItems.OREDRILLHEAD_LARGE_OBSIDIANSTEEL,1),"d d"," d ", 'd', TGItems.OREDRILLHEAD_MEDIUM_OBSIDIANSTEEL);
         RecipeJsonConverter.addShapedRecipe(newStack(TGItems.OREDRILLHEAD_LARGE_CARBON,1),"d d"," d ", 'd', TGItems.OREDRILLHEAD_MEDIUM_CARBON);
         
-        RecipeJsonConverter.addShapedRecipe(newStack(TGItems.PLASTIC_BAG,4),"pp","pp", 'p', "sheetPlastic");
+        RecipeJsonConverter.addShapedRecipe(newStack(TGItems.INFUSION_BAG,4),"pp","pp", 'p', "sheetPlastic");
         	
         RecipeJsonConverter.addShapedRecipe(newStack(TGItems.UPGRADE_PROTECTION_1,1), "pip","igi","pip", 'p', "plateSteel", 'g', "ingotGold", 'i', "plateIron");
         RecipeJsonConverter.addShapedRecipe(newStack(TGItems.UPGRADE_BLAST_PROTECTION_1,1), "pip","igi","pip", 'p', "plateSteel", 'g', "ingotGold", 'i', "blockWool");
@@ -488,11 +496,13 @@ public class Recipewriter {
         RecipeJsonConverter.addShapedRecipe(newStack(TGItems.UPGRADE_BLAST_PROTECTION_3,1), "pip","igi","pip", 'p', "plateCarbon", 'g', "gemDiamond", 'i', "blockWool");
         RecipeJsonConverter.addShapedRecipe(newStack(TGItems.UPGRADE_PROJECTILE_PROTECTION_3,1), "pip","igi","pip", 'p', "plateCarbon", 'g', "gemDiamond", 'i', TGItems.STEAMARMOR_PLATE);
         
-        
         addGunRecipes();
         addArmorRecipes();
         addUpgradeRecipes();
         addAmmoChangeRecipes();
+        
+		RecipeJsonConverter.addTGManualRecipe(Items.IRON_INGOT, Blocks.GLASS_PANE, TGItems.STONE_BULLETS);
+		RecipeJsonConverter.addTGManualRecipe(Items.IRON_INGOT, Blocks.GLASS_PANE, TGItems.PISTOL_ROUNDS);
 	}
 
 	
@@ -701,8 +711,10 @@ public class Recipewriter {
 		RecipeJsonConverter.addShapedRecipe(new ItemStack(TGArmors.hazmat_Leggings,1), "fff","f f","f f", 'f', TGItems.PROTECTIVE_FIBER);
 		RecipeJsonConverter.addShapedRecipe(new ItemStack(TGArmors.hazmat_Boots,1), "f f","f f", 'f', TGItems.PROTECTIVE_FIBER);
 		
-		RecipeJsonConverter.addTGManualRecipe(Items.IRON_INGOT, Blocks.GLASS_PANE, TGItems.STONE_BULLETS);
-		RecipeJsonConverter.addTGManualRecipe(Items.IRON_INGOT, Blocks.GLASS_PANE, TGItems.PISTOL_ROUNDS);
+        RecipeJsonConverter.addShapedRecipe(new ItemStack(TGArmors.riot_shield,1), "igi","isi", "igi", 'i', "ingotSteel", 'g', "paneGlass", 's', Items.SHIELD);
+        RecipeJsonConverter.addShapedRecipe(new ItemStack(TGArmors.ballistic_shield,1), "igi","isi", "iii", 'i', "plateObsidianSteel", 'g', "paneGlass", 's', Items.SHIELD);
+        RecipeJsonConverter.addShapedRecipe(new ItemStack(TGArmors.advanced_shield,1), "igi","isi", "iii", 'i', "plateCarbon", 'g', "paneGlass", 's', Items.SHIELD);
+        
 	}
 	
 	public static void notyetimplemented() {

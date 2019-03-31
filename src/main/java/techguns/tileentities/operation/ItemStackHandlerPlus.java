@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.NonNullList;
+import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.items.ItemStackHandler;
 
 public class ItemStackHandlerPlus extends ItemStackHandler {
@@ -123,6 +126,27 @@ public class ItemStackHandlerPlus extends ItemStackHandler {
 		return true;
 	}
 	
+	
+	
+	@Override
+	public void deserializeNBT(NBTTagCompound nbt) {
+        //setSize(nbt.hasKey("Size", Constants.NBT.TAG_INT) ? nbt.getInteger("Size") : stacks.size());
+		setSize(this.getSlots()); //protect against crashes when updating to a higher inventory size.
+		
+        NBTTagList tagList = nbt.getTagList("Items", Constants.NBT.TAG_COMPOUND);
+        for (int i = 0; i < tagList.tagCount(); i++)
+        {
+            NBTTagCompound itemTags = tagList.getCompoundTagAt(i);
+            int slot = itemTags.getInteger("Slot");
+
+            if (slot >= 0 && slot < stacks.size())
+            {
+                stacks.set(slot, new ItemStack(itemTags));
+            }
+        }
+        onLoad();
+	}
+
 	/**
 	 * Extract without check
 	 */

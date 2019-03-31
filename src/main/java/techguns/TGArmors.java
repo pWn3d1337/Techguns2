@@ -6,6 +6,7 @@ import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemShield;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
@@ -15,16 +16,20 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.registries.IForgeRegistry;
+import techguns.damagesystem.ShieldStats;
 import techguns.init.ITGInitializer;
 import techguns.items.armors.ArmorPowerType;
 import techguns.items.armors.GenericArmor;
 import techguns.items.armors.GenericArmorMultiCamo;
+import techguns.items.armors.GenericShield;
 import techguns.items.armors.PoweredArmor;
 import techguns.items.armors.TGArmorMaterial;
 import techguns.tools.ItemJsonCreator;
+import techguns.util.ItemStackOreDict;
 
 public class TGArmors implements ITGInitializer {
-	public static ArrayList<GenericArmor> armors = new ArrayList<>();
+	public static final ArrayList<GenericArmor> armors = new ArrayList<>();
+	public static final ArrayList<GenericShield> shields = new ArrayList<>();
 	
 	public static final ResourceLocation ARMORMODEL_STEAM_ARMOR_0 = new ResourceLocation(Techguns.MODID, "steam_armor_0");
 	public static final ResourceLocation ARMORMODEL_STEAM_ARMOR_1 = new ResourceLocation(Techguns.MODID, "steam_armor_1");
@@ -75,7 +80,9 @@ public class TGArmors implements ITGInitializer {
 	
 	public static TGArmorMaterial T4_POWER = new TGArmorMaterial("T4_POWER", 460, 0, 23.0f, SoundEvents.ITEM_ARMOR_EQUIP_IRON,3.5f).setArmorFire(21.0f).setArmorExplosion(22.0f).setArmorEnergy(21.0f).setArmorIce(21.0f).setArmorLightning(21.0f).setArmorPoison(19.0f).setArmorRadiation(20.0f).setPenetrationResistance(0.3f);
 	
-	
+	/**
+	 * ARMORS
+	 */
 	public static GenericArmor t1_combat_Helmet;
 	public static GenericArmor t1_combat_Chestplate;
 	public static GenericArmor t1_combat_Leggings;
@@ -147,10 +154,14 @@ public class TGArmors implements ITGInitializer {
 	public static GenericArmor t4_power_Boots;
 	
 	public static GenericArmor t2_beret;
-	/**
-	 * ARMORS
-	 */
 
+	/**
+	 * SHIELDS
+	 */
+	public static GenericShield riot_shield;
+	public static GenericShield ballistic_shield;
+	public static GenericShield advanced_shield;
+	
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
 		t1_combat_Helmet = new GenericArmor("t1_combat_helmet", T1_COMBAT, "t1_combat",EntityEquipmentSlot.HEAD).setRepairMats(new ItemStack(Items.IRON_INGOT,1), TGItems.HEAVY_CLOTH, 0.5f, 2).setKnockbackResistance(0.05f); //0 for helmet
@@ -250,6 +261,10 @@ public class TGArmors implements ITGInitializer {
 		t4_power_Boots = new PoweredArmor("t4_power_boots", T4_POWER, t4_power_armor_textures, EntityEquipmentSlot.FEET,ArmorPowerType.RF,10).setSpeedBoni(0.05f,0.15f,0,0).setMiningBoni(0.1f,0).setFallProtection(0.4f, 1.0f,0,0).setHealthBonus(2,0).setStepAssist(1.0f,0).setRADResistance(1.25f).setRepairMats(TGItems.POWER_ARMOR_PLATING, TGItems.WIRE_GOLD, 0.5f, 2).setArmorModel(TGArmors.ARMORMODEL_POWER_ARMOR_MK2_0,false,pwrplate2).setKnockbackResistance(0.20f).setUseRenderHack(); // 3 for boots
 		
 		
+		riot_shield = new GenericShield("riot_shield",1200,4).setRepairMat(new ItemStackOreDict("ingotSteel",3));
+		ballistic_shield = new GenericShield("ballistic_shield",2400,4).setRepairMat(new ItemStackOreDict("plateObsidianSteel",3));
+		advanced_shield = new GenericShield("advanced_shield",3200,3).setRepairMat(new ItemStackOreDict("plateCarbon",3));
+		
 		if(TGItems.WRITE_ITEM_JSON && event.getSide()==Side.CLIENT){
 			armors.forEach(a -> ItemJsonCreator.writeItemJsonFileForPath("models/item/", a.getRegistryName().getResourcePath(),a.getRegistryName().getResourcePath()));
 		}
@@ -259,16 +274,24 @@ public class TGArmors implements ITGInitializer {
 	public static void registerItems(RegistryEvent.Register<Item> event){
 		IForgeRegistry<Item> reg = event.getRegistry();
 		armors.forEach(a -> reg.register(a));
+		shields.forEach(s -> reg.register(s));
+		
+		ShieldStats.SHIELD_STATS.put(Items.SHIELD, ShieldStats.VANILLA_SHIELD);
+		ShieldStats.SHIELD_STATS.put(riot_shield, ShieldStats.RIOT_SHIELD_STATS);
+		ShieldStats.SHIELD_STATS.put(ballistic_shield, ShieldStats.BALLISTIC_SHIELD_STATS);
+		ShieldStats.SHIELD_STATS.put(advanced_shield, ShieldStats.ADVANCED_SHIELD_STATS);
 	}
 	
 	@SideOnly(Side.CLIENT)
     public static void initModels() {
 		armors.forEach(a -> a.initModel());
+		shields.forEach(s -> s.initModel());
     }
 	
 	@Override
 	public void init(FMLInitializationEvent event) {
 	}
+	
 	@Override
 	public void postInit(FMLPostInitializationEvent event) {
 
