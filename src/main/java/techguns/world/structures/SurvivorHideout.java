@@ -35,7 +35,7 @@ private static final ResourceLocation CHEST_LOOT = new ResourceLocation(Techguns
 		blockList.add(MBlockRegister.SURIVIVOR_HIDEOUT_IRON_BOTTOM);
 		blockList.add(new MBlock("techguns:sandbags", 0));
 		blockList.add(MBlockRegister.SURIVIVOR_HIDEOUT_IRON_TOP);
-		blockList.add(new MBlock("techguns:lamp0", 12));
+		blockList.add(new MBlock(TGBlocks.LAMP_0, 12));
 		blockList.add(new MBlockChestLoottable(Blocks.CHEST, 2, CHEST_LOOT));
 		blockList.add(new MBlock("minecraft:stonebrick", 0));
 		blockList.add(new MBlockTGSpawner(EnumMonsterSpawnerType.HOLE,3,2,200,1).addMobType(Bandit.class, 1));
