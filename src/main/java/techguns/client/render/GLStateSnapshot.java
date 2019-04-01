@@ -5,8 +5,10 @@ import org.lwjgl.opengl.GL11;
 import net.minecraft.client.renderer.OpenGlHelper;
 
 /**
+ * does not work!
  * used to protect GL state changes during TG particle rendering (RenderWorldLast Event)
  */
+@Deprecated
 public class GLStateSnapshot {
 
 	private BlendFuncState blend_func;
@@ -15,13 +17,20 @@ public class GLStateSnapshot {
 	private BooleanState depthTest;
 	private LightMapState lightmap;
 	private BooleanState lightingState;
+	private BooleanState cullingState;
+	private BooleanState lighting;
 	
+	@Deprecated
+	/**
+	 * Only use for debug printing states, does not work
+	 */
 	public GLStateSnapshot() {
 		blend_func = new BlendFuncState();
 		blend = new BooleanState(GL11.GL_BLEND);
 		depthMask = new BooleanState(GL11.GL_DEPTH_WRITEMASK);
 		depthTest = new BooleanState(GL11.GL_DEPTH_TEST);
 		lightingState = new BooleanState(GL11.GL_LIGHTING);
+		cullingState = new BooleanState(GL11.GL_CULL_FACE);
 		lightmap = new LightMapState();
 	}
 	
@@ -30,6 +39,7 @@ public class GLStateSnapshot {
 		System.out.println("Blend: "+blend.value);
 		System.out.println("DMask: "+depthMask.value);
 		System.out.println("DTest: "+depthTest.value);
+		System.out.println("Culling:"+cullingState.value);
 		System.out.println("Lighting: "+lightingState.value);
 		System.out.println("Lightmap: "+lightmap.lightmapX+ " "+ lightmap.lightmapY);
 	}
@@ -42,6 +52,7 @@ public class GLStateSnapshot {
 		blend.restore();
 		depthMask.restore();
 		depthTest.restore();
+		cullingState.restore();
 		lightingState.restore();
 		lightmap.restore();
 	}

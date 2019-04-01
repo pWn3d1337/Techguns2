@@ -13,6 +13,7 @@ import net.minecraft.util.math.Vec3d;
 import techguns.TGConfig;
 import techguns.client.particle.list.ParticleList;
 import techguns.client.particle.list.ParticleList.ParticleListIterator;
+import techguns.client.render.GLStateSnapshot;
 
 public class TGParticleManager {
 	
@@ -129,7 +130,9 @@ public class TGParticleManager {
         	//if(frust.isBoundingBoxInFrustum(p.getRenderBoundingBox(partialTicks, entity)))
         	p.doRender(bufferbuilder, entityIn, partialTicks, f1, f5, f2, f3, f4);
         });
-        GlStateManager.enableCull();
+        GlStateManager.color(1f, 1f, 1f, 1f);
+        //GlStateManager.enableCull();
+
 
     }
 

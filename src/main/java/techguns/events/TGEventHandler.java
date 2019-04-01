@@ -16,7 +16,11 @@ import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelBiped.ArmPose;
 import net.minecraft.client.model.ModelPlayer;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.ItemRenderer;
+import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.client.renderer.GlStateManager.DestFactor;
+import net.minecraft.client.renderer.GlStateManager.SourceFactor;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
@@ -617,13 +621,20 @@ public class TGEventHandler {
 	@SubscribeEvent
 	public static void onRenderWorldLast(RenderWorldLastEvent event) {
 
-		GLStateSnapshot states = new GLStateSnapshot();
+//		GLStateSnapshot states = new GLStateSnapshot();
 		//System.out.println("***********BEFORE**********");
 		//states.printDebug();
 		ClientProxy.get().particleManager.renderParticles(Minecraft.getMinecraft().getRenderViewEntity(), event.getPartialTicks());
-		states.restore();
+//		states.restore();
 		//System.out.println("<<<<<<<<<<<AFTER>>>>>>>>>>>>");
 		//new GLStateSnapshot().printDebug();
+		GlStateManager.disableBlend();
+		GlStateManager.blendFunc(SourceFactor.ONE, DestFactor.ZERO);
+		GlStateManager.enableDepth();
+		GlStateManager.depthMask(true);
+		GlStateManager.enableCull();
+		GlStateManager.disableLighting();
+		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 0, 240f);
 	}
 	
 	@SubscribeEvent
