@@ -1,0 +1,13 @@
+{
+  "result": {
+    "item": "techguns:item_door3x3",
+    "data": 1
+  },
+  "ingredients": [
+    {
+      "item": "techguns:item_door3x3",
+      "data": 2
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

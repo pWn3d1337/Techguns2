@@ -168,6 +168,7 @@ import techguns.TGBlocks;
 import techguns.TGItems;
 import techguns.TGuns;
 import techguns.blocks.EnumConcreteType;
+import techguns.blocks.EnumDoorType;
 import techguns.blocks.EnumOreClusterType;
 import techguns.blocks.TGMetalPanelType;
 import techguns.blocks.machines.EnumExplosiveChargeType;
@@ -458,10 +459,17 @@ public class Recipewriter {
         String[] plateTypes = {"plateIron", "plateTin"};
         Arrays.stream(plateTypes).forEach(p -> {
 	        RecipeJsonConverter.addShapedRecipe(new ItemStack(TGItems.DOOR3x3,2,0), "ppp", "sps","ppp", 's', Blocks.PISTON, 'p', p);
+	        RecipeJsonConverter.addShapedRecipe(new ItemStack(TGItems.DOOR3x3,2,1), "sps", "ppp","ppp", 's', Blocks.PISTON, 'p', p);
+	        RecipeJsonConverter.addShapedRecipe(new ItemStack(TGItems.DOOR3x3,2,2), "ppp", "ppp","sps", 's', Blocks.PISTON, 'p', p);
 	        RecipeJsonConverter.addShapedRecipe(new ItemStack(TGBlocks.LADDER_0,16,TGBlocks.LADDER_0.getMetaFromState(TGBlocks.LADDER_0.getDefaultState())),"iii"," i ","iii", 'i', p);
 	        RecipeJsonConverter.addShapedRecipe(newStack(COMPRESSED_AIR_TANK_EMPTY,7),"plp","p p","ppp", 'p', p, 'l', Blocks.LEVER);
 	        RecipeJsonConverter.addShapedRecipe(new ItemStack(TGBlocks.METAL_PANEL,32), "sss","psp","sss", 's', "stone", 'p', p);
         });
+        
+        int metaHangarDoorUP = EnumDoorType.HANGAR_UP.ordinal();
+        int metaHangarDoorDOWN = EnumDoorType.HANGAR_DOWN.ordinal();
+        RecipeJsonConverter.addShapelessRecipe(new ItemStack(TGItems.DOOR3x3,1,metaHangarDoorDOWN), new ItemStack(TGItems.DOOR3x3,1,metaHangarDoorUP));
+        RecipeJsonConverter.addShapelessRecipe(new ItemStack(TGItems.DOOR3x3,1,metaHangarDoorUP), new ItemStack(TGItems.DOOR3x3,1,metaHangarDoorDOWN));
         
         
         RecipeJsonConverter.addShapedRecipe(new ItemStack(TGBlocks.ORE_DRILL_BLOCK,8,TGBlocks.ORE_DRILL_BLOCK.getMetaFromState(TGBlocks.ORE_DRILL_BLOCK.getDefaultState().withProperty(TGBlocks.ORE_DRILL_BLOCK.MACHINE_TYPE, EnumOreDrillType.FRAME))), "pbp","bpb","pbp", 'p', "plateIron", 'b', new ItemStack(Blocks.IRON_BARS,1));

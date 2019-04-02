@@ -23,6 +23,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -92,7 +93,7 @@ public class BlockTGDoor3x3<T extends Enum<T> & IStringSerializable> extends Gen
     @Override
 	public void registerBlock(Register<Block> event) {
 		super.registerBlock(event);
-		GameRegistry.registerTileEntity(Door3x3TileEntity.class, Techguns.MODID+":"+"door3x3tileent");
+		GameRegistry.registerTileEntity(Door3x3TileEntity.class, new ResourceLocation(Techguns.MODID,"door3x3tileent"));
 	}
 
     @Override

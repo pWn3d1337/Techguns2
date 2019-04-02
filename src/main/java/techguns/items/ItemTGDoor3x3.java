@@ -39,6 +39,11 @@ public class ItemTGDoor3x3<T extends Enum<T> & IStringSerializable> extends Gene
 	}
 
 	@Override
+	public boolean getHasSubtypes() {
+		return true;
+	}
+	
+	@Override
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
 		if(this.isInCreativeTab(tab)) {
 			for(int i=0; i<this.clazz.getEnumConstants().length;i++) {
