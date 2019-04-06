@@ -182,6 +182,8 @@ public class TechgunsASMTransformer implements IClassTransformer {
 		
 		String targetMethodName = deobf ? "renderItem" : "func_184392_a";//"a";
 		
+		String targetMethodName2arg = deobf ? "renderItem" : "func_181564_a";
+		
 		String targetMethodName2 = deobf ? "renderModel" : "func_191961_a";//"a";
 		
 		String targetMethodNameGui = deobf ? "renderItemModelIntoGUI" : "func_191962_a";//"a";
@@ -209,7 +211,7 @@ public class TechgunsASMTransformer implements IClassTransformer {
 			if (m.name.equals(targetMethodName) && m.desc.equals(signature)) {
 				patchRenderItem_patchMethodRenderItem(m,deobf);
 			}
-			if (m.name.equals(targetMethodName) && m.desc.equals(signature2)) {
+			if (m.name.equals(targetMethodName2arg) && m.desc.equals(signature2)) {
 				patchRenderItem_patchMethodRenderItem2(m,deobf);
 			}
 			if (m.name.equals(targetMethodNameGui) && m.desc.equals(signature3)) {
