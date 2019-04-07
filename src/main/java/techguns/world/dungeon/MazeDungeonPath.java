@@ -62,6 +62,9 @@ public class MazeDungeonPath implements IDungeonPath {
 	
 	//private static PathSegment ramp_blocker = DungeonPath.new PathSegment(-1, -1, -1);
 	
+	protected EnumFacing startFacing = null;
+	protected BlockPos startPos = null;
+	
 	public MazeDungeonPath(int sX, int sY, int sZ, Random rand) {
 		this.sX =sX;
 		this.sY = sY;// System.out.println("sY = "+sY);
@@ -92,7 +95,7 @@ public class MazeDungeonPath implements IDungeonPath {
 		
 		int startX;
 		int startZ;
-		EnumFacing startFacing;
+		//EnumFacing startFacing;
 		int startY = (sY+startHeightLevel)%sY;
 		switch (this.rand.nextInt(4)) {
 			case 0:
@@ -127,11 +130,23 @@ public class MazeDungeonPath implements IDungeonPath {
 		
 		this.entranceRampLength = Math.min(this.entranceRampLength, startY);
 		
+		this.startPos = new BlockPos(startX,startY,startZ);
+		
 		generateSegment(startX, startY, startZ, startDir, null); // startSegment);
 		
 		
 	}
-	
+
+	@Override
+	public EnumFacing getEntranceRotation() {
+		return this.startFacing;
+	}
+
+	@Override
+	public BlockPos getStartPos() {
+		return this.startPos;
+	}
+
 	/* (non-Javadoc)
 	 * @see techguns.world.dungeon.IDungeonPath#generateSegment(int, int, int, int, techguns.world.dungeon.DungeonPath.PathSegment)
 	 */

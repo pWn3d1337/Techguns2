@@ -27,6 +27,7 @@ import techguns.world.structures.CastleStructure;
 import techguns.world.structures.FactoryHouseSmall;
 import techguns.world.structures.GasStation;
 import techguns.world.structures.MilitaryCamp;
+import techguns.world.structures.NetherDungeonEntrance;
 import techguns.world.structures.OreClusterMeteorBasis;
 import techguns.world.structures.PoliceStation;
 import techguns.world.structures.SmallMine;
@@ -168,7 +169,8 @@ public class WorldGenTestTool extends GenericItem{
 			
 			dungeon.generate(world, x, y+yOffset ,z, sizeX, height, sizeZ);
 			
-			
+			NetherDungeonEntrance e = new NetherDungeonEntrance();
+			e.setBlocks(world, dungeon.startPos.getX()+x, dungeon.startPos.getY()+y, dungeon.startPos.getZ()+z, e.sizeX, e.sizeY, e.sizeZ, dungeon.startRotation.getHorizontalIndex(), BiomeColorType.WOODLAND, rnd);
 			
 			//bugnest
 			//AlienBugNestStructure b = new AlienBugNestStructure();
