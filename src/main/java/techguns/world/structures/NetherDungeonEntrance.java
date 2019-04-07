@@ -53,7 +53,7 @@ public class NetherDungeonEntrance extends WorldgenStructure {
 			centerZ = (int) (sizeZ/2.0f);
 		}
 		
-		BlockUtils.placeScannedStructure(world, blocks, blockList, posX, posY, posZ, centerX, centerZ, direction, 0,this.lootTier,colorType);
+		BlockUtils.placeScannedStructure(world, blocks, blockList, posX, posY, posZ, centerX-2, centerZ, direction, 0,this.lootTier,colorType);
 		//BlockUtils.placeScannedStructure(world, blocks, blockList, posX, posY, posZ, centerX, centerZ, direction, 1,this.lootTier,colorType);
 	}
 }

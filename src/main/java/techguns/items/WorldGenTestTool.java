@@ -170,7 +170,12 @@ public class WorldGenTestTool extends GenericItem{
 			dungeon.generate(world, x, y+yOffset ,z, sizeX, height, sizeZ);
 			
 			NetherDungeonEntrance e = new NetherDungeonEntrance();
-			e.setBlocks(world, dungeon.startPos.getX()+x, dungeon.startPos.getY()+y, dungeon.startPos.getZ()+z, e.sizeX, e.sizeY, e.sizeZ, dungeon.startRotation.getHorizontalIndex(), BiomeColorType.WOODLAND, rnd);
+			
+			int px = x+(dungeon.startPos.getX()*preset.getSizeXZ());
+			int py = y+(dungeon.startPos.getY()*preset.getSizeY()) + yOffset;
+			int pz = z+(dungeon.startPos.getZ()*preset.getSizeXZ());
+			
+			e.setBlocks(world, px+1 - preset.getSizeXZ()/2, py, pz+1 - preset.getSizeXZ()/2, e.sizeX, e.sizeY, e.sizeZ, BlockUtils.facingToRotation(dungeon.startRotation), BiomeColorType.WOODLAND, rnd);
 			
 			//bugnest
 			//AlienBugNestStructure b = new AlienBugNestStructure();

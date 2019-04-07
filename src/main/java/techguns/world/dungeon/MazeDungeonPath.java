@@ -811,6 +811,7 @@ public class MazeDungeonPath implements IDungeonPath {
 		}
 		this.dungeonVolume = dungeonVolume2;
 		sY = sY+1;
+		this.startPos = new BlockPos(startPos.getX(), startPos.getY()+1, startPos.getZ());
 	}
 
 
