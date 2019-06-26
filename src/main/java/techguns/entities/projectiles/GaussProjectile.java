@@ -1,10 +1,12 @@
 package techguns.entities.projectiles;
 
+import elucent.albedo.event.GatherLightsEvent;
 import elucent.albedo.lighting.ILightProvider;
 import elucent.albedo.lighting.Light;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.SoundCategory;
@@ -147,5 +149,12 @@ public class GaussProjectile extends AdvancedBulletProjectile implements ILightP
 				.color(0.5f,0.75f, 1f)
 				.radius(2.5f)
 				.build();
+	}
+
+	@Optional.Method(modid="albedo")
+	@Override
+	public void gatherLights(GatherLightsEvent arg0, Entity arg1) {
+		// TODO Auto-generated method stub
+		
 	}
 }

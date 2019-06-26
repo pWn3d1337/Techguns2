@@ -835,7 +835,7 @@ public class TGEventHandler {
 	public static void onGatherLightsEvent(GatherLightsEvent event) {
 		ClientProxy cp = ClientProxy.get();
 		for (int i=0;i<cp.activeLightPulses.size();i++) {
-			event.getLightList().add(cp.activeLightPulses.get(i).provideLight());
+			event.add(cp.activeLightPulses.get(i).provideLight());
 		}
 		//ClientProxy.get().activeLightPulses.forEach(l -> event.getLightList().add(l.provideLight()));
 	}

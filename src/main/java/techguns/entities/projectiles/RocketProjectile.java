@@ -1,7 +1,9 @@
 package techguns.entities.projectiles;
 
+import elucent.albedo.event.GatherLightsEvent;
 import elucent.albedo.lighting.ILightProvider;
 import elucent.albedo.lighting.Light;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
@@ -108,6 +110,13 @@ public class RocketProjectile extends GenericProjectile implements ILightProvide
 				.color(1f,1f, 1f)
 				.radius(3)
 				.build();
+	}
+
+	@Optional.Method(modid="albedo")
+	@Override
+	public void gatherLights(GatherLightsEvent arg0, Entity arg1) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

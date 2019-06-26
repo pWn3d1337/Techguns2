@@ -80,7 +80,7 @@ dependencies {
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
 
 	//compile 'elucent:albedo:2.0-SNAPSHOT'
-	deobfCompile 'albedo:albedo:0.1.3:deobf'
+	compile 'albedo:albedo:1.12.2:1.1.0'
 	
 	compile 'crafttweaker:CraftTweaker2:1.12:4.1.13'
 	

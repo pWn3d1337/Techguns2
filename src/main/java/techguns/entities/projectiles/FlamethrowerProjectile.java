@@ -1,7 +1,9 @@
 package techguns.entities.projectiles;
 
+import elucent.albedo.event.GatherLightsEvent;
 import elucent.albedo.lighting.ILightProvider;
 import elucent.albedo.lighting.Light;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.RayTraceResult;
@@ -126,5 +128,12 @@ public class FlamethrowerProjectile extends GenericProjectile implements ILightP
 				.color(1.0f, 0.8f, 0f)
 				.radius(2.5f)
 				.build();
+	}
+
+	@Optional.Method(modid="albedo")
+	@Override
+	public void gatherLights(GatherLightsEvent arg0, Entity arg1) {
+		// TODO Auto-generated method stub
+		
 	}
 }
