@@ -2,9 +2,14 @@ package techguns.tileentities;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
+import li.cil.oc.api.machine.Arguments;
+import li.cil.oc.api.machine.Callback;
+import li.cil.oc.api.machine.Context;
+import li.cil.oc.api.network.SimpleComponent;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -30,6 +35,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
+import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.common.network.NetworkRegistry.TargetPoint;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
@@ -54,7 +60,8 @@ import techguns.tileentities.operation.ReactionChamberOperation;
 import techguns.tileentities.operation.ReactionChamberRecipe;
 import techguns.tileentities.operation.ReactionChamberRecipe.RiskType;
 
-public class ReactionChamberTileEntMaster extends MultiBlockMachineTileEntMaster implements ITileEntityFluidTanks {
+@Optional.Interface(iface="li.cil.oc.api.network.SimpleComponent", modid="opencomputers")
+public class ReactionChamberTileEntMaster extends MultiBlockMachineTileEntMaster implements ITileEntityFluidTanks, SimpleComponent {
 
 	public FluidTank inputTank;
 	public static final int CAPACITY_INPUT_TANK=10*Fluid.BUCKET_VOLUME;
@@ -546,15 +553,18 @@ public class ReactionChamberTileEntMaster extends MultiBlockMachineTileEntMaster
 						}
 						break;
 					case BUTTON_ID_DUMPTANK: //drain input tank
-						this.inputTank.setFluid(null);
-						this.contentsChanged=true;
-						this.needUpdate();
+						dumpLiquid();
 						break;
 				}
 			}
 		}
 	}
 
+	private void dumpLiquid(){
+		this.inputTank.setFluid(null);
+		this.contentsChanged=true;
+		this.needUpdate();
+	}
 	
 	protected class ReactionChamberFluidTank extends FluidTankPlus {
 
@@ -732,4 +742,85 @@ public class ReactionChamberTileEntMaster extends MultiBlockMachineTileEntMaster
 
 		}
 	}
+
+
+	/* OpenComputers Integration */
+	@Override
+	@Optional.Method(modid="opencomputers")
+	public String getComponentName(){
+		return "tg2_reactionchamber";
+	}
+
+	@Optional.Method(modid="opencomputers")
+	@Callback(doc = "function(int:liquidLimit):boolean -- sets the liquid limit for the input tank", direct = false)
+	public Object[] setLiquidLevel(Context context, Arguments args) {
+		if(args.count() < 1)
+			return new Object[]{ false, "no liquid level specified" };
+
+		byte newLiquidLevel = (byte) Math.max(0, Math.min(args.checkInteger(0), 10));
+
+		setLiquidLevel(newLiquidLevel);
+		return new Object[]{ getLiquidLevel() == newLiquidLevel };
+	}
+
+	@Optional.Method(modid="opencomputers")
+	@Callback(doc = "function():int -- returns the liquid limit", direct = false)
+	public Object[] getLiquidLevel(Context context, Arguments args) {
+		return new Object[]{ getLiquidLevel() };
+	}
+
+	@Optional.Method(modid="opencomputers")
+	@Callback(doc = "function(int:intensity):boolean -- sets the intensity level", direct = false)
+	public Object[] setIntensity(Context context, Arguments args) {
+		if(args.count() < 1)
+			return new Object[]{ false, "no intensity level specified" };
+
+		byte newIntensity = (byte) Math.max(0, Math.min(args.checkInteger(0), 10));
+
+		setIntensity(newIntensity);
+		return new Object[]{ getIntensity() == newIntensity };
+	}
+
+
+	@Optional.Method(modid="opencomputers")
+	@Callback(doc = "function():int -- returns the intensity level", direct = false)
+	public Object[] getIntensity(Context context, Arguments args) {
+		return new Object[]{ getIntensity() };
+	}
+
+	@Optional.Method(modid="opencomputers")
+	@Callback(doc = "function():boolean -- dumps the liquid in the input tank", direct = false)
+	public Object[] dumpLiquid(Context context, Arguments args) {
+		dumpLiquid();
+		return new Object[]{ inputTank.getFluid() == null };
+	}
+
+	@Optional.Method(modid="opencomputers")
+	@Callback(doc = "function():boolean -- returns the stored energy", direct = false)
+	public Object[] getEnergyStored(Context context, Arguments args) {
+		return new Object[]{ getEnergyStorage().getEnergyStored() };
+	}
+
+	@Optional.Method(modid="opencomputers")
+	@Callback(doc = "function():boolean -- returns the size of the internal energy buffer", direct = false)
+	public Object[] getMaxEnergyStored(Context context, Arguments args) {
+		return new Object[]{ getEnergyStorage().getMaxEnergyStored() };
+	}
+
+	@Optional.Method(modid="opencomputers")
+	@Callback(doc = "function():table -- returns statistics about the current reaction", direct = false)
+	public Object[] getReactionStats(Context context, Arguments args) {
+		HashMap<String, Object> data = new HashMap<>();
+		data.put("validRecipe", getCurrentReaction() != null);
+
+		if(getCurrentReaction() != null) {
+			data.put("preferedIntensity", getCurrentReaction().getCurrentPreferedIntensity());
+			data.put("progress", progress);
+			data.put("duration", totaltime);
+			data.put("energyPerTick", getCurrentReaction().getPowerPerTick());
+		}
+
+		return new Object[] { data };
+	}
+
 }
