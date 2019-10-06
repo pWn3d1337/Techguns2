@@ -32,7 +32,11 @@ public enum EnumGunStat {
 	/**
 	 * Mining speed, only has an effect on tools
 	 */
-	MINING_SPEED;
+	MINING_SPEED,
+	/**
+	 * How much shots randomly divert
+	 */
+	SPREAD;
 	
 	public static EnumGunStat parseFromString(String s) {
 		for(EnumGunStat e :EnumGunStat.values()) {

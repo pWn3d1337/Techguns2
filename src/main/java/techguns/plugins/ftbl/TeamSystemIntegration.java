@@ -10,6 +10,8 @@ import com.feed_the_beast.ftblib.lib.data.Universe;
 public class TeamSystemIntegration {
 
 	public static boolean isAllied(UUID ply1, UUID ply2) {
+		if(!Universe.loaded()) return false;
+		
 		Universe u = Universe.get();
 		
 		ForgePlayer p1 = u.getPlayer(ply1);
@@ -29,6 +31,8 @@ public class TeamSystemIntegration {
 	}
 	
 	public static boolean isAlliedNoMember(UUID ply1, UUID ply2) {
+		if(!Universe.loaded()) return false;
+		
 		Universe u = Universe.get();
 		ForgePlayer p1 = u.getPlayer(ply1);
 		ForgePlayer p2 = u.getPlayer(ply2);
@@ -45,6 +49,8 @@ public class TeamSystemIntegration {
 	}
 	
 	public static boolean isTeamMember(UUID ply1, UUID ply2) {
+		if(!Universe.loaded()) return false;
+		
 		Universe u = Universe.get();
 		ForgePlayer p1 = u.getPlayer(ply1);
 		ForgePlayer p2 = u.getPlayer(ply2);
@@ -61,6 +67,8 @@ public class TeamSystemIntegration {
 	}
 	
 	public static boolean isEnemy(UUID ply1, UUID ply2) {
+		if(!Universe.loaded()) return false;
+		
 		Universe u = Universe.get();
 		ForgePlayer p1 = u.getPlayer(ply1);
 		ForgePlayer p2 = u.getPlayer(ply2);

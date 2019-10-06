@@ -21,8 +21,8 @@ import techguns.util.TextUtil;
 public class PoweredArmor extends GenericArmorMultiCamo {
 
 	protected ArmorPowerType powerType;
-	protected ItemStack battery = null;
-	protected ItemStack battery_empty = null;
+	protected ItemStack battery = ItemStack.EMPTY;
+	protected ItemStack battery_empty = ItemStack.EMPTY;
 	
 	public int maxpower;
 
@@ -342,7 +342,7 @@ public class PoweredArmor extends GenericArmorMultiCamo {
 		ArmorPowerType power = null;
 
 		ItemStack chest = player.inventory.armorInventory.get(2);
-		if (chest != null && chest.getItem() instanceof PoweredArmor) {
+		if (!chest.isEmpty() && chest.getItem() instanceof PoweredArmor) {
 			power = ((PoweredArmor) chest.getItem()).powerType;
 		}
 
@@ -350,7 +350,7 @@ public class PoweredArmor extends GenericArmorMultiCamo {
 		powerSlots(player,power,chest,(modTick==0)&&moving);
 		
 
-		if (chest != null && chest.getItem() instanceof PoweredArmor) {
+		if (!chest.isEmpty() && chest.getItem() instanceof PoweredArmor) {
 			PoweredArmor powerChest = (PoweredArmor) chest.getItem();
 			if (!hasPower(chest)){
 				

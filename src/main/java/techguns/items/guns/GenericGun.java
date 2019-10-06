@@ -132,7 +132,7 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 	int lockOnTicks = 0; //MaximumLockOnTime
 	int lockOnPersistTicks = 0;
 	
-	EnumCrosshairStyle crossHairStyle = EnumCrosshairStyle.CROSSHAIR_DYNAMIC;
+	EnumCrosshairStyle crossHairStyle = EnumCrosshairStyle.GUN_DYNAMIC;
 	
 	public ArrayList<ResourceLocation> textures;
 	
@@ -789,12 +789,13 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 			stack.setTagCompound(tags);
 		
 			int dmg = stack.getItemDamage();
-			
 			tags.setByte("camo", (byte) 0);
 			tags.setString("ammovariant", AmmoTypes.TYPE_DEFAULT);
 			tags.setShort("ammo", dmg==0 ? (short)this.clipsize : (short)(this.clipsize-dmg));
 			stack.setItemDamage(0);
 			this.addInitialTags(tags);
+		} else {
+			stack.setItemDamage(0);
 		}
 	}
 	
@@ -1639,6 +1640,9 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 			return true;
 		case GRAVITY:
 			this.gravity=value;
+			return true;
+		case SPREAD:
+			this.spread=value;
 			return true;
 		default:
 			return false;

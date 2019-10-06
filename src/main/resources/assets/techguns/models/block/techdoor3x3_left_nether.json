@@ -1,0 +1,21 @@
+{
+    "ambientocclusion": false,
+	"textures": {
+        "0": "techguns:blocks/techdoor3x3_nether"
+    },
+    "elements": [
+        {
+            "name": "Door_Left",
+            "from": [ -12.0, -16.0, 7.0 ], 
+            "to": [ 8.0, 28.0, 9.0 ], 
+            "faces": {
+                "north": { "texture": "#0", "uv": [ 8.0, 1.33333, 14.66667, 16.0 ] },
+                "east": { "texture": "#0", "uv": [ 0.66667, 1.33333, 1.33333, 16.0 ] },
+                "south": { "texture": "#0", "uv": [ 1.33333, 1.33333, 8.0, 16.0 ] },
+                "west": { "texture": "#0", "uv": [ 0.66667, 1.33333, 1.33333, 16.0 ] },
+                "up": { "texture": "#0", "uv": [ 1.33333, 0.66667, 8.0, 1.33333 ] },
+                "down": { "texture": "#0", "uv": [ 1.33333, 0.66667, 8.0, 1.33333 ] }
+            }
+        }
+    ]
+}

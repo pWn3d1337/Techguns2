@@ -1,9 +1,11 @@
 package techguns.entities.projectiles;
 
+import elucent.albedo.event.GatherLightsEvent;
 import elucent.albedo.lighting.ILightProvider;
 import elucent.albedo.lighting.Light;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
@@ -93,6 +95,7 @@ public class AlienBlasterProjectile extends GenericProjectile implements ILightP
 		
 	}
 
+	@Optional.Method(modid="albedo")
 	@Override
 	public Light provideLight() {
 		return Light.builder()
@@ -102,6 +105,9 @@ public class AlienBlasterProjectile extends GenericProjectile implements ILightP
 				.build();
 	}
 	
-	
+	@Optional.Method(modid="albedo")
+	@Override
+	public void gatherLights(GatherLightsEvent evt, Entity ent) {
+	}
 	
 }

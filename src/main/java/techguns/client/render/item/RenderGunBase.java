@@ -158,6 +158,10 @@ public class RenderGunBase extends RenderItemBase {
 		return this;
 	}
 	
+	public boolean hasScopeTexture() {
+		return this.scope!=null;
+	}
+	
 	protected static ITGShooterValues getShooterValues(EntityLivingBase ent) {
 		ITGShooterValues values = null;
 		if (ent != null) {

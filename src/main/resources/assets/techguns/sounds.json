@@ -1343,5 +1343,51 @@
     "sounds": [
         "techguns:machines/grind"
     ]
+},
+
+"guns.laserpistolreload": {
+    "category": "player",
+    "sounds": [
+        "techguns:guns/laser_pistol_reload"
+    ]
+},
+"guns.laserpistolfire": {
+    "category": "player",
+    "sounds": [
+        "techguns:guns/laser_pistol_shot_a",
+        "techguns:guns/laser_pistol_shot_b"
+    ]
+},
+"guns.shishkebabfire": {
+    "category": "player",
+    "sounds": [
+        "techguns:guns/shishkebab_swing_a",
+        "techguns:guns/shishkebap_swing_b",
+        "techguns:guns/shishkebap_swing_c"
+    ]
+},
+"guns.shishkebabreload": {
+    "category": "player",
+    "sounds": [
+        "techguns:guns/shishkebab_reload"
+    ]
+},
+"blocks.techdoor.open": {
+    "category": "block",
+    "sounds": [
+        "techguns:blocks/techdoor_open" 
+    ]
+},
+"blocks.techdoor.close": {
+    "category": "block",
+    "sounds": [
+        "techguns:blocks/techdoor_close" 
+    ]
+},
+"blocks.techdoor.statefinished": {
+    "category": "block",
+    "sounds": [
+        "techguns:blocks/techdoor_state_finished" 
+    ]
 }
 }

@@ -1,0 +1,181 @@
+{
+	"ambientocclusion": false,
+	"textures": {
+		"0": "techguns:blocks/techdoor3x3_nether",
+		"1_0": "techguns:blocks/techdoor3x3_nether",
+		"2_0": "techguns:blocks/techdoor3x3_nether"
+	},
+	"elements": [
+		{
+			"name": "Frame_Top",
+			"from": [-16, 28, 6],
+			"to": [32, 32, 10],
+			"faces": {
+				"north": {
+					"uv": [0, 0, 16, 1.333333],
+					"texture": "#0"
+				},
+				"east": {
+					"uv": [0, 0, 1.333333, 1.333333],
+					"texture": "#0"
+				},
+				"south": {
+					"uv": [0, 0, 16, 1.333333],
+					"texture": "#0"
+				},
+				"west": {
+					"uv": [0, 0, 1.333333, 1.333333],
+					"texture": "#0"
+				},
+				"up": {"uv": [0, 0, 16, 1.333333], "texture": "#0"},
+				"down": {
+					"uv": [0, 0, 16, 1.333333],
+					"texture": "#0"
+				}
+			}
+		},
+		{
+			"name": "Frame_Left",
+			"from": [-16, -16, 6],
+			"to": [-12, 28, 10],
+			"faces": {
+				"north": {
+					"uv": [0, 1.333333, 1.333333, 16],
+					"texture": "#0"
+				},
+				"east": {
+					"uv": [14.6666667, 1.333333, 16, 16],
+					"texture": "#0"
+				},
+				"south": {
+					"uv": [0, 1.333333, 1.333333, 16],
+					"texture": "#0"
+				},
+				"west": {
+					"uv": [0, 1.333333, 1.333333, 16],
+					"texture": "#0"
+				},
+				"down": {
+					"uv": [0, 0, 1.333333, 1.333333],
+					"texture": "#0"
+				}
+			}
+		},
+		{
+			"name": "Frame_Right",
+			"from": [28, -16, 6],
+			"to": [32, 28, 10],
+			"faces": {
+				"north": {
+					"uv": [14.6666667, 1.333333, 16, 16],
+					"texture": "#0"
+				},
+				"east": {
+					"uv": [14.6666667, 1.333333, 16, 16],
+					"texture": "#0"
+				},
+				"south": {
+					"uv": [14.6666667, 1.333333, 16, 16],
+					"texture": "#0"
+				},
+				"west": {
+					"uv": [14.6666667, 1.333333, 16, 16],
+					"texture": "#0"
+				},
+				"down": {
+					"uv": [14.6666667, 0, 16, 1.333333],
+					"texture": "#0"
+				}
+			}
+		},
+		{
+			"name": "Door_Left",
+			"from": [-12, -16, 7],
+			"to": [8, 28, 9],
+			"faces": {
+				"north": {
+					"uv": [8, 1.33333, 14.66667, 16],
+					"texture": "#1_0"
+				},
+				"east": {
+					"uv": [0.66667, 1.33333, 1.33333, 16],
+					"texture": "#1_0"
+				},
+				"south": {
+					"uv": [1.33333, 1.33333, 8, 16],
+					"texture": "#1_0"
+				},
+				"west": {
+					"uv": [0.66667, 1.33333, 1.33333, 16],
+					"texture": "#1_0"
+				},
+				"up": {
+					"uv": [1.33333, 0.66667, 8, 1.33333],
+					"texture": "#1_0"
+				},
+				"down": {
+					"uv": [1.33333, 0.66667, 8, 1.33333],
+					"texture": "#1_0"
+				}
+			}
+		},
+		{
+			"name": "Door_Right",
+			"from": [8, -16, 7],
+			"to": [28, 28, 9],
+			"faces": {
+				"north": {
+					"uv": [1.33333, 1.33333, 8, 16],
+					"texture": "#2_0"
+				},
+				"east": {
+					"uv": [14.66667, 1.33333, 15.33333, 16],
+					"texture": "#2_0"
+				},
+				"south": {
+					"uv": [8, 1.33333, 14.66667, 16],
+					"texture": "#2_0"
+				},
+				"west": {
+					"uv": [14.66667, 1.33333, 15.33333, 16],
+					"texture": "#2_0"
+				},
+				"up": {
+					"uv": [8, 0.66667, 14.66667, 1.33333],
+					"texture": "#2_0"
+				},
+				"down": {
+					"uv": [1.33333, 0.66667, 8, 1.33333],
+					"texture": "#2_0"
+				}
+			}
+		}
+	],
+	"groups": [
+		0,
+		1,
+		2,
+		{
+			"name": "techdoor3x3_frame",
+			"origin": [8, 8, 8],
+			"isOpen": true,
+			"display": {
+				"visibility": true,
+				"export": true,
+				"autouv": true
+			},
+			"children": [3]
+		},
+		{
+			"name": "techdoor3x3_frame",
+			"origin": [8, 8, 8],
+			"isOpen": true,
+			"display": {
+				"visibility": true,
+				"export": true,
+				"autouv": true
+			},
+			"children": [4]
+		}
+	]
+}

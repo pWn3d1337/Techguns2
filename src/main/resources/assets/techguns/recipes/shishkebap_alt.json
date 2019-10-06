@@ -1,0 +1,28 @@
+{
+  "result": {
+    "item": "techguns:shishkebap",
+    "data": 300
+  },
+  "pattern": [
+    "p ",
+    "pm",
+    "sf"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "p": {
+      "item": "#PLATEOBSIDIANSTEEL"
+    },
+    "s": {
+      "item": "#SHEETPLASTIC"
+    },
+    "f": {
+      "item": "techguns:itemshared",
+      "data": 28
+    },
+    "m": {
+      "item": "techguns:itemshared",
+      "data": 72
+    }
+  }
+}

@@ -653,6 +653,12 @@ public class Recipewriter {
 	        RecipeJsonConverter.addShapedRecipe(new ItemStack(tfg,1),"t  ","bpr","tn ", 'b', TGItems.BARREL_TITANIUM, 'r', TGItems.RECEIVER_TITANIUM, 't', "plateTitanium", 'n', TGItems.NUCLEAR_POWERCELL, 'p', TGItems.PLASMA_GENERATOR);
 	        RecipeJsonConverter.addShapedRecipe(new ItemStack(tfg,1,tfg.getMaxDamage()),"t  ","bpr","tn ", 'b', TGItems.BARREL_TITANIUM, 'r', TGItems.RECEIVER_TITANIUM, 't', "plateTitanium", 'n', TGItems.NUCLEAR_POWERCELL_EMPTY, 'p', TGItems.PLASMA_GENERATOR);
 	        
+	        RecipeJsonConverter.addShapedRecipe(new ItemStack(laserpistol,1),"obo","scr","ssp", 'b', TGItems.BARREL_LASER, 'r', TGItems.REDSTONE_BATTERY, 'o', "plateObsidianSteel", 's', "nuggetSteel", 'p', "sheetPlastic", 'c', "circuitElite");
+	        RecipeJsonConverter.addShapedRecipe(new ItemStack(laserpistol,1,laserpistol.getMaxDamage()),"obo","scr","ssp", 'b', TGItems.BARREL_LASER, 'r', TGItems.REDSTONE_BATTERY_EMPTY, 'o', "plateObsidianSteel", 's', "nuggetSteel", 'p', "sheetPlastic", 'c', "circuitElite");
+	        
+	        RecipeJsonConverter.addShapedRecipe(new ItemStack(shishkebap,1),"p ","pm","sf", 'p', "plateObsidianSteel", 'm', TGItems.PUMP_MECHANISM, 's', "sheetPlastic", 'f', TGItems.FUEL_TANK);
+	        RecipeJsonConverter.addShapedRecipe(new ItemStack(shishkebap,1,shishkebap.getMaxDamage()),"p ","pm","sf", 'p', "plateObsidianSteel", 'm', TGItems.PUMP_MECHANISM, 's', "sheetPlastic", 'f', TGItems.FUEL_TANK_EMPTY);
+		       
 	}
 	
 	public static void addArmorRecipes() {

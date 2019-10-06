@@ -117,6 +117,7 @@ import techguns.client.models.guns.ModelGrimReaper;
 import techguns.client.models.guns.ModelGuidedMissileLauncher;
 import techguns.client.models.guns.ModelHandgun;
 import techguns.client.models.guns.ModelLMG;
+import techguns.client.models.guns.ModelLaserPistol;
 import techguns.client.models.guns.ModelLasergun;
 import techguns.client.models.guns.ModelLasergun2;
 import techguns.client.models.guns.ModelM4;
@@ -1016,6 +1017,15 @@ public class ClientProxy extends CommonProxy {
 					{0f,0f,0f}, //Ground
 					{0f,0.0f,0.0f} //frame
 				}).setAmbientParticleFX("ScreenTestFX").setReloadAnim(GunAnimation.breechReload, -0.15f, 55.0f).setReloadAnim3p(GunAnimation.breechReload, 0f, 55.0f));
+		
+		ItemRenderHack.registerItemRenderer(TGuns.laserpistol,new RenderGunBase(new ModelLaserPistol(),1).setBaseTranslation(RenderItemBase.SCALE*0.5f, -0.3f, -0.4f)
+				.setBaseScale(1.2f).setGUIScale(0.7f).setMuzzleFx(ScreenEffect.muzzleFlashLaser, 0.03f, 0.2f, -0.5f, 0.55f,-0.03f).setTransformTranslations(new float[][]{
+					{0,0.09f,-0.02f}, //First Person
+					{0.0f,-0.03f,0.0f}, //Third Person
+					{0.02f,-0.08f,0}, //GUI
+					{0.02f,-0.08f,0}, //Ground
+					{0,0,0f} //frame
+				}).setRecoilAnim(GunAnimation.genericRecoil, 0.0125f, 6.0f).setMuzzleFXPos3P(0.07f, -0.26f));
 		
 		ItemRenderHack.registerItemRenderer(TGArmors.steam_Helmet,  new RenderArmorItem(new ModelSteamArmor(0), new ResourceLocation(Techguns.MODID,"textures/models/armor/steam_armor.png"), EntityEquipmentSlot.HEAD) );
 		ItemRenderHack.registerItemRenderer(TGArmors.steam_Chestplate,  new RenderArmorItem(new ModelSteamArmor(0), new ResourceLocation(Techguns.MODID,"textures/models/armor/steam_armor.png"), EntityEquipmentSlot.CHEST) );
