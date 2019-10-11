@@ -1,28 +1,23 @@
 package techguns.capabilities;
 
 import java.util.BitSet;
-import java.util.LinkedList;
 import java.util.List;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.EnumHand;
-import net.minecraftforge.server.permission.PermissionAPI;
-import techguns.TGConfig;
-import techguns.TGPermissions;
+import net.minecraftforge.items.ItemStackHandler;
 import techguns.TGRadiationSystem;
 import techguns.Techguns;
 import techguns.api.capabilities.AttackTime;
 import techguns.api.capabilities.ITGExtendedPlayer;
-import techguns.client.particle.ITGParticle;
-import techguns.client.particle.TGParticleSystemItemAttached;
+import techguns.gui.player.TGPlayerInventoryOld;
 import techguns.gui.player.TGPlayerInventory;
 import techguns.util.DataUtil;
 
@@ -227,13 +222,13 @@ public class TGExtendedPlayer implements ITGExtendedPlayer {
 	}
 
 	@Override
-	public IInventory getTGInventory() {
+	public ItemStackHandler getTGInventory() {
 		return this.tg_inventory;
 	}
 
 	@Override
 	public void saveToNBT(NBTTagCompound tags) {
-		this.tg_inventory.saveNBTData(tags);
+		tags.setTag("inventory", tg_inventory.serializeNBT());
 		
 		byte data = DataUtil.compress(this.enableJetpack,this.enableNightVision,this.enableSafemode,this.enableStepAssist,this.showTGHudElements,this.enableHovermode);
 		tags.setByte("states", data);
@@ -244,7 +239,19 @@ public class TGExtendedPlayer implements ITGExtendedPlayer {
 
 	@Override
 	public void loadFromNBT(NBTTagCompound tags) {
-		this.tg_inventory.loadNBTData(tags);
+		if(tags.hasKey("inventory")){
+			tg_inventory.deserializeNBT(tags.getCompoundTag("inventory"));
+		}
+		else if(tags.hasKey("Items")){
+			// try to restore old IInventory
+			TGPlayerInventoryOld oldInventory = new TGPlayerInventoryOld(null);
+			oldInventory.loadNBTData(tags);
+
+			for(int slot=0; slot < oldInventory.getSizeInventory(); slot++){
+				tg_inventory.setStackInSlot(slot, oldInventory.getStackInSlot(slot));
+			}
+		}
+
 		BitSet states = DataUtil.uncompress(tags.getByte("states"));
 		
 		this.enableJetpack=states.get(0);
@@ -304,13 +311,13 @@ public class TGExtendedPlayer implements ITGExtendedPlayer {
 	            int i;
 	        
 	            player.captureDrops=true;
-	            for (i = 0; i < this.tg_inventory.inventory.size(); ++i)
+	            for (i = 0; i < this.tg_inventory.getSlots(); ++i)
 	            {
-	                if (!this.tg_inventory.inventory.get(i).isEmpty())
+	                if (!this.tg_inventory.getStackInSlot(i).isEmpty())
 	                {
 	                	//System.out.println("Dropping "+TG_inventory.inventory[i].getDisplayName()+" x"+TG_inventory.inventory[i].stackSize);
-	                    player.dropItem(this.tg_inventory.inventory.get(i), true, false);
-	                    this.tg_inventory.inventory.set(i, ItemStack.EMPTY);
+	                    player.dropItem(this.tg_inventory.getStackInSlot(i), true, false);
+	                    this.tg_inventory.setStackInSlot(i, ItemStack.EMPTY);
 	                }
 	            }
 	            player.captureDrops=false;
@@ -327,16 +334,16 @@ public class TGExtendedPlayer implements ITGExtendedPlayer {
 	            int i;
 	        
 	            //player.captureDrops=true;
-	            for (i = 0; i < this.tg_inventory.inventory.size(); ++i)
+	            for (i = 0; i < this.tg_inventory.getSlots(); ++i)
 	            {
-	                if (!this.tg_inventory.inventory.get(i).isEmpty())
+	                if (!this.tg_inventory.getStackInSlot(i).isEmpty())
 	                {
 	                	//System.out.println("Dropping "+TG_inventory.inventory[i].getDisplayName()+" x"+TG_inventory.inventory[i].stackSize);
-	                    EntityItem item = player.dropItem(this.tg_inventory.inventory.get(i), true, false);
+	                    EntityItem item = player.dropItem(this.tg_inventory.getStackInSlot(i), true, false);
 	                    if(item!=null) {
 	                    	list.add(item);
 	                    }
-	                    this.tg_inventory.inventory.set(i, ItemStack.EMPTY);
+	                    this.tg_inventory.setStackInSlot(i, ItemStack.EMPTY);
 	                }
 	            }
 	            //player.captureDrops=false;

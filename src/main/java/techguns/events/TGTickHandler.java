@@ -32,7 +32,6 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
 import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.RenderTickEvent;
-import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import techguns.TGConfig;
@@ -158,9 +157,6 @@ public class TGTickHandler {
 				}
 			}
 
-		} else {
-			
-			
 		}
 
 	}
@@ -168,46 +164,43 @@ public class TGTickHandler {
 	@SubscribeEvent
 	public static void onPlayerTick(PlayerTickEvent event) {
 		TGExtendedPlayer props = TGExtendedPlayer.get(event.player);
-		 
-		 //System.out.println(event.phase);
-		 if (event.phase == Phase.START){
-			
+
+		 if (event.phase.equals(Phase.START)){
 			 //reduce fire delays on both sides
-			 if(props.fireDelayMainhand>0){
+			 if(props.fireDelayMainhand > 0){
 				 props.fireDelayMainhand--;
 			 }
-			 if(props.loopSoundDelayMainhand>0){
+			 if(props.loopSoundDelayMainhand > 0){
 				 props.loopSoundDelayMainhand--;
 			 }
-			 if(props.fireDelayOffhand>0){
+			 if(props.fireDelayOffhand > 0){
 				 props.fireDelayOffhand--;
 			 }
-			 if(props.loopSoundDelayOffhand>0){
+			 if(props.loopSoundDelayOffhand > 0){
 				 props.loopSoundDelayOffhand--;
 			 }
 			 
-			 if (event.side ==Side.SERVER){
+			 if (event.side.equals(Side.SERVER)){
 				 //SERVER ONLY CODE
 				 if (props.swingSoundDelay>0){
 					 props.swingSoundDelay--;
 				 }
 			 }
-			 
-			 
-		 } else if (event.phase == Phase.END){
+		 }
+		 else if (event.phase == Phase.END){
 		 
 		 	 if(!event.player.world.isRemote) {	 
 				 event.player.getDataManager().set(TGExtendedPlayer.DATA_FACE_SLOT, props.tg_inventory.getStackInSlot(TGPlayerInventory.SLOT_FACE));
 				 event.player.getDataManager().set(TGExtendedPlayer.DATA_BACK_SLOT, props.tg_inventory.getStackInSlot(TGPlayerInventory.SLOT_BACK));
 				 event.player.getDataManager().set(TGExtendedPlayer.DATA_HAND_SLOT, props.tg_inventory.getStackInSlot(TGPlayerInventory.SLOT_HAND));
 			 } else {
-				props.tg_inventory.setInventorySlotContents(TGPlayerInventory.SLOT_FACE, event.player.getDataManager().get(TGExtendedPlayer.DATA_FACE_SLOT));
-				props.tg_inventory.setInventorySlotContents(TGPlayerInventory.SLOT_BACK, event.player.getDataManager().get(TGExtendedPlayer.DATA_BACK_SLOT));
-				props.tg_inventory.setInventorySlotContents(TGPlayerInventory.SLOT_HAND, event.player.getDataManager().get(TGExtendedPlayer.DATA_HAND_SLOT));
+				props.tg_inventory.setStackInSlot(TGPlayerInventory.SLOT_FACE, event.player.getDataManager().get(TGExtendedPlayer.DATA_FACE_SLOT));
+				props.tg_inventory.setStackInSlot(TGPlayerInventory.SLOT_BACK, event.player.getDataManager().get(TGExtendedPlayer.DATA_BACK_SLOT));
+				props.tg_inventory.setStackInSlot(TGPlayerInventory.SLOT_HAND, event.player.getDataManager().get(TGExtendedPlayer.DATA_HAND_SLOT));
 			 }
 			 
 			 boolean wearingTechgunsArmor = false;
-			 for (int i =0;i<4;i++){
+			 for (int i=0; i < 4; i++){
 				 ItemStack istack = event.player.inventory.armorInventory.get(i);
 				 if (GenericArmor.isTechgunArmor(istack)){
 					 wearingTechgunsArmor = true;
@@ -402,7 +395,7 @@ public class TGTickHandler {
 							 TGPackets.network.sendTo(new PacketTGExtendedPlayerSync(event.player,props,true), (EntityPlayerMP) event.player);
 						 }
 					 } else {
-						 ItemStack stack = InventoryUtil.consumeFood(props.tg_inventory.inventory, props.tg_inventory.SLOTS_AUTOFOOD_START, props.tg_inventory.SLOTS_AUTOFOOD_END+1);
+						 ItemStack stack = InventoryUtil.consumeFood(props.tg_inventory, props.tg_inventory.SLOTS_AUTOFOOD_START, props.tg_inventory.SLOTS_AUTOFOOD_END+1);
 						 if (!stack.isEmpty()){
 							 ItemFood food = (ItemFood) stack.getItem();
 							 
@@ -457,9 +450,9 @@ public class TGTickHandler {
 			  */
 			 props.isGliding=false;
 			 
-			 tickSlot(props.tg_inventory.inventory.get(TGPlayerInventory.SLOT_FACE), event);
-			 tickSlot(props.tg_inventory.inventory.get(TGPlayerInventory.SLOT_BACK), event);
-			 tickSlot(props.tg_inventory.inventory.get(TGPlayerInventory.SLOT_HAND), event);
+			 tickSlot(props.tg_inventory.getStackInSlot(TGPlayerInventory.SLOT_FACE), event);
+			 tickSlot(props.tg_inventory.getStackInSlot(TGPlayerInventory.SLOT_BACK), event);
+			 tickSlot(props.tg_inventory.getStackInSlot(TGPlayerInventory.SLOT_HAND), event);
 			 
 			 Techguns.proxy.handlePlayerGliding(event.player);
 			 			 
@@ -555,6 +548,8 @@ public class TGTickHandler {
 			 }
 		 }
 	}
+
+
 	
 	protected static void tickSlot(ItemStack slot, PlayerTickEvent event) {
 		if (!slot.isEmpty() && slot.getItem() instanceof ITGSpecialSlot) {

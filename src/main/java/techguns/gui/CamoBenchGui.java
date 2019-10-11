@@ -159,7 +159,7 @@ public class CamoBenchGui extends OwnedTileEntGui {
 		TGExtendedPlayer props = TGExtendedPlayer.get(ply);
 		if (props !=null){
 		
-			ItemStack item = props.tg_inventory.inventory.get(slot);
+			ItemStack item = props.tg_inventory.getStackInSlot(slot);
 			
 			if(!item.isEmpty() && item.getItem() instanceof ICamoChangeable){
 				ICamoChangeable camoItem = (ICamoChangeable) item.getItem();

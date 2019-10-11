@@ -327,9 +327,9 @@ public class GenericArmor extends ItemArmor implements ISpecialArmor , IItemTGRe
 		
 		if(props!=null){
 			
-			bonus+=getBonusForSlot(props.tg_inventory.inventory.get(TGPlayerInventory.SLOT_FACE), type, consumePower, ply);
-			bonus+=getBonusForSlot(props.tg_inventory.inventory.get(TGPlayerInventory.SLOT_BACK), type, consumePower, ply);
-			bonus+=getBonusForSlot(props.tg_inventory.inventory.get(TGPlayerInventory.SLOT_HAND), type, consumePower, ply);
+			bonus+=getBonusForSlot(props.tg_inventory.getStackInSlot(TGPlayerInventory.SLOT_FACE), type, consumePower, ply);
+			bonus+=getBonusForSlot(props.tg_inventory.getStackInSlot(TGPlayerInventory.SLOT_BACK), type, consumePower, ply);
+			bonus+=getBonusForSlot(props.tg_inventory.getStackInSlot(TGPlayerInventory.SLOT_HAND), type, consumePower, ply);
 		}
 		
 		return bonus;
@@ -469,9 +469,7 @@ public class GenericArmor extends ItemArmor implements ISpecialArmor , IItemTGRe
 	/**
 	 * to override in subclasses
 	 * @param item
-	 * @param player
 	 * @param list
-	 * @param b
 	 * @return
 	 */
 	protected void addMinimalInformation(ItemStack item, List<String> list){

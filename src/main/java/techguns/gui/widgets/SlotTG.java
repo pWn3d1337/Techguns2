@@ -1,14 +1,16 @@
 package techguns.gui.widgets;
 
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.items.ItemStackHandler;
+import net.minecraftforge.items.SlotItemHandler;
 import techguns.Techguns;
 import techguns.api.tginventory.ITGSpecialSlot;
 import techguns.api.tginventory.TGSlotType;
 
-public class SlotTG extends Slot {
+import javax.annotation.Nonnull;
+
+public class SlotTG extends SlotItemHandler {
 	private final TGSlotType type;
 	public static final ResourceLocation BACKSLOT_TEX = new ResourceLocation(Techguns.MODID,"gui/emptyslots/emptyslot_back");
 	public static final ResourceLocation FACESLOT_TEX = new ResourceLocation(Techguns.MODID,"gui/emptyslots/emptyslot_face");
@@ -25,18 +27,21 @@ public class SlotTG extends Slot {
 	public static final ResourceLocation INGOTSLOT_TEX = new ResourceLocation(Techguns.MODID,"gui/emptyslots/emptyslot_ingot");
 	public static final ResourceLocation INGOTDARKSLOT_TEX = new ResourceLocation(Techguns.MODID,"gui/emptyslots/emptyslot_ingot_dark");
 	
-	public SlotTG(IInventory inv, int index, int posx, int posy, TGSlotType type) {
+	public SlotTG(ItemStackHandler inv, int index, int posx, int posy, TGSlotType type) {
 		super(inv, index, posx, posy);
 		this.type=type;
 	}
 	
 	@Override
 	public boolean isItemValid(ItemStack itemstack) {
+		if(!super.isItemValid(itemstack))
+			return false;
+
 		if (!itemstack.isEmpty() && itemstack.getItem() instanceof ITGSpecialSlot){
 			ITGSpecialSlot slot = (ITGSpecialSlot) itemstack.getItem();
 			return slot.getSlot(itemstack)==type;
 		}
-		return TGSlotType.NORMAL==type;
+		return type.equals(TGSlotType.NORMAL);
 	}
 
 	public TGSlotType getType() {
@@ -63,6 +68,4 @@ public class SlotTG extends Slot {
 		}
 		return super.getSlotTexture();
 	}
-
-	
 }

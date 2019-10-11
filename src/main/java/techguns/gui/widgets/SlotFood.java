@@ -1,13 +1,13 @@
 package techguns.gui.widgets;
 
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.items.ItemStackHandler;
+import net.minecraftforge.items.SlotItemHandler;
 
-public class SlotFood extends Slot {
+public class SlotFood extends SlotItemHandler {
 
-	public SlotFood(IInventory inv, int id, int x, int y) {
+	public SlotFood(ItemStackHandler inv, int id, int x, int y) {
 		super(inv, id, x, y);
 	}
 

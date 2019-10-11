@@ -5,10 +5,7 @@ import java.util.BitSet;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.ItemStackHelper;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
@@ -20,7 +17,7 @@ import techguns.util.DataUtil;
 
 public class PacketTGExtendedPlayerSync implements IMessage {
 	public int entityId;
-	public NonNullList<ItemStack> inv = NonNullList.<ItemStack>withSize(TGPlayerInventory.NUMSLOTS, ItemStack.EMPTY);
+	public TGPlayerInventory inv;
 	public int radlevel;
 	public short foodLeft=0;
 	public boolean nightVisionEnabled=false;
@@ -42,7 +39,7 @@ public class PacketTGExtendedPlayerSync implements IMessage {
 		this.nightVisionEnabled=props.enableNightVision;
 		this.safemodeEnabled=props.enableSafemode;
 		this.hovermodeEnabled=props.enableHovermode;
-		this.inv = props.tg_inventory.inventory;
+		this.inv = props.tg_inventory;
 	//	this.size=allSlots?(byte)inv.length:(byte)2;
 		if (allSlots){
 			this.radlevel=props.radlevel;
@@ -75,13 +72,13 @@ public class PacketTGExtendedPlayerSync implements IMessage {
 			this.lastSaturation=buf.readFloat();
 			NBTTagCompound tags = DataUtil.readCompoundTag(buf);
 			if(tags!=null) {
-				inv.clear();
-				ItemStackHelper.loadAllItems(tags, inv);
+				inv = new TGPlayerInventory(null);
+				inv.deserializeNBT(tags);
 			}
 		} else {
-			inv.set(TGPlayerInventory.SLOT_FACE, DataUtil.readItemStack(buf));
-			inv.set(TGPlayerInventory.SLOT_BACK, DataUtil.readItemStack(buf));
-			inv.set(TGPlayerInventory.SLOT_HAND, DataUtil.readItemStack(buf));
+			inv.setStackInSlot(TGPlayerInventory.SLOT_FACE, DataUtil.readItemStack(buf));
+			inv.setStackInSlot(TGPlayerInventory.SLOT_BACK, DataUtil.readItemStack(buf));
+			inv.setStackInSlot(TGPlayerInventory.SLOT_HAND, DataUtil.readItemStack(buf));
 		}
 	}
 
@@ -95,13 +92,11 @@ public class PacketTGExtendedPlayerSync implements IMessage {
 			buf.writeInt(radlevel);
 			buf.writeShort(foodLeft);
 			buf.writeFloat(lastSaturation);
-			NBTTagCompound tags = new NBTTagCompound();
-			ItemStackHelper.saveAllItems(tags, inv, false);
-			DataUtil.writeCompoundTag(buf, tags);
+			DataUtil.writeCompoundTag(buf, inv.serializeNBT());
 		} else {
-			DataUtil.writeItemStack(buf, inv.get(TGPlayerInventory.SLOT_FACE));
-			DataUtil.writeItemStack(buf, inv.get(TGPlayerInventory.SLOT_BACK));
-			DataUtil.writeItemStack(buf, inv.get(TGPlayerInventory.SLOT_HAND));
+			DataUtil.writeItemStack(buf, inv.getStackInSlot(TGPlayerInventory.SLOT_FACE));
+			DataUtil.writeItemStack(buf, inv.getStackInSlot(TGPlayerInventory.SLOT_BACK));
+			DataUtil.writeItemStack(buf, inv.getStackInSlot(TGPlayerInventory.SLOT_HAND));
 		}
 	}
 	
@@ -132,9 +127,9 @@ public class PacketTGExtendedPlayerSync implements IMessage {
 				props.showTGHudElements = message.showHUD;
 				props.enableJetpack = message.enableJetpack;
 				
-				int max = message.allSlots ? message.inv.size() : 3;
+				int max = message.allSlots ? message.inv.getSlots() : 3;
 				for (int i=0;i<max;i++) {
-					props.tg_inventory.inventory.set(i, message.inv.get(i));
+					props.tg_inventory.setStackInSlot(i, message.inv.getStackInSlot(i));
 				}
 			}
 		}

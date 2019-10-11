@@ -89,7 +89,7 @@ public class CamoBenchTileEnt extends BasicOwnedTileEnt {
 					boolean back = id %2==odd_even;
 					TGExtendedPlayer props = TGExtendedPlayer.get(ply);
 					if (props!=null){
-						ItemStack item = props.tg_inventory.inventory.get(TGPlayerInventory.SLOT_BACK);
+						ItemStack item = props.tg_inventory.getStackInSlot(TGPlayerInventory.SLOT_BACK);
 						if(item!=null && item.getItem() instanceof ICamoChangeable) {
 							ICamoChangeable camoitem = (ICamoChangeable) item.getItem();
 							camoitem.switchCamo(item, back);
@@ -100,7 +100,7 @@ public class CamoBenchTileEnt extends BasicOwnedTileEnt {
 					boolean back = id %2==odd_even;
 					TGExtendedPlayer props = TGExtendedPlayer.get(ply);
 					if (props!=null){
-						ItemStack item = props.tg_inventory.inventory.get(TGPlayerInventory.SLOT_FACE);
+						ItemStack item = props.tg_inventory.getStackInSlot(TGPlayerInventory.SLOT_FACE);
 						if(item!=null && item.getItem() instanceof ICamoChangeable) {
 							ICamoChangeable camoitem = (ICamoChangeable) item.getItem();
 							camoitem.switchCamo(item, back);

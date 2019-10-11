@@ -21,6 +21,21 @@ public interface ITGSpecialSlot {
 	public default void onPlayerTick(ItemStack item, PlayerTickEvent player) {};
 
 	/**
+	 * Called when an item gets equipped
+	 * @param item
+	 * @param player
+	 */
+	public default void onEquipped(ItemStack item, EntityPlayer player) {};
+
+	/**
+	 * Called when an item gets unequipped
+	 * @param item
+	 * @param player
+	 */
+	public default void onUnequipped(ItemStack item, EntityPlayer player) {};
+
+
+	/**
 	 * @param type The bonus type
 	 * @param stack
 	 * @param consume if power should be consumed (the bonus is actively used)
@@ -30,4 +45,6 @@ public interface ITGSpecialSlot {
 	public default float getBonus(TGArmorBonus type, ItemStack stack, boolean consume, EntityPlayer player) {
 		return 0f;
 	}
+
+
 }

@@ -73,22 +73,22 @@ public abstract class ItemTGSpecialSlot extends GenericItem implements ITGSpecia
 		
 		if(this.getSlot(stack)==TGSlotType.BACKSLOT) {
 			TGExtendedPlayer props  = TGExtendedPlayer.get(playerIn);
-			if (props.tg_inventory.inventory.get(TGPlayerInventory.SLOT_BACK).isEmpty()){
-				props.tg_inventory.inventory.set(TGPlayerInventory.SLOT_BACK,stack.copy());
+			if (props.tg_inventory.getStackInSlot(TGPlayerInventory.SLOT_BACK).isEmpty()){
+				props.tg_inventory.setStackInSlot(TGPlayerInventory.SLOT_BACK, stack.copy());
 				stack.setCount(0);
 				return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
 			}
 		} else if (this.getSlot(stack)==TGSlotType.FACESLOT){
 			TGExtendedPlayer props  = TGExtendedPlayer.get(playerIn);
-			if (props.tg_inventory.inventory.get(TGPlayerInventory.SLOT_FACE).isEmpty()){
-				props.tg_inventory.inventory.set(TGPlayerInventory.SLOT_FACE,stack.copy());
+			if (props.tg_inventory.getStackInSlot(TGPlayerInventory.SLOT_FACE).isEmpty()){
+				props.tg_inventory.setStackInSlot(TGPlayerInventory.SLOT_FACE,stack.copy());
 				stack.setCount(0);
 				return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
 			}
 		} else if (this.getSlot(stack)==TGSlotType.HANDSLOT){
 			TGExtendedPlayer props  = TGExtendedPlayer.get(playerIn);
-			if (props.tg_inventory.inventory.get(TGPlayerInventory.SLOT_HAND).isEmpty()){
-				props.tg_inventory.inventory.set(TGPlayerInventory.SLOT_HAND,stack.copy());
+			if (props.tg_inventory.getStackInSlot(TGPlayerInventory.SLOT_HAND).isEmpty()){
+				props.tg_inventory.setStackInSlot(TGPlayerInventory.SLOT_HAND,stack.copy());
 				stack.setCount(0);
 				return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
 			}

@@ -106,7 +106,7 @@ public class TGGuiEvents extends Gui{
 				
 				ItemStack ammoitem  = pwrchest.getBattery();
 				int count = InventoryUtil.countItemInInv(ply.inventory.mainInventory, ammoitem, 0, ply.inventory.mainInventory.size());
-				count += InventoryUtil.countItemInInv(props.tg_inventory.inventory, ammoitem, TGPlayerInventory.SLOTS_AMMO_START, TGPlayerInventory.SLOTS_AMMO_END+1);
+				count += InventoryUtil.countItemInInv(props.tg_inventory, ammoitem, TGPlayerInventory.SLOTS_AMMO_START, TGPlayerInventory.SLOTS_AMMO_END+1);
 				
 				String text = ChatFormatting.YELLOW+""+count+"x"+ChatFormatting.WHITE+(int)(percent*100)+"%";
 				mc.fontRenderer.drawString(text, sr.getScaledWidth()-2-text.length()*6-8+24, offsetY, 0xFFFFFFFF);
@@ -115,7 +115,7 @@ public class TGGuiEvents extends Gui{
 				
 			}
 			
-			ItemStack backslot = props.tg_inventory.inventory.get(props.tg_inventory.SLOT_BACK);
+			ItemStack backslot = props.tg_inventory.getStackInSlot(props.tg_inventory.SLOT_BACK);
 			if (backslot !=null){
 				
 				//TODO: unhardcode this
@@ -133,7 +133,7 @@ public class TGGuiEvents extends Gui{
 					
 					ItemStack ammoitem  = ((ItemTGSpecialSlotAmmo)backslot.getItem()).getAmmo();
 					int count = InventoryUtil.countItemInInv(ply.inventory.mainInventory, ammoitem, 0, ply.inventory.mainInventory.size());
-					count += InventoryUtil.countItemInInv(props.tg_inventory.inventory, ammoitem, TGPlayerInventory.SLOTS_AMMO_START, TGPlayerInventory.SLOTS_AMMO_END+1);
+					count += InventoryUtil.countItemInInv(props.tg_inventory, ammoitem, TGPlayerInventory.SLOTS_AMMO_START, TGPlayerInventory.SLOTS_AMMO_END+1);
 					
 					String text = ChatFormatting.YELLOW+""+count+"x"+ChatFormatting.WHITE+(int)(percent*100)+"%";
 				
@@ -216,7 +216,7 @@ public class TGGuiEvents extends Gui{
 	
 	private int getAmmoCountOfStack(ItemStack ammoitem, GenericGun gun, EntityPlayer ply, TGExtendedPlayer props) {
 		int count = InventoryUtil.countItemInInv(ply.inventory.mainInventory, ammoitem, 0, ply.inventory.mainInventory.size());
-		count += InventoryUtil.countItemInInv(props.tg_inventory.inventory, ammoitem, TGPlayerInventory.SLOTS_AMMO_START, TGPlayerInventory.SLOTS_AMMO_END+1);
+		count += InventoryUtil.countItemInInv(props.tg_inventory, ammoitem, TGPlayerInventory.SLOTS_AMMO_START, TGPlayerInventory.SLOTS_AMMO_END+1);
 		
 		if (gun.getAmmoCount()>1){
 			count = count / gun.getAmmoCount();

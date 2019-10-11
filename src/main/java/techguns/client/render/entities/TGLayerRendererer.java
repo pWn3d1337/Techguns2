@@ -25,13 +25,13 @@ public class TGLayerRendererer implements LayerRenderer<EntityPlayer>{
 		TGExtendedPlayer props = TGExtendedPlayer.get(player);
 		
 		if(isSlotVisible(TGPlayerInventory.SLOT_FACE,player)) {
-			this.renderSlot(props.tg_inventory.inventory.get(TGPlayerInventory.SLOT_FACE), player, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch, scale);
+			this.renderSlot(props.tg_inventory.getStackInSlot(TGPlayerInventory.SLOT_FACE), player, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch, scale);
 		}
 		if(isSlotVisible(TGPlayerInventory.SLOT_BACK,player)) {
-			this.renderSlot(props.tg_inventory.inventory.get(TGPlayerInventory.SLOT_BACK), player, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch, scale);
+			this.renderSlot(props.tg_inventory.getStackInSlot(TGPlayerInventory.SLOT_BACK), player, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch, scale);
 		}
 		if(isSlotVisible(TGPlayerInventory.SLOT_HAND,player)) {
-			this.renderSlot(props.tg_inventory.inventory.get(TGPlayerInventory.SLOT_HAND), player, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch, scale);
+			this.renderSlot(props.tg_inventory.getStackInSlot(TGPlayerInventory.SLOT_HAND), player, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch, scale);
 		}
 	}
 

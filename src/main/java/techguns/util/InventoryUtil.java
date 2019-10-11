@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.oredict.OreDictionary;
 import techguns.TGItems;
@@ -20,7 +21,7 @@ public class InventoryUtil {
     	TGExtendedPlayer props = TGExtendedPlayer.get(ply);
     	
     	if (props!=null){
-    		int amount = addItemToInventory(props.tg_inventory.inventory, ammo, props.tg_inventory.SLOTS_AMMO_START, props.tg_inventory.SLOTS_AMMO_END+1);
+    		int amount = addItemToInventory(props.tg_inventory, ammo, props.tg_inventory.SLOTS_AMMO_START, props.tg_inventory.SLOTS_AMMO_END+1);
     		if (amount>0){
     			return addItemToInventory(ply.inventory.mainInventory, ammo, 0, ply.inventory.mainInventory.size());
     		} else {
@@ -35,7 +36,7 @@ public class InventoryUtil {
     	TGExtendedPlayer props = TGExtendedPlayer.get(ply);
     	
     	if (props!=null){
-    		int amount = addItemToInventory(props.tg_inventory.inventory, ammo, props.tg_inventory.SLOTS_AMMO_START, props.tg_inventory.SLOTS_AMMO_END+1);
+    		int amount = addItemToInventory(props.tg_inventory, ammo, props.tg_inventory.SLOTS_AMMO_START, props.tg_inventory.SLOTS_AMMO_END+1);
     		return amount;
     	}
     	return ammo.getCount();
@@ -90,50 +91,27 @@ public class InventoryUtil {
     
     /**
      * Try merge itemstack with inventory, return amount of stacksize that could NOT be merged.
-     * @param mainInventory
+     * @param inventory
      * @param item2
      * @param startIndex
      * @param endIndex
      * @return
      */
-    public static int addItemToInventory(ItemStackHandlerPlus mainInventory, ItemStack item2, int startIndex, int endIndex){
+    public static int addItemToInventory(ItemStackHandler inventory, ItemStack item2, int startIndex, int endIndex){
     	ItemStack item = item2.copy();//TGItems.newStack(item2, item2.stackSize);
-    	
-    	for(int i=startIndex;i<endIndex;i++){
 
-    		//1st try a merge
-    		if (OreDictionary.itemMatches(mainInventory.getStackInSlot(i), item, true) && (mainInventory.getStackInSlot(i).getCount()<item.getMaxStackSize())){
-    			int diff = (mainInventory.getStackInSlot(i).getCount() + item.getCount()) -item.getMaxStackSize();
-    			if (diff < 0){
-    				//int c = mainInventory.getStackInSlot(i).getCount();
-    				//mainInventory.getStackInSlot(i).setCount(c+item.getCount());
 
-    				//item.setCount(0);
-    				mainInventory.insertItemNoCheck(i, item, false);    				
-    				
-    				return 0;
-    			} else {
-    				item = mainInventory.insertItemNoCheck(i, item, false);
-    				//mainInventory.getStackInSlot(i).setCount(item.getMaxStackSize());
-    				//item.setCount(diff);
-    			}
-    		}
+    	for(int slot = startIndex; slot < endIndex && !item.isEmpty(); slot++){
+    		if(!inventory.getStackInSlot(slot).isEmpty() && ItemHandlerHelper.canItemStacksStack(inventory.getStackInSlot(slot), item))
+    			item = inventory.insertItem(slot, item, false);
     	}
     	
     	/**
     	 * could not fully merge, try fill empty slot
     	 */
-    	if(item.getCount()>0){
-    		for(int i=startIndex;i<endIndex;i++){
-        		if(mainInventory.getStackInSlot(i).isEmpty()){
-        			/*mainInventory.setStackInSlot(i,item.copy());
-        			item.setCount(0);*/
-        			mainInventory.insertItemNoCheck(i, item, false);
-        			return 0;
-        		}
-
-        	}
-    	}
+		for(int slot = startIndex; slot < endIndex && !item.isEmpty(); slot++){
+			item = inventory.insertItem(slot, item, false);
+		}
     	
     	//Return number of items that could not be put into inventory
     	return item.getCount();
@@ -168,21 +146,21 @@ public class InventoryUtil {
     	if ( props!=null ){
         	int amount = ammo.getCount();
         	if (amount ==1){     
-	        	if (consumeAmmo(props.tg_inventory.inventory, ammo,TGPlayerInventory.SLOTS_AMMO_START, TGPlayerInventory.SLOTS_AMMO_END+1)){
+	        	if (consumeAmmo(props.tg_inventory, ammo,TGPlayerInventory.SLOTS_AMMO_START, TGPlayerInventory.SLOTS_AMMO_END+1)){
 	        		return true;
 	        	} else {
-	        		return consumeAmmo(ply.inventory.mainInventory,ammo,0,ply.inventory.mainInventory.size());
+	        		return consumeAmmo(ply.inventory.mainInventory, ammo,0,ply.inventory.mainInventory.size());
 	        	}
         	} else {
         		
         		//Check first if amount can be consumed
-        		int needed = canConsumeItem(props.tg_inventory.inventory, ammo,TGPlayerInventory.SLOTS_AMMO_START, TGPlayerInventory.SLOTS_AMMO_END+1);
+        		int needed = canConsumeItem(props.tg_inventory, ammo,TGPlayerInventory.SLOTS_AMMO_START, TGPlayerInventory.SLOTS_AMMO_END+1);
         		//System.out.println("needed1:"+needed);
         		int needed2 = canConsumeItem(ply.inventory.mainInventory,ammo,0,ply.inventory.mainInventory.size());
         		//System.out.println("needed2:"+needed);
         		if ( needed+needed2 <= amount){
         			
-        			int missing = consumeItem(props.tg_inventory.inventory, ammo,TGPlayerInventory.SLOTS_AMMO_START, TGPlayerInventory.SLOTS_AMMO_END+1);
+        			int missing = consumeItem(props.tg_inventory, ammo,TGPlayerInventory.SLOTS_AMMO_START, TGPlayerInventory.SLOTS_AMMO_END+1);
         			
         			if (missing >0){
         				return consumeItem(ply.inventory.mainInventory,TGItems.newStack(ammo, missing),0,ply.inventory.mainInventory.size()) <= 0;
@@ -208,7 +186,7 @@ public class InventoryUtil {
     	if ( props!=null ){
         	int amount = ammo.getCount();
         	if (amount ==1){     
-	        	if (canConsumeItem(props.tg_inventory.inventory, ammo,TGPlayerInventory.SLOTS_AMMO_START, TGPlayerInventory.SLOTS_AMMO_END+1)<=0){
+	        	if (canConsumeItem(props.tg_inventory, ammo,TGPlayerInventory.SLOTS_AMMO_START, TGPlayerInventory.SLOTS_AMMO_END+1)<=0){
 	        		return true;
 	        	} else {
 	        		return canConsumeItem(ply.inventory.mainInventory,ammo,0,ply.inventory.mainInventory.size())<=0;
@@ -216,7 +194,7 @@ public class InventoryUtil {
         	} else {
         		
         		//Check first if amount can be consumed
-        		int needed = canConsumeItem(props.tg_inventory.inventory, ammo,TGPlayerInventory.SLOTS_AMMO_START, TGPlayerInventory.SLOTS_AMMO_END+1);
+        		int needed = canConsumeItem(props.tg_inventory, ammo,TGPlayerInventory.SLOTS_AMMO_START, TGPlayerInventory.SLOTS_AMMO_END+1);
         		int needed2 = canConsumeItem(ply.inventory.mainInventory,ammo,0,ply.inventory.mainInventory.size());
 
         		if ( needed+needed2 <= amount){
@@ -403,7 +381,7 @@ public class InventoryUtil {
         }
     }
     
-    public static boolean consumeAmmo(ItemStackHandlerPlus inv,ItemStack ammo,int startIndex, int endIndex){
+    public static boolean consumeAmmo(ItemStackHandler inv,ItemStack ammo,int startIndex, int endIndex){
     	//ply.consumeInventoryItem(ammo.getItem());
     	
     	int i = searchItem(inv, ammo, startIndex, endIndex);
@@ -414,22 +392,18 @@ public class InventoryUtil {
         }
         else
         {
-        	//inv.getStackInSlot(i).shrink(1);
-        	inv.extractWithoutCheck(i, 1, false);
+        	inv.getStackInSlot(i).shrink(1);
             return true;
         }
     }
     
-    public static ItemStack consumeFood(NonNullList<ItemStack> inv,int startIndex, int endIndex){
+    public static ItemStack consumeFood(ItemStackHandler inv, int startIndex, int endIndex){
     	for (int i = startIndex; i < endIndex; ++i)
         {
-            if (!inv.get(i).isEmpty() && inv.get(i).getItem() instanceof ItemFood)
+            if (!inv.getStackInSlot(i).isEmpty() && inv.getStackInSlot(i).getItem() instanceof ItemFood)
             {
-            	ItemStack food =TGItems.newStack(inv.get(i), 1);
-            	inv.get(i).setCount(inv.get(i).getCount()-1);
-            	if (inv.get(i).getCount()<=0){
-            		inv.set(i, ItemStack.EMPTY);
-            	}
+            	ItemStack food = TGItems.newStack(inv.getStackInSlot(i), 1);
+            	inv.getStackInSlot(i).shrink(1);
             	return food;
             }
         }
@@ -448,6 +422,19 @@ public class InventoryUtil {
         }
         return count;
     }
+
+	public static int countItemInInv(ItemStackHandler inv, ItemStack stackToSearchFor ,int startIndex, int endIndex){
+		int count=0;
+
+		for (int i = startIndex; i < endIndex; ++i)
+		{
+			if (!inv.getStackInSlot(i).isEmpty() && inv.getStackInSlot(i).getItem().equals(stackToSearchFor.getItem()) && inv.getStackInSlot(i).getItemDamage() == stackToSearchFor.getItemDamage())
+			{
+				count+=inv.getStackInSlot(i).getCount();
+			}
+		}
+		return count;
+	}
 
     /**
      * 

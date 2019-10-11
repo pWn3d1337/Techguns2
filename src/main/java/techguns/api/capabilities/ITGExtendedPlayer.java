@@ -1,9 +1,9 @@
 package techguns.api.capabilities;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumHand;
+import net.minecraftforge.items.ItemStackHandler;
 
 /**
  * Should only be used on EntityPlayer
@@ -15,7 +15,7 @@ public interface ITGExtendedPlayer extends ITGShooterValues {
 	
 	public int getFireDelay(EnumHand hand);
 	public void setFireDelay(EnumHand hand, int delay);
-	public IInventory getTGInventory();
+	public ItemStackHandler getTGInventory();
 	
 	public void saveToNBT(final NBTTagCompound tags);
 	public void loadFromNBT(final NBTTagCompound tags);

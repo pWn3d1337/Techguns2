@@ -1,20 +1,13 @@
 package techguns.gui.player;
 
-import java.util.List;
-
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraftforge.items.ItemStackHandler;
+import techguns.api.tginventory.ITGSpecialSlot;
 import techguns.capabilities.TGExtendedPlayer;
 
-public class TGPlayerInventory implements IInventory {
-	private static final String name = "TechgunsPlayerInventory";
-
+// TechgunsPlayerInventory
+public class TGPlayerInventory extends ItemStackHandler {
 	public static final int NUMSLOTS = 15;
 
 	public static final int SLOT_FACE = 0;
@@ -26,149 +19,45 @@ public class TGPlayerInventory implements IInventory {
 	public static final int SLOTS_AMMO_START = 7;
 	public static final int SLOTS_AMMO_END = 14;
 
-	public NonNullList<ItemStack> inventory = NonNullList.<ItemStack>withSize(NUMSLOTS, ItemStack.EMPTY);// new
-																											// ItemStack[NUMSLOTS];
-
-	public boolean dirty = false;
 	public EntityPlayer player;
 
+	private ItemStackHandler shadowInventory; // used to keep track of inventory changes
+
 	public TGPlayerInventory(EntityPlayer player) {
+		super(NUMSLOTS);
+		shadowInventory = new ItemStackHandler(NUMSLOTS);
 		this.player = player;
 	}
 
-	
-	public void saveNBTData(NBTTagCompound tags) {
-		// NBTTagList nbttaglist = new NBTTagList();
-		ItemStackHelper.saveAllItems(tags, this.inventory);
-
-		// tags.setTag(name, nbttaglist);
-	}
-	public void loadNBTData(NBTTagCompound tags) {
-		// NBTTagList nbttaglist = tags.getTagList(name, 10);
-		this.inventory.clear(); // = NonNullList.<ItemStack>withSize(NUMSLOTS, ItemStack.EMPTY);
-
-		ItemStackHelper.loadAllItems(tags, this.inventory);
-	}
-
 	@Override
-	public int getSizeInventory() {
-		return NUMSLOTS;
-	}
+	public void onContentsChanged(int slotid){
+		super.onContentsChanged(slotid);
 
-	@Override
-	public ItemStack getStackInSlot(int slotid) {
-		return slotid >= 0 && slotid < this.inventory.size() ? this.inventory.get(slotid) : ItemStack.EMPTY;
-	}
+		ItemStack oldStack = shadowInventory.getStackInSlot(slotid);
+		ItemStack newStack = getStackInSlot(slotid);
 
-	@Override
-	public ItemStack decrStackSize(int index, int count) {
-		List<ItemStack> list = this.inventory;
+		// cancel here if the stack didn't change
+		if(oldStack.equals(newStack))
+			return;
 
-		return list != null && !((ItemStack) list.get(index)).isEmpty() ? ItemStackHelper.getAndSplit(list, index, count) : ItemStack.EMPTY;
-	}
+		if(newStack.isEmpty() && !oldStack.isEmpty() && oldStack.getItem() instanceof ITGSpecialSlot)
+			((ITGSpecialSlot) oldStack.getItem()).onUnequipped(oldStack, player);
+		else if(oldStack.isEmpty() && !newStack.isEmpty() && newStack.getItem() instanceof ITGSpecialSlot)
+			((ITGSpecialSlot) newStack.getItem()).onEquipped(newStack, player);
 
-	@Override
-	public void setInventorySlotContents(int slotid, ItemStack itemstack) {
-		this.inventory.set(slotid, itemstack);
-
-		if(slotid == SLOT_FACE) {
-			player.getDataManager().set(TGExtendedPlayer.DATA_FACE_SLOT, itemstack);
-		} else if (slotid== SLOT_BACK) {
-			player.getDataManager().set(TGExtendedPlayer.DATA_BACK_SLOT, itemstack);
-		} else if (slotid == SLOT_HAND) {
-			player.getDataManager().set(TGExtendedPlayer.DATA_HAND_SLOT, itemstack);
+		switch(slotid){
+			case SLOT_FACE:
+				player.getDataManager().set(TGExtendedPlayer.DATA_FACE_SLOT, newStack);
+				break;
+			case SLOT_BACK:
+				player.getDataManager().set(TGExtendedPlayer.DATA_BACK_SLOT, newStack);
+				break;
+			case SLOT_HAND:
+				player.getDataManager().set(TGExtendedPlayer.DATA_HAND_SLOT, newStack);
+				break;
 		}
 
-		this.markDirty();
-	}
-
-	@Override
-	public int getInventoryStackLimit() {
-		return 64;
-	}
-
-	@Override
-	public void markDirty() {
-		// System.out.println("Marked inv as dirty");
-		this.dirty = true;
-	}
-
-	@Override
-	public boolean isItemValidForSlot(int slotid, ItemStack itemstack) {
-		return true;
-	}
-
-	@Override
-	public String getName() {
-		return this.name;
-	}
-
-	@Override
-	public boolean hasCustomName() {
-		return false;
-	}
-
-	@Override
-	public ITextComponent getDisplayName() {
-		return new TextComponentTranslation("techguns.extendedinventory", new Object[0]);
-	}
-
-	@Override
-	public boolean isEmpty() {
-		for (ItemStack itemstack1 : this.inventory) {
-			if (!itemstack1.isEmpty()) {
-				return false;
-			}
-		}
-		return true;
-	}
-
-	@Override
-	public ItemStack removeStackFromSlot(int index) {
-		NonNullList<ItemStack> nonnulllist = this.inventory;
-		if (nonnulllist != null && !((ItemStack) nonnulllist.get(index)).isEmpty()) {
-			ItemStack itemstack = nonnulllist.get(index);
-			nonnulllist.set(index, ItemStack.EMPTY);
-			return itemstack;
-		} else {
-			return ItemStack.EMPTY;
-		}
-	}
-
-	@Override
-	public void openInventory(EntityPlayer player) {
-	}
-
-	@Override
-	public void closeInventory(EntityPlayer player) {
-	}
-
-	@Override
-	public int getField(int id) {
-		return 0;
-	}
-
-	@Override
-	public void setField(int id, int value) {
-	}
-
-	@Override
-	public int getFieldCount() {
-		return 0;
-	}
-
-	@Override
-	public void clear() {
-		this.inventory.clear();
-	}
-
-	@Override
-	public boolean isUsableByPlayer(EntityPlayer player) {
-		if (this.player.isDead) {
-			return false;
-		} else {
-			return player.getDistanceSq(this.player) <= 64.0D;
-		}
+		shadowInventory.setStackInSlot(slotid, newStack);
 	}
 
 }
