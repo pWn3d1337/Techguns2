@@ -37,10 +37,11 @@ public class SlotTG extends SlotItemHandler {
 		if(!super.isItemValid(itemstack))
 			return false;
 
-		if (!itemstack.isEmpty() && itemstack.getItem() instanceof ITGSpecialSlot){
-			ITGSpecialSlot slot = (ITGSpecialSlot) itemstack.getItem();
-			return slot.getSlot(itemstack)==type;
+		if(itemstack.getItem() instanceof ITGSpecialSlot){
+			ITGSpecialSlot specialSlot = (ITGSpecialSlot) itemstack.getItem();
+			return specialSlot.getSlot(itemstack).equals(type);
 		}
+
 		return type.equals(TGSlotType.NORMAL);
 	}
 

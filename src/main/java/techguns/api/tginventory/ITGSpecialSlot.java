@@ -21,19 +21,29 @@ public interface ITGSpecialSlot {
 	public default void onPlayerTick(ItemStack item, PlayerTickEvent player) {};
 
 	/**
-	 * Called when an item gets equipped
-	 * @param item
+	 * Called when the item gets equipped
+	 * this compares only the item! if you swap the item for one with different NBT it wont get called, use onSlotChanged() to detect swapping of unique items
+	 * @param stack
 	 * @param player
 	 */
-	public default void onEquipped(ItemStack item, EntityPlayer player) {};
+	public default void onEquipped(ItemStack stack, EntityPlayer player) {};
 
 	/**
-	 * Called when an item gets unequipped
-	 * @param item
+	 * Called when the item gets unequipped
+	 * this compares only the item! if you swap the item for one with different NBT it wont get called, use onSlotChanged() to detect swapping of unique items
+	 * @param stack
 	 * @param player
 	 */
-	public default void onUnequipped(ItemStack item, EntityPlayer player) {};
+	public default void onUnequipped(ItemStack stack, EntityPlayer player) {};
 
+	/**
+	 * Called when the item slot changes (equipped/unequipped/updated)
+	 * gets called for both stacks. oldStack and newStack might be the same itemStack
+	 * @param oldStack
+	 * @param newStack
+	 * @param player
+	 */
+	public default void onSlotChanged(ItemStack oldStack, ItemStack newStack, EntityPlayer player) {};
 
 	/**
 	 * @param type The bonus type

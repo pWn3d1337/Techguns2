@@ -40,10 +40,21 @@ public class TGPlayerInventory extends ItemStackHandler {
 		if(oldStack.equals(newStack))
 			return;
 
-		if(newStack.isEmpty() && !oldStack.isEmpty() && oldStack.getItem() instanceof ITGSpecialSlot)
-			((ITGSpecialSlot) oldStack.getItem()).onUnequipped(oldStack, player);
-		else if(oldStack.isEmpty() && !newStack.isEmpty() && newStack.getItem() instanceof ITGSpecialSlot)
-			((ITGSpecialSlot) newStack.getItem()).onEquipped(newStack, player);
+
+		if(newStack.getItem() instanceof ITGSpecialSlot) {
+			((ITGSpecialSlot) newStack.getItem()).onSlotChanged(oldStack, newStack, player);
+
+			if(!ItemStack.areItemsEqual(oldStack, newStack))
+				((ITGSpecialSlot) newStack.getItem()).onEquipped(newStack, player);
+		}
+
+		if(oldStack.getItem() instanceof ITGSpecialSlot) {
+			((ITGSpecialSlot) oldStack.getItem()).onSlotChanged(oldStack, newStack, player);
+
+			if(!ItemStack.areItemsEqual(oldStack, newStack))
+				((ITGSpecialSlot) oldStack.getItem()).onUnequipped(oldStack, player);
+		}
+
 
 		switch(slotid){
 			case SLOT_FACE:
