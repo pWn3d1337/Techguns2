@@ -1,5 +1,7 @@
 package techguns.world.dungeon;
 
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import techguns.world.dungeon.presets.IDungeonPreset;
 
@@ -19,6 +21,9 @@ public class Dungeon {
 	int sY;
 	int sZ;
 
+	public EnumFacing startRotation;
+	public BlockPos startPos;
+	
 	public Dungeon(IDungeonPreset preset) { //TODO: DungeonLayout
 		this.preset = preset;
 	}
@@ -55,6 +60,8 @@ public class Dungeon {
 		path.generateNPCSpawners(world, posX, posY, posZ, preset);
 	//	long t_npcs = System.currentTimeMillis();
 		
+		this.startPos = path.getStartPos();
+		this.startRotation = path.getEntranceRotation();
 	//	System.out.println(String.format("Generating Dungeon... SizeX = %d, SizeY = %d, SizeZ = %d", sX, sY, sZ));
 	//	System.out.println(String.format("Path: %d ms, Blocks: %d ms, NPCs: %d ms", t_path-t_start, t_gen-t_path, t_npcs-t_gen));
 		

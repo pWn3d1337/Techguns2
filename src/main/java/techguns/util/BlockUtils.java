@@ -1059,11 +1059,29 @@ public class BlockUtils {
 		case 0:
 			return EnumFacing.WEST;
 		case 1:
-			return EnumFacing.NORTH;
+			return EnumFacing.SOUTH;
 		case 2: 
 			return EnumFacing.EAST;
 		default:
-			return EnumFacing.SOUTH;
+			return EnumFacing.NORTH;
+		}
+	}
+	
+	/**
+	 * convert from EnumFacing to old rotation
+	 * @param facing
+	 * @return
+	 */
+	public static int facingToRotation(EnumFacing facing) {
+		switch (facing) {
+		case WEST:
+			return 0;
+		case SOUTH:
+			return 1;
+		case EAST:
+			return 2;
+		default:
+			return 3;
 		}
 	}
 }

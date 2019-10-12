@@ -14,7 +14,7 @@ public interface IDungeonPreset {
 	//Dungeon Presets
 	public final static IDungeonPreset PRESET_TECHFORTRESS = new PresetTechFortress();
 	public final static IDungeonPreset PRESET_CASTLE = new PresetCastle();
-	public final static IDungeonPreset PRESET_NETHER = new PresetNetherDungeon();
+	public final static IDungeonPreset PRESET_NETHER = new PresetNetherDungeonUnderground();
 	
 
 	public DungeonSegment getSegment(SegmentType type, int y, int yMin, int yMax, boolean isSegmentAbove, boolean isSegmentBelow, int seed);

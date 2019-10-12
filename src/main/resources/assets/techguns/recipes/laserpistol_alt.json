@@ -1,0 +1,34 @@
+{
+  "result": {
+    "item": "techguns:laserpistol",
+    "data": 20
+  },
+  "pattern": [
+    "obo",
+    "scr",
+    "ssp"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "p": {
+      "item": "#SHEETPLASTIC"
+    },
+    "b": {
+      "item": "techguns:itemshared",
+      "data": 41
+    },
+    "r": {
+      "item": "techguns:itemshared",
+      "data": 126
+    },
+    "s": {
+      "item": "#NUGGETSTEEL"
+    },
+    "c": {
+      "item": "#CIRCUITELITE"
+    },
+    "o": {
+      "item": "#PLATEOBSIDIANSTEEL"
+    }
+  }
+}

@@ -129,6 +129,12 @@ public class TGSounds {
 	public static SoundEvent DRILLER_SWING = createSoundEvent("guns.drillerswing");
 	public static SoundEvent DRILLER_BREAK = createSoundEvent("guns.drillerbreak");	
 	
+	public static SoundEvent LASER_PISTOL_RELOAD = createSoundEvent("guns.laserpistolreload");
+	public static SoundEvent LASER_PISTOL_FIRE = createSoundEvent("guns.laserpistolfire");
+	
+	public static SoundEvent SHISHKEBAP_SWING = createSoundEvent("guns.shishkebabfire");
+	public static SoundEvent SHISHKEBAP_RELOAD = createSoundEvent("guns.shishkebabreload");
+	
 	public static SoundEvent ANTI_GRAV_START = createSoundEvent("items.antiGravStart");
 	public static SoundEvent NIGHTVISION_ON = createSoundEvent("nightvision.on");
 	public static SoundEvent NIGHTVISION_OFF = createSoundEvent("nightvision.off");
@@ -223,6 +229,10 @@ public class TGSounds {
 	
 	public static SoundEvent GRINDER_START = createSoundEvent("machines.grinder.start");
 	public static SoundEvent GRINDER_WORK = createSoundEvent("machines.grinder.work");
+	
+	public static SoundEvent TECHDOOR_OPEN = createSoundEvent("blocks.techdoor.open");
+	public static SoundEvent TECHDOOR_CLOSE = createSoundEvent("blocks.techdoor.close");
+	public static SoundEvent TECHDOOR_STATE_FINISHED = createSoundEvent("blocks.techdoor.statefinished");
 	
 	public static void registerSounds(RegistryEvent.Register<SoundEvent> event){
 		IForgeRegistry<SoundEvent> reg = event.getRegistry();

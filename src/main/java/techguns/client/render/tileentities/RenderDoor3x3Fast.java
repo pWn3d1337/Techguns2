@@ -33,6 +33,8 @@ public class RenderDoor3x3Fast extends FastTESR<Door3x3TileEntity> {
 	//protected static final ResourceLocation doorframe_loc = new ResourceLocation(Techguns.MODID,"block/techdoor3x3_frame");
 	protected static final ResourceLocation door_left_loc = new ResourceLocation(Techguns.MODID,"block/techdoor3x3_left");
 	protected static final ResourceLocation door_right_loc = new ResourceLocation(Techguns.MODID,"block/techdoor3x3_right");
+	protected static final ResourceLocation door_left_loc_nether = new ResourceLocation(Techguns.MODID,"block/techdoor3x3_left_nether");
+	protected static final ResourceLocation door_right_loc_nether = new ResourceLocation(Techguns.MODID,"block/techdoor3x3_right_nether");
 	
 	//protected static final ResourceLocation hangar_up_upper_loc = new ResourceLocation(Techguns.MODID,"block/hangar_door_upperj");
 	protected static final ResourceLocation hangar_up_mid_loc = new ResourceLocation(Techguns.MODID,"block/hangar_door_mid1j");
@@ -62,6 +64,12 @@ public class RenderDoor3x3Fast extends FastTESR<Door3x3TileEntity> {
 	
 	protected static IBakedModel doorsegment_r;
 	protected static IBakedModel doorsegment_r_90;
+	
+	protected static IBakedModel doorsegment_l_nether;
+	protected static IBakedModel doorsegment_l_90_nether;
+	
+	protected static IBakedModel doorsegment_r_nether;
+	protected static IBakedModel doorsegment_r_90_nether;
 	
 	
 	//protected static IBakedModel hangar_up_upper;
@@ -97,6 +105,11 @@ public class RenderDoor3x3Fast extends FastTESR<Door3x3TileEntity> {
 		doorsegment_r = loadBakedModel(door_right_loc, TRSRTransformation.identity());
 		doorsegment_r_90 = loadBakedModel(door_right_loc, rot90);
 		
+		doorsegment_l_nether = loadBakedModel(door_left_loc_nether, TRSRTransformation.identity());
+		doorsegment_l_90_nether = loadBakedModel(door_left_loc_nether, rot90);
+		
+		doorsegment_r_nether = loadBakedModel(door_right_loc_nether, TRSRTransformation.identity());
+		doorsegment_r_90_nether = loadBakedModel(door_right_loc_nether, rot90);
 		
 		//hangar_up_upper = loadBakedModel(hangar_up_upper_loc, TRSRTransformation.identity());
 		//hangar_up_upper_90 = loadBakedModel(hangar_up_upper_loc, rot90);
@@ -149,13 +162,16 @@ public class RenderDoor3x3Fast extends FastTESR<Door3x3TileEntity> {
 
         switch(te.getDoorType()) {
         case 0:
-        	this.renderDoor0(world, state, buffer, pos, zplane, px, py, pz, prog);
+        	this.renderDoor0(world, state, buffer, pos, zplane, px, py, pz, prog, doorsegment_l, doorsegment_r, doorsegment_l_90, doorsegment_r_90);
         	break;
         case 1:
         	this.renderDoor1(world, state, buffer, pos, zplane, px, py, pz, prog);
         	break;
         case 2:
         	this.renderDoor2(world, state, buffer, pos, zplane, px, py, pz, prog);
+        	break;
+        case 3:
+        	this.renderDoor0(world, state, buffer, pos, zplane, px, py, pz, prog, doorsegment_l_nether, doorsegment_r_nether, doorsegment_l_90_nether, doorsegment_r_90_nether);
         	break;
         }
         
@@ -165,17 +181,17 @@ public class RenderDoor3x3Fast extends FastTESR<Door3x3TileEntity> {
 
 
 
-	protected void renderDoor0(IBlockAccess world, IBlockState state, BufferBuilder buffer, BlockPos pos, boolean zplane, double px, double py, double pz, float prog) {
+	protected void renderDoor0(IBlockAccess world, IBlockState state, BufferBuilder buffer, BlockPos pos, boolean zplane, double px, double py, double pz, float prog, IBakedModel L, IBakedModel R, IBakedModel L90, IBakedModel R90) {
 		
 		//IBakedModel model = doorframe;
-        IBakedModel model_seg1 = doorsegment_l;
-        IBakedModel model_seg2 = doorsegment_r;
+        IBakedModel model_seg1 = L;
+        IBakedModel model_seg2 = R;
         int dx = 1;
         int dz = 0;
         if(zplane) {
         	//model = doorframe_90;
-        	model_seg1 = doorsegment_l_90;
-        	model_seg2 = doorsegment_r_90;
+        	model_seg1 = L90;
+        	model_seg2 = R90;
         	pz+=1D;
         	dx = 0;
         	dz = 1;

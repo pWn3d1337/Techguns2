@@ -201,7 +201,7 @@ public class TGParticleSystem extends Particle implements ITGParticle {
 				
 				//Spawn particle
 				double mf = 0.05D; //Per Second instead of Per Tick
-				TGParticle particle;
+				TGParticle particle=null;
 				if (this.type.streak) {
 					TGParticleStreak particleStreak = new TGParticleStreak(this.world, this.posX+position.x, this.posY+position.y, this.posZ+position.z, motion.x*mf, motion.y*mf, motion.z*mf, this);
 					if (prevParticle != null) {
@@ -212,7 +212,11 @@ public class TGParticleSystem extends Particle implements ITGParticle {
 					prevParticle = particleStreak;
 					particle = particleStreak;
 				}else {
-					particle = new TGParticle(this.world, this.posX+position.x, this.posY+position.y, this.posZ+position.z, motion.x*mf, motion.y*mf, motion.z*mf, this);
+					if(this.itemAttached) {
+						particle = new TGParticleItemAttached(this.world, this.posX+position.x, this.posY+position.y, this.posZ+position.z, motion.x*mf, motion.y*mf, motion.z*mf, this, this.entity);
+					} else {
+						particle = new TGParticle(this.world, this.posX+position.x, this.posY+position.y, this.posZ+position.z, motion.x*mf, motion.y*mf, motion.z*mf, this);
+					}
 					addEffect(particle);
 				}
 				if (this.type.attachedSystem != null && !this.type.attachedSystem.equals("")) {

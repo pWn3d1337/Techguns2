@@ -1,5 +1,8 @@
 package techguns.items.guns;
 
+import java.util.List;
+
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -11,6 +14,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.NetworkRegistry.TargetPoint;
 import techguns.TGPackets;
+import techguns.TGSounds;
 import techguns.Techguns;
 import techguns.api.damagesystem.DamageType;
 import techguns.damagesystem.TGDamageSource;
@@ -27,6 +31,11 @@ public class Shishkebap extends GenericGunMeleeCharge {
 				accuracy, fullChargeTime, ammoConsumedOnFullCharge);
 		this.setHasCustomAnim(false);
 		this.setNoBowAnim();
+	}
+	
+	@Override
+	public DamageType getDamageType(ItemStack stack) {
+		return DamageType.FIRE;
 	}
 	
 	@Override
@@ -67,6 +76,16 @@ public class Shishkebap extends GenericGunMeleeCharge {
 	}
 
 	@Override
+	protected SoundEvent getSwingSound() {
+		return TGSounds.SHISHKEBAP_SWING;
+	}
+
+	@Override
+	protected SoundEvent getBlockBreakSound() {
+		return null;
+	}
+
+	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer player, EnumHand handIn) {
 		return new ActionResult<ItemStack>(EnumActionResult.PASS, player.getHeldItem(handIn));
 	}
@@ -84,6 +103,4 @@ public class Shishkebap extends GenericGunMeleeCharge {
 	public int getMaxItemUseDuration(ItemStack stack) {
 		return 0;
 	}
-	
-	
 }

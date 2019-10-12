@@ -29,6 +29,7 @@ public class AmmoTypes implements ITGInitializer{
 	public static AmmoType COMPRESSED_AIR_TANK;
 	public static AmmoType GRENADES_40MM;
 	public static AmmoType NUCLEAR_POWER_CELL;
+	public static AmmoType REDSTONE_BATTERY;
 	
 	public static AmmoType AMMO_GAUSS_RIFLE;
 	
@@ -66,6 +67,7 @@ public class AmmoTypes implements ITGInitializer{
 		FUEL_TANK = new AmmoType(TGItems.FUEL_TANK, TGItems.FUEL_TANK_EMPTY, ItemStack.EMPTY, 0);
 		COMPRESSED_AIR_TANK = new AmmoType(TGItems.COMPRESSED_AIR_TANK, TGItems.COMPRESSED_AIR_TANK_EMPTY, ItemStack.EMPTY, 0);
 		ENERGY_CELL = new AmmoType(TGItems.ENERGY_CELL, TGItems.ENERGY_CELL_EMPTY, ItemStack.EMPTY, 0);
+		REDSTONE_BATTERY = new AmmoType(TGItems.REDSTONE_BATTERY, TGItems.REDSTONE_BATTERY_EMPTY, ItemStack.EMPTY, 0);
 		MINIGUN_AMMO_DRUM = new AmmoType(TGItems.MINIGUN_DRUM, TGItems.MINIGUN_DRUM_EMPTY, TGItems.RIFLE_ROUNDS,16);
 		MINIGUN_AMMO_DRUM.addVariant(TYPE_INCENDIARY, TGItems.MINIGUN_DRUM_INCENDIARY, TGItems.RIFLE_ROUNDS_INCENDIARY);
 		

@@ -1,7 +1,7 @@
 FXLIST ScreenTestFX {
 //ScreenTestFXFlare
-//ScreenTestFXFlames
-TestFlare
+ScreenTestFXFlames
+//TestFlare
 }
 
 TestFlare {
@@ -43,6 +43,9 @@ RenderType = ADDITIVE
 Rows = 4
 Columns = 4
 Frames = 16
+Angle = 0 360
+AngleRate = -5 5
+AngleRateDamping = 0.95 0.97
 HasVariations = false
 RandomRotation = true
 Lifetime = 3 3

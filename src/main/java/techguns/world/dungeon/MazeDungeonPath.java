@@ -52,12 +52,18 @@ public class MazeDungeonPath implements IDungeonPath {
 	public boolean useRoof = false; //currently uses pillar segment of top template
 	public boolean useBottomLayer = false; //copy lowest layer one level lower (increases number of levels by 1)
 	
+	public int entranceRampLength = 0; //Start with a downwards ramp for this many segments
+	private int rampPlaced = 0;
+	
 	//public float spawnDensity = 0.05f; //Spawners per segment count
 	//---------
 
 	private int numSegments = 0;
 	
 	//private static PathSegment ramp_blocker = DungeonPath.new PathSegment(-1, -1, -1);
+	
+	protected EnumFacing startFacing = null;
+	protected BlockPos startPos = null;
 	
 	public MazeDungeonPath(int sX, int sY, int sZ, Random rand) {
 		this.sX =sX;
@@ -89,7 +95,7 @@ public class MazeDungeonPath implements IDungeonPath {
 		
 		int startX;
 		int startZ;
-		EnumFacing startFacing;
+		//EnumFacing startFacing;
 		int startY = (sY+startHeightLevel)%sY;
 		switch (this.rand.nextInt(4)) {
 			case 0:
@@ -121,11 +127,26 @@ public class MazeDungeonPath implements IDungeonPath {
 //		PathSegment startSegment = new PathSegment(startX+offset.getX(), startY, startZ+offset.getZ());
 //		startSegment.setConnection(startFacing, true);
 //		this.entrancePath.add(startSegment);
+		
+		this.entranceRampLength = Math.min(this.entranceRampLength, startY);
+		
+		this.startPos = new BlockPos(startX,startY,startZ);
+		
 		generateSegment(startX, startY, startZ, startDir, null); // startSegment);
 		
 		
 	}
-	
+
+	@Override
+	public EnumFacing getEntranceRotation() {
+		return this.startFacing;
+	}
+
+	@Override
+	public BlockPos getStartPos() {
+		return this.startPos;
+	}
+
 	/* (non-Javadoc)
 	 * @see techguns.world.dungeon.IDungeonPath#generateSegment(int, int, int, int, techguns.world.dungeon.DungeonPath.PathSegment)
 	 */
@@ -148,6 +169,34 @@ public class MazeDungeonPath implements IDungeonPath {
 		boolean success = false;
 		boolean canRollAgain = true;
 		boolean fork = false;
+		
+		//Place downwards entrance ramp
+		if (this.rampPlaced < this.entranceRampLength) {
+			nextDir = dir;
+			Vec3i nextPos = segment.getNextPos(nextDir);
+			EnumFacing nextFacing = EnumFacing.getHorizontal(nextDir);
+			Vec3i offset = nextFacing.getDirectionVec();
+			int dy = -1;
+			Vec3i elevPos = new Vec3i(x, y+dy,z);
+			Vec3i elevNextPos = new Vec3i(x+offset.getX(), y+dy, z+offset.getZ());
+			
+			if (isWithinBounds(nextPos) && isWithinBounds(elevNextPos)) {
+				
+				PathSegment rampDummy = new PathSegment(elevPos.getX(), elevPos.getY(), elevPos.getZ());
+				this.addSegment(rampDummy);
+				segment.isRamp = true;
+				rampDummy.isRamp = true;			
+				segment.elevation = -1;
+				rampDummy.elevation = 1;
+				rampDummy.rampRotation = nextFacing.getOpposite().getHorizontalIndex();	
+
+				generateSegment(elevNextPos.getX(), elevNextPos.getY(), elevNextPos.getZ(), nextDir, rampDummy);
+	
+				success = true;
+			}
+			this.rampPlaced++;
+		}
+		
 		
 		while (!success && roll++ < maxRolls) {
 			if (segment.isEntrance) {
@@ -498,9 +547,16 @@ public class MazeDungeonPath implements IDungeonPath {
 	}
 	
 	private boolean isWithinBounds(Vec3i pos) {
-		return pos.getX() >= 0 && pos.getX() < sX &&
-				pos.getY() >= 0 && pos.getY() < sY &&
-				pos.getZ() >= 0 && pos.getZ() < sZ;
+		if (this.entranceRampLength > this.rampPlaced) {
+			return pos.getX() >= 0 && pos.getX() < sX &&
+					pos.getY() >= 0 && pos.getY() < sY &&
+					pos.getZ() >= 0 && pos.getZ() < sZ;
+		}else {
+			return pos.getX() >= 0 && pos.getX() < sX &&
+					pos.getY() >= 0 && pos.getY() < sY-this.entranceRampLength &&
+					pos.getZ() >= 0 && pos.getZ() < sZ;
+		}
+		
 	}
 	
 	private PathSegment get(Vec3i index) {
@@ -755,6 +811,7 @@ public class MazeDungeonPath implements IDungeonPath {
 		}
 		this.dungeonVolume = dungeonVolume2;
 		sY = sY+1;
+		this.startPos = new BlockPos(startPos.getX(), startPos.getY()+1, startPos.getZ());
 	}
 
 

@@ -15,6 +15,10 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import techguns.util.BlockUtils;
+import techguns.world.dungeon.Dungeon;
+import techguns.world.dungeon.DungeonTemplate;
+import techguns.world.dungeon.presets.IDungeonPreset;
+import techguns.world.dungeon.presets.PresetTemplateTest;
 import techguns.world.structures.AircraftCarrier;
 import techguns.world.structures.AlienBugNest;
 import techguns.world.structures.AlienBugNestStructure;
@@ -23,6 +27,7 @@ import techguns.world.structures.CastleStructure;
 import techguns.world.structures.FactoryHouseSmall;
 import techguns.world.structures.GasStation;
 import techguns.world.structures.MilitaryCamp;
+import techguns.world.structures.NetherDungeonEntrance;
 import techguns.world.structures.OreClusterMeteorBasis;
 import techguns.world.structures.PoliceStation;
 import techguns.world.structures.SmallMine;
@@ -151,8 +156,26 @@ public class WorldGenTestTool extends GenericItem{
 			//PoliceStation b = new PoliceStation();
 			
 			//GasStation b = new GasStation();
-			SurvivorHideout b = new SurvivorHideout();
-			b.setBlocks(world, x, y, z, sizeX, 32, sizeZ, rnd.nextInt(4), BiomeColorType.DESERT, rnd);
+			//SurvivorHideout b = new SurvivorHideout();
+			//b.setBlocks(world, x, y, z, sizeX, 32, sizeZ, rnd.nextInt(4), BiomeColorType.DESERT, rnd);
+			
+			
+			IDungeonPreset preset = IDungeonPreset.PRESET_NETHER;
+			Dungeon	dungeon = new Dungeon(preset);
+			
+			int height = 24 + world.rand.nextInt(25);
+			
+			int yOffset = preset.getSizeY() + (height % preset.getSizeY()) - height;
+			
+			dungeon.generate(world, x, y+yOffset ,z, sizeX, height, sizeZ);
+			
+			NetherDungeonEntrance e = new NetherDungeonEntrance();
+			
+			int px = x+(dungeon.startPos.getX()*preset.getSizeXZ());
+			int py = y+(dungeon.startPos.getY()*preset.getSizeY()) + yOffset;
+			int pz = z+(dungeon.startPos.getZ()*preset.getSizeXZ());
+			
+			e.setBlocks(world, px+1 - preset.getSizeXZ()/2, py, pz+1 - preset.getSizeXZ()/2, e.sizeX, e.sizeY, e.sizeZ, BlockUtils.facingToRotation(dungeon.startRotation), BiomeColorType.WOODLAND, rnd);
 			
 			//bugnest
 			//AlienBugNestStructure b = new AlienBugNestStructure();
