@@ -56,6 +56,10 @@ repositories {
 		name="Latmods"
 		url "https://maven.latmod.com/"
 	}
+	maven {
+		name = "OpenComputers"
+		url = "http://maven.cil.li/"
+	}
 }
 dependencies {
     // you may put jars on which you depend on in ./libs
@@ -97,6 +101,8 @@ dependencies {
 	deobfProvided "mezz.jei:jei_${mc_version}:${jei_version}:api"
 	// at runtime, use the full JEI jar
 	runtime "mezz.jei:jei_${mc_version}:${jei_version}"
+	
+	deobfCompile "li.cil.oc:OpenComputers:${openComputersVersion}"
 }
 
 processResources {
