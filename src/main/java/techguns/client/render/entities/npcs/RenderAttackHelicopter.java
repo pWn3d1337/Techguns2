@@ -1,10 +1,8 @@
 package techguns.client.render.entities.npcs;
 
 import java.io.IOException;
-import java.util.List;
 
 import net.minecraftforge.client.model.Attributes;
-import net.minecraftforge.client.model.pipeline.LightUtil;
 import org.lwjgl.opengl.GL11;
 
 import net.minecraft.client.Minecraft;
@@ -133,7 +131,7 @@ public class RenderAttackHelicopter extends RenderLiving<AttackHelicopter> {
 	private void renderBakedModel(Tessellator tessellator, BufferBuilder buffer, IBakedModel model){
 		buffer.begin(GL11.GL_QUADS, Attributes.DEFAULT_BAKED_FORMAT);
 		for (BakedQuad bakedQuad : model.getQuads(null, null, 0))
-			LightUtil.renderQuadColor(buffer, bakedQuad, -1);
+			buffer.addVertexData(bakedQuad.getVertexData());
 
 		tessellator.draw();
 	}
