@@ -10,6 +10,7 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -87,12 +88,14 @@ public class BlockBioblob extends GenericBlock {
 		}
 		return new AxisAlignedBB(FSIZE*W, 0, FSIZE*W, FSIZE*(16-W), FSIZE*H, FSIZE*(16-W));
 	}
-	
+
+	@Deprecated
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
 		return getBB(state,source,pos);
 	}
 
+	@Deprecated
 	@Override
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
 		return getBB(blockState,worldIn,pos);
@@ -107,7 +110,14 @@ public class BlockBioblob extends GenericBlock {
 	public boolean isNormalCube(IBlockState state, IBlockAccess world, BlockPos pos) {
 		return false;
 	}
-	
+
+	@Deprecated
+	@Override
+	public boolean isFullCube(IBlockState state){
+		return false;
+	}
+
+	@Deprecated
 	@Override
 	public boolean isOpaqueCube(IBlockState state) {
 		return false;
@@ -116,7 +126,7 @@ public class BlockBioblob extends GenericBlock {
 	@Override
 	public void registerBlock(Register<Block> event) {
 		super.registerBlock(event);
-		GameRegistry.registerTileEntity(BioBlobTileEnt.class, Techguns.MODID+":bioblob");
+		GameRegistry.registerTileEntity(BioBlobTileEnt.class, new ResourceLocation(Techguns.MODID, "bioblob"));
 	}
 
 	@Override
