@@ -90,7 +90,7 @@ public class TGJeiPlugin implements IModPlugin {
 		registry.addRecipeClickArea(AmmoPressGui.class, 119, 36, 19, 22, AMMO_PRESS);
 		registry.addRecipeClickArea(MetalPressGui.class, 119, 36, 19, 22, METAL_PRESS);
 		registry.addRecipeClickArea(ChemLabGui.class, 80, 15, 52, 30, CHEM_LAB);
-		registry.addRecipeClickArea(FabricatorGui.class, 20, 52, 102, 12, FABRICATOR);
+		registry.addRecipeClickArea(FabricatorGui.class, 20, 52, 96, 12, FABRICATOR);
 		//registry.addRecipeClickArea(OreDrillGui.class, 30, 45, 20, 20, ORE_DRILL);
 		//NO CLICKAREA for camobench
 		registry.addRecipeClickArea(ChargingStationGui.class, 38, 18, 28, 12, CHARGING_STATION);

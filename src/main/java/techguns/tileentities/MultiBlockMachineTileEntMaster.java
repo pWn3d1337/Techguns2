@@ -30,6 +30,11 @@ public abstract class MultiBlockMachineTileEntMaster extends BasicMachineTileEnt
 	}
 	
 	@Override
+	protected boolean enabled() {
+		return this.isFormed();
+	}
+
+	@Override
 	protected BasicMachine getMachineBlockType() {
 		return TGBlocks.ORE_DRILL_BLOCK;
 	}

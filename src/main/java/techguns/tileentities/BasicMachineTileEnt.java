@@ -102,10 +102,17 @@ public abstract class BasicMachineTileEnt extends BasicPoweredTileEnt implements
     	return 1;
     }
     
+    /**
+     * used by multiblocks to disable machine when broken
+     * @return
+     */
+    protected boolean enabled(){
+    	return true;
+    }
         
 	@Override
 	public void update() {
-		if (this.isRedstoneEnabled()){
+		if (this.isRedstoneEnabled()&&this.enabled()){
 			if (this.currentOperation != null) {
 
 				if (this.consumePower(this.getNeededPower()*this.currentOperation.getStackMultiplier())) {
