@@ -32,3 +32,4 @@ run
 /gradlew
 /gradlew.bat
 /logs/latest.log
+*.OFF
