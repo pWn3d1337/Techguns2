@@ -1,8 +1,8 @@
 package techguns.client.render.entities.npcs;
 
 import java.io.IOException;
-import java.util.List;
 
+import net.minecraftforge.client.model.Attributes;
 import org.lwjgl.opengl.GL11;
 
 import net.minecraft.client.Minecraft;
@@ -19,14 +19,9 @@ import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.PngSizeInfo;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.init.Blocks;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
-import net.minecraftforge.client.model.pipeline.VertexBufferConsumer;
-import net.minecraftforge.client.model.pipeline.VertexLighterFlat;
 import net.minecraftforge.common.model.TRSRTransformation;
 import techguns.Techguns;
 import techguns.entities.npcs.AttackHelicopter;
@@ -41,7 +36,7 @@ public class RenderAttackHelicopter extends RenderLiving<AttackHelicopter> {
 	private static IBakedModel helicopter_main;
 	private static IBakedModel helicopter_rotor;
 	private static IBakedModel helicopter_gun;
-	private final VertexLighterFlat lighter = new VertexLighterFlat(Minecraft.getMinecraft().getBlockColors());
+
 	public static void initModels() {
 		helicopter_main = loadAndBakedModel(modelLoc0, texture);
 		helicopter_rotor = loadAndBakedModel(modelLoc1, texture);
@@ -76,10 +71,7 @@ public class RenderAttackHelicopter extends RenderLiving<AttackHelicopter> {
 
 	@Override
 	public void doRender(AttackHelicopter entity, double x, double y, double z, float entityYaw, float partialTicks) {
-		
-		BlockPos pos = new BlockPos(entity.posX, entity.posY + entity.height, entity.posZ);
-
-        RenderHelper.disableStandardItemLighting();
+		RenderHelper.disableStandardItemLighting();
         GlStateManager.pushMatrix();
         
         GlStateManager.translate((float)x, (float)y, (float)z);
@@ -94,11 +86,7 @@ public class RenderAttackHelicopter extends RenderLiving<AttackHelicopter> {
         
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder builder = tessellator.getBuffer();
-        
-        lighter.setWorld(entity.world);
-        lighter.setState(Blocks.AIR.getDefaultState());
-        lighter.setBlockPos(pos);
-        
+
         if (entity.deathTime==0) {
 	        renderBakedModel(tessellator, builder, helicopter_main);
 	        
@@ -129,7 +117,8 @@ public class RenderAttackHelicopter extends RenderLiving<AttackHelicopter> {
         	
 	         renderBakedModel(tessellator, builder, helicopter_main);
 	         renderBakedModel(tessellator, builder, helicopter_gun);
-	         
+
+
 	         angle = ((float)((Minecraft.getMinecraft().world.getTotalWorldTime() % 60)+partialTicks) * 12.0f);
 	         GlStateManager.rotate(angle, 0, 1f, 0);
 	         renderBakedModel(tessellator, builder, helicopter_rotor);
@@ -139,35 +128,14 @@ public class RenderAttackHelicopter extends RenderLiving<AttackHelicopter> {
         RenderHelper.enableStandardItemLighting();
 	}
 
-	protected void renderBakedModel(Tessellator tessellator, BufferBuilder builder, IBakedModel bakedModel) {
+	private void renderBakedModel(Tessellator tessellator, BufferBuilder buffer, IBakedModel model){
+		buffer.begin(GL11.GL_QUADS, Attributes.DEFAULT_BAKED_FORMAT);
+		for (BakedQuad bakedQuad : model.getQuads(null, null, 0))
+			buffer.addVertexData(bakedQuad.getVertexData());
 
-		builder.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
-		lighter.setParent(new VertexBufferConsumer(builder));
-
-		boolean empty = true;
-		List<BakedQuad> quads = bakedModel.getQuads(null, null, 0);
-		if (!quads.isEmpty()) {
-			lighter.updateBlockInfo();
-			empty = false;
-			for (BakedQuad quad : quads) {
-				quad.pipe(lighter);
-			}
-		}
-		for (EnumFacing side : EnumFacing.values()) {
-			quads = bakedModel.getQuads(null, side, 0);
-			if (!quads.isEmpty()) {
-				if (empty)
-					lighter.updateBlockInfo();
-				empty = false;
-				for (BakedQuad quad : quads) {
-					quad.pipe(lighter);
-				}
-			}
-		}
-
-		builder.setTranslation(0, 0, 0);
 		tessellator.draw();
 	}
+
 	
 	public float interp(float val, float prev_value, float ptt) {
 		return prev_value+ (val-prev_value)*ptt;
