@@ -338,10 +338,14 @@ public class GenericArmor extends ItemArmor implements ISpecialArmor , IItemTGRe
 	private static float getBonusForSlot(ItemStack stack, TGArmorBonus type, boolean consumePower, EntityPlayer ply) {
 		float bonus=0;
 		if(!stack.isEmpty()){
+
+			if(stack.getItem() != null && stack.getItem() instanceof ITGSpecialSlot) {
 			ITGSpecialSlot item = (ITGSpecialSlot) stack.getItem();
+
 			if(stack.getItem()==TGItems.SHARED_ITEM || (stack.getItemDamage()<stack.getMaxDamage()) || !stack.getItem().isDamageable()){
 				bonus+=item.getBonus(type,stack, consumePower, ply);
 			}
+		  }
 		}
 		return bonus;
 	}
