@@ -156,7 +156,7 @@ public class GenericProjectile extends Entity implements IProjectile, IEntityAdd
 		this.motionZ = (double) (MathHelper.cos(this.rotationYaw / 180.0F * (float) Math.PI)
 				* MathHelper.cos(this.rotationPitch / 180.0F * (float) Math.PI) * f);
 		this.motionY = (double) (-MathHelper.sin((this.rotationPitch) / 180.0F * (float) Math.PI) * f);
-		this.shoot(this.motionX, this.motionY, this.motionZ, 1.5f, 1.0F);
+		this.shoot(this.motionX, this.motionY, this.motionZ, 1.5f, spread);
 
 		Vec3d motion = new Vec3d(this.motionX, this.motionY, this.motionZ);
 		motion.normalize();
