@@ -769,6 +769,10 @@ public class GenericProjectile extends Entity implements IProjectile, IEntityAdd
 		}
 	}
 	
+	public EntityLivingBase getShooter(){
+		return shooter;
+	}
+	
 	
 	public static class Factory implements IProjectileFactory<GenericProjectile> {
 
