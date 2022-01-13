@@ -8,7 +8,7 @@
   "url": "https://github.com/pWn3d1337/Techguns2",
   "updateUrl": "https://raw.githubusercontent.com/pWn3d1337/Techguns2/master/update.json",
   "authorList": ["pWn3d_1337, Th3_St4lk3r"],
-  "credits": "",
+  "credits": "redrosewarrior1",
   "logoFile": "",
   "screenshots": [],
   "dependencies": []
@@ -21,7 +21,7 @@
   "mcversion": "${mcversion}",
   "url": "https://github.com/pWn3d1337/Techguns2",
   "authorList": ["pWn3d_1337, Th3_St4lk3r"],
-  "credits": "",
+  "credits": "redrosewarrior1",
   "logoFile": "",
   "screenshots": [],
   "dependencies": []
