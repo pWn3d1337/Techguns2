@@ -1,7 +1,3 @@
-# Techguns2
+The only thing this fork currently does is fix a **visual typo** on the Techguns mod.
 
-1.12.2 Port/Rewrite of Techguns mod for Minecraft. WIP
-
-Techguns 2 is still an early version and not well tested. Bugs may happen. Use at own risk.
-
-Mod Information: https://github.com/pWn3d1337/Techguns2/wiki
+It does not fix any real bugs.
