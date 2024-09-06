@@ -115,6 +115,7 @@ public class ItemRenderHack {
 	}
 	
 	protected static boolean shouldRenderItem(ItemStack stack, EntityLivingBase elb, ItemCameraTransforms.TransformType transform, boolean leftHanded) {
+		if (elb == null) { return true; }
 		if( !(transform==TransformType.FIRST_PERSON_LEFT_HAND || transform==TransformType.THIRD_PERSON_LEFT_HAND || 
 				transform==TransformType.FIRST_PERSON_RIGHT_HAND || transform==TransformType.THIRD_PERSON_RIGHT_HAND)) {
 			return true;

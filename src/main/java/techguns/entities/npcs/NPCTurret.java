@@ -190,20 +190,20 @@ public class NPCTurret extends EntityCreature implements IAnimals, IRangedAttack
 		/*if (this.getHealth()>0){
 			this.isDead=false;
 		}*/
+
+		int x=(int) Math.floor(this.posX);
+		int y =((int) Math.round(this.posY))-1;
+		if (this.turretFacing==EnumFacing.DOWN){
+			y=((int) Math.round(this.posY))+1;
+		}
+		int z = (int) Math.floor(this.posZ);
+
+		TileEntity tile = this.world.getTileEntity(new BlockPos(x,y,z));
+
 		if(! world.isRemote){
 			if (this.mountedTileEnt==null){
 				
 				//try to relink
-				int x=(int) Math.floor(this.posX);
-				
-				int y =((int) Math.round(this.posY))-1;
-				if (this.turretFacing==EnumFacing.DOWN){
-					y=((int) Math.round(this.posY))+1;
-				}
-				
-				int z = (int) Math.floor(this.posZ);
-				//System.out.println("Trying to relink:"+x+":"+y+":"+z);
-				TileEntity tile = this.world.getTileEntity(new BlockPos(x,y,z));
 				if (tile !=null && tile instanceof TurretTileEnt){
 					((TurretTileEnt) tile).setMountedTurret(this);
 					this.mountedTileEnt=(TurretTileEnt) tile;
@@ -219,6 +219,10 @@ public class NPCTurret extends EntityCreature implements IAnimals, IRangedAttack
 					this.setDead();
 					//System.out.println("KILLED ORPHAN TURRET");
 				}
+
+				if (tile == null || !(tile instanceof TurretTileEnt)){
+					this.setDead();
+				}
 				//normal logic;
 			}
 		} else {
@@ -227,7 +231,7 @@ public class NPCTurret extends EntityCreature implements IAnimals, IRangedAttack
 				networkUpdateRequestDelay--;
 			}
 			
-			//4096 = 64² -> squared Distance
+			//4096 = 64 -> squared Distance
 			if (this.mountedTileEnt == null && networkUpdateRequestDelay <=0 &&  Techguns.proxy.clientInRangeSquared(this.posX, this.posZ, 4096)){
 				TGPackets.network.sendToServer(new PacketRequestTurretSync(this));
 				this.networkUpdateRequestDelay = 600; //don't spam server with packets

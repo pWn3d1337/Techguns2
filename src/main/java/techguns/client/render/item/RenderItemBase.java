@@ -242,7 +242,7 @@ public class RenderItemBase implements IItemRenderer {
 	}
 
 	protected void renderItemParticles(EntityLivingBase ent, TransformType transform, float ptt) {
-		
+		if (ent == null) { return; } // TODO this thing neeed to use some defaults particles, otherwise it just spawns purple-black particles(however better that crash)
 		EnumHand hand = EnumHand.MAIN_HAND;
 		EnumHandSide handSide;
 		if (transform == TransformType.FIRST_PERSON_LEFT_HAND || transform == TransformType.THIRD_PERSON_LEFT_HAND) {

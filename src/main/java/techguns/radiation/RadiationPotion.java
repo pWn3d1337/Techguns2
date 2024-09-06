@@ -70,7 +70,8 @@ public class RadiationPotion extends Potion {
 		//System.out.println("Radiate:"+ amount + "|RES:"+res);
 		
 		if(elb instanceof EntityPlayer) {
-			if(!((EntityPlayer)elb).capabilities.isCreativeMode ) {
+			EntityPlayer player = (EntityPlayer) elb;
+			if(!player.isCreative()&&!player.isSpectator()) {
 				TGExtendedPlayer props = TGExtendedPlayer.get((EntityPlayer) elb);
 				props.addRadiation(amount);
 				

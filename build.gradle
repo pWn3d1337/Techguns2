@@ -1,13 +1,13 @@
 buildscript {
     repositories {
-        jcenter()
-        maven { url = "http://files.minecraftforge.net/maven" }
-    }
-    dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
-    }
+			maven { url = 'https://maven.minecraftforge.net/' }
+			mavenCentral()
+		}
+		dependencies {
+			classpath 'net.minecraftforge.gradle:ForgeGradle:3.+'
+		}
 }
-apply plugin: 'net.minecraftforge.gradle.forge'
+apply plugin: 'net.minecraftforge.gradle'
 //Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 
 
@@ -15,123 +15,72 @@ version = "1.12.2-2.0.2.0"
 group = "techguns" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "techguns"
 
-sourceCompatibility = targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
-compileJava {
-    sourceCompatibility = targetCompatibility = '1.8'
-}
+sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
 
 minecraft {
-    version = "1.12.2-14.23.5.2807"
-    runDir = "run"
-    
-    // the mappings can be changed at any time, and must be in the following format.
-    // snapshot_YYYYMMDD   snapshot are built nightly.
-    // stable_#            stables are built at the discretion of the MCP team.
-    // Use non-default mappings at your own risk. they may not always work.
-    // simply re-run your setup task after changing the mappings to update your workspace.
-    mappings = "snapshot_20180104"
-    // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
+	mappings channel: 'snapshot', version: '20171003-1.12'
 }
 
 repositories {
-	maven {
-		url 'https://repo.elytradev.com/'
+	repositories {
+		maven {
+			url "https://cursemaven.com"
+		}
 	}
-	maven {
-		// location of the maven that hosts JEI files
-		name = "Progwml6 maven"
-		url = "http://dvs1.progwml6.com/files/maven"
-	}
-	maven {
-		// location of a maven mirror for JEI files, as a fallback
-		name = "ModMaven"
-		url = "modmaven.k-4u.nl"
-	}
-	maven {
-        name = "CurseForge"
-        url = "https://minecraft.curseforge.com/api/maven/"
-    }
-	//ivy { name "com.latmod.mods"; artifactPattern "http://mods.latmod.com/[module]/[revision]/[module]-[revision](-[classifier]).[ext]" }
-	maven { 
-		name="Latmods"
-		url "https://maven.latmod.com/"
-	}
-	maven {
-		name = "OpenComputers"
-		url = "http://maven.cil.li/"
+	mavenLocal()
+	flatDir {
+		dir 'libs'
 	}
 }
 dependencies {
-    // you may put jars on which you depend on in ./libs
-    // or you may define them like so..
-    //compile "some.group:artifact:version:classifier"
-    //compile "some.group:artifact:version"
-      
-    // real examples
-    //compile 'com.mod-buildcraft:buildcraft:6.0.8:dev'  // adds buildcraft to the dev env
-    //compile 'com.googlecode.efficient-java-matrix-library:ejml:0.24' // adds ejml to the dev env
+	minecraft 'net.minecraftforge:forge:1.12.2-14.23.5.2859'
+	// you may put jars on which you depend on in ./libs
+	// or you may define them like so..
+	//compile "some.group:artifact:version:classifier"
+	//compile "some.group:artifact:version"
 
-    // the 'provided' configuration is for optional dependencies that exist at compile-time but might not at runtime.
-    //provided 'com.mod-buildcraft:buildcraft:6.0.8:dev'
+	// real examples
+	//compile 'com.mod-buildcraft:buildcraft:6.0.8:dev'  // adds buildcraft to the dev env
+	//compile 'com.googlecode.efficient-java-matrix-library:ejml:0.24' // adds ejml to the dev env
 
-    // the deobf configurations:  'deobfCompile' and 'deobfProvided' are the same as the normal compile and provided,
-    // except that these dependencies get remapped to your current MCP mappings
-    //deobfCompile 'com.mod-buildcraft:buildcraft:6.0.8:dev'
-    //deobfProvided 'com.mod-buildcraft:buildcraft:6.0.8:dev'
+	// the 'provided' configuration is for optional dependencies that exist at compile-time but might not at runtime.
+	//provided 'com.mod-buildcraft:buildcraft:6.0.8:dev'
 
-    // for more info...
-    // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
-    // http://www.gradle.org/docs/current/userguide/dependency_management.html
+	// the deobf configurations:  'deobfCompile' and 'deobfProvided' are the same as the normal compile and provided,
+	// except that these dependencies get remapped to your current MCP mappings
+	//deobfCompile 'com.mod-buildcraft:buildcraft:6.0.8:dev'
+	//deobfProvided 'com.mod-buildcraft:buildcraft:6.0.8:dev'
+
+	// for more info...
+	// http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
+	// http://www.gradle.org/docs/current/userguide/dependency_management.html
 
 	//compile 'elucent:albedo:2.0-SNAPSHOT'
 	//deobfCompile 'albedo:albedo:0.1.3:deobf'
-	compile 'albedo:albedo:1.12.2:1.1.0'
-	
-	compile 'crafttweaker:CraftTweaker2:1.12:4.1.13'
-	
+	implementation 'curse.maven:albedo-275300:2714505'
+
+	implementation 'curse.maven:crafttweaker-239197:5486112'
+
 	//provided 'chisel:Chisel-MC1.12:0.0.14.18:api'
 	//provided 'chisel:Chisel:MC1.12:0.0.14.18'
-	
-	compile 'the-lost-cities:lostcities:1.12:2.0.12'
-	
+
+	implementation 'curse.maven:lostcities-269024:2861574'
+
 	//compile 'com.latmod.mods:FTBLib:4.2.5:api'
-	deobfCompile "com.feed_the_beast.mods:FTBLib:5.4.0.64"
-	
-	 // compile against the JEI API but do not include it at runtime
-	deobfProvided "mezz.jei:jei_${mc_version}:${jei_version}:api"
+	implementation(fg.deobf("curse.maven:FTBLib-237167:2641933")) // 5.4.0.64, very old version
+
+	// compile against the JEI API but do not include it at runtime
+	implementation(fg.deobf("mezz.jei:jei_${mc_version}:${jei_version}:api"))
 	// at runtime, use the full JEI jar
 	runtime "mezz.jei:jei_${mc_version}:${jei_version}"
-	
-	deobfCompile "li.cil.oc:OpenComputers:${openComputersVersion}"
+
+	compile(fg.deobf("curse.maven:OpenComputers-223008:5274236"))
 }
-
-processResources {
-    // this will ensure that this task is redone when the versions change.
-    inputs.property "version", project.version
-    inputs.property "mcversion", project.minecraft.version
-
-    // replace stuff in mcmod.info, nothing else
-    from(sourceSets.main.resources.srcDirs) {
-        include 'mcmod.info'
-                
-        // replace version and mcversion
-        expand 'version':project.version, 'mcversion':project.minecraft.version
-    }
-        
-    // copy everything else except the mcmod.info
-    from(sourceSets.main.resources.srcDirs) {
-        exclude 'mcmod.info'
-    }
-	
-	rename '(.+_at.cfg)', 'META-INF/$1'
-}
-
 
 jar {
-
 	manifest {
 		attributes 'FMLCorePlugin': "techguns.core.TechgunsFMLPlugin"
 		attributes 'FMLCorePluginContainsFMLMod': "true"
-	    attributes 'FMLAT': 'techguns_at.cfg'
+		attributes 'FMLAT': 'techguns_at.cfg'
 	}
 }

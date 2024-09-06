@@ -79,17 +79,18 @@ public class PacketEntityDeathType implements IMessage{
 				EntityPlayer ply = TGPackets.getPlayerFromContext(ctx);
 				EntityLivingBase entity = (EntityLivingBase) ply.world.getEntityByID(message.entityId);
 				DeathType deathtype = DeathType.values()[message.deathtypeId];
-				
-				if (deathtype!=DeathType.GORE || (deathtype==DeathType.GORE && TGConfig.cl_enableDeathFX_Gore)){
-				
-					if (entity !=null){
-						entity.motionX = message.motionX;
-						entity.motionY = message.motionY;
-						entity.motionZ = message.motionZ;
-						//System.out.printf("(message)EntityMotion: (%.1f/%.1f/%.1f)\n",message.motionX,message.motionY,message.motionZ);
-						
-						ClientProxy.get().setEntityDeathType(entity, deathtype);
-						DeathEffect.createDeathEffect(entity, deathtype, message.motionX, message.motionY, message.motionZ);
+				if (!(entity.getDisplayName().toString().contains("type:\"customnpcs:customnpc"))) {
+					if (deathtype != DeathType.GORE || (deathtype == DeathType.GORE && TGConfig.cl_enableDeathFX_Gore)) {
+
+						if (entity != null) {
+							entity.motionX = message.motionX;
+							entity.motionY = message.motionY;
+							entity.motionZ = message.motionZ;
+							//System.out.printf("(message)EntityMotion: (%.1f/%.1f/%.1f)\n",message.motionX,message.motionY,message.motionZ);
+
+							ClientProxy.get().setEntityDeathType(entity, deathtype);
+							DeathEffect.createDeathEffect(entity, deathtype, message.motionX, message.motionY, message.motionZ);
+						}
 					}
 				}
 			}

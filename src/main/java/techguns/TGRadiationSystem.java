@@ -7,6 +7,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.IAttribute;
 import net.minecraft.entity.ai.attributes.RangedAttribute;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionType;
@@ -110,6 +111,13 @@ public class TGRadiationSystem implements ITGInitializer {
        event.getRegistry().register(radregen_effect);
 
 	}
+
+	public static boolean checkPlayerGamemode(EntityLivingBase e){
+		if(e instanceof EntityPlayer){
+			EntityPlayer ep = (EntityPlayer)e;
+			return !ep.isSpectator()&&!ep.isCreative();
+		} else return true;
+	}
 	
 	public static void applyRadToEntities(TileEntity tile, double radius, int duration, int strength, double inner_radius, int strength_outer) {
 		applyRadToEntities(tile.getWorld(), tile.getPos().getX()+0.5, tile.getPos().getY()+0.5, tile.getPos().getZ()+0.5,  radius, duration, strength, inner_radius, strength_outer);
@@ -118,26 +126,25 @@ public class TGRadiationSystem implements ITGInitializer {
 	public static void applyRadToEntities(World world, double posX, double posY, double posZ, double radius, int duration, int strength, double inner_radius, int strength_outer) {
 		Vec3d offset= new Vec3d(posX+radius, posY+radius, posZ+radius);
 		Vec3d offset2= new Vec3d(posX-radius, posY-radius, posZ-radius);
-		AxisAlignedBB bb = new AxisAlignedBB(offset, offset2);
-		
+		AxisAlignedBB bb = new AxisAlignedBB(offset.x, offset.y, offset.z, offset2.x, offset2.y, offset2.z);
 		Vec3d pos = new Vec3d(posX, posY, posZ);
 		world.getEntitiesWithinAABB(EntityLivingBase.class ,bb, RADIATION_TARGETS).forEach(e -> {
 			
 			double distance = pos.distanceTo(new Vec3d(e.posX, e.posY, e.posZ));
 			if (distance < radius) {
-			
+
 				int str = strength;
-				if(distance > inner_radius) {
-					double factor = (distance-inner_radius)/(radius-inner_radius);
-					str = (int) Math.round(strength_outer + (strength-strength_outer)*factor);
+				if (distance > inner_radius) {
+					double factor = (distance - inner_radius) / (radius - inner_radius);
+					str = (int) Math.round(strength_outer + (strength - strength_outer) * factor);
 				}
-				
+
 				EntityLivingBase elb = (EntityLivingBase) e; //RADIATION_TARGETS only applies to EntityLivingBase
-				elb.addPotionEffect(new PotionEffect(TGRadiationSystem.radiation_effect, duration, 
-						str, true, true));
-			
-			}
-			
+				if (checkPlayerGamemode(e))
+					elb.addPotionEffect(new PotionEffect(TGRadiationSystem.radiation_effect, duration,
+							str, true, true));
+
+				}
 		});
 	}
 }
