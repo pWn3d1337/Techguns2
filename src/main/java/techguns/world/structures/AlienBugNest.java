@@ -137,7 +137,7 @@ public class AlienBugNest {
 			Vec3d pos1 = new Vec3d(segment.posX, segment.posY, segment.posZ);
 			Vec3d pos2 = new Vec3d(seg.posX, seg.posY, seg.posZ);
 			Vec3d v2v1 = pos2.subtract(pos1);
-			double distance = v2v1.lengthVector();
+			double distance = v2v1.length();
 			Vec3d dir = v2v1.normalize();
 
 			double d2 = distance-(seg.radius);
@@ -193,7 +193,7 @@ public class AlienBugNest {
 						Vec3d pos1 = new Vec3d(segment.posX, segment.posY, segment.posZ);
 						Vec3d pos2 = new Vec3d(seg.posX, seg.posY, seg.posZ);
 						Vec3d v2v1 = pos2.subtract(pos1);
-						double distance = v2v1.lengthVector();
+						double distance = v2v1.length();
 						Vec3d dir = v2v1.normalize();
 	
 						//double d2 =(segment.radius*2)+(distance-(seg.radius))-4.0;
@@ -276,7 +276,7 @@ public class AlienBugNest {
 		Vec3d v1 = new Vec3d(x1, y1, z1);
 		Vec3d v2 = new Vec3d(x2, y2, z2);
 		Vec3d v2v1 = v1.subtract(v2);
-		double l = v2v1.lengthVector();
+		double l = v2v1.length();
 		//Vec3 dir = v2v1.normalize();
 		int tmp = 0;
 		if (x1 > x2) { tmp = x2; x2 = x1; x1 = tmp;}
@@ -292,7 +292,7 @@ public class AlienBugNest {
 					Vec3d v0 = new Vec3d(x, y, z);
 					Vec3d v1v0 = v1.subtract(v2);
 					Vec3d v_ = v2v1.crossProduct(v1v0);
-					double distance = v_.lengthVector()/l;
+					double distance = v_.length()/l;
 					p.setPos(x,y,z);
 					if (distance < radius  && TGBlocks.SLIMY_LADDER.canPlaceBlockAt(world, p)) {
 						world.setBlockState(p, TGBlocks.SLIMY_LADDER.getStateForPlacement(world, p, EnumFacing.NORTH, 0, 0, 0, 0, null), 2);

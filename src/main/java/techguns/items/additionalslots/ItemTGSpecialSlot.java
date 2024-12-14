@@ -50,7 +50,7 @@ public abstract class ItemTGSpecialSlot extends GenericItem implements ITGSpecia
 			camoID=tags.getByte("camo");
 		}
 		if(camoID>0){
-			return TextUtil.trans(this.getUnlocalizedName()+".camoname."+camoID);
+			return TextUtil.trans(this.getTranslationKey()+".camoname."+camoID);
 		} else {
 			return TextUtil.trans("techguns.item.defaultcamo");
 		}

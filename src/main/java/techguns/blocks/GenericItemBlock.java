@@ -9,7 +9,7 @@ public class GenericItemBlock extends ItemBlock {
 	public GenericItemBlock(Block block) {
 		super(block);
 		this.setRegistryName(block.getRegistryName());
-		this.setUnlocalizedName(block.getUnlocalizedName());
+		this.setTranslationKey(block.getTranslationKey());
 		setCreativeTab(Techguns.tabTechgun);
 	}
 

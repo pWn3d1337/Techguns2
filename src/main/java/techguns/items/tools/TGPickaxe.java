@@ -23,7 +23,7 @@ public class TGPickaxe extends ItemPickaxe implements IToolTGDamageSystem{
 		super(mat);
 		setCreativeTab(Techguns.tabTechgun);
 		setRegistryName(name);
-		setUnlocalizedName(Techguns.MODID+"."+name);
+		setTranslationKey(Techguns.MODID+"."+name);
 	}
 
 	public TGPickaxe(ToolMaterial mat, String name, DamageType dmgType,float penetration) {

@@ -57,7 +57,7 @@ public class BlockJsonCreator {
 	
 	public static void writeBlockstateJsonFileForBlock(GenericBlockMetaEnum block){
 
-		String blockname = block.getRegistryName().getResourcePath();
+		String blockname = block.getRegistryName().getPath();
 		
 		File f = new File(prefix+blockstates+blockname+".json");
 		//TGLogger.logger_client.log(Level.INFO, "Checking Item JSON:"+f.getAbsolutePath());

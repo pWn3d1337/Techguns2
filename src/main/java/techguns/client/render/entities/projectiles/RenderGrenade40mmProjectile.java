@@ -33,7 +33,7 @@ public class RenderGrenade40mmProjectile extends Render<Grenade40mmProjectile>{
 	public static void initModel() {
 		 IModel model = ModelLoaderRegistry.getModelOrLogError(modelLoc,"Could not load grenande launcher projectile model");
 	     bakedModel = model.bake(TRSRTransformation.identity(), DefaultVertexFormats.ITEM, r -> {
-	    	    TextureAtlasSprite sprite = new TextureAtlasSprite(texture.getResourcePath()) {};
+	    	    TextureAtlasSprite sprite = new TextureAtlasSprite(texture.getPath()) {};
 	    	    try {
 	    	    	PngSizeInfo png = PngSizeInfo.makeFromResource(Minecraft.getMinecraft().getResourceManager().getResource(texture));
 	    	        sprite.loadSprite(png, false);

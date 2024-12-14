@@ -95,7 +95,7 @@ public class BlockTGDoor2x1 extends BlockDoor implements IGenericBlock {
 	@Override
     public String getLocalizedName()
     {
-        return I18n.translateToLocal(this.getUnlocalizedName() + ".name");
+        return I18n.translateToLocal(this.getTranslationKey() + ".name");
     }
 
     public EnumPushReaction getMobilityFlag(IBlockState state)

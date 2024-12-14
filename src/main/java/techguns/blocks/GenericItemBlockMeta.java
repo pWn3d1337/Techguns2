@@ -16,7 +16,7 @@ public class GenericItemBlockMeta extends ItemBlock {
 	public GenericItemBlockMeta(Block block) {
 		super(block);
 		this.setRegistryName(block.getRegistryName());
-		this.setUnlocalizedName(block.getUnlocalizedName());
+		this.setTranslationKey(block.getTranslationKey());
 		setCreativeTab(Techguns.tabTechgun);
 		
 		this.setHasSubtypes(true);
@@ -29,8 +29,8 @@ public class GenericItemBlockMeta extends ItemBlock {
 	}
 
 	@Override
-	public String getUnlocalizedName(ItemStack stack) {
-		return super.getUnlocalizedName(stack)+"."+stack.getItemDamage();
+	public String getTranslationKey(ItemStack stack) {
+		return super.getTranslationKey(stack)+"."+stack.getItemDamage();
 	}
 
 	@Override

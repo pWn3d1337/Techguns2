@@ -257,7 +257,7 @@ public class OreDrillTileEntMaster extends MultiBlockMachineTileEntMaster implem
 	public void readClientDataFromNBT(NBTTagCompound tags) {
 		super.readClientDataFromNBT(tags);
 		if(this.formed) {
-			this.drill_direction=EnumFacing.getFront(tags.getByte("drill_direction"));
+			this.drill_direction=EnumFacing.byIndex(tags.getByte("drill_direction"));
 			this.engines= tags.getByte("engines");
 			this.rods =tags.getByte("rods");
 			this.radius = tags.getByte("radius");

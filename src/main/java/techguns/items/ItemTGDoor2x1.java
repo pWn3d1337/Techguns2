@@ -54,8 +54,8 @@ public class ItemTGDoor2x1 extends GenericItem {
             if (player.canPlayerEdit(pos, facing, itemstack) && this.block.canPlaceBlockAt(worldIn, pos))
             {
                 EnumFacing enumfacing = EnumFacing.fromAngle((double)player.rotationYaw);
-                int i = enumfacing.getFrontOffsetX();
-                int j = enumfacing.getFrontOffsetZ();
+                int i = enumfacing.getXOffset();
+                int j = enumfacing.getZOffset();
                 boolean flag = i < 0 && hitZ < 0.5F || i > 0 && hitZ > 0.5F || j < 0 && hitX > 0.5F || j > 0 && hitX < 0.5F;
                 placeDoor(worldIn, pos, enumfacing, this.block, flag);
                 SoundType soundtype = worldIn.getBlockState(pos).getBlock().getSoundType(worldIn.getBlockState(pos), worldIn, pos, player);

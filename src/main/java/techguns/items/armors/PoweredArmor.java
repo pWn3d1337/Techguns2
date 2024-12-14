@@ -400,7 +400,7 @@ public class PoweredArmor extends GenericArmorMultiCamo {
 		list.add(ChatFormatting.AQUA+TextUtil.transTG("tooltip.power")+": "+power+"/"+maxpower);
 		
 		if (this.armorType==EntityEquipmentSlot.CHEST){
-			list.add(ChatFormatting.AQUA+TextUtil.transTG("tooltip.powerType")+": "+this.powerType.toString()+ " ("+TextUtil.trans(this.battery.getUnlocalizedName()+".name")+")");
+			list.add(ChatFormatting.AQUA+TextUtil.transTG("tooltip.powerType")+": "+this.powerType.toString()+ " ("+TextUtil.trans(this.battery.getTranslationKey()+".name")+")");
 		} else {
 			list.add(ChatFormatting.AQUA+TextUtil.transTG("tooltip.powerType")+": "+this.powerType.toString());
 		}

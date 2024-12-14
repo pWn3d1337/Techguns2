@@ -41,7 +41,7 @@ public class ModelBaseBaked extends ModelMultipart {
 		
 		 IModel model = ModelLoaderRegistry.getModelOrLogError(modelLoc,"Could not load model"+modelLoc.toString());
 	     IBakedModel bakedModel = model.bake(TRSRTransformation.identity(), DefaultVertexFormats.ITEM, r -> {
-	    	    TextureAtlasSprite sprite = new TextureAtlasSprite(texture_loc.getResourcePath()) {};
+	    	    TextureAtlasSprite sprite = new TextureAtlasSprite(texture_loc.getPath()) {};
 	    	    try {
 	    	    	PngSizeInfo png = PngSizeInfo.makeFromResource(Minecraft.getMinecraft().getResourceManager().getResource(texture_loc));
 	    	        sprite.loadSprite(png, false);

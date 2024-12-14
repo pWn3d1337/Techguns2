@@ -40,7 +40,7 @@ public class BlockOreCluster<T extends Enum<T> & IEnumOreClusterType> extends Ge
 	}
 
 	@Override
-	public BlockRenderLayer getBlockLayer() {
+	public BlockRenderLayer getRenderLayer() {
 		return BlockRenderLayer.CUTOUT_MIPPED;
 	}
 	

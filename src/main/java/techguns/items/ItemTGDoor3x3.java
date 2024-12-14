@@ -53,8 +53,8 @@ public class ItemTGDoor3x3<T extends Enum<T> & IStringSerializable> extends Gene
 	}
 
 	@Override
-	public String getUnlocalizedName(ItemStack stack) {
-		return super.getUnlocalizedName(stack)+(stack.getItemDamage()>0?"_"+stack.getItemDamage():"");
+	public String getTranslationKey(ItemStack stack) {
+		return super.getTranslationKey(stack)+(stack.getItemDamage()>0?"_"+stack.getItemDamage():"");
 	}
 
 	

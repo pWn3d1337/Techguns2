@@ -121,7 +121,7 @@ public class GenericArmor extends ItemArmor implements ISpecialArmor , IItemTGRe
 	    this.textureName = textureName; //Armor Texture
 		setCreativeTab(Techguns.tabTechgun);
 		this.modid=modid;
-	    this.setUnlocalizedName(unlocalizedName);
+	    this.setTranslationKey(unlocalizedName);
 	    ResourceLocation reg = new ResourceLocation(modid, unlocalizedName);
 	    this.setRegistryName(reg);
 	    this.modelLoc = reg;
@@ -604,8 +604,8 @@ public class GenericArmor extends ItemArmor implements ISpecialArmor , IItemTGRe
 	}
 
 	@Override
-	public String getUnlocalizedName(ItemStack s) {
-		return this.modid+"."+super.getUnlocalizedName(s);
+	public String getTranslationKey(ItemStack s) {
+		return this.modid+"."+super.getTranslationKey(s);
 	}
 
 	@Override

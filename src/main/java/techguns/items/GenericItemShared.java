@@ -176,7 +176,7 @@ public class GenericItemShared extends GenericItem implements IItemTGRenderer, I
 	}
 
 	@Override
-	public String getUnlocalizedName(ItemStack stack) {
+	public String getTranslationKey(ItemStack stack) {
 		return "item."+Techguns.MODID+"."+getSharedItems().get(stack.getItemDamage()).name;
 	}
 

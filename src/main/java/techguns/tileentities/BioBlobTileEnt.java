@@ -95,7 +95,7 @@ public class BioBlobTileEnt extends TileEntity implements ITGTileEntSecurity, IT
 	public void needUpdate(){
 		if(!this.world.isRemote) {	
 			this.world.markBlockRangeForRenderUpdate(getPos(), getPos());
-			ChunkPos cp = this.world.getChunkFromBlockCoords(getPos()).getPos();
+			ChunkPos cp = this.world.getChunk(getPos()).getPos();
 			PlayerChunkMapEntry entry = ((WorldServer)this.world).getPlayerChunkMap().getEntry(cp.x, cp.z);
 			if (entry!=null) {
 				entry.sendPacket(this.getUpdatePacket());

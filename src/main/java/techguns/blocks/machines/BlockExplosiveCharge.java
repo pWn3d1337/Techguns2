@@ -62,7 +62,7 @@ public class BlockExplosiveCharge<T extends Enum<T> & IStringSerializable & IMac
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		return this.getDefaultState()
-	    .withProperty(FACING, EnumFacing.getFront(meta >> 1))
+	    .withProperty(FACING, EnumFacing.byIndex(meta >> 1))
 	    .withProperty(MACHINE_TYPE, clazz.getEnumConstants()[meta & 1]);
     }
 	

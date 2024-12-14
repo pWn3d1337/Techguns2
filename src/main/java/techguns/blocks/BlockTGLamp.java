@@ -135,9 +135,9 @@ public class BlockTGLamp<T extends Enum<T> & IStringSerializable> extends Generi
 	public IBlockState getStateFromMeta(int meta) {
 		IBlockState s = this.getDefaultState();
 		if (meta <6) {
-			s = s.withProperty(LAMP_TYPE, this.clazz.getEnumConstants()[0]).withProperty(FACING_ALL,EnumFacing.getFront(meta));
+			s = s.withProperty(LAMP_TYPE, this.clazz.getEnumConstants()[0]).withProperty(FACING_ALL,EnumFacing.byIndex(meta));
 		} else if (meta <12) {
-			s = s.withProperty(LAMP_TYPE, this.clazz.getEnumConstants()[1]).withProperty(FACING_ALL,EnumFacing.getFront(meta-6));
+			s = s.withProperty(LAMP_TYPE, this.clazz.getEnumConstants()[1]).withProperty(FACING_ALL,EnumFacing.byIndex(meta-6));
 		} else if (meta == 12) {
 			s = s.withProperty(LAMP_TYPE, this.clazz.getEnumConstants()[2]);
 		} else if (meta == 13) {
@@ -353,7 +353,7 @@ public class BlockTGLamp<T extends Enum<T> & IStringSerializable> extends Generi
 
 	@Override
 	public String getCurrentCamoName(ItemStack item) {
-		return Techguns.MODID+"."+this.getRegistryName().getResourcePath()+".camoname."+this.getCurrentCamoIndex(item);
+		return Techguns.MODID+"."+this.getRegistryName().getPath()+".camoname."+this.getCurrentCamoIndex(item);
 	}
 
 	@Override

@@ -16,7 +16,7 @@ public interface IGenericBlock {
 
 	public default void init(Block b, String name, boolean addToList) {
 		b.setRegistryName(new ResourceLocation(Techguns.MODID,name));
-		b.setUnlocalizedName(Techguns.MODID+"."+name);
+		b.setTranslationKey(Techguns.MODID+"."+name);
 		b.setCreativeTab(Techguns.tabTechgun);
 		
 		if(addToList) {

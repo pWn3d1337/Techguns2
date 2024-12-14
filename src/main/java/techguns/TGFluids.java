@@ -72,14 +72,14 @@ public class TGFluids implements ITGInitializer {
 		if(addedAcid) {
 			
 			BLOCK_FLUID_ACID = new BlockFluidAcid(ACID,Material.WATER).setRegistryName(new ResourceLocation(Techguns.MODID, "block_creeper_acid"))
-					.setUnlocalizedName(Techguns.MODID+".block_creeper_acid").setCreativeTab(Techguns.tabTechgun);
+					.setTranslationKey(Techguns.MODID+".block_creeper_acid").setCreativeTab(Techguns.tabTechgun);
 		}
 		
 		addedMilk = FluidRegistry.registerFluid(new Fluid("milk", new ResourceLocation(Techguns.MODID, "blocks/milk_still"), new ResourceLocation(Techguns.MODID, "blocks/milk_flow")).setUnlocalizedName("milk"));
 		MILK = FluidRegistry.getFluid("milk");
 		if(addedMilk) {			
 			BLOCK_FLUID_MILK = new BlockFluidAcid(MILK,Material.WATER).setRegistryName(new ResourceLocation(Techguns.MODID, "block_milk"))
-					.setUnlocalizedName(Techguns.MODID+".block_milk").setCreativeTab(Techguns.tabTechgun);
+					.setTranslationKey(Techguns.MODID+".block_milk").setCreativeTab(Techguns.tabTechgun);
 		}
 	}
 

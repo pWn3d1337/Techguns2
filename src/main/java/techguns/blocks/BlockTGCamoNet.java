@@ -131,7 +131,7 @@ public class BlockTGCamoNet extends GenericBlockMetaEnumCamoChangeable<EnumCamoN
     }
 
 	@Override
-	public BlockRenderLayer getBlockLayer() {
+	public BlockRenderLayer getRenderLayer() {
 		return BlockRenderLayer.CUTOUT;
 	}
 

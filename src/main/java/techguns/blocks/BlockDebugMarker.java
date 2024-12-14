@@ -21,7 +21,7 @@ public class BlockDebugMarker extends GenericBlockMetaEnum<EnumDebugBlockType> {
 	}
 
 	@Override
-	public BlockRenderLayer getBlockLayer() {
+	public BlockRenderLayer getRenderLayer() {
 		return BlockRenderLayer.CUTOUT;
 	}
 	

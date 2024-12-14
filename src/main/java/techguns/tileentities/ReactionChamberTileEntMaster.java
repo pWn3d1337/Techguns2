@@ -724,7 +724,7 @@ public class ReactionChamberTileEntMaster extends MultiBlockMachineTileEntMaster
 	public void needFluidUpdate() {
 		if (!this.world.isRemote) {
 			
-			ChunkPos cp = this.world.getChunkFromBlockCoords(getPos()).getPos();
+			ChunkPos cp = this.world.getChunk(getPos()).getPos();
 			PlayerChunkMapEntry entry = ((WorldServer) this.world).getPlayerChunkMap().getEntry(cp.x, cp.z);
 			if(entry !=null ) {
 				try {

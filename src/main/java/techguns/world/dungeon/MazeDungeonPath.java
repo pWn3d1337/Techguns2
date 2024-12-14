@@ -152,7 +152,7 @@ public class MazeDungeonPath implements IDungeonPath {
 	 */
 	@Override
 	public void generateSegment(int x, int y, int z, int dir, PathSegment prev) {		
-		EnumFacing facing = EnumFacing.getHorizontal(dir);
+		EnumFacing facing = EnumFacing.byHorizontalIndex(dir);
 		PathSegment segment = new PathSegment(x,y,z);	
 		if (prev != null) {
 			segment.setConnection(facing.getOpposite(), true);
@@ -174,7 +174,7 @@ public class MazeDungeonPath implements IDungeonPath {
 		if (this.rampPlaced < this.entranceRampLength) {
 			nextDir = dir;
 			Vec3i nextPos = segment.getNextPos(nextDir);
-			EnumFacing nextFacing = EnumFacing.getHorizontal(nextDir);
+			EnumFacing nextFacing = EnumFacing.byHorizontalIndex(nextDir);
 			Vec3i offset = nextFacing.getDirectionVec();
 			int dy = -1;
 			Vec3i elevPos = new Vec3i(x, y+dy,z);
@@ -205,7 +205,7 @@ public class MazeDungeonPath implements IDungeonPath {
 			}else {
 				nextDir = getRandomDir(dir);
 			}
-			EnumFacing nextFacing = EnumFacing.getHorizontal(nextDir);
+			EnumFacing nextFacing = EnumFacing.byHorizontalIndex(nextDir);
 			Vec3i nextPos = segment.getNextPos(nextDir);
 			if (isWithinBounds(nextPos)) {
 				if (dir == nextDir && !segment.isEntrance && !fork && rand.nextFloat() < chanceRamp) { //ramp
@@ -271,7 +271,7 @@ public class MazeDungeonPath implements IDungeonPath {
 					PathSegment seg = this.get(nextPos);
 					if (seg != null && !seg.isRamp && !seg.isEntrance) {
 						segment.setConnection(nextFacing, true);
-						seg.setConnection(EnumFacing.getHorizontal(nextDir).getOpposite(), true);
+						seg.setConnection(EnumFacing.byHorizontalIndex(nextDir).getOpposite(), true);
 						success = true;
 					}
 				}
@@ -540,9 +540,9 @@ public class MazeDungeonPath implements IDungeonPath {
 		if (f < chanceStraight) {
 			return dir;
 		}else if (f < chanceStraight + (1.0f-chanceStraight)*0.5f) {
-			return EnumFacing.getHorizontal(dir).rotateY().getHorizontalIndex();
+			return EnumFacing.byHorizontalIndex(dir).rotateY().getHorizontalIndex();
 		}else {
-			return EnumFacing.getHorizontal(dir).rotateYCCW().getHorizontalIndex();
+			return EnumFacing.byHorizontalIndex(dir).rotateYCCW().getHorizontalIndex();
 		}	
 	}
 	
@@ -589,7 +589,7 @@ public class MazeDungeonPath implements IDungeonPath {
 
 		//dir = Horizontal EnumFacing
 		public Vec3i getNextPos(int dir) {
-			Vec3i offset = EnumFacing.getHorizontal(dir).getDirectionVec();
+			Vec3i offset = EnumFacing.byHorizontalIndex(dir).getDirectionVec();
 			return new Vec3i(x+offset.getX(), y+offset.getY(), z+offset.getZ());
 		}
 		

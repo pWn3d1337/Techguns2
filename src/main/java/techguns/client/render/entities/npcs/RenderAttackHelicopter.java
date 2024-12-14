@@ -46,7 +46,7 @@ public class RenderAttackHelicopter extends RenderLiving<AttackHelicopter> {
 	public static IBakedModel loadAndBakedModel(ModelResourceLocation model_loc, ResourceLocation tex) {
 		 IModel model = ModelLoaderRegistry.getModelOrLogError(model_loc,"Could not load model:"+model_loc.toString());
 	     IBakedModel bakedModel = model.bake(TRSRTransformation.identity(), DefaultVertexFormats.ITEM, r -> {
-	    	    TextureAtlasSprite sprite = new TextureAtlasSprite(texture.getResourcePath()) {};
+	    	    TextureAtlasSprite sprite = new TextureAtlasSprite(texture.getPath()) {};
 	    	    try {
 	    	    	PngSizeInfo png = PngSizeInfo.makeFromResource(Minecraft.getMinecraft().getResourceManager().getResource(tex));
 	    	        sprite.loadSprite(png, false);

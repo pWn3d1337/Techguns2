@@ -27,7 +27,7 @@ public abstract class BasicRedstoneTileEnt extends BasicOwnedTileEnt {
 	
 	public void onNeighborBlockChange(){
 		if (!this.world.isRemote){
-			int signal_str = this.world.isBlockIndirectlyGettingPowered(this.pos);
+			int signal_str = this.world.getRedstonePowerFromNeighbors(this.pos);
 			boolean signal = signal_str>0;
 			if(signal!=hasSignal){
 				hasSignal=signal;

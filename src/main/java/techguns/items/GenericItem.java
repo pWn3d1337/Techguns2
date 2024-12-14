@@ -15,7 +15,7 @@ public class GenericItem extends Item {
 		setMaxStackSize(64);
 		setCreativeTab(Techguns.tabTechgun);
 		setRegistryName(name);
-		setUnlocalizedName(Techguns.MODID+"."+name);
+		setTranslationKey(Techguns.MODID+"."+name);
 		if (addToItemList){
 			TGItems.ITEMLIST.add(this);
 		}

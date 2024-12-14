@@ -266,7 +266,7 @@ public class TGArmors implements ITGInitializer {
 		advanced_shield = new GenericShield("advanced_shield",3200,3).setRepairMat(new ItemStackOreDict("plateCarbon",3));
 		
 		if(TGItems.WRITE_ITEM_JSON && event.getSide()==Side.CLIENT){
-			armors.forEach(a -> ItemJsonCreator.writeItemJsonFileForPath("models/item/", a.getRegistryName().getResourcePath(),a.getRegistryName().getResourcePath()));
+			armors.forEach(a -> ItemJsonCreator.writeItemJsonFileForPath("models/item/", a.getRegistryName().getPath(),a.getRegistryName().getPath()));
 		}
 
 	}

@@ -130,7 +130,7 @@ public class RecipeJsonConverter {
 			// janky I know but it works
 			String suffix = result.getItem().getHasSubtypes() ? "_" + result.getItemDamage() : "";
 			
-			String name = result.getItem().getRegistryName().getResourcePath();
+			String name = result.getItem().getRegistryName().getPath();
 			if(result.getItem()  instanceof GenericItemShared) {
 				suffix = suffix +"_"+ TGItems.SHARED_ITEM.get(result.getItemDamage()).getName();
 			}
@@ -183,7 +183,7 @@ public class RecipeJsonConverter {
 			// janky I know but it works
 			String suffix = result.getItem().getHasSubtypes() ? "_" + result.getItemDamage() : "";
 			
-			String name = result.getItem().getRegistryName().getResourcePath();
+			String name = result.getItem().getRegistryName().getPath();
 			if(result.getItem()  instanceof GenericItemShared) {
 				suffix = suffix +"_"+ TGItems.SHARED_ITEM.get(result.getItemDamage()).getName();
 			} 
@@ -239,7 +239,7 @@ public class RecipeJsonConverter {
 			// janky I know but it works
 			String suffix = "";
 			
-			String name = "techguns_manual";//result.getItem().getRegistryName().getResourcePath();
+			String name = "techguns_manual";//result.getItem().getRegistryName().getPath();
 			
 			File f = new File(RECIPE_DIR, name + suffix + ".json");
 
@@ -283,7 +283,7 @@ public class RecipeJsonConverter {
 			// janky I know but it works
 			String suffix = "_ammo_"+key;
 			
-			String name = result.getItem().getRegistryName().getResourcePath();
+			String name = result.getItem().getRegistryName().getPath();
 
 			
 			File f = new File(RECIPE_DIR, name + suffix + ".json");
@@ -326,9 +326,9 @@ public class RecipeJsonConverter {
 			// names the json the same name as the output's registry name
 			// repeatedly adds _alt if a file already exists
 			// janky I know but it works
-			String suffix = "_upgrade_"+upgradeItem.getItem().getUnlocalizedName();
+			String suffix = "_upgrade_"+upgradeItem.getItem().getTranslationKey();
 			
-			String name = result.getItem().getRegistryName().getResourcePath();
+			String name = result.getItem().getRegistryName().getPath();
 
 			
 			File f = new File(RECIPE_DIR, name + suffix + ".json");
@@ -396,7 +396,7 @@ public class RecipeJsonConverter {
 			// janky I know but it works
 			String suffix = result.getItem().getHasSubtypes() ? "_" + result.getItemDamage() : "";
 			
-			String name = result.getItem().getRegistryName().getResourcePath();
+			String name = result.getItem().getRegistryName().getPath();
 			if(result.getItem()  instanceof GenericItemShared) {
 				suffix = suffix +"_"+ TGItems.SHARED_ITEM.get(result.getItemDamage()).getName();
 			}

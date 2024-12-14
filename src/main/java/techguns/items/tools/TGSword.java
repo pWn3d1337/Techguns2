@@ -23,7 +23,7 @@ public class TGSword extends ItemSword implements IToolTGDamageSystem{
 		super(mat);
 		setCreativeTab(Techguns.tabTechgun);
 		setRegistryName(name);
-		setUnlocalizedName(Techguns.MODID+"."+name);
+		setTranslationKey(Techguns.MODID+"."+name);
 	}
 	
 	public TGSword(ToolMaterial mat, String name, DamageType dmgType,float penetration) {

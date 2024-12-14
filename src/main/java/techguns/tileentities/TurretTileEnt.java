@@ -126,7 +126,7 @@ public class TurretTileEnt extends BasicPoweredTileEnt implements ITickable{
 //			this.mountedTurret=null;
 		}
 		
-		this.facing = EnumFacing.getFront(tags.getByte("facing"));
+		this.facing = EnumFacing.byIndex(tags.getByte("facing"));
 		this.turretDeath=tags.getBoolean("turretDeath");
 		this.repairTime=tags.getInteger("repairTime");
 		this.turretHealTime=tags.getInteger("turretHealTime");
@@ -134,12 +134,12 @@ public class TurretTileEnt extends BasicPoweredTileEnt implements ITickable{
 		this.pvpsetting=tags.getByte("pvpsetting");
 		
 		NBTTagCompound tagsWeapon = tags.getCompoundTag("weapon");
-		if(tagsWeapon!=null && !tagsWeapon.hasNoTags()) {
+		if(tagsWeapon!=null && !tagsWeapon.isEmpty()) {
 			this.inventory.setStackInSlot(SLOT_WEAPON, new ItemStack(tagsWeapon));
 		}
 		
 		NBTTagCompound tagsArmor = tags.getCompoundTag("armor");
-		if(tagsArmor!=null && !tagsArmor.hasNoTags()) {
+		if(tagsArmor!=null && !tagsArmor.isEmpty()) {
 			this.inventory.setStackInSlot(SLOT_ARMOR, new ItemStack(tagsArmor));
 		}
 	}

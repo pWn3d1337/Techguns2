@@ -40,7 +40,7 @@ public class OreDrillDefinition extends MultiBlockMachineSchematic {
 			return false;
 		}
 		
-		EnumFacing drill_direction = EnumFacing.getFront(dir);
+		EnumFacing drill_direction = EnumFacing.byIndex(dir);
 				
 		int[] length = this.checkLength(w, masterPos, drill_direction);
 		
@@ -220,7 +220,7 @@ public class OreDrillDefinition extends MultiBlockMachineSchematic {
 			int dir = getDirection(w, player, masterPos);
 			if( dir <0) return false;
 			
-			EnumFacing drill_direction = EnumFacing.getFront(dir);
+			EnumFacing drill_direction = EnumFacing.byIndex(dir);
 					
 			int[] length = this.checkLength(w, masterPos, drill_direction);
 			

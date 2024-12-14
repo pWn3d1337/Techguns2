@@ -203,7 +203,7 @@ public class BlockUtils {
  	 */
  	public static int getHeightValueLiquid(World w, int wx, int wz){
 
- 		Chunk chunk = w.getChunkFromChunkCoords(wx>>4, wz>>4);
+ 		Chunk chunk = w.getChunk(wx>>4, wz>>4);
         int x = wx;
         int z = wz;
         int k = chunk.getTopFilledSegment() + 15;
@@ -406,7 +406,7 @@ public class BlockUtils {
  	 */
  	public static int getHeightValueTopBlockAll(World w, int xCoord, int zCoord)
     {
-        Chunk chunk = w.getChunkFromChunkCoords(xCoord>>4, zCoord>>4);
+        Chunk chunk = w.getChunk(xCoord>>4, zCoord>>4);
         int x = xCoord;
         int z = zCoord;
         int k = chunk.getTopFilledSegment() + 15;
@@ -431,7 +431,7 @@ public class BlockUtils {
      */
     private static int getTopSolidOrLiquidBlock(World w, int posx, int posz)
     {
-        Chunk chunk = w.getChunkFromChunkCoords(posx>>4, posz>>4);
+        Chunk chunk = w.getChunk(posx>>4, posz>>4);
         int x = posx;
         int z = posz;
         int k = chunk.getTopFilledSegment() + 15;
@@ -833,7 +833,7 @@ public class BlockUtils {
 		Vec3d v1 = new Vec3d(x1, y1, z1);
 		Vec3d v2 = new Vec3d(x2, y2, z2);
 		Vec3d v2v1 = v1.subtract(v2);
-		double l = v2v1.lengthVector();
+		double l = v2v1.length();
 		//Vec3 dir = v2v1.normalize();
 		int tmp = 0;
 		if (x1 > x2) { tmp = x2; x2 = x1; x1 = tmp;}
@@ -850,7 +850,7 @@ public class BlockUtils {
 					Vec3d v0 = new Vec3d(x, y, z);
 					Vec3d v1v0 = v1.subtract(v0);
 					Vec3d v_ = v2v1.crossProduct(v1v0);
-					double distance = v_.lengthVector()/l;
+					double distance = v_.length()/l;
 					
 					if (distance < radius-1.0f) {
 						block1.setBlock(world, p.setPos(x, y, z), 0);

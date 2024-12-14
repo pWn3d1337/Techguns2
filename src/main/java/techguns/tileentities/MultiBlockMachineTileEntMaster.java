@@ -44,7 +44,7 @@ public abstract class MultiBlockMachineTileEntMaster extends BasicMachineTileEnt
 		super.readClientDataFromNBT(tags);
 		this.formed = tags.getBoolean("formed");
 		if (this.formed) {
-			this.multiblockDirection = EnumFacing.getFront(tags.getByte("multiblockDirection"));
+			this.multiblockDirection = EnumFacing.byIndex(tags.getByte("multiblockDirection"));
 		}
 	}
 

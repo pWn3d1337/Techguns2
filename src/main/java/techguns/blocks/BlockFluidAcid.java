@@ -19,7 +19,7 @@ public class BlockFluidAcid extends BlockFluidClassic {
 	}
 
 	@Override
-	public void onEntityCollidedWithBlock(World w, BlockPos pos, IBlockState state, Entity ent) {
+	public void onEntityCollision(World w, BlockPos pos, IBlockState state, Entity ent) {
 		if (ent instanceof EntityLivingBase && GenericProjectile.BULLET_TARGETS.apply(ent)){
 			TGDamageSource acidDamage = TGDamageSource.causePoisonDamage(null, null, DeathType.BIO);
 			acidDamage.goreChance=1.0f;

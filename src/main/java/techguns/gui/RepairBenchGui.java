@@ -77,7 +77,7 @@ public class RepairBenchGui extends OwnedTileEntGui {
 						if(InventoryUtil.canConsumeItem(this.tileent.getInventory(), mats.get(i-1), 0, this.tileent.getInventory().getSlots())>0){
 							prefix="\u00A7c";
 						}
-						tooltips.add(prefix+mats.get(i-1).getCount()+"x "+TextUtil.trans(mats.get(i-1).getUnlocalizedName()+".name"));
+						tooltips.add(prefix+mats.get(i-1).getCount()+"x "+TextUtil.trans(mats.get(i-1).getTranslationKey()+".name"));
 					}
 					
 					this.drawHoveringText(tooltips, mx, my);
@@ -99,7 +99,7 @@ public class RepairBenchGui extends OwnedTileEntGui {
 						if(InventoryUtil.canConsumeItem(this.tileent.getInventory(), mats.get(i-1), 0, this.tileent.getInventory().getSlots())>0){
 							prefix="\u00A7c";
 						}
-						tooltips.add(prefix+mats.get(i-1).getCount()+"x "+TextUtil.trans(mats.get(i-1).getUnlocalizedName()+".name"));
+						tooltips.add(prefix+mats.get(i-1).getCount()+"x "+TextUtil.trans(mats.get(i-1).getTranslationKey()+".name"));
 					}
 					
 					this.drawHoveringText(tooltips, mx, my);

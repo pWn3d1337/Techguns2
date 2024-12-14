@@ -66,7 +66,7 @@ public class GenericBlockMetaEnumCamoChangeable<T extends Enum<T> & IStringSeria
 
 	@Override
 	public String getCurrentCamoName(ItemStack item) {
-		return "tile."+Techguns.MODID+"."+this.getRegistryName().getResourcePath()+"."+getCurrentCamoIndex(item)+".name";
+		return "tile."+Techguns.MODID+"."+this.getRegistryName().getPath()+"."+getCurrentCamoIndex(item)+".name";
 	}
 
 }

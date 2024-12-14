@@ -127,7 +127,7 @@ public class BlockTGLadder<T extends Enum<T> & IStringSerializable> extends Gene
 		@Override
 		public IBlockState getStateFromMeta(int meta) {
 			return this.getDefaultState()
-		    .withProperty(FACING, EnumFacing.getHorizontal(meta >> 2))
+		    .withProperty(FACING, EnumFacing.byHorizontalIndex(meta >> 2))
 		    .withProperty(TYPE, clazz.getEnumConstants()[meta & 0b11]);
 	    }
 
@@ -200,7 +200,7 @@ public class BlockTGLadder<T extends Enum<T> & IStringSerializable> extends Gene
 
 		@Override
 		public String getCurrentCamoName(ItemStack item) {
-			return Techguns.MODID+"."+this.getRegistryName().getResourcePath()+".camoname."+getCurrentCamoIndex(item);
+			return Techguns.MODID+"."+this.getRegistryName().getPath()+".camoname."+getCurrentCamoIndex(item);
 		}
 
 		@Override

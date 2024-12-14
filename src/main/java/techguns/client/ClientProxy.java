@@ -1164,7 +1164,7 @@ public class ClientProxy extends CommonProxy {
 	public void setGunTextures(GenericGun gun, ResourceLocation path, int variations) {
 		gun.textures=new ArrayList<ResourceLocation>();
 		for(int i=0;i<variations;i++){
-			gun.textures.add(new ResourceLocation(path.getResourceDomain(),path.getResourcePath()+(i!=0?("_"+i):"")+".png"));
+			gun.textures.add(new ResourceLocation(path.getNamespace(),path.getPath()+(i!=0?("_"+i):"")+".png"));
 		}
 	}
 

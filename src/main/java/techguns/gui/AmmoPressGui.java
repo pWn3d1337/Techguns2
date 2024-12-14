@@ -32,16 +32,16 @@ public class AmmoPressGui extends PoweredTileEntGui {
         String s2="";
         switch(this.tileent.buildPlan){
         	case 0:
-        		s2=TextUtil.trans(TGItems.PISTOL_ROUNDS.getUnlocalizedName()+".name");
+        		s2=TextUtil.trans(TGItems.PISTOL_ROUNDS.getTranslationKey()+".name");
         		break;
         	case 1:
-        		s2=TextUtil.trans(TGItems.SHOTGUN_ROUNDS.getUnlocalizedName()+".name");
+        		s2=TextUtil.trans(TGItems.SHOTGUN_ROUNDS.getTranslationKey()+".name");
         		break;
         	case 2:
-        		s2=TextUtil.trans(TGItems.RIFLE_ROUNDS.getUnlocalizedName()+".name");
+        		s2=TextUtil.trans(TGItems.RIFLE_ROUNDS.getTranslationKey()+".name");
         		break;
         	case 3:
-        		s2=TextUtil.trans(TGItems.SNIPER_ROUNDS.getUnlocalizedName()+".name");
+        		s2=TextUtil.trans(TGItems.SNIPER_ROUNDS.getTranslationKey()+".name");
         		break;
         }
         this.fontRenderer.drawString(TextUtil.trans(Techguns.MODID+".gui.ammopress.build")+":", x+20, y+30, color);

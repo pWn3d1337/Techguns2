@@ -31,16 +31,16 @@ public class AmmoPressJeiRecipe extends BasicRecipeWrapper {
         String s2="";
         switch(type){
         	case 0:
-        		s2=TextUtil.trans(TGItems.PISTOL_ROUNDS.getUnlocalizedName()+".name");
+        		s2=TextUtil.trans(TGItems.PISTOL_ROUNDS.getTranslationKey()+".name");
         		break;
         	case 1:
-        		s2=TextUtil.trans(TGItems.SHOTGUN_ROUNDS.getUnlocalizedName()+".name");
+        		s2=TextUtil.trans(TGItems.SHOTGUN_ROUNDS.getTranslationKey()+".name");
         		break;
         	case 2:
-        		s2=TextUtil.trans(TGItems.RIFLE_ROUNDS.getUnlocalizedName()+".name");
+        		s2=TextUtil.trans(TGItems.RIFLE_ROUNDS.getTranslationKey()+".name");
         		break;
         	case 3:
-        		s2=TextUtil.trans(TGItems.SNIPER_ROUNDS.getUnlocalizedName()+".name");
+        		s2=TextUtil.trans(TGItems.SNIPER_ROUNDS.getTranslationKey()+".name");
         		break;
         }
         

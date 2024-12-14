@@ -114,7 +114,7 @@ public class BlockTGDoor3x3<T extends Enum<T> & IStringSerializable> extends Gen
     }
 
 	@Override
-	public EnumPushReaction getMobilityFlag(IBlockState state) {
+	public EnumPushReaction getPushReaction(IBlockState state) {
 		return EnumPushReaction.BLOCK;
 	}
 

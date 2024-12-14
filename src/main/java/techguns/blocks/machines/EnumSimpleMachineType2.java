@@ -102,7 +102,7 @@ public enum EnumSimpleMachineType2 implements IStringSerializable, IMachineType<
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void setCustomModelLocation(Item itemblock, int meta, ResourceLocation registryName, IBlockState state) {
-		ResourceLocation loc = new ResourceLocation(Techguns.MODID, registryName.getResourcePath()+"_"+this.name().toLowerCase()+"_inv");
+		ResourceLocation loc = new ResourceLocation(Techguns.MODID, registryName.getPath()+"_"+this.name().toLowerCase()+"_inv");
 		ModelLoader.setCustomModelResourceLocation(itemblock, meta, new ModelResourceLocation(loc, "inventory"));
 	}
 

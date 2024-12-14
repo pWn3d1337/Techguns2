@@ -125,7 +125,7 @@ public class BasicTGTileEntity extends TileEntity {
 		//this.world.markBlockRangeForRenderUpdate(pos, pos);
 		if(!this.world.isRemote) {
 			
-			ChunkPos cp = this.world.getChunkFromBlockCoords(getPos()).getPos();
+			ChunkPos cp = this.world.getChunk(getPos()).getPos();
 			PlayerChunkMapEntry entry = ((WorldServer)this.world).getPlayerChunkMap().getEntry(cp.x, cp.z);
 			if (entry!=null) {
 				entry.sendPacket(this.getUpdatePacket());

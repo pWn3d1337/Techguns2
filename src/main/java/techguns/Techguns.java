@@ -75,13 +75,13 @@ public class Techguns
 		
 	    @Override
 	    @SideOnly(Side.CLIENT)
-	    public ItemStack getTabIconItem() {
+	    public ItemStack createIcon() {
 	        return TGItems.newStack(TGItems.PISTOL_ROUNDS,1);
 	    }
 
 		@Override
-		public String getTranslatedTabLabel() {
-			return Techguns.MODID+"."+super.getTranslatedTabLabel();
+		public String getTranslationKey() {
+			return Techguns.MODID+"."+super.getTranslationKey();
 		}
 
 		@Override

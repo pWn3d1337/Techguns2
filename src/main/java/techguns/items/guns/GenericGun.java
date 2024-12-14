@@ -1057,7 +1057,7 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 			
 			ItemStack[] ammo = this.ammoType.getAmmo(this.getCurrentAmmoVariant(stack));
 			for(int i=0;i< ammo.length;i++) {
-				list.add(TextUtil.trans("techguns.gun.tooltip.ammo")+": "+(this.ammoCount>1 ? this.ammoCount+"x " : "")+ChatFormatting.WHITE+TextUtil.trans(ammo[i].getUnlocalizedName()+".name"));
+				list.add(TextUtil.trans("techguns.gun.tooltip.ammo")+": "+(this.ammoCount>1 ? this.ammoCount+"x " : "")+ChatFormatting.WHITE+TextUtil.trans(ammo[i].getTranslationKey()+".name"));
 			}
 			this.addMiningTooltip(stack, worldIn, list, flagIn, true);
 			list.add(TextUtil.trans("techguns.gun.tooltip.damageType")+": "+this.getDamageType(stack).toString());
@@ -1079,7 +1079,7 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 		} else {
 			ItemStack[] ammo = this.ammoType.getAmmo(this.getCurrentAmmoVariant(stack));
 			for(int i=0;i< ammo.length;i++) {
-				list.add(TextUtil.trans("techguns.gun.tooltip.ammo")+": "+(this.ammoCount>1 ? this.ammoCount+"x " : "")+ChatFormatting.WHITE+TextUtil.trans(ammo[i].getUnlocalizedName()+".name"));
+				list.add(TextUtil.trans("techguns.gun.tooltip.ammo")+": "+(this.ammoCount>1 ? this.ammoCount+"x " : "")+ChatFormatting.WHITE+TextUtil.trans(ammo[i].getTranslationKey()+".name"));
 			}
 			this.addMiningTooltip(stack, worldIn, list, flagIn, false);
 			list.add(TextUtil.trans("techguns.gun.tooltip.damage")+(this.shotgun ? ("(x"+ (this.bulletcount+1)+")") : "" )+": "+getTooltipTextDmg(stack,false));
@@ -1107,7 +1107,7 @@ public class GenericGun extends GenericItem implements IGenericGun, IItemTGRende
 			camoID=tags.getByte("camo");
 		}
 		if(camoID>0){
-			return TextUtil.trans(this.getUnlocalizedName()+".camoname."+camoID);
+			return TextUtil.trans(this.getTranslationKey()+".camoname."+camoID);
 		} else {
 			return TextUtil.trans("techguns.item.defaultcamo");
 		}

@@ -42,7 +42,7 @@ public class SimpleMachine<T extends Enum<T> & IStringSerializable & IMachineTyp
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		return this.getDefaultState()
-	    .withProperty(FACING, EnumFacing.getHorizontal(meta >> 2))
+	    .withProperty(FACING, EnumFacing.byHorizontalIndex(meta >> 2))
 	    .withProperty(MACHINE_TYPE, clazz.getEnumConstants()[meta & 0b11]);
     }
 
