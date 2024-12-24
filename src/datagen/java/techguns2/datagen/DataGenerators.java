@@ -12,6 +12,7 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import org.jetbrains.annotations.NotNull;
 import techguns2.Techguns;
 import techguns2.datagen.providers.IItemModelProvider;
 import techguns2.datagen.providers.IRecipeMetadataProvider;
@@ -21,18 +22,14 @@ import techguns2.datagen.recipes.ModRecipeProvider;
 public class DataGenerators
 {
     @SubscribeEvent
-    public static void gatherData(GatherDataEvent event) throws IOException
+    public static void gatherData(@NotNull GatherDataEvent event) throws IOException
     {
         DataGenerator generator = event.getGenerator();
         PackOutput packOutput = generator.getPackOutput();
         ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
         CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
-        
-        List<Object> possibleProviders = new ArrayList<>();
-        for (var itemMetadata : ItemMetadatas.getAll())
-        {
-            possibleProviders.add(itemMetadata);
-        }
+
+        List<Object> possibleProviders = new ArrayList<>(ItemMetadatas.getAll());
         
         generator.addProvider(false, new ModRecipeProvider(packOutput, 
                 possibleProviders

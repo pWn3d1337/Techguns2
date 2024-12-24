@@ -62,25 +62,25 @@ public final class BlockMetadata<TBlock extends Block> implements ILangMetadataP
                         .setRolls(ConstantValue.exactly(1f))
                         .add(LootItem.lootTableItem(this.block))
                         .when(ExplosionCondition.survivesExplosion()));
-        this.recipeMetadatas = new ArrayList<RecipeMetadata<?>>();
-        this.tags = new ArrayList<TagKey<Block>>();
-        this.itemTags = new ArrayList<TagKey<Item>>();
+        this.recipeMetadatas = new ArrayList<>();
+        this.tags = new ArrayList<>();
+        this.itemTags = new ArrayList<>();
     }
     
     @Override
-    public final CompletableFuture<List<LanguageMetadata>> fetchLanguageEntries()
+    public CompletableFuture<List<LanguageMetadata>> fetchLanguageEntries()
     {
         return CompletableFuture.completedFuture(ImmutableList.of(new LanguageMetadata(this.langId, this.langName)));
     }
     
     @Override
-    public final CompletableFuture<List<RecipeMetadata<?>>> fetchRecipes()
+    public CompletableFuture<List<RecipeMetadata<?>>> fetchRecipes()
     {
         return CompletableFuture.completedFuture(ImmutableList.copyOf(this.recipeMetadatas));
     }
     
     @Override
-    public final CompletableFuture<List<LootTableMetadata>> fetchLootTables()
+    public CompletableFuture<List<LootTableMetadata>> fetchLootTables()
     {
         return CompletableFuture.completedFuture(
                 ImmutableList.of(
@@ -91,7 +91,7 @@ public final class BlockMetadata<TBlock extends Block> implements ILangMetadataP
     }
     
     @Override
-    public final CompletableFuture<List<TagKey<?>>> fetchTags()
+    public CompletableFuture<List<TagKey<?>>> fetchTags()
     {
         ImmutableList.Builder<TagKey<?>> tags = ImmutableList.builder();
         for (TagKey<Block> blockTag : this.tags)
@@ -109,7 +109,7 @@ public final class BlockMetadata<TBlock extends Block> implements ILangMetadataP
     
     public static <TBlock extends Block> BlockMetadata<TBlock> of(RegistryObject<TBlock> block)
     {
-        return new BlockMetadata<TBlock>(block);
+        return new BlockMetadata<>(block);
     }
     
     

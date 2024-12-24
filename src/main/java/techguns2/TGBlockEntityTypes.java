@@ -39,18 +39,18 @@ public final class TGBlockEntityTypes implements TGInitializer
     public final void setup(IEventBus eventBus)
     {
         REGISTER.register(eventBus);
-        
+
         eventBus.addListener(TGBlockEntityTypes::registerEntityRendererLayers);
         eventBus.addListener(TGBlockEntityTypes::registerEntityRenderers);
     }
-    
+
     private static final DeferredRegister<BlockEntityType<?>> REGISTER = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, Techguns.MODID);
-    
+
     public static final RegistryObject<BlockEntityType<BioBlobBlockEntity>> BIO_BLOB = register("bio_blob", BioBlobBlockEntity::new, null, TGBlocks.BIO_BLOB);
-    
+
     public static final RegistryObject<BlockEntityType<NPCTurretBlockEntity>> NPC_TURRET = register("turret", NPCTurretBlockEntity::new, null, TGBlocks.TURRET);
     public static final RegistryObject<BlockEntityType<AmmoPressBlockEntity>> AMMO_PRESS = register("ammo_press", AmmoPressBlockEntity::new, null, TGBlocks.AMMO_PRESS);
-    public static final RegistryObject<BlockEntityType<GrinderBlockEntity>> GRINDER = register("ammo_press", GrinderBlockEntity::new, null, TGBlocks.GRINDER);
+    public static final RegistryObject<BlockEntityType<GrinderBlockEntity>> GRINDER = register("grinder", GrinderBlockEntity::new, null, TGBlocks.GRINDER);
     public static final RegistryObject<BlockEntityType<MetalPressBlockEntity>> METAL_PRESS = register("metal_press", MetalPressBlockEntity::new, null, TGBlocks.METAL_PRESS);
     public static final RegistryObject<BlockEntityType<AlloyFurnaceBlockEntity>> ALLOY_FURNACE = register("alloy_furnace", AlloyFurnaceBlockEntity::new, null, TGBlocks.ALLOY_FURNACE);
     public static final RegistryObject<BlockEntityType<ChemicalLaboratoryBlockEntity>> CHEMICAL_LABORATORY = register("chemical_laboratory", ChemicalLaboratoryBlockEntity::new, null, TGBlocks.CHEMICAL_LABORATORY);
@@ -59,7 +59,7 @@ public final class TGBlockEntityTypes implements TGInitializer
     public static final RegistryObject<BlockEntityType<ReactionChamberControllerBlockEntity>> REACTION_CHAMBER_CONTROLLER = register("reaction_chamber_controller", ReactionChamberControllerBlockEntity::new, null, TGBlocks.REACTION_CHAMBER_CONTROLLER);
     public static final RegistryObject<BlockEntityType<ReactionChamberPartBlockEntity>> REACTION_CHAMBER_PART = register("reaction_chamber_part", ReactionChamberPartBlockEntity::new, null, TGBlocks.REACTION_CHAMBER_PART);
     public static final RegistryObject<BlockEntityType<ChargingStationBlockEntity>> CHARGING_STATION = register("charging_station", ChargingStationBlockEntity::new, null, TGBlocks.CHARGING_STATION);
-    
+
     private static <T extends BlockEntity> RegistryObject<BlockEntityType<T>> register(
             String name,
             BlockEntitySupplier<T> blockEntitySupplier,
@@ -69,12 +69,12 @@ public final class TGBlockEntityTypes implements TGInitializer
     {
         return REGISTER.register(name, () -> BlockEntityType.Builder.of(blockEntitySupplier, blockSupplier.get()).build(dataFixerType));
     }
-    
+
     private static void registerEntityRendererLayers(EntityRenderersEvent.RegisterLayerDefinitions registerLayerDefinitionsEvent)
     {
         registerLayerDefinitionsEvent.registerLayerDefinition(AmmoPressRenderer.LAYER_LOCATION, AmmoPressRenderer::createLayer);
     }
-    
+
     private static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers registerEntityRenderersEvent)
     {
         registerEntityRenderersEvent.registerBlockEntityRenderer(TGBlockEntityTypes.AMMO_PRESS.get(), AmmoPressRenderer::new);

@@ -380,7 +380,7 @@ public final class ItemMetadatas
 
     private static final Map<ResourceLocation, ItemMetadata<?>> METADATA_MAP;
 
-    public static final Collection<ItemMetadata<?>> getAll()
+    public static Collection<ItemMetadata<?>> getAll()
     {
         return METADATA_MAP.values();
     }

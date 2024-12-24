@@ -25,6 +25,7 @@ import net.minecraftforge.common.crafting.ConditionalAdvancement;
 import net.minecraftforge.common.crafting.ConditionalRecipe;
 import net.minecraftforge.common.crafting.conditions.NotCondition;
 import net.minecraftforge.common.crafting.conditions.TagEmptyCondition;
+import org.jetbrains.annotations.NotNull;
 import techguns2.TGItems;
 import techguns2.Techguns;
 import techguns2.datagen.RecipeMetadata;
@@ -44,18 +45,18 @@ public class ModRecipeProvider extends RecipeProvider
     {
         super(output);
         
-        this._metadatas = new ArrayList<RecipeMetadata<?>>();
+        this._metadatas = new ArrayList<>();
         this._metadataProviders = metadataProviders.toList();
     }
     
     @Override
-    public final CompletableFuture<?> run(CachedOutput output)
+    public final @NotNull CompletableFuture<?> run(@NotNull CachedOutput output)
     {
         return this.collectMetadata()
                 .thenCompose((x) -> super.run(output));
     }
     
-    private final CompletableFuture<?> collectMetadata()
+    private CompletableFuture<?> collectMetadata()
     {
         CompletableFuture<?> completableFuture = CompletableFuture.runAsync(() -> {
             this._metadatas.clear();
@@ -66,18 +67,13 @@ public class ModRecipeProvider extends RecipeProvider
         {
             completableFuture = completableFuture
                     .thenComposeAsync(x -> metadataProvider.fetchRecipes())
-                    .thenAccept(recipeMetadatas -> {
-                        for (RecipeMetadata<?> recipeMetadata : recipeMetadatas)
-                        {
-                            this._metadatas.add(recipeMetadata);
-                        }
-                    });
+                    .thenAccept(this._metadatas::addAll);
         }
         
         return completableFuture;
     }
     
-    private final void collectBuiltInMetadatas()
+    private void collectBuiltInMetadatas()
     {
         {
             ResourceLocation id = new ResourceLocation(Techguns.MODID, "gunpowder_in_chemical_laboratory");
@@ -208,7 +204,7 @@ public class ModRecipeProvider extends RecipeProvider
     }
 
     @Override
-    protected final void buildRecipes(Consumer<FinishedRecipe> builder)
+    protected final void buildRecipes(@NotNull Consumer<FinishedRecipe> builder)
     {
         for (RecipeMetadata<?> recipeMetadata : this._metadatas)
         {

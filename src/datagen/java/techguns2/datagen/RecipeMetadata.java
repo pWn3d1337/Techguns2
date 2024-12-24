@@ -6,12 +6,7 @@ import java.util.function.Supplier;
 
 import javax.annotation.Nullable;
 
-import net.minecraft.data.recipes.FinishedRecipe;
-import net.minecraft.data.recipes.RecipeBuilder;
-import net.minecraft.data.recipes.RecipeCategory;
-import net.minecraft.data.recipes.ShapedRecipeBuilder;
-import net.minecraft.data.recipes.ShapelessRecipeBuilder;
-import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
+import net.minecraft.data.recipes.*;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -22,6 +17,9 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.common.crafting.ConditionalRecipe;
 import net.minecraftforge.registries.RegistryObject;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+
 import techguns2.machine.alloy_furnace.AlloyFurnaceRecipe;
 import techguns2.machine.ammo_press.AmmoPressRecipe;
 import techguns2.machine.charging_station.SimpleChargingStationRecipe;
@@ -47,12 +45,12 @@ public final class RecipeMetadata<T>
         this.recipeSaver = recipeSaver;
     }
     
-    public final void save(Consumer<FinishedRecipe> writer)
+    public void save(Consumer<FinishedRecipe> writer)
     {
         this.recipeSaver.accept(this, writer);
     }
     
-    public final T setupRecipeBuilder()
+    public T setupRecipeBuilder()
     {
         if (this.recipeBuilder == null)
         {
@@ -62,7 +60,8 @@ public final class RecipeMetadata<T>
         return this.recipeBuilder;
     }
     
-    public static RecipeMetadata<ShapelessRecipeBuilder> shapeless(
+    @Contract(value = "_, _, _, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<ShapelessRecipeBuilder> shapeless(
             ResourceLocation id,
             RecipeCategory recipeCategory,
             ItemLike result,
@@ -75,7 +74,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<ShapelessRecipeBuilder> shapeless(
+    @Contract(value = "_, _, _, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<ShapelessRecipeBuilder> shapeless(
             ResourceLocation id,
             RecipeCategory recipeCategory,
             RegistryObject<? extends ItemLike> resultObject,
@@ -88,7 +88,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<ShapelessRecipeBuilder> shapeless(
+    @Contract(value = "_, _, _, _, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<ShapelessRecipeBuilder> shapeless(
             ResourceLocation id,
             RecipeCategory recipeCategory,
             ItemLike result,
@@ -102,7 +103,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<ShapelessRecipeBuilder> shapeless(
+    @Contract(value = "_, _, _, _, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<ShapelessRecipeBuilder> shapeless(
             ResourceLocation id,
             RecipeCategory recipeCategory,
             RegistryObject<? extends ItemLike> resultObject,
@@ -116,7 +118,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<ShapedRecipeBuilder> shaped(
+    @Contract(value = "_, _, _, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<ShapedRecipeBuilder> shaped(
             ResourceLocation id,
             RecipeCategory recipeCategory,
             ItemLike result,
@@ -129,7 +132,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<ShapedRecipeBuilder> shaped(
+    @Contract(value = "_, _, _, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<ShapedRecipeBuilder> shaped(
             ResourceLocation id,
             RecipeCategory recipeCategory,
             RegistryObject<? extends ItemLike> resultObject,
@@ -142,7 +146,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<ShapedRecipeBuilder> shaped(
+    @Contract(value = "_, _, _, _, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<ShapedRecipeBuilder> shaped(
             ResourceLocation id,
             RecipeCategory recipeCategory,
             ItemLike result,
@@ -156,7 +161,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<ShapedRecipeBuilder> shaped(
+    @Contract(value = "_, _, _, _, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<ShapedRecipeBuilder> shaped(
             ResourceLocation id,
             RecipeCategory recipeCategory,
             RegistryObject<? extends ItemLike> resultObject,
@@ -171,7 +177,8 @@ public final class RecipeMetadata<T>
     }
     
 
-    public static RecipeMetadata<SimpleCookingRecipeBuilder> genericCooking(
+    @Contract(value = "_, _, _, _, _, _, _, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<SimpleCookingRecipeBuilder> genericCooking(
             ResourceLocation id,
             Ingredient input,
             RecipeCategory category,
@@ -194,7 +201,8 @@ public final class RecipeMetadata<T>
         });
     }
 
-    public static RecipeMetadata<SimpleCookingRecipeBuilder> campfireCooking(
+    @Contract(value = "_, _, _, _, _, _, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<SimpleCookingRecipeBuilder> campfireCooking(
             ResourceLocation id,
             Ingredient input,
             RecipeCategory category,
@@ -215,7 +223,8 @@ public final class RecipeMetadata<T>
         });
     }
 
-    public static RecipeMetadata<SimpleCookingRecipeBuilder> blasting(
+    @Contract(value = "_, _, _, _, _, _, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<SimpleCookingRecipeBuilder> blasting(
             ResourceLocation id,
             Ingredient input,
             RecipeCategory category,
@@ -236,7 +245,8 @@ public final class RecipeMetadata<T>
         });
     }
 
-    public static RecipeMetadata<SimpleCookingRecipeBuilder> smelting(
+    @Contract(value = "_, _, _, _, _, _, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<SimpleCookingRecipeBuilder> smelting(
             ResourceLocation id,
             Ingredient input,
             RecipeCategory category,
@@ -257,7 +267,8 @@ public final class RecipeMetadata<T>
         });
     }
 
-    public static RecipeMetadata<SimpleCookingRecipeBuilder> smoking(
+    @Contract(value = "_, _, _, _, _, _, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<SimpleCookingRecipeBuilder> smoking(
             ResourceLocation id,
             Ingredient input,
             RecipeCategory category,
@@ -278,7 +289,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<AmmoPressRecipe.Builder> ammoPress(
+    @Contract(value = "_, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<AmmoPressRecipe.Builder> ammoPress(
             ResourceLocation id,
             Consumer<AmmoPressRecipe.Builder> recipeBuilder)
     {
@@ -289,7 +301,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<AmmoPressRecipe.Builder> ammoPress(
+    @Contract(value = "_, _, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<AmmoPressRecipe.Builder> ammoPress(
             ResourceLocation id,
             ItemLike result,
             Consumer<AmmoPressRecipe.Builder> recipeBuilder)
@@ -302,7 +315,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<AmmoPressRecipe.Builder> ammoPress(
+    @Contract(value = "_, _, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<AmmoPressRecipe.Builder> ammoPress(
             ResourceLocation id,
             RegistryObject<? extends ItemLike> resultObject,
             Consumer<AmmoPressRecipe.Builder> recipeBuilder)
@@ -315,7 +329,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<AmmoPressRecipe.Builder> ammoPress(
+    @Contract(value = "_, _, _, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<AmmoPressRecipe.Builder> ammoPress(
             ResourceLocation id,
             ItemLike result,
             @Nullable CompoundTag nbt,
@@ -329,7 +344,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<AmmoPressRecipe.Builder> ammoPress(
+    @Contract(value = "_, _, _, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<AmmoPressRecipe.Builder> ammoPress(
             ResourceLocation id,
             RegistryObject<? extends ItemLike> resultObject,
             @Nullable CompoundTag nbt,
@@ -343,7 +359,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<AmmoPressRecipe.Builder> ammoPress(
+    @Contract(value = "_, _, _, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<AmmoPressRecipe.Builder> ammoPress(
             ResourceLocation id,
             ItemLike result,
             int amount,
@@ -357,7 +374,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<AmmoPressRecipe.Builder> ammoPress(
+    @Contract(value = "_, _, _, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<AmmoPressRecipe.Builder> ammoPress(
             ResourceLocation id,
             RegistryObject<? extends ItemLike> resultObject,
             int amount,
@@ -371,7 +389,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<AmmoPressRecipe.Builder> ammoPress(
+    @Contract(value = "_, _, _, _, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<AmmoPressRecipe.Builder> ammoPress(
             ResourceLocation id,
             ItemLike result,
             int amount,
@@ -386,7 +405,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<AmmoPressRecipe.Builder> ammoPress(
+    @Contract(value = "_, _, _, _, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<AmmoPressRecipe.Builder> ammoPress(
             ResourceLocation id,
             RegistryObject<? extends ItemLike> resultObject,
             int amount,
@@ -401,7 +421,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<AlloyFurnaceRecipe.Builder> alloyFurnace(
+    @Contract(value = "_, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<AlloyFurnaceRecipe.Builder> alloyFurnace(
             ResourceLocation id,
             Consumer<AlloyFurnaceRecipe.Builder> recipeBuilder)
     {
@@ -412,7 +433,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<AlloyFurnaceRecipe.Builder> alloyFurnace(
+    @Contract(value = "_, _, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<AlloyFurnaceRecipe.Builder> alloyFurnace(
             ResourceLocation id,
             ItemLike result,
             Consumer<AlloyFurnaceRecipe.Builder> recipeBuilder)
@@ -425,7 +447,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<AlloyFurnaceRecipe.Builder> alloyFurnace(
+    @Contract(value = "_, _, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<AlloyFurnaceRecipe.Builder> alloyFurnace(
             ResourceLocation id,
             RegistryObject<? extends ItemLike> resultObject,
             Consumer<AlloyFurnaceRecipe.Builder> recipeBuilder)
@@ -438,7 +461,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<AlloyFurnaceRecipe.Builder> alloyFurnace(
+    @Contract(value = "_, _, _, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<AlloyFurnaceRecipe.Builder> alloyFurnace(
             ResourceLocation id,
             ItemLike result,
             @Nullable CompoundTag nbt,
@@ -452,7 +476,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<AlloyFurnaceRecipe.Builder> alloyFurnace(
+    @Contract(value = "_, _, _, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<AlloyFurnaceRecipe.Builder> alloyFurnace(
             ResourceLocation id,
             RegistryObject<? extends ItemLike> resultObject,
             @Nullable CompoundTag nbt,
@@ -466,7 +491,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<AlloyFurnaceRecipe.Builder> alloyFurnace(
+    @Contract(value = "_, _, _, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<AlloyFurnaceRecipe.Builder> alloyFurnace(
             ResourceLocation id,
             ItemLike result,
             int amount,
@@ -480,7 +506,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<AlloyFurnaceRecipe.Builder> alloyFurnace(
+    @Contract(value = "_, _, _, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<AlloyFurnaceRecipe.Builder> alloyFurnace(
             ResourceLocation id,
             RegistryObject<? extends ItemLike> resultObject,
             int amount,
@@ -494,7 +521,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<AlloyFurnaceRecipe.Builder> alloyFurnace(
+    @Contract(value = "_, _, _, _, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<AlloyFurnaceRecipe.Builder> alloyFurnace(
             ResourceLocation id,
             ItemLike result,
             int amount,
@@ -509,7 +537,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<AlloyFurnaceRecipe.Builder> alloyFurnace(
+    @Contract(value = "_, _, _, _, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<AlloyFurnaceRecipe.Builder> alloyFurnace(
             ResourceLocation id,
             RegistryObject<? extends ItemLike> resultObject,
             int amount,
@@ -524,7 +553,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<SimpleChargingStationRecipe.Builder> charging(
+    @Contract(value = "_, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<SimpleChargingStationRecipe.Builder> charging(
             ResourceLocation id,
             Consumer<SimpleChargingStationRecipe.Builder> recipeBuilder)
     {
@@ -535,7 +565,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<SimpleChargingStationRecipe.Builder> charging(
+    @Contract(value = "_, _, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<SimpleChargingStationRecipe.Builder> charging(
             ResourceLocation id,
             ItemLike result,
             Consumer<SimpleChargingStationRecipe.Builder> recipeBuilder)
@@ -548,7 +579,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<SimpleChargingStationRecipe.Builder> charging(
+    @Contract(value = "_, _, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<SimpleChargingStationRecipe.Builder> charging(
             ResourceLocation id,
             RegistryObject<? extends ItemLike> resultObject,
             Consumer<SimpleChargingStationRecipe.Builder> recipeBuilder)
@@ -561,7 +593,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<SimpleChargingStationRecipe.Builder> charging(
+    @Contract(value = "_, _, _, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<SimpleChargingStationRecipe.Builder> charging(
             ResourceLocation id,
             ItemLike result,
             @Nullable CompoundTag nbt,
@@ -575,7 +608,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<SimpleChargingStationRecipe.Builder> charging(
+    @Contract(value = "_, _, _, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<SimpleChargingStationRecipe.Builder> charging(
             ResourceLocation id,
             RegistryObject<? extends ItemLike> resultObject,
             @Nullable CompoundTag nbt,
@@ -589,7 +623,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<SimpleChargingStationRecipe.Builder> charging(
+    @Contract(value = "_, _, _, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<SimpleChargingStationRecipe.Builder> charging(
             ResourceLocation id,
             ItemLike result,
             int amount,
@@ -603,7 +638,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<SimpleChargingStationRecipe.Builder> charging(
+    @Contract(value = "_, _, _, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<SimpleChargingStationRecipe.Builder> charging(
             ResourceLocation id,
             RegistryObject<? extends ItemLike> resultObject,
             int amount,
@@ -617,7 +653,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<SimpleChargingStationRecipe.Builder> charging(
+    @Contract(value = "_, _, _, _, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<SimpleChargingStationRecipe.Builder> charging(
             ResourceLocation id,
             ItemLike result,
             int amount,
@@ -632,7 +669,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<SimpleChargingStationRecipe.Builder> charging(
+    @Contract(value = "_, _, _, _, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<SimpleChargingStationRecipe.Builder> charging(
             ResourceLocation id,
             RegistryObject<? extends ItemLike> resultObject,
             int amount,
@@ -647,7 +685,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<ChemicalLaboratoryRecipe.Builder> chemicalLaboratory(
+    @Contract(value = "_, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<ChemicalLaboratoryRecipe.Builder> chemicalLaboratory(
             ResourceLocation id,
             Consumer<ChemicalLaboratoryRecipe.Builder> recipeBuilder)
     {
@@ -658,7 +697,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<FabricatorRecipe.Builder> fabricator(
+    @Contract(value = "_, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<FabricatorRecipe.Builder> fabricator(
             ResourceLocation id,
             Consumer<FabricatorRecipe.Builder> recipeBuilder)
     {
@@ -669,7 +709,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<FabricatorRecipe.Builder> fabricator(
+    @Contract(value = "_, _, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<FabricatorRecipe.Builder> fabricator(
             ResourceLocation id,
             ItemLike result,
             Consumer<FabricatorRecipe.Builder> recipeBuilder)
@@ -682,7 +723,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<FabricatorRecipe.Builder> fabricator(
+    @Contract(value = "_, _, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<FabricatorRecipe.Builder> fabricator(
             ResourceLocation id,
             RegistryObject<? extends ItemLike> resultObject,
             Consumer<FabricatorRecipe.Builder> recipeBuilder)
@@ -695,7 +737,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<FabricatorRecipe.Builder> fabricator(
+    @Contract(value = "_, _, _, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<FabricatorRecipe.Builder> fabricator(
             ResourceLocation id,
             ItemLike result,
             @Nullable CompoundTag nbt,
@@ -709,7 +752,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<FabricatorRecipe.Builder> fabricator(
+    @Contract(value = "_, _, _, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<FabricatorRecipe.Builder> fabricator(
             ResourceLocation id,
             RegistryObject<? extends ItemLike> resultObject,
             @Nullable CompoundTag nbt,
@@ -723,7 +767,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<FabricatorRecipe.Builder> fabricator(
+    @Contract(value = "_, _, _, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<FabricatorRecipe.Builder> fabricator(
             ResourceLocation id,
             ItemLike result,
             int amount,
@@ -737,7 +782,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<FabricatorRecipe.Builder> fabricator(
+    @Contract(value = "_, _, _, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<FabricatorRecipe.Builder> fabricator(
             ResourceLocation id,
             RegistryObject<? extends ItemLike> resultObject,
             int amount,
@@ -751,7 +797,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<FabricatorRecipe.Builder> fabricator(
+    @Contract(value = "_, _, _, _, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<FabricatorRecipe.Builder> fabricator(
             ResourceLocation id,
             ItemLike result,
             int amount,
@@ -766,7 +813,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<FabricatorRecipe.Builder> fabricator(
+    @Contract(value = "_, _, _, _, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<FabricatorRecipe.Builder> fabricator(
             ResourceLocation id,
             RegistryObject<? extends ItemLike> resultObject,
             int amount,
@@ -781,7 +829,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<GrinderRecipe.Builder> grinder(
+    @Contract(value = "_, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<GrinderRecipe.Builder> grinder(
             ResourceLocation id,
             Consumer<GrinderRecipe.Builder> recipeBuilder)
     {
@@ -792,7 +841,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<GrinderRecipe.Builder> grinder(
+    @Contract(value = "_, _, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<GrinderRecipe.Builder> grinder(
             ResourceLocation id,
             ItemLike inputItem,
             Consumer<GrinderRecipe.Builder> recipeBuilder)
@@ -805,7 +855,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<GrinderRecipe.Builder> grinder(
+    @Contract(value = "_, _, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<GrinderRecipe.Builder> grinder(
             ResourceLocation id,
             RegistryObject<? extends ItemLike> inputItemObject,
             Consumer<GrinderRecipe.Builder> recipeBuilder)
@@ -818,7 +869,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<GrinderRecipe.Builder> grinder(
+    @Contract(value = "_, _, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<GrinderRecipe.Builder> grinder(
             ResourceLocation id,
             TagKey<Item> inputItemTag,
             Consumer<GrinderRecipe.Builder> recipeBuilder)
@@ -831,7 +883,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<ChancedGrinderRecipe.Builder> grinderChanced(
+    @Contract(value = "_, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<ChancedGrinderRecipe.Builder> grinderChanced(
             ResourceLocation id,
             Consumer<ChancedGrinderRecipe.Builder> recipeBuilder)
     {
@@ -842,7 +895,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<ChancedGrinderRecipe.Builder> grinderChanced(
+    @Contract(value = "_, _, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<ChancedGrinderRecipe.Builder> grinderChanced(
             ResourceLocation id,
             ItemLike inputItem,
             Consumer<ChancedGrinderRecipe.Builder> recipeBuilder)
@@ -855,7 +909,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<ChancedGrinderRecipe.Builder> grinderChanced(
+    @Contract(value = "_, _, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<ChancedGrinderRecipe.Builder> grinderChanced(
             ResourceLocation id,
             RegistryObject<? extends ItemLike> inputItemObject,
             Consumer<ChancedGrinderRecipe.Builder> recipeBuilder)
@@ -868,7 +923,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<ChancedGrinderRecipe.Builder> grinderChanced(
+    @Contract(value = "_, _, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<ChancedGrinderRecipe.Builder> grinderChanced(
             ResourceLocation id,
             TagKey<Item> inputItemTag,
             Consumer<ChancedGrinderRecipe.Builder> recipeBuilder)
@@ -881,7 +937,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<MetalPressRecipe.Builder> metalPress(
+    @Contract(value = "_, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<MetalPressRecipe.Builder> metalPress(
             ResourceLocation id,
             Consumer<MetalPressRecipe.Builder> recipeBuilder)
     {
@@ -892,7 +949,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<MetalPressRecipe.Builder> metalPress(
+    @Contract(value = "_, _, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<MetalPressRecipe.Builder> metalPress(
             ResourceLocation id,
             ItemLike result,
             Consumer<MetalPressRecipe.Builder> recipeBuilder)
@@ -905,7 +963,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<MetalPressRecipe.Builder> metalPress(
+    @Contract(value = "_, _, _, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<MetalPressRecipe.Builder> metalPress(
             ResourceLocation id,
             ItemLike result,
             @Nullable
@@ -920,7 +979,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<MetalPressRecipe.Builder> metalPress(
+    @Contract(value = "_, _, _, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<MetalPressRecipe.Builder> metalPress(
             ResourceLocation id,
             ItemLike result,
             int count,
@@ -934,7 +994,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<MetalPressRecipe.Builder> metalPress(
+    @Contract(value = "_, _, _, _, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<MetalPressRecipe.Builder> metalPress(
             ResourceLocation id,
             ItemLike result,
             int count,
@@ -950,7 +1011,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<MetalPressRecipe.Builder> metalPress(
+    @Contract(value = "_, _, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<MetalPressRecipe.Builder> metalPress(
             ResourceLocation id,
             RegistryObject<? extends ItemLike> resultObject,
             Consumer<MetalPressRecipe.Builder> recipeBuilder)
@@ -963,7 +1025,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<MetalPressRecipe.Builder> metalPress(
+    @Contract(value = "_, _, _, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<MetalPressRecipe.Builder> metalPress(
             ResourceLocation id,
             RegistryObject<? extends ItemLike> resultObject,
             @Nullable
@@ -978,7 +1041,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<MetalPressRecipe.Builder> metalPress(
+    @Contract(value = "_, _, _, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<MetalPressRecipe.Builder> metalPress(
             ResourceLocation id,
             RegistryObject<? extends ItemLike> resultObject,
             int count,
@@ -992,7 +1056,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<MetalPressRecipe.Builder> metalPress(
+    @Contract(value = "_, _, _, _, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<MetalPressRecipe.Builder> metalPress(
             ResourceLocation id,
             RegistryObject<? extends ItemLike> resultObject,
             int count,
@@ -1008,7 +1073,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<ReactionChamberRecipe.Builder> reactionChamber(
+    @Contract(value = "_, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<ReactionChamberRecipe.Builder> reactionChamber(
             ResourceLocation id,
             Consumer<ReactionChamberRecipe.Builder> recipeBuilder)
     {
@@ -1019,7 +1085,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<ReactionChamberRecipe.Builder> reactionChamber(
+    @Contract(value = "_, _, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<ReactionChamberRecipe.Builder> reactionChamber(
             ResourceLocation id,
             ItemLike result,
             Consumer<ReactionChamberRecipe.Builder> recipeBuilder)
@@ -1032,7 +1099,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<ReactionChamberRecipe.Builder> reactionChamber(
+    @Contract(value = "_, _, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<ReactionChamberRecipe.Builder> reactionChamber(
             ResourceLocation id,
             RegistryObject<? extends ItemLike> resultObject,
             Consumer<ReactionChamberRecipe.Builder> recipeBuilder)
@@ -1045,7 +1113,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<ReactionChamberRecipe.Builder> reactionChamber(
+    @Contract(value = "_, _, _, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<ReactionChamberRecipe.Builder> reactionChamber(
             ResourceLocation id,
             ItemLike result,
             @Nullable CompoundTag nbt,
@@ -1059,7 +1128,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<ReactionChamberRecipe.Builder> reactionChamber(
+    @Contract(value = "_, _, _, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<ReactionChamberRecipe.Builder> reactionChamber(
             ResourceLocation id,
             RegistryObject<? extends ItemLike> resultObject,
             @Nullable CompoundTag nbt,
@@ -1073,7 +1143,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<ReactionChamberRecipe.Builder> reactionChamber(
+    @Contract(value = "_, _, _, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<ReactionChamberRecipe.Builder> reactionChamber(
             ResourceLocation id,
             ItemLike result,
             int amount,
@@ -1087,7 +1158,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<ReactionChamberRecipe.Builder> reactionChamber(
+    @Contract(value = "_, _, _, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<ReactionChamberRecipe.Builder> reactionChamber(
             ResourceLocation id,
             RegistryObject<? extends ItemLike> resultObject,
             int amount,
@@ -1101,7 +1173,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<ReactionChamberRecipe.Builder> reactionChamber(
+    @Contract(value = "_, _, _, _, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<ReactionChamberRecipe.Builder> reactionChamber(
             ResourceLocation id,
             ItemLike result,
             int amount,
@@ -1116,7 +1189,8 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static RecipeMetadata<ReactionChamberRecipe.Builder> reactionChamber(
+    @Contract(value = "_, _, _, _, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<ReactionChamberRecipe.Builder> reactionChamber(
             ResourceLocation id,
             RegistryObject<? extends ItemLike> resultObject,
             int amount,
@@ -1131,26 +1205,28 @@ public final class RecipeMetadata<T>
         });
     }
     
-    public static <T extends RecipeBuilder> RecipeMetadata<T> fromBuilder(ResourceLocation id, Supplier<T> builderFactory)
+    @Contract(value = "_, _ -> new", pure = true)
+    public static <T extends RecipeBuilder> @NotNull RecipeMetadata<T> fromBuilder(ResourceLocation id, Supplier<T> builderFactory)
     {
-        return new RecipeMetadata<T>(id, builderFactory, RecipeMetadata::recipeBuilderSaver);
+        return new RecipeMetadata<>(id, builderFactory, RecipeMetadata::recipeBuilderSaver);
     }
     
-    public static RecipeMetadata<ConditionalRecipe.Builder> fromConditional(ResourceLocation id, Consumer<ConditionalRecipe.Builder> recipeBuilder)
+    @Contract(value = "_, _ -> new", pure = true)
+    public static @NotNull RecipeMetadata<ConditionalRecipe.Builder> fromConditional(ResourceLocation id, Consumer<ConditionalRecipe.Builder> recipeBuilder)
     {
-        return new RecipeMetadata<ConditionalRecipe.Builder>(id, () -> {
+        return new RecipeMetadata<>(id, () -> {
             var builder = new ConditionalRecipe.Builder();
             recipeBuilder.accept(builder);
             return builder;
         }, RecipeMetadata::conditionalRecipeSaver);
     }
     
-    private static void conditionalRecipeSaver(RecipeMetadata<ConditionalRecipe.Builder> metadata, Consumer<FinishedRecipe> writer)
+    private static void conditionalRecipeSaver(@NotNull RecipeMetadata<ConditionalRecipe.Builder> metadata, Consumer<FinishedRecipe> writer)
     {
         metadata.setupRecipeBuilder().build(writer, metadata.id);
     }
     
-    private static <T extends RecipeBuilder> void recipeBuilderSaver(RecipeMetadata<T> metadata, Consumer<FinishedRecipe> writer)
+    private static <T extends RecipeBuilder> void recipeBuilderSaver(@NotNull RecipeMetadata<T> metadata, Consumer<FinishedRecipe> writer)
     {
         metadata.setupRecipeBuilder().save(writer, metadata.id);
     }

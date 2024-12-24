@@ -43,21 +43,21 @@ import techguns2.machine.grinder.GrinderBlock;
 public final class TGBlocks implements TGInitializer
 {
 
-    protected TGBlocks()
+    TGBlocks()
     { }
-    
+
     private static final DeferredRegister<Block> BLOCK_REGISTER = DeferredRegister.create(ForgeRegistries.BLOCKS, Techguns.MODID);
     private static final DeferredRegister<Item> ITEM_REGISTER = DeferredRegister.create(ForgeRegistries.ITEMS, Techguns.MODID);
 
     @Override
-    public final void setup(IEventBus eventBus)
+    public void setup(IEventBus eventBus)
     {
         BLOCK_REGISTER.register(eventBus);
         ITEM_REGISTER.register(eventBus);
     }
-    
-    protected static final List<RegistryObject<? extends Block>> MACHINE_BLOCKS = new ArrayList<RegistryObject<? extends Block>>();
-    
+
+    static final List<RegistryObject<? extends Block>> MACHINE_BLOCKS = new ArrayList<>();
+
     public static final RegistryObject<Block> TIN_ORE = registerCommon(
             "tin_ore",
             () -> new DropExperienceBlock(BlockBehaviour.Properties.of()
@@ -168,7 +168,7 @@ public final class TGBlocks implements TGInitializer
                     .sound(SoundType.STONE)
                     .strength(5.0F, 6.0F)),
             (block) -> new BlockItem(block, new Item.Properties()));
-    
+
     public static final RegistryObject<BioBlobBlock> BIO_BLOB = registerCommon(
             "bio_blob",
             () -> new BioBlobBlock(BlockBehaviour.Properties.of()
@@ -176,7 +176,7 @@ public final class TGBlocks implements TGInitializer
                     .lightLevel(x -> 7)
                     .sound(SoundType.SLIME_BLOCK)),
             (block) -> new BlockItem(block, new Item.Properties()));
-    
+
     public static final RegistryObject<SandBagsBlock> SANDBAGS = registerCommon(
             "sandbags",
             () -> new SandBagsBlock(BlockBehaviour.Properties.of()
@@ -185,7 +185,7 @@ public final class TGBlocks implements TGInitializer
                     .forceSolidOn()
                     .strength(3.0F, 15.0F)),
             (block) -> new BlockItem(block, new Item.Properties()));
-    
+
     public static final RegistryObject<TGLampBlock> YELLOW_LAMP = registerCommon(
             "yellow_lamp",
             () -> new TGLampBlock(BlockBehaviour.Properties.of()
@@ -196,7 +196,7 @@ public final class TGBlocks implements TGInitializer
                     .noOcclusion()
                     .sound(SoundType.GLASS)),
             (block) -> new BlockItem(block, new Item.Properties()));
-    
+
     public static final RegistryObject<TGLampBlock> WHITE_LAMP = registerCommon(
             "white_lamp",
             () -> new TGLampBlock(BlockBehaviour.Properties.of()
@@ -207,7 +207,7 @@ public final class TGBlocks implements TGInitializer
                     .noOcclusion()
                     .sound(SoundType.GLASS)),
             (block) -> new BlockItem(block, new Item.Properties()));
-    
+
     public static final RegistryObject<TGLanternBlock> LANTERN = registerCommon(
             "yellow_lantern",
             () -> new TGLanternBlock(BlockBehaviour.Properties.of()
@@ -218,7 +218,7 @@ public final class TGBlocks implements TGInitializer
                     .noOcclusion()
                     .sound(SoundType.GLASS)),
             (block) -> new BlockItem(block, new Item.Properties()));
-    
+
     public static final RegistryObject<TGLanternBlock> WHITE_LANTERN = registerCommon(
             "white_lantern",
             () -> new TGLanternBlock(BlockBehaviour.Properties.of()
@@ -229,7 +229,7 @@ public final class TGBlocks implements TGInitializer
                     .noOcclusion()
                     .sound(SoundType.GLASS)),
             (block) -> new BlockItem(block, new Item.Properties()));
-    
+
     public static final RegistryObject<TGLadderBlock> METAL_LADDER = registerCommon(
             "metal_ladder",
             () -> new TGLadderBlock(BlockBehaviour.Properties.of()
@@ -238,7 +238,7 @@ public final class TGBlocks implements TGInitializer
                     .strength(6.0F)
                     .sound(SoundType.METAL)),
             (block) -> new BlockItem(block, new Item.Properties()));
-    
+
     public static final RegistryObject<TGLadderBlock> SHINY_LADDER = registerCommon(
             "shiny_ladder",
             () -> new TGLadderBlock(BlockBehaviour.Properties.of()
@@ -247,7 +247,7 @@ public final class TGBlocks implements TGInitializer
                     .strength(6.0F)
                     .sound(SoundType.METAL)),
             (block) -> new BlockItem(block, new Item.Properties()));
-    
+
     public static final RegistryObject<TGLadderBlock> RUSTY_LADDER = registerCommon(
             "rusty_ladder",
             () -> new TGLadderBlock(BlockBehaviour.Properties.of()
@@ -256,7 +256,7 @@ public final class TGBlocks implements TGInitializer
                     .strength(6.0F)
                     .sound(SoundType.METAL)),
             (block) -> new BlockItem(block, new Item.Properties()));
-    
+
     public static final RegistryObject<TGLadderBlock> CARBON_LADDER = registerCommon(
             "carbon_ladder",
             () -> new TGLadderBlock(BlockBehaviour.Properties.of()
@@ -265,7 +265,7 @@ public final class TGBlocks implements TGInitializer
                     .strength(6.0F)
                     .sound(SoundType.METAL)),
             (block) -> new BlockItem(block, new Item.Properties()));
-    
+
     public static final RegistryObject<NeonLightRotatableBlock> NEON_LIGHT = registerCommon(
             "neon_light",
             () -> new NeonLightRotatableBlock(BlockBehaviour.Properties.of()
@@ -275,7 +275,7 @@ public final class TGBlocks implements TGInitializer
                     .strength(4.0F)
                     .sound(SoundType.GLASS)),
             (block) -> new BlockItem(block, new Item.Properties()));
-    
+
     public static final RegistryObject<NeonLightRotatableBlock> QUAD_NEON_LIGHT = registerCommon(
             "quad_neon_light",
             () -> new NeonLightRotatableBlock(BlockBehaviour.Properties.of()
@@ -285,7 +285,7 @@ public final class TGBlocks implements TGInitializer
                     .strength(4.0F)
                     .sound(SoundType.GLASS)),
             (block) -> new BlockItem(block, new Item.Properties()));
-    
+
     public static final RegistryObject<NeonLightBlock> SQUARE_NEON_LIGHT = registerCommon(
             "square_neon_light",
             () -> new NeonLightBlock(BlockBehaviour.Properties.of()
@@ -295,167 +295,166 @@ public final class TGBlocks implements TGInitializer
                     .strength(4.0F)
                     .sound(SoundType.GLASS)),
             (block) -> new BlockItem(block, new Item.Properties()));
-    
+
     public static final RegistryObject<CrateBlock> CRATE = registerCommon(
             "ammo_crate",
             () -> new CrateBlock(BlockBehaviour.Properties.of()
                     // TODO: Properties
                     .sound(SoundType.STONE)),
             (block) -> new BlockItem(block, new Item.Properties()));
-    
+
     public static final RegistryObject<CrateBlock> WEAPON_CRATE = registerCommon(
             "weapon_crate",
             () -> new CrateBlock(BlockBehaviour.Properties.of()
                     // TODO: Properties
                     .sound(SoundType.STONE)),
             (block) -> new BlockItem(block, new Item.Properties()));
-    
+
     public static final RegistryObject<CrateBlock> ARMOR_CRATE = registerCommon(
             "armor_crate",
             () -> new CrateBlock(BlockBehaviour.Properties.of()
                     // TODO: Properties
                     .sound(SoundType.STONE)),
             (block) -> new BlockItem(block, new Item.Properties()));
-    
+
     public static final RegistryObject<CrateBlock> MEDICAL_CRATE = registerCommon(
             "medical_crate",
             () -> new CrateBlock(BlockBehaviour.Properties.of()
                     // TODO: Properties
                     .sound(SoundType.STONE)),
             (block) -> new BlockItem(block, new Item.Properties()));
-    
+
     public static final RegistryObject<CrateBlock> EXPLOSIVES_CRATE = registerCommon(
             "explosives_crate",
             () -> new CrateBlock(BlockBehaviour.Properties.of()
                     // TODO: Properties
                     .sound(SoundType.STONE)),
             (block) -> new BlockItem(block, new Item.Properties()));
-    
+
     public static final RegistryObject<CrateBlock> OAK_SUPPLY_CRATE = registerCommon(
             "oak_supply_crate",
             () -> new CrateBlock(BlockBehaviour.Properties.of()
                     // TODO: Properties
                     .sound(SoundType.STONE)),
             (block) -> new BlockItem(block, new Item.Properties()));
-    
+
     public static final RegistryObject<CrateBlock> SPRUCE_SUPPLY_CRATE = registerCommon(
             "spruce_supply_crate",
             () -> new CrateBlock(BlockBehaviour.Properties.of()
                     // TODO: Properties
                     .sound(SoundType.STONE)),
             (block) -> new BlockItem(block, new Item.Properties()));
-    
+
     public static final RegistryObject<CrateBlock> BIRCH_SUPPLY_CRATE = registerCommon(
             "birch_supply_crate",
             () -> new CrateBlock(BlockBehaviour.Properties.of()
                     // TODO: Properties
                     .sound(SoundType.STONE)),
             (block) -> new BlockItem(block, new Item.Properties()));
-    
+
     public static final RegistryObject<CrateBlock> JUNGLE_SUPPLY_CRATE = registerCommon(
             "jungle_supply_crate",
             () -> new CrateBlock(BlockBehaviour.Properties.of()
                     // TODO: Properties
                     .sound(SoundType.STONE)),
             (block) -> new BlockItem(block, new Item.Properties()));
-    
-    public static final RegistryObject<AmmoPressBlock> AMMO_PRESS = registerMachine("ammo_press", 
+
+    public static final RegistryObject<AmmoPressBlock> AMMO_PRESS = registerMachine("ammo_press",
             () -> new AmmoPressBlock(BlockBehaviour.Properties.of()),
             (block) -> new BlockItem(block, new Item.Properties()));
-    
-    public static final RegistryObject<MetalPressBlock> METAL_PRESS = registerMachine("metal_press", 
+
+    public static final RegistryObject<MetalPressBlock> METAL_PRESS = registerMachine("metal_press",
             () -> new MetalPressBlock(BlockBehaviour.Properties.of()),
             (block) -> new BlockItem(block, new Item.Properties()));
-    
-    public static final RegistryObject<ChemicalLaboratoryBlock> CHEMICAL_LABORATORY = registerMachine("chemical_laboratory", 
+
+    public static final RegistryObject<ChemicalLaboratoryBlock> CHEMICAL_LABORATORY = registerMachine("chemical_laboratory",
             () -> new ChemicalLaboratoryBlock(BlockBehaviour.Properties.of()),
             (block) -> new BlockItem(block, new Item.Properties()));
-    
-    public static final RegistryObject<NPCTurretBlock> TURRET = registerMachine("turret", 
+
+    public static final RegistryObject<NPCTurretBlock> TURRET = registerMachine("turret",
             () -> new NPCTurretBlock(BlockBehaviour.Properties.of()),
             (block) -> new BlockItem(block, new Item.Properties()));
-    
+
     public static final RegistryObject<Block> CAMO_BENCH = registerCommon(
             "camo_bench",
             () -> new Block(BlockBehaviour.Properties.of()),
             (block) -> new BlockItem(block, new Item.Properties()));
-    
+
     public static final RegistryObject<Block> REPAIR_BENCH = registerCommon(
             "repair_bench",
             () -> new Block(BlockBehaviour.Properties.of()),
             (block) -> new BlockItem(block, new Item.Properties()));
-    
-    public static final RegistryObject<ChargingStationBlock> CHARGING_STATION = registerMachine("charging_station", 
+
+    public static final RegistryObject<ChargingStationBlock> CHARGING_STATION = registerMachine("charging_station",
             () -> new ChargingStationBlock(BlockBehaviour.Properties.of()),
             (block) -> new BlockItem(block, new Item.Properties()));
-    
-    public static final RegistryObject<AlloyFurnaceBlock> ALLOY_FURNACE = registerMachine("alloy_furnace", 
+
+    public static final RegistryObject<AlloyFurnaceBlock> ALLOY_FURNACE = registerMachine("alloy_furnace",
             () -> new AlloyFurnaceBlock(BlockBehaviour.Properties.of()),
             (block) -> new BlockItem(block, new Item.Properties()));
 
-    public static final RegistryObject<GrinderBlock> GRINDER = registerMachine("grinder", 
+    public static final RegistryObject<GrinderBlock> GRINDER = registerMachine("grinder",
             () -> new GrinderBlock(BlockBehaviour.Properties.of()),
             (block) -> new BlockItem(block, new Item.Properties()));
-    
+
     public static final RegistryObject<Block> UPGRADE_BENCH = registerCommon(
-            "repair_bench",
+            "upgrade_bench",
             () -> new Block(BlockBehaviour.Properties.of()),
             (block) -> new BlockItem(block, new Item.Properties()));
-    
+
     public static final RegistryObject<Block> FABRICATOR_HOUSING = registerCommon(
             "fabricator_housing",
             () -> new Block(BlockBehaviour.Properties.of()),
             (block) -> new BlockItem(block, new Item.Properties()));
-    
+
     public static final RegistryObject<Block> FABRICATOR_GLASS = registerCommon(
             "fabricator_glass",
             () -> new Block(BlockBehaviour.Properties.of()),
             (block) -> new BlockItem(block, new Item.Properties()));
-    
-    public static final RegistryObject<FabricatorPartBlock> FABRICATOR_PART = registerMBMachinePart("fabricator_part", 
+
+    public static final RegistryObject<FabricatorPartBlock> FABRICATOR_PART = registerMBMachinePart("fabricator_part",
             () -> new FabricatorPartBlock(BlockBehaviour.Properties.of()),
             (block) -> new BlockItem(block, new Item.Properties()));
-    
-    public static final RegistryObject<FabricatorControllerBlock> FABRICATOR_CONTROLLER = registerMachine("fabricator_controller", 
+
+    public static final RegistryObject<FabricatorControllerBlock> FABRICATOR_CONTROLLER = registerMachine("fabricator_controller",
             () -> new FabricatorControllerBlock(BlockBehaviour.Properties.of()),
             (block) -> new BlockItem(block, new Item.Properties()));
-    
+
     public static final RegistryObject<Block> REACTION_CHAMBER_HOUSING = registerCommon(
             "reaction_chamber_housing",
             () -> new Block(BlockBehaviour.Properties.of()),
             (block) -> new BlockItem(block, new Item.Properties()));
-    
+
     public static final RegistryObject<Block> REACTION_CHAMBER_GLASS = registerCommon(
             "reaction_chamber_glass",
             () -> new Block(BlockBehaviour.Properties.of()),
             (block) -> new BlockItem(block, new Item.Properties()));
-    
-    public static final RegistryObject<ReactionChamberPartBlock> REACTION_CHAMBER_PART = registerMBMachinePart("reaction_chamber_part", 
+
+    public static final RegistryObject<ReactionChamberPartBlock> REACTION_CHAMBER_PART = registerMBMachinePart("reaction_chamber_part",
             () -> new ReactionChamberPartBlock(BlockBehaviour.Properties.of()),
             (block) -> new BlockItem(block, new Item.Properties()));
-    
-    public static final RegistryObject<ReactionChamberControllerBlock> REACTION_CHAMBER_CONTROLLER = registerMachine("reaction_chamber_controller", 
+
+    public static final RegistryObject<ReactionChamberControllerBlock> REACTION_CHAMBER_CONTROLLER = registerMachine("reaction_chamber_controller",
             () -> new ReactionChamberControllerBlock(BlockBehaviour.Properties.of()),
             (block) -> new BlockItem(block, new Item.Properties()));
 
-    private static final <
+    private static <
             T extends AbstractMultiBlockMachinePartBlock<TPartBlockEntity, TControllerBlockEntity>,
             TPartBlockEntity extends AbstractMultiBlockMachinePartBlockEntity<TPartBlockEntity, TControllerBlockEntity>,
             TControllerBlockEntity extends AbstractMultiBlockMachineControllerBlockEntity<TPartBlockEntity, TControllerBlockEntity>
-        > RegistryObject<T> registerMBMachinePart(String name, Supplier<T> blockSupplier, Function<T, Item> itemSupplier)
+            > RegistryObject<T> registerMBMachinePart(String name, Supplier<T> blockSupplier, Function<T, Item> itemSupplier)
     {
-        var result = registerCommon(name, blockSupplier, itemSupplier);
-        return result;
+        return registerCommon(name, blockSupplier, itemSupplier);
     }
-    
-    private static final <T extends Block> RegistryObject<T> registerMachine(String name, Supplier<T> blockSupplier, Function<T, Item> itemSupplier)
+
+    private static <T extends Block> RegistryObject<T> registerMachine(String name, Supplier<T> blockSupplier, Function<T, Item> itemSupplier)
     {
         var result = registerCommon(name, blockSupplier, itemSupplier);
         MACHINE_BLOCKS.add(result);
         return result;
     }
-    
-    private static final <T extends Block> RegistryObject<T> registerCommon(String name, Supplier<T> blockSupplier, Function<T, Item> itemSupplier)
+
+    private static <T extends Block> RegistryObject<T> registerCommon(String name, Supplier<T> blockSupplier, Function<T, Item> itemSupplier)
     {
         var result = BLOCK_REGISTER.register(name, blockSupplier);
         ITEM_REGISTER.register(name, () -> itemSupplier.apply(result.get()));

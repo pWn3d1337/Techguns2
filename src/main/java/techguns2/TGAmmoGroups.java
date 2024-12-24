@@ -10,7 +10,7 @@ public final class TGAmmoGroups implements TGInitializer
 {
     protected TGAmmoGroups()
     { }
-    
+
     @SuppressWarnings("deprecation")
     @Override
     public final void setup(IEventBus eventBus)
@@ -24,7 +24,7 @@ public final class TGAmmoGroups implements TGInitializer
     }
 
     private static final DeferredRegister<AmmoGroup> REGISTER = DeferredRegister.create(TGCustomRegistries.AMMO_GROUPS, Techguns.MODID);
-    
+
     public static final RegistryObject<AmmoGroup> STONE_BULLETS = REGISTER.register("stone_bullets", () -> {
         AmmoGroup group = new AmmoGroup();
         group.addAmmo(TGAmmo.STONE_BULLETS);
@@ -120,7 +120,7 @@ public final class TGAmmoGroups implements TGInitializer
         group.addAmmo(TGAmmo.EXPLOSIVE_AS50_ROUND_MAGAZINE);
         return group;
     });
-    public static final RegistryObject<AmmoGroup> ADVANCED_ROUND_MAGAZINE = REGISTER.register("as50_round_magazine", () -> {
+    public static final RegistryObject<AmmoGroup> ADVANCED_ROUND_MAGAZINE = REGISTER.register("advanced_round_magazine", () -> {
         AmmoGroup group = new AmmoGroup();
         group.addAmmo(TGAmmo.ADVANCED_ROUND_MAGAZINE);
         return group;

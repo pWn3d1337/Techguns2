@@ -6,7 +6,6 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 
-import org.jetbrains.annotations.Nullable;
 
 import com.google.common.collect.ImmutableList;
 
@@ -16,6 +15,8 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.registries.RegistryObject;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import techguns2.Techguns;
 import techguns2.datagen.providers.IItemModelProvider;
 import techguns2.datagen.providers.ILangMetadataProvider;
@@ -34,7 +35,7 @@ public final class ItemMetadata<TItem extends Item> implements ILangMetadataProv
     public final List<RecipeMetadata<?>> recipeMetadatas;
     public final List<TagKey<Item>> tags;
     
-    public ItemMetadata(RegistryObject<TItem> registeredItem)
+    public ItemMetadata(@NotNull RegistryObject<TItem> registeredItem)
     {
         this(registeredItem.get(), registeredItem.getId());
     }
@@ -45,49 +46,49 @@ public final class ItemMetadata<TItem extends Item> implements ILangMetadataProv
         this.id = id;
         this.langId = Util.makeDescriptionId("item", id);
         this.langName = this.langId;
-        this.recipeMetadatas = new ArrayList<RecipeMetadata<?>>();
-        this.tags = new ArrayList<TagKey<Item>>();
+        this.recipeMetadatas = new ArrayList<>();
+        this.tags = new ArrayList<>();
         this.itemModelGenerator = null;
     }
     
-    public final ItemMetadata<TItem> withLangName(String langName)
+    public ItemMetadata<TItem> withLangName(String langName)
     {
         this.langName = langName;
         return this;
     }
     
-    public final ItemMetadata<TItem> addRecipe(RecipeMetadata<?> recipeMetadata)
+    public ItemMetadata<TItem> addRecipe(RecipeMetadata<?> recipeMetadata)
     {
         this.recipeMetadatas.add(recipeMetadata);
         return this;
     }
     
-    public final ItemMetadata<TItem> addTag(TagKey<Item> tag)
+    public ItemMetadata<TItem> addTag(TagKey<Item> tag)
     {
         this.tags.add(tag);
         return this;
     }
     
     @Override
-    public final CompletableFuture<List<LanguageMetadata>> fetchLanguageEntries()
+    public CompletableFuture<List<LanguageMetadata>> fetchLanguageEntries()
     {
         return CompletableFuture.completedFuture(ImmutableList.of(new LanguageMetadata(this.langId, this.langName)));
     }
     
     @Override
-    public final CompletableFuture<List<RecipeMetadata<?>>> fetchRecipes()
+    public CompletableFuture<List<RecipeMetadata<?>>> fetchRecipes()
     {
         return CompletableFuture.completedFuture(ImmutableList.copyOf(this.recipeMetadatas));
     }
     
     @Override
-    public final CompletableFuture<List<TagKey<?>>> fetchTags()
+    public CompletableFuture<List<TagKey<?>>> fetchTags()
     {
         return CompletableFuture.completedFuture(ImmutableList.copyOf(this.tags));
     }
     
     @Override
-    public final ItemModelBuilder fetchItemModel(IModelBuilderFactory<ItemModelBuilder> modelBuilderFactory)
+    public ItemModelBuilder fetchItemModel(IModelBuilderFactory<ItemModelBuilder> modelBuilderFactory)
     {
         String path = this.id.getPath();
         ItemModelBuilder model = modelBuilderFactory.create(path);
@@ -106,11 +107,11 @@ public final class ItemMetadata<TItem extends Item> implements ILangMetadataProv
     
     public static <TItem extends Item> ItemMetadata<TItem> of(RegistryObject<TItem> registeredItem)
     {
-        return new ItemMetadata<TItem>(registeredItem);
+        return new ItemMetadata<>(registeredItem);
     }
     
     public static <TItem extends Item> ItemMetadata<TItem> of(TItem item, ResourceLocation id)
     {
-        return new ItemMetadata<TItem>(item, id);
+        return new ItemMetadata<>(item, id);
     }
 }
