@@ -28,7 +28,6 @@ run
 /README.txt
 /forge-1.12-14.21.0.2321-changelog.txt
 /gradle/wrapper/gradle-wrapper.jar
-/gradle/wrapper/gradle-wrapper.properties
 /gradlew
 /gradlew.bat
 /logs/latest.log
